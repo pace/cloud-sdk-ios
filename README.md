@@ -9,7 +9,6 @@ This framework combines multipe functionalities provided by PACE i.e. authorizin
 
 It has some external dependencies which you will need to inlcude as well:
 
-- [Alamofire](https://github.com/Alamofire/Alamofire)
 - [AppAuth](https://github.com/openid/AppAuth-iOS)
 - [Base32](https://github.com/mattrubin/Bases)
 - [OneTimePassword](https://github.com/mattrubin/OneTimePassword)

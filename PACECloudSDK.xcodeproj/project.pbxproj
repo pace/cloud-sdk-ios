@@ -270,11 +270,11 @@
 		84947A78256E6D4500788AF4 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84947A1F256E6D4500788AF4 /* APIResult.swift */; };
 		84947A79256E6D4500788AF4 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84947A20256E6D4500788AF4 /* APIService.swift */; };
 		84947A7A256E6D4500788AF4 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84947A21256E6D4500788AF4 /* Coding.swift */; };
-		8496AC3925651A5400344707 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E1ADB325628E2000C673EF /* Alamofire.framework */; };
 		8496AC3A25651A5400344707 /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372DF2551AEED0002083A /* AppAuth.framework */; };
 		8496AC3B25651A5400344707 /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372E42551AEED0002083A /* Base32.framework */; };
 		8496AC3D25651A5400344707 /* OneTimePassword.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372DC2551AEED0002083A /* OneTimePassword.framework */; };
 		8496AC4025651A5400344707 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372DD2551AEED0002083A /* SwiftProtobuf.framework */; };
+		84CB23E22577B4A200E79295 /* URLEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CB23E12577B4A200E79295 /* URLEncoding.swift */; };
 		84E1AC382562800D00C673EF /* Poly+CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */; };
 		84E1AC392562800D00C673EF /* Poly+AllTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC332562800D00C673EF /* Poly+AllTypes.swift */; };
 		84E1AC3A2562800D00C673EF /* Collection+Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC342562800D00C673EF /* Collection+Poly.swift */; };
@@ -570,13 +570,13 @@
 		84947A1F256E6D4500788AF4 /* APIResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		84947A20256E6D4500788AF4 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		84947A21256E6D4500788AF4 /* Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
+		84CB23E12577B4A200E79295 /* URLEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLEncoding.swift; sourceTree = "<group>"; };
 		84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+CustomStringConvertible.swift"; sourceTree = "<group>"; };
 		84E1AC332562800D00C673EF /* Poly+AllTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+AllTypes.swift"; sourceTree = "<group>"; };
 		84E1AC342562800D00C673EF /* Collection+Poly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Poly.swift"; sourceTree = "<group>"; };
 		84E1AC352562800D00C673EF /* Poly+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+Codable.swift"; sourceTree = "<group>"; };
 		84E1AC362562800D00C673EF /* Result+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Value.swift"; sourceTree = "<group>"; };
 		84E1AC372562800D00C673EF /* Poly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly.swift; sourceTree = "<group>"; };
-		84E1ADB325628E2000C673EF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		921E682C2534883100438491 /* PACECloudSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PACECloudSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		921E682F2534883200438491 /* PACECloudSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PACECloudSDK.h; sourceTree = "<group>"; };
 		921E68302534883200438491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -595,7 +595,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8496AC3925651A5400344707 /* Alamofire.framework in Frameworks */,
 				8496AC3A25651A5400344707 /* AppAuth.framework in Frameworks */,
 				8496AC3B25651A5400344707 /* Base32.framework in Frameworks */,
 				8496AC3D25651A5400344707 /* OneTimePassword.framework in Frameworks */,
@@ -939,7 +938,6 @@
 		3B970ACC2542DBAE0072F6BA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84E1ADB325628E2000C673EF /* Alamofire.framework */,
 				3BB372DF2551AEED0002083A /* AppAuth.framework */,
 				3BB372E42551AEED0002083A /* Base32.framework */,
 				3BB372E52551AEED0002083A /* CloudSDK.framework */,
@@ -1396,6 +1394,7 @@
 				849479E5256E6D4400788AF4 /* POIAPI.swift */,
 				849479E6256E6D4400788AF4 /* RequestBehaviour.swift */,
 				849479E7256E6D4400788AF4 /* Requests */,
+				84CB23E12577B4A200E79295 /* URLEncoding.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -1790,6 +1789,7 @@
 				3B970A9D2542D9BB0072F6BA /* URLRequestError.swift in Sources */,
 				3BC9A7F52539DDAD00B933AE /* RegionalPriceRequest.swift in Sources */,
 				3B970A7F2542D9BB0072F6BA /* ButtonRectangular.swift in Sources */,
+				84CB23E22577B4A200E79295 /* URLEncoding.swift in Sources */,
 				3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */,
 				84947A36256E6D4500788AF4 /* PCCommonLatLong.swift in Sources */,
 				927111522573B295001D6DDA /* HttpHeaderFields.swift in Sources */,

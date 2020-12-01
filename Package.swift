@@ -23,7 +23,6 @@ let package = Package(
         .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", from: "1.4.0"),
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.13.0"),
         .package(name: "OneTimePassword", url: "https://github.com/bas-d/OneTimePassword", .branch("spm")),
-        .package(name: "Alamofire", url: "https://github.com/Alamofire/Alamofire.git", .exact("4.9.0")),
     ],
     targets: [
         .target(
@@ -32,7 +31,6 @@ let package = Package(
                 "AppAuth",
                 "SwiftProtobuf",
                 "OneTimePassword",
-                "Alamofire"
             ],
             path: "PACECloudSDK",
             exclude: [
