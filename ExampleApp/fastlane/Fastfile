@@ -1,0 +1,134 @@
+default_platform(:ios)
+
+PROJECT_PATH = 'PACECloudSDKExample.xcodeproj'
+TEAM_ID_ENTERPRISE = '97462K4UKP'
+APP_ID_ENTERPRISE_BETA_PREFIX = 'car.pace.PACECloudSDKExample'
+
+platform :ios do
+  minimum_ios_version = '11.0'
+  version_number = ENV['VERSION_NAME']
+  build_number = ENV['BUILD_NUMBER']
+  
+  before_all do
+    clear_derived_data
+    Dir.chdir("..") do
+      carthage(command: 'bootstrap', cache_builds: true,  platform: 'iOS', use_binaries: false)
+    end
+
+    create_keychain(
+      name: ENV['MATCH_KEYCHAIN_NAME'],
+      password: ENV['MATCH_KEYCHAIN_PASSWORD'],
+      unlock: true,
+      timeout: 3600,
+      add_to_search_list: true,
+      verbose: true
+    )
+  end
+
+  after_all do
+    copy_artifacts(
+      keep_original: false,
+      target_path: 'artifacts',
+      artifacts: ['*.cer', '*.mobileprovision', '*.ipa'],
+      fail_on_missing: true
+    )
+
+    dsym_file_name = 'frameworks.dSYM.zip'
+    framework_dsym_path = '../Carthage/Build/iOS/'
+    Dir.chdir("../#{framework_dsym_path}") do
+      sh("zip -r #{dsym_file_name} *.dSYM")
+    end
+
+    copy_artifacts(
+       keep_original: false,
+       target_path: 'dsyms',
+       artifacts: ['*.dSYM.zip', "#{framework_dsym_path}#{dsym_file_name}"],
+       fail_on_missing: true
+     )
+
+    delete_keychain(name: ENV['MATCH_KEYCHAIN_NAME'])
+  end
+
+  desc 'Run tests'
+  lane :test do
+    scan(
+      project: 'PACECloudSDK.xcodeproj',
+      scheme: 'PACECloudSDKTests',
+      reset_simulator: true, 
+      force_quit_simulator: true, 
+      prelaunch_simulator: true, 
+      reinstall_app: true
+    )
+  end
+
+  desc 'Build development build'
+  lane :build_development do
+    build_enterprise_app(config: 'Development')
+  end
+
+  desc 'Build enterprise app'
+  lane :build_enterprise_app do |options|
+    app_identifier = "#{APP_ID_ENTERPRISE_BETA_PREFIX}.#{options[:config].downcase}"
+    info_plist = 'Info.plist'
+
+    produce(
+      app_identifier: app_identifier,
+      app_name: "PACECloudSDKExample #{options[:config]}",
+      skip_itc: true,
+      team_id: TEAM_ID_ENTERPRISE
+    )
+
+    case options[:config]
+    when 'Development'
+      add_badge(alpha: true)
+    end
+
+    info_plist_path = "PACECloudSDKExample/#{info_plist}"
+
+    set_info_plist_value(path: info_plist_path, key: 'CFBundleShortVersionString', value: version_number)
+    set_info_plist_value(path: info_plist_path, key: 'CFBundleVersion', value: build_number)
+
+    disable_automatic_code_signing(
+      path: PROJECT_PATH,
+      team_id: TEAM_ID_ENTERPRISE
+    )
+
+    update_app_identifier(
+      xcodeproj: PROJECT_PATH,
+      plist_path: info_plist_path, # Path to info plist file, relative to xcodeproj
+      app_identifier: app_identifier
+    )
+
+    match(
+      type: 'enterprise',
+      team_id: TEAM_ID_ENTERPRISE,
+      keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
+      keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD'],
+      app_identifier: app_identifier,
+      verbose: true
+    )
+
+    update_project_provisioning(
+      xcodeproj: PROJECT_PATH,
+      target_filter: 'PACECloudSDKExample',
+      profile: ENV["sigh_#{app_identifier}_enterprise_profile-path"],
+      build_configuration: options[:config]
+    )
+
+    gym(
+      clean: true,
+      export_method: 'enterprise',
+      scheme: 'PACECloudSDKExample',
+      export_team_id: TEAM_ID_ENTERPRISE,
+      configuration: options[:config],
+      export_options: {
+        method: 'enterprise',
+        compileBitcode: false,
+        provisioningProfiles: {
+          app_identifier => ENV["sigh_#{app_identifier}_enterprise_profile-name"]
+        }
+      },
+      codesigning_identity: 'iPhone Distribution: PACE Telematics GmbH'
+    )
+  end
+end

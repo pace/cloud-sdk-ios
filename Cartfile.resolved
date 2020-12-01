@@ -1,0 +1,6 @@
+github "Alamofire/Alamofire" "4.9.1"
+github "SnapKit/SnapKit" "5.0.1"
+github "apple/swift-protobuf" "1.13.0"
+github "mattrubin/Base32" "1.1.2+xcode10.2"
+github "mattrubin/OneTimePassword" "3.2.0"
+github "openid/AppAuth-iOS" "e191b1beadf3041259652e6e464eaceff16e5fbb"

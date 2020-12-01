@@ -1,0 +1,136 @@
+include:
+  - local: "ExampleApp/.gitlab-ci.yml"
+
+variables:
+  PROJECT_PATH: "PACECloudSDK"
+  PROJECT_NAME: "PACECloudSDK"
+  REPO_PLATFORM: "ios"
+  REPO_BASE_URL: "https://repo.dev.k8s.pacelink.net/api"
+  REPO_PROJECT_ID: ""
+
+stages:
+  - test
+  - build
+  - publish
+
+before_script:
+  - eval $(ssh-agent)
+  - ssh-add -D
+  - mkdir -p Carthage/Build && rsync -a ~/CarthageCache-PACECloudSDK/Build/ Carthage/Build > /dev/null 2>&1 || echo "CarthageCache not found"
+  - mkdir -p ~/.ssh
+  - touch ~/.ssh/known_hosts
+  - ssh-keygen -F repo.pacelink.net > /dev/null || ssh-keyscan repo.pacelink.net >> ~/.ssh/known_hosts
+  - ssh-keygen -F docs.pacelink.net > /dev/null || ssh-keyscan docs.pacelink.net >> ~/.ssh/known_hosts
+  - ssh-keygen -F lab.jamit.de > /dev/null || ssh-keyscan lab.jamit.de >> ~/.ssh/known_hosts
+  - ssh-add || true # Add default key to SSH agent (deploy keys)
+  - rm -f tmpfile && echo "$SSH_PRIVATE_KEY_DEPLOYS" >tmpfile && chmod 600 tmpfile && ssh-add tmpfile && rm -f tmpfile
+  - ssh-add -l
+  - bundle install || true
+  - export TAG_COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
+  - echo "Commit time to be used as build number:" $TAG_COMMIT_TIME
+  - export BUILD_NUMBER=$(TZ=Etc/Utc date -j -f '%s' ${TAG_COMMIT_TIME} "+%Y%m%d%H")
+  - export VERSION_NAME=$(TZ=Etc/Utc date -j -f '%s' ${TAG_COMMIT_TIME} "+%y.%V.%u")
+  - echo "Building version $VERSION_NAME with build number $BUILD_NUMBER"
+  - export XCODE_XCCONFIG_FILE=$PWD/linkerFix.xcconfig
+
+after_script:
+  - mkdir -p ~/CarthageCache-PACECloudSDK/Build && rsync -a Carthage/Build/ ~/CarthageCache-PACECloudSDK/Build > /dev/null 2>&1 || echo "Couldn't copy Carthage"
+
+## Infrastructure
+.xcode_version:
+  tags:
+    - xcode-12
+
+### PLists
+.plist:
+  extends: .xcode_version
+  stage: test
+  before_script:
+    - echo "Ignore global before_script"
+  after_script:
+    - echo "Ignore global after_script"
+  script:
+    - cd $PROJECT_PATH
+    - find . -name "*.strings" -size +0 -print0 | xargs -0 plutil -lint
+  only:
+    refs:
+      - merge_requests
+
+### Unit tests
+.unit_test:
+  extends: .xcode_version
+  stage: test
+  script:
+    - cd $PROJECT_PATH
+    - bundle exec fastlane test
+  allow_failure: false
+  only:
+    refs:
+      - merge_requests
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /WIP/
+
+### Code style
+.code_style:
+  extends: .xcode_version
+  stage: test
+  before_script:
+    - echo "Ignore global before_script"
+  after_script:
+    - echo "Ignore global after_script"
+  script:
+    - cd $PROJECT_PATH
+    - swiftlint
+  only:
+    refs:
+      - merge_requests
+
+pacecloudsdk_plists:
+ extends: .plist
+
+pacecloudsdk_code_style:
+ extends: .code_style
+ variables:
+   PROJECT_PATH: "."
+
+pacecloudsdk_unit_tests:
+ extends: .unit_test
+ variables:
+   PROJECT_PATH: "."
+
+## Build framework
+framework_review:
+  extends: .xcode_version
+  stage: build
+  script:
+    - bundle exec fastlane build_framework
+  only:
+    refs:
+      - merge_requests
+
+framework_release_build:
+  extends: .xcode_version
+  stage: build
+  script:
+    - bundle exec fastlane build_framework archive:true
+  only:
+    - tags
+  artifacts:
+    name: $PROJECT_NAME
+    paths:
+      - ./PACECloudSDK.framework.zip
+    expire_in: 1 week
+
+# Documentation
+documentation:
+  extends: .xcode_version
+  stage: publish
+  script:
+    - jazzy
+  only:
+    - tags
+  artifacts:
+    paths:
+      - docs
+    expire_in: 1 month

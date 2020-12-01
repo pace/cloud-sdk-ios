@@ -1,0 +1,5 @@
+github "openid/AppAuth-iOS" "master"
+github "apple/swift-protobuf" ~> 1.13
+github "mattrubin/OneTimePassword" ~> 3.2
+github "SnapKit/SnapKit" ~> 5.0
+github "Alamofire/Alamofire" ~> 4.9.0

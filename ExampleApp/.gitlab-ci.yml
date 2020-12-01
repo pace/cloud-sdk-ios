@@ -1,0 +1,121 @@
+.dependent_changes: &dependent_changes
+    changes:
+      - .gitlab-ci.yml
+      - "PACECloudSDKExample/**/*"
+      - "PACECloudSDK/**/*"
+
+.only_merge_requests: &only_merge_requests
+  only:
+    refs:
+      - merge_requests
+    <<: *dependent_changes
+
+.only_master: &only_master
+  only:
+    refs:
+      - master
+    <<: *dependent_changes
+
+pacecloudsdkexample_plists:
+ extends: .plist
+ variables:
+   PROJECT_PATH: "ExampleApp/PACECloudSDKExample"
+ only:
+   <<: *dependent_changes
+
+## Tests
+pacecloudsdkexample_code_style:
+ extends: .code_style
+ variables:
+   PROJECT_PATH: "ExampleApp"
+ only:
+   <<: *dependent_changes
+
+## Build
+.pacecloudsdkexample_development_template:
+  extends: .xcode_version
+  <<: *only_master
+  except:
+    - schedules
+  environment:
+    name: development
+  variables:
+    REPO_PROJECT_ID: "pacecloudsdkexample"
+    PROJECT_PATH: "ExampleApp"
+
+pacecloudsdkexample_build_development:
+  extends: .pacecloudsdkexample_development_template
+  stage: build
+  script:
+    - cd $PROJECT_PATH
+    - bundle exec fastlane build_development
+  artifacts:
+    name: "latest-app"
+    paths:
+      - $PROJECT_PATH/artifacts/PACECloudSDKExample.ipa
+    expire_in: 2 days
+
+pacecloudsdkexample_deploy_development:
+  extends: .pacecloudsdkexample_development_template
+  stage: publish
+  script:
+    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F files=@$PROJECT_PATH/artifacts/PACECloudSDKExample.ipa -X POST $REPO_BASE_URL/apps'
+  dependencies:
+    - pacecloudsdkexample_build_development
+
+## Review
+.pacecloudsdkexample_review_template:
+  extends: .xcode_version
+  <<: *only_merge_requests
+  except:
+    refs:
+      - tags
+    variables:
+     - $CI_COMMIT_MESSAGE =~ /WIP/
+  variables:
+    REPO_PROJECT_ID: "pacecloudsdkexample"
+    PROJECT_PATH: "ExampleApp"
+
+pacecloudsdkexample_build_review:
+  extends: .pacecloudsdkexample_review_template
+  stage: build
+  script:
+    - cd $PROJECT_PATH
+    - bundle exec fastlane build_development
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    on_stop: pacecloudsdkexample_stop_review
+  artifacts:
+    name: "review-app"
+    paths:
+      - $PROJECT_PATH/artifacts/PACECloudSDKExample.ipa
+    expire_in: 2 days
+
+pacecloudsdkexample_deploy_review:
+  extends: .pacecloudsdkexample_review_template
+  stage: publish
+  script:
+    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version=$CI_COMMIT_REF_NAME -F files=@$PROJECT_PATH/artifacts/PACECloudSDKExample.ipa -X POST $REPO_BASE_URL/apps'
+  dependencies:
+    - pacecloudsdkexample_build_review
+
+.stop_review:
+  extends: .xcode_version
+  stage: build
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - 'curl --fail -H "authorization: $REPO_SERVER_API_SECRET" -X DELETE "$REPO_BASE_URL/apps?id=$REPO_PROJECT_ID&platform=$REPO_PLATFORM&environment=development&version=$CI_COMMIT_REF_NAME"'
+  when: manual
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  except:
+    refs:
+      - tags
+
+pacecloudsdkexample_stop_review:
+  extends: .stop_review
+  <<: *only_merge_requests
+  variables:
+    REPO_PROJECT_ID: "pacecloudsdkexample"

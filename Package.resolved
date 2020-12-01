@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "ce5be6fbc6f51414c49f56fc8e2b7c99253d9f8e",
+          "version": "4.9.0"
+        }
+      },
+      {
+        "package": "AppAuth",
+        "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
+        "state": {
+          "branch": null,
+          "revision": "01131d68346c8ae552961c768d583c715fbe1410",
+          "version": "1.4.0"
+        }
+      },
+      {
+        "package": "Base32",
+        "repositoryURL": "https://github.com/bas-d/Base32",
+        "state": {
+          "branch": "spm",
+          "revision": "27f3abc61f3190aec471ca604e6f1db80f1a5dc1",
+          "version": null
+        }
+      },
+      {
+        "package": "CloudSDK",
+        "repositoryURL": "https://github.com/pace/cloud-sdk-ios-old",
+        "state": {
+          "branch": "main",
+          "revision": "e43d0cfc3b1e769754f3daf5075b6a6f122541cf",
+          "version": null
+        }
+      },
+      {
+        "package": "OneTimePassword",
+        "repositoryURL": "https://github.com/bas-d/OneTimePassword",
+        "state": {
+          "branch": "spm",
+          "revision": "5f413e5f6574a4807c5383ff6b7b9e9533f429bb",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftProtobuf",
+        "repositoryURL": "https://github.com/apple/swift-protobuf.git",
+        "state": {
+          "branch": null,
+          "revision": "426bef0ddfdc6449b7bd1418baafad6bbc56110b",
+          "version": "1.13.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

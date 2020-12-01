@@ -1,0 +1,55 @@
+opt_in_rules:
+    - closure_spacing
+    - empty_count
+    - empty_string
+    - fallthrough
+    - first_where
+    - force_unwrapping
+    - identical_operands
+    - implicitly_unwrapped_optional
+    - last_where
+    - legacy_multiple
+    - multiline_arguments
+    - multiline_parameters
+    - operator_usage_whitespace
+    - overridden_super_call
+    - prohibited_super_call
+    - redundant_nil_coalescing
+    - shorthand_operator
+    - sorted_imports
+    - switch_case_on_newline
+    - syntactic_sugar
+    - todo
+    - toggle_bool
+    - unneeded_parentheses_in_closure_argument
+    - unused_enumerated
+    - attributes
+
+disabled_rules:
+    - identifier_name
+
+included:
+    - PACECloudSDK
+
+excluded:
+    - PACECloudSDK/API/POI/Generated
+    - PACECloudSDK/POIKit/Vendor
+    - PACECloudSDK/POIKit/POIKitApi/Model
+    - PACECloudSDK/POIKit/POISearch/Model
+
+line_length: 180
+
+custom_rules:
+  vertical_whitespace_between_cases:
+    included: ".*.swift"
+    regex: '[^\n{][ \t]*\n[ \t]*(?:case[^\n]+|default):[ \t]*\n'
+    name: "Vertical Whitespace Between Cases"
+    message: "Include a vertical whitespace (empty line) between cases in switch statements."
+    severity: warning
+  double_space:
+    include: "*.swift"
+    name: "Double space"
+    regex: "([a-z,A-Z] \\s+)"
+    message: "Double space between keywords"
+    match_kinds: keyword
+    severity: warning

@@ -1,0 +1,5 @@
+git_url("git@lab.jamit.de:pace/mobile/ios/certificates.git")
+git_branch("master")
+storage_mode("git")
+username("ios-dev@pace.car")
+force_for_new_devices(true)
