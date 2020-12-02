@@ -286,6 +286,8 @@
 		927110DA2573AA43001D6DDA /* CookieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927110D92573AA43001D6DDA /* CookieStorage.swift */; };
 		927110E02573AA9F001D6DDA /* HttpStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */; };
 		927111522573B295001D6DDA /* HttpHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927111512573B295001D6DDA /* HttpHeaderFields.swift */; };
+		92C17BCA25777F54008B016E /* PaymentMethodsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C17BC925777F54008B016E /* PaymentMethodsRequest.swift */; };
+		92C17BD025777F92008B016E /* PaymentMethodsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -584,6 +586,8 @@
 		927110D92573AA43001D6DDA /* CookieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieStorage.swift; sourceTree = "<group>"; };
 		927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusCode.swift; sourceTree = "<group>"; };
 		927111512573B295001D6DDA /* HttpHeaderFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHeaderFields.swift; sourceTree = "<group>"; };
+		92C17BC925777F54008B016E /* PaymentMethodsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsRequest.swift; sourceTree = "<group>"; };
+		92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -655,6 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				3B76F76F25765014008D8F9A /* Pay.swift */,
+				92C17BC825777F2D008B016E /* PaymentMethods */,
 				3B76F74D257645E2008D8F9A /* Transactions */,
 			);
 			path = Pay;
@@ -1460,6 +1465,15 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		92C17BC825777F2D008B016E /* PaymentMethods */ = {
+			isa = PBXGroup;
+			children = (
+				92C17BC925777F54008B016E /* PaymentMethodsRequest.swift */,
+				92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */,
+			);
+			path = PaymentMethods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1647,6 +1661,7 @@
 				3B970A722542D9BB0072F6BA /* AppManager.swift in Sources */,
 				3BC9A8132539DDAD00B933AE /* Feature+Geometry.swift in Sources */,
 				3B970A752542D9BB0072F6BA /* AppWebViewDelegate.swift in Sources */,
+				92C17BCA25777F54008B016E /* PaymentMethodsRequest.swift in Sources */,
 				84947A3F256E6D4500788AF4 /* PCEvent.swift in Sources */,
 				3BC9A80A2539DDAD00B933AE /* POIKitAPI+POIFilters.swift in Sources */,
 				84947A28256E6D4500788AF4 /* PCFieldData.swift in Sources */,
@@ -1830,6 +1845,7 @@
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
 				84947A59256E6D4500788AF4 /* GetPolicies.swift in Sources */,
 				3B76F7532576467A008D8F9A /* TransactionsModel.swift in Sources */,
+				92C17BD025777F92008B016E /* PaymentMethodsResponse.swift in Sources */,
 				3B970AB52542D9BB0072F6BA /* AppManifest.swift in Sources */,
 				3B970A7A2542D9BB0072F6BA /* AppViewController.swift in Sources */,
 				3B970AE42542DF450072F6BA /* AppKitLogger.swift in Sources */,
