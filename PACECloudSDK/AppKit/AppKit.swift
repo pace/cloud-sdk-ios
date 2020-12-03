@@ -63,6 +63,10 @@ public class AppKit {
         userAgentExtensions = extensions
     }
 
+    public func resetAccessToken() {
+        currentAccessToken = nil
+    }
+
     // MARK: - Drawer / Location based apps
     public func requestLocalApps() {
         appManager.startRetrievingLocation()

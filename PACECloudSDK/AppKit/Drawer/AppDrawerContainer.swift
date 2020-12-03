@@ -104,4 +104,23 @@ public extension AppKit.AppDrawerContainer {
             $0.switchTheme(to: theme)
         }
     }
+
+    /**
+     Force closes currently displayed apps by the app drawers.
+     - parameter appIds: Specifies which apps to close. If not specified all apps will be closed.
+     */
+    func forceCloseAppDrawerApps(_ appIds: [String]? = nil) {
+        let currentDrawers = drawerStackView.arrangedSubviews.compactMap({ $0 as? AppKit.AppDrawer })
+
+        let relevantDrawers: [AppKit.AppDrawer]
+        if let appIds = appIds {
+            relevantDrawers = currentDrawers.filter { appIds.contains($0.appData.appID) }
+        } else {
+            relevantDrawers = currentDrawers
+        }
+
+        relevantDrawers.forEach {
+            $0.forceCloseApp()
+        }
+    }
 }

@@ -59,6 +59,12 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
         delegate?.didDisableApp(self, host: host)
     }
 
+    func forceCloseApp() {
+        isSlidingLocked = false
+        dismissAppViews()
+        preloadApp()
+    }
+
     private func initializeAppViewController() {
         let url = reopenUrl == nil ? appData.appStartUrl : reopenUrl
         appViewController = AppViewController(appUrl: url)
