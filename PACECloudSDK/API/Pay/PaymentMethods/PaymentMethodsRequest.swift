@@ -12,7 +12,7 @@ public extension API.Pay {
         let urlString = environment.rawValue + "/payment-methods"
         var component = URLComponents(string: urlString)
 
-        component?.queryItems?.append(.init(name: "filter[status]", value: "valid"))
+        component?.queryItems = [.init(name: "filter[status]", value: "valid")]
 
         guard let url = component?.url else {
             completion(.failure(HttpUrlError.invalidUrl(urlString)))

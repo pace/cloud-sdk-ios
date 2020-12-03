@@ -12,11 +12,13 @@ public extension API.Pay {
         let urlString = environment.rawValue + "/transactions"
         var component = URLComponents(string: urlString)
 
+        var queryItems: [URLQueryItem] = []
         if let limit = limit {
-            component?.queryItems?.append(.init(name: "page[size]", value: "\(limit)"))
+            queryItems.append(.init(name: "page[size]", value: "\(limit)"))
         }
 
-        component?.queryItems?.append(.init(name: "sort", value: "createdAt"))
+        queryItems.append(.init(name: "sort", value: "-createdAt"))
+        component?.queryItems = queryItems
 
         guard let url = component?.url else {
             completion(.failure(HttpUrlError.invalidUrl(urlString)))
