@@ -144,10 +144,25 @@ public class APIClient {
             let task = self.session.dataTask(with: urlRequest, completionHandler: { [weak self] data, response, error -> Void in
                 // Handle response
                 self?.decodingQueue.async {
+                    guard let response = response as? HTTPURLResponse else {
+                        let apiError = APIClientError.networkError(URLRequestError.responseInvalid)
+                        let result: APIResult<T> = .failure(apiError)
+                        requestBehaviour.onFailure(error: apiError)
+
+                        let response = APIResponse<T>(request: request, result: result, urlRequest: urlRequest)
+                        requestBehaviour.onResponse(response: response.asAny())
+
+                        completionQueue.async {
+                            complete(response)
+                        }
+
+                        return
+                    }
+
                     self?.handleResponse(request: request,
                                          requestBehaviour: requestBehaviour,
                                          data: data,
-                                         response: response as! HTTPURLResponse,
+                                         response: response,
                                          error: error,
                                          urlRequest: urlRequest,
                                          completionQueue: completionQueue,
@@ -177,6 +192,7 @@ public class APIClient {
             let apiError = APIClientError.networkError(error)
             result = .failure(apiError)
             requestBehaviour.onFailure(error: apiError)
+
             let response = APIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: data)
             requestBehaviour.onResponse(response: response.asAny())
 
