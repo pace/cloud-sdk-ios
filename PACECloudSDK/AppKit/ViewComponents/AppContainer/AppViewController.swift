@@ -18,14 +18,17 @@ class AppViewController: UIViewController, AppPaymentDelegate {
     var paymentConfirmationController: PaymentConfirmationViewController?
     private var paymentConfirmationData: PaymentConfirmationData?
 
-    var webView: AppWebView
-
     private var sfSafariViewController: SFSafariViewController?
     private var cancelUrl: String?
 
+    private let webView: AppWebView
+    private let completion: (() -> Void)?
+
     weak var delegate: AppViewControllerDelegate?
 
-    required init(appUrl: String?, hasNavigationBar: Bool = false) {
+    required init(appUrl: String?, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) {
+        self.completion = completion
+
         webView = AppWebView(with: appUrl)
         super.init(nibName: nil, bundle: nil)
 
@@ -62,6 +65,10 @@ class AppViewController: UIViewController, AppPaymentDelegate {
             AppKit.CookieStorage.sharedSessionCookies = cookies
             AppKit.CookieStorage.saveCookies(cookies)
         }
+
+        if isBeingDismissed {
+            completion?()
+        }
     }
 
     private func setupView() {
@@ -75,6 +82,7 @@ class AppViewController: UIViewController, AppPaymentDelegate {
         // If attached to a navigationController
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
+            completion?()
         } else {
             // If being presented
             self.dismiss(animated: true)

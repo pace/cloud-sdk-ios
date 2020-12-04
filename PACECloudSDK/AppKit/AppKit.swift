@@ -82,8 +82,8 @@ public class AppKit {
     }
 
     // MARK: - WebView or ViewController / apps with url
-    public func appViewController(appUrl: String, hasNavigationBar: Bool = false) -> UIViewController {
-        AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar)
+    public func appViewController(appUrl: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
+        AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
     }
 
     public func appWebView(appUrl: String) -> WKWebView {
@@ -91,9 +91,9 @@ public class AppKit {
     }
 
     // MARK: - WebView or ViewController / apps with app url and reference
-    public func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false) -> UIViewController {
+    public func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
         let appUrl = appManager.buildAppUrl(with: appUrl, for: reference)
-        return AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar)
+        return AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
     }
 
     public func appWebView(appUrl: String, reference: String) -> WKWebView {
