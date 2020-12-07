@@ -425,9 +425,8 @@ extension Array where Element: PCCommonOpeningHours.Rules {
         let oneDay: Double = 24 * 60 * 60
         // dates for each given weekday (`days`)
         let dates = [date.addingTimeInterval(-oneDay*2), date.addingTimeInterval(-oneDay), date, date.addingTimeInterval(oneDay), date.addingTimeInterval(oneDay*2)]
-        let isDaylightSaving = TimeZone.current.isDaylightSavingTime()
-        let minutesOffset = Double(TimeZone.current.secondsFromGMT(for: Date()) + (!isDaylightSaving ? 3600 : 0)) / 60
-
+        let daylightSavingTimeOffset = TimeZone.current.daylightSavingTimeOffset()
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: Date())) / 60
 
         var openingValues = [(Double, Double)]()
         var closedValues = [(Double, Double)]()
@@ -441,8 +440,8 @@ extension Array where Element: PCCommonOpeningHours.Rules {
                         var end = array.last else { return }
 
                     // Convert start/end to unix timestamps
-                    start = (start - minutesOffset) * 60 + dates[i].today.timeIntervalSince1970
-                    end = (end - minutesOffset) * 60 + dates[i].today.timeIntervalSince1970
+                    start = (start - timeZoneOffset) * 60 + dates[i].today.timeIntervalSince1970 + daylightSavingTimeOffset
+                    end = (end - timeZoneOffset) * 60 + dates[i].today.timeIntervalSince1970 + daylightSavingTimeOffset
 
                     switch $0.1 {
                     case .open:

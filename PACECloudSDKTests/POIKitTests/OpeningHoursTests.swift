@@ -32,12 +32,11 @@ class OpeningHoursTests: XCTestCase {
         XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 5 to 23:45]: open]"#)
 
         let controlData = [
-            (-93600.0, -75600.0),
-            (-8160.0, 10800.0),
-            (78240.0, 97200.0),
-            (164640.0, 183600.0),
-            (251040.0, 270000.0),
-            (337440.0, 338400.0)
+            (-93600.0, -72000.0),
+            (-4560.0, 14400.0),
+            (81840.0, 100800.0),
+            (168240.0, 187200.0),
+            (254640.0, 273600.0)
         ]
 
         XCTAssert(oh.getClosedAreas(around: Date(timeIntervalSince1970: 24 * 60 * 60)) == controlData)
@@ -52,8 +51,8 @@ class OpeningHoursTests: XCTestCase {
         XCTAssertEqual(oh.description, #"[["tu", "we", "th", "fr", "sa", "su"]: [From 0 to 0]: close, ["mo"]: [From 0 to 0]: open]"#)
 
         let controlData = [
-            (165600.0, 338400.0),
-            (424740.0, 597600.0)
+            (165600.0, 342000.0),
+            (428340.0, 601140.0)
         ]
 
         XCTAssertTrue(oh.getClosedAreas(around: Date(timeIntervalSince1970: 4 * 24 * 60 * 60)) == controlData)
@@ -68,11 +67,11 @@ class OpeningHoursTests: XCTestCase {
         XCTAssertEqual(oh.description, #"[["su"]: [From 0 to 0]: close, ["mo", "tu", "we", "th", "fr", "sa"]: [From 7 to 20]: open]"#)
 
         let controlData = [
-            (79200.0, 104400.0),
-            (151140.0, 190800.0),
-            (237540.0, 363600.0),
-            (410340.0, 450000.0),
-            (496740.0, 511200.0)
+            (79200.0, 108000.0),
+            (154740.0, 194400.0),
+            (241140.0, 367200.0),
+            (413940.0, 453600.0),
+            (500340.0, 511200.0)
         ]
 
         XCTAssertTrue(oh.getClosedAreas(around: Date(timeIntervalSince1970: 3 * 24 * 60 * 60)) == controlData)
@@ -84,16 +83,16 @@ class OpeningHoursTests: XCTestCase {
         ]
 
         let controlData = [
-            (-54000.0, -43260.0),
-            (-18000.0, 10740.0),
-            (32400.0, 43140.0),
-            (68400.0, 97140.0),
-            (118800.0, 129540.0),
-            (154800.0, 183540.0),
-            (205200.0, 215940.0),
-            (241200.0, 269940.0),
-            (291600.0, 302340.0),
-            (327600.0, 356340.0)
+            (-50400.0, -39660.0),
+            (-14400.0, 14340.0),
+            (36000.0, 46740.0),
+            (72000.0, 100740.0),
+            (122400.0, 133140.0),
+            (158400.0, 187140.0),
+            (208800.0, 219540.0),
+            (244800.0, 273540.0),
+            (295200.0, 305940.0),
+            (331200.0, 359940.0)
         ]
 
         XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 21 to 5, From 11 to 14]: close]"#)
@@ -107,11 +106,11 @@ class OpeningHoursTests: XCTestCase {
         ]
 
         let controlData = [
-            (-93600.0, -21600.0),
-            (21540.0, 64800.0),
-            (107940.0, 151200.0),
-            (194340.0, 237600.0),
-            (280740.0, 324000.0)
+            (-93600.0, -18000.0),
+            (25140.0, 68400.0),
+            (111540.0, 154800.0),
+            (197940.0, 241200.0),
+            (284340.0, 327600.0)
         ]
 
         XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 20 to 8]: open]"#)
