@@ -14,7 +14,7 @@ protocol App: WKWebView, WKScriptMessageHandler, SecureDataCommunication {
     var successfullyLoadedOnce: Bool { get set }
     var webViewDelegate: AppWebViewDelegate? { get }
     var interceptor: AppWebViewInterceptor? { get }
-    var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor { get }
+    var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor? { get }
     var appActionsDelegate: AppActionsDelegate? { get set }
     var appSecureCommunicationDelegate: AppSecureCommunicationDelegate? { get set }
     var paymentDelegate: AppPaymentDelegate? { get set }
@@ -146,7 +146,7 @@ extension App {
         guard AppKit.shared.authenticationMode == .native else { return }
 
         if let token = AppKit.shared.initialAccessToken, TokenValidator.isTokenValid(token) {
-            jsonRpcInterceptor.respond(result: token)
+            jsonRpcInterceptor?.respond(result: token)
         } else {
             sendInvalidTokenCallback()
         }
@@ -169,7 +169,7 @@ extension App {
         AppKit.shared.notifyInvalidToken { [weak self] token in
             if TokenValidator.isTokenValid(token) {
                 AppKit.shared.currentAccessToken = token
-                self?.jsonRpcInterceptor.respond(result: token)
+                self?.jsonRpcInterceptor?.respond(result: token)
             } else {
                 self?.sendInvalidTokenCallback()
             }

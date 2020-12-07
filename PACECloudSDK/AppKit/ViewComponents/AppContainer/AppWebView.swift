@@ -37,9 +37,7 @@ class AppWebView: WKWebView, App {
 
     private(set) var webViewDelegate: AppWebViewDelegate? // swiftlint:disable:this weak_delegate
     private(set) var interceptor: AppWebViewInterceptor?
-
-    // RPC
-    lazy var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor = AppWebViewJsonRpcInterceptor(app: self)
+    private(set) var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor?
 
     let appUrl: String?
     var successfullyLoadedOnce = false
@@ -95,6 +93,7 @@ class AppWebView: WKWebView, App {
 
         webViewDelegate = AppWebViewDelegate(app: self)
         interceptor = AppWebViewInterceptor(app: self)
+        jsonRpcInterceptor = AppWebViewJsonRpcInterceptor(app: self)
 
         setupDesign()
         setupView()
@@ -137,6 +136,12 @@ class AppWebView: WKWebView, App {
         placeholder.isHidden = true
         loadingView.isLoading = true
     }
+
+    func cleanUp() {
+        AppWebViewJsonRpcInterceptor.JsonRpcHandler.allCases.forEach {
+            self.configuration.userContentController.removeScriptMessageHandler(forName: $0.rawValue)
+        }
+    }
 }
 
 extension AppWebView {
@@ -147,6 +152,6 @@ extension AppWebView {
 extension AppWebView {
     @objc
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        jsonRpcInterceptor.parseJsonRpcRequest(message: message)
+        jsonRpcInterceptor?.parseJsonRpcRequest(message: message)
     }
 }
