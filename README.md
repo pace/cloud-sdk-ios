@@ -16,9 +16,9 @@ It has some external dependencies which you will need to inlcude as well:
 
 ## Setup
 ### Carthage
-With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
+With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
 ```
-github "tdb"
+github "pace/cloud-sdk-ios" ~> 2.0
 ```
 
 ### Cocoapods

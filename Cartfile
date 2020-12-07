@@ -1,4 +1,4 @@
-github "openid/AppAuth-iOS" "master"
 github "apple/swift-protobuf" ~> 1.13
 github "mattrubin/OneTimePassword" ~> 3.2
-github "SnapKit/SnapKit" ~> 5.0
+github "mattrubin/Base32" "1.1.2+xcode10.2"
+github "openid/AppAuth-iOS" "e191b1beadf3041259652e6e464eaceff16e5fbb"
