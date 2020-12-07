@@ -46,7 +46,7 @@ class AppViewController: UIViewController, AppPaymentDelegate {
     }
 
     deinit {
-        webView.removeFromSuperview()
+        webView.cleanUp()
 
         NotificationCenter.default.removeObserver(self)
     }
