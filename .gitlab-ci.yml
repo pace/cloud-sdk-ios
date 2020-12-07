@@ -14,17 +14,7 @@ stages:
   - publish
 
 before_script:
-  - eval $(ssh-agent)
-  - ssh-add -D
   - mkdir -p Carthage/Build && rsync -a ~/CarthageCache-PACECloudSDK/Build/ Carthage/Build > /dev/null 2>&1 || echo "CarthageCache not found"
-  - mkdir -p ~/.ssh
-  - touch ~/.ssh/known_hosts
-  - ssh-keygen -F repo.pacelink.net > /dev/null || ssh-keyscan repo.pacelink.net >> ~/.ssh/known_hosts
-  - ssh-keygen -F docs.pacelink.net > /dev/null || ssh-keyscan docs.pacelink.net >> ~/.ssh/known_hosts
-  - ssh-keygen -F lab.jamit.de > /dev/null || ssh-keyscan lab.jamit.de >> ~/.ssh/known_hosts
-  - ssh-add || true # Add default key to SSH agent (deploy keys)
-  - rm -f tmpfile && echo "$SSH_PRIVATE_KEY_DEPLOYS" >tmpfile && chmod 600 tmpfile && ssh-add tmpfile && rm -f tmpfile
-  - ssh-add -l
   - bundle install || true
   - export TAG_COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
   - echo "Commit time to be used as build number:" $TAG_COMMIT_TIME
