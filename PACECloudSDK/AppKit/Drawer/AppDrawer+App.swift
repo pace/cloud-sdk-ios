@@ -11,10 +11,9 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
     func preloadApp() {
         appViewController = nil
 
-        if AppKit.shared.authenticationMode == .native,
-           !TokenValidator.isTokenValid(AppKit.shared.currentAccessToken ?? "") {
-            // Don't preload the appViewController
-            return
+        // Don't preload the appViewController
+        if AppKit.shared.authenticationMode == .native {
+            guard let token = AppKit.shared.currentAccessToken, TokenValidator.isTokenValid(token) else { return }
         }
 
         initializeAppViewController()
