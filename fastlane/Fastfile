@@ -5,23 +5,6 @@ platform :ios do
     carthage(command: 'bootstrap', cache_builds: true,  platform: 'iOS', use_binaries: false)
   end
   
-  lane :build_framework do |options|
-    carthage(
-      command: 'build',
-      no_skip_current: true,
-      cache_builds: true,
-      platform: 'iOS'
-    )
-
-    if options[:archive]
-        carthage(
-          frameworks: ['PACECloudSDK'],
-          output: 'PACECloudSDK.framework.zip',
-          command: 'archive'
-        )
-    end
-  end
-
   desc 'Run tests'
   lane :test do
     scan(
@@ -32,5 +15,9 @@ platform :ios do
       prelaunch_simulator: true, 
       reinstall_app: true
     )
+  end
+
+  lane :set_version do |options|
+    set_info_plist_value(path: 'PACECloudSDK/Info.plist', key: 'CFBundleShortVersionString', value: options[:version_number])
   end
 end
