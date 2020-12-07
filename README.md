@@ -1,8 +1,31 @@
 # PACE Cloud SDK
-This framework combines multipe functionalities provided by PACE i.e. authorizing via **PACE ID** or requesting and displaying **Apps**. These functionalities are separated and structured into different ***Kits*** by namespacing as follows:
 
-- [IDKit](#idkit)
-- [AppKit](#appkit)
+This framework combines multipe functionalities provided by PACE i.e. authorizing via **PACE ID** or requesting and displaying **Apps**. These functionalities are separated and structured into different ***Kits*** by namespaces, i.e. [IDKit](#idkit), [AppKit](#appkit).
+
+- [PACE Cloud SDK](#pace-cloud-sdk)
+    * [Specifications](#specifications)
+    * [Setup](#setup)
+        + [Carthage](#carthage)
+        + [Cocoapods](#cocoapods)
+        + [Swift Package Manager](#swift-package-manager)
+    * [IDKit](#idkit)
+        + [Setup](#setup-1)
+        + [Authorization](#authorization)
+        + [Token refresh](#token-refresh)
+        + [Session refreshToken](#session-refreshtoken)
+    * [AppKit](#appkit)
+        + [Main Features](#main-features)
+        + [Setup](#setup-2)
+        + [Native login](#native-login)
+        + [Deep Linking](#deep-linking)
+        + [AppKitDelegate](#appkitdelegate)
+        + [Requesting local Apps](#requesting-local-apps)
+        + [Is POI in range?](#is-poi-in-range-)
+        + [AppWebView / AppViewController](#appwebview---appviewcontroller)
+        + [AppDrawerContainer](#appdrawercontainer)
+        + [AppDrawer](#appdrawer)
+        + [AppError](#apperror)
+    * [FAQ](#faq)
 
 ## Specifications
 **PACECloudSDK** currently supports iOS 11 and above.
@@ -99,6 +122,8 @@ Available parameters:
     environment: AppEnvironment
     configValues: [ConfigValue: Any]? // Default: nil
 ```
+
+Biometry is used for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties. 
 
 ### Native login
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
@@ -204,3 +229,13 @@ Possible errors:
 - `badRequest`: The request does not match the expected format
 - `invalidURNFormat`: The passed POI reference value does not conform to our URN format
 - `customURLSchemeNotSet`: The App tried to open an URL in `SFSafariViewController`, but deep linking has not been correctly configured
+
+## FAQ
+
+<details>
+  <summary>
+    Error "Failed to build module 'PACECloudSDK' from its module interface; the compiler that produced it may have used features that aren't supported by this compiler"
+  </summary>
+
+  Make sure that all dependencies mentioned in [specifications](#specifications) have been included and set to `Embed & Sign`.
+</details>
