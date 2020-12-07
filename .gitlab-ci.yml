@@ -14,17 +14,8 @@ stages:
   - publish
 
 before_script:
-  - eval $(ssh-agent)
-  - ssh-add -D
   - mkdir -p Carthage/Build && rsync -a ~/CarthageCache-PACECloudSDK/Build/ Carthage/Build > /dev/null 2>&1 || echo "CarthageCache not found"
-  - mkdir -p ~/.ssh
-  - touch ~/.ssh/known_hosts
-  - ssh-keygen -F repo.pacelink.net > /dev/null || ssh-keyscan repo.pacelink.net >> ~/.ssh/known_hosts
-  - ssh-keygen -F docs.pacelink.net > /dev/null || ssh-keyscan docs.pacelink.net >> ~/.ssh/known_hosts
-  - ssh-keygen -F lab.jamit.de > /dev/null || ssh-keyscan lab.jamit.de >> ~/.ssh/known_hosts
-  - ssh-add || true # Add default key to SSH agent (deploy keys)
-  - rm -f tmpfile && echo "$SSH_PRIVATE_KEY_DEPLOYS" >tmpfile && chmod 600 tmpfile && ssh-add tmpfile && rm -f tmpfile
-  - ssh-add -l
+  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
   - bundle install || true
   - export TAG_COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
   - echo "Commit time to be used as build number:" $TAG_COMMIT_TIME
@@ -32,6 +23,8 @@ before_script:
   - export VERSION_NAME=$(TZ=Etc/Utc date -j -f '%s' ${TAG_COMMIT_TIME} "+%y.%V.%u")
   - echo "Building version $VERSION_NAME with build number $BUILD_NUMBER"
   - export XCODE_XCCONFIG_FILE=$PWD/linkerFix.xcconfig
+  - export TAG_NAME=${CI_COMMIT_TAG:-'2.0.0'}
+  - echo "Current tag version $TAG_NAME"
 
 after_script:
   - mkdir -p ~/CarthageCache-PACECloudSDK/Build && rsync -a Carthage/Build/ ~/CarthageCache-PACECloudSDK/Build > /dev/null 2>&1 || echo "Couldn't copy Carthage"
@@ -86,6 +79,23 @@ after_script:
     refs:
       - merge_requests
 
+.xcframework: &xcframework
+  script:
+    - bundle exec fastlane set_version version_number:$TAG_NAME
+    - xcodebuild archive
+      -scheme $PROJECT_NAME
+      -sdk iphoneos
+      -archivePath "archives/ios_devices.xcarchive" BUILD_LIBRARY_FOR_DISTRIBUTION=YES SKIP_INSTALL=NO
+    - xcodebuild archive
+      -scheme $PROJECT_NAME
+      -sdk iphonesimulator
+      -archivePath "archives/ios_simulators.xcarchive" BUILD_LIBRARY_FOR_DISTRIBUTION=YES SKIP_INSTALL=NO
+    - xcodebuild
+      -create-xcframework
+      -framework archives/ios_devices.xcarchive/Products/Library/Frameworks/$PROJECT_NAME.framework
+      -framework archives/ios_simulators.xcarchive/Products/Library/Frameworks/$PROJECT_NAME.framework
+      -output build/${PROJECT_NAME}_${TAG_NAME}.xcframework
+
 pacecloudsdk_plists:
  extends: .plist
 
@@ -103,23 +113,20 @@ pacecloudsdk_unit_tests:
 framework_review:
   extends: .xcode_version
   stage: build
-  script:
-    - bundle exec fastlane build_framework
+  <<: *xcframework
   only:
-    refs:
-      - merge_requests
+    - merge_requests
 
 framework_release_build:
   extends: .xcode_version
   stage: build
-  script:
-    - bundle exec fastlane build_framework archive:true
+  <<: *xcframework
   only:
     - tags
   artifacts:
     name: $PROJECT_NAME
     paths:
-      - ./PACECloudSDK.framework.zip
+      - ./build/
     expire_in: 1 week
 
 # Documentation
