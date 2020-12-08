@@ -45,9 +45,9 @@ github "pace/cloud-sdk-ios" ~> 2.0
 ```
 
 ### Cocoapods
-With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add the following line to your Podfile:
+With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add the following line to your `Podfile` to use the latest available version:
 ```
-pod "tbd"
+pod 'PACECloudSDK'
 ```
 
 ### Swift Package Manager
