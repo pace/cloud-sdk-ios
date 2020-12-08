@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import WebKit
 
 // MARK: - 2FA
 // Default implementation does nothing
 extension App {
-    func handleBiometryAvailbilityRequest(query: String, host: String) {}
-    func setTOTPSecret(query: String, host: String) {}
-    func getTOTP(query: String, host: String) {}
-    func setSecureData(query: String, host: String) {}
-    func getSecureData(query: String, host: String) {}
+    func handleBiometryAvailbilityRequest() {}
+    func setTOTPSecret(with message: WKScriptMessage) {}
+    func getTOTP(with message: WKScriptMessage) {}
+    func setSecureData(with message: WKScriptMessage) {}
+    func getSecureData(with message: WKScriptMessage) {}
 }

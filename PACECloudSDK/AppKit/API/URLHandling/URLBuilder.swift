@@ -61,63 +61,10 @@ struct URLBuilder {
         return urlComponent.url?.absoluteString
     }
 
-    static func buildAppPaymentRedirectUrl(for paymentConfirmationData: PaymentConfirmationData) -> String? {
-        return buildBaseQueryComponent(for: paymentConfirmationData)?.url?.absoluteString
-    }
-
-    static func buildAppReopenUrl(for reopenData: ReopenData?) -> String? {
-        guard let reopenData = reopenData, let reopenUrl = reopenData.reopenUrl else { return nil }
-        let stateItem = URLQueryItem(name: URLParam.state.rawValue, value: reopenData.state ?? "")
-        var component = URLComponents(string: reopenUrl)
-        component?.queryItems = [stateItem]
-
-        return component?.url?.absoluteString
-    }
-
     static func buildAppIconUrl(baseUrl: String?, iconSrc: String?) -> String? {
         guard let baseUrl = baseUrl,
             let iconSrc = iconSrc else { return nil }
 
         return baseUrl + "/" + iconSrc
-    }
-
-    // - MARK: 2FA
-    static func buildBiometricStatusResponse(for biometricData: BiometryAvailabilityData) -> String? {
-        buildBaseQueryComponent(for: biometricData)?.url?.absoluteString
-    }
-
-    static func buildSetTOTPResponse(for data: SetTOTPResponse) -> String? {
-        return buildBaseQueryComponent(for: data)?.url?.absoluteString
-    }
-
-    static func buildGetTOTPResponse(for data: GetTOTPData) -> String? {
-        var component = buildBaseQueryComponent(for: data)
-
-        if let totp = data.totp {
-            let totpQueryItem = URLQueryItem(name: "totp", value: totp)
-            component?.queryItems?.append(totpQueryItem)
-        }
-
-        if let biometryMethod = data.biometryMethod {
-            let biometryQueryItem = URLQueryItem(name: "biometry_method", value: biometryMethod.rawValue)
-            component?.queryItems?.append(biometryQueryItem)
-        }
-
-        return component?.url?.absoluteString
-    }
-
-    static func buildSetSecureDataResponse(for data: SetSecureDataResponse) -> String? {
-        return buildBaseQueryComponent(for: data)?.url?.absoluteString
-    }
-
-    static func buildGetSecureDataResponse(for data: GetSecureData) -> String? {
-        var component = buildBaseQueryComponent(for: data)
-
-        if let value = data.value {
-            let valueQueryItem = URLQueryItem(name: "value", value: value)
-            component?.queryItems?.append(valueQueryItem)
-        }
-
-        return component?.url?.absoluteString
     }
 }

@@ -10,14 +10,11 @@ import SafariServices
 import WebKit
 
 protocol AppViewControllerDelegate: class {
-    func appViewControllerRequestsClosing(reopenData: ReopenData?)
+    func appViewControllerRequestsClosing()
     func appViewControllerRequestsDisabling(host: String)
 }
 
-class AppViewController: UIViewController, AppPaymentDelegate {
-    var paymentConfirmationController: PaymentConfirmationViewController?
-    private var paymentConfirmationData: PaymentConfirmationData?
-
+class AppViewController: UIViewController {
     private var sfSafariViewController: SFSafariViewController?
     private var cancelUrl: String?
 
@@ -32,9 +29,7 @@ class AppViewController: UIViewController, AppPaymentDelegate {
         webView = AppWebView(with: appUrl)
         super.init(nibName: nil, bundle: nil)
 
-        webView.paymentDelegate = self
         webView.appActionsDelegate = self
-        webView.appSecureCommunicationDelegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleRedirectURL(_:)), name: AppKitConstants.NotificationIdentifier.caughtRedirectService, object: nil)
 
@@ -100,15 +95,6 @@ class AppViewController: UIViewController, AppPaymentDelegate {
 
         handleRedirectService(url: redirectUrlString)
     }
-
-    func showPaymentConfirmation(with paymentConfirmationData: PaymentConfirmationData) {
-        self.paymentConfirmationData = paymentConfirmationData
-
-        DispatchQueue.main.async {
-            self.paymentConfirmationController = PaymentConfirmationViewController(delegate: self, datasource: self)
-            self.present(self.paymentConfirmationController!, animated: true) // swiftlint:disable:this force_unwrapping
-        }
-    }
 }
 
 extension AppViewController {
@@ -147,7 +133,7 @@ extension AppViewController: AppActionsDelegate {
         }
 
         // ViewController opened with drawer
-        delegate.appViewControllerRequestsClosing(reopenData: webView.provideReopenData())
+        delegate.appViewControllerRequestsClosing()
     }
 
     func appRequestedDisableAction(for host: String) {
@@ -166,66 +152,6 @@ extension AppViewController: SFSafariViewControllerDelegate {
         // SFSafariViewController was dismissed by selecting 'Finish'
         webView.loadUrl(urlString: cancelUrl)
         cancelUrl = nil
-    }
-}
-
-// MARK: - PaymentConfirmationControllerDelegate
-extension AppViewController: PaymentConfirmationControllerDelegate {
-    func paymentConfirmationController(didFinishWithResult result: PaymentConfirmationViewController.PaymentConfirmationResult) {
-        paymentConfirmationController?.dismiss(animated: true)
-
-        // Redirect user
-        guard var data = paymentConfirmationData else {
-            AppKit.shared.notifyDidFail(with: .paymentError)
-            AppKitLogger.e("[AppViewController] Couldn't retrieve paymentConfirmationData")
-            return
-        }
-        data.statusCode = PaymentConfirmationData.StatusCode(paymentResult: result).rawValue
-
-        guard let redirectUri = URLBuilder.buildAppPaymentRedirectUrl(for: data) else { fatalError() }
-
-        webView.loadUrl(urlString: redirectUri)
-    }
-}
-
-// MARK: - PaymentConfirmationControllerDataSource
-extension AppViewController: PaymentConfirmationControllerDataSource {
-    func paymentConfirmationController(dataFor paymentController: PaymentConfirmationViewController) -> PaymentConfirmationData {
-        guard let data = paymentConfirmationData else { fatalError() }
-        return data
-    }
-}
-
-// MARK: - 2FA
-extension AppViewController: AppSecureCommunicationDelegate {
-    func sendBiometryStatus(data: BiometryAvailabilityData) {
-        guard let url = URLBuilder.buildBiometricStatusResponse(for: data) else { fatalError() }
-
-        webView.loadUrlForVerifiedHost(urlString: url, host: data.host)
-    }
-
-    func sendSetTOTPResponse(data: SetTOTPResponse) {
-        guard let url = URLBuilder.buildSetTOTPResponse(for: data) else { fatalError() }
-
-        webView.loadUrlForVerifiedHost(urlString: url, host: data.host)
-    }
-
-    func sendGetTOTPResponse(data: GetTOTPData) {
-        guard let url = URLBuilder.buildGetTOTPResponse(for: data) else { fatalError() }
-
-        webView.loadUrlForVerifiedHost(urlString: url, host: data.host)
-    }
-
-    func sendSetSecureDataResponse(data: SetSecureDataResponse) {
-        guard let url = URLBuilder.buildSetSecureDataResponse(for: data) else { fatalError() }
-
-        webView.loadUrlForVerifiedHost(urlString: url, host: data.host)
-    }
-
-    func sendGetSecureDataResponse(data: GetSecureData) {
-        guard let url = URLBuilder.buildGetSecureDataResponse(for: data) else { fatalError() }
-
-        webView.loadUrlForVerifiedHost(urlString: url, host: data.host)
     }
 }
 

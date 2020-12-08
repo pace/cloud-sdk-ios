@@ -20,17 +20,12 @@ struct TOTPSecretData: Codable {
     let algorithm: String
     let key: String
 
-    init?(from query: String) {
-        let queryItems = URLDecomposer.decomposeQuery(query)
-        self.init(from: queryItems)
-    }
-
-    init?(from queryItems: [String: String]) {
-        guard let secret: String = queryItems[TOTPURLParam.secret.rawValue],
-            let period: Double = Double(queryItems[TOTPURLParam.period.rawValue] ?? ""),
-            let digits: Int = Int(queryItems[TOTPURLParam.digits.rawValue] ?? ""),
-            let algorithm: String = queryItems[TOTPURLParam.algorithm.rawValue],
-            let key: String = queryItems[TOTPURLParam.key.rawValue] else { return nil }
+    init?(from messageItems: [String: AnyHashable]) {
+        guard let secret = messageItems[TOTPURLParam.secret.rawValue] as? String,
+            let period = messageItems[TOTPURLParam.period.rawValue] as? Double,
+            let digits = messageItems[TOTPURLParam.digits.rawValue] as? Int,
+            let algorithm = messageItems[TOTPURLParam.algorithm.rawValue] as? String,
+            let key = messageItems[TOTPURLParam.key.rawValue] as? String else { return nil }
 
         self.secret = secret
         self.period = period
