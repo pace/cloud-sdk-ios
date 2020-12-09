@@ -17,6 +17,7 @@ public extension POIKit {
         case tooManyRequests
         case networkError
         case searchDiameterTooLarge
+        case zoomLevelTooLow
         case operationCanceledByClient
         case notFound
         case requestError

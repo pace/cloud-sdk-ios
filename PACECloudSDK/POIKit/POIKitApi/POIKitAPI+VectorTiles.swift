@@ -12,7 +12,7 @@ extension POIKitAPI {
     func fetchPOIs(poisOfType: POIKit.POILayer,
                    boundingBox: POIKit.BoundingBox,
                    handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
-        let zoomLevel = POIKitConfig.zoomLevel
+        let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
@@ -34,7 +34,7 @@ extension POIKitAPI {
     func loadPOIs(poisOfType: POIKit.POILayer,
                   boundingBox: POIKit.BoundingBox,
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
-        let zoomLevel = POIKitConfig.zoomLevel
+        let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
@@ -58,7 +58,7 @@ extension POIKitAPI {
 
     func loadPOIs(uuids: [String],
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
-        let zoomLevel = POIKitConfig.zoomLevel
+        let zoomLevel = POIKitConfig.maxZoomLevel
         let tiles = POIKit.Database.shared.delegate?
             .get(uuids: uuids)
             .compactMap { $0.coordinate?.tileCoordinate(withZoom: zoomLevel) }

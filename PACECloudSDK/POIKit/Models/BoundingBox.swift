@@ -18,6 +18,8 @@ public extension POIKit {
         /// center point
         public let center: CLLocationCoordinate2D
 
+        public let padding: Double
+
         public var diameter: CLLocationDistance {
             return point1.distance(from: point2)
         }
@@ -30,17 +32,18 @@ public extension POIKit {
          - parameter center: center coordinate
          - parameter radius: radius in meters
          */
-        public init(center: CLLocationCoordinate2D, radius: Double) {
+        public init(center: CLLocationCoordinate2D, radius: Double, padding: Double = 0) {
             let topRightPoint = center.move(by: radius / 1000, atBearingDegrees: 45)
             let bottomLeftPoint = center.move(by: radius / 1000, atBearingDegrees: 180 + 45)
-            self.init(point1: topRightPoint, point2: bottomLeftPoint, center: center)
+            self.init(point1: topRightPoint, point2: bottomLeftPoint, center: center, padding: padding)
         }
 
         /// :nodoc:
-        public init(point1: CLLocationCoordinate2D, point2: CLLocationCoordinate2D, center: CLLocationCoordinate2D) {
+        public init(point1: CLLocationCoordinate2D, point2: CLLocationCoordinate2D, center: CLLocationCoordinate2D, padding: Double = 0) {
             self.point1 = point1
             self.point2 = point2
             self.center = center
+            self.padding = padding
         }
 
         public func contains(coord: CLLocationCoordinate2D) -> Bool {
@@ -50,6 +53,26 @@ public extension POIKit {
             let maxLon = max(point1.longitude, point2.longitude)
 
             return minLat ... maxLat ~= coord.latitude && minLon ... maxLon ~= coord.longitude
+        }
+
+        public static func incrementalPadding(maxIncrements: Int,
+                                              currentIncrement: Int,
+                                              maxPadding: Double = 0.85,
+                                              minPading: Double = 0) -> Double {
+            let paddingDifference = maxPadding - minPading
+            let increments = Double(maxIncrements)
+            let factor = increments - Double(currentIncrement)
+            let relativePadding = (paddingDifference / increments) * factor
+
+            let padding = relativePadding + (maxPadding - paddingDifference)
+
+            if padding >= maxPadding {
+                return maxPadding
+            } else if padding <= minPading {
+                return minPading
+            }
+
+            return padding
         }
 
         public static func == (lhs: BoundingBox, rhs: BoundingBox) -> Bool {

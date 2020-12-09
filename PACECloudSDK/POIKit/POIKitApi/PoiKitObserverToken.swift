@@ -16,7 +16,7 @@ public extension POIKit {
         public var isLoading: Observable<Bool> = .init(value: false)
 
         weak var delegate: POIKitObserverTokenDelegate?
-        var handler: (Bool, Swift.Result<[GasStation], Error>) -> Void
+        let handler: (Bool, Swift.Result<[GasStation], Error>) -> Void
 
         @objc
         public dynamic func refresh(notOlderThan: Date?) {
@@ -32,36 +32,57 @@ public extension POIKit {
     }
 
     class BoundingBoxNotificationToken: PoiKitObserverToken {
-        private (set) public var boundingBox: BoundingBox
         var token: AnyObject?
         var api: POIKitAPI
         var downloadTask: URLSessionTask?
+        let zoomLevel: Int
+
+        private (set) public var boundingBox: BoundingBox
+        private let maxDistance: (distance: Double, padding: Double)?
 
         init(delegate: POIKitObserverTokenDelegate,
              boundingBox: BoundingBox,
              api: POIKitAPI,
              maxDistance: (distance: Double, padding: Double)? = nil,
+             zoomLevel: Int = POIKitConfig.maxZoomLevel,
              handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.boundingBox = boundingBox
             self.api = api
+            self.maxDistance = maxDistance
+
+            let maxZoomLevel = POIKitConfig.maxZoomLevel
+            self.zoomLevel = zoomLevel > maxZoomLevel ? maxZoomLevel : zoomLevel
 
             super.init(delegate: delegate, handler: handler)
 
-            let allowedDiameter: Double
-            if let maxDistance = maxDistance {
-                allowedDiameter = maxDistance.distance * (1 + maxDistance.padding)
-            } else {
-                allowedDiameter = POIKitConfig.maxDistanceForDownloadJob
-            }
-
-            if boundingBox.diameter > allowedDiameter {
-                handler(false, .failure(POIKitAPIError.searchDiameterTooLarge))
-                return
-            }
+            guard isDiameterValid() && isZoomLevelValid() else { return }
 
             self.token = self.delegate?.observe { isInitial, stations in
                 self.updateStations(isInitial: isInitial, stations: stations)
             }
+        }
+
+        private func isDiameterValid() -> Bool {
+            // Only check diameter if != nil
+            if let maxDistanceTuple = maxDistance {
+                let allowedDiameter = maxDistanceTuple.distance * (1 + maxDistanceTuple.padding)
+
+                if boundingBox.diameter > allowedDiameter {
+                    handler(false, .failure(POIKitAPIError.searchDiameterTooLarge))
+                    return false
+                }
+            }
+
+            return true
+        }
+
+        private func isZoomLevelValid() -> Bool {
+            if zoomLevel < POIKitConfig.minZoomLevel {
+                handler(false, .failure(POIKitAPIError.zoomLevelTooLow))
+                return false
+            }
+
+            return true
         }
 
         private func updateStations(isInitial: Bool, stations: [GasStation]) {
@@ -78,7 +99,8 @@ public extension POIKit {
 
         override public func invalidate() {
             self.token = nil
-            delegate?.invalidateToken()
+            self.delegate?.invalidateToken()
+            self.delegate = nil
             self.downloadTask?.cancel()
         }
     }
@@ -107,6 +129,7 @@ public extension POIKit {
         override public func invalidate() {
             self.token = nil
             delegate?.invalidateToken()
+            delegate = nil
             self.downloadTask?.cancel()
         }
     }

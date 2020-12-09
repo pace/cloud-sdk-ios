@@ -51,9 +51,11 @@ struct POIKitConfig {
     /// POI search request boxes cannot be larger than 20 km (measuring from southeast to northwest points).
     static let maxPoiSearchBoxSize = 20_000.0
 
-    // MARK: - Others
-    /// Zoom level of Open Street Map tiles.
-    static let zoomLevel = 15
+    /// Maximum zoom level
+    static let maxZoomLevel = 16
+
+    /// Min zoom level
+    static let minZoomLevel = 10
 
     /// Earth radius in kilometers
     static let earthRadiusInKilometers = 6371.0

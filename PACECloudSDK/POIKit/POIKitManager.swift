@@ -94,8 +94,9 @@ public extension POIKit {
                             poisOfType: POILayer,
                             boundingBox: BoundingBox,
                             maxDistance: (distance: Double, padding: Double)? = nil,
+                            zoomLevel: Int? = nil,
                             handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> BoundingBoxNotificationToken {
-            return api.observe(delegate: delegate, poisOfType: poisOfType, boundingBox: boundingBox, maxDistance: maxDistance, handler: handler)
+            return api.observe(delegate: delegate, poisOfType: poisOfType, boundingBox: boundingBox, maxDistance: maxDistance, zoomLevel: zoomLevel, handler: handler)
         }
 
         public func observe(delegate: POIKitObserverTokenDelegate,
@@ -132,6 +133,16 @@ public extension POIKit {
          */
         public func autocomplete(_ request: AddressSearchRequest, isThrottled: Bool, handler: ((GeoJSONResult?, POIKitAPIError?) -> Void)? = nil) {
             api.autocomplete(request, isThrottled: isThrottled, handler: handler)
+        }
+
+        /**
+         Fetches pois as geo json
+
+         - parameter request: geo json request
+         - parameter handler: block called with the geo json response or error if the request failed
+         */
+        public func geoJson(_ request: POIKit.GeoJSONRequest, handler: @escaping (Result<POIKit.GeoJSONResponse, Error>) -> Void) {
+            api.geoJson(request, handler: handler)
         }
 
         /**

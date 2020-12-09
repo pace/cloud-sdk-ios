@@ -16,11 +16,15 @@ protocol POIKitAPIProtocol {
 
     func reverseGeocode(_ request: POIKit.ReverseGeocodeRequest, handler: ((POIKit.GeoJSONResult?, POIKit.POIKitAPIError) -> Void)?)
 
-    func observe(delegate: POIKitObserverTokenDelegate,
+    func geoJson(_ request: POIKit.GeoJSONRequest, handler: @escaping (Result<POIKit.GeoJSONResponse, Error>) -> Void)
+
+    func observe(delegate: POIKitObserverTokenDelegate, // swiftlint:disable:this function_parameter_count
                  poisOfType: POIKit.POILayer,
                  boundingBox: POIKit.BoundingBox,
                  maxDistance: (distance: Double, padding: Double)?,
+                 zoomLevel: Int?,
                  handler: @escaping (Bool, Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.BoundingBoxNotificationToken
+
     func observe(delegate: POIKitObserverTokenDelegate,
                  uuids: [String],
                  handler: @escaping (Bool, Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.UUIDNotificationToken
