@@ -40,8 +40,6 @@
 		3B7552B725553B070073C3CA /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7552B625553B070073C3CA /* LiveData.swift */; };
 		3B755337255552290073C3CA /* SpinningWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B755336255552290073C3CA /* SpinningWheel.swift */; };
 		3B75533B255552BD0073C3CA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75533A255552BD0073C3CA /* LoadingView.swift */; };
-		3B8B9013256F9DF80013F83A /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8B9011256F9DF80013F83A /* Alamofire.framework */; };
-		3B8B9014256F9DF80013F83A /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B8B9011256F9DF80013F83A /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B8FCEFF255AC1CC0098941C /* PACE.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B8FCEFD255AC1CC0098941C /* PACE.gpx */; };
 		3BDD7B7C2554340100827F28 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; };
 		3BDD7B7D2554340800827F28 /* PACECloudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -101,7 +99,6 @@
 				3B3D324C2553F10A00FDF82B /* Base32.framework in Embed Frameworks */,
 				3B3D325E2553F10A00FDF82B /* AppAuth.framework in Embed Frameworks */,
 				3B3D324E2553F10A00FDF82B /* OneTimePassword.framework in Embed Frameworks */,
-				3B8B9014256F9DF80013F83A /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,7 +125,6 @@
 		3B3D322D2553EEBC00FDF82B /* FuelingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelingViewController.swift; sourceTree = "<group>"; };
 		3B3D32402553F10A00FDF82B /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = ../Carthage/Build/iOS/Base32.framework; sourceTree = "<group>"; };
 		3B3D32412553F10A00FDF82B /* OneTimePassword.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneTimePassword.framework; path = ../Carthage/Build/iOS/OneTimePassword.framework; sourceTree = "<group>"; };
-		3B3D32422553F10A00FDF82B /* CloudSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudSDK.framework; path = ../Carthage/Build/iOS/CloudSDK.framework; sourceTree = "<group>"; };
 		3B3D32472553F10A00FDF82B /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = ../Carthage/Build/iOS/SwiftProtobuf.framework; sourceTree = "<group>"; };
 		3B3D32492553F10A00FDF82B /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppAuth.framework; path = ../Carthage/Build/iOS/AppAuth.framework; sourceTree = "<group>"; };
 		3B3D32ED2553F99B00FDF82B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -144,7 +140,6 @@
 		3B7552B625553B070073C3CA /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
 		3B755336255552290073C3CA /* SpinningWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningWheel.swift; sourceTree = "<group>"; };
 		3B75533A255552BD0073C3CA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		3B8B9011256F9DF80013F83A /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		3B8FCEFD255AC1CC0098941C /* PACE.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PACE.gpx; sourceTree = "<group>"; };
 		3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PACECloudSDK.xcodeproj; path = ../PACECloudSDK.xcodeproj; sourceTree = "<group>"; };
 		3BEC848B255432B700AB5F2F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -163,7 +158,6 @@
 				3B3D324B2553F10A00FDF82B /* Base32.framework in Frameworks */,
 				3B3D325D2553F10A00FDF82B /* AppAuth.framework in Frameworks */,
 				3B3D324D2553F10A00FDF82B /* OneTimePassword.framework in Frameworks */,
-				3B8B9013256F9DF80013F83A /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,12 +239,10 @@
 		3B3D31632553E83600FDF82B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B8B9011256F9DF80013F83A /* Alamofire.framework */,
 				3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */,
 				3B3D331C2554074200FDF82B /* SnapKit.framework */,
 				3B3D32492553F10A00FDF82B /* AppAuth.framework */,
 				3B3D32402553F10A00FDF82B /* Base32.framework */,
-				3B3D32422553F10A00FDF82B /* CloudSDK.framework */,
 				3B3D32412553F10A00FDF82B /* OneTimePassword.framework */,
 				3B3D32472553F10A00FDF82B /* SwiftProtobuf.framework */,
 			);

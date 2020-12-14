@@ -423,7 +423,6 @@
 		3BB372DD2551AEED0002083A /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/iOS/SwiftProtobuf.framework; sourceTree = "<group>"; };
 		3BB372DF2551AEED0002083A /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppAuth.framework; path = Carthage/Build/iOS/AppAuth.framework; sourceTree = "<group>"; };
 		3BB372E42551AEED0002083A /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/iOS/Base32.framework; sourceTree = "<group>"; };
-		3BB372E52551AEED0002083A /* CloudSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudSDK.framework; path = Carthage/Build/iOS/CloudSDK.framework; sourceTree = "<group>"; };
 		3BBCB2F22567D2C6000EA905 /* POILayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILayer.swift; sourceTree = "<group>"; };
 		3BBCB2F62567D2CC000EA905 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
@@ -940,7 +939,6 @@
 			children = (
 				3BB372DF2551AEED0002083A /* AppAuth.framework */,
 				3BB372E42551AEED0002083A /* Base32.framework */,
-				3BB372E52551AEED0002083A /* CloudSDK.framework */,
 				3BB372DC2551AEED0002083A /* OneTimePassword.framework */,
 				3BB372DD2551AEED0002083A /* SwiftProtobuf.framework */,
 			);
