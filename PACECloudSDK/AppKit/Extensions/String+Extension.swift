@@ -59,3 +59,7 @@ extension String {
         return self.matches(regex, isCaseSensitive: false)
     }
 }
+
+extension StringProtocol {
+    var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
+}

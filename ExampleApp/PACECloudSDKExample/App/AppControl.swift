@@ -58,6 +58,10 @@ class AppControl {
 }
 
 extension AppControl: AppKitDelegate {
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void)) {
+        completion("")
+    }
+
     func didFail(with error: AppKit.AppError) {
         switch error {
         case .locationNotAuthorized:

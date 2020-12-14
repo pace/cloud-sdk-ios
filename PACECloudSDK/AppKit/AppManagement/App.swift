@@ -5,6 +5,8 @@
 //  Created by PACE Telematics GmbH.
 //
 
+import Foundation
+import PassKit
 import WebKit
 
 protocol App: WKWebView, WKScriptMessageHandler, SecureDataCommunication {
@@ -173,6 +175,37 @@ extension App {
             } else {
                 self?.sendInvalidTokenCallback()
             }
+        }
+    }
+
+    func handleApplePayAvailibilityCheck(with message: WKScriptMessage) {
+        guard let message = message.body as? String else {
+            jsonRpcInterceptor?.send(error: ["error": "Bad request"])
+            return
+        }
+
+        // Apple Pay Web is using a slightly different naming for their PKPaymentNetworks,
+        // hence why we need to uppercase the first letter
+        let networks: [PKPaymentNetwork] = message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
+        let result = PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
+
+        jsonRpcInterceptor?.respond(result: result ? "true" : "false")
+    }
+
+    func handleApplePayPaymentRequest(with message: WKScriptMessage) {
+        guard let message = message.body as? String else {
+            jsonRpcInterceptor?.send(error: ["error": "Bad request"])
+            return
+        }
+
+        do {
+            let request = try JSONDecoder().decode(AppKit.ApplePayRequest.self, from: Data(message.utf8))
+
+            AppKit.shared.notifyApplePayData(with: request) { [weak self] response in
+                self?.jsonRpcInterceptor?.respond(result: response)
+            }
+        } catch {
+            jsonRpcInterceptor?.send(error: ["error": "error.localizedDescription"])
         }
     }
 }

@@ -18,8 +18,8 @@ public protocol AppKitDelegate: AnyObject {
     func didFailToMonitorRegion(_ region: CLRegion, error: Error)
 
     func tokenInvalid(completion: @escaping ((String) -> Void))
-
     func didReceiveImageData(_ image: UIImage)
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void))
 }
 
 public extension AppKitDelegate {
@@ -29,6 +29,7 @@ public extension AppKitDelegate {
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
     func tokenInvalid(completion: @escaping ((String) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void)) {}
 }
 
 extension AppKit {
@@ -77,6 +78,12 @@ extension AppKit {
     func notifyImageData(with image: UIImage) {
         notifyClient { [weak self] in
             self?.delegate?.didReceiveImageData(image)
+        }
+    }
+
+    func notifyApplePayData(with request: ApplePayRequest, callback: @escaping ((String) -> Void)) {
+        notifyClient { [weak self] in
+            self?.delegate?.didReceiveApplePayDataRequest(request, completion: callback)
         }
     }
 
