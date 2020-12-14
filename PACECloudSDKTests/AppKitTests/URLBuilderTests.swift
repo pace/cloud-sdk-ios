@@ -16,8 +16,23 @@ class URLBuilderTests: XCTestCase {
     }
 
     func testBuildManifestUrl() {
-        guard let result = URLBuilder.buildAppManifestUrl(with: "manifestUrl") else { XCTFail(); return }
-        XCTAssertEqual(result, "manifestUrl/manifest.json")
+        let rootUrl = URLBuilder.buildAppManifestUrl(with: "https://pace.com")!
+        XCTAssertEqual(rootUrl, "https://pace.com/manifest.json")
+
+        let urlWithPath = URLBuilder.buildAppManifestUrl(with: "https://pace.com/path/foo/bar")!
+        XCTAssertEqual(urlWithPath, "https://pace.com/manifest.json")
+
+        let urlWithParams = URLBuilder.buildAppManifestUrl(with: "https://pace.com?foo=bar&bar=foo")!
+        XCTAssertEqual(urlWithParams, "https://pace.com/manifest.json")
+
+        let urlWithPort = URLBuilder.buildAppManifestUrl(with: "https://pace.com:8888")!
+        XCTAssertEqual(urlWithPort, "https://pace.com:8888/manifest.json")
+
+        let urlWithPortAndPath = URLBuilder.buildAppManifestUrl(with: "https://pace.com:8888/path/foo/bar")!
+        XCTAssertEqual(urlWithPortAndPath, "https://pace.com:8888/manifest.json")
+
+        let urlWithPortAndPathAndParams = URLBuilder.buildAppManifestUrl(with: "https://pace.com:8888/path/foo/bar?foo=bar&bar=foo")!
+        XCTAssertEqual(urlWithPortAndPathAndParams, "https://pace.com:8888/manifest.json")
     }
 
     func testBuildAppStartUrl() {
