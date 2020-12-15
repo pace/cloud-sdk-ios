@@ -10,9 +10,9 @@ extension POIAPI.Apps {
     /** Deletes App with specified id */
     public enum DeleteApp {
 
-        public static let service = APIService<Response>(id: "DeleteApp", tag: "Apps", method: "DELETE", path: "/beta/apps/{appID}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:apps:delete"]), SecurityRequirement(type: "OIDC", scopes: ["poi:apps:delete"])])
+        public static var service = POIAPIService<Response>(id: "DeleteApp", tag: "Apps", method: "DELETE", path: "/apps/{appID}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:apps:delete"]), SecurityRequirement(type: "OIDC", scopes: ["poi:apps:delete"])])
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
@@ -49,16 +49,16 @@ extension POIAPI.Apps {
             case status204
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
             /** Resource not found */
-            case status404(PCErrors)
+            case status404(PCPOIErrors)
 
-            /** The specified Accept header is not valid */
-            case status406(PCErrors)
+            /** The specified accept header is invalid */
+            case status406(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: Void? {
                 switch self {
@@ -67,7 +67,7 @@ extension POIAPI.Apps {
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status401(let response): return response
                 case .status404(let response): return response
@@ -78,7 +78,7 @@ extension POIAPI.Apps {
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<Void, PCErrors> {
+            public var responseResult: APIResponseResult<Void, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -121,10 +121,10 @@ extension POIAPI.Apps {
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
                 case 204: self = .status204
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 404: self = try .status404(decoder.decode(PCErrors.self, from: data))
-                case 406: self = try .status406(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 404: self = try .status404(decoder.decode(PCPOIErrors.self, from: data))
+                case 406: self = try .status406(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

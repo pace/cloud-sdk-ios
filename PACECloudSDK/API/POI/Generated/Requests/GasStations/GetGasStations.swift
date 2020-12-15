@@ -20,19 +20,19 @@ To search inside a bounding box provide the following query parameter:
     */
     public enum GetGasStations {
 
-        public static let service = APIService<Response>(id: "GetGasStations", tag: "Gas Stations", method: "GET", path: "/beta/gas-stations", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"])])
+        public static var service = POIAPIService<Response>(id: "GetGasStations", tag: "Gas Stations", method: "GET", path: "/gas-stations", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"])])
 
         /** POI type you are searching for (in this case gas stations) */
-        public enum PCFilterpoiType: String, Codable, Equatable, CaseIterable {
+        public enum PCPOIFilterpoiType: String, Codable, Equatable, CaseIterable {
             case gasStation = "gasStation"
         }
 
         /** Search only gas stations with fueling app available */
-        public enum PCFilterappType: String, Codable, Equatable, CaseIterable {
+        public enum PCPOIFilterappType: String, Codable, Equatable, CaseIterable {
             case fueling = "fueling"
         }
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
@@ -43,10 +43,10 @@ To search inside a bounding box provide the following query parameter:
                 public var pagesize: Int?
 
                 /** POI type you are searching for (in this case gas stations) */
-                public var filterpoiType: PCFilterpoiType?
+                public var filterpoiType: PCPOIFilterpoiType?
 
                 /** Search only gas stations with fueling app available */
-                public var filterappType: [PCFilterappType]?
+                public var filterappType: [PCPOIFilterappType]?
 
                 /** Latitude in degrees */
                 public var filterlatitude: Float?
@@ -68,7 +68,7 @@ To search inside a bounding box provide the following query parameter:
                 /** Filter by source ID */
                 public var filtersource: ID?
 
-                public init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCFilterpoiType? = nil, filterappType: [PCFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil) {
+                public init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCPOIFilterpoiType? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil) {
                     self.pagenumber = pagenumber
                     self.pagesize = pagesize
                     self.filterpoiType = filterpoiType
@@ -90,7 +90,7 @@ To search inside a bounding box provide the following query parameter:
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCFilterpoiType? = nil, filterappType: [PCFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil) {
+            public convenience init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCPOIFilterpoiType? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil) {
                 let options = Options(pagenumber: pagenumber, pagesize: pagesize, filterpoiType: filterpoiType, filterappType: filterappType, filterlatitude: filterlatitude, filterlongitude: filterlongitude, filterradius: filterradius, filterboundingBox: filterboundingBox, compileopeningHours: compileopeningHours, filtersource: filtersource)
                 self.init(options: options)
             }
@@ -143,11 +143,11 @@ To search inside a bounding box provide the following query parameter:
              */
             public class Status200: APIModel {
 
-                public var data: PCGasStations?
+                public var data: PCPOIGasStations?
 
-                public var included: [Poly3<PCFuelPrice,PCLocationBasedApp,PCReferenceStatus>]?
+                public var included: [Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>]?
 
-                public init(data: PCGasStations? = nil, included: [Poly3<PCFuelPrice,PCLocationBasedApp,PCReferenceStatus>]? = nil) {
+                public init(data: PCPOIGasStations? = nil, included: [Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>]? = nil) {
                     self.data = data
                     self.included = included
                 }
@@ -182,18 +182,17 @@ To search inside a bounding box provide the following query parameter:
             /** OK */
             case status200(Status200)
 
-            /** The server cannot or will not process the request due to an apparent client error
- */
-            case status400(PCErrors)
+            /** Bad request */
+            case status400(PCPOIErrors)
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
-            /** The specified Accept header is not valid */
-            case status406(PCErrors)
+            /** The specified accept header is invalid */
+            case status406(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: Status200? {
                 switch self {
@@ -202,7 +201,7 @@ To search inside a bounding box provide the following query parameter:
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status400(let response): return response
                 case .status401(let response): return response
@@ -213,7 +212,7 @@ To search inside a bounding box provide the following query parameter:
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<Status200, PCErrors> {
+            public var responseResult: APIResponseResult<Status200, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -256,10 +255,10 @@ To search inside a bounding box provide the following query parameter:
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
                 case 200: self = try .status200(decoder.decode(Status200.self, from: data))
-                case 400: self = try .status400(decoder.decode(PCErrors.self, from: data))
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 406: self = try .status406(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 400: self = try .status400(decoder.decode(PCPOIErrors.self, from: data))
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 406: self = try .status406(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

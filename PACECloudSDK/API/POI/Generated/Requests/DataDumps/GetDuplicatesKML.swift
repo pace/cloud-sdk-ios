@@ -14,9 +14,9 @@ extension POIAPI.DataDumps {
     */
     public enum GetDuplicatesKML {
 
-        public static let service = APIService<Response>(id: "GetDuplicatesKML", tag: "Data Dumps", method: "GET", path: "/beta/datadumps/duplicatemap/{countryCode}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:dumps:duplicatemap"]), SecurityRequirement(type: "OIDC", scopes: ["poi:dumps:duplicatemap"])])
+        public static var service = POIAPIService<Response>(id: "GetDuplicatesKML", tag: "Data Dumps", method: "GET", path: "/datadumps/duplicatemap/{countryCode}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:dumps:duplicatemap"]), SecurityRequirement(type: "OIDC", scopes: ["poi:dumps:duplicatemap"])])
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
@@ -53,13 +53,13 @@ extension POIAPI.DataDumps {
             case status200(File)
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
             /** Resource not found */
-            case status404(PCErrors)
+            case status404(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: File? {
                 switch self {
@@ -68,7 +68,7 @@ extension POIAPI.DataDumps {
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status401(let response): return response
                 case .status404(let response): return response
@@ -78,7 +78,7 @@ extension POIAPI.DataDumps {
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<File, PCErrors> {
+            public var responseResult: APIResponseResult<File, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -117,10 +117,10 @@ extension POIAPI.DataDumps {
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(decoder.decode(File.self, from: data))
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 404: self = try .status404(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 200: self = try .status200(data)
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 404: self = try .status404(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

@@ -14,21 +14,21 @@ extension POIAPI.DataDumps {
     */
     public enum GetPoisDump {
 
-        public static let service = APIService<Response>(id: "GetPoisDump", tag: "Data Dumps", method: "GET", path: "/beta/datadumps/pois", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:dumps:pois"]), SecurityRequirement(type: "OIDC", scopes: ["poi:dumps:pois"])])
+        public static var service = POIAPIService<Response>(id: "GetPoisDump", tag: "Data Dumps", method: "GET", path: "/datadumps/pois", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:dumps:pois"]), SecurityRequirement(type: "OIDC", scopes: ["poi:dumps:pois"])])
 
         /** Dump all POI data in XLSX format, along with full amenities.
          */
-        public enum PCAccept: String, Codable, Equatable, CaseIterable {
+        public enum PCPOIAccept: String, Codable, Equatable, CaseIterable {
             case applicationvndOpenxmlformatsOfficedocumentSpreadsheetmlSheet = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         }
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
-                public var accept: PCAccept
+                public var accept: PCPOIAccept
 
-                public init(accept: PCAccept) {
+                public init(accept: PCPOIAccept) {
                     self.accept = accept
                 }
             }
@@ -41,7 +41,7 @@ extension POIAPI.DataDumps {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(accept: PCAccept) {
+            public convenience init(accept: PCPOIAccept) {
                 let options = Options(accept: accept)
                 self.init(options: options)
             }
@@ -60,10 +60,10 @@ extension POIAPI.DataDumps {
             case status200(File)
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: File? {
                 switch self {
@@ -72,7 +72,7 @@ extension POIAPI.DataDumps {
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status401(let response): return response
                 case .status500(let response): return response
@@ -81,7 +81,7 @@ extension POIAPI.DataDumps {
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<File, PCErrors> {
+            public var responseResult: APIResponseResult<File, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -117,9 +117,9 @@ extension POIAPI.DataDumps {
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(decoder.decode(File.self, from: data))
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 200: self = try .status200(data)
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

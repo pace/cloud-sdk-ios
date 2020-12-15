@@ -52,7 +52,7 @@ class AppManager {
         isLocationFetchRunning = true
 
         let apiRequest = POIAPI.Apps.CheckForPaceApp.Request(filterlatitude: lat, filterlongitude: lon)
-        POIKitAPI.shared.request.client.makeRequest(apiRequest) { [weak self] apiResult in
+        API.POI.client.makeRequest(apiRequest) { [weak self] apiResult in
             defer {
                 self?.isLocationFetchRunning = false
                 self?.locationProvider.locationManager.stopUpdatingLocation()
@@ -108,7 +108,7 @@ class AppManager {
 
         isGeneralFetchRunning = true
         let apiRequest = POIAPI.Apps.GetApps.Request()
-        POIKitAPI.shared.request.client.makeRequest(apiRequest) { [weak self] apiResult in
+        API.POI.client.makeRequest(apiRequest) { [weak self] apiResult in
             defer {
                 self?.isGeneralFetchRunning = false
             }

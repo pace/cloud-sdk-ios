@@ -19,14 +19,14 @@ Please note that calling this API is very cheap and can be done regularly.
     */
     public enum CheckForPaceApp {
 
-        public static let service = APIService<Response>(id: "CheckForPaceApp", tag: "Apps", method: "GET", path: "/beta/apps/query", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:apps:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:apps:read"])])
+        public static var service = POIAPIService<Response>(id: "CheckForPaceApp", tag: "Apps", method: "GET", path: "/apps/query", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:apps:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:apps:read"])])
 
         /** Type of location-based app */
-        public enum PCFilterappType: String, Codable, Equatable, CaseIterable {
+        public enum PCPOIFilterappType: String, Codable, Equatable, CaseIterable {
             case fueling = "fueling"
         }
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
@@ -37,9 +37,9 @@ Please note that calling this API is very cheap and can be done regularly.
                 public var filterlongitude: Float
 
                 /** Type of location-based app */
-                public var filterappType: PCFilterappType?
+                public var filterappType: PCPOIFilterappType?
 
-                public init(filterlatitude: Float, filterlongitude: Float, filterappType: PCFilterappType? = nil) {
+                public init(filterlatitude: Float, filterlongitude: Float, filterappType: PCPOIFilterappType? = nil) {
                     self.filterlatitude = filterlatitude
                     self.filterlongitude = filterlongitude
                     self.filterappType = filterappType
@@ -54,7 +54,7 @@ Please note that calling this API is very cheap and can be done regularly.
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(filterlatitude: Float, filterlongitude: Float, filterappType: PCFilterappType? = nil) {
+            public convenience init(filterlatitude: Float, filterlongitude: Float, filterappType: PCPOIFilterappType? = nil) {
                 let options = Options(filterlatitude: filterlatitude, filterlongitude: filterlongitude, filterappType: filterappType)
                 self.init(options: options)
             }
@@ -81,9 +81,9 @@ Please note that calling this API is very cheap and can be done regularly.
              */
             public class Status200: APIModel {
 
-                public var data: PCLocationBasedAppsWithRefs?
+                public var data: PCPOILocationBasedAppsWithRefs?
 
-                public init(data: PCLocationBasedAppsWithRefs? = nil) {
+                public init(data: PCPOILocationBasedAppsWithRefs? = nil) {
                     self.data = data
                 }
 
@@ -114,18 +114,17 @@ Please note that calling this API is very cheap and can be done regularly.
             /** OK */
             case status200(Status200)
 
-            /** The server cannot or will not process the request due to an apparent client error
- */
-            case status400(PCErrors)
+            /** Bad request */
+            case status400(PCPOIErrors)
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
-            /** The specified Accept header is not valid */
-            case status406(PCErrors)
+            /** The specified accept header is invalid */
+            case status406(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: Status200? {
                 switch self {
@@ -134,7 +133,7 @@ Please note that calling this API is very cheap and can be done regularly.
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status400(let response): return response
                 case .status401(let response): return response
@@ -145,7 +144,7 @@ Please note that calling this API is very cheap and can be done regularly.
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<Status200, PCErrors> {
+            public var responseResult: APIResponseResult<Status200, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -188,10 +187,10 @@ Please note that calling this API is very cheap and can be done regularly.
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
                 case 200: self = try .status200(decoder.decode(Status200.self, from: data))
-                case 400: self = try .status400(decoder.decode(PCErrors.self, from: data))
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 406: self = try .status406(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 400: self = try .status400(decoder.decode(PCPOIErrors.self, from: data))
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 406: self = try .status406(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

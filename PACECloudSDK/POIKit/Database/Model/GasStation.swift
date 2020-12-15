@@ -9,8 +9,8 @@ import CoreLocation
 import Foundation
 
 public extension POIKit {
-    class GasStation: PCGasStation {
-        public var prices: [PCFuelPrice] = []
+    class GasStation: PCPOIGasStation {
+        public var prices: [PCPOIFuelPrice] = []
         public var currency: String?
 
         public var layer: POILayer = .unknown
@@ -108,19 +108,19 @@ public extension POIKit {
     }
 }
 
-extension PCCommonOpeningHours.Rules: CustomStringConvertible {
+extension PCPOICommonOpeningHours.Rules: CustomStringConvertible {
     public var description: String {
         "\(days?.map { $0.shortenedRawValue } ?? []): \(timespans ?? []): \(action?.rawValue ?? "-")"
     }
 }
 
-extension PCCommonOpeningHours.Rules.Timespans: CustomStringConvertible {
+extension PCPOICommonOpeningHours.Rules.Timespans: CustomStringConvertible {
     public var description: String {
         return "From \(from ?? "nil") to \(to ?? "nil")"
     }
 }
 
-extension PCCommonOpeningHours.Rules.PCDays {
+extension PCPOICommonOpeningHours.Rules.PCPOIDays {
     public var shortenedRawValue: String {
         switch self {
         case .monday:
@@ -148,32 +148,32 @@ extension PCCommonOpeningHours.Rules.PCDays {
 
     public init?(rawValue: String) {
         switch rawValue {
-        case "mo", PCCommonOpeningHours.Rules.PCDays.monday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.monday
+        case "mo", PCPOICommonOpeningHours.Rules.PCPOIDays.monday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.monday
 
-        case "tu", PCCommonOpeningHours.Rules.PCDays.tuesday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.tuesday
+        case "tu", PCPOICommonOpeningHours.Rules.PCPOIDays.tuesday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.tuesday
 
-        case "we", PCCommonOpeningHours.Rules.PCDays.wednesday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.wednesday
+        case "we", PCPOICommonOpeningHours.Rules.PCPOIDays.wednesday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.wednesday
 
-        case "th", PCCommonOpeningHours.Rules.PCDays.thursday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.thursday
+        case "th", PCPOICommonOpeningHours.Rules.PCPOIDays.thursday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.thursday
 
-        case "fr", PCCommonOpeningHours.Rules.PCDays.friday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.friday
+        case "fr", PCPOICommonOpeningHours.Rules.PCPOIDays.friday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.friday
 
-        case "sa", PCCommonOpeningHours.Rules.PCDays.saturday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.saturday
+        case "sa", PCPOICommonOpeningHours.Rules.PCPOIDays.saturday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.saturday
 
-        case "su", PCCommonOpeningHours.Rules.PCDays.sunday.rawValue:
-            self = PCCommonOpeningHours.Rules.PCDays.sunday
+        case "su", PCPOICommonOpeningHours.Rules.PCPOIDays.sunday.rawValue:
+            self = PCPOICommonOpeningHours.Rules.PCPOIDays.sunday
 
         default:
             return nil
         }
     }
 
-    static var weekdays: [PCCommonOpeningHours.Rules.PCDays] = [.monday, .tuesday, .wednesday, .thursday, .friday]
-    static var weekend: [PCCommonOpeningHours.Rules.PCDays] = [.saturday, .sunday]
+    static var weekdays: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.monday, .tuesday, .wednesday, .thursday, .friday]
+    static var weekend: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.saturday, .sunday]
 }

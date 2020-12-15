@@ -11,9 +11,9 @@ extension POIAPI.Subscriptions {
  */
     public enum DeleteSubscription {
 
-        public static let service = APIService<Response>(id: "DeleteSubscription", tag: "Subscriptions", method: "DELETE", path: "/beta/subscriptions/{id}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:subscriptions:delete"]), SecurityRequirement(type: "OIDC", scopes: ["poi:subscriptions:delete"]), SecurityRequirement(type: "DeviceID", scopes: [])])
+        public static var service = POIAPIService<Response>(id: "DeleteSubscription", tag: "Subscriptions", method: "DELETE", path: "/subscriptions/{id}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:subscriptions:delete"]), SecurityRequirement(type: "OIDC", scopes: ["poi:subscriptions:delete"]), SecurityRequirement(type: "DeviceID", scopes: [])])
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public init() {
                 super.init(service: DeleteSubscription.service)
@@ -27,10 +27,10 @@ extension POIAPI.Subscriptions {
             case status204
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
             /** Resource not found */
-            case status404(PCErrors)
+            case status404(PCPOIErrors)
 
             public var success: Void? {
                 switch self {
@@ -39,7 +39,7 @@ extension POIAPI.Subscriptions {
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status401(let response): return response
                 case .status404(let response): return response
@@ -48,7 +48,7 @@ extension POIAPI.Subscriptions {
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<Void, PCErrors> {
+            public var responseResult: APIResponseResult<Void, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -85,8 +85,8 @@ extension POIAPI.Subscriptions {
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
                 case 204: self = .status204
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 404: self = try .status404(decoder.decode(PCErrors.self, from: data))
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 404: self = try .status404(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

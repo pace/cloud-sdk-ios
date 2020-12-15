@@ -9,17 +9,17 @@ import XCTest
 @testable import PACECloudSDK
 
 class OpeningHoursTests: XCTestCase {
-    let allWeek: [PCCommonOpeningHours.Rules.PCDays] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
+    let allWeek: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
 
     func testNoOpeningHour() {
-        let oh: [PCCommonOpeningHours.Rules] = []
+        let oh: [PCPOICommonOpeningHours.Rules] = []
 
         XCTAssertEqual(oh.description, "[]")
         XCTAssertTrue(oh.getClosedAreas(around: Date()).isEmpty)
     }
 
     func testOpen247() {
-        let oh: [PCCommonOpeningHours.Rules] = [PCCommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCCommonOpeningHours.Rules.Timespans(from: "0", to: "0")])]
+        let oh: [PCPOICommonOpeningHours.Rules] = [PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")])]
 
         XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 0 to 0]: open]"#)
         XCTAssertTrue(oh.getClosedAreas(around: Date()).isEmpty)
@@ -27,7 +27,7 @@ class OpeningHoursTests: XCTestCase {
 
     func testOpenAllWeekWithClosed() {
 
-        let oh: [PCCommonOpeningHours.Rules] = [PCCommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCCommonOpeningHours.Rules.Timespans(from: "5", to: "23:45")])]
+        let oh: [PCPOICommonOpeningHours.Rules] = [PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "5", to: "23:45")])]
 
         XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 5 to 23:45]: open]"#)
 
@@ -43,9 +43,9 @@ class OpeningHoursTests: XCTestCase {
     }
 
     func testOnlyOpenMonday() {
-        let oh: [PCCommonOpeningHours.Rules] = [
-            PCCommonOpeningHours.Rules(action: .close, days: Array(allWeek[1...]), timespans: [PCCommonOpeningHours.Rules.Timespans(from: "0", to: "0")]),
-            PCCommonOpeningHours.Rules(action: .open, days: [.monday], timespans: [PCCommonOpeningHours.Rules.Timespans(from: "0", to: "0")])
+        let oh: [PCPOICommonOpeningHours.Rules] = [
+            PCPOICommonOpeningHours.Rules(action: .close, days: Array(allWeek[1...]), timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")]),
+            PCPOICommonOpeningHours.Rules(action: .open, days: [.monday], timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")])
         ]
 
         XCTAssertEqual(oh.description, #"[["tu", "we", "th", "fr", "sa", "su"]: [From 0 to 0]: close, ["mo"]: [From 0 to 0]: open]"#)
@@ -59,9 +59,9 @@ class OpeningHoursTests: XCTestCase {
     }
 
     func testSundayClosed() {
-        let oh: [PCCommonOpeningHours.Rules] = [
-            PCCommonOpeningHours.Rules(action: .close, days: [.sunday], timespans: [PCCommonOpeningHours.Rules.Timespans(from: "0", to: "0")]),
-            PCCommonOpeningHours.Rules(action: .open, days: Array(allWeek.dropLast()), timespans: [PCCommonOpeningHours.Rules.Timespans(from: "7", to: "20")])
+        let oh: [PCPOICommonOpeningHours.Rules] = [
+            PCPOICommonOpeningHours.Rules(action: .close, days: [.sunday], timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")]),
+            PCPOICommonOpeningHours.Rules(action: .open, days: Array(allWeek.dropLast()), timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "7", to: "20")])
         ]
 
         XCTAssertEqual(oh.description, #"[["su"]: [From 0 to 0]: close, ["mo", "tu", "we", "th", "fr", "sa"]: [From 7 to 20]: open]"#)
@@ -78,8 +78,8 @@ class OpeningHoursTests: XCTestCase {
     }
 
     func testMultipleClosedSections() {
-        let oh: [PCCommonOpeningHours.Rules] = [
-            PCCommonOpeningHours.Rules(action: .close, days: allWeek, timespans: [PCCommonOpeningHours.Rules.Timespans(from: "21", to: "5"), PCCommonOpeningHours.Rules.Timespans(from: "11", to: "14")])
+        let oh: [PCPOICommonOpeningHours.Rules] = [
+            PCPOICommonOpeningHours.Rules(action: .close, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "21", to: "5"), PCPOICommonOpeningHours.Rules.Timespans(from: "11", to: "14")])
         ]
 
         let controlData = [
@@ -101,8 +101,8 @@ class OpeningHoursTests: XCTestCase {
     }
 
     func testOpenOvernight() {
-        let oh: [PCCommonOpeningHours.Rules] = [
-            PCCommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCCommonOpeningHours.Rules.Timespans(from: "20", to: "8")])
+        let oh: [PCPOICommonOpeningHours.Rules] = [
+            PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "20", to: "8")])
         ]
 
         let controlData = [

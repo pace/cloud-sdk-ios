@@ -55,9 +55,9 @@ public extension POIKit {
     }
 }
 
-extension PCCommonOpeningHours.Rules.PCDays: Comparable {
-    static public func < (lhs: PCCommonOpeningHours.Rules.PCDays, rhs: PCCommonOpeningHours.Rules.PCDays) -> Bool {
-        let order: [PCCommonOpeningHours.Rules.PCDays] = PCCommonOpeningHours.Rules.PCDays.allCases
+extension PCPOICommonOpeningHours.Rules.PCPOIDays: Comparable {
+    static public func < (lhs: PCPOICommonOpeningHours.Rules.PCPOIDays, rhs: PCPOICommonOpeningHours.Rules.PCPOIDays) -> Bool {
+        let order: [PCPOICommonOpeningHours.Rules.PCPOIDays] = PCPOICommonOpeningHours.Rules.PCPOIDays.allCases
         guard let lhsIndex = order.firstIndex(where: { lhs == $0 }) else { return false }
         guard let rhsIndex = order.firstIndex(where: { rhs == $0 }) else { return false }
 
@@ -65,9 +65,9 @@ extension PCCommonOpeningHours.Rules.PCDays: Comparable {
     }
 }
 
-extension PCCommonOpeningHours.Rules.PCAction: Comparable {
-    static public func < (lhs: PCCommonOpeningHours.Rules.PCAction, rhs: PCCommonOpeningHours.Rules.PCAction) -> Bool {
-        let order: [PCCommonOpeningHours.Rules.PCAction] = [.open, .close]
+extension PCPOICommonOpeningHours.Rules.PCPOIAction: Comparable {
+    static public func < (lhs: PCPOICommonOpeningHours.Rules.PCPOIAction, rhs: PCPOICommonOpeningHours.Rules.PCPOIAction) -> Bool {
+        let order: [PCPOICommonOpeningHours.Rules.PCPOIAction] = [.open, .close]
         guard let lhsIndex = order.firstIndex(where: { lhs == $0 }) else { return false }
         guard let rhsIndex = order.firstIndex(where: { rhs == $0 }) else { return false }
 
@@ -75,17 +75,17 @@ extension PCCommonOpeningHours.Rules.PCAction: Comparable {
     }
 }
 
-extension PCCommonOpeningHours.Rules {
+extension PCPOICommonOpeningHours.Rules {
     var isOpen247: Bool {
         return timespans?.count == 1 && (timespans?.first?.from == timespans?.first?.to) && action == .open
     }
 
-    func rulesForHours() -> [(IndexSet, PCCommonOpeningHours.Rules.PCAction)] {
+    func rulesForHours() -> [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)] {
         return timespans?.compactMap { ($0.ruleSet(), action ?? .close) } ?? []
     }
 }
 
-extension PCCommonOpeningHours.Rules.Timespans {
+extension PCPOICommonOpeningHours.Rules.Timespans {
     func stringToMinutes() -> (from: Int, to: Int) {
         let fromCompontents: [Int] = self.from?.split(separator: ":").compactMap { Int($0) } ?? []
         let toComponents: [Int] = self.to?.split(separator: ":").compactMap { Int($0 == "0" ? "24" : $0) } ?? []
@@ -105,7 +105,7 @@ extension PCCommonOpeningHours.Rules.Timespans {
     }
 }
 
-extension Array where Element: PCCommonOpeningHours.Rules {
+extension Array where Element: PCPOICommonOpeningHours.Rules {
     private var openingHoursType: POIKit.OpeningHoursType {
         if is247 { return .open247 }
         if isDaysEqual { return .allEqual }
@@ -124,12 +124,12 @@ extension Array where Element: PCCommonOpeningHours.Rules {
     }
 
     private var isOpenEveryDay: Bool {
-        let days: [PCCommonOpeningHours.Rules.PCDays] = compactMap { $0.action == .open ? $0.days : nil }.flatMap { $0 }
+        let days: [PCPOICommonOpeningHours.Rules.PCPOIDays] = compactMap { $0.action == .open ? $0.days : nil }.flatMap { $0 }
         return Set(days).count == 7
     }
 
     private var isOnlyWeekendDifferent: Bool {
-        let weekends: [PCCommonOpeningHours.Rules.PCDays] = [.saturday, .sunday]
+        let weekends: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.saturday, .sunday]
         guard !isDaysEqual && isOpenEveryDay && count == 2 else { return false }
         guard contains(where: { $0.days == weekends }) else { return false }
 
@@ -137,17 +137,17 @@ extension Array where Element: PCCommonOpeningHours.Rules {
     }
 
     private var isOnlySundayDifferent: Bool {
-        let sunday: [PCCommonOpeningHours.Rules.PCDays] = [.sunday]
+        let sunday: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.sunday]
         guard !isDaysEqual && isOpenEveryDay && count == 2 else { return false }
         guard contains(where: { $0.days == sunday }) else { return false }
 
         return true
     }
 
-    private var rulesPerDay: [PCCommonOpeningHours.Rules.PCDays: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]] {
-        var rulesPerDay: [PCCommonOpeningHours.Rules.PCDays: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]] = [:]
-        for hours in self as [PCCommonOpeningHours.Rules] {
-            let ruleSet: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)] = hours.rulesForHours()
+    private var rulesPerDay: [PCPOICommonOpeningHours.Rules.PCPOIDays: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]] {
+        var rulesPerDay: [PCPOICommonOpeningHours.Rules.PCPOIDays: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]] = [:]
+        for hours in self as [PCPOICommonOpeningHours.Rules] {
+            let ruleSet: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)] = hours.rulesForHours()
             hours.days?.forEach {
                 if rulesPerDay[$0] == nil {
                     rulesPerDay[$0] = []
@@ -160,28 +160,28 @@ extension Array where Element: PCCommonOpeningHours.Rules {
         return rulesPerDay
     }
 
-    private var rulesForWeekdays: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]? {
-        guard let index = firstIndex(where: { $0.days == PCCommonOpeningHours.Rules.PCDays.weekdays }) else { return nil }
+    private var rulesForWeekdays: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]? {
+        guard let index = firstIndex(where: { $0.days == PCPOICommonOpeningHours.Rules.PCPOIDays.weekdays }) else { return nil }
         return self[index].rulesForHours()
     }
 
-    private var rulesForWeekend: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]? {
-        guard let index = firstIndex(where: { $0.days == PCCommonOpeningHours.Rules.PCDays.weekend }) else { return nil }
+    private var rulesForWeekend: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]? {
+        guard let index = firstIndex(where: { $0.days == PCPOICommonOpeningHours.Rules.PCPOIDays.weekend }) else { return nil }
         return self[index].rulesForHours()
     }
 
-    private var rulesForMoToSat: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]? {
+    private var rulesForMoToSat: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]? {
         guard let index = firstIndex(where: { $0.days == [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday] }) else { return nil }
         return self[index].rulesForHours()
     }
 
-    private var rulesForSunday: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]? {
+    private var rulesForSunday: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]? {
         guard let index = firstIndex(where: { $0.days == [.sunday] }) else { return nil }
         return self[index].rulesForHours()
     }
 
     // Methods
-    private func applyRules(_ rules: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]) -> IndexSet? {
+    private func applyRules(_ rules: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]) -> IndexSet? {
         var resultedRule: IndexSet?
 
         let rules = rules.sorted(by: { $0.1 < $1.1 })
@@ -311,10 +311,10 @@ extension Array where Element: PCCommonOpeningHours.Rules {
     // Public Methods
     public func minuteTillClose(from date: Date = Date()) -> Int {
         guard openingHoursType != .open247 else { return Int.max }
-        let weekdays: [PCCommonOpeningHours.Rules.PCDays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday] // WeekdayOrdinal starts with sunday
+        let weekdays: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday] // WeekdayOrdinal starts with sunday
 
-        var rulesForToday: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)] = []
-        for hour in self as [PCCommonOpeningHours.Rules] {
+        var rulesForToday: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)] = []
+        for hour in self as [PCPOICommonOpeningHours.Rules] {
             let weekDay = Calendar.current.component(.weekday, from: date)
             if weekDay - 1 < weekdays.count, hour.days?.first(where: { weekdays[weekDay - 1] == $0 }) != nil {
                 rulesForToday.append(contentsOf: hour.rulesForHours())
@@ -421,7 +421,7 @@ extension Array where Element: PCCommonOpeningHours.Rules {
         - date: The date to calculate the closing times for
      - Returns: An array of `Double` tuples where the first `Double` marks the start of a closed area as unix time and second marks the end `[(Double, Double)]`
      */
-    private func retrieveClosingTimes(for days: [PCCommonOpeningHours.Rules.PCDays], basedOn rules: [PCCommonOpeningHours.Rules.PCDays: [(IndexSet, PCCommonOpeningHours.Rules.PCAction)]], at date: Date) -> [(Double,Double)] {
+    private func retrieveClosingTimes(for days: [PCPOICommonOpeningHours.Rules.PCPOIDays], basedOn rules: [PCPOICommonOpeningHours.Rules.PCPOIDays: [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)]], at date: Date) -> [(Double,Double)] {
         let oneDay: Double = 24 * 60 * 60
         // dates for each given weekday (`days`)
         let dates = [date.addingTimeInterval(-oneDay*2), date.addingTimeInterval(-oneDay), date, date.addingTimeInterval(oneDay), date.addingTimeInterval(oneDay*2)]
@@ -551,13 +551,13 @@ extension Array where Element: PCCommonOpeningHours.Rules {
                 }.first ?? .closed
 
         case .weekendDifferent:
-            if PCCommonOpeningHours.Rules.PCDays.weekdays.contains(day) {
+            if PCPOICommonOpeningHours.Rules.PCPOIDays.weekdays.contains(day) {
                 return self.generateWeekdayTimeTable()[0].1
             }
             return self.generateWeekdayTimeTable()[1].1
 
         case .sundayDifferent:
-            if (PCCommonOpeningHours.Rules.PCDays.weekdays.contains(day) || day == .saturday) {
+            if (PCPOICommonOpeningHours.Rules.PCPOIDays.weekdays.contains(day) || day == .saturday) {
                 return self.generateWeekdayTimeTable()[0].1
             }
             return self.generateWeekdayTimeTable()[1].1
@@ -580,8 +580,8 @@ extension Array where Element: PCCommonOpeningHours.Rules {
         return formatString?.contains("a") ?? false
     }
 
-    private func weekDayOfDate(_ date: Date) -> PCCommonOpeningHours.Rules.PCDays {
-        let days: [PCCommonOpeningHours.Rules.PCDays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    private func weekDayOfDate(_ date: Date) -> PCPOICommonOpeningHours.Rules.PCPOIDays {
+        let days: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.sunday, .monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
         let weekday = Calendar.current.component(.weekday, from: date)
         return days[weekday - 1]
     }

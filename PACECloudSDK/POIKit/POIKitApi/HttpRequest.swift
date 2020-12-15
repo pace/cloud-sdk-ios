@@ -32,8 +32,6 @@ class POIKitHTTPReturnCode {
 }
 
 protocol HttpRequestProtocol {
-    var client: APIClient { get }
-
     func set(language: String)
 
     @discardableResult
@@ -64,8 +62,6 @@ class HttpRequest: NSObject, HttpRequestProtocol {
     let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
     var accessToken: String?
 
-    let client: APIClient = .custom
-
     // MARK: - Initialize
     init(session: URLSessionProtocol? = nil) {
         super.init()
@@ -80,8 +76,8 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             configuration.httpAdditionalHeaders = ["User-Agent": userAgent]
             configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
-            client.defaultHeaders = ["User-Agent": userAgent,
-                                     HttpHeaderFields.apiKey.rawValue: PACECloudSDK.shared.apiKey ?? "Missing API key"]
+            API.POI.client.defaultHeaders = ["User-Agent": userAgent,
+                                     HttpHeaderFields.apiKey.rawValue: PACECloudSDK.shared.apiKey ?? "Missing API key"] // TODO: Extract API-Key to PACECloudSDK.setup()
         }
     }
 

@@ -12,7 +12,7 @@ extension POIKitAPI {
     func gasStation(_ request: GasStationRequest,
                     result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void) {
         let apiRequest = POIAPI.GasStations.GetGasStation.Request(id: request.id)
-        self.request.client.makeRequest(apiRequest) { apiResult in
+        API.POI.client.makeRequest(apiRequest) { apiResult in
             switch apiResult.result {
             case .success(let response):
 
@@ -41,7 +41,7 @@ extension POIKitAPI {
 
                 case POIKitHTTPReturnCode.STATUS_OK:
                     guard let gasStation = response.success?.data,
-                          let prices = response.success?.included?[PCFuelPrice.self] else {
+                          let prices = response.success?.included?[PCPOIFuelPrice.self] else {
                         result(.failure(APIClientError.unknownError(POIKit.POIKitAPIError.unknown)))
                         return
                     }
@@ -90,8 +90,8 @@ extension POIKitAPI {
         }
     }
 
-    private func handlePOIResponse(gasStation: PCGasStation,
-                                   prices: [PCFuelPrice],
+    private func handlePOIResponse(gasStation: PCPOIGasStation,
+                                   prices: [PCPOIFuelPrice],
                                    result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void) {
         guard let id = gasStation.id,
               let latitudeFloat = gasStation.attributes?.latitude,

@@ -9,11 +9,7 @@ import CoreLocation
 import Foundation
 
 class POIKitAPI: POIKitAPIProtocol {
-    var environment: PACECloudSDK.Environment = .production {
-        didSet {
-            request.client.baseURL = Settings.shared.baseUrl(.poiApi)
-        }
-    }
+    var environment: PACECloudSDK.Environment = .production
     let request: HttpRequestProtocol
 
     static let shared = POIKitAPI()
