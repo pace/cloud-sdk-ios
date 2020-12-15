@@ -18,10 +18,20 @@ struct URLBuilder {
     }
 
     static func buildAppManifestUrl(with baseUrl: String?) -> String? {
-        guard let baseUrl = baseUrl else { return nil }
-        let manifestUrlString = "\(baseUrl)/manifest.json"
-        return manifestUrlString
+        guard let baseUrlString = baseUrl, let baseUrl = URL(string: baseUrlString) else { return nil }
+
+        var manifestUrl: URL? {
+            var components = URLComponents()
+            components.scheme = baseUrl.scheme
+            components.host = baseUrl.host
+            components.port = baseUrl.port
+            components.path = "/manifest.json"
+            return components.url
+        }
+
+        return manifestUrl?.absoluteString
     }
+
     // hem id: e3211b77-03f0-4d49-83aa-4adaa46d95ae
     // fsc id: f582e5b4-5424-453f-9d7d-8c106b8360d3
     static func buildAppStartUrl(with url: String?, decomposedParams: [URLParam], references: String?) -> String? {
