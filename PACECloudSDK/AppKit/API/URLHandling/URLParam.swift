@@ -23,6 +23,7 @@ enum URLParam: String {
     case expectedAmount = "expected_amount"
     case fuelType = "fuel_type"
     case until
+    case utmPartnerClient = "utm_partner_client"
 
     case reopenUrl = "reopen_url"
     case reopenTitle = "reopen_title"
