@@ -288,6 +288,8 @@
 		927111522573B295001D6DDA /* HttpHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927111512573B295001D6DDA /* HttpHeaderFields.swift */; };
 		92C17BCA25777F54008B016E /* PaymentMethodsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C17BC925777F54008B016E /* PaymentMethodsRequest.swift */; };
 		92C17BD025777F92008B016E /* PaymentMethodsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */; };
+		92C89E7F2588DE86007D7128 /* ApplePayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C89E7E2588DE86007D7128 /* ApplePayRequest.swift */; };
+		92C89E8B2588E915007D7128 /* ApplePayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C89E8A2588E915007D7128 /* ApplePayResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -587,6 +589,8 @@
 		927111512573B295001D6DDA /* HttpHeaderFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHeaderFields.swift; sourceTree = "<group>"; };
 		92C17BC925777F54008B016E /* PaymentMethodsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsRequest.swift; sourceTree = "<group>"; };
 		92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsResponse.swift; sourceTree = "<group>"; };
+		92C89E7E2588DE86007D7128 /* ApplePayRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayRequest.swift; sourceTree = "<group>"; };
+		92C89E8A2588E915007D7128 /* ApplePayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -853,14 +857,15 @@
 		3B970A3F2542D9BA0072F6BA /* API */ = {
 			isa = PBXGroup;
 			children = (
-				3B970A4D2542D9BA0072F6BA /* 2FA */,
-				3B970A422542D9BA0072F6BA /* JsonRpc */,
-				3B970A452542D9BA0072F6BA /* URLHandling */,
 				3B970A412542D9BA0072F6BA /* APIRequestWrapper.swift */,
 				3B970A4C2542D9BA0072F6BA /* BaseQueryParams.swift */,
 				3B970A402542D9BA0072F6BA /* PaymentConfirmationData.swift */,
 				3B970A562542D9BA0072F6BA /* RedirectServiceData.swift */,
 				3B970A552542D9BA0072F6BA /* ReopenData.swift */,
+				3B970A4D2542D9BA0072F6BA /* 2FA */,
+				92C89E7D2588DE7A007D7128 /* ApplePay */,
+				3B970A422542D9BA0072F6BA /* JsonRpc */,
+				3B970A452542D9BA0072F6BA /* URLHandling */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1471,6 +1476,15 @@
 			path = PaymentMethods;
 			sourceTree = "<group>";
 		};
+		92C89E7D2588DE7A007D7128 /* ApplePay */ = {
+			isa = PBXGroup;
+			children = (
+				92C89E7E2588DE86007D7128 /* ApplePayRequest.swift */,
+				92C89E8A2588E915007D7128 /* ApplePayResponse.swift */,
+			);
+			path = ApplePay;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1750,6 +1764,7 @@
 				84947A32256E6D4500788AF4 /* PCFieldMetaData.swift in Sources */,
 				84947A51256E6D4500788AF4 /* GetGasStations.swift in Sources */,
 				3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */,
+				92C89E7F2588DE86007D7128 /* ApplePayRequest.swift in Sources */,
 				927110E02573AA9F001D6DDA /* HttpStatusCode.swift in Sources */,
 				3B970A9C2542D9BB0072F6BA /* URLRequestBuilder.swift in Sources */,
 				84947A4E256E6D4500788AF4 /* RequestBehaviour.swift in Sources */,
@@ -1780,6 +1795,7 @@
 				84947A48256E6D4500788AF4 /* PCCommonCountryId.swift in Sources */,
 				3B970A672542D9BB0072F6BA /* UIView+Extension.swift in Sources */,
 				84947A45256E6D4500788AF4 /* PCPolicies.swift in Sources */,
+				92C89E8B2588E915007D7128 /* ApplePayResponse.swift in Sources */,
 				3B970A682542D9BB0072F6BA /* UIImage+Extension.swift in Sources */,
 				84E1AC3B2562800D00C673EF /* Poly+Codable.swift in Sources */,
 				84947A33256E6D4500788AF4 /* PCFieldName.swift in Sources */,
