@@ -44,10 +44,9 @@ extension App {
             return
         }
 
-        let laContext = LAContext()
         var authError: NSError?
 
-        let isBiometryAvailable = laContext.canEvaluatePolicy(laPolicy, error: &authError)
+        let isBiometryAvailable = LAContext().canEvaluatePolicy(laPolicy, error: &authError)
 
         biometryAvailbility.statusCode = BiometryAvailabilityData.StatusCode.init(available: isBiometryAvailable).rawValue
         appSecureCommunicationDelegate?.sendBiometryStatus(data: biometryAvailbility)
@@ -60,6 +59,8 @@ extension App {
         }
 
         let laContext = LAContext()
+        laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
+
         var authError: NSError?
         let reasonText = "payment.authentication.confirmation".localized
 
@@ -106,6 +107,8 @@ extension App {
         }
 
         let laContext = LAContext()
+        laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
+
         let reasonText = "payment.authentication.confirmation".localized
 
         var authError: NSError?
@@ -216,6 +219,8 @@ extension App {
 
         let key = retrieveKey(for: getSecureData.key, host: getSecureData.host)
         let laContext = LAContext()
+        laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
+
         let reasonText = "secureData.authentication.confirmation".localized
 
         var authError: NSError?
