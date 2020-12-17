@@ -18,7 +18,7 @@ extension String {
     private func localized(_ tableName: String? = nil, bundle: Bundle, value: String = "", comment: String = "") -> String {
         var localizedString = NSLocalizedString(self, tableName: tableName, bundle: bundle, value: value, comment: comment)
 
-        // we have no localization in current language????
+        // we have no localization in current language
         if localizedString == self || localizedString.isEmpty {
 
             // make sure we have a fallback bundle loaded
