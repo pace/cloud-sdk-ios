@@ -9,7 +9,7 @@ import CoreLocation
 import Foundation
 
 protocol POIKitAPIProtocol {
-    var environment: POIKit.POIKitEnvironment { get set }
+    var environment: PACECloudSDK.Environment { get set }
     func setLanguage(_ language: String)
 
     func search(_ request: POIKit.AddressSearchRequest, handler: ((POIKit.GeoJSONResult?, POIKit.POIKitAPIError) -> Void)?)
@@ -49,9 +49,9 @@ protocol POIKitAPIProtocol {
 }
 
 class POIKitAPI: POIKitAPIProtocol {
-    var environment = POIKit.POIKitEnvironment.DEVELOPMENT {
+    var environment: PACECloudSDK.Environment = .production {
         didSet {
-            request.client.baseURL = environment.baseUrl(.api)
+            request.client.baseURL = Settings.shared.baseUrl(.poiApi)
         }
     }
     let request: HttpRequestProtocol
@@ -70,7 +70,7 @@ class POIKitAPI: POIKitAPIProtocol {
 
     // MARK: - Internal methods
 
-    func buildURL(_ baseUrl: POIKitBaseUrl, path: String, urlParams: [String: [String]] = [:]) -> URL? {
+    func buildURL(_ baseUrl: Settings.POIKitBaseUrl, path: String, urlParams: [String: [String]] = [:]) -> URL? {
         var urlString = ""
 
         if !urlParams.isEmpty {
@@ -88,7 +88,7 @@ class POIKitAPI: POIKitAPIProtocol {
         }
 
         // Prepend base url and path
-        urlString = environment.baseUrl(baseUrl) + path + urlString
+        urlString = Settings.shared.baseUrl(baseUrl) + path + urlString
 
         return URL(string: urlString)
     }

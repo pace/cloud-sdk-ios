@@ -13,7 +13,7 @@ class ListViewModel: NSObject {
     var listItems: LiveData<[ListItem]> = .init()
     var isLoading: LiveData<Bool> = .init(value: false)
 
-    private let poiKitManager: POIKit.POIKitManager
+    private lazy var poiKitManager: POIKit.POIKitManager = PACECloudSDK.shared.poiKitManager
     private var locationManager: CLLocationManager?
     private var downloadTask: URLSessionTask?
 
@@ -22,16 +22,6 @@ class ListViewModel: NSObject {
     }
 
     override init() {
-        #if PRODUCTION
-        poiKitManager = POIKit.POIKitManager(environment: .PRODUCTION)
-        #elseif STAGE
-        poiKitManager = POIKit.POIKitManager(environment: .STAGING)
-        #elseif SANDBOX
-        poiKitManager = POIKit.POIKitManager(environment: .SANDBOX)
-        #else
-        poiKitManager = POIKit.POIKitManager(environment: .DEVELOPMENT)
-        #endif
-
         super.init()
 
         locationManager = CLLocationManager()

@@ -17,12 +17,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { // swiftlint:disable:this line_length
         window = UIWindow()
+
+        let config: PACECloudSDK.Configuration = .init(clientId: "PACECloudSDKExample",
+                                                       apiKey: "apikey",
+                                                       authenticationMode: .native,
+                                                       environment: currentAppEnvironment())
+
+        PACECloudSDK.shared.setup(with: config)
+
         appCoordinator = AppCoordinator()
         window?.rootViewController = appCoordinator?.navigationController
         window?.makeKeyAndVisible()
         appCoordinator?.start()
 
         return true
+    }
+
+    private func currentAppEnvironment() -> PACECloudSDK.Environment {
+        #if PRODUCTION
+        return .production
+        #elseif STAGE
+        return .stage
+        #elseif SANDBOX
+        return .sandbox
+        #else
+        return .development
+        #endif
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {

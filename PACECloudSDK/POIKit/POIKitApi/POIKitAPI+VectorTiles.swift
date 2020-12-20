@@ -95,7 +95,7 @@ extension POIKitAPI {
     }
 
     func loadPois(_ tileRequest: TileQueryRequest, completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> URLSessionTask? {
-        guard let url = buildURL(.poi, path: "/query"), let data = try? tileRequest.serializedData() else {
+        guard let url = buildURL(.tilesApi, path: "/query"), let data = try? tileRequest.serializedData() else {
             completion(.failure(POIKit.POIKitAPIError.unknown))
                 return nil
         }

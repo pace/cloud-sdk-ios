@@ -4,10 +4,11 @@ This framework combines multipe functionalities provided by PACE i.e. authorizin
 
 - [PACE Cloud SDK](#pace-cloud-sdk)
     * [Specifications](#specifications)
-    * [Setup](#setup)
+    * [Installation](#installation)
         + [Carthage](#carthage)
         + [Cocoapods](#cocoapods)
         + [Swift Package Manager](#swift-package-manager)
+    * [Setup](#setup)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -37,7 +38,7 @@ It has some external dependencies which you will need to inlcude as well:
 - [OneTimePassword](https://github.com/mattrubin/OneTimePassword)
 - [SwiftProtobuf](https://github.com/apple/swift-protobuf)
 
-## Setup
+## Installation
 ### Carthage
 With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
 ```
@@ -50,12 +51,31 @@ With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add t
 pod 'PACECloudSDK'
 ```
 
-### Swift Package Manager
+### Swift Package Manager (experimental)
 With [Swift Package Manager](https://swift.org/package-manager/), add the following dependency to your Package.swift:
 ```swift
 dependencies: [
-    .package(url: "tbd", .from(from: "tbd"))
+    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "2.0.0"))
 ]
+```
+
+## Setup
+The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside 
+`applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
+
+`PACECloudSDK.Configuration` only has `clientId` and `apiKey`  as a mandatory property, all others are optional and can be passed as necessary.
+
+**Note**: `PACECloudSDK` is using the `.production` environment as default. In case you are still doing tests, you probably want to change it to `.sandbox` or `.stage`.
+
+Available parameters:
+
+```swift
+clientId: String
+apiKey: String? // Default: nil
+authenticationMode: AuthenticationMode // Default: .web
+accessToken: String? // Default: nil
+environment: Environment // Default: .production
+configValues: [ConfigValue: Any]? // Default: nil
 ```
 
 ## IDKit
@@ -107,23 +127,7 @@ A new authorization will be required afterwards.
 - Payment Authentication
 
 ### Setup
-In order to use **AppKit** it is necessary to call `AppKit.shared.setup(config: AppKit.AppKitConfiguration)`. The best way to do this is inside 
-`applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key. 
-
-`AppKitConfiguration` only has `clientId` and `environment` as a mandatory property, all others are optional and can be passed as necessary.
-Available parameters:
-
-```swift
-    clientId: String
-    apiKey: String? // Default: nil
-    authenticationMode: AuthenticationMode // Default: .web
-    accessToken: String? // Default: nil
-    theme: AppKitTheme // Default: .automatic
-    environment: AppEnvironment
-    configValues: [ConfigValue: Any]? // Default: nil
-```
-
-Biometry is used for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties. 
+Biometry is needed for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties. 
 
 ### Native login
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
@@ -147,9 +151,9 @@ func tokenInvalid(completion: ((String) -> Void)) {
 ```
 
 ### Deep Linking
-Some of our services (e.g. `PayPal`) do not open the URL in the App web view, but in a `SFSafariViewController` within the app. After completion of the process the user is redirected back to the App web view via deep linking. In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
+Some of our services (e.g. `PayPal`) do not open the URL in the App web view, but in a `SFSafariViewController` within the app, due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
 
-- Set the `clientId` in *AppKit's* configuration during the setup, because it is needed for the redirect URL
+- Set the `clientId` in *PACECloudSDK's* configuration during the [setup](#setup), because it is needed for the redirect URL
 - Specify the `pace.$clientId` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
 
 In your `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` you will have to catch the `redirect` host and call `AppKit.shared.handleRedirectURL` to handle the callback.
@@ -166,6 +170,9 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
     }
 }
 ```
+
+### Theming
+`AppKit` offers both a `.light` and `.dark` theme. The theme is set to `.automatic` by default, which then takes the system's appearance setting. In case you want to enforce either `.light` or `.dark` theme, you can set it via the public `theme` property: `AppKit.shared.theme`.
 
 ### AppKitDelegate
 This protocol needs to be implemented in order to receive further information about your requests. It will also provide specific data that allows you to correctly display Apps.

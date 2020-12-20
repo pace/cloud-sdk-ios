@@ -21,15 +21,8 @@ class AppControl {
 
     private var didAuthorize = false
 
-    private init() {}
-
-    func setup(with token: String) {
+    private init() {
         AppKit.shared.delegate = self
-        let config: AppKit.AppKitConfiguration = AppKit.AppKitConfiguration(clientId: "PACECloudSDKExample",
-                                                              apiKey: "apikey",
-                                                              accessToken: token,
-                                                              environment: currentAppEnvironment())
-        AppKit.shared.setup(config: config)
     }
 
     func requestLocalApps() {
@@ -42,18 +35,6 @@ class AppControl {
 
     func handleRedirectURL(_ url: URL) {
         AppKit.shared.handleRedirectURL(url)
-    }
-
-    private func currentAppEnvironment() -> AppKit.AppEnvironment {
-        #if PRODUCTION
-            return .production
-        #elseif STAGE
-            return .stage
-        #elseif SANDBOX
-            return .sandbox
-        #else
-            return .development
-        #endif
     }
 }
 

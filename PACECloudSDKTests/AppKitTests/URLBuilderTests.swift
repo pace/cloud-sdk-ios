@@ -11,8 +11,12 @@ import XCTest
 class URLBuilderTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
-        AppKit.shared.authenticationMode = .web
-        AppKit.shared.initialAccessToken = nil
+        PACECloudSDK.shared.setup(with: .init(clientId: "clientId",
+                                              apiKey: "apiKey",
+                                              authenticationMode: .web,
+                                              accessToken: nil,
+                                              environment: .development))
+        PACECloudSDK.shared.initialAccessToken = nil
     }
 
     func testBuildManifestUrl() {

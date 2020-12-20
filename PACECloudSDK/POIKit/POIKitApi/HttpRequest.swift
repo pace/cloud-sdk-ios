@@ -79,7 +79,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             configuration.httpAdditionalHeaders = ["User-Agent": userAgent]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
             client.defaultHeaders = ["User-Agent": userAgent,
-                                     HttpHeaderFields.apiKey.rawValue: AppKit.shared.apiKey ?? "Missing API key"] // TODO: Extract API-Key to PACECloudSDK.setup()
+                                     HttpHeaderFields.apiKey.rawValue: PACECloudSDK.shared.apiKey ?? "Missing API key"]
         }
     }
 
@@ -107,7 +107,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             request.addValue(self.acceptLanguage, forHTTPHeaderField: "Accept-Language")
         }
 
-        request.setValue(AppKit.shared.apiKey ?? "Missing API key", forHTTPHeaderField: HttpHeaderFields.apiKey.rawValue)  // TODO: Extract API-Key to PACECloudSDK.setup()
+        request.setValue(PACECloudSDK.shared.apiKey ?? "Missing API key", forHTTPHeaderField: HttpHeaderFields.apiKey.rawValue)
 
         if method != .get, let body = body {
             request.httpBody = body

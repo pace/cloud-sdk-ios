@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ApiGateway</key>
+	<string>https://api.dev.pace.cloud</string>
+	<key>OsrmBaseUrl</key>
+	<string>https://maps.pacelink.net/</string>
+	<key>SearchBaseUrl</key>
+	<string>https://api.pace.cloud/photon/api</string>
+	<key>ReverseGeocodeBaseUrl</key>
+	<string>https://api.pace.cloud/photon/reverse</string>
+	<key>TileBaseUrl</key>
+	<string>https://maps.pacelink.net/tiles/car-mm</string>
+	<key>TilesApiUrl</key>
+	<string>https://api.dev.pace.cloud/poi/v1/tiles</string>
+</dict>
+</plist>
