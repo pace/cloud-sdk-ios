@@ -1,5 +1,5 @@
 //
-//  LocationProvider.swift
+//  AppDrawerLocationProvider.swift
 //  PACECloudSDK
 //
 //  Created by PACE Telematics GmbH.
@@ -7,7 +7,7 @@
 
 import CoreLocation
 
-protocol LocationProviderDelegate: AnyObject {
+protocol AppDrawerLocationProviderDelegate: AnyObject {
     func didReceiveLocation(_ location: CLLocation)
     func didFailWithError(_ error: Error)
     func didEnterGeofence(with id: String)
@@ -21,7 +21,7 @@ struct LocationAccuracyThreshold {
     var timeoutWorker: DispatchWorkItem?
 }
 
-class LocationProvider: NSObject {
+class AppDrawerLocationProvider: NSObject {
     var thresholds = [LocationAccuracyThreshold]()
 
     var lowAccuracy: CLLocationDistance = 200 {
@@ -54,7 +54,7 @@ class LocationProvider: NSObject {
 
     private var locationFetchRunning = false
 
-    weak var delegate: LocationProviderDelegate?
+    weak var delegate: AppDrawerLocationProviderDelegate?
 
     lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -65,7 +65,7 @@ class LocationProvider: NSObject {
     }()
 
     init(timeout: TimeInterval = 30) {
-        AppKitLogger.i("[LocationProvider] Initializing LocationProvider with timeout \(timeout)")
+        AppKitLogger.i("[AppDrawerLocationProvider] Initializing AppDrawerLocationProvider with timeout \(timeout)")
         self.timeout = timeout
         super.init()
         updateLocationAccuracyThresholds()
@@ -85,17 +85,17 @@ class LocationProvider: NSObject {
 
     func startFetchingLocation() {
         guard !locationFetchRunning else {
-            AppKitLogger.i("[LocationProvider] Fetching location requested but already running")
+            AppKitLogger.i("[AppDrawerLocationProvider] Fetching location requested but already running")
             return
         }
 
         guard !isLocationAccuracyReduced() else {
             self.delegate?.didFailWithError(CLError(CLError.Code.deferredAccuracyTooLow))
-            AppKitLogger.w("[LocationProvider] Can't fetch location due to reduced location permission setting")
+            AppKitLogger.w("[AppDrawerLocationProvider] Can't fetch location due to reduced location permission setting")
             return
         }
 
-        AppKitLogger.i("[LocationProvider] Start fetching location")
+        AppKitLogger.i("[AppDrawerLocationProvider] Start fetching location")
 
         locationStartTime = Date()
         locationManager.startUpdatingLocation()
@@ -104,7 +104,7 @@ class LocationProvider: NSObject {
         for i in 0...thresholds.count - 1 {
             thresholds[i].timeoutWorker?.cancel()
             thresholds[i].timeoutWorker = DispatchWorkItem {
-                AppKitLogger.i("[LocationProvider] Timeout for segment \(i) of \(self.thresholds.count - 1)")
+                AppKitLogger.i("[AppDrawerLocationProvider] Timeout for segment \(i) of \(self.thresholds.count - 1)")
 
                 if i == self.thresholds.count - 1 {
                     self.currentLocation = self.filterLocations(self.savedLocations, basedOn: self.locationStartTime)
@@ -142,7 +142,7 @@ class LocationProvider: NSObject {
     }
 
     private func reset() {
-        AppKitLogger.i("[LocationProvider] Reset")
+        AppKitLogger.i("[AppDrawerLocationProvider] Reset")
 
         thresholds.forEach { $0.timeoutWorker?.cancel() }
         locationManager.stopUpdatingLocation()
@@ -151,7 +151,7 @@ class LocationProvider: NSObject {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension LocationProvider: CLLocationManagerDelegate {
+extension AppDrawerLocationProvider: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status != .authorizedAlways && status != .authorizedWhenInUse {
             AppKit.shared.notifyDidFail(with: .locationNotAuthorized)
@@ -162,7 +162,7 @@ extension LocationProvider: CLLocationManagerDelegate {
         savedLocations.append(contentsOf: locations)
         savedLocations = savedLocations.sorted(by: { $0.timestamp > $1.timestamp }).filter { 0...maximalLocationAge ~= abs($0.timestamp.timeIntervalSinceNow) }
 
-        AppKitLogger.i("[LocationProvider] Filtered locations count \(savedLocations.count)")
+        AppKitLogger.i("[AppDrawerLocationProvider] Filtered locations count \(savedLocations.count)")
 
         currentLocation = filterLocations(savedLocations, basedOn: locationStartTime)
     }
@@ -176,10 +176,10 @@ extension LocationProvider: CLLocationManagerDelegate {
             // If the location service is unable to retrieve a location right away,
             // it reports a CLError.Code.locationUnknown error and keeps trying.
             // In such a situation, you can simply ignore the error and wait for a new event.
-            AppKitLogger.i("[LocationProvider] Location unknown")
+            AppKitLogger.i("[AppDrawerLocationProvider] Location unknown")
 
         default:
-            AppKitLogger.i("[LocationProvider] Location fetch failed with error: \(error)")
+            AppKitLogger.i("[AppDrawerLocationProvider] Location fetch failed with error: \(error)")
 
             thresholds.forEach { $0.timeoutWorker?.cancel() }
             delegate?.didFailWithError(clError)
@@ -209,7 +209,7 @@ extension LocationProvider: CLLocationManagerDelegate {
 }
 
 // MARK: - Geofences
-extension LocationProvider {
+extension AppDrawerLocationProvider {
     func monitorRegionsAt(locations: [String: CLLocationCoordinate2D]) {
         // Make sure the devices supports region monitoring.
         if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {

@@ -5,6 +5,7 @@
 //  Created by PACE Telematics GmbH.
 //
 
+import CoreLocation
 import Foundation
 import PassKit
 import WebKit
@@ -21,6 +22,7 @@ protocol App: WKWebView, WKScriptMessageHandler, SecureDataCommunication {
     var appSecureCommunicationDelegate: AppSecureCommunicationDelegate? { get set }
     var paymentDelegate: AppPaymentDelegate? { get set }
     var reopenData: ReopenData? { get set }
+    var oneTimeLocationProvider: OneTimeLocationProvider { get }
 }
 
 extension App {
@@ -207,5 +209,53 @@ extension App {
         } catch {
             jsonRpcInterceptor?.send(error: ["error": "error.localizedDescription"])
         }
+    }
+}
+
+// MARK: - Location verification
+extension App {
+    func handleVerifyLocationRequest(with message: WKScriptMessage) {
+        guard let message = message.body as? [String: String],
+              let latString = message["lat"],
+              let lonString = message["lon"],
+              let thresholdString = message["threshold"],
+              let lat = Double(latString),
+              let lon = Double(lonString),
+              let threshold = Double(thresholdString)
+        else {
+            jsonRpcInterceptor?.send(error: ["error": "Bad request"])
+            return
+        }
+
+        let locationToVerify = CLLocation(latitude: lat, longitude: lon)
+        let currentAuthStatus = CLLocationManager.authorizationStatus()
+
+        guard !(currentAuthStatus == .denied || currentAuthStatus == .notDetermined) else {
+            passVerificationToClient(locationToVerify: locationToVerify)
+            return
+        }
+
+        oneTimeLocationProvider.requestLocation { [weak self] userLocation in
+            guard let userLocation = userLocation else {
+                self?.passVerificationToClient(locationToVerify: locationToVerify)
+                return
+            }
+
+            self?.verifyLocation(userLocation: userLocation, locationToVerify: locationToVerify, distanceThreshold: threshold)
+        }
+    }
+
+    private func passVerificationToClient(locationToVerify: CLLocation) {
+        AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify) { [weak self] isInRange in
+            self?.jsonRpcInterceptor?.respond(result: isInRange ? "true" : "false")
+        }
+    }
+
+    private func verifyLocation(userLocation: CLLocation?, locationToVerify: CLLocation, distanceThreshold: Double) {
+        var isInRange: Bool = false
+        if let distance = userLocation?.distance(from: locationToVerify) {
+            isInRange = distance <= distanceThreshold
+        }
+        jsonRpcInterceptor?.respond(result: isInRange ? "true" : "false")
     }
 }

@@ -20,13 +20,13 @@ protocol AppManagerDelegate: class {
 class AppManager {
     weak var delegate: AppManagerDelegate?
 
-    private var locationProvider: LocationProvider
+    private var locationProvider: AppDrawerLocationProvider
     private var isLocationFetchRunning = false
     private var isGeneralFetchRunning = false
     private var currentlyDisplayedLocationApps: [AppKit.AppData] = []
 
     init() {
-        locationProvider = LocationProvider()
+        locationProvider = AppDrawerLocationProvider()
         locationProvider.delegate = self
     }
 
@@ -216,7 +216,7 @@ extension AppManager {
     }
 }
 
-extension AppManager: LocationProviderDelegate {
+extension AppManager: AppDrawerLocationProviderDelegate {
     func didEnterGeofence(with id: String) {
         delegate?.didEnterGeofence(with: id)
     }

@@ -38,6 +38,7 @@ class AppWebView: WKWebView, App {
     private(set) var webViewDelegate: AppWebViewDelegate? // swiftlint:disable:this weak_delegate
     private(set) var interceptor: AppWebViewInterceptor?
     private(set) var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor?
+    private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     let appUrl: String?
     var successfullyLoadedOnce = false
