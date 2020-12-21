@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E917F253D92A800DC4BB1 /* POIKit.swift */; };
-		3B1E9188253D9C8F00DC4BB1 /* POIKitEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E9187253D9C8F00DC4BB1 /* POIKitEnvironment.swift */; };
 		3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */; };
 		3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B24095A256BF43A003DA32B /* OIDConfiguration.swift */; };
 		3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */; };
@@ -63,15 +62,15 @@
 		3B970A852542D9BB0072F6BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A252542D9BA0072F6BA /* Localizable.strings */; };
 		3B970A862542D9BB0072F6BA /* Environment-sandbox.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2A2542D9BA0072F6BA /* Environment-sandbox.plist */; };
 		3B970A872542D9BB0072F6BA /* Environment-stage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2B2542D9BA0072F6BA /* Environment-stage.plist */; };
-		3B970A882542D9BB0072F6BA /* Environment-prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2C2542D9BA0072F6BA /* Environment-prod.plist */; };
-		3B970A892542D9BB0072F6BA /* Environment-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2D2542D9BA0072F6BA /* Environment-dev.plist */; };
+		3B970A882542D9BB0072F6BA /* Environment-production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2C2542D9BA0072F6BA /* Environment-production.plist */; };
+		3B970A892542D9BB0072F6BA /* Environment-development.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2D2542D9BA0072F6BA /* Environment-development.plist */; };
 		3B970A8C2542D9BB0072F6BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A322542D9BA0072F6BA /* Images.xcassets */; };
 		3B970A8D2542D9BB0072F6BA /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A342542D9BA0072F6BA /* SFUIDisplay-Light.otf */; };
 		3B970A8E2542D9BB0072F6BA /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */; };
 		3B970A8F2542D9BB0072F6BA /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */; };
 		3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A382542D9BA0072F6BA /* AppKitConstants.swift */; };
 		3B970A912542D9BB0072F6BA /* PRNHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A392542D9BA0072F6BA /* PRNHelper.swift */; };
-		3B970A922542D9BB0072F6BA /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3A2542D9BA0072F6BA /* AppSettings.swift */; };
+		3B970A922542D9BB0072F6BA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3A2542D9BA0072F6BA /* Settings.swift */; };
 		3B970A942542D9BB0072F6BA /* IconSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3C2542D9BA0072F6BA /* IconSelector.swift */; };
 		3B970A952542D9BB0072F6BA /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
 		3B970A972542D9BB0072F6BA /* PaymentConfirmationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A402542D9BA0072F6BA /* PaymentConfirmationData.swift */; };
@@ -290,6 +289,8 @@
 		92C17BD025777F92008B016E /* PaymentMethodsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */; };
 		92C89E7F2588DE86007D7128 /* ApplePayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C89E7E2588DE86007D7128 /* ApplePayRequest.swift */; };
 		92C89E8B2588E915007D7128 /* ApplePayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C89E8A2588E915007D7128 /* ApplePayResponse.swift */; };
+		92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */; };
+		92EFB207258B5C00001768F0 /* PACECloudSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFB206258B5C00001768F0 /* PACECloudSDK.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -304,7 +305,6 @@
 
 /* Begin PBXFileReference section */
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
-		3B1E9187253D9C8F00DC4BB1 /* POIKitEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitEnvironment.swift; sourceTree = "<group>"; };
 		3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitAPIError.swift; sourceTree = "<group>"; };
 		3B24095A256BF43A003DA32B /* OIDConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OIDConfiguration.swift; sourceTree = "<group>"; };
 		3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+HTTPRequest.swift"; sourceTree = "<group>"; };
@@ -360,15 +360,15 @@
 		3B970A272542D9BA0072F6BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B970A2A2542D9BA0072F6BA /* Environment-sandbox.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-sandbox.plist"; sourceTree = "<group>"; };
 		3B970A2B2542D9BA0072F6BA /* Environment-stage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-stage.plist"; sourceTree = "<group>"; };
-		3B970A2C2542D9BA0072F6BA /* Environment-prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-prod.plist"; sourceTree = "<group>"; };
-		3B970A2D2542D9BA0072F6BA /* Environment-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-dev.plist"; sourceTree = "<group>"; };
+		3B970A2C2542D9BA0072F6BA /* Environment-production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-production.plist"; sourceTree = "<group>"; };
+		3B970A2D2542D9BA0072F6BA /* Environment-development.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-development.plist"; sourceTree = "<group>"; };
 		3B970A322542D9BA0072F6BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3B970A342542D9BA0072F6BA /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Light.otf"; sourceTree = "<group>"; };
 		3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
 		3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Medium.otf"; sourceTree = "<group>"; };
 		3B970A382542D9BA0072F6BA /* AppKitConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitConstants.swift; sourceTree = "<group>"; };
 		3B970A392542D9BA0072F6BA /* PRNHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRNHelper.swift; sourceTree = "<group>"; };
-		3B970A3A2542D9BA0072F6BA /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		3B970A3A2542D9BA0072F6BA /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3B970A3C2542D9BA0072F6BA /* IconSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelector.swift; sourceTree = "<group>"; };
 		3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidator.swift; sourceTree = "<group>"; };
 		3B970A402542D9BA0072F6BA /* PaymentConfirmationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentConfirmationData.swift; sourceTree = "<group>"; };
@@ -591,6 +591,8 @@
 		92C17BCF25777F92008B016E /* PaymentMethodsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsResponse.swift; sourceTree = "<group>"; };
 		92C89E7E2588DE86007D7128 /* ApplePayRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayRequest.swift; sourceTree = "<group>"; };
 		92C89E8A2588E915007D7128 /* ApplePayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayResponse.swift; sourceTree = "<group>"; };
+		92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKTests.swift; sourceTree = "<group>"; };
+		92EFB206258B5C00001768F0 /* PACECloudSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDK.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -702,7 +704,6 @@
 				3B9709FE2542D9B90072F6BA /* Extensions */,
 				927110D82573AA21001D6DDA /* Helper */,
 				3B970A242542D9BA0072F6BA /* Localization */,
-				3B970A282542D9BA0072F6BA /* Plists */,
 				3B970A572542D9BA0072F6BA /* Styles */,
 				3B970A372542D9BA0072F6BA /* Utils */,
 				3B970A162542D9BA0072F6BA /* ViewComponents */,
@@ -805,10 +806,10 @@
 		3B970A282542D9BA0072F6BA /* Plists */ = {
 			isa = PBXGroup;
 			children = (
+				3B970A2D2542D9BA0072F6BA /* Environment-development.plist */,
+				3B970A2C2542D9BA0072F6BA /* Environment-production.plist */,
 				3B970A2A2542D9BA0072F6BA /* Environment-sandbox.plist */,
 				3B970A2B2542D9BA0072F6BA /* Environment-stage.plist */,
-				3B970A2C2542D9BA0072F6BA /* Environment-prod.plist */,
-				3B970A2D2542D9BA0072F6BA /* Environment-dev.plist */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
@@ -845,7 +846,6 @@
 			children = (
 				3B970A382542D9BA0072F6BA /* AppKitConstants.swift */,
 				3B970AE32542DF450072F6BA /* AppKitLogger.swift */,
-				3B970A3A2542D9BA0072F6BA /* AppSettings.swift */,
 				3B970A3C2542D9BA0072F6BA /* IconSelector.swift */,
 				3B8B02EC255C1D780020A6FA /* JWTToken.swift */,
 				3B970A392542D9BA0072F6BA /* PRNHelper.swift */,
@@ -980,7 +980,9 @@
 				927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */,
 				3B76F75E257648B0008D8F9A /* HttpUrlError.swift */,
 				3BB1443225388108004E9F63 /* Logger.swift */,
+				3B970A3A2542D9BA0072F6BA /* Settings.swift */,
 				3B855311253D6BF3001F7B66 /* Extensions */,
+				3B970A282542D9BA0072F6BA /* Plists */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1027,7 +1029,6 @@
 				3BC9A7BF2539DDAC00B933AE /* PoiKitObserverToken.swift */,
 				3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */,
 				3BC9A7C12539DDAC00B933AE /* POIKitAPI+POIFilters.swift */,
-				3B1E9187253D9C8F00DC4BB1 /* POIKitEnvironment.swift */,
 				3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */,
 			);
 			path = POIKitApi;
@@ -1445,6 +1446,7 @@
 				921E682F2534883200438491 /* PACECloudSDK.h */,
 				921E68302534883200438491 /* Info.plist */,
 				926D0F6A2541BA3200409432 /* README.md */,
+				92EFB206258B5C00001768F0 /* PACECloudSDK.swift */,
 			);
 			path = PACECloudSDK;
 			sourceTree = "<group>";
@@ -1455,6 +1457,7 @@
 				3B9709FD2542D9720072F6BA /* AppKitTests */,
 				3BC9A78F2539DD3200B933AE /* POIKitTests */,
 				921E683C2534883200438491 /* Info.plist */,
+				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
 			);
 			path = PACECloudSDKTests;
 			sourceTree = "<group>";
@@ -1591,8 +1594,8 @@
 				3B970A862542D9BB0072F6BA /* Environment-sandbox.plist in Resources */,
 				926D0F6B2541BA3200409432 /* README.md in Resources */,
 				3B970A852542D9BB0072F6BA /* Localizable.strings in Resources */,
-				3B970A892542D9BB0072F6BA /* Environment-dev.plist in Resources */,
-				3B970A882542D9BB0072F6BA /* Environment-prod.plist in Resources */,
+				3B970A892542D9BB0072F6BA /* Environment-development.plist in Resources */,
+				3B970A882542D9BB0072F6BA /* Environment-production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1741,6 +1744,7 @@
 				84947A4D256E6D4500788AF4 /* POIAPI.swift in Sources */,
 				3BC9A7F72539DDAD00B933AE /* Waypoint.swift in Sources */,
 				84947A27256E6D4500788AF4 /* PCSubscription.swift in Sources */,
+				92EFB207258B5C00001768F0 /* PACECloudSDK.swift in Sources */,
 				3BC9A7F62539DDAD00B933AE /* RegionalPricesResponse.swift in Sources */,
 				84947A79256E6D4500788AF4 /* APIService.swift in Sources */,
 				3B970A6D2542D9BB0072F6BA /* Dictionary+Extension.swift in Sources */,
@@ -1851,7 +1855,7 @@
 				3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */,
 				84947A5D256E6D4500788AF4 /* DeleteSubscription.swift in Sources */,
 				3BC9A80C2539DDAD00B933AE /* Address.swift in Sources */,
-				3B970A922542D9BB0072F6BA /* AppSettings.swift in Sources */,
+				3B970A922542D9BB0072F6BA /* Settings.swift in Sources */,
 				3BC9A7FC2539DDAD00B933AE /* GasStationApiResponse.swift in Sources */,
 				3B970A732542D9BB0072F6BA /* LocationProvider.swift in Sources */,
 				84947A7A256E6D4500788AF4 /* Coding.swift in Sources */,
@@ -1868,7 +1872,6 @@
 				84947A52256E6D4500788AF4 /* GetGasStationFuelTypeNameMapping.swift in Sources */,
 				84E1AC3D2562800D00C673EF /* Poly.swift in Sources */,
 				84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */,
-				3B1E9188253D9C8F00DC4BB1 /* POIKitEnvironment.swift in Sources */,
 				3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */,
 				84947A76256E6D4500788AF4 /* AnyCodable.swift in Sources */,
 				84947A72256E6D4500788AF4 /* CreateApp.swift in Sources */,
@@ -1897,6 +1900,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
+				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
 				3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */,

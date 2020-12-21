@@ -14,16 +14,16 @@ struct AppKitConstants {
 
     /**
     Creates a user agent for given project name with following format:
-    `{client-app}/{client-app-version} ({os} {os-version}) App-SDK/{app-sdk version} (clientid:{client-id};)`
+    `{client-app}/{client-app-version} ({os} {os-version}) PWA-SDK/{app-sdk version} (clientid:{client-id};)`
     */
     static var userAgent: String {
-        let clientId: String = AppKit.shared.clientId ?? "Missing client id"
-        let authenticationMode: String = AppKit.shared.authenticationMode.rawValue
+        let clientId: String = PACECloudSDK.shared.clientId ?? "Missing client id"
+        let authenticationMode: String = PACECloudSDK.shared.authenticationMode.rawValue
 
         let themeValue = String(describing: AppKit.shared.theme)
         let theme: String = "PWASDK-Theme/\(themeValue)"
 
-        let extensions = AppKit.shared.userAgentExtensions.joined(separator: " ")
+        let extensions = PACECloudSDK.shared.userAgentExtensions.joined(separator: " ")
 
         return [
             "\(Bundle.main.bundleName)/\(Bundle.main.releaseVersionNumber)",

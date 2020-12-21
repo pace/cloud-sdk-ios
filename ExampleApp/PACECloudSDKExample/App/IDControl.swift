@@ -17,8 +17,6 @@ class IDControl {
     static var shared = IDControl()
     weak var delegate: IDControlDelegate?
 
-    private var didSetupAppKit = false
-
     private init() {}
 
     func setup(for navigationController: UINavigationController) {
@@ -44,7 +42,6 @@ class IDControl {
                 return
             }
 
-            self?.setupAppKit(with: token)
             self?.delegate?.isAuthorized(true)
             self?.userInfo()
         }
@@ -69,7 +66,6 @@ class IDControl {
 
     func reset() {
         IDKit.resetSession { [weak self] in
-            self?.didSetupAppKit = false
             self?.delegate?.isAuthorized(false)
         }
     }
@@ -84,13 +80,5 @@ class IDControl {
 
             self?.delegate?.didReceiveUserInfo(userInfo)
         }
-    }
-
-    private func setupAppKit(with token: String) {
-        guard !didSetupAppKit else { return }
-
-        AppControl.shared.setup(with: token)
-
-        didSetupAppKit = true
     }
 }

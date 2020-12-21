@@ -18,53 +18,23 @@ public class AppKit {
     /// The initial value is `.automatic``which is based on the current system interface style
     public var theme: AppKitTheme = .automatic
 
-    var apiKey: String?
-    var clientId: String?
-    var authenticationMode: AuthenticationMode = .web
-    var initialAccessToken: String?
-    var currentAccessToken: String?
-    var environment: AppEnvironment?
-    var configValues: [ConfigValue: Any]?
-
-    var userAgentExtensions: [String] = []
-
     private var proximityCheckPoiID: String?
     private var proximityCheckCompletion: ((Bool) -> Void)?
 
-    private let auth: AppKitAuthorization
     private let appManager: AppManager
 
     private init() {
         AppStyle.loadAllFonts()
 
-        auth = AppKitAuthorization()
-
         appManager = AppManager()
         appManager.delegate = self
     }
 
-    public func setup(config: AppKitConfiguration) {
-        self.clientId = config.clientId
-        self.apiKey = config.apiKey
-        self.authenticationMode = config.authenticationMode
-        self.initialAccessToken = config.accessToken
-        self.currentAccessToken = config.accessToken
-        self.theme = config.theme
-        self.environment = config.environment
-        self.configValues = config.configValues
+    func setup(theme: AppKitTheme = .automatic, configValues: [PACECloudSDK.ConfigValue: Any]?) {
+        self.theme = theme
 
-        auth.setup(apiKey: apiKey)
-
-        guard let value = configValues?[ConfigValue.allowedLowAccuracy] as? Double else { return }
+        guard let value = configValues?[PACECloudSDK.ConfigValue.allowedLowAccuracy] as? Double else { return }
         appManager.setAllowedLocationAccuracy(value)
-    }
-
-    public func extendUserAgent(with extensions: [String]) {
-        userAgentExtensions = extensions
-    }
-
-    public func resetAccessToken() {
-        currentAccessToken = nil
     }
 
     // MARK: - Drawer / Location based apps

@@ -124,7 +124,7 @@ extension App {
             return
         }
 
-        guard let clientId = AppKit.shared.clientId, let customScheme = URL(string: "pace.\(clientId)://") else {
+        guard let clientId = PACECloudSDK.shared.clientId, let customScheme = URL(string: "pace.\(clientId)://") else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
 
             load(URLRequest(url: cancelUrl))
@@ -145,15 +145,15 @@ extension App {
 // MARK: - Rpc
 extension App {
     func handleInvalidTokenRequest() {
-        guard AppKit.shared.authenticationMode == .native else { return }
+        guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
-        if let token = AppKit.shared.initialAccessToken, TokenValidator.isTokenValid(token) {
+        if let token = PACECloudSDK.shared.initialAccessToken, TokenValidator.isTokenValid(token) {
             jsonRpcInterceptor?.respond(result: token)
         } else {
             sendInvalidTokenCallback()
         }
 
-        AppKit.shared.initialAccessToken = nil
+        PACECloudSDK.shared.initialAccessToken = nil
     }
 
     func handleImageDataRequest(with message: WKScriptMessage) {
@@ -170,7 +170,7 @@ extension App {
     private func sendInvalidTokenCallback() {
         AppKit.shared.notifyInvalidToken { [weak self] token in
             if TokenValidator.isTokenValid(token) {
-                AppKit.shared.currentAccessToken = token
+                PACECloudSDK.shared.currentAccessToken = token
                 self?.jsonRpcInterceptor?.respond(result: token)
             } else {
                 self?.sendInvalidTokenCallback()
