@@ -129,6 +129,15 @@ framework_release_build:
       - ./build/
     expire_in: 1 week
 
+# Update CocoaPods trunk
+framework_publish_pods:
+  extends: .xcode_version
+  stage: publish
+  script:
+    - pod trunk push PACECloudSDK.podspec --allow-warnings
+  only:
+    - tags
+
 # Documentation
 documentation:
   extends: .xcode_version
