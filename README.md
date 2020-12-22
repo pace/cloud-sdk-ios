@@ -10,6 +10,8 @@ This framework combines multipe functionalities provided by PACE i.e. authorizin
         + [Swift Package Manager](#swift-package-manager)
         + [Binary](#binary)
     * [Setup](#setup)
+    * [Migration](#migration)
+        + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -81,6 +83,12 @@ accessToken: String? // Default: nil
 environment: Environment // Default: .production
 configValues: [ConfigValue: Any]? // Default: nil
 ```
+
+## Migration
+### From 2.x.x to 3.x.x
+In `3.0.0` we've introduced a universal setup method: `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)` and removed the setup for `AppKit` and `POIKitManager`.
+
+The `PACECloudSDK.Configuration` almost has the same signature as the previous `AppKit.AppKitConfiguration`, only the `theme` parameter has been removed, which is now defaulted to `.automatic`. In case you want to set a specific theme, you can set it via `AppKit`'s `theme` property: `AppKit.shared.theme`.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
