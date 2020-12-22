@@ -8,6 +8,7 @@ This framework combines multipe functionalities provided by PACE i.e. authorizin
         + [Carthage](#carthage)
         + [Cocoapods](#cocoapods)
         + [Swift Package Manager](#swift-package-manager)
+        + [Binary](#binary)
     * [Setup](#setup)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
@@ -58,6 +59,9 @@ dependencies: [
     .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "2.0.0"))
 ]
 ```
+
+### Binary
+Each release has an `XCFramework` attached, which can be added to your application; see [releases](https://github.com/pace/cloud-sdk-ios/releases).
 
 ## Setup
 The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside 
