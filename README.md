@@ -258,3 +258,11 @@ Possible errors:
 
   Make sure that all dependencies mentioned in [specifications](#specifications) have been included and set to `Embed & Sign`.
 </details>
+
+<details>
+  <summary>
+    What is the `PACECloudSlimSDK` target?
+  </summary>
+
+  The slimmed version doesn't use any external dependencies and can therefore not handle 2FA and the vector tile data. This reduces the size of the framework significantly and can therefore be used in situations where app size is critical, e.g. App Clips.
+</details>

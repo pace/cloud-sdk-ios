@@ -18,7 +18,8 @@ public extension POIKit {
         weak var delegate: POIKitObserverTokenDelegate?
         var handler: (Bool, Swift.Result<[GasStation], Error>) -> Void
 
-        public func refresh(notOlderThan: Date?) {
+        @objc
+        public dynamic func refresh(notOlderThan: Date?) {
             self.refreshTime = Date()
         }
 
@@ -32,9 +33,9 @@ public extension POIKit {
 
     class BoundingBoxNotificationToken: PoiKitObserverToken {
         private (set) public var boundingBox: BoundingBox
-        private var token: AnyObject?
-        private var api: POIKitAPI
-        private var downloadTask: URLSessionTask?
+        var token: AnyObject?
+        var api: POIKitAPI
+        var downloadTask: URLSessionTask?
 
         init(delegate: POIKitObserverTokenDelegate,
              boundingBox: BoundingBox,
@@ -75,35 +76,6 @@ public extension POIKit {
             }
         }
 
-        override public func refresh(notOlderThan: Date?) {
-            guard token != nil else { return }
-
-            isLoading.value = true
-
-            // Build request from bounding box
-            let zoomLevel = POIKitConfig.zoomLevel
-            let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
-            let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
-            let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
-                                                                                  southWest: TileQueryRequest.Coordinate(information: southWest),
-                                                                                  invalidationToken: nil)], zoomLevel: UInt32(zoomLevel))
-
-            downloadTask = api.loadPois(tileRequest) { [weak self] result in
-                switch result {
-                case .failure(let error):
-                    self?.handler(false, .failure(error))
-
-                case .success(let tiles):
-                    // Save to database
-                    self?.api.save(tiles, for: self?.boundingBox)
-                }
-
-                self?.isLoading.value = false
-            }
-
-            super.refresh(notOlderThan: notOlderThan)
-        }
-
         override public func invalidate() {
             self.token = nil
             delegate?.invalidateToken()
@@ -112,10 +84,10 @@ public extension POIKit {
     }
 
     class UUIDNotificationToken: PoiKitObserverToken {
-        private var uuids: [String]
-        private var token: AnyObject?
-        private var api: POIKitAPI
-        private var downloadTask: URLSessionTask?
+        var uuids: [String]
+        var token: AnyObject?
+        var api: POIKitAPI
+        var downloadTask: URLSessionTask?
 
         init(delegate: POIKitObserverTokenDelegate, uuids: [String], api: POIKitAPI, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.uuids = uuids
@@ -130,39 +102,6 @@ public extension POIKit {
                     self.handler(false, .success(self.value))
                 }
             }
-        }
-
-        override public func refresh(notOlderThan: Date?) {
-            // Build request from bounding box
-            guard let delegate = Database.shared.delegate else { return }
-
-            let zoomLevel = POIKitConfig.zoomLevel
-            let tiles = delegate
-                .get(uuids: uuids)
-                .filter {
-                    if let lastUpdated = $0.lastUpdated, let notOlderThan = notOlderThan {
-                        return lastUpdated < notOlderThan
-                    } else {
-                        return true
-                    }
-                }
-                .compactMap { $0.coordinate?.tileCoordinate(withZoom: zoomLevel) }
-                .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) }
-
-            let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
-
-            downloadTask = api.loadPois(tileRequest) { result in
-                switch result {
-                case .failure(let error):
-                    self.handler(false, .failure(error))
-
-                case .success(let tiles):
-                    // Save to database
-                    self.api.save(tiles)
-                }
-            }
-
-            super.refresh(notOlderThan: notOlderThan)
         }
 
         override public func invalidate() {

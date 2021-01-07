@@ -104,22 +104,6 @@ public extension POIKit {
             return api.observe(delegate: delegate, uuids: uuids, handler: handler)
         }
 
-        public func fetchPOIs(poisOfType: POILayer,
-                              boundingBox: POIKit.BoundingBox,
-                              handler: @escaping (Result<[GasStation], Error>) -> Void) -> URLSessionTask? {
-            return api.fetchPOIs(poisOfType: poisOfType, boundingBox: boundingBox, handler: handler)
-        }
-
-        public func loadPOIs(poisOfType: POILayer,
-                             boundingBox: BoundingBox,
-                             handler: @escaping (Result<[GasStation], Error>) -> Void) -> URLSessionTask? {
-            return api.loadPOIs(poisOfType: poisOfType, boundingBox: boundingBox, handler: handler)
-        }
-
-        public func loadPOIs(uuids: [String], handler: @escaping (Result<[GasStation], Error>) -> Void) -> URLSessionTask? {
-            return api.loadPOIs(uuids: uuids, handler: handler)
-        }
-
         /**
          Retrieves a route for a navigation request.
 
