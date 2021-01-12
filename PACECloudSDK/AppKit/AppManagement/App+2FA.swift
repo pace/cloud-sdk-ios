@@ -9,14 +9,6 @@ import Base32
 import LocalAuthentication
 import OneTimePassword
 
-protocol SecureDataCommunication {
-    func handleBiometryAvailbilityRequest(query: String, host: String)
-    func setTOTPSecret(query: String, host: String)
-    func getTOTP(query: String, host: String)
-    func setSecureData(query: String, host: String)
-    func getSecureData(query: String, host: String)
-}
-
 extension App {
     var userDefaults: UserDefaults {
         UserDefaults.standard
