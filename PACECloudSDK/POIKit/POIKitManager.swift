@@ -68,7 +68,7 @@ public extension POIKit {
             }
         }
 
-        required init(environment: PACECloudSDK.Environment) {
+        public required init(environment: PACECloudSDK.Environment) {
             api.environment = environment
 
             super.init()
