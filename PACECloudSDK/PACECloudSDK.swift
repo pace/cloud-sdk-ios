@@ -10,8 +10,6 @@ import Foundation
 public class PACECloudSDK {
     public static let shared = PACECloudSDK()
 
-    private(set) public lazy var poiKitManager: POIKit.POIKitManager = .init(environment: .production)
-
     private(set) var environment: Environment = .production
     private(set) var authenticationMode: AuthenticationMode = .web
     private(set) var configValues: [ConfigValue: Any]?
@@ -34,7 +32,6 @@ public class PACECloudSDK {
         self.configValues = config.configValues
 
         AppKit.shared.setup(configValues: config.configValues)
-        poiKitManager = POIKit.POIKitManager.init(environment: config.environment)
     }
 
     public func extendUserAgent(with extensions: [String]) {
