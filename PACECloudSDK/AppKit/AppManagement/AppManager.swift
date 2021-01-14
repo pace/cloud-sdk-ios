@@ -76,7 +76,7 @@ class AppManager {
 
                     // In case if the identical app contains multiple gas station references
                     gasStationReferences.forEach {
-                        let metadata: [AppMetadata: AnyHashable] = [AppMetadata.appId: app.id, AppMetadata.references: [$0]]
+                        let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id, AppKit.AppMetadata.references: [$0]]
                         let appData = AppKit.AppData(appID: id,
                                               appUrl: attributes.pwaUrl,
                                               metadata: metadata)
@@ -127,7 +127,7 @@ class AppManager {
                         continue
                     }
 
-                    let metadata: [AppMetadata: AnyHashable] = [AppMetadata.appId: app.id]
+                    let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id]
 
                     let appData = AppKit.AppData(appID: id,
                                           title: attributes.title,
@@ -176,7 +176,7 @@ class AppManager {
                     appData.appManifest?.manifestUrl = manifestUrlString
 
                     guard let decomposedValues = URLDecomposer.decomposeManifestUrl(with: appData.appManifest, appBaseUrl: appData.appApiUrl) else { return }
-                    let references = (appData.metadata[AppMetadata.references] as? [String])?.first(where: { $0.contains(PRNHelper.gasStationPrefix) })
+                    let references = (appData.metadata[AppKit.AppMetadata.references] as? [String])?.first(where: { $0.contains(PRNHelper.gasStationPrefix) })
                     appData.appStartUrl = URLBuilder.buildAppStartUrl(with: decomposedValues.url, decomposedParams: decomposedValues.params, references: references)
                 }
             }

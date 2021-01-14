@@ -7,15 +7,15 @@
 
 import Foundation
 
-class AppManifest: Decodable, Equatable {
-    let name: String?
-    let shortName: String?
-    let description: String?
-    let icons: [AppIcon]?
-    let appStartUrl: String?
+public class AppManifest: Decodable, Equatable {
+    public let name: String?
+    public let shortName: String?
+    public let description: String?
+    public let icons: [AppIcon]?
+    public let appStartUrl: String?
 
-    let iconBackgroundColor: String?
-    let textColor: String?
+    public let iconBackgroundColor: String?
+    public let textColor: String?
     let themeColor: String?
 
     var manifestUrl: String?
@@ -29,7 +29,7 @@ class AppManifest: Decodable, Equatable {
         case themeColor = "theme_color"
     }
 
-    static func == (lhs: AppManifest, rhs: AppManifest) -> Bool {
+    public static func == (lhs: AppManifest, rhs: AppManifest) -> Bool {
         return
             lhs.name == rhs.name &&
             lhs.shortName == rhs.shortName &&
@@ -42,7 +42,7 @@ class AppManifest: Decodable, Equatable {
     }
 }
 
-struct AppIcon: Decodable {
+public struct AppIcon: Decodable {
     let source: String?
     let sizes: String?
     let type: String?

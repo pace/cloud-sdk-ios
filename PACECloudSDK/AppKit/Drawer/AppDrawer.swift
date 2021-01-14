@@ -13,8 +13,8 @@ public protocol AppDrawerProtocol: AnyObject {
 }
 
 public extension AppKit {
-    class AppDrawer: UIView {
-        let appData: AppData
+    open class AppDrawer: UIView {
+        public let appData: AppData
 
         var appWindow: AppWindow?
         var appViewController: AppViewController?
@@ -23,7 +23,7 @@ public extension AppKit {
 
         // MARK: - Gesture handling
         var isSlidingLocked = false
-        var currentState: State = .collapsed
+        public var currentState: State = .collapsed
         var drawerWidthConstraint: NSLayoutConstraint?
         var drawerRightPaddingConstraint: NSLayoutConstraint? // To compensate the initial damping of the expand animation
         var expandOrOpenAppGestureRecognizer: UITapGestureRecognizer?
@@ -77,7 +77,7 @@ public extension AppKit {
             return imageView
         }()
 
-        init(with appData: AppData) {
+        public init(with appData: AppData) {
             self.appData = appData
 
             let appColorString = appData.appManifest?.iconBackgroundColor ?? ""
@@ -94,7 +94,7 @@ public extension AppKit {
             preloadApp()
         }
 
-        required init?(coder: NSCoder) {
+        required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
 
@@ -148,7 +148,7 @@ public extension AppKit {
         }
 
         private func setupGestureRecognizers() {
-            expandOrOpenAppGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleExpandOrOpenApp))
+            expandOrOpenAppGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressAppDrawer))
             self.addGestureRecognizer(expandOrOpenAppGestureRecognizer!) // swiftlint:disable:this force_unwrapping
 
             slideDrawerGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideGesture))
@@ -172,7 +172,11 @@ public extension AppKit {
         }
 
         @objc
-        private func handleExpandOrOpenApp() {
+        private func didPressAppDrawer() {
+            handleExpandOrOpenApp()
+        }
+
+        open func handleExpandOrOpenApp() {
             if currentState == .collapsed {
                 expand()
             } else if currentState == .expanded {
@@ -208,12 +212,12 @@ public extension AppKit {
 }
 
 extension AppKit.AppDrawer {
-    enum State {
+    public enum State {
         case collapsed
         case expanded
     }
 
-    enum SlideDirection {
+    public enum SlideDirection {
         case left
         case right
     }

@@ -39,6 +39,8 @@ class AppControl {
 }
 
 extension AppControl: AppKitDelegate {
+    func didReceiveAppData(_ appData: [AppKit.AppData]) {}
+
     func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void)) {
         completion("")
     }

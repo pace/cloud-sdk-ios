@@ -5,8 +5,10 @@
 //  Created by PACE Telematics GmbH.
 //
 
-enum AppMetadata {
-    case appId
-    case references
-    case queries
+extension AppKit {
+    public enum AppMetadata {
+        case appId
+        case references
+        case queries
+    }
 }
