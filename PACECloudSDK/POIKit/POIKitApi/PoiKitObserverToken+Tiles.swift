@@ -9,7 +9,7 @@ import Foundation
 
 public extension POIKit.BoundingBoxNotificationToken {
     override func refresh(notOlderThan: Date?) {
-        guard token != nil else { return }
+        guard isDiameterValid() && isZoomLevelValid() else { return }
 
         isLoading.value = true
 
@@ -29,6 +29,13 @@ public extension POIKit.BoundingBoxNotificationToken {
             case .success(let tiles):
                 // Save to database
                 self?.api.save(tiles, for: self?.boundingBox)
+
+                // If no delegate has been specified
+                // send live response to client
+                if self?.delegate == nil {
+                    let stations = self?.api.extractPOIS(from: tiles) ?? []
+                    self?.updateStations(isInitial: false, stations: stations)
+                }
             }
 
             self?.isLoading.value = false
@@ -60,14 +67,21 @@ public extension POIKit.UUIDNotificationToken {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        downloadTask = api.loadPois(tileRequest) { result in
+        downloadTask = api.loadPois(tileRequest) { [weak self] result in
             switch result {
             case .failure(let error):
-                self.handler(false, .failure(error))
+                self?.handler(false, .failure(error))
 
             case .success(let tiles):
                 // Save to database
-                self.api.save(tiles)
+                self?.api.save(tiles)
+
+                // If no delegate has been specified
+                // send live response to client
+                if self?.delegate == nil {
+                    let stations = self?.api.extractPOIS(from: tiles) ?? []
+                    self?.updateStations(stations: stations)
+                }
             }
         }
     }
