@@ -28,6 +28,7 @@
 		3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */; };
 		3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
 		3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02F4255C228E0020A6FA /* JWTTests.swift */; };
+		3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
 		3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */; };
 		3B970A662542D9BB0072F6BA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A002542D9B90072F6BA /* UIColor+Extension.swift */; };
 		3B970A672542D9BB0072F6BA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A012542D9B90072F6BA /* UIView+Extension.swift */; };
@@ -41,7 +42,7 @@
 		3B970A702542D9BB0072F6BA /* NavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0B2542D9BA0072F6BA /* NavigationTitleView.swift */; };
 		3B970A712542D9BB0072F6BA /* AppWebViewInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0C2542D9BA0072F6BA /* AppWebViewInterceptor.swift */; };
 		3B970A722542D9BB0072F6BA /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0D2542D9BA0072F6BA /* AppManager.swift */; };
-		3B970A732542D9BB0072F6BA /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0E2542D9BA0072F6BA /* LocationProvider.swift */; };
+		3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0E2542D9BA0072F6BA /* AppDrawerLocationProvider.swift */; };
 		3B970A742542D9BB0072F6BA /* App+2FA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0F2542D9BA0072F6BA /* App+2FA.swift */; };
 		3B970A752542D9BB0072F6BA /* AppWebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */; };
 		3B970A762542D9BB0072F6BA /* AppDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A122542D9BA0072F6BA /* AppDrawer.swift */; };
@@ -123,6 +124,7 @@
 		3BB1443325388108004E9F63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1443225388108004E9F63 /* Logger.swift */; };
 		3BB208852538338A008DDE45 /* IDKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB208842538338A008DDE45 /* IDKitError.swift */; };
 		3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */; };
+		3BB918E525B02AF700E83EDD /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
 		3BBCB2F32567D2C6000EA905 /* POILayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F22567D2C6000EA905 /* POILayer.swift */; };
 		3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
 		3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */; };
@@ -307,7 +309,7 @@
 		92EDDBF425A7270300E480F4 /* SetSecureDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A512542D9BA0072F6BA /* SetSecureDataResponse.swift */; };
 		92EDDBF525A7270300E480F4 /* SetSecureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A532542D9BA0072F6BA /* SetSecureData.swift */; };
 		92EDDBF625A7270300E480F4 /* AppManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A632542D9BB0072F6BA /* AppManifest.swift */; };
-		92EDDBF725A7270300E480F4 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0E2542D9BA0072F6BA /* LocationProvider.swift */; };
+		92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0E2542D9BA0072F6BA /* AppDrawerLocationProvider.swift */; };
 		92EDDBF825A7270300E480F4 /* AppDrawerTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A642542D9BB0072F6BA /* AppDrawerTheme.swift */; };
 		92EDDBF925A7270300E480F4 /* SetTOTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A522542D9BA0072F6BA /* SetTOTPResponse.swift */; };
 		92EDDBFA25A7270300E480F4 /* GetTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A542542D9BA0072F6BA /* GetTOTPData.swift */; };
@@ -569,6 +571,7 @@
 		3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeTests.swift; sourceTree = "<group>"; };
 		3B8B02EC255C1D780020A6FA /* JWTToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTToken.swift; sourceTree = "<group>"; };
 		3B8B02F4255C228E0020A6FA /* JWTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTests.swift; sourceTree = "<group>"; };
+		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
 		3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		3B970A002542D9B90072F6BA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3B970A012542D9B90072F6BA /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -582,7 +585,7 @@
 		3B970A0B2542D9BA0072F6BA /* NavigationTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTitleView.swift; sourceTree = "<group>"; };
 		3B970A0C2542D9BA0072F6BA /* AppWebViewInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebViewInterceptor.swift; sourceTree = "<group>"; };
 		3B970A0D2542D9BA0072F6BA /* AppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
-		3B970A0E2542D9BA0072F6BA /* LocationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
+		3B970A0E2542D9BA0072F6BA /* AppDrawerLocationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDrawerLocationProvider.swift; sourceTree = "<group>"; };
 		3B970A0F2542D9BA0072F6BA /* App+2FA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "App+2FA.swift"; sourceTree = "<group>"; };
 		3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebViewDelegate.swift; sourceTree = "<group>"; };
 		3B970A122542D9BA0072F6BA /* AppDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDrawer.swift; sourceTree = "<group>"; };
@@ -1008,13 +1011,14 @@
 			isa = PBXGroup;
 			children = (
 				3B970A0A2542D9BA0072F6BA /* App.swift */,
+				3B970A0E2542D9BA0072F6BA /* AppDrawerLocationProvider.swift */,
 				3B970A0D2542D9BA0072F6BA /* AppManager.swift */,
 				3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */,
 				3B970A0C2542D9BA0072F6BA /* AppWebViewInterceptor.swift */,
 				3B970A0F2542D9BA0072F6BA /* App+2FA.swift */,
-				3B970A0E2542D9BA0072F6BA /* LocationProvider.swift */,
 				3B970A0B2542D9BA0072F6BA /* NavigationTitleView.swift */,
 				92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */,
+				3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */,
 			);
 			path = AppManagement;
 			sourceTree = "<group>";
@@ -2146,6 +2150,7 @@
 				3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */,
 				84947A36256E6D4500788AF4 /* PCCommonLatLong.swift in Sources */,
 				927111522573B295001D6DDA /* HttpHeaderFields.swift in Sources */,
+				3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */,
 				84947A2F256E6D4500788AF4 /* PCGasStations.swift in Sources */,
 				84947A5C256E6D4500788AF4 /* GetSubscriptions.swift in Sources */,
 				3B970AA62542D9BB0072F6BA /* SetTOTPResponse.swift in Sources */,
@@ -2193,7 +2198,7 @@
 				3BC9A80C2539DDAD00B933AE /* Address.swift in Sources */,
 				3B970A922542D9BB0072F6BA /* Settings.swift in Sources */,
 				3BC9A7FC2539DDAD00B933AE /* GasStationApiResponse.swift in Sources */,
-				3B970A732542D9BB0072F6BA /* LocationProvider.swift in Sources */,
+				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
 				84947A7A256E6D4500788AF4 /* Coding.swift in Sources */,
 				3BC9A7FF2539DDAD00B933AE /* PriceHistoryResponse.swift in Sources */,
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
@@ -2343,7 +2348,7 @@
 				92EDDBF125A7270300E480F4 /* PaymentConfirmationData.swift in Sources */,
 				92EDDC6825A736D100E480F4 /* AppWebViewInterceptor+Slim.swift in Sources */,
 				92EDDCE125A7388900E480F4 /* APIResponse.swift in Sources */,
-				92EDDBF725A7270300E480F4 /* LocationProvider.swift in Sources */,
+				92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */,
 				92EDDD5525A7395A00E480F4 /* GetPoi.swift in Sources */,
 				92EDDC2725A7270300E480F4 /* UIImageView+Extension.swift in Sources */,
 				92EDDC1125A7270300E480F4 /* AppWindow.swift in Sources */,
@@ -2416,6 +2421,7 @@
 				92EDDBFA25A7270300E480F4 /* GetTOTPData.swift in Sources */,
 				92EDDC9C25A7384200E480F4 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				92EDDD1625A7390D00E480F4 /* Route.swift in Sources */,
+				3BB918E525B02AF700E83EDD /* OneTimeLocationProvider.swift in Sources */,
 				92EDDC1A25A7270300E480F4 /* BiometryAvailabilityData.swift in Sources */,
 				92EDDD4C25A7395400E480F4 /* GetAppRedirect.swift in Sources */,
 				92EDDC1725A7270300E480F4 /* Dictionary+Extension.swift in Sources */,

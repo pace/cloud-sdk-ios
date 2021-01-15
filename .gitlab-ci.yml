@@ -79,6 +79,18 @@ after_script:
     refs:
       - merge_requests
 
+### Build
+.review:
+  extends: .xcode_version
+  stage: build
+  script:
+    - xcodebuild -scheme $TARGET_SCHEME -sdk iphonesimulator
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /WIP/
+
 .xcframework: &xcframework
   script:
     - bundle exec fastlane set_version version_number:$TAG_NAME
@@ -111,12 +123,18 @@ pacecloudsdk_unit_tests:
 
 ## Build framework
 framework_review:
-  extends: .xcode_version
+  extends: .review
   stage: build
-  <<: *xcframework
-  only:
-    - merge_requests
+  variables:
+    TARGET_SCHEME: "PACECloudSDK"
 
+framework_slim_review:
+  extends: .review
+  stage: build
+  variables:
+    TARGET_SCHEME: "PACECloudSlimSDK"
+
+## Build xcframework
 framework_release_build:
   extends: .xcode_version
   stage: build

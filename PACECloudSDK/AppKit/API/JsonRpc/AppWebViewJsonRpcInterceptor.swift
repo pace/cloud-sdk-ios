@@ -14,6 +14,7 @@ class AppWebViewJsonRpcInterceptor {
         case imageData = "pace_imageData"
         case applePayAvailabilityCheck = "pace_applePayAvailabilityCheck"
         case applePayRequest = "pace_applePayRequest"
+        case verifyLocation = "pace_verifyLocation"
     }
 
     private weak var app: App?
@@ -37,6 +38,9 @@ class AppWebViewJsonRpcInterceptor {
 
         case JsonRpcHandler.applePayRequest.rawValue:
             app.handleApplePayPaymentRequest(with: message)
+
+        case JsonRpcHandler.verifyLocation.rawValue:
+            app.handleVerifyLocationRequest(with: message)
 
         default:
             send(error: buildErrorObject(code: JsonRpcErrorObjects.methodNotFound.code, message: JsonRpcErrorObjects.methodNotFound.message))
