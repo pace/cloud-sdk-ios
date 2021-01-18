@@ -231,13 +231,13 @@ extension App {
         let currentAuthStatus = CLLocationManager.authorizationStatus()
 
         guard !(currentAuthStatus == .denied || currentAuthStatus == .notDetermined) else {
-            passVerificationToClient(locationToVerify: locationToVerify)
+            passVerificationToClient(locationToVerify: locationToVerify, threshold: threshold)
             return
         }
 
         oneTimeLocationProvider.requestLocation { [weak self] userLocation in
             guard let userLocation = userLocation else {
-                self?.passVerificationToClient(locationToVerify: locationToVerify)
+                self?.passVerificationToClient(locationToVerify: locationToVerify, threshold: threshold)
                 return
             }
 
@@ -245,8 +245,8 @@ extension App {
         }
     }
 
-    private func passVerificationToClient(locationToVerify: CLLocation) {
-        AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify) { [weak self] isInRange in
+    private func passVerificationToClient(locationToVerify: CLLocation, threshold: Double) {
+        AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold) { [weak self] isInRange in
             self?.jsonRpcInterceptor?.respond(result: isInRange ? "true" : "false")
         }
     }
