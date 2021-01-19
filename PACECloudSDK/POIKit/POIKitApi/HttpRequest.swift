@@ -64,19 +64,21 @@ class HttpRequest: NSObject, HttpRequestProtocol {
     let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
     var accessToken: String?
 
-    let client: APIClient = .default
+    let client: APIClient = .custom
 
     // MARK: - Initialize
     init(session: URLSessionProtocol? = nil) {
         super.init()
 
-        if let session = session {
+        if let session = session as? URLSession {
+            session.configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = session
         } else {
             let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForRequest = POIKitConfig.connectTimeout
             configuration.timeoutIntervalForResource = POIKitConfig.readTimeout
             configuration.httpAdditionalHeaders = ["User-Agent": userAgent]
+            configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
             client.defaultHeaders = ["User-Agent": userAgent,
                                      HttpHeaderFields.apiKey.rawValue: PACECloudSDK.shared.apiKey ?? "Missing API key"]

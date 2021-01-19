@@ -20,7 +20,11 @@ public class PACECloudSDK {
     var initialAccessToken: String?
     var currentAccessToken: String?
 
-    private init() {}
+    public var additionalQueryParams: Set<URLQueryItem>?
+
+    private init() {
+        URLSession.shared.configuration.protocolClasses = [CustomURLProtocol.self]
+    }
 
     public func setup(with config: Configuration) {
         self.clientId = config.clientId
@@ -32,6 +36,7 @@ public class PACECloudSDK {
         self.configValues = config.configValues
 
         AppKit.shared.setup(configValues: config.configValues)
+        URLProtocol.registerClass(CustomURLProtocol.self)
     }
 
     public func extendUserAgent(with extensions: [String]) {

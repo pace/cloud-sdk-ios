@@ -33,8 +33,15 @@ extension App {
             AppKit.shared.notifyDidFail(with: .failedRetrievingUrl)
             return
         }
-        let urlRequest = URLRequest(url: url)
-        load(urlRequest, with: cookies)
+
+        // Add additional query parameter to request, if applicable
+        guard let utmUrl = QueryParamHandler.buildUrl(for: url) else {
+            AppKitLogger.e("[App] Can't load component url")
+            AppKit.shared.notifyDidFail(with: .failedRetrievingUrl)
+            return
+        }
+
+        load(URLRequest(url: utmUrl), with: cookies)
     }
 
     func loadUrlForVerifiedHost(urlString: String, host: String) {
