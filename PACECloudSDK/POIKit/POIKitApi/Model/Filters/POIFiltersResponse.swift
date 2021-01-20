@@ -29,7 +29,7 @@ public extension POIKit {
             self.filterGroups = filterGroups
         }
 
-        init(with categories: PCCategories) {
+        init(with categories: PCPOICategories) {
             var filterGroups: [String: [String: Bool]] = [:]
             categories.forEach {
                 var filters: [String: Bool] = [:]

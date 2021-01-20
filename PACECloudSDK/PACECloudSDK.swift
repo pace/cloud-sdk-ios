@@ -37,6 +37,8 @@ public class PACECloudSDK {
 
         AppKit.shared.setup(configValues: config.configValues)
         URLProtocol.registerClass(CustomURLProtocol.self)
+        API.POI.client.baseURL = Settings.shared.baseUrl(.poiApi)
+        API.Pay.client.baseURL = Settings.shared.baseUrl(.payApi)
     }
 
     public func extendUserAgent(with extensions: [String]) {

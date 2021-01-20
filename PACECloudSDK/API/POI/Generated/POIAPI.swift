@@ -5,23 +5,15 @@
 
 import Foundation
 
-/** POI API
-# Authentication
-<!-- ReDoc-Inject: <security-definitions> --> */
+/** POI API */
 public struct POIAPI {
-
-    /// Whether to discard any errors when decoding optional properties
-    public static var safeOptionalDecoding = false
-
-    /// Whether to remove invalid elements instead of throwing when decoding arrays
-    public static var safeArrayDecoding = false
 
     /// Used to encode Dates when uses as string params
     public static var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ssZZZZZ",
                                                             locale: Locale(identifier: "en_US_POSIX"),
                                                             calendar: Calendar(identifier: .gregorian))
 
-    public static let version = "0.0.1"
+    public static let version = "2020-4"
 
     public enum Admin {}
     public enum Apps {}
@@ -38,8 +30,13 @@ public struct POIAPI {
     public enum Subscriptions {}
     public enum Tiles {}
 
-    public enum Server {
-
-        public static let main = "https://api.pace.cloud/poi"
+    public enum POIAPIServer {
+        /** Production server (stable release 2020-4) **/
+        public static let main = "https://api.pace.cloud/poi/2020-4"
+        /** Production server (deprecated) **/
+        public static let server2 = "https://api.pace.cloud/poi/beta"
+        /** Production server (retired) **/
+        public static let server3 = "https://api.pace.cloud/poi/v1"
     }
 }
+

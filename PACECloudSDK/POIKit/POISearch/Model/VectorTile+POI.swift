@@ -58,7 +58,7 @@ extension VectorTile_Tile {
 
         if let paymentMethods = values["pm"] {
             let splittedResponse = splitResponse(for: paymentMethods)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCPaymentMethods(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIPaymentMethods(rawValue: $0) }
             gasStation.attributes?.paymentMethods = wrapped
         }
 
@@ -72,37 +72,37 @@ extension VectorTile_Tile {
 
         if let amenities = values["am"] {
             let splittedResponse = splitResponse(for: amenities)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCAmenities(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIAmenities(rawValue: $0) }
             gasStation.attributes?.amenities = wrapped
         }
 
         if let foods = values["fd"] {
             let splittedResponse = splitResponse(for: foods)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCFood(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIFood(rawValue: $0) }
             gasStation.attributes?.food = wrapped
         }
 
         if let loyalityPrograms = values["lp"] {
             let splittedResponse = splitResponse(for: loyalityPrograms)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCLoyaltyPrograms(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOILoyaltyPrograms(rawValue: $0) }
             gasStation.attributes?.loyaltyPrograms = wrapped
         }
 
         if let postService = values["ps"] {
             let splittedResponse = splitResponse(for: postService)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCPostalServices(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIPostalServices(rawValue: $0) }
             gasStation.attributes?.postalServices = wrapped
         }
 
         if let services = values["sv"] {
             let splittedResponse = splitResponse(for: services)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCServices(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIServices(rawValue: $0) }
             gasStation.attributes?.services = wrapped
         }
 
         if let shop = values["sg"] {
             let splittedResponse = splitResponse(for: shop)
-            let wrapped = splittedResponse.compactMap { PCGasStation.Attributes.PCShopGoods(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIShopGoods(rawValue: $0) }
             gasStation.attributes?.shopGoods =  wrapped
         }
         
@@ -136,34 +136,34 @@ extension VectorTile_Tile {
         gasStation.attributes?.openingHours = loadOpeningHours(from: values)
     }
 
-    private func loadOpeningHours(from values: [String]) -> PCCommonOpeningHours {
-        var rules: [PCCommonOpeningHours.Rules] = []
+    private func loadOpeningHours(from values: [String]) -> PCPOICommonOpeningHours {
+        var rules: [PCPOICommonOpeningHours.Rules] = []
 
         values.forEach {
             let components = dictionary(from: $0)
 
-            var days: [PCCommonOpeningHours.Rules.PCDays] = []
-            var timespans: [PCCommonOpeningHours.Rules.Timespans] = []
+            var days: [PCPOICommonOpeningHours.Rules.PCPOIDays] = []
+            var timespans: [PCPOICommonOpeningHours.Rules.Timespans] = []
 
             if let unwrapped = components["ds"] {
                 days = unwrapped
                     .split(separator: ",")
-                    .compactMap { PCCommonOpeningHours.Rules.PCDays(rawValue: String($0)) }
+                    .compactMap { PCPOICommonOpeningHours.Rules.PCPOIDays(rawValue: String($0)) }
             }
             if let unwrapped = components["hr"] {
                 let tmpHours = unwrapped.split(separator: ",").map { String($0) }
                 timespans = tmpHours.compactMap {
                     let hourComponents = $0.split(separator: "-").map { String($0) }
 
-                    return hourComponents.count == 2 ? PCCommonOpeningHours.Rules.Timespans(from: hourComponents[0], to: hourComponents[1]) : nil
+                    return hourComponents.count == 2 ? PCPOICommonOpeningHours.Rules.Timespans(from: hourComponents[0], to: hourComponents[1]) : nil
                 }
             }
-            let ruleAction = PCCommonOpeningHours.Rules.PCAction(rawValue: components["rl"] ?? "")
-            let rule = PCCommonOpeningHours.Rules(action: ruleAction, days: days, timespans: timespans)
+            let ruleAction = PCPOICommonOpeningHours.Rules.PCPOIAction(rawValue: components["rl"] ?? "")
+            let rule = PCPOICommonOpeningHours.Rules(action: ruleAction, days: days, timespans: timespans)
             rules.append(rule)
         }
 
-        let openingHours = PCCommonOpeningHours(rules: rules)
+        let openingHours = PCPOICommonOpeningHours(rules: rules)
         return openingHours
     }
 
@@ -182,8 +182,8 @@ extension VectorTile_Tile {
                 price = Double(unwrapped)
             }
 
-            let fuel = PCFuel(rawValue: productType)
-            let fuelPrice = PCFuelPrice(attributes: .init(fuelType: fuel, price: price, productName: name), type: .fuelPrice)
+            let fuel = PCPOIFuel(rawValue: productType)
+            let fuelPrice = PCPOIFuelPrice(attributes: .init(fuelType: fuel, price: price, productName: name), type: .fuelPrice)
             return fuelPrice
         }
     }
@@ -199,9 +199,9 @@ extension VectorTile_Tile {
         return dictionary
     }
 
-    private func loadAddress(from string: String) -> PCGasStation.Attributes.Address {
+    private func loadAddress(from string: String) -> PCPOIGasStation.Attributes.Address {
         let addressEntries = dictionary(from: string)
-        return PCGasStation.Attributes.Address(city: addressEntries["l"],
+        return PCPOIGasStation.Attributes.Address(city: addressEntries["l"],
                                              countryCode: addressEntries["c"],
                                              houseNo: addressEntries["hn"],
                                              postalCode: addressEntries["pc"],

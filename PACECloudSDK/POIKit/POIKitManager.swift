@@ -174,7 +174,7 @@ public extension POIKit {
          - parameter from: Desired start date of prices (needs to be in )
          - parameter result: Result block called with either the response or an error message.
          */
-        public func getPriceHistory(for id: String, fuelType: String, from: String, to: String, result: @escaping (Result<PCPriceHistory, Error>) -> Void) {
+        public func getPriceHistory(for id: String, fuelType: String, from: String, to: String, result: @escaping (Result<PCPOIPriceHistory, Error>) -> Void) {
             let request = PriceHistoryRequest(id: id, fuelType: fuelType, from: from, to: to)
             api.priceHistory(request, result: result)
         }

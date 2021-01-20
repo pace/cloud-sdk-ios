@@ -12,7 +12,7 @@ extension POIKitAPI {
     func regionalPrice(_ request: RegionalPriceRequest,
                        result: @escaping (Result<POIKit.RegionalPricesResponse, Error>) -> Void) {
         let apiRequest = POIAPI.Prices.GetRegionalPrices.Request(options: request.options)
-        self.request.client.makeRequest(apiRequest) { apiResult in
+        API.POI.client.makeRequest(apiRequest) { apiResult in
             switch apiResult.result {
             case .success(let response):
                 guard response.statusCode == POIKitHTTPReturnCode.STATUS_OK,
@@ -30,9 +30,9 @@ extension POIKitAPI {
     }
 
     func priceHistory(_ request: PriceHistoryRequest,
-                      result: @escaping (Result<PCPriceHistory, Error>) -> Void) {
+                      result: @escaping (Result<PCPOIPriceHistory, Error>) -> Void) {
         let apiRequest = POIAPI.PriceHistories.GetPriceHistory.Request(options: request.options)
-        self.request.client.makeRequest(apiRequest) { apiResult in
+        API.POI.client.makeRequest(apiRequest) { apiResult in
             switch apiResult.result {
             case .success(let response):
                 guard response.statusCode == POIKitHTTPReturnCode.STATUS_OK,

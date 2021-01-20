@@ -13,7 +13,7 @@ extension POIKitAPI {
     func filters(_ request: POIFiltersRequest,
                  result: @escaping (Result<POIFiltersResponse, Error>) -> Void) {
         let filterRequest = POIAPI.MetadataFilters.GetMetadataFilters.Request(options: request.options)
-        self.request.client.makeRequest(filterRequest) { apiResult in
+        API.POI.client.makeRequest(filterRequest) { apiResult in
             switch apiResult.result {
             case .success(let response):
                 guard response.statusCode == POIKitHTTPReturnCode.STATUS_OK,

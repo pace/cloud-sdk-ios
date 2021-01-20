@@ -14,9 +14,9 @@ extension POIAPI.GasStations {
     */
     public enum GetGasStation {
 
-        public static let service = APIService<Response>(id: "GetGasStation", tag: "Gas Stations", method: "GET", path: "/beta/gas-stations/{id}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"])])
+        public static var service = POIAPIService<Response>(id: "GetGasStation", tag: "Gas Stations", method: "GET", path: "/gas-stations/{id}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"])])
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
@@ -64,11 +64,11 @@ extension POIAPI.GasStations {
              */
             public class Status200: APIModel {
 
-                public var data: PCGasStation?
+                public var data: PCPOIGasStation?
 
-                public var included: [Poly3<PCFuelPrice,PCLocationBasedApp,PCReferenceStatus>]?
+                public var included: [Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>]?
 
-                public init(data: PCGasStation? = nil, included: [Poly3<PCFuelPrice,PCLocationBasedApp,PCReferenceStatus>]? = nil) {
+                public init(data: PCPOIGasStation? = nil, included: [Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>]? = nil) {
                     self.data = data
                     self.included = included
                 }
@@ -107,19 +107,19 @@ extension POIAPI.GasStations {
             case status301
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
             /** Resource not found */
-            case status404(PCErrors)
+            case status404(PCPOIErrors)
 
-            /** The specified Accept header is not valid */
-            case status406(PCErrors)
+            /** The specified accept header is invalid */
+            case status406(PCPOIErrors)
 
             /** Resource is expired */
-            case status410(PCErrors)
+            case status410(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: Status200? {
                 switch self {
@@ -128,7 +128,7 @@ extension POIAPI.GasStations {
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status401(let response): return response
                 case .status404(let response): return response
@@ -140,7 +140,7 @@ extension POIAPI.GasStations {
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<Status200, PCErrors> {
+            public var responseResult: APIResponseResult<Status200, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -190,11 +190,11 @@ extension POIAPI.GasStations {
                 switch statusCode {
                 case 200: self = try .status200(decoder.decode(Status200.self, from: data))
                 case 301: self = .status301
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 404: self = try .status404(decoder.decode(PCErrors.self, from: data))
-                case 406: self = try .status406(decoder.decode(PCErrors.self, from: data))
-                case 410: self = try .status410(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 404: self = try .status404(decoder.decode(PCPOIErrors.self, from: data))
+                case 406: self = try .status406(decoder.decode(PCPOIErrors.self, from: data))
+                case 410: self = try .status410(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

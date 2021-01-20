@@ -15,9 +15,9 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
     */
     public enum GetApp {
 
-        public static let service = APIService<Response>(id: "GetApp", tag: "Apps", method: "GET", path: "/beta/apps/{appID}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:apps:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:apps:read"])])
+        public static var service = POIAPIService<Response>(id: "GetApp", tag: "Apps", method: "GET", path: "/apps/{appID}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:apps:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:apps:read"])])
 
-        public final class Request: APIRequest<Response> {
+        public final class Request: POIAPIRequest<Response> {
 
             public struct Options {
 
@@ -54,9 +54,9 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
              */
             public class Status200: APIModel {
 
-                public var data: PCLocationBasedApp?
+                public var data: PCPOILocationBasedApp?
 
-                public init(data: PCLocationBasedApp? = nil) {
+                public init(data: PCPOILocationBasedApp? = nil) {
                     self.data = data
                 }
 
@@ -87,21 +87,20 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
             /** OK */
             case status200(Status200)
 
-            /** The server cannot or will not process the request due to an apparent client error
- */
-            case status400(PCErrors)
+            /** Bad request */
+            case status400(PCPOIErrors)
 
             /** OAuth token missing or invalid */
-            case status401(PCErrors)
+            case status401(PCPOIErrors)
 
             /** Resource not found */
-            case status404(PCErrors)
+            case status404(PCPOIErrors)
 
-            /** The specified Accept header is not valid */
-            case status406(PCErrors)
+            /** The specified accept header is invalid */
+            case status406(PCPOIErrors)
 
-            /** A generic error message, given when an unexpected condition was encountered and no more specific message is suitable. */
-            case status500(PCErrors)
+            /** Internal server error */
+            case status500(PCPOIErrors)
 
             public var success: Status200? {
                 switch self {
@@ -110,7 +109,7 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
                 }
             }
 
-            public var failure: PCErrors? {
+            public var failure: PCPOIErrors? {
                 switch self {
                 case .status400(let response): return response
                 case .status401(let response): return response
@@ -122,7 +121,7 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
             }
 
             /// either success or failure value. Success is anything in the 200..<300 status code range
-            public var responseResult: APIResponseResult<Status200, PCErrors> {
+            public var responseResult: APIResponseResult<Status200, PCPOIErrors> {
                 if let successValue = success {
                     return .success(successValue)
                 } else if let failureValue = failure {
@@ -168,11 +167,11 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
                 case 200: self = try .status200(decoder.decode(Status200.self, from: data))
-                case 400: self = try .status400(decoder.decode(PCErrors.self, from: data))
-                case 401: self = try .status401(decoder.decode(PCErrors.self, from: data))
-                case 404: self = try .status404(decoder.decode(PCErrors.self, from: data))
-                case 406: self = try .status406(decoder.decode(PCErrors.self, from: data))
-                case 500: self = try .status500(decoder.decode(PCErrors.self, from: data))
+                case 400: self = try .status400(decoder.decode(PCPOIErrors.self, from: data))
+                case 401: self = try .status401(decoder.decode(PCPOIErrors.self, from: data))
+                case 404: self = try .status404(decoder.decode(PCPOIErrors.self, from: data))
+                case 406: self = try .status406(decoder.decode(PCPOIErrors.self, from: data))
+                case 500: self = try .status500(decoder.decode(PCPOIErrors.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }

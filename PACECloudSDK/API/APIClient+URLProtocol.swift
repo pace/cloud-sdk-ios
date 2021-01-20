@@ -7,12 +7,12 @@
 
 import Foundation
 
-public extension APIClient {
+public extension POIAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
         let config: URLSessionConfiguration = .default
         config.protocolClasses = [CustomURLProtocol.self]
         return config
     }
 
-    static var custom = APIClient(baseURL: POIAPI.Server.main, configuration: urlConfiguration)
+    static var custom = POIAPIClient(baseURL: POIAPIClient.default.baseURL, configuration: urlConfiguration)
 }
