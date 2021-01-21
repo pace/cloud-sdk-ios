@@ -306,7 +306,7 @@ extension DateDay {
 
 extension Date {
     func encode() -> Any {
-        var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ssZZZZZ",
+        var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ss'Z'",
                                                                 locale: Locale(identifier: "en_US_POSIX"),
                                                                 calendar: Calendar(identifier: .gregorian))
         return dateEncodingFormatter.string(from: self)
