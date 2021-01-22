@@ -56,5 +56,4 @@ Package.pins
 ehthumbs.db
 Thumbs.db
 
-# Documentation
-docs/
+generated/
