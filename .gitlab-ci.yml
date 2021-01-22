@@ -162,7 +162,7 @@ documentation:
   stage: build
   script:
     - jazzy
-    - zip -r ios-pace-cloud-sdk-$TAG_NAME.zip docs/*
+    - zip -r ios-pace-cloud-sdk-$TAG_NAME.zip generated/docs/*
   only:
     - tags
   artifacts:
