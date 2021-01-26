@@ -16,7 +16,6 @@ enum URLParam: String {
     case mileage
     case expectedAmount = "expected_amount"
     case fuelType = "fuel_type"
-    case utmPartnerClient = "utm_partner_client"
 
     case accessToken = "access_token"
 
