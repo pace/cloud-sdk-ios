@@ -18,7 +18,6 @@ public extension AppKit {
 
         var appWindow: AppWindow?
         var appViewController: AppViewController?
-        var reopenUrl: String?
 
         private var didLayoutSubviews = false
 

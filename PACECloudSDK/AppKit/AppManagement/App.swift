@@ -16,12 +16,8 @@ protocol App: WKWebView, WKScriptMessageHandler, SecureDataCommunication {
     var loadingView: LoadingView { get }
     var successfullyLoadedOnce: Bool { get set }
     var webViewDelegate: AppWebViewDelegate? { get }
-    var interceptor: AppWebViewInterceptor? { get }
     var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor? { get }
     var appActionsDelegate: AppActionsDelegate? { get set }
-    var appSecureCommunicationDelegate: AppSecureCommunicationDelegate? { get set }
-    var paymentDelegate: AppPaymentDelegate? { get set }
-    var reopenData: ReopenData? { get set }
     var oneTimeLocationProvider: OneTimeLocationProvider { get }
 }
 
@@ -44,19 +40,6 @@ extension App {
         load(URLRequest(url: utmUrl), with: cookies)
     }
 
-    func loadUrlForVerifiedHost(urlString: String, host: String) {
-        DispatchQueue.main.async {
-            guard self.url?.host == host else {
-                AppKitLogger.e("[App] Can't load URL, because host mismatch.")
-                AppKit.shared.notifyDidFail(with: .failedRetrievingUrl)
-
-                return
-            }
-
-            self.loadUrl(urlString: urlString)
-        }
-    }
-
     func load(_ request: URLRequest, with cookies: [HTTPCookie]) {
         var request = request
         let headers = HTTPCookie.requestHeaderFields(with: cookies)
@@ -73,10 +56,11 @@ extension App {
         loadingView.isLoading = false
         loadingView.isHidden = true
     }
+}
 
-    func handleCloseAction(query: String?) {
-        reopenData = ReopenData(from: query ?? "")
-
+// MARK: - Message handling
+extension App {
+    func handleCloseAction(with message: WKScriptMessage) {
         guard let appActionsDelegate = appActionsDelegate else {
             // WebView directly added to client's view
             self.removeFromSuperview()
@@ -87,23 +71,27 @@ extension App {
         appActionsDelegate.appRequestedCloseAction() // Close AppViewController if available
     }
 
-    func handlePaymentAction(query: String) {
-        guard let paymentConfirmationData = PaymentConfirmationData(from: query) else {
-            AppKit.shared.notifyDidFail(with: .paymentError)
+    func handleDisableAction(with message: WKScriptMessage) {
+        guard let body = message.body as? String,
+              let host = message.frameInfo.request.url?.host else {
+            jsonRpcInterceptor?.send(error: .badRequest)
             return
         }
 
-        self.paymentDelegate?.showPaymentConfirmation(with: paymentConfirmationData)
-    }
+        var disableMessageData: [String: AnyHashable]?
 
-    func provideReopenData() -> ReopenData? {
-        return reopenData
-    }
+        do {
+            disableMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
 
-    func handleDisableAction(query: String, host: String) {
-        let queryItems = URLDecomposer.decomposeQuery(query)
+        } catch {
+            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            return
+        }
 
-        guard let untilString = queryItems[URLParam.until.rawValue], let untilTime = Double(untilString) else { return }
+        guard let untilTime = disableMessageData?[MessageHandlerParam.until.rawValue] as? Double else {
+            jsonRpcInterceptor?.send(error: .badRequest)
+            return
+        }
 
         // Persist disable's until date
         AppKitLogger.i("[App] Set disable timer for \(host): \(untilTime)")
@@ -120,16 +108,30 @@ extension App {
         appActionsDelegate.appRequestedDisableAction(for: host)
     }
 
-    func handleOpenURLInNewTabAction(query: String, sourceUrl: URL) {
-        let queryItems = URLDecomposer.decomposeQuery(query)
+    func handleOpenURLInNewTabAction(with message: WKScriptMessage) {
+        guard let body = message.body as? String,
+              let sourceUrl = message.frameInfo.request.url else {
+            jsonRpcInterceptor?.send(error: .badRequest)
+            return
+        }
 
         guard let appActionsDelegate = appActionsDelegate else { return }
 
-        guard let url: String = queryItems["url"], let cancelUrlString: String = queryItems["cancel_url"], let cancelUrl = URL(string: cancelUrlString) else {
+        var openInTabMessageData: [String: String]?
+
+        do {
+            openInTabMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
+        } catch {
+            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            return
+        }
+
+        guard let url: String = openInTabMessageData?[MessageHandlerParam.url.rawValue],
+              let cancelUrlString: String = openInTabMessageData?[MessageHandlerParam.cancelUrl.rawValue],
+              let cancelUrl = URL(string: cancelUrlString) else {
+            jsonRpcInterceptor?.send(error: .badRequest)
             AppKit.shared.notifyDidFail(with: .badRequest)
-
             load(URLRequest(url: sourceUrl))
-
             return
         }
 
@@ -149,10 +151,7 @@ extension App {
             load(URLRequest(url: cancelUrl))
         }
     }
-}
 
-// MARK: - Rpc
-extension App {
     func handleInvalidTokenRequest() {
         guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
@@ -170,6 +169,7 @@ extension App {
               let decodedData = Data(base64Encoded: imageString),
               let image = UIImage(data: decodedData) else {
             AppKitLogger.e("[App] Could not decode base64 string")
+            jsonRpcInterceptor?.send(error: .badRequest)
             return
         }
 
@@ -188,33 +188,33 @@ extension App {
     }
 
     func handleApplePayAvailibilityCheck(with message: WKScriptMessage) {
-        guard let message = message.body as? String else {
-            jsonRpcInterceptor?.send(error: ["error": "Bad request"])
+        guard let body = message.body as? String else {
+            jsonRpcInterceptor?.send(error: .badRequest)
             return
         }
 
         // Apple Pay Web is using a slightly different naming for their PKPaymentNetworks,
         // hence why we need to uppercase the first letter
-        let networks: [PKPaymentNetwork] = message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
+        let networks: [PKPaymentNetwork] = body.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
         let result = PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
 
         jsonRpcInterceptor?.respond(result: result ? "true" : "false")
     }
 
     func handleApplePayPaymentRequest(with message: WKScriptMessage) {
-        guard let message = message.body as? String else {
-            jsonRpcInterceptor?.send(error: ["error": "Bad request"])
+        guard let body = message.body as? String else {
+            jsonRpcInterceptor?.send(error: .badRequest)
             return
         }
 
         do {
-            let request = try JSONDecoder().decode(AppKit.ApplePayRequest.self, from: Data(message.utf8))
+            let request = try JSONDecoder().decode(AppKit.ApplePayRequest.self, from: Data(body.utf8))
 
             AppKit.shared.notifyApplePayData(with: request) { [weak self] response in
                 self?.jsonRpcInterceptor?.respond(result: response)
             }
         } catch {
-            jsonRpcInterceptor?.send(error: ["error": "error.localizedDescription"])
+            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
         }
     }
 }
@@ -222,15 +222,24 @@ extension App {
 // MARK: - Location verification
 extension App {
     func handleVerifyLocationRequest(with message: WKScriptMessage) {
-        guard let message = message.body as? [String: String],
-              let latString = message["lat"],
-              let lonString = message["lon"],
-              let thresholdString = message["threshold"],
-              let lat = Double(latString),
-              let lon = Double(lonString),
-              let threshold = Double(thresholdString)
-        else {
-            jsonRpcInterceptor?.send(error: ["error": "Bad request"])
+        guard let body = message.body as? String else {
+            jsonRpcInterceptor?.send(error: .badRequest)
+            return
+        }
+
+        var verifyLocationMessageData: [String: AnyHashable]?
+
+        do {
+            verifyLocationMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
+        } catch {
+            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            return
+        }
+
+        guard let lat = verifyLocationMessageData?[MessageHandlerParam.lat.rawValue] as? Double,
+              let lon = verifyLocationMessageData?[MessageHandlerParam.lon.rawValue] as? Double,
+              let threshold = verifyLocationMessageData?[MessageHandlerParam.threshold.rawValue] as? Double else {
+            jsonRpcInterceptor?.send(error: .badRequest)
             return
         }
 

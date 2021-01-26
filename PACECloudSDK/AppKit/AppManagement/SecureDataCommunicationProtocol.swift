@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import WebKit
 
 protocol SecureDataCommunication {
-    func handleBiometryAvailbilityRequest(query: String, host: String)
-    func setTOTPSecret(query: String, host: String)
-    func getTOTP(query: String, host: String)
-    func setSecureData(query: String, host: String)
-    func getSecureData(query: String, host: String)
+    func handleBiometryAvailbilityRequest()
+    func setTOTPSecret(with message: WKScriptMessage)
+    func getTOTP(with message: WKScriptMessage)
+    func setSecureData(with message: WKScriptMessage)
+    func getSecureData(with message: WKScriptMessage)
 }

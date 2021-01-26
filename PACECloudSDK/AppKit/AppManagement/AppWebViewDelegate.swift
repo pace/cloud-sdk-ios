@@ -12,8 +12,6 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
 
     private weak var app: App?
 
-    private let appCustomUrlScheme = "pacepwasdk"
-
     init(app: App) {
         self.app = app
     }
@@ -21,12 +19,6 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         guard let url = navigationAction.request.url else {
             decisionHandler(.cancel)
-            return
-        }
-
-        if url.scheme ?? "" == appCustomUrlScheme {
-            app?.interceptor?.intercept(url, sourceUrl: navigationAction.sourceFrame.request.url)
-            decisionHandler(.allow)
             return
         }
 

@@ -8,18 +8,6 @@
 import UIKit
 import WebKit
 
-protocol AppPaymentDelegate: AnyObject {
-    func showPaymentConfirmation(with paymentConfirmationData: PaymentConfirmationData)
-}
-
-protocol AppSecureCommunicationDelegate: AnyObject {
-    func sendBiometryStatus(data: BiometryAvailabilityData)
-    func sendSetTOTPResponse(data: SetTOTPResponse)
-    func sendGetTOTPResponse(data: GetTOTPData)
-    func sendSetSecureDataResponse(data: SetSecureDataResponse)
-    func sendGetSecureDataResponse(data: GetSecureData)
-}
-
 protocol AppActionsDelegate: AnyObject {
     func appRequestedCloseAction()
     func appRequestedDisableAction(for host: String)
@@ -31,18 +19,14 @@ class AppWebView: WKWebView, App {
         return AppKitConstants.userAgent
     }
 
-    weak var paymentDelegate: AppPaymentDelegate?
     weak var appActionsDelegate: AppActionsDelegate?
-    weak var appSecureCommunicationDelegate: AppSecureCommunicationDelegate?
 
     private(set) var webViewDelegate: AppWebViewDelegate? // swiftlint:disable:this weak_delegate
-    private(set) var interceptor: AppWebViewInterceptor?
     private(set) var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor?
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     let appUrl: String?
     var successfullyLoadedOnce = false
-    var reopenData: ReopenData?
 
     lazy var loadingView: LoadingView = LoadingView()
     lazy var placeholder: NoNetworkPlaceholderView = {
@@ -93,7 +77,6 @@ class AppWebView: WKWebView, App {
         }
 
         webViewDelegate = AppWebViewDelegate(app: self)
-        interceptor = AppWebViewInterceptor(app: self)
         jsonRpcInterceptor = AppWebViewJsonRpcInterceptor(app: self)
 
         setupDesign()

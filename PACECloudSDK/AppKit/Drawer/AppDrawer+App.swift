@@ -49,12 +49,12 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
     }
 
     // MARK: - Called by AppViewController if closing was requested
-    func appViewControllerRequestsClosing(reopenData: ReopenData?) {
-        resetState(reopenData: reopenData)
+    func appViewControllerRequestsClosing() {
+        resetState()
     }
 
     func appViewControllerRequestsDisabling(host: String) {
-        resetState(reopenData: nil)
+        resetState()
         delegate?.didDisableApp(self, host: host)
     }
 
@@ -65,7 +65,7 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
     }
 
     private func initializeAppViewController() {
-        let url = reopenUrl == nil ? appData.appStartUrl : reopenUrl
+        let url = appData.appStartUrl
         appViewController = AppViewController(appUrl: url)
     }
 
@@ -75,10 +75,9 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
         }
     }
 
-    private func resetState(reopenData: ReopenData?) {
-        titleLabel.text = reopenData?.reopenTitle ?? appData.appManifest?.name
-        subtitleLabel.text = reopenData?.reopenSubtitle ?? appData.appManifest?.description
-        reopenUrl = URLBuilder.buildAppReopenUrl(for: reopenData) ?? appData.appStartUrl
+    private func resetState() {
+        titleLabel.text = appData.appManifest?.name
+        subtitleLabel.text = appData.appManifest?.description
 
         currentState = .expanded
         isSlidingLocked = false

@@ -8,12 +8,6 @@
 import Foundation
 
 enum URLParam: String {
-    case amount
-    case currency
-    case paymentMethod = "payment_method_name"
-    case paymentMethodKind = "payment_method_kind"
-    case purposeText = "purpose_text"
-    case recipient
     case redirectUri = "redirect_uri"
     case state
     case status = "status_code"
@@ -22,12 +16,7 @@ enum URLParam: String {
     case mileage
     case expectedAmount = "expected_amount"
     case fuelType = "fuel_type"
-    case until
     case utmPartnerClient = "utm_partner_client"
-
-    case reopenUrl = "reopen_url"
-    case reopenTitle = "reopen_title"
-    case reopenSubtitle = "reopen_subtitle"
 
     case accessToken = "access_token"
 
