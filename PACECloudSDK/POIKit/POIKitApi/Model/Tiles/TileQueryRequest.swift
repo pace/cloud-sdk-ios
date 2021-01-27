@@ -29,7 +29,7 @@ extension TileQueryRequest.AreaQuery {
         self.southWest = southWest
     }
 
-    var coveredTileInfo: [TileInformation] {
+    func coveredTileInfo(for zoomLevel: Int) -> [TileInformation] {
         let xMin = southWest.x
         let yMin = northEast.y
         let xMax = northEast.x
@@ -40,7 +40,7 @@ extension TileQueryRequest.AreaQuery {
 
         for x in (xMin...xMax) {
             for y in (yMin...yMax) {
-                result.append(TileInformation(zoomLevel: POIKitConfig.zoomLevel, x: Int(x), y: Int(y)))
+                result.append(TileInformation(zoomLevel: zoomLevel, x: Int(x), y: Int(y)))
             }
         }
         return result
@@ -55,10 +55,9 @@ extension TileQueryRequest.IndividualTileQuery {
         self.geo = TileQueryRequest.Coordinate(information: information)
     }
 
-    var tileInfo: TileInformation {
-        return TileInformation(zoomLevel: POIKitConfig.zoomLevel, x: Int(geo.x), y: Int(geo.y))
+    func tileInfo(for zoomLevel: Int) -> TileInformation {
+        return TileInformation(zoomLevel: zoomLevel, x: Int(geo.x), y: Int(geo.y))
     }
-
 }
 
 extension TileQueryRequest.Coordinate {

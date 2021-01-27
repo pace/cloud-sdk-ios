@@ -18,9 +18,6 @@ struct TileInformation: Equatable, Hashable {
     }
 
     var tileCount: Int {
-        if zoomLevel == POIKitConfig.zoomLevel {
-            return 65536
-        }
         return Int(pow(2.0, Double(zoomLevel)))
     }
 

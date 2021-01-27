@@ -14,7 +14,7 @@ public extension POIKit.BoundingBoxNotificationToken {
         isLoading.value = true
 
         // Build request from bounding box
-        let zoomLevel = POIKitConfig.zoomLevel
+        let zoomLevel = self.zoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
@@ -34,7 +34,9 @@ public extension POIKit.BoundingBoxNotificationToken {
             self?.isLoading.value = false
         }
 
-        refreshTime = Date()
+        POIKitLogger.i("Requesting pois for zoom level \(zoomLevel)")
+
+        super.refresh(notOlderThan: notOlderThan)
     }
 }
 
@@ -43,7 +45,7 @@ public extension POIKit.UUIDNotificationToken {
         // Build request from bounding box
         guard let delegate = POIKit.Database.shared.delegate else { return }
 
-        let zoomLevel = POIKitConfig.zoomLevel
+        let zoomLevel = POIKitConfig.maxZoomLevel
         let tiles = delegate
             .get(uuids: uuids)
             .filter {
@@ -68,7 +70,5 @@ public extension POIKit.UUIDNotificationToken {
                 self.api.save(tiles)
             }
         }
-
-        refreshTime = Date()
     }
 }
