@@ -14,9 +14,9 @@ public extension AppKit {
         private(set) public var subtitle: String?
         public let appApiUrl: String?
 
-        let metadata: [AppMetadata: AnyHashable]
+        public let metadata: [AppKit.AppMetadata: AnyHashable]
 
-        var appManifest: AppManifest? {
+        public var appManifest: AppManifest? {
             didSet {
                 guard let manifest = self.appManifest else { return }
                 self.title = manifest.name
@@ -26,7 +26,7 @@ public extension AppKit {
 
         var appStartUrl: String?
 
-        init(appID: String, title: String?, subtitle: String?, appUrl: String?, metadata: [AppMetadata: AnyHashable]) {
+        init(appID: String, title: String?, subtitle: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID
             self.title = title
             self.subtitle = subtitle
@@ -34,7 +34,7 @@ public extension AppKit {
             self.metadata = metadata
         }
 
-        init(appID: String, appUrl: String?, metadata: [AppMetadata: AnyHashable]) {
+        init(appID: String, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID
             self.appApiUrl = appUrl
             self.metadata = metadata

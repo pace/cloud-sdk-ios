@@ -14,7 +14,7 @@ protocol AppViewControllerDelegate: class {
     func appViewControllerRequestsDisabling(host: String)
 }
 
-class AppViewController: UIViewController {
+public class AppViewController: UIViewController {
     private var sfSafariViewController: SFSafariViewController?
     private var cancelUrl: String?
 
@@ -46,13 +46,13 @@ class AppViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
@@ -73,7 +73,7 @@ class AppViewController: UIViewController {
         webView.fillSuperview()
     }
 
-    private func close() {
+    public func close() {
         guard let nav = self.navigationController else {
             // Is being presented
             self.dismiss(animated: true)
@@ -154,7 +154,7 @@ extension AppViewController: AppActionsDelegate {
 
 // MARK: - SFSafariViewControllerDelegate
 extension AppViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+    public func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         // SFSafariViewController was dismissed by selecting 'Finish'
         webView.loadUrl(urlString: cancelUrl)
         cancelUrl = nil
@@ -163,7 +163,7 @@ extension AppViewController: SFSafariViewControllerDelegate {
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension AppViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         // `SFSafariViewController` was dismissed by pulling down
         webView.loadUrl(urlString: cancelUrl)
         cancelUrl = nil

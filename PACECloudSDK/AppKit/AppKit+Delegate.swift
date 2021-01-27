@@ -11,6 +11,7 @@ import UIKit
 public protocol AppKitDelegate: AnyObject {
     func didFail(with error: AppKit.AppError)
     func didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])
+    func didReceiveAppData(_ appData: [AppKit.AppData])
     func didEscapeForecourt(_ appDatas: [AppKit.AppData])
 
     func didEnterGeofence(with id: String)
@@ -45,6 +46,7 @@ extension AppKit {
     func notifyDidReceiveAppDrawerContainer(_ appDrawers: [AppDrawer], _ appDatas: [AppData]) {
         notifyClient { [weak self] in
             self?.delegate?.didReceiveAppDrawers(appDrawers, appDatas)
+            self?.delegate?.didReceiveAppData(appDatas)
         }
     }
 

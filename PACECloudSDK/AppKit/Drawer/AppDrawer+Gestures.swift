@@ -8,7 +8,7 @@
 import UIKit
 
 extension AppKit.AppDrawer {
-    func expand() {
+    public func expand() {
         isSlidingLocked = true
         drawerWidthConstraint?.constant = AppStyle.drawerMaxWidth
 

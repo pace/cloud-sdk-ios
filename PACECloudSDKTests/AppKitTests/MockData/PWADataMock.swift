@@ -13,6 +13,6 @@ struct AppDataMock {
     static let title = "title"
     static let subtitle = "subtitle"
     static let appUrl = "appUrl"
-    static let metadata = [AppMetadata.appId: appID, AppMetadata.references: "references"]
+    static let metadata = [AppKit.AppMetadata.appId: appID, AppKit.AppMetadata.references: "references"]
     static let appData = AppKit.AppData(appID: "appID", title: "title", subtitle: "subtitle", appUrl: "appUrl", metadata: metadata)
 }
