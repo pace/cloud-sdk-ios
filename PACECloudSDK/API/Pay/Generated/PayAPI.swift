@@ -11,8 +11,8 @@ This API is responsible for managing payment methods for users as well as author
 public struct PayAPI {
 
     /// Used to encode Dates when uses as string params
-    public static var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ssZZZZZ",
-                                                            locale: Locale(identifier: "en_US_POSIX"),
+    public static var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                                                            locale: Locale(identifier: "de_DE"),
                                                             calendar: Calendar(identifier: .gregorian))
 
     public static let version = "2020-4"

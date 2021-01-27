@@ -56,4 +56,4 @@ Package.pins
 ehthumbs.db
 Thumbs.db
 
-generated/
+/generated

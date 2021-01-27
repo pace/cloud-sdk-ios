@@ -9,6 +9,6 @@ import Foundation
 
 public extension API {
     struct Pay {
-        public static let client: PayAPIClient = .default
+        public static let client: PayAPIClient = .custom
     }
 }
