@@ -18,15 +18,15 @@ protocol POIKitAPIProtocol {
 
     func geoJson(_ request: POIKit.GeoJSONRequest, handler: @escaping (Result<POIKit.GeoJSONResponse, Error>) -> Void)
 
-    func observe(delegate: POIKitObserverTokenDelegate, // swiftlint:disable:this function_parameter_count
-                 poisOfType: POIKit.POILayer,
+    func observe(poisOfType: POIKit.POILayer, // swiftlint:disable:this function_parameter_count
                  boundingBox: POIKit.BoundingBox,
+                 delegate: POIKitObserverTokenDelegate?,
                  maxDistance: (distance: Double, padding: Double)?,
                  zoomLevel: Int?,
                  handler: @escaping (Bool, Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.BoundingBoxNotificationToken
 
-    func observe(delegate: POIKitObserverTokenDelegate,
-                 uuids: [String],
+    func observe(uuids: [String],
+                 delegate: POIKitObserverTokenDelegate?,
                  handler: @escaping (Bool, Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.UUIDNotificationToken
 
     func route(_ request: POIKit.NavigationRequest, handler: ((POIKit.NavigationResponse?, POIKit.POIKitAPIError) -> Void)?)

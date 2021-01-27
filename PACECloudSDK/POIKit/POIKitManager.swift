@@ -90,19 +90,19 @@ public extension POIKit {
             locationManager.stopUpdatingLocation()
         }
 
-        public func observe(delegate: POIKitObserverTokenDelegate,
-                            poisOfType: POILayer,
+        public func observe(poisOfType: POILayer,
                             boundingBox: BoundingBox,
+                            delegate: POIKitObserverTokenDelegate? = nil,
                             maxDistance: (distance: Double, padding: Double)? = nil,
                             zoomLevel: Int? = nil,
                             handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> BoundingBoxNotificationToken {
-            return api.observe(delegate: delegate, poisOfType: poisOfType, boundingBox: boundingBox, maxDistance: maxDistance, zoomLevel: zoomLevel, handler: handler)
+            return api.observe(poisOfType: poisOfType, boundingBox: boundingBox, delegate: delegate, maxDistance: maxDistance, zoomLevel: zoomLevel, handler: handler)
         }
 
-        public func observe(delegate: POIKitObserverTokenDelegate,
-                            uuids: [String],
+        public func observe(uuids: [String],
+                            delegate: POIKitObserverTokenDelegate? = nil,
                             handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> UUIDNotificationToken {
-            return api.observe(delegate: delegate, uuids: uuids, handler: handler)
+            return api.observe(uuids: uuids, delegate: delegate, handler: handler)
         }
 
         /**

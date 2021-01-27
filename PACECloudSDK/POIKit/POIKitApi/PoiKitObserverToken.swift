@@ -25,7 +25,7 @@ public extension POIKit {
 
         public func invalidate() {}
 
-        init(delegate: POIKitObserverTokenDelegate, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
+        init(delegate: POIKitObserverTokenDelegate?, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.delegate = delegate
             self.handler = handler
         }
@@ -40,9 +40,9 @@ public extension POIKit {
         private (set) public var boundingBox: BoundingBox
         private let maxDistance: (distance: Double, padding: Double)?
 
-        init(delegate: POIKitObserverTokenDelegate,
-             boundingBox: BoundingBox,
+        init(boundingBox: BoundingBox,
              api: POIKitAPI,
+             delegate: POIKitObserverTokenDelegate? = nil,
              maxDistance: (distance: Double, padding: Double)? = nil,
              zoomLevel: Int = POIKitConfig.maxZoomLevel,
              handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
@@ -55,14 +55,12 @@ public extension POIKit {
 
             super.init(delegate: delegate, handler: handler)
 
-            guard isDiameterValid() && isZoomLevelValid() else { return }
-
             self.token = self.delegate?.observe { isInitial, stations in
                 self.updateStations(isInitial: isInitial, stations: stations)
             }
         }
 
-        private func isDiameterValid() -> Bool {
+        func isDiameterValid() -> Bool {
             // Only check diameter if != nil
             if let maxDistanceTuple = maxDistance {
                 let allowedDiameter = maxDistanceTuple.distance * (1 + maxDistanceTuple.padding)
@@ -76,7 +74,7 @@ public extension POIKit {
             return true
         }
 
-        private func isZoomLevelValid() -> Bool {
+        func isZoomLevelValid() -> Bool {
             if zoomLevel < POIKitConfig.minZoomLevel {
                 handler(false, .failure(POIKitAPIError.zoomLevelTooLow))
                 return false
@@ -85,7 +83,7 @@ public extension POIKit {
             return true
         }
 
-        private func updateStations(isInitial: Bool, stations: [GasStation]) {
+        func updateStations(isInitial: Bool, stations: [GasStation]) {
             self.value = stations.filter {
                 guard let coord = $0.coordinate else { return false }
 
@@ -111,18 +109,22 @@ public extension POIKit {
         var api: POIKitAPI
         var downloadTask: URLSessionTask?
 
-        init(delegate: POIKitObserverTokenDelegate, uuids: [String], api: POIKitAPI, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
+        init(uuids: [String], delegate: POIKitObserverTokenDelegate? = nil, api: POIKitAPI, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.uuids = uuids
             self.api = api
 
             super.init(delegate: delegate, handler: handler)
 
             self.token = self.delegate?.observe(uuids: uuids) { change in
-                self.value = change
+                self.updateStations(stations: change)
+            }
+        }
 
-                DispatchQueue.main.async {
-                    self.handler(false, .success(self.value))
-                }
+        func updateStations(stations: [GasStation]) {
+            self.value = stations
+
+            DispatchQueue.main.async {
+                self.handler(false, .success(self.value))
             }
         }
 
