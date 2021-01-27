@@ -74,14 +74,20 @@ class AppViewController: UIViewController {
     }
 
     private func close() {
-        // If attached to a navigationController
-        if let nav = self.navigationController {
-            nav.popViewController(animated: true)
-            completion?()
-        } else {
-            // If being presented
+        guard let nav = self.navigationController else {
+            // Is being presented
             self.dismiss(animated: true)
+            return
         }
+
+        // If rootViewController
+        if nav.viewControllers.first === self {
+            navigationController?.dismiss(animated: true)
+        } else {
+            nav.popViewController(animated: true)
+        }
+
+        completion?()
     }
 
     @objc
