@@ -71,6 +71,8 @@ class AppWebView: WKWebView, App {
     private func setup() {
         self.customUserAgent = userAgent
 
+        addLoggingScript()
+
         // Attach json rpc handlers
         AppWebViewJsonRpcInterceptor.JsonRpcHandler.allCases.forEach {
             self.configuration.userContentController.add(self, name: $0.rawValue)
@@ -81,6 +83,36 @@ class AppWebView: WKWebView, App {
 
         setupDesign()
         setupView()
+    }
+
+    private func addLoggingScript() {
+        let source = """
+            function log(level, args) {
+              window.webkit.messageHandlers.pace_logger.postMessage(
+                `${level} ${Object.values(args)
+                  .map(v => typeof(v) === "undefined" ? "undefined" : typeof(v) === "object" ? JSON.stringify(v) : v.toString())
+                  .map(v => v.substring(0, 3000)) // Limit msg to 3000 chars
+                  .join(", ")}`
+              );
+            }
+
+            var originalLog = console.log;
+            var originalWarn = console.warn;
+            var originalError = console.error;
+            var originalDebug = console.debug;
+
+            console.log = function() { log("[I]", arguments); originalLog.apply(null, arguments); };
+            console.warn = function() { log("[W]", arguments); originalWarn.apply(null, arguments); };
+            console.error = function() { log("[E]", arguments); originalError.apply(null, arguments); };
+            console.debug = function() { log("[D]", arguments); originalDebug.apply(null, arguments); };
+
+            window.addEventListener("error", function(e) {
+               log("[Uncaught]", [`${e.message} at ${e.filename}:${e.lineno}:${e.colno}`]);
+            });
+        """
+
+        let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+        configuration.userContentController.addUserScript(script)
     }
 
     private func setupDesign() {

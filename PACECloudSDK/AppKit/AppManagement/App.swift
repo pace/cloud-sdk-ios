@@ -207,6 +207,11 @@ extension App {
             jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
         }
     }
+
+    func handleLog(with message: WKScriptMessage) {
+        guard let log = message.body as? String else { return }
+        AppKitLogger.pwa(log)
+    }
 }
 
 // MARK: - Location verification
