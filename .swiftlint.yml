@@ -35,6 +35,7 @@ excluded:
     - PACECloudSDK/API/Generated
     - PACECloudSDK/API/Pay/Generated
     - PACECloudSDK/API/POI/Generated
+    - PACECloudSDK/API/Fueling/Generated
     - PACECloudSDK/POIKit/Vendor
     - PACECloudSDK/POIKit/POIKitApi/Model
     - PACECloudSDK/POIKit/POISearch/Model

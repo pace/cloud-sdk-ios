@@ -206,14 +206,14 @@ let dateDecoder: (Decoder) throws -> Date = { decoder in
         let string = try container.decode(String.self)
 
         let formatterWithMilliseconds = DateFormatter()
-        formatterWithMilliseconds.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-        formatterWithMilliseconds.locale = Locale(identifier: "en_US_POSIX")
+        formatterWithMilliseconds.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        formatterWithMilliseconds.locale = Locale(identifier: "de_DE")
         formatterWithMilliseconds.timeZone = TimeZone(identifier: "UTC")
         formatterWithMilliseconds.calendar = Calendar(identifier: .gregorian)
 
         let formatterWithoutMilliseconds = DateFormatter()
-        formatterWithoutMilliseconds.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        formatterWithoutMilliseconds.locale = Locale(identifier: "en_US_POSIX")
+        formatterWithoutMilliseconds.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        formatterWithoutMilliseconds.locale = Locale(identifier: "de_DE")
         formatterWithoutMilliseconds.timeZone = TimeZone(identifier: "UTC")
         formatterWithoutMilliseconds.calendar = Calendar(identifier: .gregorian)
 
@@ -306,8 +306,8 @@ extension DateDay {
 
 extension Date {
     func encode() -> Any {
-        var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ssZZZZZ",
-                                                                locale: Locale(identifier: "en_US_POSIX"),
+        var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                                                                locale: Locale(identifier: "de_DE"),
                                                                 calendar: Calendar(identifier: .gregorian))
         return dateEncodingFormatter.string(from: self)
     }

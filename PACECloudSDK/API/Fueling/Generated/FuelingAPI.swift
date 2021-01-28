@@ -5,10 +5,8 @@
 
 import Foundation
 
-/** Welcome to the PACE Payment API documentation.
-This API is responsible for managing payment methods for users as well as authorizing payments on behalf of PACE services.
- */
-public struct PayAPI {
+/** Fueling API */
+public struct FuelingAPI {
 
     /// Used to encode Dates when uses as string params
     public static var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ss'Z'",
@@ -17,17 +15,14 @@ public struct PayAPI {
 
     public static let version = "2020-4"
 
-    public enum NewPaymentMethods {}
-    public enum PaymentMethodKinds {}
-    public enum PaymentMethods {}
-    public enum PaymentTokens {}
-    public enum PaymentTransactions {}
+    public enum Fueling {}
+    public enum Notification {}
 
-    public enum PayAPIServer {
+    public enum FuelingAPIServer {
         /** Production server (stable release 2020-4) **/
-        public static let main = "https://api.pace.cloud/pay/2020-4"
+        public static let main = "https://api.pace.cloud/fueling/2020-4"
         /** Production server (deprecated) **/
-        public static let server2 = "https://api.pace.cloud/pay/beta"
+        public static let server2 = "https://api.pace.cloud/fueling/beta"
     }
 }
 
