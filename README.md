@@ -30,6 +30,7 @@ This framework combines multipe functionalities provided by PACE i.e. authorizin
         + [AppDrawer](#appdrawer)
         + [Custom AppDrawer] (#custom-appdrawer)
         + [AppError](#apperror)
+    * [Miscellaneous](#miscellaneous)
     * [FAQ](#faq)
 
 ## Specifications
@@ -212,7 +213,7 @@ AppKit.shared.isPoiInRange(id: poiId) { found in
 ```
 
 ### AppWebView / AppViewController
-*AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl` or a `appUrl` with some `reference` (e.g. a gas station reference).
+*AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl`, a `appUrl` with some `reference` (e.g. a gas station reference) or a `presetUrl` (see [Preset Urls](#preset-urls)).
 ```swift
 let webView = AppKit.shared.appWebView(appUrl: "App_URL")
 let viewController = AppKit.shared.appViewController(appUrl: "App_URL")
@@ -226,6 +227,11 @@ let viewController = AppKit.shared.appViewController(appUrl: "App_URL", referenc
 // The reference starts with a specific namespace identifier followed by the gas station id in this case
 // It has to conform to the URN format
 let reference = "prn:poi:gas-stations:1a3b5c7d-1a3b-12a4-abcd-8c106b8360d3"
+```
+
+```swift
+let webView = AppKit.shared.appWebView(presetUrl: .paceID)
+let viewController = AppKit.shared.appViewController(presetUrl: .payment)
 ```
 
 ### AppDrawerContainer
@@ -291,6 +297,10 @@ Possible errors:
 - `badRequest`: The request does not match the expected format
 - `invalidURNFormat`: The passed POI reference value does not conform to our URN format
 - `customURLSchemeNotSet`: The App tried to open an URL in `SFSafariViewController`, but deep linking has not been correctly configured
+
+## Miscellaneous
+### Preset Urls
+`PACECloudSDK` provides preset urls for the most common apps, such as `PACE ID`, `payment` and `transactions` based on the enviroment the sdk was initialized with. You may access these urls via the enum `PACECloudSDK.URL`.
 
 ## FAQ
 

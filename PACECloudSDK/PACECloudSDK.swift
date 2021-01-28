@@ -79,6 +79,22 @@ public extension PACECloudSDK {
         case sandbox
         case stage
         case production
+
+        var short: String {
+            switch self {
+            case .development:
+                return "dev"
+
+            case .sandbox:
+                return "sandbox"
+
+            case .stage:
+                return "stage"
+
+            case .production:
+                return "prod"
+            }
+        }
     }
 
     enum AuthenticationMode: String {

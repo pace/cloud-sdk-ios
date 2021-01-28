@@ -121,6 +121,8 @@
 		3BB918E525B02AF700E83EDD /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
 		3BBCB2F32567D2C6000EA905 /* POILayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F22567D2C6000EA905 /* POILayer.swift */; };
 		3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
+		3BC1AD7D25C2F13000725CB9 /* PACECloudSDK+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */; };
+		3BC1AD8125C2F16C00725CB9 /* PACECloudSDK+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */; };
 		3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */; };
 		3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */; };
 		3BC9A7ED2539DDAD00B933AE /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79F2539DDAC00B933AE /* HttpRequest.swift */; };
@@ -878,6 +880,7 @@
 		3BB372E42551AEED0002083A /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/iOS/Base32.framework; sourceTree = "<group>"; };
 		3BBCB2F22567D2C6000EA905 /* POILayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILayer.swift; sourceTree = "<group>"; };
 		3BBCB2F62567D2CC000EA905 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+URL.swift"; sourceTree = "<group>"; };
 		3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
 		3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		3BC9A79F2539DDAC00B933AE /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
@@ -2216,6 +2219,7 @@
 				921E68302534883200438491 /* Info.plist */,
 				926D0F6A2541BA3200409432 /* README.md */,
 				92EFB206258B5C00001768F0 /* PACECloudSDK.swift */,
+				3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */,
 			);
 			path = PACECloudSDK;
 			sourceTree = "<group>";
@@ -2706,6 +2710,7 @@
 				3B970A662542D9BB0072F6BA /* UIColor+Extension.swift in Sources */,
 				3B970A802542D9BB0072F6BA /* AppActivityIndicatorView.swift in Sources */,
 				84D6C061258A03270094982D /* PCPayPagingMeta.swift in Sources */,
+				3BC1AD7D25C2F13000725CB9 /* PACECloudSDK+URL.swift in Sources */,
 				3BC9A7FD2539DDAD00B933AE /* tile_query_response.pb.swift in Sources */,
 				84D6C064258A03270094982D /* PCPOISubscription.swift in Sources */,
 				3BC9A7F32539DDAD00B933AE /* POIFiltersRequest.swift in Sources */,
@@ -2990,6 +2995,7 @@
 				92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */,
 				8418E25225B1B85A00D3722B /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				84600E8B25C03B0C0087194F /* PayAPICreatePaymentMethodPayPal.swift in Sources */,
+				3BC1AD8125C2F16C00725CB9 /* PACECloudSDK+URL.swift in Sources */,
 				8418E24C25B1B85A00D3722B /* PCPOIReferenceStatuses.swift in Sources */,
 				8418E28A25B1B85A00D3722B /* PCPOIPOI.swift in Sources */,
 				84600EFB25C03B1E0087194F /* POIAPIGetGasStations.swift in Sources */,

@@ -60,6 +60,15 @@ public class AppKit {
         AppWebView(with: appUrl)
     }
 
+    // MARK: - WebView or ViewController with preset urls
+    public func appViewController(presetUrl: PACECloudSDK.URL, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
+        appViewController(appUrl: presetUrl.absoluteString, hasNavigationBar: hasNavigationBar, completion: completion)
+    }
+
+    public func appWebView(presetUrl: PACECloudSDK.URL) -> WKWebView {
+        appWebView(appUrl: presetUrl.absoluteString)
+    }
+
     // MARK: - WebView or ViewController / apps with app url and reference
     public func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
         let appUrl = appManager.buildAppUrl(with: appUrl, for: reference)
