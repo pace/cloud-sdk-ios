@@ -8,6 +8,7 @@
 import Foundation
 
 public enum HttpHeaderFields: String {
+    case userAgent = "User-Agent"
     case accept = "Accept"
     case contentType = "Content-Type"
     case ifNoneMatch = "If-None-Match"
