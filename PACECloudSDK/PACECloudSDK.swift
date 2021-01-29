@@ -37,8 +37,12 @@ public class PACECloudSDK {
 
         AppKit.shared.setup(configValues: config.configValues)
         URLProtocol.registerClass(CustomURLProtocol.self)
+
         API.POI.client.baseURL = Settings.shared.baseUrl(.poiApi)
         API.Pay.client.baseURL = Settings.shared.baseUrl(.payApi)
+
+        API.POI.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Bundle.paceCloudSDK.poiKitUserAgent,
+                                         HttpHeaderFields.apiKey.rawValue: apiKey ?? "Missing API key"]
     }
 
     public func extendUserAgent(with extensions: [String]) {

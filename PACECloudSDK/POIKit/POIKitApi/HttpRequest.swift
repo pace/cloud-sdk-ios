@@ -52,10 +52,6 @@ protocol URLSessionProtocol {
 extension URLSession: URLSessionProtocol { }
 
 class HttpRequest: NSObject, HttpRequestProtocol {
-    lazy var userAgent: String = {
-        Bundle.paceCloudSDK.poiKitUserAgent
-    }()
-
     var session: URLSessionProtocol = URLSession(configuration: .default)
     let sslVerifyHost = "."
     var acceptLanguage = "en"
@@ -73,11 +69,8 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForRequest = POIKitConfig.connectTimeout
             configuration.timeoutIntervalForResource = POIKitConfig.readTimeout
-            configuration.httpAdditionalHeaders = ["User-Agent": userAgent]
             configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
-            API.POI.client.defaultHeaders = ["User-Agent": userAgent,
-                                     HttpHeaderFields.apiKey.rawValue: PACECloudSDK.shared.apiKey ?? "Missing API key"] // TODO: Extract API-Key to PACECloudSDK.setup()
         }
     }
 

@@ -37,7 +37,7 @@ struct AppKitConstants {
     }
 
     static var userAgentHeader: [String: String] {
-        return ["User-Agent": AppKitConstants.userAgent]
+        return [HttpHeaderFields.userAgent.rawValue: AppKitConstants.userAgent]
     }
 
     static var currentLanguageCode: String? {
