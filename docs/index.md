@@ -1,8 +1,7 @@
-# PACE Cloud SDK
-
-This framework combines multipe functionalities provided by PACE i.e. authorizing via **PACE ID** or requesting and displaying **Apps**. These functionalities are separated and structured into different ***Kits*** by namespaces, i.e. [IDKit](#idkit), [AppKit](#appkit).
+# PACE Cloud SDK – iOS
 
 - [PACE Cloud SDK](#pace-cloud-sdk)
+    * [Source code](#source-code)
     * [Specifications](#specifications)
     * [Installation](#installation)
         + [Carthage](#carthage)
@@ -28,8 +27,14 @@ This framework combines multipe functionalities provided by PACE i.e. authorizin
         + [AppWebView / AppViewController](#appwebview---appviewcontroller)
         + [AppDrawerContainer](#appdrawercontainer)
         + [AppDrawer](#appdrawer)
+        + [Custom AppDrawer](#custom-appdrawer)
         + [AppError](#apperror)
+    * [Miscellaneous](#miscellaneous)
+    * [SDK API docs](#sdk-api-docs)
     * [FAQ](#faq)
+
+## Source code
+The complete source code of the SDK can be found on [GitHub](https://github.com/pace/cloud-sdk-ios).
 
 ## Specifications
 **PACECloudSDK** currently supports iOS 11 and above.
@@ -66,7 +71,7 @@ dependencies: [
 Each release has an `XCFramework` attached, which can be added to your application; see [releases](https://github.com/pace/cloud-sdk-ios/releases).
 
 ## Setup
-The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside 
+The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
 `applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
 
 `PACECloudSDK.Configuration` only has `clientId` and `apiKey`  as a mandatory property, all others are optional and can be passed as necessary.
@@ -134,20 +139,20 @@ A new authorization will be required afterwards.
 ## AppKit
 ### Main Features
 - Check for available Apps at the current location
-- Retrieve an App as UIViewController or WKWebView 
+- Retrieve an App as UIViewController or WKWebView
 - Retrieve an App as Drawer/Slider
 - Payment Authentication
 
 ### Setup
-Biometry is needed for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties. 
+Biometry is needed for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties.
 
 ### Native login
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
 it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`,
 and passing an initial `accessToken`, if available.
 
-There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(completion: ((String) -> Void))`, 
-which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes 
+There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(completion: ((String) -> Void))`,
+which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes
 or has been revoked. You are responsible for retrieving and passing a valid token to the `completion` block.
 In case that you can't retrieve a new valid token, don't call the `completion` handler, otherwise you will most likely end up
 in an endless loop. Make sure to clean up all the App related views as well.
@@ -190,12 +195,13 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 This protocol needs to be implemented in order to receive further information about your requests. It will also provide specific data that allows you to correctly display Apps.
 - `didFail(with error: AppKit.AppError)`: Called everytime an error occured during requests
 - `didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])`: Called if one or more AppDrawers have been fetched successfully
+- `didReceiveAppData(_ appData: [AppKit.AppData])`: Called if one or more AppData objects have been fetched successfully
 
 ### Requesting local Apps
 You need to make sure your users allowed your application to use their location. *AppKit* requires the user's current location but will not request the permissions.
 To request the check for available local Apps call `AppKit.shared.requestLocalApps()`. This function will start retrieving the user's current position and return
 all available Apps as AppDrawers by asynchronously invoking `AppKitDelegate's` `didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])` once for each request. Possible errors during the request will also be passed via the `AppKitDelegate`.
-Because of the fact that AppDrawers are dependent on the user's position, it's necessary to call the mentioned method periodically to make sure that Apps 
+Because of the fact that AppDrawers are dependent on the user's position, it's necessary to call the mentioned method periodically to make sure that Apps
 will stay up to date. If a request does not contain a currently presented App / AppDrawer it will be removed by *AppKit* automatically. This may happen if the user changes the position to where the previously fetched App is no longer available at.
 
 ### Is POI in range?
@@ -210,7 +216,7 @@ AppKit.shared.isPoiInRange(id: poiId) { found in
 ```
 
 ### AppWebView / AppViewController
-*AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl` or a `appUrl` with some `reference` (e.g. a gas station reference).
+*AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl`, a `appUrl` with some `reference` (e.g. a gas station reference) or a `presetUrl` (see [Preset Urls](#preset-urls)).
 ```swift
 let webView = AppKit.shared.appWebView(appUrl: "App_URL")
 let viewController = AppKit.shared.appViewController(appUrl: "App_URL")
@@ -226,14 +232,60 @@ let viewController = AppKit.shared.appViewController(appUrl: "App_URL", referenc
 let reference = "prn:poi:gas-stations:1a3b5c7d-1a3b-12a4-abcd-8c106b8360d3"
 ```
 
+```swift
+let webView = AppKit.shared.appWebView(presetUrl: .paceID)
+let viewController = AppKit.shared.appViewController(presetUrl: .payment)
+```
+
 ### AppDrawerContainer
 Before being able to display AppDrawers you need an instance of `AppDrawerContainer`. Call `setupContainerView()` to setup the container. It will automatically resize itself based on the amount of available AppDrawers.
 
 ### AppDrawer
 The `AppDrawer` is a view that functions as a preview for a local App. It has a **collapsed** and **expanded** state. Former shows an icon and expands by tapping. Latter additionally shows a title and subtitle and collapses by tapping the `x-Button`. Tapping the AppDrawer bar will open the corresponding fullscreen
-App. The drawers need to be added to a `AppDrawerContaine` in order to work correctly by calling `appDrawerContainer.inject(YOUR_DRAWERS)`.
+App. The drawers need to be added to a `AppDrawerContainer` in order to work correctly by calling `appDrawerContainer.inject(YOUR_DRAWERS)`.
 
-A AppDrawer and the eventually opened App will automatically remove themselves if the App is no longer available at the user's current position. 
+A AppDrawer and the eventually opened App will automatically remove themselves if the App is no longer available at the user's current position.
+
+### Custom AppDrawer
+The responsible class needs to conform to the `AppKitDelegate` and must be set as `AppKit`'s delegate: `AppKit.shared.delegate = self`.
+
+In order to check if there are apps available in the current position call `AppKit.shared.requestLocalApps()`.
+
+As defined in [AppKitDelegate](#appkitdelegate), there are some methods that need to be implemented in, i.e.
+`didReceiveAppData(_ appData: [AppKit.AppData])` and
+`didEscapeForecourt(_ appDatas: [AppKit.AppData])`.
+
+Each `AppKit.AppData` then contains the information for one connected fueling available gas station.
+
+### AppData
+Properties:
+- `appID: String`: App id
+- `appApiUrl: String?`: Base api url
+- `metadata: [AppKit.AppMetadata: AnyHashable]`: Contains metadata like the gas station reference (prn prefix + id)
+- `appManifest: AppManifest?`: Contains name, description and icons of the App
+
+#### AppMetadata
+Retrieve gas station id via `metadata[AppKit.AppMetadata.references]`.
+Note that the id has `prn:poi:gas-stations:` as prefix.
+
+```swift
+let prnReference = (appData.metadata[AppKit.AppMetadata.references] as! [String])?.first(where: { $0.contains("prn:poi:gas-stations:") })
+let gasstationID = String(prnReference.dropFirst("prn:poi:gas-stations:"))
+```
+
+#### AppManifest
+Properties:
+- `name`: App Name
+- `description`: App description
+- `icons`: Gas station icons in different sizes
+
+##### AppIcon
+`AppIcon` only contains the source string for the icon image. You will need to fetch it yourself.
+To get the source url you need to combine `AppData.appApiUrl` and `AppIcon.source` with "/".
+
+```swift
+AppData.appApiUrl + "/" + AppIcon.source
+```
 
 ### AppError
 This enum will provide several error messages during App requests and overall processing to give you a better understanding on what went wrong.
@@ -248,6 +300,17 @@ Possible errors:
 - `badRequest`: The request does not match the expected format
 - `invalidURNFormat`: The passed POI reference value does not conform to our URN format
 - `customURLSchemeNotSet`: The App tried to open an URL in `SFSafariViewController`, but deep linking has not been correctly configured
+
+## Miscellaneous
+### Preset Urls
+`PACECloudSDK` provides preset urls for the most common apps, such as `PACE ID`, `payment` and `transactions` based on the enviroment the sdk was initialized with. You may access these urls via the enum `PACECloudSDK.URL`.
+
+## SDK API Docs
+
+Here is a complete list of all our SDK API documentations:
+
+- [latest](../latest/index.html) – the current `master`
+- [3.0.1](../3.0.1/index.html)
 
 ## FAQ
 
