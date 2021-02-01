@@ -2,9 +2,9 @@ clean: true
 author: PACE Telematics GmbH
 author_url: https://www.pace.car
 copyright: PACE Telematics GmbH
-readme: README.md
+readme: docs/index.md
 theme: apple
-docset_path: docs
+docset_path: generated/tmp
 source_directory: '.'           
 output: generated/docs
 github_url: https://github.com/pace/cloud-sdk-ios
