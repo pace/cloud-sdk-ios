@@ -309,8 +309,8 @@ Possible errors:
 
 Here is a complete list of all our SDK API documentations:
 
-- [latest](/cloud-sdk-ios/docs/latest/index.html) – the current `master`
-- [3.0.1](/cloud-sdk-ios/docs/3.0.1/index.html)
+- [latest](/cloud-sdk-ios/latest/index.html) – the current `master`
+- [3.0.1](/cloud-sdk-ios/3.0.1/index.html)
 
 ## FAQ
 
