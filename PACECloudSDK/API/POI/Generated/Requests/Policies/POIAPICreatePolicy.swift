@@ -14,8 +14,45 @@ extension POIAPI.Policies {
 
         public final class Request: POIAPIRequest<Response> {
 
-            public init() {
-                super.init(service: CreatePolicy.service)
+            /** Creates a new policy */
+            public class Body: APIModel {
+
+                public var data: PCPOIPolicy?
+
+                public init(data: PCPOIPolicy? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            public var body: Body
+
+            public init(body: Body, encoder: RequestEncoder? = nil) {
+                self.body = body
+                super.init(service: CreatePolicy.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
         }
 

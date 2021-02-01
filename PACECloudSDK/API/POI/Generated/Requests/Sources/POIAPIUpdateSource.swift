@@ -14,6 +14,38 @@ extension POIAPI.Sources {
 
         public final class Request: POIAPIRequest<Response> {
 
+            /** Updates source with specified id */
+            public class Body: APIModel {
+
+                public var data: PCPOISource?
+
+                public init(data: PCPOISource? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
             public struct Options {
 
                 /** ID of the source */
@@ -26,15 +58,20 @@ extension POIAPI.Sources {
 
             public var options: Options
 
-            public init(options: Options) {
+            public var body: Body
+
+            public init(body: Body, options: Options, encoder: RequestEncoder? = nil) {
+                self.body = body
                 self.options = options
-                super.init(service: UpdateSource.service)
+                super.init(service: UpdateSource.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(sourceId: ID? = nil) {
+            public convenience init(sourceId: ID? = nil, body: Body) {
                 let options = Options(sourceId: sourceId)
-                self.init(options: options)
+                self.init(body: body, options: options)
             }
 
             public override var path: String {

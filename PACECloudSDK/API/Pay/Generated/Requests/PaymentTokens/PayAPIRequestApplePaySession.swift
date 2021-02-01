@@ -20,8 +20,48 @@ This endpoint is pre-requisite for calling `/payment-method-kinds/applepay/autho
 
         public final class Request: PayAPIRequest<Response> {
 
-            public init() {
-                super.init(service: RequestApplePaySession.service)
+            /** Requests a new Apple Pay session including merchant validation.
+            The client needs to acquire the validation url beforehand.
+            This endpoint is pre-requisite for calling `/payment-method-kinds/applepay/authorize`.
+             */
+            public class Body: APIModel {
+
+                public var data: PCPayRequestApplePaySession?
+
+                public init(data: PCPayRequestApplePaySession? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            public var body: Body
+
+            public init(body: Body, encoder: RequestEncoder? = nil) {
+                self.body = body
+                super.init(service: RequestApplePaySession.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
         }
 

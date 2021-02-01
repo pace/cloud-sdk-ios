@@ -26,15 +26,20 @@ extension POIAPI.Apps {
 
             public var options: Options
 
-            public init(options: Options) {
+            public var body: PCPOIAppPOIsRelationships
+
+            public init(body: PCPOIAppPOIsRelationships, options: Options, encoder: RequestEncoder? = nil) {
+                self.body = body
                 self.options = options
-                super.init(service: UpdateAppPOIsRelationships.service)
+                super.init(service: UpdateAppPOIsRelationships.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(appID: ID? = nil) {
+            public convenience init(appID: ID? = nil, body: PCPOIAppPOIsRelationships) {
                 let options = Options(appID: appID)
-                self.init(options: options)
+                self.init(body: body, options: options)
             }
 
             public override var path: String {

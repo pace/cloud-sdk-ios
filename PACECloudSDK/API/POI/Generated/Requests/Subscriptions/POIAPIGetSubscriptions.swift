@@ -18,8 +18,46 @@ extension POIAPI.Subscriptions {
 
         public final class Request: POIAPIRequest<Response> {
 
-            public init() {
-                super.init(service: GetSubscriptions.service)
+            /** Returns a list of all current (not expired) subscriptions of the user.
+             */
+            public class Body: APIModel {
+
+                public var data: [PCPOISubscription]?
+
+                public init(data: [PCPOISubscription]? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeArrayIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            public var body: Body
+
+            public init(body: Body, encoder: RequestEncoder? = nil) {
+                self.body = body
+                super.init(service: GetSubscriptions.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
         }
 

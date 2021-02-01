@@ -20,8 +20,48 @@ If you provide a valid Billing Agreement ID, the payment method is created direc
 
         public final class Request: PayAPIRequest<Response> {
 
-            public init() {
-                super.init(service: CreatePaymentMethodPayPal.service)
+            /** By registering you allow the user to use PayPal as a payment method.
+            The payment method ID is optional when posting data.
+            If you provide a valid Billing Agreement ID, the payment method is created directly. Alternatively you can provide all three redirect URLs in which case the backend will create the Billing Agreement for you. Creating a Billing Agreement is a 2-step process, thus the payment method will only be created after the user approved it on the PayPal website. The approval URL in the response will point you to the correct page. After the user takes action the user is redirected to one of the three redirect URLs provided by you.
+             */
+            public class Body: APIModel {
+
+                public var data: PCPayPaymentMethodPayPalCreate?
+
+                public init(data: PCPayPaymentMethodPayPalCreate? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            public var body: Body
+
+            public init(body: Body, encoder: RequestEncoder? = nil) {
+                self.body = body
+                super.init(service: CreatePaymentMethodPayPal.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
         }
 
