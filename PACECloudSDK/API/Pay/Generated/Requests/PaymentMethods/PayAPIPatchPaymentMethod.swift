@@ -18,6 +18,39 @@ extension PayAPI.PaymentMethods {
 
         public final class Request: PayAPIRequest<Response> {
 
+            /** Allows to change fields that can be changed by the customer.
+             */
+            public class Body: APIModel {
+
+                public var data: PCPayPaymentMethod?
+
+                public init(data: PCPayPaymentMethod? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
             public struct Options {
 
                 /** ID of the paymentMethod */
@@ -30,15 +63,20 @@ extension PayAPI.PaymentMethods {
 
             public var options: Options
 
-            public init(options: Options) {
+            public var body: Body
+
+            public init(body: Body, options: Options, encoder: RequestEncoder? = nil) {
+                self.body = body
                 self.options = options
-                super.init(service: PatchPaymentMethod.service)
+                super.init(service: PatchPaymentMethod.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(paymentMethodId: ID) {
+            public convenience init(paymentMethodId: ID, body: Body) {
                 let options = Options(paymentMethodId: paymentMethodId)
-                self.init(options: options)
+                self.init(body: body, options: options)
             }
 
             public override var path: String {

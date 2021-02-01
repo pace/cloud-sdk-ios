@@ -21,6 +21,42 @@ Only use after approaching (fueling api), otherwise returns `403 Forbidden`.
 
         public final class Request: PayAPIRequest<Response> {
 
+            /** Process payment and notify user (payment receipt) if transaction is finished successfully.
+            The `priceIncludingVAT` and `currency` attributes are required, unless when announcing a transaction in which case those values are copied from the token and any given values are ignored.
+            <br><br>
+            Only use after approaching (fueling api), otherwise returns `403 Forbidden`.
+             */
+            public class Body: APIModel {
+
+                public var data: PCPayTransactionCreate?
+
+                public init(data: PCPayTransactionCreate? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
             public struct Options {
 
                 /** Announcing the transaction without actually capturing the payment. An announced transaction can later be processed only if providing the same `paymentToken`, `purposePRN`, and `providerPRN`. By announcing the transaction the token is locked to be used only with this transaction. The `priceIncludingVAT` and `currency` will be taken from the token, and upon capturing the transaction, must be equal or lower than what was announced. */
@@ -33,15 +69,20 @@ Only use after approaching (fueling api), otherwise returns `403 Forbidden`.
 
             public var options: Options
 
-            public init(options: Options) {
+            public var body: Body
+
+            public init(body: Body, options: Options, encoder: RequestEncoder? = nil) {
+                self.body = body
                 self.options = options
-                super.init(service: ProcessPayment.service)
+                super.init(service: ProcessPayment.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(announce: Bool? = nil) {
+            public convenience init(announce: Bool? = nil, body: Body) {
                 let options = Options(announce: announce)
-                self.init(options: options)
+                self.init(body: body, options: options)
             }
 
             public override var queryParameters: [String: Any] {

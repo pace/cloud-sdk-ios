@@ -40,15 +40,20 @@ You can optionally provide:
 
             public var options: Options
 
-            public init(options: Options) {
+            public var body: PCFuelingTransactionRequest
+
+            public init(body: PCFuelingTransactionRequest, options: Options, encoder: RequestEncoder? = nil) {
+                self.body = body
                 self.options = options
-                super.init(service: ProcessPayment.service)
+                super.init(service: ProcessPayment.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
+                }
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(gasStationId: ID) {
+            public convenience init(gasStationId: ID, body: PCFuelingTransactionRequest) {
                 let options = Options(gasStationId: gasStationId)
-                self.init(options: options)
+                self.init(body: body, options: options)
             }
 
             public override var path: String {
