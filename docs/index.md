@@ -309,8 +309,8 @@ Possible errors:
 
 Here is a complete list of all our SDK API documentations:
 
-- [latest](../latest/index.html) – the current `master`
-- [3.0.1](../3.0.1/index.html)
+- [latest](/docs/latest/index.html) – the current `master`
+- [3.0.1](/docs/3.0.1/index.html)
 
 ## FAQ
 
