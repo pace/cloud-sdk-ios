@@ -26,6 +26,7 @@ public protocol AppKitDelegate: AnyObject {
 }
 
 public extension AppKitDelegate {
+    func didReceiveAppData(_ appData: [AppKit.AppData]) {}
     func didEscapeForecourt(_ appDatas: [AppKit.AppData]) {}
     func didEnterGeofence(with id: String) {}
     func didExitGeofence(with id: String) {}

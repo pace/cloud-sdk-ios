@@ -14,9 +14,7 @@ class URLBuilderTests: XCTestCase {
         PACECloudSDK.shared.setup(with: .init(clientId: "clientId",
                                               apiKey: "apiKey",
                                               authenticationMode: .web,
-                                              accessToken: nil,
                                               environment: .development))
-        PACECloudSDK.shared.initialAccessToken = nil
     }
 
     func testBuildManifestUrl() {

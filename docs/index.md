@@ -84,7 +84,6 @@ Available parameters:
 clientId: String
 apiKey: String? // Default: nil
 authenticationMode: AuthenticationMode // Default: .web
-accessToken: String? // Default: nil
 environment: Environment // Default: .production
 configValues: [ConfigValue: Any]? // Default: nil
 ```
@@ -148,8 +147,7 @@ Biometry is needed for 2FA during the payment process, thus make sure that `NSFa
 
 ### Native login
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
-it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`,
-and passing an initial `accessToken`, if available.
+it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`.
 
 There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(completion: ((String) -> Void))`,
 which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes
@@ -195,7 +193,6 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 This protocol needs to be implemented in order to receive further information about your requests. It will also provide specific data that allows you to correctly display Apps.
 - `didFail(with error: AppKit.AppError)`: Called everytime an error occured during requests
 - `didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])`: Called if one or more AppDrawers have been fetched successfully
-- `didReceiveAppData(_ appData: [AppKit.AppData])`: Called if one or more AppData objects have been fetched successfully
 
 ### Requesting local Apps
 You need to make sure your users allowed your application to use their location. *AppKit* requires the user's current location but will not request the permissions.
