@@ -17,7 +17,6 @@ public class PACECloudSDK {
 
     private(set) var apiKey: String?
     private(set) var clientId: String?
-    var initialAccessToken: String?
     var currentAccessToken: String?
 
     public var additionalQueryParams: Set<URLQueryItem>?
@@ -30,8 +29,6 @@ public class PACECloudSDK {
         self.clientId = config.clientId
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
-        self.initialAccessToken = config.accessToken
-        self.currentAccessToken = config.accessToken
         self.environment = config.environment
         self.configValues = config.configValues
 
@@ -59,20 +56,17 @@ public extension PACECloudSDK {
         let clientId: String
         let apiKey: String
         let authenticationMode: AuthenticationMode
-        let accessToken: String?
         let environment: Environment
         let configValues: [ConfigValue: Any]?
 
         public init(clientId: String,
                     apiKey: String,
                     authenticationMode: AuthenticationMode = .web,
-                    accessToken: String? = nil,
                     environment: Environment = .production,
                     configValues: [ConfigValue: Any]? = nil) {
             self.clientId = clientId
             self.apiKey = apiKey
-            self.authenticationMode = accessToken != nil ? .native : authenticationMode
-            self.accessToken = accessToken
+            self.authenticationMode = authenticationMode
             self.environment = environment
             self.configValues = configValues
         }

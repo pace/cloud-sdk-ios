@@ -84,7 +84,6 @@ Available parameters:
 clientId: String
 apiKey: String? // Default: nil
 authenticationMode: AuthenticationMode // Default: .web
-accessToken: String? // Default: nil
 environment: Environment // Default: .production
 configValues: [ConfigValue: Any]? // Default: nil
 ```
@@ -148,8 +147,7 @@ Biometry is needed for 2FA during the payment process, thus make sure that `NSFa
 
 ### Native login
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
-it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`,
-and passing an initial `accessToken`, if available.
+it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`.
 
 There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(completion: ((String) -> Void))`,
 which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes

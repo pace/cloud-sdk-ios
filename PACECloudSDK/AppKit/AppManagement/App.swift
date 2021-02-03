@@ -155,13 +155,14 @@ extension App {
     func handleInvalidTokenRequest() {
         guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
-        if let token = PACECloudSDK.shared.initialAccessToken, TokenValidator.isTokenValid(token) {
-            jsonRpcInterceptor?.respond(result: token)
-        } else {
-            sendInvalidTokenCallback()
+        AppKit.shared.notifyInvalidToken { [weak self] token in
+            if TokenValidator.isTokenValid(token) {
+                PACECloudSDK.shared.currentAccessToken = token
+                self?.jsonRpcInterceptor?.respond(result: token)
+            } else {
+                self?.handleInvalidTokenRequest()
+            }
         }
-
-        PACECloudSDK.shared.initialAccessToken = nil
     }
 
     func handleImageDataRequest(with message: WKScriptMessage) {
@@ -174,17 +175,6 @@ extension App {
         }
 
         AppKit.shared.notifyImageData(with: image)
-    }
-
-    private func sendInvalidTokenCallback() {
-        AppKit.shared.notifyInvalidToken { [weak self] token in
-            if TokenValidator.isTokenValid(token) {
-                PACECloudSDK.shared.currentAccessToken = token
-                self?.jsonRpcInterceptor?.respond(result: token)
-            } else {
-                self?.sendInvalidTokenCallback()
-            }
-        }
     }
 
     func handleApplePayAvailibilityCheck(with message: WKScriptMessage) {
