@@ -193,7 +193,6 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 This protocol needs to be implemented in order to receive further information about your requests. It will also provide specific data that allows you to correctly display Apps.
 - `didFail(with error: AppKit.AppError)`: Called everytime an error occured during requests
 - `didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])`: Called if one or more AppDrawers have been fetched successfully
-- `didReceiveAppData(_ appData: [AppKit.AppData])`: Called if one or more AppData objects have been fetched successfully
 
 ### Requesting local Apps
 You need to make sure your users allowed your application to use their location. *AppKit* requires the user's current location but will not request the permissions.
