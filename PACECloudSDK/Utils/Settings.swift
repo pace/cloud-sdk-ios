@@ -14,6 +14,8 @@ class Settings {
     private(set) var apiGateway = ""
     private(set) var poiApiHostUrl = ""
     private(set) var payApiHostUrl = ""
+    private(set) var fuelingApiHostUrl = ""
+    private(set) var userApiHostUrl = ""
     private(set) var osrmBaseUrl = ""
     private(set) var searchBaseUrl = ""
     private(set) var reverseGeocodeBaseUrl = ""
@@ -45,6 +47,8 @@ class Settings {
         apiGateway = settings[apiGatewayKey]!
         poiApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("poi").absoluteString
         payApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("pay").absoluteString
+        fuelingApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("fueling").absoluteString
+        userApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("user").absoluteString
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
@@ -59,6 +63,12 @@ class Settings {
 
         case .payApi:
             return payApiHostUrl
+
+        case .fuelingApi:
+            return fuelingApiHostUrl
+
+        case .userApi:
+            return userApiHostUrl
 
         case .osrm:
             return osrmBaseUrl
@@ -85,5 +95,7 @@ class Settings {
         case tilesApi
         case poiApi
         case payApi
+        case fuelingApi
+        case userApi
     }
 }
