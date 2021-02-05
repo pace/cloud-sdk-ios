@@ -15,11 +15,15 @@ extension POIKitAPI {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
-        let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
-                                                                              southWest: TileQueryRequest.Coordinate(information: southWest),
-                                                                              invalidationToken: nil)], zoomLevel: UInt32(zoomLevel))
+        var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
-        return loadPois(tileRequest) { result in
+        if let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
+            area.invalidationToken = invalidationToken
+        }
+
+        let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
+
+        return loadPois(tileRequest, boundingBox: boundingBox) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
@@ -37,11 +41,15 @@ extension POIKitAPI {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
-        let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
-                                                                              southWest: TileQueryRequest.Coordinate(information: southWest),
-                                                                              invalidationToken: nil)], zoomLevel: UInt32(zoomLevel))
+        var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
-        return loadPois(tileRequest) { result in
+        if let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
+            area.invalidationToken = invalidationToken
+        }
+
+        let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
+
+        return loadPois(tileRequest, boundingBox: boundingBox) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
@@ -66,7 +74,7 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest) { result in
+        return loadPois(tileRequest, boundingBox: nil) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
@@ -80,20 +88,24 @@ extension POIKitAPI {
         }
     }
 
-    func loadPois(_ tileRequest: TileQueryRequest, completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> URLSessionTask? {
+    func loadPois(_ tileRequest: TileQueryRequest, boundingBox: POIKit.BoundingBox?, completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> URLSessionTask? {
         guard let url = buildURL(.tilesApi, path: "/query"), let data = try? tileRequest.serializedData() else {
             completion(.failure(POIKit.POIKitAPIError.unknown))
                 return nil
         }
 
-        return request.httpRequest(.post, url: url, body: data, includeDefaultHeaders: false, headers: ["Content-Type": "application/protobuf"]) { response, data, error in
+        return request.httpRequest(.post,
+                                   url: url,
+                                   body: data,
+                                   includeDefaultHeaders: false,
+                                   headers: ["Content-Type": "application/protobuf"]) { [weak self] response, data, error in
             if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
                 completion(.failure(POIKit.POIKitAPIError.networkError))
 
                 return
             }
 
-            guard response?.statusCode == 200, let data = data, let tileResponse = try? TileQueryResponse(serializedData: data) else {
+            guard let self = self, response?.statusCode == 200, let data = data, let tileResponse = try? TileQueryResponse(serializedData: data) else {
                 if (error as NSError?)?.code == NSURLErrorCancelled {
                     completion(.failure(POIKit.POIKitAPIError.operationCanceledByClient))
                     return
@@ -104,12 +116,18 @@ extension POIKitAPI {
             }
 
             let timeToLive = self.timeToLive(from: response)
+            let invalidationToken = tileResponse.invalidationToken
 
             let tiles = tileResponse.vectorTiles.map {  Tile(tileInformation: TileInformation(zoomLevel: Int(tileResponse.zoom), x: Int($0.geo.x), y: Int($0.geo.y)),
                                                              type: .poi,
-                                                             invalidationToken: Int64(tileResponse.invalidationToken),
+                                                             invalidationToken: invalidationToken,
                                                              data: $0.vectorTiles,
                                                              timeToLive: timeToLive) }
+
+            if boundingBox != nil {
+                // Only work with invalidation tokens if there is a bounding box involved
+                self.invalidationTokenCache.add(tiles: tiles, for: Int(tileResponse.zoom))
+            }
 
             completion(.success(tiles))
         }
