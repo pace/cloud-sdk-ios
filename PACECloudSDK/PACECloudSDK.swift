@@ -39,8 +39,11 @@ public class PACECloudSDK {
         API.Pay.client.baseURL = Settings.shared.baseUrl(.payApi)
         API.Fueling.client.baseURL = Settings.shared.baseUrl(.fuelingApi)
         API.User.client.baseURL = Settings.shared.baseUrl(.userApi)
+        API.GeoJSON.client.baseURL = Settings.shared.baseUrl(.poiApi)
 
         API.POI.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Bundle.paceCloudSDK.poiKitUserAgent,
+                                         HttpHeaderFields.apiKey.rawValue: apiKey ?? "Missing API key"]
+        API.GeoJSON.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Bundle.paceCloudSDK.poiKitUserAgent,
                                          HttpHeaderFields.apiKey.rawValue: apiKey ?? "Missing API key"]
     }
 

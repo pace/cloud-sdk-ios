@@ -136,16 +136,6 @@ public extension POIKit {
         }
 
         /**
-         Fetches pois as geo json
-
-         - parameter request: geo json request
-         - parameter handler: block called with the geo json response or error if the request failed
-         */
-        public func geoJson(_ request: POIKit.GeoJSONRequest, handler: @escaping (Result<POIKit.GeoJSONResponse, Error>) -> Void) {
-            api.geoJson(request, handler: handler)
-        }
-
-        /**
          Reverse geocode a location with the given parameters
 
          - parameter request: reverse geocode request restricting the location

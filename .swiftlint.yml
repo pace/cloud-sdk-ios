@@ -37,6 +37,7 @@ excluded:
     - PACECloudSDK/API/POI/Generated
     - PACECloudSDK/API/Fueling/Generated
     - PACECloudSDK/API/User/Generated
+    - PACECloudSDK/API/GeoJSON/Generated
     - PACECloudSDK/POIKit/Vendor
     - PACECloudSDK/POIKit/POIKitApi/Model
     - PACECloudSDK/POIKit/POISearch/Model
