@@ -20,7 +20,7 @@ let package = Package(
             targets: ["PACECloudSDK"])
     ],
     dependencies: [
-        .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", from: "1.4.0"),
+        .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", .branch("master")),
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.13.0"),
         .package(name: "OneTimePassword", url: "https://github.com/bas-d/OneTimePassword", .branch("spm")),
     ],
@@ -34,11 +34,15 @@ let package = Package(
             ],
             path: "PACECloudSDK",
             exclude: [
-                "Info.plist"
+                "Info.plist",
+                "API/POI/Generated/README.md",
+                "API/Pay/Generated/README.md",
+                "API/Fueling/Generated/README.md",
+                "API/User/Generated/README.md"
             ],
             resources: [
+                .process("Utils/Plists"),
                 .process("AppKit/Assets/Fonts"),
-                .process("AppKit/Plists"),
                 .process("POIKit/POIKitApi/Model/tile_query_request.proto"),
                 .process("POIKit/POIKitApi/Model/tile_query_response.proto"),
                 .process("POIKit/POISearch/Model/vector_tile.proto")

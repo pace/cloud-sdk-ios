@@ -5,9 +5,9 @@
         "package": "AppAuth",
         "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
         "state": {
-          "branch": null,
-          "revision": "01131d68346c8ae552961c768d583c715fbe1410",
-          "version": "1.4.0"
+          "branch": "master",
+          "revision": "e191b1beadf3041259652e6e464eaceff16e5fbb",
+          "version": null
         }
       },
       {
