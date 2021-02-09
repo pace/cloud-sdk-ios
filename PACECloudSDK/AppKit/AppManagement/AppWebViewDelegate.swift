@@ -9,7 +9,6 @@ import SafariServices
 import WebKit
 
 class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, WKUIDelegate {
-
     private weak var app: App?
 
     init(app: App) {

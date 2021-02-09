@@ -30,6 +30,8 @@
         + [Custom AppDrawer](#custom-appdrawer)
         + [AppError](#apperror)
     * [Miscellaneous](#miscellaneous)
+        + [Preset Urls](#preset-urls)
+        + [Logging](#logging)
     * [SDK API docs](#sdk-api-docs)
     * [FAQ](#faq)
 
@@ -300,7 +302,22 @@ Possible errors:
 
 ## Miscellaneous
 ### Preset Urls
-`PACECloudSDK` provides preset urls for the most common apps, such as `PACE ID`, `payment` and `transactions` based on the enviroment the sdk was initialized with. You may access these urls via the enum `PACECloudSDK.URL`.
+`PACECloudSDK` provides preset URLs for the most common apps, such as `PACE ID`, `payment` and `transactions` based on the enviroment the SDK was initialized with. You may access these URLs via the enum `PACECloudSDK.URL`.
+ 
+### Logging 
+Besides the own logs of the SDK's kits an `AppWebView` also intercepts the logs of their loaded apps. You may retrieve all of the mentioned logs as shown in the following code example:
+```swift
+let loggingInterceptor: LoggingInterceptor = .init()
+PACECloudSDK.shared.isLoggingEnabled = true // Defaults to `false`
+PACECloudSDK.shared.loggingDelegate = loggingInterceptor
+ 
+// Conforms to the SDK logging delegate
+class LoggingInterceptor: PACECloudSDKLoggingDelegate {
+    func didLog(_ log: String) {
+        // ...
+    }
+}
+```
 
 ## SDK API Docs
 

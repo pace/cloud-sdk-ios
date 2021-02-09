@@ -7,16 +7,22 @@
 
 import Foundation
 
+public protocol PACECloudSDKLoggingDelegate: AnyObject {
+    func didLog(_ log: String)
+}
+
 class Logger {
     private static let logTag = Constants.logTag
     class var moduleTag: String { "" }
+
+    private static let loggingQueue = DispatchQueue(label: "pacecloudsdklogger", qos: .background)
+    private static let dateFormatter: DateFormatter = .init(formatString: "yyyy-MM-dd HH:mm:ss.SSS")
 
     enum Level: CustomStringConvertible {
         case verbose
         case info
         case warning
         case error
-        case critical
 
         var description: String {
             switch self {
@@ -31,30 +37,41 @@ class Logger {
 
             case .error:
                 return "[E]"
-
-            case .critical:
-                return "[C]"
             }
         }
     }
 
-    class func v(_ message: String) {
-        NSLog("\(logTag)\(moduleTag)\(Level.verbose.description) - \(message)")
+    static func v(_ message: String, passToClient: Bool = true) {
+        log(message: message, level: Level.verbose.description, passToClient: passToClient)
     }
 
-    class func i(_ message: String) {
-        NSLog("\(logTag)\(moduleTag)\(Level.info.description) - \(message)")
+    static func i(_ message: String, passToClient: Bool = true) {
+        log(message: message, level: Level.info.description, passToClient: passToClient)
     }
 
-    class func w(_ message: String) {
-        NSLog("\(logTag)\(moduleTag)\(Level.warning.description) - \(message)")
+    static func w(_ message: String, passToClient: Bool = true) {
+        log(message: message, level: Level.warning.description, passToClient: passToClient)
     }
 
-    class func e(_ message: String) {
-        NSLog("\(logTag)\(moduleTag)\(Level.error.description) - \(message)")
+    static func e(_ message: String, passToClient: Bool = true) {
+        log(message: message, level: Level.error.description, passToClient: passToClient)
     }
 
-    class func c(_ message: String) {
-        NSLog("\(logTag)\(moduleTag)\(Level.critical.description) - \(message)")
+    static func pwa(_ message: String) {
+        log(message: message, level: "[PWA]", passToClient: true)
+    }
+
+    private static func log(message: String, level: String, passToClient: Bool) {
+        loggingQueue.async {
+            let log = "\(logTag)\(moduleTag)\(level) \(message)"
+
+            NSLog(log)
+
+            guard PACECloudSDK.shared.isLoggingEnabled, passToClient else { return }
+
+            let timestamp = dateFormatter.string(from: Date())
+            let timestampLog = "\(timestamp) \(log)"
+            PACECloudSDK.shared.loggingDelegate?.didLog(timestampLog)
+        }
     }
 }

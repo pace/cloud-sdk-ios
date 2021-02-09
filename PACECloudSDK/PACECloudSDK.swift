@@ -21,6 +21,9 @@ public class PACECloudSDK {
 
     public var additionalQueryParams: Set<URLQueryItem>?
 
+    public var isLoggingEnabled = false
+    public weak var loggingDelegate: PACECloudSDKLoggingDelegate?
+
     private init() {
         URLSession.shared.configuration.protocolClasses = [CustomURLProtocol.self]
     }

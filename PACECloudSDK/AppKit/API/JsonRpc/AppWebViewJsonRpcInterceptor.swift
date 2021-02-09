@@ -23,6 +23,7 @@ class AppWebViewJsonRpcInterceptor {
         case applePayAvailabilityCheck = "pace_applePayAvailabilityCheck"
         case applePayRequest = "pace_applePayRequest"
         case verifyLocation = "pace_verifyLocation"
+        case logger = "pace_logger"
     }
 
     private weak var app: App?
@@ -72,6 +73,9 @@ class AppWebViewJsonRpcInterceptor {
 
         case JsonRpcHandler.verifyLocation.rawValue:
             app?.handleVerifyLocationRequest(with: message)
+
+        case JsonRpcHandler.logger.rawValue:
+            app?.handleLog(with: message)
 
         default:
             send(error: .badRequest)
