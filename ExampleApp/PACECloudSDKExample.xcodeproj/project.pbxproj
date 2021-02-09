@@ -63,6 +63,13 @@
 			remoteGlobalIDString = 3B3D31202553E6F200FDF82B;
 			remoteInfo = PACECloudSDKExample;
 		};
+		3BA5A49825D281F500B8102A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 92EDDBCD25A71EEB00E480F4;
+			remoteInfo = PACECloudSlimSDK;
+		};
 		3BDD7B74255433F300827F28 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
@@ -322,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				3BDD7B75255433F300827F28 /* PACECloudSDK.framework */,
+				3BA5A49925D281F500B8102A /* PACECloudSlimSDK.framework */,
 				3BDD7B77255433F300827F28 /* PACECloudSDKTests.xctest */,
 			);
 			name = Products;
@@ -444,6 +452,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3BA5A49925D281F500B8102A /* PACECloudSlimSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PACECloudSlimSDK.framework;
+			remoteRef = 3BA5A49825D281F500B8102A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		3BDD7B75255433F300827F28 /* PACECloudSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -726,6 +741,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEVELOPMENT DEBUG";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Development;
 		};
@@ -753,6 +769,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Production;
 		};
@@ -925,6 +942,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SANDBOX;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Sandbox;
 		};
@@ -1055,6 +1073,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGE;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_WORKSPACE = NO;
 			};
 			name = Stage;
 		};
