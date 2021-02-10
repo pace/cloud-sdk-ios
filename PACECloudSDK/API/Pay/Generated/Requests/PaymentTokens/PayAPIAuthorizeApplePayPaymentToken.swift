@@ -64,6 +64,7 @@ PaymentSession that can be used to obtain the applePay payload.
                 super.init(service: AuthorizeApplePayPaymentToken.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

@@ -62,6 +62,7 @@ Registering PayDirekt as payment method is a 2-step process, thus the payment me
                 super.init(service: CreatePaymentMethodPayDirekt.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

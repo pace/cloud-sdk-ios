@@ -39,12 +39,12 @@ protocol POIKitAPIProtocol {
 
     func fetchPOIs(poisOfType: POIKit.POILayer,
                    boundingBox: POIKit.BoundingBox,
-                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask?
+                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
     func loadPOIs(poisOfType: POIKit.POILayer,
                   boundingBox: POIKit.BoundingBox,
-                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask?
+                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
     func loadPOIs(uuids: [String],
-                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask?
+                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 }

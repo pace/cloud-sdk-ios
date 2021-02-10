@@ -38,6 +38,7 @@ In case the session is created an OTP for the user is created and send via email
                 super.init(service: UpdateSession.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/json"
             }
 
             /// convenience initialiser so an Option doesn't have to be created

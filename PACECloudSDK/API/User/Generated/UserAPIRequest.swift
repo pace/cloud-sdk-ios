@@ -14,6 +14,7 @@ public class UserAPIRequest<ResponseType: APIResponseValue> {
     private(set) var headerParameters: [String: String]
     public var customHeaders: [String: String] = [:]
     public var version: String = "2020-4"
+    public var contentType: String = "application/json"
 
     public var headers: [String: String] {
         return headerParameters.merging(customHeaders) { param, custom in return custom }
@@ -82,12 +83,14 @@ extension UserAPIRequest {
 
     /// pass in an optional baseURL, otherwise URLRequest.url will be relative
     public func createURLRequest(baseURL: String = "", encoder: RequestEncoder = JSONEncoder()) throws -> URLRequest {
-        guard var urlComponents = URLComponents(string: "\(baseURL)/\(version)") else {
+        guard var urlComponents = URLComponents(string: "\(baseURL)\(version.isEmpty ? "" : "/\(version)")") else {
             throw APIClientError.requestEncodingError(APIRequestError.encodingURL)
         }
 
         urlComponents.path += "\(path)"
-        urlComponents.percentEncodedQueryItems = URLEncoding.encodeParams(queryParameters).map { URLQueryItem(name: $0.0, value: $0.1) }
+        if !queryParameters.isEmpty {
+            urlComponents.percentEncodedQueryItems = URLEncoding.encodeParams(queryParameters).map { URLQueryItem(name: $0.0, value: $0.1) }
+        }
 
         let url = urlComponents.url!
         var urlRequest = URLRequest(url: url)
@@ -106,7 +109,7 @@ extension UserAPIRequest {
 
         if let encodeBody = encodeBody {
             urlRequest.httpBody = try encodeBody(encoder)
-            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
         }
         return urlRequest
     }

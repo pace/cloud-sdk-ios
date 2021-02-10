@@ -58,6 +58,7 @@ extension POIAPI.Subscriptions {
                 super.init(service: GetSubscriptions.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

@@ -53,6 +53,7 @@ extension POIAPI.Apps {
                 super.init(service: CreateApp.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

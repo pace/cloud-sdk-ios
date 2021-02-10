@@ -62,6 +62,7 @@ This endpoint is pre-requisite for calling `/payment-method-kinds/applepay/autho
                 super.init(service: RequestApplePaySession.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

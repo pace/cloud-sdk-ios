@@ -62,6 +62,7 @@ If you provide a valid Billing Agreement ID, the payment method is created direc
                 super.init(service: CreatePaymentMethodPayPal.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

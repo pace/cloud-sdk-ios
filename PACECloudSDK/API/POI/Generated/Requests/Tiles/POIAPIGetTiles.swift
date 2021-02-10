@@ -23,8 +23,9 @@ extension POIAPI.Tiles {
             public init(body: File, encoder: RequestEncoder? = nil) {
                 self.body = body
                 super.init(service: GetTiles.service) { defaultEncoder in
-                    return try (encoder ?? defaultEncoder).encode(body)
+                    return body
                 }
+                self.contentType = "application/protobuf"
             }
         }
 

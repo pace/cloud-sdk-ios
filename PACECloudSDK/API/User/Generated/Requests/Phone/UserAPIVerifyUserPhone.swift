@@ -25,6 +25,7 @@ extension UserAPI.Phone {
                 super.init(service: VerifyUserPhone.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/json"
             }
         }
 

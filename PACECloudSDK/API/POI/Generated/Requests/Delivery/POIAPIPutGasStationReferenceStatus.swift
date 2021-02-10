@@ -70,6 +70,7 @@ extension POIAPI.Delivery {
                 super.init(service: PutGasStationReferenceStatus.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
 
             /// convenience initialiser so an Option doesn't have to be created

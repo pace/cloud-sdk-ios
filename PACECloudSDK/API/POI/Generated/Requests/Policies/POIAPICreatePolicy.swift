@@ -53,6 +53,7 @@ extension POIAPI.Policies {
                 super.init(service: CreatePolicy.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 
