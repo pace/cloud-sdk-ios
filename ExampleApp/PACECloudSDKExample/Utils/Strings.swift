@@ -19,4 +19,5 @@ enum Strings: String {
     case buttonDrawer = "Request App Drawer"
     case buttonFueling = "Request Fueling App"
     case buttonPayment = "Request Payment App"
+    case buttonTransactions = "Request Transactions"
 }

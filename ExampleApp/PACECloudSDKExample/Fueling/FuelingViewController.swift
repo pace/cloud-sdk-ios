@@ -15,6 +15,7 @@ class FuelingViewController: UIViewController {
         case drawer
         case fueling
         case payment
+        case transactions
 
         var title: String {
             switch self {
@@ -32,6 +33,9 @@ class FuelingViewController: UIViewController {
 
             case .payment:
                 return Strings.buttonPayment.rawValue
+
+            case .transactions:
+                return Strings.buttonTransactions.rawValue
             }
         }
     }
@@ -62,7 +66,7 @@ class FuelingViewController: UIViewController {
         }
 
         idButtons = [ButtonType.authorize, .reset].map { buttonCreation($0) }
-        appButtons = [ButtonType.drawer, .fueling, .payment].map { buttonCreation($0) }
+        appButtons = [ButtonType.drawer, .fueling, .payment, .transactions].map { buttonCreation($0) }
 
         isAuthorized(false)
     }
@@ -137,6 +141,10 @@ class FuelingViewController: UIViewController {
 
         case ButtonType.payment.rawValue:
             let vc = AppControl.shared.appViewController(appUrl: Constants.URLs.paymentUrl)
+            present(vc, animated: true)
+
+        case ButtonType.transactions.rawValue:
+            let vc = AppControl.shared.appViewController(appUrl: "\(Constants.URLs.paymentUrl)/transactions")
             present(vc, animated: true)
 
         default:

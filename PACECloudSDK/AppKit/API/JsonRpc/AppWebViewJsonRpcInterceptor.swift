@@ -24,6 +24,7 @@ class AppWebViewJsonRpcInterceptor {
         case applePayRequest = "pace_applePayRequest"
         case verifyLocation = "pace_verifyLocation"
         case logger = "pace_logger"
+        case back = "pace_back"
     }
 
     private weak var app: App?
@@ -36,7 +37,7 @@ class AppWebViewJsonRpcInterceptor {
     func parseJsonRpcRequest(message: WKScriptMessage) {
         switch message.name {
         case JsonRpcHandler.close.rawValue:
-            app?.handleCloseAction(with: message)
+            app?.handleCloseAction()
 
         case JsonRpcHandler.getBiometricStatus.rawValue:
             app?.handleBiometryAvailbilityRequest()
@@ -76,6 +77,9 @@ class AppWebViewJsonRpcInterceptor {
 
         case JsonRpcHandler.logger.rawValue:
             app?.handleLog(with: message)
+
+        case JsonRpcHandler.back.rawValue:
+            app?.handleBack()
 
         default:
             send(error: .badRequest)
