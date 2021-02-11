@@ -15,15 +15,16 @@ public protocol AppDrawerProtocol: AnyObject {
 public extension AppKit {
     open class AppDrawer: UIView {
         public let appData: AppData
+        public var currentState: State = .collapsed
+        public weak var delegate: AppDrawerProtocol?
+        internal(set) public var appViewController: AppViewController?
 
         var appWindow: AppWindow?
-        var appViewController: AppViewController?
 
         private var didLayoutSubviews = false
 
         // MARK: - Gesture handling
         var isSlidingLocked = false
-        public var currentState: State = .collapsed
         var drawerWidthConstraint: NSLayoutConstraint?
         var drawerRightPaddingConstraint: NSLayoutConstraint? // To compensate the initial damping of the expand animation
         var expandOrOpenAppGestureRecognizer: UITapGestureRecognizer?
@@ -34,8 +35,6 @@ public extension AppKit {
 
         var appDrawerBackgroundColor: UIColor = AppStyle.lightColor
         let appIconBackgroundColor: UIColor
-
-        public weak var delegate: AppDrawerProtocol?
 
         lazy var drawerBackgroundView: UIView = {
             let view = UIView()
@@ -176,11 +175,11 @@ public extension AppKit {
             handleExpandOrOpenApp()
         }
 
-        open func handleExpandOrOpenApp() {
+        private func handleExpandOrOpenApp() {
             if currentState == .collapsed {
                 expand()
             } else if currentState == .expanded {
-                openApp()
+                prepareForOpenApp()
             }
         }
 
