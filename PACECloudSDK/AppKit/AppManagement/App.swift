@@ -84,7 +84,7 @@ extension App {
             disableMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
 
         } catch {
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 
@@ -122,7 +122,7 @@ extension App {
         do {
             openInTabMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
         } catch {
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 
@@ -135,7 +135,7 @@ extension App {
             return
         }
 
-        guard let clientId = PACECloudSDK.shared.clientId, let customScheme = URL(string: "pace.\(clientId)://") else {
+        guard let customScheme = Bundle.main.clientRedirectScheme, let customUrl = URL(string: "\(customScheme)://") else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
 
             load(URLRequest(url: cancelUrl))
@@ -143,7 +143,7 @@ extension App {
             return
         }
 
-        if UIApplication.shared.canOpenURL(customScheme) {
+        if UIApplication.shared.canOpenURL(customUrl) {
             appActionsDelegate.appRequestedNewTab(for: url, cancelUrl: cancelUrl.absoluteString)
         } else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
@@ -204,7 +204,7 @@ extension App {
                 self?.jsonRpcInterceptor?.respond(result: response)
             }
         } catch {
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
         }
     }
 
@@ -219,6 +219,16 @@ extension App {
         } else {
             goBack()
         }
+    }
+
+    func handleRedirectScheme() {
+        guard let customScheme = Bundle.main.clientRedirectScheme else {
+            jsonRpcInterceptor?.send(error: .notFound)
+            AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
+            return
+        }
+
+        jsonRpcInterceptor?.respond(result: [MessageHandlerParam.link.rawValue: customScheme])
     }
 }
 
@@ -235,7 +245,7 @@ extension App {
         do {
             verifyLocationMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
         } catch {
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 

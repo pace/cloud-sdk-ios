@@ -27,6 +27,9 @@ enum MessageHandlerParam: String {
     case lon
     case threshold
 
+    // Redirect scheme
+    case link
+
     case error
     case statusCode
 }

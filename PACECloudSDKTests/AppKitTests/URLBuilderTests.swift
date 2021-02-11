@@ -11,8 +11,7 @@ import XCTest
 class URLBuilderTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
-        PACECloudSDK.shared.setup(with: .init(clientId: "clientId",
-                                              apiKey: "apiKey",
+        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
                                               authenticationMode: .web,
                                               environment: .development))
     }

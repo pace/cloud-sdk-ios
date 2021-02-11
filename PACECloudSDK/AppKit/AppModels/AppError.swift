@@ -7,6 +7,7 @@
 
 import Foundation
 
+// swiftlint:disable line_length
 public extension AppKit {
     enum AppError: Equatable, CustomStringConvertible {
         case noLocationFound
@@ -47,7 +48,7 @@ public extension AppKit {
                 return "The passed reference value does not conform to the URN format"
 
             case .customURLSchemeNotSet:
-                return "Custom URL scheme couldn't be opened"
+                return "Custom URL scheme couldn't be retrieved. Please refer to <https://pace.github.io/cloud-sdk-ios/#deep-linking> on how to configure deep linking for PACECloudSDK."
 
             case .other(let error):
                 return error.localizedDescription
