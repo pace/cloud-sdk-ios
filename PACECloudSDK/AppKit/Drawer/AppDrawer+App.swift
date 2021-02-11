@@ -7,6 +7,14 @@
 
 import UIKit
 
+public extension AppKit.AppDrawer {
+    @objc
+    open func openApp() {
+        guard let appViewController = appViewController else { return }
+        appWindow?.show(with: appViewController)
+    }
+}
+
 extension AppKit.AppDrawer: AppViewControllerDelegate {
     func preloadApp() {
         appViewController = nil
@@ -19,7 +27,7 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
         initializeAppViewController()
     }
 
-    func openApp() {
+    func prepareForOpenApp() {
         if #available(iOS 13.0, *) {
             guard let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as? UIApplication else { return }
             let windowScene = application.connectedScenes.first
@@ -35,10 +43,9 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
             initializeAppViewController()
         }
 
-        guard let appViewController = appViewController else { return }
+        appViewController?.delegate = self
 
-        appViewController.delegate = self
-        appWindow?.show(with: appViewController)
+        openApp()
 
         delegate?.didOpenApp()
     }
@@ -70,7 +77,7 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
     }
 
     private func dismissAppViews() {
-        appWindow?.dismissAppViewController { [weak self] in
+        appViewController?.dismiss(animated: true) { [weak self] in
             self?.appWindow = nil
         }
     }

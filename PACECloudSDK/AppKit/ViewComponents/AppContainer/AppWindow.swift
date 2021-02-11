@@ -61,12 +61,6 @@ class AppWindow: UIWindow {
         rootViewController?.present(vc, animated: true, completion: nil)
     }
 
-    func dismissAppViewController(completion: (() -> Void)?) {
-        appViewController?.dismiss(animated: true) {
-            completion?()
-        }
-    }
-
     private func determineInterfaceStyle() {
         if #available(iOS 13.0, *) {
             if AppKit.shared.theme != .automatic {

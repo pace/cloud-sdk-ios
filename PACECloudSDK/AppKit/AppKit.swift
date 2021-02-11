@@ -52,7 +52,7 @@ public class AppKit {
     }
 
     // MARK: - WebView or ViewController / apps with url
-    public func appViewController(appUrl: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
+    public func appViewController(appUrl: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
         AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
     }
 
@@ -61,7 +61,7 @@ public class AppKit {
     }
 
     // MARK: - WebView or ViewController with preset urls
-    public func appViewController(presetUrl: PACECloudSDK.URL, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
+    public func appViewController(presetUrl: PACECloudSDK.URL, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
         appViewController(appUrl: presetUrl.absoluteString, hasNavigationBar: hasNavigationBar, completion: completion)
     }
 
@@ -70,7 +70,7 @@ public class AppKit {
     }
 
     // MARK: - WebView or ViewController / apps with app url and reference
-    public func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> UIViewController {
+    public func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
         let appUrl = appManager.buildAppUrl(with: appUrl, for: reference)
         return AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
     }
