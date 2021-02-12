@@ -25,6 +25,8 @@ class AppManager {
     private var isGeneralFetchRunning = false
     private var currentlyDisplayedLocationApps: [AppKit.AppData] = []
 
+    private lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
+
     init() {
         locationProvider = AppDrawerLocationProvider()
         locationProvider.delegate = self
@@ -38,7 +40,20 @@ class AppManager {
         locationProvider.startFetchingLocation()
     }
 
-    private func fetchAppByLocation(with location: CLLocation) {
+    func fetchAppsForOneTimeLocation() {
+        oneTimeLocationProvider.requestLocation { [weak self] location in
+            guard let location = location else {
+                self?.delegate?.didReceiveAppReferences([])
+                return
+            }
+            self?.fetchAppsByLocation(with: location)
+        }
+    }
+}
+
+// MARK: - API requests
+extension AppManager {
+    private func fetchAppsByLocation(with location: CLLocation) {
         guard !isLocationFetchRunning else {
             delegate?.passErrorToClient(.fetchAlreadyRunning)
             return
@@ -243,7 +258,7 @@ extension AppManager: AppDrawerLocationProviderDelegate {
     func didReceiveLocation(_ location: CLLocation) {
         AppKitLogger.i("[App Manager] Did receive location. Fetching available Apps.")
 
-        fetchAppByLocation(with: location)
+        fetchAppsByLocation(with: location)
     }
 
     func didFailWithError(_ error: Error) {

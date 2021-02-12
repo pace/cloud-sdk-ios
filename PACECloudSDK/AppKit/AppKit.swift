@@ -100,7 +100,7 @@ public class AppKit {
     public func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
         proximityCheckPoiID = id
         proximityCheckCompletion = completion
-        appManager.startRetrievingLocation()
+        appManager.fetchAppsForOneTimeLocation()
     }
 }
 
