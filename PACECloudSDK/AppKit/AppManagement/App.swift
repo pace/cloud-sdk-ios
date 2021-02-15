@@ -60,7 +60,7 @@ extension App {
 
 // MARK: - Message handling
 extension App {
-    func handleCloseAction(with message: WKScriptMessage) {
+    func handleCloseAction() {
         guard let appActionsDelegate = appActionsDelegate else {
             // WebView directly added to client's view
             self.removeFromSuperview()
@@ -211,6 +211,14 @@ extension App {
     func handleLog(with message: WKScriptMessage) {
         guard let log = message.body as? String else { return }
         AppKitLogger.pwa(log)
+    }
+
+    func handleBack() {
+        if backForwardList.backItem == nil {
+            handleCloseAction()
+        } else {
+            goBack()
+        }
     }
 }
 
