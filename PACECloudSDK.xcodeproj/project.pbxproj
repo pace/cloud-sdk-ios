@@ -546,6 +546,7 @@
 		84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
 		84E1AC3D2562800D00C673EF /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
 		9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */; };
+		84E1C30C25DD353300BD4D7D /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482BAD325D5342000A7CD16 /* HttpRequest.swift */; };
 		921E68362534883200438491 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921E682C2534883100438491 /* PACECloudSDK.framework */; };
 		923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */; };
 		923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */; };
@@ -3309,6 +3310,7 @@
 				92EDDD9C25A73A6500E480F4 /* Vector2.swift in Sources */,
 				92EDDC2225A7270300E480F4 /* URLDataRequest.swift in Sources */,
 				92EDDBFE25A7270300E480F4 /* AppDrawer+Gestures.swift in Sources */,
+				84E1C30C25DD353300BD4D7D /* HttpRequest.swift in Sources */,
 				84600F3525C03B1F0087194F /* POIAPICheckForPaceApp.swift in Sources */,
 				92EDDD5F25A7396900E480F4 /* (null) in Sources */,
 				92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */,
@@ -3349,14 +3351,6 @@
 				92EDDBEF25A7270300E480F4 /* ApplePayResponse.swift in Sources */,
 				92EDDD5A25A7396300E480F4 /* (null) in Sources */,
 				8418E27D25B1B85A00D3722B /* PCPOIPriceHistory.swift in Sources */,
-				3B88788625CBEE2E008D1551 /* PCGeoJSONGeoJson.swift in Sources */,
-				8418E26D25B1B85A00D3722B /* PCPayPaymentMethodDKVCreate.swift in Sources */,
-				8447A3AA25CAAE740095BEF1 /* UserAPIAcceptTerms.swift in Sources */,
-				8418E26525B1B85A00D3722B /* PCPayReadOnlyLocation.swift in Sources */,
-				8482BAD525D5342000A7CD16 /* HttpRequest.swift in Sources */,
-				841A3EFB25B9C96A0065284A /* PCFuelingPaymentMethodKind.swift in Sources */,
-				84600EAD25C03B0C0087194F /* PayAPIGetTransaction.swift in Sources */,
-				8447A39C25CAAE740095BEF1 /* UserAPI.swift in Sources */,
 				92EDDC0525A7270300E480F4 /* TOTPSecretData.swift in Sources */,
 				92EDDC0D25A7270300E480F4 /* UIImage+Extension.swift in Sources */,
 				92EDDD5625A7395A00E480F4 /* (null) in Sources */,

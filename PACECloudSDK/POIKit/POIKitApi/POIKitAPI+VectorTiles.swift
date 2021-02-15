@@ -104,10 +104,10 @@ extension POIKitAPI {
                     completion(.failure(POIKit.POIKitAPIError.serverError))
                     return
                 }
-                
+
                 let timeToLive = self.timeToLive(from: response.urlResponse)
                 let invalidationToken = tileResponse.invalidationToken
-                
+
                 let tiles = tileResponse.vectorTiles.map {  Tile(tileInformation: TileInformation(zoomLevel: Int(tileResponse.zoom), x: Int($0.geo.x), y: Int($0.geo.y)),
                                                              type: .poi,
                                                              invalidationToken: invalidationToken,
@@ -123,10 +123,8 @@ extension POIKitAPI {
             case .failure(let error):
                 if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
                     completion(.failure(POIKit.POIKitAPIError.networkError))
-
-                    return
                 }
-
+                completion(.failure(error))
             }
         }
     }
