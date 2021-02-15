@@ -1,9 +1,6 @@
 default_platform(:ios)
 
 platform :ios do
-  before_all do
-    carthage(command: 'bootstrap', cache_builds: true,  platform: 'iOS', use_binaries: false)
-  end
   
   desc 'Run tests'
   lane :test do
