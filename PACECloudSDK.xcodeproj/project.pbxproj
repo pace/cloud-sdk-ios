@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,9 @@
 		3B85531D253D6FD8001F7B66 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */; };
 		3B855327253D7052001F7B66 /* MimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855326253D7052001F7B66 /* MimeTypes.swift */; };
 		3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */; };
+		3B87D06425DACE2600D635F0 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06325DACE2600D635F0 /* AppAuth */; };
+		3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06925DACE6400D635F0 /* SwiftProtobuf */; };
+		3B87D07025DACE8D00D635F0 /* OneTimePassword in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06F25DACE8D00D635F0 /* OneTimePassword */; };
 		3B88785825CBECC2008D1551 /* GeoJSONAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */; };
 		3B88785A25CBECC2008D1551 /* GeoJSONAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88784F25CBECC2008D1551 /* GeoJSONAPIClient.swift */; };
 		3B88785C25CBECC2008D1551 /* GeoJSONRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785025CBECC2008D1551 /* GeoJSONRequestBehaviour.swift */; };
@@ -419,10 +422,6 @@
 		84600F5525C03B340087194F /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */; };
 		84600F5725C03B340087194F /* FuelingAPICancelPreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */; };
 		847EBE4A25C0531F001507D2 /* MessageHandlerParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B577FBB2593815C00F65DF6 /* MessageHandlerParam.swift */; };
-		8496AC3A25651A5400344707 /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372DF2551AEED0002083A /* AppAuth.framework */; };
-		8496AC3B25651A5400344707 /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372E42551AEED0002083A /* Base32.framework */; };
-		8496AC3D25651A5400344707 /* OneTimePassword.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372DC2551AEED0002083A /* OneTimePassword.framework */; };
-		8496AC4025651A5400344707 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB372DD2551AEED0002083A /* SwiftProtobuf.framework */; };
 		849C400725CAB6DD0074BCDA /* PCUserTerms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFB25CAB6DC0074BCDA /* PCUserTerms.swift */; };
 		849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFC25CAB6DD0074BCDA /* PCUserUserPIN.swift */; };
 		849C400B25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFD25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift */; };
@@ -850,10 +849,6 @@
 		3BB1443225388108004E9F63 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3BB208842538338A008DDE45 /* IDKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitError.swift; sourceTree = "<group>"; };
 		3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+TokenHandling.swift"; sourceTree = "<group>"; };
-		3BB372DC2551AEED0002083A /* OneTimePassword.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneTimePassword.framework; path = Carthage/Build/iOS/OneTimePassword.framework; sourceTree = "<group>"; };
-		3BB372DD2551AEED0002083A /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/iOS/SwiftProtobuf.framework; sourceTree = "<group>"; };
-		3BB372DF2551AEED0002083A /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppAuth.framework; path = Carthage/Build/iOS/AppAuth.framework; sourceTree = "<group>"; };
-		3BB372E42551AEED0002083A /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = Carthage/Build/iOS/Base32.framework; sourceTree = "<group>"; };
 		3BBCB2F22567D2C6000EA905 /* POILayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILayer.swift; sourceTree = "<group>"; };
 		3BBCB2F62567D2CC000EA905 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+URL.swift"; sourceTree = "<group>"; };
@@ -1189,10 +1184,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8496AC3A25651A5400344707 /* AppAuth.framework in Frameworks */,
-				8496AC3B25651A5400344707 /* Base32.framework in Frameworks */,
-				8496AC3D25651A5400344707 /* OneTimePassword.framework in Frameworks */,
-				8496AC4025651A5400344707 /* SwiftProtobuf.framework in Frameworks */,
+				3B87D07025DACE8D00D635F0 /* OneTimePassword in Frameworks */,
+				3B87D06425DACE2600D635F0 /* AppAuth in Frameworks */,
+				3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1547,17 +1541,6 @@
 				3B970AB92542D9DB0072F6BA /* ManifestMocks.swift */,
 			);
 			path = MockData;
-			sourceTree = "<group>";
-		};
-		3B970ACC2542DBAE0072F6BA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3BB372DF2551AEED0002083A /* AppAuth.framework */,
-				3BB372E42551AEED0002083A /* Base32.framework */,
-				3BB372DC2551AEED0002083A /* OneTimePassword.framework */,
-				3BB372DD2551AEED0002083A /* SwiftProtobuf.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3B970ADB2542DE540072F6BA /* Utils */ = {
@@ -2373,7 +2356,6 @@
 		921E68222534883100438491 = {
 			isa = PBXGroup;
 			children = (
-				3B970ACC2542DBAE0072F6BA /* Frameworks */,
 				921E682E2534883100438491 /* PACECloudSDK */,
 				92EDDBCE25A71EEB00E480F4 /* PACECloudSlimSDK */,
 				921E68392534883200438491 /* PACECloudSDKTests */,
@@ -2487,6 +2469,9 @@
 			);
 			name = PACECloudSDK;
 			packageProductDependencies = (
+				3B87D06325DACE2600D635F0 /* AppAuth */,
+				3B87D06925DACE6400D635F0 /* SwiftProtobuf */,
+				3B87D06F25DACE8D00D635F0 /* OneTimePassword */,
 			);
 			productName = PACECloudSDK;
 			productReference = 921E682C2534883100438491 /* PACECloudSDK.framework */;
@@ -2561,6 +2546,9 @@
 			);
 			mainGroup = 921E68222534883100438491;
 			packageReferences = (
+				3B87D06225DACE2600D635F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				3B87D06825DACE6400D635F0 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				3B87D06E25DACE8D00D635F0 /* XCRemoteSwiftPackageReference "OneTimePassword" */,
 			);
 			productRefGroup = 921E682D2534883100438491 /* Products */;
 			projectDirPath = "";
@@ -3465,7 +3453,7 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PACECloudSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -3474,7 +3462,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
@@ -3494,16 +3481,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PACECloudSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.PACECloudSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3595,7 +3578,7 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PACECloudSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -3604,7 +3587,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
@@ -3624,16 +3606,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PACECloudSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.PACECloudSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3783,8 +3761,6 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Dependencies",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PACECloudSDK/Info.plist;
@@ -3794,7 +3770,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
@@ -3823,8 +3798,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Dependencies",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PACECloudSDK/Info.plist;
@@ -3834,7 +3807,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
@@ -3853,16 +3825,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PACECloudSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.PACECloudSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3880,16 +3848,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = PACECloudSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.PACECloudSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4257,6 +4221,51 @@
 			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3B87D06225DACE2600D635F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		3B87D06825DACE6400D635F0 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.15.0;
+			};
+		};
+		3B87D06E25DACE8D00D635F0 /* XCRemoteSwiftPackageReference "OneTimePassword" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bas-d/OneTimePassword";
+			requirement = {
+				branch = spm;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3B87D06325DACE2600D635F0 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B87D06225DACE2600D635F0 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		3B87D06925DACE6400D635F0 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B87D06825DACE6400D635F0 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		3B87D06F25DACE8D00D635F0 /* OneTimePassword */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B87D06E25DACE8D00D635F0 /* XCRemoteSwiftPackageReference "OneTimePassword" */;
+			productName = OneTimePassword;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 921E68232534883100438491 /* Project object */;
 }

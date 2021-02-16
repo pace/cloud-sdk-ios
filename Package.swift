@@ -21,7 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", .branch("master")),
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.13.0"),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .exact("1.13.0")),
         .package(name: "OneTimePassword", url: "https://github.com/bas-d/OneTimePassword", .branch("spm")),
     ],
     targets: [
@@ -38,7 +38,8 @@ let package = Package(
                 "API/POI/Generated/README.md",
                 "API/Pay/Generated/README.md",
                 "API/Fueling/Generated/README.md",
-                "API/User/Generated/README.md"
+                "API/User/Generated/README.md",
+                "API/GeoJSON/Generated/README.md",
             ],
             resources: [
                 .process("Utils/Plists"),

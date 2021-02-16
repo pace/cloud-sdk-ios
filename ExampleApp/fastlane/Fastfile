@@ -11,9 +11,6 @@ platform :ios do
   
   before_all do
     clear_derived_data
-    Dir.chdir("..") do
-      carthage(command: 'bootstrap', cache_builds: true,  platform: 'iOS', use_binaries: false)
-    end
 
     create_keychain(
       name: ENV['MATCH_KEYCHAIN_NAME'],
@@ -32,19 +29,6 @@ platform :ios do
       artifacts: ['*.cer', '*.mobileprovision', '*.ipa'],
       fail_on_missing: true
     )
-
-    dsym_file_name = 'frameworks.dSYM.zip'
-    framework_dsym_path = '../Carthage/Build/iOS/'
-    Dir.chdir("../#{framework_dsym_path}") do
-      sh("zip -r #{dsym_file_name} *.dSYM")
-    end
-
-    copy_artifacts(
-       keep_original: false,
-       target_path: 'dsyms',
-       artifacts: ['*.dSYM.zip', "#{framework_dsym_path}#{dsym_file_name}"],
-       fail_on_missing: true
-     )
 
     delete_keychain(name: ENV['MATCH_KEYCHAIN_NAME'])
   end

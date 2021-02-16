@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,14 +18,6 @@
 		3B3D31AB2553ED8600FDF82B /* FuelingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D31AA2553ED8600FDF82B /* FuelingCoordinator.swift */; };
 		3B3D32282553EE9800FDF82B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32272553EE9800FDF82B /* ListViewController.swift */; };
 		3B3D322E2553EEBC00FDF82B /* FuelingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D322D2553EEBC00FDF82B /* FuelingViewController.swift */; };
-		3B3D324B2553F10A00FDF82B /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32402553F10A00FDF82B /* Base32.framework */; };
-		3B3D324C2553F10A00FDF82B /* Base32.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32402553F10A00FDF82B /* Base32.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B3D324D2553F10A00FDF82B /* OneTimePassword.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32412553F10A00FDF82B /* OneTimePassword.framework */; };
-		3B3D324E2553F10A00FDF82B /* OneTimePassword.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32412553F10A00FDF82B /* OneTimePassword.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B3D32592553F10A00FDF82B /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32472553F10A00FDF82B /* SwiftProtobuf.framework */; };
-		3B3D325A2553F10A00FDF82B /* SwiftProtobuf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32472553F10A00FDF82B /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B3D325D2553F10A00FDF82B /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32492553F10A00FDF82B /* AppAuth.framework */; };
-		3B3D325E2553F10A00FDF82B /* AppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D32492553F10A00FDF82B /* AppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B3D32EE2553F99B00FDF82B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32ED2553F99B00FDF82B /* UIColor+Extension.swift */; };
 		3B3D32F22553FC3300FDF82B /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32F12553FC3300FDF82B /* UIFont+Extension.swift */; };
 		3B3D32F72553FD1D00FDF82B /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32F62553FD1D00FDF82B /* Images.swift */; };
@@ -33,14 +25,13 @@
 		3B3D33082554030400FDF82B /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D33072554030400FDF82B /* ListViewModel.swift */; };
 		3B3D3315255404E200FDF82B /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D3314255404E200FDF82B /* ListItemCell.swift */; };
 		3B3D33192554050300FDF82B /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D33182554050300FDF82B /* UITableViewCell+Extension.swift */; };
-		3B3D331D2554074200FDF82B /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D331C2554074200FDF82B /* SnapKit.framework */; };
-		3B3D331E2554074200FDF82B /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3D331C2554074200FDF82B /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B3D333425540F5200FDF82B /* AppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D333325540F5200FDF82B /* AppControl.swift */; };
 		3B7552B3255539210073C3CA /* IDControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7552B2255539210073C3CA /* IDControl.swift */; };
 		3B7552B725553B070073C3CA /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7552B625553B070073C3CA /* LiveData.swift */; };
 		3B755337255552290073C3CA /* SpinningWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B755336255552290073C3CA /* SpinningWheel.swift */; };
 		3B75533B255552BD0073C3CA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75533A255552BD0073C3CA /* LoadingView.swift */; };
 		3B8FCEFF255AC1CC0098941C /* PACE.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B8FCEFD255AC1CC0098941C /* PACE.gpx */; };
+		3BAAFEE225DBAA4900D344D6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3BAAFEE125DBAA4900D344D6 /* SnapKit */; };
 		3BDD7B7C2554340100827F28 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; };
 		3BDD7B7D2554340800827F28 /* PACECloudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BEC848C255432B700AB5F2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC848B255432B700AB5F2F /* Constants.swift */; };
@@ -101,11 +92,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3BDD7B7D2554340800827F28 /* PACECloudSDK.framework in Embed Frameworks */,
-				3B3D325A2553F10A00FDF82B /* SwiftProtobuf.framework in Embed Frameworks */,
-				3B3D331E2554074200FDF82B /* SnapKit.framework in Embed Frameworks */,
-				3B3D324C2553F10A00FDF82B /* Base32.framework in Embed Frameworks */,
-				3B3D325E2553F10A00FDF82B /* AppAuth.framework in Embed Frameworks */,
-				3B3D324E2553F10A00FDF82B /* OneTimePassword.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,10 +116,6 @@
 		3B3D31AA2553ED8600FDF82B /* FuelingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelingCoordinator.swift; sourceTree = "<group>"; };
 		3B3D32272553EE9800FDF82B /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		3B3D322D2553EEBC00FDF82B /* FuelingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelingViewController.swift; sourceTree = "<group>"; };
-		3B3D32402553F10A00FDF82B /* Base32.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Base32.framework; path = ../Carthage/Build/iOS/Base32.framework; sourceTree = "<group>"; };
-		3B3D32412553F10A00FDF82B /* OneTimePassword.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneTimePassword.framework; path = ../Carthage/Build/iOS/OneTimePassword.framework; sourceTree = "<group>"; };
-		3B3D32472553F10A00FDF82B /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = ../Carthage/Build/iOS/SwiftProtobuf.framework; sourceTree = "<group>"; };
-		3B3D32492553F10A00FDF82B /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppAuth.framework; path = ../Carthage/Build/iOS/AppAuth.framework; sourceTree = "<group>"; };
 		3B3D32ED2553F99B00FDF82B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3B3D32F12553FC3300FDF82B /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		3B3D32F62553FD1D00FDF82B /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -141,7 +123,6 @@
 		3B3D33072554030400FDF82B /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		3B3D3314255404E200FDF82B /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
 		3B3D33182554050300FDF82B /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
-		3B3D331C2554074200FDF82B /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = ../Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		3B3D333325540F5200FDF82B /* AppControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControl.swift; sourceTree = "<group>"; };
 		3B7552B2255539210073C3CA /* IDControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDControl.swift; sourceTree = "<group>"; };
 		3B7552B625553B070073C3CA /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
@@ -160,11 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BDD7B7C2554340100827F28 /* PACECloudSDK.framework in Frameworks */,
-				3B3D32592553F10A00FDF82B /* SwiftProtobuf.framework in Frameworks */,
-				3B3D331D2554074200FDF82B /* SnapKit.framework in Frameworks */,
-				3B3D324B2553F10A00FDF82B /* Base32.framework in Frameworks */,
-				3B3D325D2553F10A00FDF82B /* AppAuth.framework in Frameworks */,
-				3B3D324D2553F10A00FDF82B /* OneTimePassword.framework in Frameworks */,
+				3BAAFEE225DBAA4900D344D6 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,11 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */,
-				3B3D331C2554074200FDF82B /* SnapKit.framework */,
-				3B3D32492553F10A00FDF82B /* AppAuth.framework */,
-				3B3D32402553F10A00FDF82B /* Base32.framework */,
-				3B3D32412553F10A00FDF82B /* OneTimePassword.framework */,
-				3B3D32472553F10A00FDF82B /* SwiftProtobuf.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -363,6 +335,9 @@
 				3BDD7B7B255433FC00827F28 /* PBXTargetDependency */,
 			);
 			name = PACECloudSDKExample;
+			packageProductDependencies = (
+				3BAAFEE125DBAA4900D344D6 /* SnapKit */,
+			);
 			productName = PACECloudSDKExample;
 			productReference = 3B3D31212553E6F200FDF82B /* PACECloudSDKExample.app */;
 			productType = "com.apple.product-type.application";
@@ -434,6 +409,9 @@
 				Base,
 			);
 			mainGroup = 3B3D31182553E6F200FDF82B;
+			packageReferences = (
+				3BAAFEE025DBAA4900D344D6 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 3B3D31222553E6F200FDF82B /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -727,7 +705,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 					"$(BUILD_DIR)/**",
 				);
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
@@ -755,7 +732,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 					"$(BUILD_DIR)/**",
 				);
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
@@ -928,7 +904,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 					"$(BUILD_DIR)/**",
 				);
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
@@ -1059,7 +1034,6 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 					"$(BUILD_DIR)/**",
 				);
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
@@ -1167,6 +1141,25 @@
 			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3BAAFEE025DBAA4900D344D6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3BAAFEE125DBAA4900D344D6 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BAAFEE025DBAA4900D344D6 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3B3D31192553E6F200FDF82B /* Project object */;
 }
