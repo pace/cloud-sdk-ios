@@ -21,7 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", .branch("master")),
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .exact("1.13.0")),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .exact("1.15.0")),
         .package(name: "OneTimePassword", url: "https://github.com/bas-d/OneTimePassword", .branch("spm")),
     ],
     targets: [
