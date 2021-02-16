@@ -16,5 +16,6 @@ platform :ios do
 
   lane :set_version do |options|
     set_info_plist_value(path: 'PACECloudSDK/Info.plist', key: 'CFBundleShortVersionString', value: options[:version_number])
+    set_info_plist_value(path: 'PACECloudSDK/Utils/Plists/FallbackVersions.plist', key: 'ReleaseVersion', value: options[:version_number])
   end
 end
