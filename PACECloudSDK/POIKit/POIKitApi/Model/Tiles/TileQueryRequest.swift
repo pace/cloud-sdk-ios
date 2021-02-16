@@ -23,7 +23,7 @@ extension TileQueryRequest {
 
 extension TileQueryRequest.AreaQuery {
 
-    init(northEast: TileQueryRequest.Coordinate, southWest: TileQueryRequest.Coordinate, invalidationToken: Int64?) {
+    init(northEast: TileQueryRequest.Coordinate, southWest: TileQueryRequest.Coordinate, invalidationToken: Int64? = nil) {
         if let invalidationToken = invalidationToken, invalidationToken > 0 { self.invalidationToken = UInt64(invalidationToken) }
         self.northEast = northEast
         self.southWest = southWest

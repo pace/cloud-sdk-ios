@@ -17,11 +17,15 @@ public extension POIKit.BoundingBoxNotificationToken {
         let zoomLevel = self.zoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
-        let tileRequest = TileQueryRequest(areas: [TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast),
-                                                                              southWest: TileQueryRequest.Coordinate(information: southWest),
-                                                                              invalidationToken: nil)], zoomLevel: UInt32(zoomLevel))
+        var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
-        downloadTask = api.loadPois(tileRequest) { [weak self] result in
+        if let invalidationToken = api.invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
+            area.invalidationToken = invalidationToken
+        }
+
+        let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
+
+        downloadTask = api.loadPois(tileRequest, boundingBox: boundingBox) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.handler(false, .failure(error))
@@ -67,7 +71,7 @@ public extension POIKit.UUIDNotificationToken {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        downloadTask = api.loadPois(tileRequest) { [weak self] result in
+        downloadTask = api.loadPois(tileRequest, boundingBox: nil) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.handler(false, .failure(error))

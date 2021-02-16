@@ -14,6 +14,8 @@ class POIKitAPI: POIKitAPIProtocol {
 
     static let shared = POIKitAPI()
 
+    let invalidationTokenCache = InvalidationTokenCache()
+
     // MARK: - Initialize
 
     init(request: HttpRequestProtocol = HttpRequest()) {

@@ -80,7 +80,8 @@ public extension POIKit {
             return String(format: precision, lhs.point1.latitude) == String(format: precision, rhs.point1.latitude) &&
                 String(format: precision, lhs.point1.longitude) == String(format: precision, rhs.point1.longitude) &&
                 String(format: precision, lhs.point2.latitude) == String(format: precision, rhs.point2.latitude) &&
-                String(format: precision, lhs.point2.longitude) == String(format: precision, rhs.point2.longitude)
+                String(format: precision, lhs.point2.longitude) == String(format: precision, rhs.point2.longitude) &&
+                lhs.padding == rhs.padding
         }
     }
 }

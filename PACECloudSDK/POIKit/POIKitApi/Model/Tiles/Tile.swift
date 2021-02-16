@@ -15,7 +15,7 @@ struct Tile: Hashable {
     }
     var tileInformation: TileInformation
     var data = Data()
-    var invalidationToken: Int64 = 0
+    var invalidationToken: UInt64 = 0
     var created = Date()
     var lastUsed = Date()
     var validUntil = Date()
@@ -27,7 +27,7 @@ struct Tile: Hashable {
         set { _type = newValue.rawValue }
     }
 
-    init(tileInformation: TileInformation, type: LayerType, invalidationToken: Int64 = 0, data: Data, created: Date = Date(), timeToLive: Int? = nil) {
+    init(tileInformation: TileInformation, type: LayerType, invalidationToken: UInt64 = 0, data: Data, created: Date = Date(), timeToLive: Int? = nil) {
         self.tileId = tileInformation.id
         self.tileInformation = tileInformation
         self.type = type
