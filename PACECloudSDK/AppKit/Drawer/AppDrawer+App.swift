@@ -21,7 +21,7 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
 
         // Don't preload the appViewController
         if PACECloudSDK.shared.authenticationMode == .native {
-            guard let token = PACECloudSDK.shared.currentAccessToken, TokenValidator.isTokenValid(token) else { return }
+            guard let token = PACECloudSDK.shared.currentAccessToken, !token.isEmpty, TokenValidator.isTokenValid(token) else { return }
         }
 
         initializeAppViewController()

@@ -8,7 +8,7 @@
 public extension AppKit {
     enum AppEvent: Equatable {
         case paymentMethodsChanged
-        case escapedForecourt(uuid: String)
+        case escapedForecourt(gasStationId: String)
         case turnedOnEngine
         case paymentOverlayVisible
 

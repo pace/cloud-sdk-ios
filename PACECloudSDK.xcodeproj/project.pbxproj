@@ -29,6 +29,8 @@
 		3B85531D253D6FD8001F7B66 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */; };
 		3B855327253D7052001F7B66 /* MimeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855326253D7052001F7B66 /* MimeTypes.swift */; };
 		3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */; };
+		3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C74F25DD67E500039296 /* GeoAPIManager.swift */; };
+		3B86C78A25DD6AA500039296 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
 		3B87D06425DACE2600D635F0 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06325DACE2600D635F0 /* AppAuth */; };
 		3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06925DACE6400D635F0 /* SwiftProtobuf */; };
 		3B87D07025DACE8D00D635F0 /* OneTimePassword in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06F25DACE8D00D635F0 /* OneTimePassword */; };
@@ -48,6 +50,10 @@
 		3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
 		3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02F4255C228E0020A6FA /* JWTTests.swift */; };
 		3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
+		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
+		3B96928A25E3C18700E42703 /* GeoGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */; };
+		3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */; };
+		3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96929925E3C20900E42703 /* RayCastingTests.swift */; };
 		3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */; };
 		3B970A662542D9BB0072F6BA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A002542D9B90072F6BA /* UIColor+Extension.swift */; };
 		3B970A672542D9BB0072F6BA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A012542D9B90072F6BA /* UIView+Extension.swift */; };
@@ -127,8 +133,11 @@
 		3B970AE42542DF450072F6BA /* AppKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970AE32542DF450072F6BA /* AppKitLogger.swift */; };
 		3B9EC3D6253746390040DE22 /* IDKit+OIDConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9EC3D5253746390040DE22 /* IDKit+OIDConfiguration.swift */; };
 		3BA4807E2565492600187D0A /* IDKitUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA4807D2565492600187D0A /* IDKitUserAgent.swift */; };
+		3BA5149425EE396100CC1FC3 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5149325EE396100CC1FC3 /* Double+Extension.swift */; };
+		3BA5149525EE396100CC1FC3 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5149325EE396100CC1FC3 /* Double+Extension.swift */; };
 		3BA58336256BCDCC0099629B /* IDKit+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA58335256BCDCC0099629B /* IDKit+User.swift */; };
 		3BA5833D256BCDF90099629B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5833C256BCDF90099629B /* UserInfo.swift */; };
+		3BA9134C25DFF4F100219156 /* RayCasting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9134B25DFF4F100219156 /* RayCasting.swift */; };
 		3BAA8FA625CD5F2A00510FA5 /* InvalidationTokenCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */; };
 		3BB1442725386EA9004E9F63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
 		3BB1442D25386F2C004E9F63 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442C25386F2C004E9F63 /* SessionCache.swift */; };
@@ -138,6 +147,7 @@
 		3BB918E525B02AF700E83EDD /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
 		3BBCB2F32567D2C6000EA905 /* POILayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F22567D2C6000EA905 /* POILayer.swift */; };
 		3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
+		3BBCFF3C25EF96BE0035683F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */; };
 		3BC1AD7D25C2F13000725CB9 /* PACECloudSDK+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */; };
 		3BC1AD8125C2F16C00725CB9 /* PACECloudSDK+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */; };
 		3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */; };
@@ -196,6 +206,7 @@
 		3BCBF7922567CA3800242BDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBF7912567CA3800242BDC /* Database.swift */; };
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
+		3BE586BE25DE95FC002EBDDB /* GeoGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */; };
 		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		3BF1527625DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		8414A59125CC0D370077E050 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414A59025CC0D370077E050 /* User.swift */; };
@@ -751,6 +762,8 @@
 		3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
 		3B855326253D7052001F7B66 /* MimeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypes.swift; sourceTree = "<group>"; };
 		3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeTests.swift; sourceTree = "<group>"; };
+		3B86C74F25DD67E500039296 /* GeoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIManager.swift; sourceTree = "<group>"; };
+		3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIResponse.swift; sourceTree = "<group>"; };
 		3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIRequest.swift; sourceTree = "<group>"; };
 		3B88784F25CBECC2008D1551 /* GeoJSONAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIClient.swift; sourceTree = "<group>"; };
 		3B88785025CBECC2008D1551 /* GeoJSONRequestBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONRequestBehaviour.swift; sourceTree = "<group>"; };
@@ -767,6 +780,8 @@
 		3B8B02EC255C1D780020A6FA /* JWTToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTToken.swift; sourceTree = "<group>"; };
 		3B8B02F4255C228E0020A6FA /* JWTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTests.swift; sourceTree = "<group>"; };
 		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
+		3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Slim.swift"; sourceTree = "<group>"; };
+		3B96929925E3C20900E42703 /* RayCastingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCastingTests.swift; sourceTree = "<group>"; };
 		3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		3B970A002542D9B90072F6BA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3B970A012542D9B90072F6BA /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -847,8 +862,10 @@
 		3B970AE32542DF450072F6BA /* AppKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKitLogger.swift; sourceTree = "<group>"; };
 		3B9EC3D5253746390040DE22 /* IDKit+OIDConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+OIDConfiguration.swift"; sourceTree = "<group>"; };
 		3BA4807D2565492600187D0A /* IDKitUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitUserAgent.swift; sourceTree = "<group>"; };
+		3BA5149325EE396100CC1FC3 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		3BA58335256BCDCC0099629B /* IDKit+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+User.swift"; sourceTree = "<group>"; };
 		3BA5833C256BCDF90099629B /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		3BA9134B25DFF4F100219156 /* RayCasting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCasting.swift; sourceTree = "<group>"; };
 		3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidationTokenCache.swift; sourceTree = "<group>"; };
 		3BB1442625386EA9004E9F63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BB1442C25386F2C004E9F63 /* SessionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCache.swift; sourceTree = "<group>"; };
@@ -857,6 +874,7 @@
 		3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+TokenHandling.swift"; sourceTree = "<group>"; };
 		3BBCB2F22567D2C6000EA905 /* POILayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILayer.swift; sourceTree = "<group>"; };
 		3BBCB2F62567D2CC000EA905 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+URL.swift"; sourceTree = "<group>"; };
 		3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
 		3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
@@ -914,6 +932,7 @@
 		3BCBF7912567CA3800242BDC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
+		3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoGasStation.swift; sourceTree = "<group>"; };
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		8414A59025CC0D370077E050 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		841A3EA825B9C8D40065284A /* FuelingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPI.swift; sourceTree = "<group>"; };
@@ -1273,9 +1292,11 @@
 		3B855311253D6BF3001F7B66 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */,
 				3B855312253D6C12001F7B66 /* Bundle+Extension.swift */,
 				92EDDED425AC7E0000E480F4 /* Bundle+Resource.swift */,
 				3B970A082542D9BA0072F6BA /* Data+Extension.swift */,
+				3BA5149325EE396100CC1FC3 /* Double+Extension.swift */,
 				3B970A062542D9BA0072F6BA /* Notification+Extension.swift */,
 				3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */,
 			);
@@ -1344,6 +1365,7 @@
 				3B970ABA2542D9DB0072F6BA /* AssetTests.swift */,
 				3B970ABE2542D9DB0072F6BA /* AppKitTests.swift */,
 				3B8B02F4255C228E0020A6FA /* JWTTests.swift */,
+				3B96929925E3C20900E42703 /* RayCastingTests.swift */,
 				3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */,
 				3B970ABD2542D9DB0072F6BA /* URLDecomposerTests.swift */,
 				3B970ABB2542D9DB0072F6BA /* URNTests.swift */,
@@ -1480,6 +1502,7 @@
 				3B970A562542D9BA0072F6BA /* RedirectServiceData.swift */,
 				3B970A4D2542D9BA0072F6BA /* 2FA */,
 				92C89E7D2588DE7A007D7128 /* ApplePay */,
+				3B97EF3425DE923C00E096B1 /* Geo */,
 				3B970A422542D9BA0072F6BA /* JsonRpc */,
 				3B970A452542D9BA0072F6BA /* URLHandling */,
 			);
@@ -1560,6 +1583,16 @@
 				3BB1442C25386F2C004E9F63 /* SessionCache.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		3B97EF3425DE923C00E096B1 /* Geo */ = {
+			isa = PBXGroup;
+			children = (
+				3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */,
+				3B86C74F25DD67E500039296 /* GeoAPIManager.swift */,
+				3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */,
+			);
+			path = Geo;
 			sourceTree = "<group>";
 		};
 		3BA5833B256BCDF20099629B /* Models */ = {
@@ -2425,6 +2458,7 @@
 			isa = PBXGroup;
 			children = (
 				927110D92573AA43001D6DDA /* CookieStorage.swift */,
+				3BA9134B25DFF4F100219156 /* RayCasting.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2445,6 +2479,7 @@
 				92EDDBD025A71EEB00E480F4 /* Info.plist */,
 				92EDDDCB25A7441C00E480F4 /* App+Slim.swift */,
 				92EDDED925AC7E1F00E480F4 /* Bundle+Resource.swift */,
+				3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */,
 				923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */,
 				92EDDDD825A7460D00E480F4 /* POIKitAPIProtocol+Slim.swift */,
 				3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */,
@@ -2722,6 +2757,7 @@
 				3B970A742542D9BB0072F6BA /* App+2FA.swift in Sources */,
 				3B970A772542D9BB0072F6BA /* AppDrawer+Gestures.swift in Sources */,
 				84A43AD62580E35A00DE36FA /* Coding.swift in Sources */,
+				3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */,
 				84A43A432580E34D00DE36FA /* PayAPI.swift in Sources */,
 				3BC9A8032539DDAD00B933AE /* PriceHistoryRequest.swift in Sources */,
 				84600F1225C03B1E0087194F /* POIAPIGetTiles.swift in Sources */,
@@ -2772,6 +2808,7 @@
 				3B970AAF2542D9BB0072F6BA /* AppKit+Delegate.swift in Sources */,
 				84D6C092258A03280094982D /* PCPayPaymentMethodPayDirektCreate.swift in Sources */,
 				84D6C05E258A03270094982D /* PCPayPaymentMethodKind.swift in Sources */,
+				3BA9134C25DFF4F100219156 /* RayCasting.swift in Sources */,
 				849C401325CAB6DD0074BCDA /* PCUserPlainOTP.swift in Sources */,
 				3BC9A7F42539DDAD00B933AE /* POIFiltersResponse.swift in Sources */,
 				84A43B0C2580EA3700DE36FA /* AnyResponse.swift in Sources */,
@@ -2783,6 +2820,7 @@
 				3B88786825CBECC2008D1551 /* GeoJSONAPIService.swift in Sources */,
 				841A3ED225B9C8D40065284A /* FuelingAPIRequest.swift in Sources */,
 				84600F3025C03B1F0087194F /* POIAPIDeleteApp.swift in Sources */,
+				3B86C78A25DD6AA500039296 /* GeoAPIResponse.swift in Sources */,
 				3B970ADD2542DE600072F6BA /* IDKitConstants.swift in Sources */,
 				8447A3A725CAAE740095BEF1 /* UserAPILatestTerms.swift in Sources */,
 				8447A3AD25CAAE740095BEF1 /* UserAPIDeleteCurrentUser.swift in Sources */,
@@ -2957,6 +2995,7 @@
 				84D6C064258A03270094982D /* PCPOISubscription.swift in Sources */,
 				8447A3BD25CAAE740095BEF1 /* UserAPIUpdateUserPhone.swift in Sources */,
 				3BC9A7F32539DDAD00B933AE /* POIFiltersRequest.swift in Sources */,
+				3BA5149425EE396100CC1FC3 /* Double+Extension.swift in Sources */,
 				923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */,
 				84D6C051258A03270094982D /* PCPayPaymentMethodKinds.swift in Sources */,
 				84600E9025C03B0C0087194F /* PayAPIGetPaymentTokens.swift in Sources */,
@@ -2970,6 +3009,7 @@
 				3B970AA82542D9BB0072F6BA /* GetTOTPData.swift in Sources */,
 				84600EA425C03B0C0087194F /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
 				84D6C095258A03280094982D /* PCPOICommonGeoJSONPolygon.swift in Sources */,
+				3BE586BE25DE95FC002EBDDB /* GeoGasStation.swift in Sources */,
 				3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */,
 				84D6C059258A03270094982D /* PCPOIPolicyRulePriority.swift in Sources */,
 				3B970A912542D9BB0072F6BA /* PRNHelper.swift in Sources */,
@@ -3007,6 +3047,7 @@
 				8431E1A6258B89F0009401BF /* APIResponseUtils.swift in Sources */,
 				3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */,
 				841A3EF825B9C96A0065284A /* PCFuelingErrors.swift in Sources */,
+				3BBCFF3C25EF96BE0035683F /* Array+Extension.swift in Sources */,
 				84A43B222582646700DE36FA /* PayAPIResponse.swift in Sources */,
 				8447A3A925CAAE740095BEF1 /* UserAPIAcceptTerms.swift in Sources */,
 				3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */,
@@ -3088,6 +3129,7 @@
 				9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
+				3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
@@ -3232,6 +3274,7 @@
 				8418E2C125B1B88E00D3722B /* POIAPIService.swift in Sources */,
 				8418E26425B1B85A00D3722B /* PCPOIReferenceStatus.swift in Sources */,
 				92EDDE7B25A916F400E480F4 /* PoiKitObserverToken.swift in Sources */,
+				3BA5149525EE396100CC1FC3 /* Double+Extension.swift in Sources */,
 				92EDDBEE25A7270300E480F4 /* String+Extension.swift in Sources */,
 				92EDDD2325A7391E00E480F4 /* NavigationResponse.swift in Sources */,
 				8418E27025B1B85A00D3722B /* PCPOIEvents.swift in Sources */,
@@ -3290,6 +3333,7 @@
 				8418E24025B1B83800D3722B /* POI.swift in Sources */,
 				92EDDD6C25A7397200E480F4 /* (null) in Sources */,
 				8418E29425B1B85E00D3722B /* APIResponseUtils.swift in Sources */,
+				3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */,
 				92EDDBF025A7270300E480F4 /* UIColor+Extension.swift in Sources */,
 				8418E26325B1B85A00D3722B /* PCPOIPolicyRulePriority.swift in Sources */,
 				92EDDBF825A7270300E480F4 /* AppDrawerTheme.swift in Sources */,
@@ -3339,6 +3383,7 @@
 				92EDDC9825A7383700E480F4 /* BoundingBox.swift in Sources */,
 				92EDDD0A25A738F200E480F4 /* RegionalPricesResponse.swift in Sources */,
 				8418E28125B1B85A00D3722B /* PCPOIPolicies.swift in Sources */,
+				3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */,
 				8418E29525B1B85E00D3722B /* AnyCodable.swift in Sources */,
 				84600F1925C03B1E0087194F /* POIAPIGetPoi.swift in Sources */,
 				8418E29925B1B85E00D3722B /* APIResult.swift in Sources */,
@@ -3361,6 +3406,7 @@
 				8418E26825B1B85A00D3722B /* PCPOIGasStation.swift in Sources */,
 				8418E2A225B1B86600D3722B /* POIAPIRequest.swift in Sources */,
 				92EDDC5925A729D300E480F4 /* UIDevice+Extension.swift in Sources */,
+				3B96928A25E3C18700E42703 /* GeoGasStation.swift in Sources */,
 				92EDDC4C25A729CC00E480F4 /* DeviceInformation.swift in Sources */,
 				92EDDDA025A73A6C00E480F4 /* CoordinateLocation.swift in Sources */,
 				92EDDC0025A7270300E480F4 /* AppMetadata.swift in Sources */,

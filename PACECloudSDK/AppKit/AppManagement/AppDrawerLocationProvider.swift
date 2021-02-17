@@ -24,7 +24,7 @@ struct LocationAccuracyThreshold {
 class AppDrawerLocationProvider: NSObject {
     var thresholds = [LocationAccuracyThreshold]()
 
-    var lowAccuracy: CLLocationDistance = 200 {
+    var lowAccuracy: CLLocationDistance = Constants.Configuration.defaultAllowedLowAccuracy {
         didSet {
             updateLocationAccuracyThresholds()
         }

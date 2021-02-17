@@ -21,6 +21,7 @@ class AppManager {
     weak var delegate: AppManagerDelegate?
 
     private var locationProvider: AppDrawerLocationProvider
+    private var geoAPIManager: GeoAPIManager
     private var isLocationFetchRunning = false
     private var isGeneralFetchRunning = false
     private var currentlyDisplayedLocationApps: [AppKit.AppData] = []
@@ -29,11 +30,15 @@ class AppManager {
 
     init() {
         locationProvider = AppDrawerLocationProvider()
+        geoAPIManager = GeoAPIManager()
+
         locationProvider.delegate = self
     }
 
-    func setAllowedLocationAccuracy(_ value: Double) {
-        locationProvider.lowAccuracy = value
+    func setConfigValues() {
+        locationProvider.lowAccuracy = PACECloudSDK.shared.config?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
+        geoAPIManager.speedThreshold = PACECloudSDK.shared.config?.speedThreshold ?? Constants.Configuration.defaultSpeedThreshold
+        geoAPIManager.geoAppsScope = PACECloudSDK.shared.config?.geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
     }
 
     func startRetrievingLocation() {
@@ -46,13 +51,25 @@ class AppManager {
                 self?.delegate?.didReceiveAppReferences([])
                 return
             }
-            self?.fetchAppsByLocation(with: location)
+            self?.determineApps(for: location)
         }
     }
 }
 
 // MARK: - API requests
 extension AppManager {
+    private func determineApps(for location: CLLocation) {
+        geoAPIManager.apps(for: location) { [weak self] apps in
+            guard let apps = apps else {
+                // In case the apps couldn't be retrieved
+                self?.fetchAppsByLocation(with: location)
+                return
+            }
+
+            self?.retrieveAppData(for: apps)
+        }
+    }
+
     private func fetchAppsByLocation(with location: CLLocation) {
         guard !isLocationFetchRunning else {
             delegate?.passErrorToClient(.fetchAlreadyRunning)
@@ -75,37 +92,14 @@ extension AppManager {
 
             switch apiResult.result {
             case .success(let response):
-                guard let apps = response.success?.data else {
+                guard let appsResponse = response.success?.data else {
                     self?.delegate?.passErrorToClient(.couldNotFetchApp)
                     self?.delegate?.didReceiveAppReferences([])
                     AppKitLogger.e("[AppManager] Response doesn't contain any data")
                     return
                 }
 
-                var appDatas: [AppKit.AppData] = []
-
-                for app in apps {
-                    guard let id = app.id, let attributes = app.attributes, let gasStationReferences = attributes.references else {
-                        continue
-                    }
-
-                    // In case if the identical app contains multiple gas station references
-                    gasStationReferences.forEach {
-                        let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id, AppKit.AppMetadata.references: [$0]]
-                        let appData = AppKit.AppData(appID: id,
-                                              appUrl: attributes.pwaUrl,
-                                              metadata: metadata)
-
-                        appDatas.append(appData)
-                    }
-                }
-
-                let newAppIds = appDatas.map { $0.appID }
-
-                self?.checkDidEscapeForecourtEvent(with: newAppIds)
-                self?.currentlyDisplayedLocationApps = appDatas
-                self?.fetchAppManifest(with: appDatas)
-                self?.delegate?.didReceiveAppReferences(apps.flatMap { $0.attributes?.references ?? [] })
+                self?.retrieveAppData(for: appsResponse)
 
             case .failure(let error):
                 AppKitLogger.e("[AppManager] failed fetching local apps with error \(error)")
@@ -183,7 +177,7 @@ extension AppManager {
 
                 switch result {
                 case .failure(let error):
-                    AppKitLogger.e("[AppManager] Failed fetching app (with id \(appData.appID)) manifest with error: \(String(describing: error))")
+                    AppKitLogger.e("[AppManager] Failed fetching app (with gas station id \(appData.gasStationId)) manifest with error: \(String(describing: error))")
                     return
 
                 case .success(let manifest):
@@ -215,8 +209,48 @@ extension AppManager {
         return URLBuilder.buildAppStartUrl(with: appUrl, decomposedParams: [.references], references: reference)
     }
 
+    private func retrieveAppData(for geoGasStations: [GeoGasStation]) {
+        let appDatas: [AppKit.AppData] = geoGasStations.reduce(into: []) { result, station in
+            let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.references: [station.id]]
+            let appDatas: [AppKit.AppData] = station.apps.map { app in
+                let appData = AppKit.AppData(appID: nil, appUrl: app.url, metadata: metadata)
+                return appData
+            }
+            result.append(contentsOf: appDatas)
+        }
+
+        process(appDatas: appDatas, references: geoGasStations.map { $0.id })
+    }
+
+    private func retrieveAppData(for locationBasedApps: [PCPOILocationBasedAppWithRefs]) {
+        let appDatas: [AppKit.AppData] = locationBasedApps.reduce(into: []) { result, app in
+            guard let id = app.id, let gasStationReferences = app.attributes?.references else { return }
+            // In case if the identical app contains multiple gas station references
+
+            let appDatas: [AppKit.AppData] = gasStationReferences.map { reference in
+                let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id, AppKit.AppMetadata.references: [reference]]
+                let appData = AppKit.AppData(appID: id,
+                                             appUrl: app.attributes?.pwaUrl,
+                                             metadata: metadata)
+                return appData
+            }
+            result.append(contentsOf: appDatas)
+        }
+
+        process(appDatas: appDatas, references: locationBasedApps.flatMap { $0.attributes?.references ?? [] })
+    }
+
+    private func process(appDatas: [AppKit.AppData], references: [String]) {
+        let newGasStationIds = appDatas.map { $0.gasStationId }
+
+        checkDidEscapeForecourtEvent(with: newGasStationIds)
+        currentlyDisplayedLocationApps = appDatas
+        fetchAppManifest(with: appDatas)
+        delegate?.didReceiveAppReferences(references)
+    }
+
     private func checkDidEscapeForecourtEvent(with newApps: [String]) {
-        let appsToRemove = currentlyDisplayedLocationApps.filter { !newApps.contains($0.appID) }
+        let appsToRemove = currentlyDisplayedLocationApps.filter { !newApps.contains($0.gasStationId) }
 
         guard !appsToRemove.isEmpty else { return }
 
@@ -226,7 +260,7 @@ extension AppManager {
 
     private func sendEscapedForecourtEvent(to apps: [AppKit.AppData]) {
         apps.forEach {
-            NotificationCenter.default.post(name: .appEventOccured, object: AppKit.AppEvent.escapedForecourt(uuid: $0.appID))
+            NotificationCenter.default.post(name: .appEventOccured, object: AppKit.AppEvent.escapedForecourt(gasStationId: $0.gasStationId))
         }
     }
 }
@@ -258,7 +292,7 @@ extension AppManager: AppDrawerLocationProviderDelegate {
     func didReceiveLocation(_ location: CLLocation) {
         AppKitLogger.i("[App Manager] Did receive location. Fetching available Apps.")
 
-        fetchAppsByLocation(with: location)
+        determineApps(for: location)
     }
 
     func didFailWithError(_ error: Error) {

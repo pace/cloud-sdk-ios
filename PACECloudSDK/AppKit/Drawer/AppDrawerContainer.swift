@@ -31,14 +31,17 @@ public extension AppKit {
         @objc
         private func handleAppClose(notification: NSNotification) {
             guard let appEvent = notification.object as? AppEvent,
-                case let .escapedForecourt(appID) = appEvent else { return }
+                  case let .escapedForecourt(gasStationId: id) = appEvent else { return }
 
-            removeAppDrawer(with: appID)
+            removeAppDrawer(with: id)
         }
 
-        private func removeAppDrawer(with uuid: String) {
+        private func removeAppDrawer(with gasStationId: String) {
             DispatchQueue.main.async { [weak self] in
-                guard let appDrawer = self?.drawerStackView.arrangedSubviews.compactMap({ $0 as? AppDrawer }).first(where: { $0.appData.appID == uuid }) else { return }
+                guard let appDrawer = self?.drawerStackView.arrangedSubviews
+                        .compactMap({ $0 as? AppDrawer })
+                        .first(where: { $0.appData.gasStationId == gasStationId })
+                else { return }
                 appDrawer.removeFromSuperview()
             }
         }
@@ -107,14 +110,14 @@ public extension AppKit.AppDrawerContainer {
 
     /**
      Force closes currently displayed apps by the app drawers.
-     - parameter appIds: Specifies which apps to close. If not specified all apps will be closed.
+     - parameter gasStationIds: Specifies which apps to close. If not specified all apps will be closed.
      */
-    func forceCloseAppDrawerApps(_ appIds: [String]? = nil) {
+    func forceCloseAppDrawerApps(_ gasStationIds: [String]? = nil) {
         let currentDrawers = drawerStackView.arrangedSubviews.compactMap({ $0 as? AppKit.AppDrawer })
 
         let relevantDrawers: [AppKit.AppDrawer]
-        if let appIds = appIds {
-            relevantDrawers = currentDrawers.filter { appIds.contains($0.appData.appID) }
+        if let gasStationIds = gasStationIds {
+            relevantDrawers = currentDrawers.filter { gasStationIds.contains($0.appData.gasStationId) }
         } else {
             relevantDrawers = currentDrawers
         }

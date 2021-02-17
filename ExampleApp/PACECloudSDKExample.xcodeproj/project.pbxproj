@@ -30,7 +30,6 @@
 		3B7552B725553B070073C3CA /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7552B625553B070073C3CA /* LiveData.swift */; };
 		3B755337255552290073C3CA /* SpinningWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B755336255552290073C3CA /* SpinningWheel.swift */; };
 		3B75533B255552BD0073C3CA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75533A255552BD0073C3CA /* LoadingView.swift */; };
-		3B8FCEFF255AC1CC0098941C /* PACE.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B8FCEFD255AC1CC0098941C /* PACE.gpx */; };
 		3BAAFEE225DBAA4900D344D6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3BAAFEE125DBAA4900D344D6 /* SnapKit */; };
 		3BDD7B7C2554340100827F28 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; };
 		3BDD7B7D2554340800827F28 /* PACECloudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -128,7 +127,7 @@
 		3B7552B625553B070073C3CA /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
 		3B755336255552290073C3CA /* SpinningWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningWheel.swift; sourceTree = "<group>"; };
 		3B75533A255552BD0073C3CA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		3B8FCEFD255AC1CC0098941C /* PACE.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PACE.gpx; sourceTree = "<group>"; };
+		3B96927A25E3B7D600E42703 /* PACE.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PACE.gpx; path = PACECloudSDKExample/PACE.gpx; sourceTree = "<group>"; };
 		3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PACECloudSDK.xcodeproj; path = ../PACECloudSDK.xcodeproj; sourceTree = "<group>"; };
 		3BEC848B255432B700AB5F2F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BEF2F8925544AB700A6C6AA /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
@@ -165,6 +164,7 @@
 		3B3D31182553E6F200FDF82B = {
 			isa = PBXGroup;
 			children = (
+				3B96927A25E3B7D600E42703 /* PACE.gpx */,
 				3B3D31232553E6F200FDF82B /* PACECloudSDKExample */,
 				3B3D313A2553E6F200FDF82B /* PACECloudSDKExampleTests */,
 				3B3D31452553E6F200FDF82B /* PACECloudSDKExampleUITests */,
@@ -186,7 +186,6 @@
 		3B3D31232553E6F200FDF82B /* PACECloudSDKExample */ = {
 			isa = PBXGroup;
 			children = (
-				3B8FCEFD255AC1CC0098941C /* PACE.gpx */,
 				3B3D319B2553EC7B00FDF82B /* Coordinator */,
 				3B3D32EC2553F98E00FDF82B /* Extensions */,
 				3B3D32262553EE7D00FDF82B /* Fueling */,
@@ -458,7 +457,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B8FCEFF255AC1CC0098941C /* PACE.gpx in Resources */,
 				3B3D31312553E6F200FDF82B /* LaunchScreen.storyboard in Resources */,
 				3B3D312E2553E6F200FDF82B /* Assets.xcassets in Resources */,
 			);

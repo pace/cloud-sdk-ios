@@ -10,9 +10,9 @@ import Foundation
 public class PACECloudSDK {
     public static let shared = PACECloudSDK()
 
+    private(set) var config: Configuration?
     private(set) var environment: Environment = .production
     private(set) var authenticationMode: AuthenticationMode = .web
-    private(set) var configValues: [ConfigValue: Any]?
     private(set) var userAgentExtensions: [String] = []
 
     private(set) var apiKey: String?
@@ -26,12 +26,12 @@ public class PACECloudSDK {
     public var redirectScheme: String?
 
     public func setup(with config: Configuration) {
+        self.config = config
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
-        self.configValues = config.configValues
 
-        AppKit.shared.setup(configValues: config.configValues)
+        AppKit.shared.setup()
 
         setupAPI()
     }
@@ -50,16 +50,30 @@ public extension PACECloudSDK {
         let apiKey: String
         let authenticationMode: AuthenticationMode
         let environment: Environment
-        let configValues: [ConfigValue: Any]?
+
+        let allowedLowAccuracy: Double
+        let speedThreshold: Double
+        let geoAppsScope: String
 
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .web,
                     environment: Environment = .production,
-                    configValues: [ConfigValue: Any]? = nil) {
+                    allowedLowAccuracy: Double? = nil,
+                    speedThresholdInKmPerHour: Double? = nil,
+                    geoAppsScope: String? = nil) {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
-            self.configValues = configValues
+
+            self.allowedLowAccuracy = allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
+
+            if let speedThresholdInKmPerHour = speedThresholdInKmPerHour {
+                self.speedThreshold = (speedThresholdInKmPerHour / 3.6).round(1)
+            } else {
+                self.speedThreshold = Constants.Configuration.defaultSpeedThreshold
+            }
+
+            self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
         }
     }
 
@@ -89,9 +103,5 @@ public extension PACECloudSDK {
     enum AuthenticationMode: String {
         case native
         case web
-    }
-
-    enum ConfigValue {
-        case allowedLowAccuracy
     }
 }
