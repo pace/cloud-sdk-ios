@@ -22,6 +22,9 @@ public extension Bundle {
         let moduleName = "PACECloudSlimSDK"
         #if COCOAPODS
         let bundleName = moduleName
+        #elseif SWIFT_PACKAGE
+        let bundleName = "\(moduleName)_\(moduleName)"
+        return Bundle.module
         #else
         let bundleName = "\(moduleName)_\(moduleName)"
         #endif

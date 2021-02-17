@@ -197,6 +197,8 @@
 		3BCBF7922567CA3800242BDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBF7912567CA3800242BDC /* Database.swift */; };
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
+		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
+		3BF1527625DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		8414A59125CC0D370077E050 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414A59025CC0D370077E050 /* User.swift */; };
 		8418E22C25B1AD2600D3722B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		8418E23025B1AEF300D3722B /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
@@ -914,6 +916,7 @@
 		3BCBF7912567CA3800242BDC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
+		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		8414A59025CC0D370077E050 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		841A3EA825B9C8D40065284A /* FuelingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPI.swift; sourceTree = "<group>"; };
 		841A3EA925B9C8D40065284A /* FuelingAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIService.swift; sourceTree = "<group>"; };
@@ -1426,6 +1429,7 @@
 				3B970A2C2542D9BA0072F6BA /* Environment-production.plist */,
 				3B970A2A2542D9BA0072F6BA /* Environment-sandbox.plist */,
 				3B970A2B2542D9BA0072F6BA /* Environment-stage.plist */,
+				3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
@@ -2577,6 +2581,7 @@
 			files = (
 				3B970A8F2542D9BB0072F6BA /* SFUIDisplay-Medium.otf in Resources */,
 				3B970A8D2542D9BB0072F6BA /* SFUIDisplay-Light.otf in Resources */,
+				3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */,
 				3B970A8C2542D9BB0072F6BA /* Images.xcassets in Resources */,
 				3B970A8E2542D9BB0072F6BA /* SFUIDisplay-Regular.otf in Resources */,
 				3B970A872542D9BB0072F6BA /* Environment-stage.plist in Resources */,
@@ -2604,6 +2609,7 @@
 				92EDDC3925A7271300E480F4 /* Images.xcassets in Resources */,
 				92EDDC6025A729D700E480F4 /* Environment-production.plist in Resources */,
 				92EDDC3425A7271000E480F4 /* SFUIDisplay-Light.otf in Resources */,
+				3BF1527625DD2C8D00BD6751 /* FallbackVersions.plist in Resources */,
 				92EDDC3525A7271000E480F4 /* SFUIDisplay-Regular.otf in Resources */,
 				92EDDC5D25A729D700E480F4 /* Environment-sandbox.plist in Resources */,
 				92EDDC2F25A7270900E480F4 /* Localizable.strings in Resources */,

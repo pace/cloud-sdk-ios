@@ -9,7 +9,6 @@ import NotificationCenter
 import UIKit
 
 struct AppKitConstants {
-    static let bundleIdentifier = "cloud.pace.sdk"
     static let logTag = "[AppKit]"
 
     /**
