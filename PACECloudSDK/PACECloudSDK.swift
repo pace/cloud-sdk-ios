@@ -16,7 +16,6 @@ public class PACECloudSDK {
     private(set) var userAgentExtensions: [String] = []
 
     private(set) var apiKey: String?
-    private(set) var clientId: String?
     var currentAccessToken: String?
 
     public var additionalQueryParams: Set<URLQueryItem>?
@@ -24,12 +23,13 @@ public class PACECloudSDK {
     public var isLoggingEnabled = false
     public weak var loggingDelegate: PACECloudSDKLoggingDelegate?
 
+    public var redirectScheme: String?
+
     private init() {
         URLSession.shared.configuration.protocolClasses = [CustomURLProtocol.self]
     }
 
     public func setup(with config: Configuration) {
-        self.clientId = config.clientId
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
@@ -52,18 +52,15 @@ public class PACECloudSDK {
 
 public extension PACECloudSDK {
     struct Configuration {
-        let clientId: String
         let apiKey: String
         let authenticationMode: AuthenticationMode
         let environment: Environment
         let configValues: [ConfigValue: Any]?
 
-        public init(clientId: String,
-                    apiKey: String,
+        public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .web,
                     environment: Environment = .production,
                     configValues: [ConfigValue: Any]? = nil) {
-            self.clientId = clientId
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment

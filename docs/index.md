@@ -23,8 +23,8 @@
         + [Deep Linking](#deep-linking)
         + [AppKitDelegate](#appkitdelegate)
         + [Requesting local Apps](#requesting-local-apps)
-        + [Is POI in range?](#is-poi-in-range-)
-        + [AppWebView / AppViewController](#appwebview---appviewcontroller)
+        + [Is POI in range?](#is-poi-in-range)
+        + [AppWebView / AppViewController](#appwebview-appviewcontroller)
         + [AppDrawerContainer](#appdrawercontainer)
         + [AppDrawer](#appdrawer)
         + [Custom AppDrawer](#custom-appdrawer)
@@ -77,14 +77,13 @@ Each release has an `XCFramework` attached, which can be added to your applicati
 The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
 `applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
 
-`PACECloudSDK.Configuration` only has `clientId` and `apiKey`  as a mandatory property, all others are optional and can be passed as necessary.
+`PACECloudSDK.Configuration` only has `apiKey` as a mandatory property, all others are optional and can be passed as necessary.
 
 **Note**: `PACECloudSDK` is using the `.production` environment as default. In case you are still doing tests, you probably want to change it to `.sandbox` or `.stage`.
 
 Available parameters:
 
 ```swift
-clientId: String
 apiKey: String? // Default: nil
 authenticationMode: AuthenticationMode // Default: .web
 environment: Environment // Default: .production
@@ -170,9 +169,27 @@ func tokenInvalid(completion: ((String) -> Void)) {
 
 ### Deep Linking
 Some of our services (e.g. `PayPal`) do not open the URL in the App web view, but in a `SFSafariViewController` within the app, due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
-
-- Set the `clientId` in *PACECloudSDK's* configuration during the [setup](#setup), because it is needed for the redirect URL
-- Specify the `pace.$clientId` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
+- Specify the `pace.YOUR_CLIENT_ID` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
+- After successfully having set the scheme your Info.plist should look as follows:
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>YOUR_TARGET_NAME</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>pace.YOUR_CLIENT_ID</string>
+        </array>
+    </dict>
+</array>
+```
+- In case that you're not using native development, you may also set the redirect scheme directly as shown below:
+```swift
+PACECloudSDK.shared.redirectScheme = "pace.YOUR_CLIENT_ID"
+```
 
 In your `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` you will have to catch the `redirect` host and call `AppKit.shared.handleRedirectURL` to handle the callback.
 

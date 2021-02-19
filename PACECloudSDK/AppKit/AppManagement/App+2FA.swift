@@ -51,7 +51,7 @@ extension App {
             setTOTPMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
         } catch {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 
@@ -105,7 +105,7 @@ extension App {
             getTOTPMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
         } catch {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 
@@ -225,7 +225,7 @@ extension App {
             setSecureMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
         } catch {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 
@@ -257,7 +257,7 @@ extension App {
             getSecureMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
         } catch {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: ["error": "\(error.localizedDescription)"])
+            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 

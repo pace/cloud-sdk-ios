@@ -25,6 +25,7 @@ class AppWebViewJsonRpcInterceptor {
         case verifyLocation = "pace_verifyLocation"
         case logger = "pace_logger"
         case back = "pace_back"
+        case redirectScheme = "pace_getAppInterceptableLink"
     }
 
     private weak var app: App?
@@ -80,6 +81,9 @@ class AppWebViewJsonRpcInterceptor {
 
         case JsonRpcHandler.back.rawValue:
             app?.handleBack()
+
+        case JsonRpcHandler.redirectScheme.rawValue:
+            app?.handleRedirectScheme()
 
         default:
             send(error: .badRequest)

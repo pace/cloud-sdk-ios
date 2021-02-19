@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { // swiftlint:disable:this line_length
         window = UIWindow()
 
-        let config: PACECloudSDK.Configuration = .init(clientId: "PACECloudSDKExample",
-                                                       apiKey: "apikey",
+        let config: PACECloudSDK.Configuration = .init(apiKey: "apikey",
                                                        authenticationMode: .native,
                                                        environment: currentAppEnvironment())
 

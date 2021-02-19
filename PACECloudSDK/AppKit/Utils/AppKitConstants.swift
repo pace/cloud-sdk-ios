@@ -16,7 +16,6 @@ struct AppKitConstants {
     `{client-app}/{client-app-version} ({os} {os-version}) PWA-SDK/{app-sdk version} (clientid:{client-id};)`
     */
     static var userAgent: String {
-        let clientId: String = PACECloudSDK.shared.clientId ?? "Missing client id"
         let authenticationMode: String = PACECloudSDK.shared.authenticationMode.rawValue
 
         let themeValue = String(describing: AppKit.shared.theme)
@@ -28,7 +27,6 @@ struct AppKitConstants {
             "\(Bundle.main.bundleName)/\(Bundle.main.releaseVersionNumber)",
             "(\(UIDevice.current.systemName) \(UIDevice.current.systemVersion))",
             "PWA-SDK/\(Bundle.paceCloudSDK.releaseVersionNumber)",
-            "(clientid:\(clientId);)",
             "IdentityManagement/\(authenticationMode)",
             theme,
             extensions

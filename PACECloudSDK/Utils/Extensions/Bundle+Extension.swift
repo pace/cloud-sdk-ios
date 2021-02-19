@@ -48,4 +48,16 @@ extension Bundle {
 
         return bundleVersion
     }
+
+    var clientRedirectScheme: String? {
+        guard let urlTypes = object(forInfoDictionaryKey: Bundle.urlTypesInfoPlistKey) as? [[String: Any]] else { return nil }
+        let schemes = urlTypes.compactMap { $0[Bundle.urlSchemesInfoPlistKey] as? [String] }.flatMap { $0 }
+        let scheme = schemes.first(where: { $0.hasPrefix("pace.") })
+        return scheme ?? PACECloudSDK.shared.redirectScheme
+    }
+}
+
+extension Bundle {
+    static let urlTypesInfoPlistKey = "CFBundleURLTypes"
+    static let urlSchemesInfoPlistKey = "CFBundleURLSchemes"
 }
