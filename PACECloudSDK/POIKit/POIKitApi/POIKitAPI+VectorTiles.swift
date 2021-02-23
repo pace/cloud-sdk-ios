@@ -148,10 +148,6 @@ extension POIKitAPI {
     func save(_ tiles: [Tile], for boundingBox: POIKit.BoundingBox? = nil) {
         let pois = extractPOIS(from: tiles)
 
-        if let boundingBox = boundingBox {
-            POIKit.Database.shared.delegate?.delete(ignoreIds: pois.compactMap { $0.id }, boundingBox: boundingBox)
-        }
-
         // Add new POIs to database and update existing ones
         POIKit.Database.shared.delegate?.add(pois)
     }
