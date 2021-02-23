@@ -185,7 +185,7 @@ extension AppManager {
                     appData.appManifest?.manifestUrl = manifestUrlString
 
                     guard let decomposedValues = URLDecomposer.decomposeManifestUrl(with: appData.appManifest, appBaseUrl: appData.appApiUrl) else { return }
-                    let references = (appData.metadata[AppKit.AppMetadata.references] as? [String])?.first(where: { $0.contains(PRNHelper.gasStationPrefix) })
+                    let references = (appData.metadata[AppKit.AppMetadata.references] as? [String])?.first
                     appData.appStartUrl = URLBuilder.buildAppStartUrl(with: decomposedValues.url, decomposedParams: decomposedValues.params, references: references)
                 }
             }
@@ -201,12 +201,7 @@ extension AppManager {
 
 extension AppManager {
     func buildAppUrl(with appUrl: String, for reference: String) -> String? {
-        guard reference.conformsToURN() else {
-            delegate?.passErrorToClient(.invalidURNFormat)
-            return nil
-        }
-
-        return URLBuilder.buildAppStartUrl(with: appUrl, decomposedParams: [.references], references: reference)
+        URLBuilder.buildAppStartUrl(with: appUrl, decomposedParams: [.references], references: reference)
     }
 
     private func retrieveAppData(for geoGasStations: [GeoGasStation]) {

@@ -93,7 +93,6 @@
 		3B970A8E2542D9BB0072F6BA /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */; };
 		3B970A8F2542D9BB0072F6BA /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */; };
 		3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A382542D9BA0072F6BA /* AppKitConstants.swift */; };
-		3B970A912542D9BB0072F6BA /* PRNHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A392542D9BA0072F6BA /* PRNHelper.swift */; };
 		3B970A922542D9BB0072F6BA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3A2542D9BA0072F6BA /* Settings.swift */; };
 		3B970A942542D9BB0072F6BA /* IconSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3C2542D9BA0072F6BA /* IconSelector.swift */; };
 		3B970A952542D9BB0072F6BA /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
@@ -124,7 +123,6 @@
 		3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970AB82542D9DB0072F6BA /* PWADataMock.swift */; };
 		3B970AC02542D9DB0072F6BA /* ManifestMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970AB92542D9DB0072F6BA /* ManifestMocks.swift */; };
 		3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970ABA2542D9DB0072F6BA /* AssetTests.swift */; };
-		3B970AC22542D9DB0072F6BA /* URNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970ABB2542D9DB0072F6BA /* URNTests.swift */; };
 		3B970AC32542D9DB0072F6BA /* URLBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */; };
 		3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970ABD2542D9DB0072F6BA /* URLDecomposerTests.swift */; };
 		3B970AC52542D9DB0072F6BA /* AppKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970ABE2542D9DB0072F6BA /* AppKitTests.swift */; };
@@ -605,7 +603,6 @@
 		92EDDC1825A7270300E480F4 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A4A2542D9BA0072F6BA /* URLBuilder.swift */; };
 		92EDDC1925A7270300E480F4 /* BaseQueryParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A4C2542D9BA0072F6BA /* BaseQueryParams.swift */; };
 		92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A592542D9BA0072F6BA /* AppStyle+Images.swift */; };
-		92EDDC1C25A7270300E480F4 /* PRNHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A392542D9BA0072F6BA /* PRNHelper.swift */; };
 		92EDDC1D25A7270300E480F4 /* AppStyle+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A582542D9BA0072F6BA /* AppStyle+Colors.swift */; };
 		92EDDC1E25A7270300E480F4 /* AppWebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */; };
 		92EDDC1F25A7270300E480F4 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A182542D9BA0072F6BA /* AppViewController.swift */; };
@@ -822,7 +819,6 @@
 		3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
 		3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Medium.otf"; sourceTree = "<group>"; };
 		3B970A382542D9BA0072F6BA /* AppKitConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitConstants.swift; sourceTree = "<group>"; };
-		3B970A392542D9BA0072F6BA /* PRNHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PRNHelper.swift; sourceTree = "<group>"; };
 		3B970A3A2542D9BA0072F6BA /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3B970A3C2542D9BA0072F6BA /* IconSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelector.swift; sourceTree = "<group>"; };
 		3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidator.swift; sourceTree = "<group>"; };
@@ -853,7 +849,6 @@
 		3B970AB82542D9DB0072F6BA /* PWADataMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWADataMock.swift; sourceTree = "<group>"; };
 		3B970AB92542D9DB0072F6BA /* ManifestMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestMocks.swift; sourceTree = "<group>"; };
 		3B970ABA2542D9DB0072F6BA /* AssetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetTests.swift; sourceTree = "<group>"; };
-		3B970ABB2542D9DB0072F6BA /* URNTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URNTests.swift; sourceTree = "<group>"; };
 		3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLBuilderTests.swift; sourceTree = "<group>"; };
 		3B970ABD2542D9DB0072F6BA /* URLDecomposerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLDecomposerTests.swift; sourceTree = "<group>"; };
 		3B970ABE2542D9DB0072F6BA /* AppKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitTests.swift; sourceTree = "<group>"; };
@@ -1368,7 +1363,6 @@
 				3B96929925E3C20900E42703 /* RayCastingTests.swift */,
 				3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */,
 				3B970ABD2542D9DB0072F6BA /* URLDecomposerTests.swift */,
-				3B970ABB2542D9DB0072F6BA /* URNTests.swift */,
 			);
 			path = AppKitTests;
 			sourceTree = "<group>";
@@ -1489,7 +1483,6 @@
 				3B970AE32542DF450072F6BA /* AppKitLogger.swift */,
 				3B970A3C2542D9BA0072F6BA /* IconSelector.swift */,
 				3B8B02EC255C1D780020A6FA /* JWTToken.swift */,
-				3B970A392542D9BA0072F6BA /* PRNHelper.swift */,
 				3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */,
 			);
 			path = Utils;
@@ -3012,7 +3005,6 @@
 				3BE586BE25DE95FC002EBDDB /* GeoGasStation.swift in Sources */,
 				3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */,
 				84D6C059258A03270094982D /* PCPOIPolicyRulePriority.swift in Sources */,
-				3B970A912542D9BB0072F6BA /* PRNHelper.swift in Sources */,
 				84D6C060258A03270094982D /* PCPayPaymentTokenCreate.swift in Sources */,
 				84D6C090258A03280094982D /* PCPOICategory.swift in Sources */,
 				84600F3A25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
@@ -3139,7 +3131,6 @@
 				3B970AC52542D9DB0072F6BA /* AppKitTests.swift in Sources */,
 				3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */,
 				3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */,
-				3B970AC22542D9DB0072F6BA /* URNTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3162,9 +3153,7 @@
 				8418E25025B1B85A00D3722B /* PCPOIMoveRequest.swift in Sources */,
 				8418E27925B1B85A00D3722B /* PCPOIFieldName.swift in Sources */,
 				92EDDC2325A7270300E480F4 /* NoNetworkPlaceholderView.swift in Sources */,
-				92EDDC1C25A7270300E480F4 /* PRNHelper.swift in Sources */,
 				92EDDC2325A7270300E480F4 /* NoNetworkPlaceholderView.swift in Sources */,
-				92EDDC1C25A7270300E480F4 /* PRNHelper.swift in Sources */,
 				92EDDD6D25A7397200E480F4 /* (null) in Sources */,
 				92EDDC6C25A737AC00E480F4 /* POIKit.swift in Sources */,
 				84600F2525C03B1E0087194F /* POIAPIDeleteSource.swift in Sources */,
