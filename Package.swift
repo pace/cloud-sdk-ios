@@ -12,11 +12,6 @@ let package = Package(
     products: [
         .library(
             name: "PACECloudSDK",
-            type: .static,
-            targets: ["PACECloudSDK"]),
-        .library(
-            name: "PACECloudSDKDynamic",
-            type: .dynamic,
             targets: ["PACECloudSDK"])
     ],
     dependencies: [
