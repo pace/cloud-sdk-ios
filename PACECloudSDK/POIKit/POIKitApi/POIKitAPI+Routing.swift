@@ -18,7 +18,7 @@ extension POIKitAPI {
             return
         }
 
-        self.request.httpRequest(.get, url: url, body: nil, includeDefaultHeaders: true, headers: [:] ) { response, data, _ in
+        self.request.httpRequest(.get, url: url, body: nil, includeDefaultHeaders: true, headers: [:], on: cloudQueue) { response, data, _ in
             if response?.statusCode != POIKitHTTPReturnCode.STATUS_OK {
                 handler?(nil, .serverError)
                 return

@@ -97,7 +97,7 @@ extension POIKitAPI {
         let newRequest = POIAPI.Tiles.GetTiles.Request(body: data)
         newRequest.version = ""
 
-        return API.POI.client.makeRequest(newRequest) { response in
+        return API.POI.client.makeRequest(newRequest, completionQueue: cloudQueue) { response in
             switch response.result {
             case .success(let data):
                 guard let success = data.success, let tileResponse = try? TileQueryResponse(serializedData: success) else {
@@ -123,8 +123,11 @@ extension POIKitAPI {
             case .failure(let error):
                 if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
                     completion(.failure(POIKit.POIKitAPIError.networkError))
+                } else if (error as NSError?)?.code == NSURLErrorCancelled {
+                    completion(.failure(POIKit.POIKitAPIError.operationCanceledByClient))
+                } else {
+                    completion(.failure(error))
                 }
-                completion(.failure(error))
             }
         }
     }

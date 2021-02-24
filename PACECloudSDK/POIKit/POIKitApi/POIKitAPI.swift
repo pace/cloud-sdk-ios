@@ -11,6 +11,7 @@ import Foundation
 class POIKitAPI: POIKitAPIProtocol {
     var environment: PACECloudSDK.Environment = .production
     let request: HttpRequestProtocol
+    let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
 
     static let shared = POIKitAPI()
 
