@@ -14,7 +14,6 @@ struct URLDataRequest {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadRevalidatingCacheData
         config.httpAdditionalHeaders = AppKitConstants.userAgentHeader
-        config.protocolClasses = [CustomURLProtocol.self]
 
         return URLSession(configuration: config)
     }
@@ -44,7 +43,7 @@ struct URLDataRequest {
     }
 
     private static func request(with urlString: String, headers: [String: String]?, completion: @escaping ((Swift.Result<Data, URLRequestError>) -> Void)) {
-        guard let request = URLRequestBuilder.buildRequestWithEtag(with: urlString, additionalHeaders: headers) else {
+        guard let request = URLRequestBuilder.buildRequest(with: urlString, additionalHeaders: headers) else {
             completion(.failure(.failedRetrievingUrlRequest(urlString)))
             return
         }

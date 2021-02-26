@@ -102,11 +102,16 @@ struct UserAPIRequestBehaviourGroup {
     }
 
     func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
-        var urlRequest = urlRequest
+        guard let oldUrl = urlRequest.url else { return urlRequest }
+
+        var newRequest = urlRequest
         behaviours.forEach {
-            urlRequest = $0.modifyRequest(request: request, urlRequest: urlRequest)
+            newRequest = $0.modifyRequest(request: request, urlRequest: urlRequest)
         }
-        return urlRequest
+
+        newRequest.url = QueryParamHandler.buildUrl(for: oldUrl)
+
+        return newRequest
     }
 }
 

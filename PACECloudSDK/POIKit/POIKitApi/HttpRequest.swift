@@ -63,13 +63,11 @@ class HttpRequest: NSObject, HttpRequestProtocol {
         super.init()
 
         if let session = session as? URLSession {
-            session.configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = session
         } else {
             let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForRequest = POIKitConfig.connectTimeout
             configuration.timeoutIntervalForResource = POIKitConfig.readTimeout
-            configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
         }
     }
