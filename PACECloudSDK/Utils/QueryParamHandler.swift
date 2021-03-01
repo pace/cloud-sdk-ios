@@ -15,15 +15,16 @@ class QueryParamHandler {
     ]
 
     static func buildUrl(for url: URL) -> URL? {
-        guard !ignoredUrls.contains(where: url.absoluteString.contains) else { return url }
-
-        guard var urlComponents = URLComponents(string: url.absoluteString) else { return url }
+        guard let additionalQueryParams = PACECloudSDK.shared.additionalQueryParams,
+              !ignoredUrls.contains(where: url.absoluteString.contains),
+              var urlComponents = URLComponents(string: url.absoluteString)
+        else {
+            return url
+        }
 
         let queryItems: [URLQueryItem] = urlComponents.queryItems ?? []
 
-        if let params = PACECloudSDK.shared.additionalQueryParams {
-            urlComponents.queryItems = queryItems + Array(params)
-        }
+        urlComponents.queryItems = queryItems + Array(additionalQueryParams)
 
         return urlComponents.url
     }

@@ -25,10 +25,6 @@ public class PACECloudSDK {
 
     public var redirectScheme: String?
 
-    private init() {
-        URLSession.shared.configuration.protocolClasses = [CustomURLProtocol.self]
-    }
-
     public func setup(with config: Configuration) {
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
@@ -36,7 +32,6 @@ public class PACECloudSDK {
         self.configValues = config.configValues
 
         AppKit.shared.setup(configValues: config.configValues)
-        URLProtocol.registerClass(CustomURLProtocol.self)
 
         setupAPI()
     }

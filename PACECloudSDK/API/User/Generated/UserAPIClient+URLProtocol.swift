@@ -7,9 +7,7 @@ import Foundation
 
 public extension UserAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
-        let config: URLSessionConfiguration = .default
-        config.protocolClasses = [CustomURLProtocol.self]
-        return config
+        .default
     }
 
     static var custom = UserAPIClient(baseURL: UserAPIClient.default.baseURL, configuration: urlConfiguration)

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
-		17BF9197258A65E100F362DF /* CustomURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BF9196258A65E100F362DF /* CustomURLProtocol.swift */; };
 		3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E917F253D92A800DC4BB1 /* POIKit.swift */; };
 		3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */; };
 		3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B24095A256BF43A003DA32B /* OIDConfiguration.swift */; };
@@ -537,6 +536,7 @@
 		84E1AC3B2562800D00C673EF /* Poly+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC352562800D00C673EF /* Poly+Codable.swift */; };
 		84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
 		84E1AC3D2562800D00C673EF /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
+		9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */; };
 		921E68362534883200438491 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921E682C2534883100438491 /* PACECloudSDK.framework */; };
 		923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */; };
 		923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */; };
@@ -547,7 +547,6 @@
 		92843A0A25B1A2DF004CF9D6 /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
 		92C89E7F2588DE86007D7128 /* ApplePayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C89E7E2588DE86007D7128 /* ApplePayRequest.swift */; };
 		92C89E8B2588E915007D7128 /* ApplePayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C89E8A2588E915007D7128 /* ApplePayResponse.swift */; };
-		92D2E2D925B0EF310044E10A /* CustomURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BF9196258A65E100F362DF /* CustomURLProtocol.swift */; };
 		92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */; };
 		92EDDBD125A71EEB00E480F4 /* PACECloudSlimSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 92EDDBCF25A71EEB00E480F4 /* PACECloudSlimSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFB206258B5C00001768F0 /* PACECloudSDK.swift */; };
@@ -731,7 +730,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		17BF9196258A65E100F362DF /* CustomURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomURLProtocol.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
 		3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitAPIError.swift; sourceTree = "<group>"; };
 		3B24095A256BF43A003DA32B /* OIDConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OIDConfiguration.swift; sourceTree = "<group>"; };
@@ -1157,6 +1155,7 @@
 		84E1AC352562800D00C673EF /* Poly+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+Codable.swift"; sourceTree = "<group>"; };
 		84E1AC362562800D00C673EF /* Result+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Value.swift"; sourceTree = "<group>"; };
 		84E1AC372562800D00C673EF /* Poly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly.swift; sourceTree = "<group>"; };
+		9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParamHandlerTests.swift; sourceTree = "<group>"; };
 		921E682C2534883100438491 /* PACECloudSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PACECloudSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		921E682F2534883200438491 /* PACECloudSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PACECloudSDK.h; sourceTree = "<group>"; };
 		921E68302534883200438491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1578,7 +1577,6 @@
 			isa = PBXGroup;
 			children = (
 				3BB1442625386EA9004E9F63 /* Constants.swift */,
-				17BF9196258A65E100F362DF /* CustomURLProtocol.swift */,
 				3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */,
 				927111512573B295001D6DDA /* HttpHeaderFields.swift */,
 				927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */,
@@ -2365,6 +2363,14 @@
 			path = Poly;
 			sourceTree = "<group>";
 		};
+		9211951D25ECD64E0066AA5D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		921E68222534883100438491 = {
 			isa = PBXGroup;
 			children = (
@@ -2406,10 +2412,11 @@
 		921E68392534883200438491 /* PACECloudSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				3B9709FD2542D9720072F6BA /* AppKitTests */,
-				3BC9A78F2539DD3200B933AE /* POIKitTests */,
 				921E683C2534883200438491 /* Info.plist */,
 				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
+				3B9709FD2542D9720072F6BA /* AppKitTests */,
+				3BC9A78F2539DD3200B933AE /* POIKitTests */,
+				9211951D25ECD64E0066AA5D /* Utils */,
 			);
 			path = PACECloudSDKTests;
 			sourceTree = "<group>";
@@ -3003,7 +3010,6 @@
 				84A43B222582646700DE36FA /* PayAPIResponse.swift in Sources */,
 				8447A3A925CAAE740095BEF1 /* UserAPIAcceptTerms.swift in Sources */,
 				3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */,
-				17BF9197258A65E100F362DF /* CustomURLProtocol.swift in Sources */,
 				3BC9A80C2539DDAD00B933AE /* Address.swift in Sources */,
 				841A3EF425B9C96A0065284A /* PCFuelingGasStation.swift in Sources */,
 				3B970A922542D9BB0072F6BA /* Settings.swift in Sources */,
@@ -3079,6 +3085,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
@@ -3276,7 +3283,6 @@
 				92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */,
 				92EDDC0225A7270300E480F4 /* RedirectServiceData.swift in Sources */,
 				92EDDC1025A7270300E480F4 /* LoadingView.swift in Sources */,
-				92D2E2D925B0EF310044E10A /* CustomURLProtocol.swift in Sources */,
 				92EDDD0925A738F200E480F4 /* RegionalPriceRequest.swift in Sources */,
 				84600F0B25C03B1E0087194F /* POIAPIGetPolicies.swift in Sources */,
 				8418E29B25B1B85E00D3722B /* AnyResponse.swift in Sources */,

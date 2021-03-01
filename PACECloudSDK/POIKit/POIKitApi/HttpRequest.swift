@@ -63,13 +63,11 @@ class HttpRequest: NSObject, HttpRequestProtocol {
         super.init()
 
         if let session = session as? URLSession {
-            session.configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = session
         } else {
             let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForRequest = POIKitConfig.connectTimeout
             configuration.timeoutIntervalForResource = POIKitConfig.readTimeout
-            configuration.protocolClasses = [CustomURLProtocol.self]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
         }
     }
@@ -171,8 +169,14 @@ class HttpRequest: NSObject, HttpRequestProtocol {
 
     // MARK: - Generic Request
     private func performRequest(_ request: URLRequest, onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
+        var newRequest = request
+
+        if let oldUrl = request.url, let modifiedUrl = QueryParamHandler.buildUrl(for: oldUrl) {
+            newRequest.url = modifiedUrl
+        }
+
         // Perform task
-        let task = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error -> Void in
+        let task = self.session.dataTask(with: newRequest, completionHandler: { [weak self] data, response, error -> Void in
             // Handle response
             self?.cloudQueue.async {
                 if let requestResponse = response as? HTTPURLResponse {

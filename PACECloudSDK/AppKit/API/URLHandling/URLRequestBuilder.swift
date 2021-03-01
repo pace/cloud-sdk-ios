@@ -9,12 +9,12 @@ import Foundation
 
 struct URLRequestBuilder {
 
-    static func buildRequestWithEtag(with urlString: String, additionalHeaders: [String: String]?) -> URLRequest? {
-        guard let url = URL(string: urlString) else {
+    static func buildRequest(with urlString: String, additionalHeaders: [String: String]?) -> URLRequest? {
+        guard let url = URL(string: urlString), let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {
             return nil
         }
 
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: urlWithQueryParams)
 
         //Set headers
         additionalHeaders?.forEach {
