@@ -51,6 +51,8 @@ public extension PACECloudSDK {
         let authenticationMode: AuthenticationMode
         let environment: Environment
 
+        let domainACL: [String]
+
         let allowedLowAccuracy: Double
         let speedThreshold: Double
         let geoAppsScope: String
@@ -58,12 +60,15 @@ public extension PACECloudSDK {
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .web,
                     environment: Environment = .production,
+                    domainACL: [String]? = nil,
                     allowedLowAccuracy: Double? = nil,
                     speedThresholdInKmPerHour: Double? = nil,
                     geoAppsScope: String? = nil) {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
+
+            self.domainACL = domainACL ?? []
 
             self.allowedLowAccuracy = allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
 

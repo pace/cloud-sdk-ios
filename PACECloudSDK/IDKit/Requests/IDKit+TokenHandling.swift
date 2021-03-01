@@ -127,6 +127,8 @@ extension IDKit {
 // MARK: - Reset
 extension IDKit {
     func performReset(_ completion: (() -> Void)? = nil) {
+        disableBiometricAuthentication()
+
         session = nil
         SessionCache.reset()
 

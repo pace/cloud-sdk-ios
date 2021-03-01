@@ -45,4 +45,50 @@ class PACECloudSDKTests: XCTestCase {
         XCTAssertEqual(PACECloudSDK.URL.payment.absoluteString, "https://pay.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.transactions.absoluteString, "https://pay.pace.cloud/transactions")
     }
+
+    func testDomainACL() {
+        let domainACL = [
+            "fuel.site",
+            "pace.cloud",
+            "pay.pace"
+        ]
+
+        let host1 = "hem.fuel.site"
+        let host2 = "id.pace.cloud"
+        let host3 = "id.pace.cloud.stars"
+        let host4 = "pay.pace.id"
+
+        XCTAssertTrue(domainACL.contains(where: { host1.hasSuffix($0) }))
+        XCTAssertTrue(domainACL.contains(where: { host2.hasSuffix($0) }))
+        XCTAssertFalse(domainACL.contains(where: { host3.hasSuffix($0) }))
+        XCTAssertFalse(domainACL.contains(where: { host4.hasSuffix($0) }))
+    }
+
+    func testKeychain() {
+        let keychain = Keychain()
+
+        let stringKey = "stringKey"
+        let stringValue = "stringValue"
+
+        let dataKey = "dataKey"
+        let dataValue = "data".data(using: .utf8)!
+
+        keychain.set(stringValue, for: stringKey)
+        keychain.set(dataValue, for: dataKey)
+
+        let persistedStringValue = keychain.getString(for: stringKey)
+        let persistedDataValue = keychain.getData(for: dataKey)
+
+        XCTAssertEqual(stringValue, persistedStringValue)
+        XCTAssertEqual(dataValue, persistedDataValue)
+
+        keychain.delete(stringKey)
+        keychain.delete(dataKey)
+
+        let missingStringValue = keychain.getString(for: stringKey)
+        let missingDataValue = keychain.getData(for: dataKey)
+
+        XCTAssertNil(missingStringValue)
+        XCTAssertNil(missingDataValue)
+    }
 }

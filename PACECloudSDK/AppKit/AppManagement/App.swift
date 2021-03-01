@@ -103,7 +103,7 @@ extension App {
         }
 
         guard let appActionsDelegate = appActionsDelegate else {
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalServerError)
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
 
             return
         }
@@ -117,7 +117,7 @@ extension App {
 
         guard let customScheme = Bundle.main.clientRedirectScheme, let customUrl = URL(string: "\(customScheme)://") else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalServerError)
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
 
             load(URLRequest(url: cancelUrl))
 
