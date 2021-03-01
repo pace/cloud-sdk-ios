@@ -32,12 +32,21 @@ Possible values are:
 * address
 * stationName
 * brand
+* onlinePaymentMethods
+* merchant
 * dkvStationID
+* hoyerID
  */
                 public var fieldsgasStation: String?
 
                 /** Only show POIs of the given type */
                 public var filterpoiType: PCGeoJSONFilterpoiType?
+
+                /** Filter results based on available online payment methods. Use a comma separated list to get stations for multiple payment method. */
+                public var filteronlinePaymentMethod: String?
+
+                /** Filter results based on merchant name. Value has to be the same as provided in the merchant field. */
+                public var filtermerchant: String?
 
                 /** Select a country to query. If this parameter is not provided data of all countries is returned. Country code in ISO 3166-1 alpha-2 format */
                 public var filtercountry: String?
@@ -52,22 +61,13 @@ To activate the filter, use one of the following values (all other values will r
  */
                 public var filterconnectedFueling: String?
 
-                /** If set, the request will only return POIs that allow the payment method dkvAppAndGo.
-To activate the filter, use one of the following values (all other values will result in the filter being ignored): 
-* true
-* yes
-* y
-* 1
-* on
- */
-                public var filterdkvAppAndGo: String?
-
-                public init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil, filterdkvAppAndGo: String? = nil) {
+                public init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filteronlinePaymentMethod: String? = nil, filtermerchant: String? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil) {
                     self.fieldsgasStation = fieldsgasStation
                     self.filterpoiType = filterpoiType
+                    self.filteronlinePaymentMethod = filteronlinePaymentMethod
+                    self.filtermerchant = filtermerchant
                     self.filtercountry = filtercountry
                     self.filterconnectedFueling = filterconnectedFueling
-                    self.filterdkvAppAndGo = filterdkvAppAndGo
                 }
             }
 
@@ -79,8 +79,8 @@ To activate the filter, use one of the following values (all other values will r
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil, filterdkvAppAndGo: String? = nil) {
-                let options = Options(fieldsgasStation: fieldsgasStation, filterpoiType: filterpoiType, filtercountry: filtercountry, filterconnectedFueling: filterconnectedFueling, filterdkvAppAndGo: filterdkvAppAndGo)
+            public convenience init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filteronlinePaymentMethod: String? = nil, filtermerchant: String? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil) {
+                let options = Options(fieldsgasStation: fieldsgasStation, filterpoiType: filterpoiType, filteronlinePaymentMethod: filteronlinePaymentMethod, filtermerchant: filtermerchant, filtercountry: filtercountry, filterconnectedFueling: filterconnectedFueling)
                 self.init(options: options)
             }
 
@@ -92,14 +92,17 @@ To activate the filter, use one of the following values (all other values will r
                 if let filterpoiType = options.filterpoiType?.encode() {
                   params["filter[poiType]"] = filterpoiType
                 }
+                if let filteronlinePaymentMethod = options.filteronlinePaymentMethod {
+                  params["filter[onlinePaymentMethod]"] = filteronlinePaymentMethod
+                }
+                if let filtermerchant = options.filtermerchant {
+                  params["filter[merchant]"] = filtermerchant
+                }
                 if let filtercountry = options.filtercountry {
                   params["filter[country]"] = filtercountry
                 }
                 if let filterconnectedFueling = options.filterconnectedFueling {
                   params["filter[connectedFueling]"] = filterconnectedFueling
-                }
-                if let filterdkvAppAndGo = options.filterdkvAppAndGo {
-                  params["filter[dkvAppAndGo]"] = filterdkvAppAndGo
                 }
                 return params
             }
