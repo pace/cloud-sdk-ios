@@ -536,6 +536,7 @@
 		84E1AC3B2562800D00C673EF /* Poly+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC352562800D00C673EF /* Poly+Codable.swift */; };
 		84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
 		84E1AC3D2562800D00C673EF /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
+		9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */; };
 		921E68362534883200438491 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921E682C2534883100438491 /* PACECloudSDK.framework */; };
 		923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */; };
 		923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */; };
@@ -1154,6 +1155,7 @@
 		84E1AC352562800D00C673EF /* Poly+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+Codable.swift"; sourceTree = "<group>"; };
 		84E1AC362562800D00C673EF /* Result+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Value.swift"; sourceTree = "<group>"; };
 		84E1AC372562800D00C673EF /* Poly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly.swift; sourceTree = "<group>"; };
+		9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParamHandlerTests.swift; sourceTree = "<group>"; };
 		921E682C2534883100438491 /* PACECloudSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PACECloudSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		921E682F2534883200438491 /* PACECloudSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PACECloudSDK.h; sourceTree = "<group>"; };
 		921E68302534883200438491 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2361,6 +2363,14 @@
 			path = Poly;
 			sourceTree = "<group>";
 		};
+		9211951D25ECD64E0066AA5D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		921E68222534883100438491 = {
 			isa = PBXGroup;
 			children = (
@@ -2402,10 +2412,11 @@
 		921E68392534883200438491 /* PACECloudSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				3B9709FD2542D9720072F6BA /* AppKitTests */,
-				3BC9A78F2539DD3200B933AE /* POIKitTests */,
 				921E683C2534883200438491 /* Info.plist */,
 				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
+				3B9709FD2542D9720072F6BA /* AppKitTests */,
+				3BC9A78F2539DD3200B933AE /* POIKitTests */,
+				9211951D25ECD64E0066AA5D /* Utils */,
 			);
 			path = PACECloudSDKTests;
 			sourceTree = "<group>";
@@ -3074,6 +3085,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
