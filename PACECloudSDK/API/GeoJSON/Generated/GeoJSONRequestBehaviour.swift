@@ -120,4 +120,3 @@ extension GeoJSONAPIService {
         return GeoJSONAPIService<AnyResponseValue>(id: id, tag: tag, method: method, path: path, hasBody: hasBody, securityRequirements: securityRequirements)
     }
 }
- 
