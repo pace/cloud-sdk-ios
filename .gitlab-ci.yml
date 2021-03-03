@@ -159,6 +159,7 @@ documentation:
     - zip -r ios-pace-cloud-sdk-$TAG_NAME.zip generated/docs/*
   only:
     - tags
+  allow_failure: true
   artifacts:
     paths:
       - ./*.zip
