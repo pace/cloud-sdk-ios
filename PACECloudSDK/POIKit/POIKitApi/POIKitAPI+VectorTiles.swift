@@ -120,13 +120,27 @@ extension POIKitAPI {
 
                 completion(.success(tiles))
 
-            case .failure(let error):
-                if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
-                    completion(.failure(POIKit.POIKitAPIError.networkError))
-                } else if (error as NSError?)?.code == NSURLErrorCancelled {
-                    completion(.failure(POIKit.POIKitAPIError.operationCanceledByClient))
-                } else {
+            case .failure(let apiError):
+                switch apiError {
+                case .networkError(let error):
+                    if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
+                        completion(.failure(POIKit.POIKitAPIError.networkError))
+                    } else if (error as NSError?)?.code == NSURLErrorCancelled {
+                        completion(.failure(POIKit.POIKitAPIError.operationCanceledByClient))
+                    } else {
+                        completion(.failure(error))
+                    }
+
+                case .requestEncodingError(let error),
+                     .validationError(let error),
+                     .unknownError(let error):
                     completion(.failure(error))
+
+                case .decodingError(let error):
+                    completion(.failure(error))
+
+                default:
+                    completion(.failure(apiError))
                 }
             }
         }

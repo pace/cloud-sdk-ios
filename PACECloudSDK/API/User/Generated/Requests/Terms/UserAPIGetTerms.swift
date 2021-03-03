@@ -69,6 +69,39 @@ extension UserAPI.Terms {
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
+            /** Fetches the latest terms for the given UUID.
+             */
+            public class Status200: APIModel {
+
+                public var data: PCUserTerms?
+
+                public init(data: PCUserTerms? = nil) {
+                    self.data = data
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    data = try container.decodeIfPresent("data")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Status200 else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Status200, rhs: Status200) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
                 * code `1000`:  generic error
@@ -502,10 +535,10 @@ extension UserAPI.Terms {
                     return lhs.isEqual(to: rhs)
                 }
             }
-            public typealias SuccessType = String
+            public typealias SuccessType = Status200
 
             /** Terms found */
-            case status200(String)
+            case status200(Status200)
 
             /** Terms found and user accepted the last version */
             case status302
@@ -516,7 +549,7 @@ extension UserAPI.Terms {
             /** Internal server error */
             case status501(Status501)
 
-            public var success: String? {
+            public var success: Status200? {
                 switch self {
                 case .status200(let response): return response
                 default: return nil
@@ -552,7 +585,7 @@ extension UserAPI.Terms {
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(decoder.decode(String.self, from: data))
+                case 200: self = try .status200(decoder.decode(Status200.self, from: data))
                 case 302: self = .status302
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
                 case 501: self = try .status501(decoder.decode(Status501.self, from: data))
