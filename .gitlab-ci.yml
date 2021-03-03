@@ -164,23 +164,3 @@ documentation:
       - ./*.zip
     name: "ios-pace-cloud-sdk-$TAG_NAME.zip"
     expire_in: 1 week
-
-documentation_upload:
-  image:
-    name: minio/mc:latest
-    entrypoint: [""]
-  stage: publish
-  before_script:
-    - echo "Ignore global before_script"
-    - export TAG_NAME=${CI_COMMIT_TAG:-'2.0.0'}
-    - echo "Current tag version $TAG_NAME"
-  after_script:
-    - echo "Ignore global after_script"
-  script:
-    - mc alias set dev-hub ${DEV_HUB_URL} ${DEV_HUB_ACCESS} ${DEV_HUB_SECRET}
-    - mc cp ios-pace-cloud-sdk-$TAG_NAME.zip dev-hub/generated-api-definition/
-    - mc ls dev-hub/generated-api-definition/
-  only:
-    - tags
-  tags:
-    - docker
