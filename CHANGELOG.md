@@ -1,6 +1,18 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 <!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
+### Enhancements
+
+* None
+
+### Fixes
+
+* None
+
+<!-- ### Internal - Include, if needed -->
+
+4.0.0 Release notes (2021-03-04)
+=============================================================
 ### Breaking Changes
 
 * Remove PoiKitManager property from SDK singleton
@@ -28,6 +40,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Implement back handler for PWAs
 * Add generated GeoJson API
 * Support invalidation token when requesting tiles
+* Add functionality to check for available apps on device by using a cached version of all app polygons
 
 ### Fixes
 
@@ -35,7 +48,6 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix API Key header
 * Fix acccess to bundle when integrating the SDK via SPM
 
-<!-- ### Internal - Include, if needed -->
 ### Internal
 
 * Update Xcode version tag and fix CI script

@@ -11,6 +11,7 @@
     * [Setup](#setup)
     * [Migration](#migration)
         + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
+        + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -96,6 +97,15 @@ In `3.0.0` we've introduced a universal setup method: `PACECloudSDK.shared.setup
 
 The `PACECloudSDK.Configuration` almost has the same signature as the previous `AppKit.AppKitConfiguration`, only the `theme` parameter has been removed, which is now defaulted to `.automatic`. In case you want to set a specific theme, you can set it via `AppKit`'s `theme` property: `AppKit.shared.theme`.
 
+### From 3.x.x to 4.x.x
+In `4.0.0` we've simplified the setup even further.
+
+The `PACECloudSDK.Configuration` doesn't take an `initialAccessToken` anymore and will (as before) request the token when needed via the `tokenInvalid` callback (see [Native login](#native-login)).
+
+Furthermore, the handling of the redirect scheme has been updated. The SDK automatically retrieves the URL scheme from your app's `Info.plist` (see [Deep Linking](#deep-linking)), therefore no `clientId` needs to be set within the `PACECloudSDK.shared.setup()` anymore.
+
+The `PoiKitManager` has been removed as `PACECloudSDK`'s instance property. Instead it can be initialized directly via `POIKit.POIKitManager(environment:)`.
+
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
 
@@ -168,9 +178,9 @@ func tokenInvalid(completion: ((String) -> Void)) {
 ```
 
 ### Deep Linking
-Some of our services (e.g. `PayPal`) do not open the URL in the App web view, but in a `SFSafariViewController` within the app, due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
+Some of our services (e.g. the onboarding of `PayPal` payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
 - Specify the `pace.YOUR_CLIENT_ID` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
-- After successfully having set the scheme your Info.plist should look as follows:
+- After successfully having set the scheme, your Info.plist should look as follows:
 ```xml
 <key>CFBundleURLTypes</key>
 <array>
