@@ -9,7 +9,7 @@ import Foundation
 
 public extension AppKit {
     class AppData: Equatable {
-        public let appID: String
+        public var appID: String?
         private(set) public var title: String?
         private(set) public var subtitle: String?
         public let appApiUrl: String?
@@ -26,7 +26,13 @@ public extension AppKit {
 
         var appStartUrl: String?
 
-        init(appID: String, title: String?, subtitle: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
+        // Since the responses from the geo do not have a pwa id
+        // We need another identifier for an appdata object
+        var gasStationId: String {
+            (metadata[AppMetadata.references] as? [String])?.first ?? ""
+        }
+
+        init(appID: String?, title: String?, subtitle: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID
             self.title = title
             self.subtitle = subtitle
@@ -34,7 +40,7 @@ public extension AppKit {
             self.metadata = metadata
         }
 
-        init(appID: String, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
+        init(appID: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID
             self.appApiUrl = appUrl
             self.metadata = metadata

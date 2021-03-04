@@ -53,11 +53,6 @@ extension String {
 
         return self.range(of: regex, options: options, range: nil, locale: nil) != nil
     }
-
-    func conformsToURN() -> Bool {
-        let regex = "[a-z0-9][a-z0-9-]{0,31}:[a-z0-9()+,\\-.:=@;$_!*'%/?#]+"
-        return self.matches(regex, isCaseSensitive: false)
-    }
 }
 
 extension StringProtocol {

@@ -37,8 +37,8 @@ class URLBuilderTests: XCTestCase {
     }
 
     func testBuildAppStartUrl() {
-        guard let result = URLBuilder.buildAppStartUrl(with: "https://pace.com", decomposedParams: [.references], references: "prn:poi:gas-stations:f582e5b4-5424-453f-9d7d-8c106b8360d3") else { XCTFail(); return }
-        XCTAssertEqual(result, "https://pace.com?r=prn:poi:gas-stations:f582e5b4-5424-453f-9d7d-8c106b8360d3")
+        guard let result = URLBuilder.buildAppStartUrl(with: "https://pace.com", decomposedParams: [.references], references: "f582e5b4-5424-453f-9d7d-8c106b8360d3") else { XCTFail(); return }
+        XCTAssertEqual(result, "https://pace.com?r=f582e5b4-5424-453f-9d7d-8c106b8360d3")
     }
 
     func testBuildImageUrl() {

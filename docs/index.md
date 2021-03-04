@@ -246,7 +246,7 @@ let viewController = AppKit.shared.appViewController(appUrl: "App_URL", referenc
 // Example reference
 // The reference starts with a specific namespace identifier followed by the gas station id in this case
 // It has to conform to the URN format
-let reference = "prn:poi:gas-stations:1a3b5c7d-1a3b-12a4-abcd-8c106b8360d3"
+let reference = "1a3b5c7d-1a3b-12a4-abcd-8c106b8360d3"
 ```
 
 ```swift
@@ -278,16 +278,14 @@ Each `AppKit.AppData` then contains the information for one connected fueling av
 Properties:
 - `appID: String`: App id
 - `appApiUrl: String?`: Base api url
-- `metadata: [AppKit.AppMetadata: AnyHashable]`: Contains metadata like the gas station reference (prn prefix + id)
+- `metadata: [AppKit.AppMetadata: AnyHashable]`: Contains metadata like the gas station reference
 - `appManifest: AppManifest?`: Contains name, description and icons of the App
 
 #### AppMetadata
-Retrieve gas station id via `metadata[AppKit.AppMetadata.references]`.
-Note that the id has `prn:poi:gas-stations:` as prefix.
+Retrieve the gas station id:
 
 ```swift
-let prnReference = (appData.metadata[AppKit.AppMetadata.references] as! [String])?.first(where: { $0.contains("prn:poi:gas-stations:") })
-let gasstationID = String(prnReference.dropFirst("prn:poi:gas-stations:"))
+let gasstationID = (appData.metadata[AppKit.AppMetadata.references] as! [String])?.first
 ```
 
 #### AppManifest

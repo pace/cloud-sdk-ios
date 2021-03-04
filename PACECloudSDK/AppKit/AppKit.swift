@@ -30,11 +30,10 @@ public class AppKit {
         appManager.delegate = self
     }
 
-    func setup(theme: AppKitTheme = .automatic, configValues: [PACECloudSDK.ConfigValue: Any]?) {
+    func setup(theme: AppKitTheme = .automatic) {
         self.theme = theme
 
-        guard let value = configValues?[PACECloudSDK.ConfigValue.allowedLowAccuracy] as? Double else { return }
-        appManager.setAllowedLocationAccuracy(value)
+        appManager.setConfigValues()
     }
 
     // MARK: - Drawer / Location based apps
@@ -108,10 +107,7 @@ extension AppKit: AppManagerDelegate {
     func didReceiveAppReferences(_ references: [String]) {
         AppKitLogger.i("Received the following references: \(references.joined(separator: ", "))")
 
-        guard let id = proximityCheckPoiID, let completion = proximityCheckCompletion else {
-            AppKitLogger.i("Missing ID or completion handler for `isPoiInRange` check")
-            return
-        }
+        guard let id = proximityCheckPoiID, let completion = proximityCheckCompletion else { return }
 
         completion(references.contains(where: { $0.contains(id) }))
 
