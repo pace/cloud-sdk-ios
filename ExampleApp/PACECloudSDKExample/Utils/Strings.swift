@@ -20,4 +20,5 @@ enum Strings: String {
     case buttonFueling = "Request Fueling App"
     case buttonPayment = "Request Payment App"
     case buttonTransactions = "Request Transactions"
+    case poiInRange = "Is POI in range?"
 }
