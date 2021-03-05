@@ -3,6 +3,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Breaking Changes
 
 * Remove `force` parameter from `refreshSession`
+* AppData's `appManifest` and `appID` aren't publicly settable anymore 
 
 ### Enhancements
 
@@ -10,6 +11,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Reset session if refresh fails with error other than `noNetwork`
 * Use geo service cache for `isPoiInRange()` check
 * Do not fetch an `AppManifest` for `isPoiInRange()` check
+* Make AppData's `poiId` and `appStartUrl` accessible
 
 ### Fixes
 

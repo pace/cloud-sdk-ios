@@ -134,7 +134,7 @@ extension AppKit: AppManagerDelegate {
     func didReceiveAppDatas(_ appDatas: [AppData]) {
         // Filter out Apps that should not be shown
         let filteredAppData: [AppData] = appDatas.filter {
-            guard let urlHost = URL(string: $0.appApiUrl ?? "")?.host,
+            guard let urlHost = URL(string: $0.appBaseUrl ?? "")?.host,
                 let disableTime: Double = UserDefaults.standard.value(forKey: "disable_time_\(urlHost)") as? Double
             else {
                 return true

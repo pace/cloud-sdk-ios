@@ -40,7 +40,7 @@ public extension AppKit {
             DispatchQueue.main.async { [weak self] in
                 guard let appDrawer = self?.drawerStackView.arrangedSubviews
                         .compactMap({ $0 as? AppDrawer })
-                        .first(where: { $0.appData.gasStationId == gasStationId })
+                        .first(where: { $0.appData.poiId == gasStationId })
                 else { return }
                 appDrawer.removeFromSuperview()
             }
@@ -117,7 +117,7 @@ public extension AppKit.AppDrawerContainer {
 
         let relevantDrawers: [AppKit.AppDrawer]
         if let gasStationIds = gasStationIds {
-            relevantDrawers = currentDrawers.filter { gasStationIds.contains($0.appData.gasStationId) }
+            relevantDrawers = currentDrawers.filter { gasStationIds.contains($0.appData.poiId) }
         } else {
             relevantDrawers = currentDrawers
         }
