@@ -26,6 +26,7 @@ An account OTP is required to perform the action.
                 super.init(service: DeleteCurrentUser.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/json"
             }
         }
 

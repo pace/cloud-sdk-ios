@@ -34,7 +34,7 @@ public extension POIKit {
     class BoundingBoxNotificationToken: PoiKitObserverToken {
         var token: AnyObject?
         var api: POIKitAPI
-        var downloadTask: URLSessionTask?
+        var downloadTask: CancellablePOIAPIRequest?
         let zoomLevel: Int
 
         private (set) public var boundingBox: BoundingBox
@@ -107,7 +107,7 @@ public extension POIKit {
         var uuids: [String]
         var token: AnyObject?
         var api: POIKitAPI
-        var downloadTask: URLSessionTask?
+        var downloadTask: CancellablePOIAPIRequest?
 
         init(uuids: [String], delegate: POIKitObserverTokenDelegate? = nil, api: POIKitAPI, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.uuids = uuids

@@ -25,6 +25,7 @@ extension UserAPI.TOTP {
                 super.init(service: CreateOTP.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/json"
             }
         }
 

@@ -11,11 +11,12 @@ public class PCGeoJSONGeoJsonGeometry: APIModel {
         case point = "Point"
     }
 
+    /** An array of two decimal numbers. Order is fix [longitude, latitude] */
     public var coordinates: PCGeoJSONCommonLatLong?
 
     public var type: PCGeoJSONType?
 
-    public init(coordinates: PCPOICommonLatLong? = nil, type: PCGeoJSONType? = nil) {
+    public init(coordinates: PCGeoJSONCommonLatLong? = nil, type: PCGeoJSONType? = nil) {
         self.coordinates = coordinates
         self.type = type
     }
@@ -23,7 +24,7 @@ public class PCGeoJSONGeoJsonGeometry: APIModel {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        coordinates = try container.decodeIfPresent("coordinates")
+        coordinates = try container.decodeArrayIfPresent("coordinates")
         type = try container.decodeIfPresent("type")
     }
 

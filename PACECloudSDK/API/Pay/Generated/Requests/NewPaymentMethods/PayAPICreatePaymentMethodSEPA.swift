@@ -60,6 +60,7 @@ The payment method ID is optional when posting data.
                 super.init(service: CreatePaymentMethodSEPA.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

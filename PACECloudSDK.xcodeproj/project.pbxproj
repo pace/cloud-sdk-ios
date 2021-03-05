@@ -150,7 +150,6 @@
 		3BC1AD8125C2F16C00725CB9 /* PACECloudSDK+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */; };
 		3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */; };
 		3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */; };
-		3BC9A7ED2539DDAD00B933AE /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79F2539DDAC00B933AE /* HttpRequest.swift */; };
 		3BC9A7EE2539DDAD00B933AE /* POIKitAPI+GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */; };
 		3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */; };
 		3BC9A7F02539DDAD00B933AE /* POIKitAPI+ReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */; };
@@ -435,6 +434,7 @@
 		84600F5525C03B340087194F /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */; };
 		84600F5725C03B340087194F /* FuelingAPICancelPreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */; };
 		847EBE4A25C0531F001507D2 /* MessageHandlerParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B577FBB2593815C00F65DF6 /* MessageHandlerParam.swift */; };
+		8482BAD425D5342000A7CD16 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482BAD325D5342000A7CD16 /* HttpRequest.swift */; };
 		849C400725CAB6DD0074BCDA /* PCUserTerms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFB25CAB6DC0074BCDA /* PCUserTerms.swift */; };
 		849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFC25CAB6DD0074BCDA /* PCUserUserPIN.swift */; };
 		849C400B25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFD25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift */; };
@@ -546,6 +546,7 @@
 		84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
 		84E1AC3D2562800D00C673EF /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
 		9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */; };
+		84E1C30C25DD353300BD4D7D /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482BAD325D5342000A7CD16 /* HttpRequest.swift */; };
 		921E68362534883200438491 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921E682C2534883100438491 /* PACECloudSDK.framework */; };
 		923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */; };
 		923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */; };
@@ -652,7 +653,6 @@
 		92EDDCA825A7386F00E480F4 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
 		92EDDCEA25A738B400E480F4 /* NSMutableData+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */; };
 		92EDDCF225A738C900E480F4 /* POIKitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BC2539DDAC00B933AE /* POIKitAPI.swift */; };
-		92EDDCF625A738D800E480F4 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79F2539DDAC00B933AE /* HttpRequest.swift */; };
 		92EDDCFA25A738DD00E480F4 /* POIKitAPI+Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */; };
 		92EDDCFB25A738DD00E480F4 /* POIKitAPI+GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */; };
 		92EDDCFD25A738DD00E480F4 /* POIKitAPI+Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */; };
@@ -873,7 +873,6 @@
 		3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+URL.swift"; sourceTree = "<group>"; };
 		3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
 		3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
-		3BC9A79F2539DDAC00B933AE /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+GasStation.swift"; sourceTree = "<group>"; };
 		3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableData+Extension.swift"; sourceTree = "<group>"; };
 		3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+ReverseGeocode.swift"; sourceTree = "<group>"; };
@@ -1059,6 +1058,7 @@
 		84600F4825C03B330087194F /* FuelingAPIProcessPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIProcessPayment.swift; sourceTree = "<group>"; };
 		84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIWaitOnPumpStatusChange.swift; sourceTree = "<group>"; };
 		84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPICancelPreAuth.swift; sourceTree = "<group>"; };
+		8482BAD325D5342000A7CD16 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		849C3FFB25CAB6DC0074BCDA /* PCUserTerms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserTerms.swift; sourceTree = "<group>"; };
 		849C3FFC25CAB6DD0074BCDA /* PCUserUserPIN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserUserPIN.swift; sourceTree = "<group>"; };
 		849C3FFD25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserVerifyUserPhone.swift; sourceTree = "<group>"; };
@@ -1649,8 +1649,8 @@
 			isa = PBXGroup;
 			children = (
 				3BC9A7A32539DDAC00B933AE /* Model */,
-				3BC9A79F2539DDAC00B933AE /* HttpRequest.swift */,
 				3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */,
+				8482BAD325D5342000A7CD16 /* HttpRequest.swift */,
 				3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */,
 				3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */,
 				3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */,
@@ -2830,7 +2830,6 @@
 				3B970A7B2542D9BB0072F6BA /* AppWebView.swift in Sources */,
 				84A43A422580E34D00DE36FA /* PayRequestBehaviour.swift in Sources */,
 				3B970A952542D9BB0072F6BA /* TokenValidator.swift in Sources */,
-				3BC9A7ED2539DDAD00B933AE /* HttpRequest.swift in Sources */,
 				84D6C053258A03270094982D /* PCPOILocationBasedApp.swift in Sources */,
 				3BC9A8042539DDAD00B933AE /* POIKitAPI+Prices.swift in Sources */,
 				3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */,
@@ -3093,6 +3092,7 @@
 				849C401725CAB6DE0074BCDA /* PCUserCreateOTP.swift in Sources */,
 				84600F4D25C03B340087194F /* FuelingAPIApproachingAtTheForecourt.swift in Sources */,
 				3B970A9A2542D9BB0072F6BA /* AppWebViewJsonRpcInterceptor.swift in Sources */,
+				8482BAD425D5342000A7CD16 /* HttpRequest.swift in Sources */,
 				84D6C065258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
 				849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */,
 				3B970AAC2542D9BB0072F6BA /* AppStyle+Images.swift in Sources */,
@@ -3310,6 +3310,7 @@
 				92EDDD9C25A73A6500E480F4 /* Vector2.swift in Sources */,
 				92EDDC2225A7270300E480F4 /* URLDataRequest.swift in Sources */,
 				92EDDBFE25A7270300E480F4 /* AppDrawer+Gestures.swift in Sources */,
+				84E1C30C25DD353300BD4D7D /* HttpRequest.swift in Sources */,
 				84600F3525C03B1F0087194F /* POIAPICheckForPaceApp.swift in Sources */,
 				92EDDD5F25A7396900E480F4 /* (null) in Sources */,
 				92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */,
@@ -3376,7 +3377,6 @@
 				8418E29525B1B85E00D3722B /* AnyCodable.swift in Sources */,
 				84600F1925C03B1E0087194F /* POIAPIGetPoi.swift in Sources */,
 				8418E29925B1B85E00D3722B /* APIResult.swift in Sources */,
-				92EDDCF625A738D800E480F4 /* HttpRequest.swift in Sources */,
 				8418E2AB25B1B88E00D3722B /* POIAPIClient.swift in Sources */,
 				92EDDC2425A7270300E480F4 /* App.swift in Sources */,
 				84600F0925C03B1E0087194F /* POIAPICreatePolicy.swift in Sources */,

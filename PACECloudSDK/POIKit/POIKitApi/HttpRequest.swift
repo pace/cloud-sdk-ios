@@ -40,6 +40,7 @@ protocol HttpRequestProtocol {
                      body: Data?,
                      includeDefaultHeaders: Bool,
                      headers: [String: String],
+                     on queue: DispatchQueue,
                      onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask
     func httpRequest(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTask
 }
@@ -55,7 +56,6 @@ class HttpRequest: NSObject, HttpRequestProtocol {
     var session: URLSessionProtocol = URLSession(configuration: .default)
     let sslVerifyHost = "."
     var acceptLanguage = "en"
-    let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
     var accessToken: String?
 
     // MARK: - Initialize
@@ -86,6 +86,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
                      body: Data? = nil,
                      includeDefaultHeaders: Bool = true,
                      headers: [String: String] = [:],
+                     on queue: DispatchQueue,
                      onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
         var request = URLRequest(url: url)
 
@@ -102,7 +103,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             request.httpBody = body
         }
 
-        return performRequest(request, onCompletion: onCompletion)
+        return performRequest(request, on: queue, onCompletion: onCompletion)
     }
 
     func httpRequest(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTask {
@@ -116,6 +117,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
                               params: [String: String] = [:],
                               files: [String: String],
                               boundaryID: Int = Int(Date().timeIntervalSince1970),
+                              on queue: DispatchQueue,
                               onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) {
         var request = URLRequest(url: url)
 
@@ -129,7 +131,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
 
         request.httpBody = body
 
-        _ = performRequest(request, onCompletion: onCompletion)
+        _ = performRequest(request, on: queue, onCompletion: onCompletion)
     }
 
     func generateBoundaryString(with id: Int) -> String {
@@ -168,7 +170,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
     }
 
     // MARK: - Generic Request
-    private func performRequest(_ request: URLRequest, onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
+    private func performRequest(_ request: URLRequest, on queue: DispatchQueue, onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
         var newRequest = request
 
         if let oldUrl = request.url, let modifiedUrl = QueryParamHandler.buildUrl(for: oldUrl) {
@@ -178,7 +180,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
         // Perform task
         let task = self.session.dataTask(with: newRequest, completionHandler: { [weak self] data, response, error -> Void in
             // Handle response
-            self?.cloudQueue.async {
+            queue.async {
                 if let requestResponse = response as? HTTPURLResponse {
                     onCompletion(requestResponse, data, error)
                 } else {
@@ -187,7 +189,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             }
         })
 
-        cloudQueue.async {
+        queue.async {
             task.resume()
         }
 

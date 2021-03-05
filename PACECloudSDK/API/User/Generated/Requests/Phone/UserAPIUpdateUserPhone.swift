@@ -62,6 +62,7 @@ If the process is not completed within 24h the process is canceled.
                 super.init(service: UpdateUserPhone.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

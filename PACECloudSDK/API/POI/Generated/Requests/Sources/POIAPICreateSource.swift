@@ -53,6 +53,7 @@ extension POIAPI.Sources {
                 super.init(service: CreateSource.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

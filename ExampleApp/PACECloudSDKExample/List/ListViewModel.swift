@@ -15,7 +15,7 @@ class ListViewModel: NSObject {
 
     private var poiKitManager: POIKit.POIKitManager
     private var locationManager: CLLocationManager?
-    private var downloadTask: URLSessionTask?
+    private var downloadTask: CancellablePOIAPIRequest?
 
     private var currentLocation: CLLocation? {
         locationManager?.location
@@ -37,6 +37,7 @@ class ListViewModel: NSObject {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
+        locationManager?.startUpdatingLocation()
     }
 
     func fetchCoFuStations() {
@@ -45,7 +46,7 @@ class ListViewModel: NSObject {
         downloadTask?.cancel()
         isLoading.value = true
 
-        downloadTask = poiKitManager.fetchPOIs(poisOfType: .gasStation, boundingBox: POIKit.BoundingBox(center: coordinate, radius: 19_800)) { [weak self] result in
+        downloadTask = poiKitManager.fetchPOIs(poisOfType: .gasStation, boundingBox: POIKit.BoundingBox(center: coordinate, radius: 5_000)) { [weak self] result in
 
             defer {
                 self?.isLoading.value = false

@@ -66,6 +66,7 @@ The following rules apply to verify the PIN:
                 super.init(service: UpdateUserPIN.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 

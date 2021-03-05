@@ -11,7 +11,7 @@ import UIKit
 extension POIKitAPI {
     func fetchPOIs(poisOfType: POIKit.POILayer,
                    boundingBox: POIKit.BoundingBox,
-                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
+                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
@@ -37,7 +37,7 @@ extension POIKitAPI {
 
     func loadPOIs(poisOfType: POIKit.POILayer,
                   boundingBox: POIKit.BoundingBox,
-                  handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
+                  handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
@@ -65,7 +65,7 @@ extension POIKitAPI {
     }
 
     func loadPOIs(uuids: [String],
-                  handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
+                  handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let tiles = POIKit.Database.shared.delegate?
             .get(uuids: uuids)
@@ -88,48 +88,61 @@ extension POIKitAPI {
         }
     }
 
-    func loadPois(_ tileRequest: TileQueryRequest, boundingBox: POIKit.BoundingBox?, completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> URLSessionTask? {
-        guard let url = buildURL(.tilesApi, path: "/query"), let data = try? tileRequest.serializedData() else {
+    func loadPois(_ tileRequest: TileQueryRequest, boundingBox: POIKit.BoundingBox?, completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> CancellablePOIAPIRequest? {
+        guard let data = try? tileRequest.serializedData() else {
             completion(.failure(POIKit.POIKitAPIError.unknown))
-                return nil
+            return nil
         }
 
-        return request.httpRequest(.post,
-                                   url: url,
-                                   body: data,
-                                   includeDefaultHeaders: false,
-                                   headers: ["Content-Type": "application/protobuf"]) { [weak self] response, data, error in
-            if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
-                completion(.failure(POIKit.POIKitAPIError.networkError))
+        let newRequest = POIAPI.Tiles.GetTiles.Request(body: data)
+        newRequest.version = ""
 
-                return
-            }
-
-            guard let self = self, response?.statusCode == 200, let data = data, let tileResponse = try? TileQueryResponse(serializedData: data) else {
-                if (error as NSError?)?.code == NSURLErrorCancelled {
-                    completion(.failure(POIKit.POIKitAPIError.operationCanceledByClient))
+        return API.POI.client.makeRequest(newRequest, completionQueue: cloudQueue) { response in
+            switch response.result {
+            case .success(let data):
+                guard let success = data.success, let tileResponse = try? TileQueryResponse(serializedData: success) else {
+                    completion(.failure(POIKit.POIKitAPIError.serverError))
                     return
                 }
 
-                completion(.failure(POIKit.POIKitAPIError.serverError))
-                return
-            }
+                let timeToLive = self.timeToLive(from: response.urlResponse)
+                let invalidationToken = tileResponse.invalidationToken
 
-            let timeToLive = self.timeToLive(from: response)
-            let invalidationToken = tileResponse.invalidationToken
-
-            let tiles = tileResponse.vectorTiles.map {  Tile(tileInformation: TileInformation(zoomLevel: Int(tileResponse.zoom), x: Int($0.geo.x), y: Int($0.geo.y)),
+                let tiles = tileResponse.vectorTiles.map {  Tile(tileInformation: TileInformation(zoomLevel: Int(tileResponse.zoom), x: Int($0.geo.x), y: Int($0.geo.y)),
                                                              type: .poi,
                                                              invalidationToken: invalidationToken,
                                                              data: $0.vectorTiles,
                                                              timeToLive: timeToLive) }
+                if boundingBox != nil {
+                    // Only work with invalidation tokens if there is a bounding box involved
+                    self.invalidationTokenCache.add(tiles: tiles, for: Int(tileResponse.zoom))
+                }
 
-            if boundingBox != nil {
-                // Only work with invalidation tokens if there is a bounding box involved
-                self.invalidationTokenCache.add(tiles: tiles, for: Int(tileResponse.zoom))
+                completion(.success(tiles))
+
+            case .failure(let apiError):
+                switch apiError {
+                case .networkError(let error):
+                    if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
+                        completion(.failure(POIKit.POIKitAPIError.networkError))
+                    } else if (error as NSError?)?.code == NSURLErrorCancelled {
+                        completion(.failure(POIKit.POIKitAPIError.operationCanceledByClient))
+                    } else {
+                        completion(.failure(error))
+                    }
+
+                case .requestEncodingError(let error),
+                     .validationError(let error),
+                     .unknownError(let error):
+                    completion(.failure(error))
+
+                case .decodingError(let error):
+                    completion(.failure(error))
+
+                default:
+                    completion(.failure(apiError))
+                }
             }
-
-            completion(.success(tiles))
         }
     }
 

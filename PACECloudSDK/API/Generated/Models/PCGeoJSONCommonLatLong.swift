@@ -7,4 +7,3 @@ import Foundation
 
 /** https://tools.ietf.org/html/rfc7946 */
 public typealias PCGeoJSONCommonLatLong = [Float]
-

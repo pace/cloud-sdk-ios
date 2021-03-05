@@ -10,18 +10,18 @@ import Foundation
 extension POIKitAPIProtocol {
     func fetchPOIs(poisOfType: POIKit.POILayer,
                    boundingBox: POIKit.BoundingBox,
-                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
+                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         nil
     }
 
     func loadPOIs(poisOfType: POIKit.POILayer,
                   boundingBox: POIKit.BoundingBox,
-                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
+                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         nil
     }
 
     func loadPOIs(uuids: [String],
-                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> URLSessionTask? {
+                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         nil
     }
 }

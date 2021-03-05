@@ -44,6 +44,7 @@ value not longer than 255 bytes (including complex json objects).
                 super.init(service: UpdateAppPreferences.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(AnyCodable(body))
                 }
+                self.contentType = "application/json"
             }
 
             /// convenience initialiser so an Option doesn't have to be created

@@ -122,7 +122,7 @@ extension POIKitAPI {
             return
         }
 
-        self.request.httpRequest(.get, url: url, body: nil, includeDefaultHeaders: false, headers: [:]) { response, data, error -> Void in
+        self.request.httpRequest(.get, url: url, body: nil, includeDefaultHeaders: false, headers: [:], on: cloudQueue) { response, data, error -> Void in
             if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
                 handler?(nil, .networkError)
 

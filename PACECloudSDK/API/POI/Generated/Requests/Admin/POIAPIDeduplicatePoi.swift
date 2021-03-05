@@ -52,6 +52,7 @@ extension POIAPI.Admin {
                 super.init(service: DeduplicatePoi.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
+                self.contentType = "application/vnd.api+json"
             }
         }
 
