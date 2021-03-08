@@ -14,7 +14,7 @@ public class POIAPIRequest<ResponseType: APIResponseValue> {
     private(set) var headerParameters: [String: String]
     public var customHeaders: [String: String] = [:]
     public var version: String = "2020-4"
-    public var contentType: String = "application/json"
+    public var contentType: String = "application/vnd.api+json"
 
     public var headers: [String: String] {
         return headerParameters.merging(customHeaders) { param, custom in return custom }
@@ -106,6 +106,8 @@ extension POIAPIRequest {
         if !(formParams.queryItems?.isEmpty ?? true) {
             urlRequest.httpBody = formParams.query?.data(using: .utf8)
         }
+
+        urlRequest.setValue(contentType, forHTTPHeaderField: HttpHeaderFields.accept.rawValue)
 
         if let encodeBody = encodeBody {
             urlRequest.httpBody = try encodeBody(encoder)
