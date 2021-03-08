@@ -12,6 +12,7 @@
     * [Migration](#migration)
         + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
         + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
+        + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -105,6 +106,9 @@ The `PACECloudSDK.Configuration` doesn't take an `initialAccessToken` anymore an
 Furthermore, the handling of the redirect scheme has been updated. The SDK automatically retrieves the URL scheme from your app's `Info.plist` (see [Deep Linking](#deep-linking)), therefore no `clientId` needs to be set within the `PACECloudSDK.shared.setup()` anymore.
 
 The `PoiKitManager` has been removed as `PACECloudSDK`'s instance property. Instead it can be initialized directly via `POIKit.POIKitManager(environment:)`.
+
+### From 4.x.x to 5.x.x
+In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.refreshSession(...)` call (see [Token refresh](#token-refresh)). 
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
