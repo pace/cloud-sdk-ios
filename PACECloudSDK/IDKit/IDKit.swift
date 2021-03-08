@@ -12,7 +12,7 @@ protocol IDKitProtocol: AnyObject {
     static func swapPresentingViewController(with newViewController: UIViewController)
 
     static func authorize(_ completion: @escaping ((String?, IDKit.IDKitError?) -> Void))
-    static func refreshToken(force: Bool, _ completion: @escaping ((String?, IDKit.IDKitError?) -> Void))
+    static func refreshToken(_ completion: @escaping ((String?, IDKit.IDKitError?) -> Void))
     static func cancelAuthorizationFlow(_ completion: (() -> Void)?)
     static func resetSession(_ completion: (() -> Void)?)
     static func isAuthorizationValid() -> Bool
@@ -85,11 +85,10 @@ public extension IDKit {
 
     /**
      Refreshes the current access token if needed.
-     - parameter force: Forces a refresh even if the current accessToken is still valid. Defaults to `false`.
      - parameter completion: The block to be called when the request is complete including either a new valid `accessToken` or an `error`.
      */
-    static func refreshToken(force: Bool = false, _ completion: @escaping ((String?, IDKitError?) -> Void)) {
-        shared?.performRefresh(force: force, completion)
+    static func refreshToken(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
+        shared?.performRefresh(completion)
     }
 
     /**

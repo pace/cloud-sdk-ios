@@ -35,7 +35,7 @@ extension IDKit {
         // Try to refresh token from last session cache
         if cacheSession, session != nil {
             IDKitLogger.i("Trying to refresh session...")
-            performRefresh(force: true, completion)
+            performRefresh(completion)
             return
         }
 
@@ -100,24 +100,26 @@ extension IDKit {
 
 // MARK: - Refresh
 extension IDKit {
-    func performRefresh(force: Bool, _ completion: @escaping ((String?, IDKitError?) -> Void)) {
+    func performRefresh(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
         guard let session = session else {
             performReset { completion(nil, IDKitError.invalidSession) }
             return
         }
 
-        if force {
-            session.setNeedsTokenRefresh()
-        }
-
+        session.setNeedsTokenRefresh()
         session.performAction(freshTokens: { [weak self] accessToken, _, error in
-            if let error = error {
-                self?.performReset { completion(nil, IDKitError.other(error)) }
+            guard let error = error else {
+                completion(accessToken, nil)
+                IDKitLogger.i("Refresh successful")
                 return
             }
 
-            completion(accessToken, nil)
-            IDKitLogger.i("Refresh successful")
+            if session.isAuthorized {
+                // e.g network error
+                completion(nil, IDKitError.other(error))
+            } else {
+                self?.performReset { completion(nil, IDKitError.failedTokenRefresh(error)) }
+            }
         })
     }
 }
