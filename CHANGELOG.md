@@ -1,13 +1,18 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
-<!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
+### Breaking Changes
+
+* Remove `force` parameter from `refreshSession`
+
 ### Enhancements
 
-* None
+* Always force refresh session
+* Reset session if refresh fails with error other than `noNetwork`
 
 ### Fixes
 
 * Fix threading issue in `InvalidationTokenCache`
+* Fix accept header for api requests 
 
 <!-- ### Internal - Include, if needed -->
 
