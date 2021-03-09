@@ -11,12 +11,16 @@ class InvalidationTokenCache {
     // [ZoomLevel: [TileId: TokenItem]]
     private var cacheItems: [Int: [String: TokenItem]] = [:]
 
+    private let cacheQueue: DispatchQueue = .init(label: "InvalidationTokenCache", qos: .utility)
+
     func add(tiles: [Tile], for zoomLevel: Int) {
-        tiles.forEach {
-            if cacheItems[zoomLevel] == nil {
-                cacheItems[zoomLevel] = [$0.tileId: TokenItem(creationDate: $0.created, invalidationToken: $0.invalidationToken)]
-            } else {
-                cacheItems[zoomLevel]?[$0.tileId] = TokenItem(creationDate: $0.created, invalidationToken: $0.invalidationToken)
+        cacheQueue.async { [weak self] in
+            tiles.forEach {
+                if self?.cacheItems[zoomLevel] == nil {
+                    self?.cacheItems[zoomLevel] = [$0.tileId: TokenItem(creationDate: $0.created, invalidationToken: $0.invalidationToken)]
+                } else {
+                    self?.cacheItems[zoomLevel]?[$0.tileId] = TokenItem(creationDate: $0.created, invalidationToken: $0.invalidationToken)
+                }
             }
         }
     }
@@ -25,7 +29,11 @@ class InvalidationTokenCache {
         let requestedTileInfos = requestedArea.flatMap { $0.coveredTileInfo(for: zoomLevel) }
         let requestedIDs = Set(requestedTileInfos.map { $0.id })
 
-        let cachedItems = cacheItems[zoomLevel] ?? [:]
+        var cachedItems: [String: TokenItem] = [:]
+
+        cacheQueue.sync {
+            cachedItems = cacheItems[zoomLevel] ?? [:]
+        }
 
         // Return nil if there is an requested id that is not in the cache yet
         guard requestedIDs.filter({ cachedItems[$0] == nil }).isEmpty else { return nil }

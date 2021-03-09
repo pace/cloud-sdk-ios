@@ -7,7 +7,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Fixes
 
-* None
+* Fix threading issue in `InvalidationTokenCache`
 
 <!-- ### Internal - Include, if needed -->
 
