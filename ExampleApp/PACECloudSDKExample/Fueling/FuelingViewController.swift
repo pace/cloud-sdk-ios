@@ -16,6 +16,7 @@ class FuelingViewController: UIViewController {
         case fueling
         case payment
         case transactions
+        case poiInRange
 
         var title: String {
             switch self {
@@ -36,6 +37,9 @@ class FuelingViewController: UIViewController {
 
             case .transactions:
                 return Strings.buttonTransactions.rawValue
+
+            case .poiInRange:
+                return Strings.poiInRange.rawValue
             }
         }
     }
@@ -66,7 +70,7 @@ class FuelingViewController: UIViewController {
         }
 
         idButtons = [ButtonType.authorize, .reset].map { buttonCreation($0) }
-        appButtons = [ButtonType.drawer, .fueling, .payment, .transactions].map { buttonCreation($0) }
+        appButtons = [ButtonType.drawer, .fueling, .payment, .transactions, .poiInRange].map { buttonCreation($0) }
 
         isAuthorized(false)
     }
@@ -146,6 +150,16 @@ class FuelingViewController: UIViewController {
         case ButtonType.transactions.rawValue:
             let vc = AppControl.shared.appViewController(appUrl: "\(Constants.URLs.paymentUrl)/transactions")
             present(vc, animated: true)
+
+        case ButtonType.poiInRange.rawValue:
+            let alert = UIAlertController(title: "Enter poi id", message: nil, preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                let id = alert.textFields?.first?.text ?? ""
+                AppControl.shared.isPoiInRange(with: id)
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true)
 
         default:
             break

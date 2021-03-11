@@ -36,6 +36,12 @@ class AppControl {
     func handleRedirectURL(_ url: URL) {
         AppKit.shared.handleRedirectURL(url)
     }
+
+    func isPoiInRange(with id: String) {
+        AppKit.shared.isPoiInRange(id: id) { result in
+            NSLog("\(id) in range: \(result)")
+        }
+    }
 }
 
 extension AppControl: AppKitDelegate {
