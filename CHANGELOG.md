@@ -8,6 +8,8 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Always force refresh session
 * Reset session if refresh fails with error other than `noNetwork`
+* Use geo service cache for `isPoiInRange()` check
+* Do not fetch an `AppManifest` for `isPoiInRange()` check
 
 ### Fixes
 
