@@ -17,29 +17,77 @@ class FuelingViewController: UIViewController {
         case payment
         case transactions
         case poiInRange
+        case isPINSet
+        case isPasswordSet
+        case isPINOrPasswordSet
+        case setPINWithOTP
+        case setPINWithPassword
+        case setPINWithBiometry
+        case isBiometrySet
+        case enableBiometryWithOTP
+        case enableBiometryWithPIN
+        case enableBiometryWithPassword
+        case disableBiometry
+        case sendMailOTP
 
         var title: String {
             switch self {
             case .authorize:
-                return Strings.buttonAuthorize.rawValue
+                return "Authorize"
 
             case .reset:
-                return Strings.buttonReset.rawValue
+                return "Reset Session"
 
             case .drawer:
-                return Strings.buttonDrawer.rawValue
+                return "Request App Drawer"
 
             case .fueling:
-                return Strings.buttonFueling.rawValue
+                return "Request Fueling App"
 
             case .payment:
-                return Strings.buttonPayment.rawValue
+                return "Request Payment App"
 
             case .transactions:
-                return Strings.buttonTransactions.rawValue
+                return "Request Transactions"
 
             case .poiInRange:
-                return Strings.poiInRange.rawValue
+                return "Is POI in range?"
+
+            case .isPINSet:
+                return "Is PIN set?"
+
+            case .isPasswordSet:
+                return "Is Password set?"
+
+            case .isPINOrPasswordSet:
+                return "Is PIN or password set?"
+
+            case .setPINWithOTP:
+                return "Set PIN with otp"
+
+            case .setPINWithPassword:
+                return "Set PIN with password"
+
+            case .setPINWithBiometry:
+                return "Set PIN with biometry"
+
+            case .isBiometrySet:
+                return "Is biometry set?"
+
+            case .enableBiometryWithOTP:
+                return "Enable biometry with otp"
+
+            case .enableBiometryWithPIN:
+                return "Enable biometry with pin"
+
+            case .enableBiometryWithPassword:
+                return "Enable biometry with password"
+
+            case .disableBiometry:
+                return "Disable biometry"
+
+            case .sendMailOTP:
+                return "Send Mail OTP"
             }
         }
     }
@@ -51,6 +99,9 @@ class FuelingViewController: UIViewController {
 
     private var idButtons: [PaceButton] = []
     private var appButtons: [PaceButton] = []
+
+    private lazy var scrollView: UIScrollView = .init()
+    private lazy var contentView: UIView = .init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +121,22 @@ class FuelingViewController: UIViewController {
         }
 
         idButtons = [ButtonType.authorize, .reset].map { buttonCreation($0) }
-        appButtons = [ButtonType.drawer, .fueling, .payment, .transactions, .poiInRange].map { buttonCreation($0) }
+        appButtons = [ButtonType.drawer,
+                      .fueling, .payment,
+                      .transactions,
+                      .poiInRange,
+                      .isPINSet,
+                      .isPasswordSet,
+                      .isPINOrPasswordSet,
+                      .setPINWithOTP,
+                      .setPINWithPassword,
+                      .setPINWithBiometry,
+                      .isBiometrySet,
+                      .enableBiometryWithOTP,
+                      .enableBiometryWithPIN,
+                      .enableBiometryWithPassword,
+                      .disableBiometry,
+                      .sendMailOTP].map { buttonCreation($0) }
 
         isAuthorized(false)
     }
@@ -79,7 +145,9 @@ class FuelingViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = Strings.titleFuelingUnauthorized.rawValue
 
-        [idStackView, appStackView, appDrawerContainer].forEach(view.addSubview)
+        [idStackView, scrollView, appDrawerContainer].forEach(view.addSubview)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(appStackView)
 
         idStackView.snp.makeConstraints {
             $0.width.equalToSuperview().multipliedBy(0.75)
@@ -87,9 +155,21 @@ class FuelingViewController: UIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(16)
         }
 
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(idStackView.snp.bottom).offset(16)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
+        contentView.snp.makeConstraints {
+            $0.left.top.right.width.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(16)
+        }
+
         appStackView.snp.makeConstraints {
             $0.width.equalToSuperview().multipliedBy(0.75)
-            $0.centerX.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
         }
 
         idButtons.forEach {
@@ -126,6 +206,7 @@ class FuelingViewController: UIViewController {
         appDrawerContainer.setupContainerView()
     }
 
+    // swiftlint:disable cyclomatic_complexity function_body_length
     @objc
     private func handleButtonTapped(sender: UIButton) {
         switch sender.tag {
@@ -152,14 +233,43 @@ class FuelingViewController: UIViewController {
             present(vc, animated: true)
 
         case ButtonType.poiInRange.rawValue:
-            let alert = UIAlertController(title: "Enter poi id", message: nil, preferredStyle: .alert)
-            alert.addTextField(configurationHandler: nil)
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                let id = alert.textFields?.first?.text ?? ""
-                AppControl.shared.isPoiInRange(with: id)
-            }
-            alert.addAction(okAction)
-            present(alert, animated: true)
+            handleIsPoiInRangeAlert()
+
+        case ButtonType.isPINSet.rawValue:
+            IDControl.shared.isPINSet()
+
+        case ButtonType.isPasswordSet.rawValue:
+            IDControl.shared.isPasswordSet()
+
+        case ButtonType.isPINOrPasswordSet.rawValue:
+            IDControl.shared.isPINOrPasswordSet()
+
+        case ButtonType.setPINWithOTP.rawValue:
+            handleSetPINWithOTPAlert()
+
+        case ButtonType.setPINWithPassword.rawValue:
+            handleSetPINWithPasswordAlert()
+
+        case ButtonType.setPINWithBiometry.rawValue:
+            handleSetPINWithBiometryAlert()
+
+        case ButtonType.isBiometrySet.rawValue:
+            IDControl.shared.isBiometrySet()
+
+        case ButtonType.enableBiometryWithOTP.rawValue:
+            handleEnableBiometryWithOTP()
+
+        case ButtonType.enableBiometryWithPIN.rawValue:
+            handleEnableBiometryWithPIN()
+
+        case ButtonType.enableBiometryWithPassword.rawValue:
+            handleEnableBiometryWithPassword()
+
+        case ButtonType.disableBiometry.rawValue:
+            IDControl.shared.disableBiometry()
+
+        case ButtonType.sendMailOTP.rawValue:
+            IDControl.shared.sendMailOTP()
 
         default:
             break
@@ -173,6 +283,123 @@ class FuelingViewController: UIViewController {
         stackView.distribution = .fillEqually
         stackView.spacing = 16
         return stackView
+    }
+
+    private func handleIsPoiInRangeAlert() {
+        let alert = UIAlertController(title: "Enter poi id", message: nil, preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            let id = alert.textFields?.first?.text ?? ""
+            AppControl.shared.isPoiInRange(with: id)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+
+    private func handleSetPINWithOTPAlert() {
+        let alert = UIAlertController(title: "Enter PIN and OTP", message: nil, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = "PIN"
+        }
+
+        alert.addTextField { textfield in
+            textfield.placeholder = "OTP"
+        }
+
+        let pinAction = UIAlertAction(title: "Set PIN", style: .default) { _ in
+            let pin = alert.textFields?[0].text ?? ""
+            let otp = alert.textFields?[1].text ?? ""
+
+            guard !pin.isEmpty, !otp.isEmpty else { return }
+            IDControl.shared.setPIN(pin: pin, otp: otp)
+        }
+        alert.addAction(pinAction)
+        present(alert, animated: true)
+    }
+
+    private func handleSetPINWithPasswordAlert() {
+        let alert = UIAlertController(title: "Enter PIN and Password", message: nil, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = "New PIN"
+        }
+
+        alert.addTextField { textfield in
+            textfield.placeholder = "Your Password"
+        }
+
+        let pinAction = UIAlertAction(title: "Set PIN", style: .default) { _ in
+            let pin = alert.textFields?[0].text ?? ""
+            let password = alert.textFields?[1].text ?? ""
+
+            guard !pin.isEmpty, !password.isEmpty else { return }
+            IDControl.shared.setPIN(pin: pin, password: password)
+        }
+        alert.addAction(pinAction)
+        present(alert, animated: true)
+    }
+
+    private func handleSetPINWithBiometryAlert() {
+        let alert = UIAlertController(title: "Enter PIN", message: nil, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = "New PIN"
+        }
+
+        let pinAction = UIAlertAction(title: "Set PIN", style: .default) { _ in
+            let pin = alert.textFields?[0].text ?? ""
+
+            guard !pin.isEmpty else { return }
+            IDControl.shared.setPINWithBiometry(pin: pin)
+        }
+        alert.addAction(pinAction)
+        present(alert, animated: true)
+    }
+
+    private func handleEnableBiometryWithOTP() {
+        let alert = UIAlertController(title: "Enter OTP", message: nil, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = "OTP"
+        }
+
+        let pinAction = UIAlertAction(title: "Enable Biometry", style: .default) { _ in
+            let otp = alert.textFields?[0].text ?? ""
+
+            guard !otp.isEmpty else { return }
+            IDControl.shared.enableBiometry(otp: otp)
+        }
+        alert.addAction(pinAction)
+        present(alert, animated: true)
+    }
+
+    private func handleEnableBiometryWithPIN() {
+        let alert = UIAlertController(title: "Enter PIN", message: nil, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = "Your PIN"
+        }
+
+        let pinAction = UIAlertAction(title: "Enable Biometry", style: .default) { _ in
+            let pin = alert.textFields?[0].text ?? ""
+
+            guard !pin.isEmpty else { return }
+            IDControl.shared.enableBiometry(pin: pin)
+        }
+        alert.addAction(pinAction)
+        present(alert, animated: true)
+    }
+
+    private func handleEnableBiometryWithPassword() {
+        let alert = UIAlertController(title: "Enter Password", message: nil, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = "Your Password"
+        }
+
+        let pinAction = UIAlertAction(title: "Enable Biometry", style: .default) { _ in
+            let password = alert.textFields?[0].text ?? ""
+
+            guard !password.isEmpty else { return }
+            IDControl.shared.enableBiometry(password: password)
+        }
+        alert.addAction(pinAction)
+        present(alert, animated: true)
     }
 }
 
