@@ -60,7 +60,9 @@ extension App {
 
 // MARK: - Message handling
 extension App {
-    func handleCloseAction() {
+    func handleCloseAction(with request: AppKit.AppRequestData<String?>) {
+        jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
+
         guard let appActionsDelegate = appActionsDelegate else {
             // WebView directly added to client's view
             self.removeFromSuperview()
@@ -71,27 +73,13 @@ extension App {
         appActionsDelegate.appRequestedCloseAction() // Close AppViewController if available
     }
 
-    func handleDisableAction(with message: WKScriptMessage) {
-        guard let body = message.body as? String,
-              let host = message.frameInfo.request.url?.host else {
-            jsonRpcInterceptor?.send(error: .badRequest)
+    func handleDisableAction(with request: AppKit.AppRequestData<AppKit.DisableAction>, requestUrl: URL?) {
+        guard let host = requestUrl?.host else {
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
-        var disableMessageData: [String: AnyHashable]?
-
-        do {
-            disableMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
-
-        } catch {
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
-            return
-        }
-
-        guard let untilTime = disableMessageData?[MessageHandlerParam.until.rawValue] as? Double else {
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
+        let untilTime = request.message.until
 
         // Persist disable's until date
         AppKitLogger.i("[App] Set disable timer for \(host): \(untilTime)")
@@ -108,28 +96,20 @@ extension App {
         appActionsDelegate.appRequestedDisableAction(for: host)
     }
 
-    func handleOpenURLInNewTabAction(with message: WKScriptMessage) {
-        guard let body = message.body as? String,
-              let sourceUrl = message.frameInfo.request.url else {
-            jsonRpcInterceptor?.send(error: .badRequest)
+    func handleOpenURLInNewTabAction(with request: AppKit.AppRequestData<AppKit.OpenUrlInNewTabData>, requestUrl: URL?) {
+        guard let sourceUrl = requestUrl else {
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
-        guard let appActionsDelegate = appActionsDelegate else { return }
+        guard let appActionsDelegate = appActionsDelegate else {
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalServerError)
 
-        var openInTabMessageData: [String: String]?
-
-        do {
-            openInTabMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
-        } catch {
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
             return
         }
 
-        guard let url: String = openInTabMessageData?[MessageHandlerParam.url.rawValue],
-              let cancelUrlString: String = openInTabMessageData?[MessageHandlerParam.cancelUrl.rawValue],
-              let cancelUrl = URL(string: cancelUrlString) else {
-            jsonRpcInterceptor?.send(error: .badRequest)
+        guard let cancelUrl = URL(string: request.message.cancelUrl) else {
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             AppKit.shared.notifyDidFail(with: .badRequest)
             load(URLRequest(url: sourceUrl))
             return
@@ -137,6 +117,7 @@ extension App {
 
         guard let customScheme = Bundle.main.clientRedirectScheme, let customUrl = URL(string: "\(customScheme)://") else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalServerError)
 
             load(URLRequest(url: cancelUrl))
 
@@ -144,147 +125,113 @@ extension App {
         }
 
         if UIApplication.shared.canOpenURL(customUrl) {
-            appActionsDelegate.appRequestedNewTab(for: url, cancelUrl: cancelUrl.absoluteString)
+            appActionsDelegate.appRequestedNewTab(for: request.message.url, cancelUrl: cancelUrl.absoluteString)
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
         } else {
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.methodNotAllowed)
+
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
 
             load(URLRequest(url: cancelUrl))
         }
     }
 
-    func handleInvalidTokenRequest() {
+    func handleInvalidTokenRequest(with request: AppKit.AppRequestData<String?>) {
         guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
         AppKit.shared.notifyInvalidToken { [weak self] token in
             if TokenValidator.isTokenValid(token) {
                 PACECloudSDK.shared.currentAccessToken = token
-                self?.jsonRpcInterceptor?.respond(result: token)
+
+                self?.jsonRpcInterceptor?.respond(id: request.id, message: token)
             } else {
-                self?.handleInvalidTokenRequest()
+                self?.handleInvalidTokenRequest(with: request)
             }
         }
     }
 
-    func handleImageDataRequest(with message: WKScriptMessage) {
-        guard let imageString = message.body as? String,
-              let decodedData = Data(base64Encoded: imageString),
+    func handleImageDataRequest(with request: AppKit.AppRequestData<String>) {
+        guard let decodedData = Data(base64Encoded: request.message),
               let image = UIImage(data: decodedData) else {
             AppKitLogger.e("[App] Could not decode base64 string")
-            jsonRpcInterceptor?.send(error: .badRequest)
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
         AppKit.shared.notifyImageData(with: image)
     }
 
-    func handleApplePayAvailibilityCheck(with message: WKScriptMessage) {
-        guard let body = message.body as? String else {
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
+    func handleApplePayAvailibilityCheck(with request: AppKit.AppRequestData<String>) {
         // Apple Pay Web is using a slightly different naming for their PKPaymentNetworks,
         // hence why we need to uppercase the first letter
-        let networks: [PKPaymentNetwork] = body.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
+        let networks: [PKPaymentNetwork] = request.message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
         let result = PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
 
-        jsonRpcInterceptor?.respond(result: result ? "true" : "false")
+        jsonRpcInterceptor?.respond(id: request.id, message: result ? true : false)
     }
 
-    func handleApplePayPaymentRequest(with message: WKScriptMessage) {
-        guard let body = message.body as? String else {
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        do {
-            let request = try JSONDecoder().decode(AppKit.ApplePayRequest.self, from: Data(body.utf8))
-
-            AppKit.shared.notifyApplePayData(with: request) { [weak self] response in
-                self?.jsonRpcInterceptor?.respond(result: response)
-            }
-        } catch {
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
+    func handleApplePayPaymentRequest(with request: AppKit.AppRequestData<AppKit.ApplePayRequest>) {
+        AppKit.shared.notifyApplePayData(with: request.message) { [weak self] response in
+            self?.jsonRpcInterceptor?.respond(id: request.id, message: response)
         }
     }
 
-    func handleLog(with message: WKScriptMessage) {
-        guard let log = message.body as? String else { return }
-        AppKitLogger.pwa(log)
+    func handleLog(with message: String) {
+        AppKitLogger.pwa(message)
     }
 
-    func handleBack() {
+    func handleBack(with request: AppKit.AppRequestData<String?>) {
         if backForwardList.backItem == nil {
-            handleCloseAction()
+            handleCloseAction(with: request)
         } else {
+            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
             goBack()
         }
     }
 
-    func handleRedirectScheme() {
+    func handleRedirectScheme(with request: AppKit.AppRequestData<String?>) {
         guard let customScheme = Bundle.main.clientRedirectScheme else {
-            jsonRpcInterceptor?.send(error: .notFound)
+            jsonRpcInterceptor?.send(id: request.id, error: .notFound)
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
             return
         }
 
-        jsonRpcInterceptor?.respond(result: [MessageHandlerParam.link.rawValue: customScheme])
+        jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.link.rawValue: customScheme])
     }
 }
 
 // MARK: - Location verification
 extension App {
-    func handleVerifyLocationRequest(with message: WKScriptMessage) {
-        guard let body = message.body as? String else {
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        var verifyLocationMessageData: [String: AnyHashable]?
-
-        do {
-            verifyLocationMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
-        } catch {
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
-            return
-        }
-
-        guard let lat = verifyLocationMessageData?[MessageHandlerParam.lat.rawValue] as? Double,
-              let lon = verifyLocationMessageData?[MessageHandlerParam.lon.rawValue] as? Double,
-              let threshold = verifyLocationMessageData?[MessageHandlerParam.threshold.rawValue] as? Double else {
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        let locationToVerify = CLLocation(latitude: lat, longitude: lon)
+    func handleVerifyLocationRequest(with request: AppKit.AppRequestData<AppKit.VerifyLocationData>) {
+        let locationToVerify = CLLocation(latitude: request.message.lat, longitude: request.message.lon)
         let currentAuthStatus = CLLocationManager.authorizationStatus()
 
         guard !(currentAuthStatus == .denied || currentAuthStatus == .notDetermined) else {
-            passVerificationToClient(locationToVerify: locationToVerify, threshold: threshold)
+            passVerificationToClient(id: request.id, locationToVerify: locationToVerify, threshold: request.message.threshold)
             return
         }
 
         oneTimeLocationProvider.requestLocation { [weak self] userLocation in
             guard let userLocation = userLocation else {
-                self?.passVerificationToClient(locationToVerify: locationToVerify, threshold: threshold)
+                self?.passVerificationToClient(id: request.id, locationToVerify: locationToVerify, threshold: request.message.threshold)
                 return
             }
 
-            self?.verifyLocation(userLocation: userLocation, locationToVerify: locationToVerify, distanceThreshold: threshold)
+            self?.verifyLocation(id: request.id, userLocation: userLocation, locationToVerify: locationToVerify, distanceThreshold: request.message.threshold)
         }
     }
 
-    private func passVerificationToClient(locationToVerify: CLLocation, threshold: Double) {
+    private func passVerificationToClient(id: String, locationToVerify: CLLocation, threshold: Double) {
         AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold) { [weak self] isInRange in
-            self?.jsonRpcInterceptor?.respond(result: isInRange ? "true" : "false")
+            self?.jsonRpcInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
         }
     }
 
-    private func verifyLocation(userLocation: CLLocation?, locationToVerify: CLLocation, distanceThreshold: Double) {
+    private func verifyLocation(id: String, userLocation: CLLocation?, locationToVerify: CLLocation, distanceThreshold: Double) {
         var isInRange: Bool = false
         if let distance = userLocation?.distance(from: locationToVerify) {
             isInRange = distance <= distanceThreshold
         }
-        jsonRpcInterceptor?.respond(result: isInRange ? "true" : "false")
+        jsonRpcInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
     }
 }

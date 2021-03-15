@@ -23,13 +23,13 @@ struct Constants {
 
         static var paymentUrl: String {
             #if PRODUCTION
-            return "https://payment-app.prod.k8s.pacelink.net"
+            return "https://pay.pace.cloud"
             #elseif STAGE
-            return "https://payment-app.stage.k8s.pacelink.net"
+            return "https://pay.stage.pace.cloud"
             #elseif SANDBOX
-            return "https://payment-app.sandbox.k8s.pacelink.net"
+            return "https://pay.sandbox.pace.cloud"
             #else
-            return "https://payment-app.dev.k8s.pacelink.net"
+            return "https://pay.dev.pace.cloud"
             #endif
         }
     }

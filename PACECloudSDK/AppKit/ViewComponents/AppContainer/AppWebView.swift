@@ -71,7 +71,7 @@ class AppWebView: WKWebView, App {
     private func setup() {
         self.customUserAgent = userAgent
 
-        addLoggingScript()
+        addCustomScripts()
 
         // Attach json rpc handlers
         AppWebViewJsonRpcInterceptor.JsonRpcHandler.allCases.forEach {
@@ -85,8 +85,9 @@ class AppWebView: WKWebView, App {
         setupView()
     }
 
-    private func addLoggingScript() {
-        let source = """
+    private func addCustomScripts() {
+        // Needed to intercept the web view's console log messages
+        let loggingSource = """
             function log(level, args) {
               window.webkit.messageHandlers.pace_logger.postMessage(
                 `${level} ${Object.values(args)
@@ -111,8 +112,17 @@ class AppWebView: WKWebView, App {
             });
         """
 
-        let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-        configuration.userContentController.addUserScript(script)
+        // Enable a set of PWA features
+        let featuresSource = """
+        window.features = {
+            messageIds: true
+        }
+        """
+
+        [loggingSource, featuresSource].forEach {
+            let script = WKUserScript(source: $0, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+            configuration.userContentController.addUserScript(script)
+        }
     }
 
     private func setupDesign() {
