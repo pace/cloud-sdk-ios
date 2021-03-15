@@ -9,14 +9,14 @@ import Foundation
 
 public extension AppKit {
     class AppData: Equatable {
-        public var appID: String?
+        private(set) public var appID: String?
         private(set) public var title: String?
         private(set) public var subtitle: String?
-        public let appApiUrl: String?
+        public let appBaseUrl: String?
 
         public let metadata: [AppKit.AppMetadata: AnyHashable]
 
-        public var appManifest: AppManifest? {
+        internal(set) public var appManifest: AppManifest? {
             didSet {
                 guard let manifest = self.appManifest else { return }
                 self.title = manifest.name
@@ -24,11 +24,11 @@ public extension AppKit {
             }
         }
 
-        var appStartUrl: String?
+        internal(set) public var appStartUrl: String?
 
         // Since the responses from the geo do not have a pwa id
         // We need another identifier for an appdata object
-        var gasStationId: String {
+        public var poiId: String {
             (metadata[AppMetadata.references] as? [String])?.first ?? ""
         }
 
@@ -36,13 +36,13 @@ public extension AppKit {
             self.appID = appID
             self.title = title
             self.subtitle = subtitle
-            self.appApiUrl = appUrl
+            self.appBaseUrl = appUrl
             self.metadata = metadata
         }
 
         init(appID: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID
-            self.appApiUrl = appUrl
+            self.appBaseUrl = appUrl
             self.metadata = metadata
         }
 
@@ -51,7 +51,7 @@ public extension AppKit {
                 lhs.appID == rhs.appID &&
                 lhs.title == rhs.title &&
                 lhs.subtitle == rhs.subtitle &&
-                lhs.appApiUrl == rhs.appApiUrl &&
+                lhs.appBaseUrl == rhs.appBaseUrl &&
                 lhs.metadata == rhs.metadata &&
                 lhs.appManifest == rhs.appManifest &&
                 lhs.appStartUrl == rhs.appStartUrl

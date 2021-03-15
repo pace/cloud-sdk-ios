@@ -171,7 +171,7 @@ extension AppManager {
     private func fetchAppManifest(with appDatas: [AppKit.AppData]) {
         let dispatchGroup = DispatchGroup()
         for appData in appDatas {
-            guard let manifestUrlString = URLBuilder.buildAppManifestUrl(with: appData.appApiUrl) else {
+            guard let manifestUrlString = URLBuilder.buildAppManifestUrl(with: appData.appBaseUrl) else {
                 AppKitLogger.e("[AppManager] Manifest url string nil")
                 return
             }
@@ -189,14 +189,14 @@ extension AppManager {
 
                 switch result {
                 case .failure(let error):
-                    AppKitLogger.e("[AppManager] Failed fetching app (with gas station id \(appData.gasStationId)) manifest with error: \(String(describing: error))")
+                    AppKitLogger.e("[AppManager] Failed fetching app (with gas station id \(appData.poiId)) manifest with error: \(String(describing: error))")
                     return
 
                 case .success(let manifest):
                     appData.appManifest = manifest
                     appData.appManifest?.manifestUrl = manifestUrlString
 
-                    guard let decomposedValues = URLDecomposer.decomposeManifestUrl(with: appData.appManifest, appBaseUrl: appData.appApiUrl) else { return }
+                    guard let decomposedValues = URLDecomposer.decomposeManifestUrl(with: appData.appManifest, appBaseUrl: appData.appBaseUrl) else { return }
                     let references = (appData.metadata[AppKit.AppMetadata.references] as? [String])?.first
                     appData.appStartUrl = URLBuilder.buildAppStartUrl(with: decomposedValues.url, decomposedParams: decomposedValues.params, references: references)
                 }
@@ -230,7 +230,7 @@ extension AppManager {
     }
 
     private func process(appDatas: [AppKit.AppData], references: [String]) {
-        let newGasStationIds = appDatas.map { $0.gasStationId }
+        let newGasStationIds = appDatas.map { $0.poiId }
 
         checkDidEscapeForecourtEvent(with: newGasStationIds)
         currentlyDisplayedLocationApps = appDatas
@@ -238,7 +238,7 @@ extension AppManager {
     }
 
     private func checkDidEscapeForecourtEvent(with newApps: [String]) {
-        let appsToRemove = currentlyDisplayedLocationApps.filter { !newApps.contains($0.gasStationId) }
+        let appsToRemove = currentlyDisplayedLocationApps.filter { !newApps.contains($0.poiId) }
 
         guard !appsToRemove.isEmpty else { return }
 
@@ -248,7 +248,7 @@ extension AppManager {
 
     private func sendEscapedForecourtEvent(to apps: [AppKit.AppData]) {
         apps.forEach {
-            NotificationCenter.default.post(name: .appEventOccured, object: AppKit.AppEvent.escapedForecourt(gasStationId: $0.gasStationId))
+            NotificationCenter.default.post(name: .appEventOccured, object: AppKit.AppEvent.escapedForecourt(gasStationId: $0.poiId))
         }
     }
 }

@@ -160,7 +160,7 @@ public extension AppKit {
                 let icons = manifest.icons,
                 let icon = IconSelector.chooseSuitableDrawerIcon(in: icons),
                 let iconSource = icon.source,
-                let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appApiUrl, iconSrc: iconSource)
+                let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
             else { return }
 
             appImageView.load(urlString: iconUrlString)
