@@ -19,9 +19,11 @@ extension Bundle {
     }
 
     var poiKitUserAgent: String {
-        "POIKit-iOS/\(releaseVersionNumber).\(buildVersionNumber) " +
-        "(\(UIDevice.current.modelIdentifier); " +
-        "\(UIDevice.current.systemName)/\(UIDevice.current.systemVersion))"
+        return [
+            "\(Bundle.main.bundleName)/\(Bundle.main.releaseVersionNumber)",
+            "(\(UIDevice.current.systemName) \(UIDevice.current.systemVersion))",
+            "POIKit-iOS/\(releaseVersionNumber)_\(buildVersionNumber)"
+        ].filter { !$0.isEmpty }.joined(separator: " ")
     }
 
     var versionString: String {
@@ -36,7 +38,11 @@ extension Bundle {
     var fallbackReleaseVersion: String {
         guard let fallbackPlistUrl = url(forResource: "FallbackVersions", withExtension: "plist"),
               let fallbackPlist = NSDictionary(contentsOf: fallbackPlistUrl),
-              let releaseVersion = fallbackPlist["ReleaseVersion"] as? String else { fatalError() }
+              let releaseVersion = fallbackPlist["ReleaseVersion"] as? String
+        else {
+            Logger.e("Fallback release version couldn't be retrieved")
+            return "Unknown"
+        }
 
         return releaseVersion
     }
@@ -44,7 +50,11 @@ extension Bundle {
     var fallbackBuildVersion: String {
         guard let fallbackPlistUrl = url(forResource: "FallbackVersions", withExtension: "plist"),
               let fallbackPlist = NSDictionary(contentsOf: fallbackPlistUrl),
-              let bundleVersion = fallbackPlist["BuildVersion"] as? String else { fatalError() }
+              let bundleVersion = fallbackPlist["BuildVersion"] as? String
+        else {
+            Logger.e("Fallback build version couldn't be retrieved")
+            return "Unknown"
+        }
 
         return bundleVersion
     }

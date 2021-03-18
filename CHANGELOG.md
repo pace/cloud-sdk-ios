@@ -8,6 +8,10 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Fixes
 
 * None
+
+### Internal
+
+* Adjust POIKit's user agent to include the client's name
 <!-- ### Internal - Include, if needed -->
 
 5.0.1 Release notes (2021-03-23)
