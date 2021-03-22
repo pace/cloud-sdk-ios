@@ -1,5 +1,18 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
+<!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
+### Enhancements
+
+* None
+
+### Fixes
+
+* None
+
+<!-- ### Internal - Include, if needed -->
+
+5.0.0 Release notes (2021-03-22)
+=============================================================
 ### Breaking Changes
 
 * Remove `force` parameter from `refreshSession`
@@ -15,13 +28,13 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Fixes
 
-* Fix threading issue in `InvalidationTokenCache`
+* Fix tiles API
 * Fix accept header for api requests 
 
 ### Internal
-* Improve communication with PWA
 
-<!-- ### Internal - Include, if needed -->
+* Improve communication with PWA
+* Fix threading issue in `InvalidationTokenCache`
 
 4.0.0 Release notes (2021-03-04)
 =============================================================
