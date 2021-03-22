@@ -35,64 +35,149 @@ class AppWebViewJsonRpcInterceptor {
     }
 
     // swiftlint:disable cyclomatic_complexity
-    func parseJsonRpcRequest(message: WKScriptMessage) {
+    func parseJsonRpcRequest(message: WKScriptMessage) { // swiftlint:disable:this function_body_length
+        guard let body = message.body as? String, let data = body.data(using: .utf8) else {
+            send(id: "", error: .badRequest)
+            return
+        }
+
         switch message.name {
         case JsonRpcHandler.close.rawValue:
-            app?.handleCloseAction()
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleCloseAction(with: request)
 
         case JsonRpcHandler.getBiometricStatus.rawValue:
-            app?.handleBiometryAvailbilityRequest()
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleBiometryAvailabilityRequest(with: request)
 
         case JsonRpcHandler.setTOTPSecret.rawValue:
-            app?.setTOTPSecret(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.TOTPSecretData>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.setTOTPSecret(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.getTOTP.rawValue:
-            app?.getTOTP(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.GetTOTPData>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.getTOTP(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.setSecureData.rawValue:
-            app?.setSecureData(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.SetSecureData>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.setSecureData(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.getSecureData.rawValue:
-            app?.getSecureData(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.GetSecureData>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.getSecureData(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.disable.rawValue:
-            app?.handleDisableAction(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.DisableAction>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleDisableAction(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.openURLInNewTab.rawValue:
-            app?.handleOpenURLInNewTabAction(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.OpenUrlInNewTabData>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleOpenURLInNewTabAction(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.invalidToken.rawValue:
-            app?.handleInvalidTokenRequest()
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleInvalidTokenRequest(with: request)
 
         case JsonRpcHandler.imageData.rawValue:
-            app?.handleImageDataRequest(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleImageDataRequest(with: request)
 
         case JsonRpcHandler.applePayAvailabilityCheck.rawValue:
-            app?.handleApplePayAvailibilityCheck(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleApplePayAvailibilityCheck(with: request)
 
         case JsonRpcHandler.applePayRequest.rawValue:
-            app?.handleApplePayPaymentRequest(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.ApplePayRequest>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleApplePayPaymentRequest(with: request)
 
         case JsonRpcHandler.verifyLocation.rawValue:
-            app?.handleVerifyLocationRequest(with: message)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.VerifyLocationData>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleVerifyLocationRequest(with: request)
 
         case JsonRpcHandler.logger.rawValue:
-            app?.handleLog(with: message)
+            app?.handleLog(with: body)
 
         case JsonRpcHandler.back.rawValue:
-            app?.handleBack()
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleBack(with: request)
 
         case JsonRpcHandler.redirectScheme.rawValue:
-            app?.handleRedirectScheme()
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            app?.handleRedirectScheme(with: request)
 
         default:
-            send(error: .badRequest)
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+                send(id: "", error: .badRequest)
+                return
+            }
+
+            send(id: request.id, error: .badRequest)
         }
     }
 
-    func respond(result: String) {
+    private func respond(result: String) {
         DispatchQueue.main.async {
-            let jsonRpcResponseCode = "window.messageCallback('\(result)')"
+            let jsonRpcResponseCode = "window.postMessage('\(result)')"
 
             self.app?.evaluateJavaScript(jsonRpcResponseCode, completionHandler: { _, error in
                 if let error = error {
@@ -102,29 +187,31 @@ class AppWebViewJsonRpcInterceptor {
         }
     }
 
-    func respond(result: [AnyHashable: Any]) {
-        DispatchQueue.main.async {
-            guard let jsonString = result.jsonString() else { return }
+    func respond(id: String, message: Any) {
+        guard let response = ["id": id, "message": message].jsonString() else { return }
 
-            let jsonRpcResponseCode = "window.messageCallback('\(jsonString)')"
-
-            self.app?.evaluateJavaScript(jsonRpcResponseCode, completionHandler: { _, error in
-                if let error = error {
-                    AppKitLogger.e("[AppWebViewJsonRpcInterceptor] Error trying to inject JS, with error: \(error)")
-                }
-            })
-        }
+        respond(result: response)
     }
 
-    func send(error: [String: String]) {
-        var errorData = error
-        errorData[MessageHandlerParam.statusCode.rawValue] = MessageHandlerStatusCode.internalError.rawValue
+    func respond(id: String, statusCode: HttpStatusCode) {
+        respond(id: id, message: [MessageHandlerParam.statusCode.rawValue: statusCode.rawValue])
+    }
+
+    func send(id: String, error: [String: String]) {
+        var message = error
+        message[MessageHandlerParam.statusCode.rawValue] = MessageHandlerStatusCode.internalError.rawValue
+        let errorData: [String: Any] = ["id": id, "message": message]
         sendError(errorData)
     }
 
-    func send(error: MessageHandlerStatusCode) {
-        sendError([MessageHandlerParam.error.rawValue: error.rawValue,
-                   MessageHandlerParam.statusCode.rawValue: error.statusCode])
+    func send(id: String, error: MessageHandlerStatusCode) {
+        let errorMessage: [AnyHashable: Any] = [
+            "id": id,
+            "message": [MessageHandlerParam.error.rawValue: error.rawValue,
+                        MessageHandlerParam.statusCode.rawValue: error.statusCode]
+        ]
+
+        sendError(errorMessage)
     }
 
     private func sendError(_ error: [AnyHashable: Any]) {
@@ -133,7 +220,7 @@ class AppWebViewJsonRpcInterceptor {
         DispatchQueue.main.async {
             guard let jsonString = error.jsonString() else { return }
 
-            self.app?.evaluateJavaScript("window.messageCallback('\(jsonString)')", completionHandler: { _, error in
+            self.app?.evaluateJavaScript("window.postMessage('\(jsonString)')", completionHandler: { _, error in
                 if let error = error {
                     AppKitLogger.e("[AppWebViewJsonRpcInterceptor] Error trying to inject JS, with error: \(error)")
                 }

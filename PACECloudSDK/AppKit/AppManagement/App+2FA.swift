@@ -31,34 +31,16 @@ extension App {
         return "\(DeviceInformation.id)_\(host)_\(key)"
     }
 
-    func handleBiometryAvailbilityRequest() {
+    func handleBiometryAvailabilityRequest(with request: AppKit.AppRequestData<String?>) {
         var authError: NSError?
         let isBiometryAvailable = LAContext().canEvaluatePolicy(laPolicy, error: &authError)
-        jsonRpcInterceptor?.respond(result: isBiometryAvailable ? "true" : "false")
+        jsonRpcInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
    }
 
-    func setTOTPSecret(with message: WKScriptMessage) {
-        guard let body = message.body as? String,
-              let host = message.frameInfo.request.url?.host else {
+    func setTOTPSecret(with request: AppKit.AppRequestData<AppKit.TOTPSecretData>, requestUrl: URL?) {
+        guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        var setTOTPMessageData: [String: AnyHashable]?
-
-        do {
-            setTOTPMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
-        } catch {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
-            return
-        }
-
-        guard let data = setTOTPMessageData,
-              let totpData = TOTPSecretData(from: data) else {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
@@ -69,57 +51,39 @@ extension App {
         let reasonText = "payment.authentication.confirmation".localized
 
         guard laContext.canEvaluatePolicy(laPolicy, error: &authError) else {
-            jsonRpcInterceptor?.send(error: .internalError)
+            jsonRpcInterceptor?.send(id: request.id, error: .internalError)
             return
         }
 
         laContext.evaluatePolicy(laPolicy, localizedReason: reasonText) { [weak self] success, error in
             guard error == nil, success, let unwrappedSelf = self else {
-                self?.jsonRpcInterceptor?.send(error: .internalError)
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
                 return
             }
 
             do {
-                let data = try PropertyListEncoder().encode(totpData)
-                let secretKey: String = unwrappedSelf.retrieveKey(for: totpData.key, host: host)
+                let data = try PropertyListEncoder().encode(request.message)
+                let secretKey: String = unwrappedSelf.retrieveKey(for: request.message.key, host: host)
                 unwrappedSelf.userDefaults.set(data, forKey: secretKey)
             } catch {
-                self?.jsonRpcInterceptor?.send(error: .internalError)
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
             }
 
-            self?.jsonRpcInterceptor?.respond(result: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
         }
     }
 
-    func getTOTP(with message: WKScriptMessage) { // swiftlint:disable:this function_body_length
-        guard let body = message.body as? String,
-              let host = message.frameInfo.request.url?.host else {
+    func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?) { // swiftlint:disable:this function_body_length
+        guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
-        var getTOTPMessageData: [String: AnyHashable]?
-
-        do {
-            getTOTPMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: AnyHashable]
-        } catch {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
-            return
-        }
-
-        guard let data = getTOTPMessageData,
-              let getTOTPData = GetTOTPData(from: data, host: host) else {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        let secretKey: String = retrieveKey(for: getTOTPData.key, host: getTOTPData.host)
+        let secretKey: String = retrieveKey(for: request.message.key, host: host)
 
         guard userDefaults.data(forKey: secretKey) != nil else {
-            jsonRpcInterceptor?.send(error: .notFound)
+            jsonRpcInterceptor?.send(id: request.id, error: .notFound)
             return
         }
 
@@ -131,23 +95,23 @@ extension App {
         var authError: NSError?
 
         guard laContext.canEvaluatePolicy(laPolicy, error: &authError) else {
-            jsonRpcInterceptor?.send(error: .notAllowed)
+            jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
 
             return
         }
 
         laContext.evaluatePolicy(laPolicy, localizedReason: reasonText) { [weak self] success, error in
             guard error == nil, success else {
-                self?.jsonRpcInterceptor?.send(error: .unauthorized)
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .unauthorized)
                 return
             }
 
-            guard let totp = self?.generateTOTP(with: getTOTPData) else {
-                self?.jsonRpcInterceptor?.send(error: .internalError)
+            guard let totp = self?.generateTOTP(with: request.message, host: host) else {
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
                 return
             }
 
-            let biometryMethod: BiometryMethod
+            let biometryMethod: AppKit.BiometryMethod
 
             switch laContext.biometryType {
             case .faceID:
@@ -160,16 +124,16 @@ extension App {
                 biometryMethod = .fingerprint
             }
 
-            self?.jsonRpcInterceptor?.respond(result: [MessageHandlerParam.totp.rawValue: totp,
+            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.totp.rawValue: totp,
                                                        MessageHandlerParam.biometryMethod.rawValue: biometryMethod.rawValue])
         }
     }
 
-    private func generateTOTP(with data: GetTOTPData) -> String? {
-        let secretKey: String = retrieveKey(for: data.key, host: data.host)
+    private func generateTOTP(with data: AppKit.GetTOTPData, host: String) -> String? {
+        let secretKey: String = retrieveKey(for: data.key, host: host)
 
         guard let storedData: Data = userDefaults.data(forKey: secretKey),
-            let storedTOTPSecretData = try? PropertyListDecoder().decode(TOTPSecretData.self, from: storedData) else {
+              let storedTOTPSecretData = try? PropertyListDecoder().decode(AppKit.TOTPSecretData.self, from: storedData) else {
                 return nil
         }
 
@@ -211,64 +175,28 @@ extension App {
         }
     }
 
-    func setSecureData(with message: WKScriptMessage) {
-        guard let body = message.body as? String,
-              let host = message.frameInfo.request.url?.host else {
+    func setSecureData(with request: AppKit.AppRequestData<AppKit.SetSecureData>, requestUrl: URL?) {
+        guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
-        var setSecureMessageData: [String: String]?
+        let key = retrieveKey(for: request.message.key, host: host)
 
-        do {
-            setSecureMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
-        } catch {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
-            return
-        }
+        userDefaults.set(request.message.value, forKey: key)
 
-        guard let data = setSecureMessageData,
-              let secureData = SetSecureData(from: data) else {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        let key = retrieveKey(for: secureData.key, host: host)
-
-        userDefaults.set(secureData.value, forKey: key)
-
-        jsonRpcInterceptor?.respond(result: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+        jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
     }
 
-    func getSecureData(with message: WKScriptMessage) {
-        guard let body = message.body as? String,
-              let host = message.frameInfo.request.url?.host else {
+    func getSecureData(with request: AppKit.AppRequestData<AppKit.GetSecureData>, requestUrl: URL?) {
+        guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
+            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
-        var getSecureMessageData: [String: String]?
-
-        do {
-            getSecureMessageData = try JSONSerialization.jsonObject(with: Data(body.utf8), options: []) as? [String: String]
-        } catch {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: [MessageHandlerParam.error.rawValue: "\(error.localizedDescription)"])
-            return
-        }
-
-        guard let data = getSecureMessageData,
-              let getSecureData = GetSecureData(from: data, host: host) else {
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(error: .badRequest)
-            return
-        }
-
-        let key = retrieveKey(for: getSecureData.key, host: getSecureData.host)
+        let key = retrieveKey(for: request.message.key, host: host)
         let laContext = LAContext()
         laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
 
@@ -277,22 +205,22 @@ extension App {
         var authError: NSError?
 
         guard let value = userDefaults.string(forKey: key) else {
-            jsonRpcInterceptor?.send(error: .notFound)
+            jsonRpcInterceptor?.send(id: request.id, error: .notFound)
             return
         }
 
         guard laContext.canEvaluatePolicy(laPolicy, error: &authError) else {
-            jsonRpcInterceptor?.send(error: .notAllowed)
+            jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
             return
         }
 
         laContext.evaluatePolicy(laPolicy, localizedReason: reasonText) { [weak self] success, error in
             guard error == nil, success else {
-                self?.jsonRpcInterceptor?.send(error: .unauthorized)
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .unauthorized)
                 return
             }
 
-            self?.jsonRpcInterceptor?.respond(result: [MessageHandlerParam.value.rawValue: value])
+            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: value])
         }
     }
 }

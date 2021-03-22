@@ -45,37 +45,4 @@ class URLBuilderTests: XCTestCase {
         guard let result = URLBuilder.buildAppIconUrl(baseUrl: "base", iconSrc: "image") else { XCTFail(); return }
         XCTAssertEqual(result, "base/image")
     }
-
-    // - MARK: 2FA
-    func testTOTPSecretData() {
-        let message: [String: AnyHashable]  = ["secret": "10101",
-                                               "period": 30,
-                                               "digits": 6,
-                                               "algorithm": "sha1",
-                                               "key": "foobar"]
-        guard let data = TOTPSecretData(from: message) else { XCTFail(); return }
-
-        XCTAssertEqual(data.secret, "10101")
-        XCTAssertEqual(data.period, 30)
-        XCTAssertEqual(data.digits, 6)
-        XCTAssertEqual(data.algorithm, "sha1")
-        XCTAssertEqual(data.key, "foobar")
-    }
-
-    func testGetTOTP() {
-        let message: [String: AnyHashable] = ["key": "foobar", "serverTime": 1591780142]
-
-        guard let data = GetTOTPData(from: message, host: "") else { XCTFail(); return }
-
-        XCTAssertEqual(data.serverTime, 1591780142)
-        XCTAssertEqual(data.key, "foobar")
-    }
-
-    func testSetSecureData() {
-        let message = ["key": "foo", "value": "bar"]
-        guard let data = SetSecureData(from: message) else { XCTFail(); return }
-
-        XCTAssertEqual(data.key, "foo")
-        XCTAssertEqual(data.value, "bar")
-    }
 }

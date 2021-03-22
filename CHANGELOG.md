@@ -18,6 +18,9 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix threading issue in `InvalidationTokenCache`
 * Fix accept header for api requests 
 
+### Internal
+* Improve communication with PWA
+
 <!-- ### Internal - Include, if needed -->
 
 4.0.0 Release notes (2021-03-04)
