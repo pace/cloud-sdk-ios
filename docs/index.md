@@ -54,7 +54,7 @@ It has some external dependencies which you will need to inlcude as well:
 ### Carthage
 With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
 ```
-github "pace/cloud-sdk-ios" ~> 3.0
+github "pace/cloud-sdk-ios" ~> 5.0
 ```
 The integration of the SDK as `XCFramework` is currently not supported.
 
@@ -68,7 +68,7 @@ pod 'PACECloudSDK'
 With [Swift Package Manager](https://swift.org/package-manager/), add the following dependency to your Package.swift:
 ```swift
 dependencies: [
-    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "3.0.0"))
+    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "5.0.0"))
 ]
 ```
 
