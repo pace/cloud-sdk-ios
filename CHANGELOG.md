@@ -7,9 +7,15 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Fixes
 
-* Fix PWA communication for request without message
-
+* None
 <!-- ### Internal - Include, if needed -->
+
+5.0.1 Release notes (2021-03-23)
+=============================================================
+
+### Fixes
+
+* Fix PWA communication for request without message content
 
 5.0.0 Release notes (2021-03-22)
 =============================================================
