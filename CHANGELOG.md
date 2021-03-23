@@ -7,7 +7,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Fixes
 
-* None
+* Fix PWA communication for request without message
 
 <!-- ### Internal - Include, if needed -->
 

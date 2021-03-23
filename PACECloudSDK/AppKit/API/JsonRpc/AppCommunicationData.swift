@@ -8,6 +8,10 @@
 import Foundation
 
 extension AppKit {
+    struct EmptyRequestData: Codable {
+        let id: String
+    }
+
     struct AppRequestData<T: Codable>: Codable {
         let id: String
         let message: T

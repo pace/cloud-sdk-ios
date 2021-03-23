@@ -31,7 +31,7 @@ extension App {
         return "\(DeviceInformation.id)_\(host)_\(key)"
     }
 
-    func handleBiometryAvailabilityRequest(with request: AppKit.AppRequestData<String?>) {
+    func handleBiometryAvailabilityRequest(with request: AppKit.EmptyRequestData) {
         var authError: NSError?
         let isBiometryAvailable = LAContext().canEvaluatePolicy(laPolicy, error: &authError)
         jsonRpcInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
