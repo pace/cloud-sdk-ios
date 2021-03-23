@@ -60,7 +60,7 @@ extension App {
 
 // MARK: - Message handling
 extension App {
-    func handleCloseAction(with request: AppKit.AppRequestData<String?>) {
+    func handleCloseAction(with request: AppKit.EmptyRequestData) {
         jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
 
         guard let appActionsDelegate = appActionsDelegate else {
@@ -136,7 +136,7 @@ extension App {
         }
     }
 
-    func handleInvalidTokenRequest(with request: AppKit.AppRequestData<String?>) {
+    func handleInvalidTokenRequest(with request: AppKit.EmptyRequestData) {
         guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
         AppKit.shared.notifyInvalidToken { [weak self] token in
@@ -180,7 +180,7 @@ extension App {
         AppKitLogger.pwa(message)
     }
 
-    func handleBack(with request: AppKit.AppRequestData<String?>) {
+    func handleBack(with request: AppKit.EmptyRequestData) {
         if backForwardList.backItem == nil {
             handleCloseAction(with: request)
         } else {
@@ -189,7 +189,7 @@ extension App {
         }
     }
 
-    func handleRedirectScheme(with request: AppKit.AppRequestData<String?>) {
+    func handleRedirectScheme(with request: AppKit.EmptyRequestData) {
         guard let customScheme = Bundle.main.clientRedirectScheme else {
             jsonRpcInterceptor?.send(id: request.id, error: .notFound)
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)

@@ -43,7 +43,7 @@ class AppWebViewJsonRpcInterceptor {
 
         switch message.name {
         case JsonRpcHandler.close.rawValue:
-            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }
@@ -51,7 +51,7 @@ class AppWebViewJsonRpcInterceptor {
             app?.handleCloseAction(with: request)
 
         case JsonRpcHandler.getBiometricStatus.rawValue:
-            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }
@@ -107,7 +107,7 @@ class AppWebViewJsonRpcInterceptor {
             app?.handleOpenURLInNewTabAction(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.invalidToken.rawValue:
-            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }
@@ -150,7 +150,7 @@ class AppWebViewJsonRpcInterceptor {
             app?.handleLog(with: body)
 
         case JsonRpcHandler.back.rawValue:
-            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }
@@ -158,7 +158,7 @@ class AppWebViewJsonRpcInterceptor {
             app?.handleBack(with: request)
 
         case JsonRpcHandler.redirectScheme.rawValue:
-            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }
@@ -166,7 +166,7 @@ class AppWebViewJsonRpcInterceptor {
             app?.handleRedirectScheme(with: request)
 
         default:
-            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<String?>.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }

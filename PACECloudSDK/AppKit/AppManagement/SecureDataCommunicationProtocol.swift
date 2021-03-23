@@ -9,7 +9,7 @@ import Foundation
 import WebKit
 
 protocol SecureDataCommunication {
-    func handleBiometryAvailabilityRequest(with request: AppKit.AppRequestData<String?>)
+    func handleBiometryAvailabilityRequest(with request: AppKit.EmptyRequestData)
     func setTOTPSecret(with request: AppKit.AppRequestData<AppKit.TOTPSecretData>, requestUrl: URL?)
     func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?)
     func setSecureData(with request: AppKit.AppRequestData<AppKit.SetSecureData>, requestUrl: URL?)
