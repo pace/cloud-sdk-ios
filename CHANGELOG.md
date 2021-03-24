@@ -4,6 +4,8 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Make more `AppManifest` properties publicly accessible
+* Add interfaces to handle pin and biometry actions
+* Enable the passcode fallback for 2FA
 
 ### Fixes
 
@@ -13,6 +15,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Adjust POIKit's user agent to include the client's name
 * Adjust dependencies for spm support
+* Refactor the 2FA communication with the PWAs
 <!-- ### Internal - Include, if needed -->
 
 5.0.1 Release notes (2021-03-23)
