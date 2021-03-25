@@ -3,7 +3,7 @@ x.y.z Release notes (yyyy-MM-dd)
 <!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
 ### Enhancements
 
-* None
+* Make more `AppManifest` properties publicly accessible
 
 ### Fixes
 
