@@ -16,7 +16,7 @@ public class AppManifest: Decodable, Equatable {
 
     public let iconBackgroundColor: String?
     public let textColor: String?
-    let themeColor: String?
+    public let themeColor: String?
 
     var manifestUrl: String?
 
@@ -43,9 +43,9 @@ public class AppManifest: Decodable, Equatable {
 }
 
 public struct AppIcon: Decodable {
-    let source: String?
-    let sizes: String?
-    let type: String?
+    public let source: String?
+    public let sizes: String?
+    public let type: String?
 
     private enum CodingKeys: String, CodingKey {
         case sizes, type
