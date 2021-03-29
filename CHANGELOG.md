@@ -12,6 +12,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Enable the passcode fallback for 2FA
 * Add `presetUrl` for `fueling`
 * Add raw representable `init` to `URL` for cases without parameters
+* Add optional invalidation token use to poi requests
 
 ### Fixes
 
