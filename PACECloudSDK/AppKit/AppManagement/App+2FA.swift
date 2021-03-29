@@ -5,20 +5,9 @@
 //  Created by PACE Telematics GmbH.
 //
 
-import Base32
-import LocalAuthentication
-import OneTimePassword
 import WebKit
 
 extension App {
-    var userDefaults: UserDefaults {
-        UserDefaults.standard
-    }
-
-    var laPolicy: LAPolicy {
-        return .deviceOwnerAuthenticationWithBiometrics
-    }
-
     func retrieveKey(for key: String, host: String) -> String {
         // We are appending a device id, because the Keychain is
         // persisted outside of the app's sandbox, therefore
@@ -32,8 +21,7 @@ extension App {
     }
 
     func handleBiometryAvailabilityRequest(with request: AppKit.EmptyRequestData) {
-        var authError: NSError?
-        let isBiometryAvailable = LAContext().canEvaluatePolicy(laPolicy, error: &authError)
+        let isBiometryAvailable = BiometryPolicy().isBiometryAvailable
         jsonRpcInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
    }
 
@@ -44,18 +32,15 @@ extension App {
             return
         }
 
-        let laContext = LAContext()
-        laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
-
-        var authError: NSError?
+        let biometryPolicy = BiometryPolicy()
         let reasonText = "payment.authentication.confirmation".localized
 
-        guard laContext.canEvaluatePolicy(laPolicy, error: &authError) else {
-            jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+        guard biometryPolicy.canEvaluatePolicy else {
+            jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
             return
         }
 
-        laContext.evaluatePolicy(laPolicy, localizedReason: reasonText) { [weak self] success, error in
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
             guard error == nil, success, let unwrappedSelf = self else {
                 self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
                 return
@@ -64,16 +49,16 @@ extension App {
             do {
                 let data = try PropertyListEncoder().encode(request.message)
                 let secretKey: String = unwrappedSelf.retrieveKey(for: request.message.key, host: host)
-                unwrappedSelf.userDefaults.set(data, forKey: secretKey)
+                unwrappedSelf.setAppTOTPData(to: data, for: secretKey)
             } catch {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+                unwrappedSelf.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
             }
 
-            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+            unwrappedSelf.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
         }
     }
 
-    func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?) { // swiftlint:disable:this function_body_length
+    func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
             jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
@@ -82,38 +67,33 @@ extension App {
 
         let secretKey: String = retrieveKey(for: request.message.key, host: host)
 
-        guard userDefaults.data(forKey: secretKey) != nil else {
+        guard let totpData = appTOTPData(for: secretKey) ?? masterTOTPData(host: host) else {
             jsonRpcInterceptor?.send(id: request.id, error: .notFound)
             return
         }
 
-        let laContext = LAContext()
-        laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
-
+        let biometryPolicy = BiometryPolicy()
         let reasonText = "payment.authentication.confirmation".localized
 
-        var authError: NSError?
-
-        guard laContext.canEvaluatePolicy(laPolicy, error: &authError) else {
+        guard biometryPolicy.canEvaluatePolicy else {
             jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
-
             return
         }
 
-        laContext.evaluatePolicy(laPolicy, localizedReason: reasonText) { [weak self] success, error in
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
             guard error == nil, success else {
                 self?.jsonRpcInterceptor?.send(id: request.id, error: .unauthorized)
                 return
             }
 
-            guard let totp = self?.generateTOTP(with: request.message, host: host) else {
+            guard let totp = BiometryPolicy.generateTOTP(with: totpData, timeIntervalSince1970: request.message.serverTime) else {
                 self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
                 return
             }
 
             let biometryMethod: AppKit.BiometryMethod
 
-            switch laContext.biometryType {
+            switch biometryPolicy.laContext.biometryType {
             case .faceID:
                 biometryMethod = .face
 
@@ -129,52 +109,6 @@ extension App {
         }
     }
 
-    private func generateTOTP(with data: AppKit.GetTOTPData, host: String) -> String? {
-        let secretKey: String = retrieveKey(for: data.key, host: host)
-
-        guard let storedData: Data = userDefaults.data(forKey: secretKey),
-              let storedTOTPSecretData = try? PropertyListDecoder().decode(AppKit.TOTPSecretData.self, from: storedData) else {
-                return nil
-        }
-
-        guard let secretData = MF_Base32Codec.data(fromBase32String: storedTOTPSecretData.secret), !secretData.isEmpty else { return nil }
-
-        let algorithm: Generator.Algorithm
-
-        switch storedTOTPSecretData.algorithm {
-        case "SHA1":
-            algorithm = .sha1
-
-        case "SHA256":
-            algorithm = .sha256
-
-        case "SHA512":
-            algorithm = .sha512
-
-        default:
-            algorithm = .sha1
-        }
-
-        guard let generator = Generator(
-            factor: .timer(period: storedTOTPSecretData.period),
-            secret: secretData,
-            algorithm: algorithm,
-            digits: storedTOTPSecretData.digits) else {
-                return nil
-        }
-
-        let token = Token(name: "TOTP", issuer: "PACE", generator: generator)
-        let time = Date(timeIntervalSince1970: data.serverTime)
-
-        do {
-            let passwordAtTime = try token.generator.password(at: time)
-            return passwordAtTime
-        } catch {
-            // Cannot generate password for invalid time
-            return nil
-        }
-    }
-
     func setSecureData(with request: AppKit.AppRequestData<AppKit.SetSecureData>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
@@ -183,8 +117,7 @@ extension App {
         }
 
         let key = retrieveKey(for: request.message.key, host: host)
-
-        userDefaults.set(request.message.value, forKey: key)
+        setSecureData(value: request.message.value, for: key)
 
         jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
     }
@@ -197,24 +130,21 @@ extension App {
         }
 
         let key = retrieveKey(for: request.message.key, host: host)
-        let laContext = LAContext()
-        laContext.localizedFallbackTitle = "" // Removes the 'Enter password' option
 
-        let reasonText = "secureData.authentication.confirmation".localized
-
-        var authError: NSError?
-
-        guard let value = userDefaults.string(forKey: key) else {
+        guard let value = secureData(for: key) else {
             jsonRpcInterceptor?.send(id: request.id, error: .notFound)
             return
         }
 
-        guard laContext.canEvaluatePolicy(laPolicy, error: &authError) else {
+        let biometryPolicy = BiometryPolicy()
+        let reasonText = "secureData.authentication.confirmation".localized
+
+        guard biometryPolicy.canEvaluatePolicy else {
             jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
             return
         }
 
-        laContext.evaluatePolicy(laPolicy, localizedReason: reasonText) { [weak self] success, error in
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
             guard error == nil, success else {
                 self?.jsonRpcInterceptor?.send(id: request.id, error: .unauthorized)
                 return
@@ -222,5 +152,56 @@ extension App {
 
             self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: value])
         }
+    }
+}
+
+private extension App {
+    func secureData(for key: String) -> String? {
+        let userDefaults = UserDefaults.standard
+        let keychain = Keychain()
+
+        guard let secureDataString = userDefaults.string(forKey: key) else {
+            return keychain.getString(for: key)
+        }
+
+        // Migrate secureData string from userDefaults to keychain
+        keychain.set(secureDataString, for: key)
+        userDefaults.set(nil, forKey: key)
+
+        return secureDataString
+    }
+
+    func setSecureData(value: String, for key: String) {
+        Keychain().set(value, for: key)
+    }
+
+    func appTOTPData(for key: String) -> Data? {
+        let userDefaults = UserDefaults.standard
+        let keychain = Keychain()
+
+        guard let userDefaultsTotpData = userDefaults.data(forKey: key) else {
+            return keychain.getData(for: key)
+        }
+
+        // Migrate totp data from userDefaults to keychain
+        keychain.set(userDefaultsTotpData, for: key)
+        userDefaults.set(nil, forKey: key)
+
+        return userDefaultsTotpData
+    }
+
+    func masterTOTPData(host: String) -> Data? {
+        guard let domainACL = PACECloudSDK.shared.config?.domainACL,
+              domainACL.contains(where: { host.hasSuffix($0) }) else {
+            return nil
+        }
+
+        let secretKey = BiometryPolicy.retrieveMasterKey()
+        let totpData = Keychain().getData(for: secretKey)
+        return totpData
+    }
+
+    func setAppTOTPData(to newValue: Data, for key: String) {
+        Keychain().set(newValue, for: key)
     }
 }

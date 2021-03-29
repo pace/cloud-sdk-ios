@@ -21,8 +21,9 @@ public enum HttpStatusCode: Int {
     case forbidden = 403
     case notFound = 404
     case methodNotAllowed = 405
+    case notAcceptable = 406
 
-    case internalServerError = 500
+    case internalError = 500
 
     init?(from code: Int?) {
         if let code = code, let httpResponseCode = HttpStatusCode(rawValue: code) {

@@ -33,4 +33,16 @@ struct Constants {
             #endif
         }
     }
+
+    static var paceIDHost: String {
+        #if PRODUCTION
+        return "id.pace.cloud"
+        #elseif STAGE
+        return "id.stage.pace.cloud"
+        #elseif SANDBOX
+        return "id.sandbox.pace.cloud"
+        #else
+        return "id.dev.pace.cloud"
+        #endif
+    }
 }

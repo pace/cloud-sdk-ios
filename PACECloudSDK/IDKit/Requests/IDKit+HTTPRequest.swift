@@ -9,7 +9,7 @@ import Foundation
 
 extension IDKit {
     func performHTTPRequest<T: Decodable>(for url: URL, type: T.Type, completion: @escaping ((T?, IDKitError?) -> Void)) {
-        guard let accessToken = session?.lastTokenResponse?.accessToken else {
+        guard let accessToken = IDKit.latestAccessToken() else {
             completion(nil, .invalidSession)
             return
         }

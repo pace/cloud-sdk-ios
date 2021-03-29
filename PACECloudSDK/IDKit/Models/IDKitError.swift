@@ -25,6 +25,13 @@ public extension IDKit {
         case failedTokenRefresh(Error)
         case other(Error)
 
+        // Biometry
+        case biometryNotSupported
+        case biometryNotFound
+        case failedAuthenticatingBiometry
+        case pinNotSecure
+        case invalidCredentials
+
         public var description: String {
             switch self {
             case .invalidAuthorizationEndpoint:
@@ -71,6 +78,23 @@ public extension IDKit {
 
             case .other(let error):
                 return error.localizedDescription
+
+                // MARK: - Biometry
+
+            case .biometryNotSupported:
+                return "Couldn't evaluate the support of biometry on this device."
+
+            case .biometryNotFound:
+                return "Biometry data not found. This usually indicates that biometry is currently not enabled."
+
+            case .failedAuthenticatingBiometry:
+                return "The authentication via biometry failed."
+
+            case .pinNotSecure:
+                return "The provided PIN is not secure."
+
+            case .invalidCredentials:
+                return "The provided credentials are invalid."
             }
         }
     }
