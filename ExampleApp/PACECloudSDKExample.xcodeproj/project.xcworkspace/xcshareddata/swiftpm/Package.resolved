@@ -3,29 +3,29 @@
     "pins": [
       {
         "package": "AppAuth",
-        "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
+        "repositoryURL": "https://github.com/pace/AppAuth-iOS",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "e191b1beadf3041259652e6e464eaceff16e5fbb",
-          "version": null
+          "version": "1.5.0"
         }
       },
       {
         "package": "Base32",
-        "repositoryURL": "https://github.com/bas-d/Base32",
+        "repositoryURL": "https://github.com/pace/Base32",
         "state": {
-          "branch": "spm",
-          "revision": "27f3abc61f3190aec471ca604e6f1db80f1a5dc1",
-          "version": null
+          "branch": null,
+          "revision": "cbc7273cbbd2914deb94c8ef54ed5c6d27dfde6b",
+          "version": "1.2.0"
         }
       },
       {
         "package": "OneTimePassword",
-        "repositoryURL": "https://github.com/bas-d/OneTimePassword",
+        "repositoryURL": "https://github.com/pace/OneTimePassword",
         "state": {
-          "branch": "spm",
-          "revision": "5f413e5f6574a4807c5383ff6b7b9e9533f429bb",
-          "version": null
+          "branch": null,
+          "revision": "f1a9780c267822692da96548291835baa22e1bf2",
+          "version": "3.3.1"
         }
       },
       {
