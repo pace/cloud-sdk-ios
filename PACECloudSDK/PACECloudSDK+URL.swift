@@ -8,10 +8,27 @@
 import Foundation
 
 public extension PACECloudSDK {
-    enum URL: String {
+    enum URL {
         case paceID
         case payment
         case transactions
+        case fueling(id: String?)
+
+        init?(rawValue: String) {
+            switch rawValue {
+            case "paceID":
+                self = .paceID
+
+            case "payment":
+                self = .payment
+
+            case "transactions":
+                self = .transactions
+
+            default:
+                return nil
+            }
+        }
 
         public var absoluteString: String {
             let currentEnvironment = PACECloudSDK.shared.environment
@@ -26,7 +43,27 @@ public extension PACECloudSDK {
 
             case .transactions:
                 return "\(URL.payment.absoluteString)/transactions"
+
+            case .fueling(id: let id):
+                return buildFuelingUrl(with: id)
             }
+        }
+
+        private func buildFuelingUrl(with id: String?) -> String {
+            let currentEnvironment = PACECloudSDK.shared.environment
+            var baseUrl: String
+
+            if currentEnvironment == .production {
+                baseUrl = "https://fuel.site"
+            } else {
+                baseUrl = "https://fueling.\(currentEnvironment.short).pace.cloud"
+            }
+
+            if let id = id {
+                baseUrl += "?r=\(id)"
+            }
+
+            return baseUrl
         }
     }
 }
