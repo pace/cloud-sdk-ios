@@ -136,13 +136,17 @@ extension App {
         }
     }
 
-    func handleInvalidTokenRequest(with request: AppKit.EmptyRequestData) {
+    func handleInvalidTokenRequest(with request: AppKit.AppRequestData<AppKit.InvalidTokenData>) {
         guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
-        AppKit.shared.notifyInvalidToken { [weak self] token in
-            if TokenValidator.isTokenValid(token) {
-                PACECloudSDK.shared.currentAccessToken = token
+        let requestReason = request.message.reason
 
+        let reason = AppKit.InvalidTokenReason(rawValue: requestReason) ?? .other
+        let oldToken = request.message.oldToken
+
+        AppKit.shared.notifyInvalidToken(reason: reason, oldToken: oldToken) { [weak self] token in
+            if AppKit.TokenValidator.isTokenValid(token) {
+                PACECloudSDK.shared.currentAccessToken = token
                 self?.jsonRpcInterceptor?.respond(id: request.id, message: token)
             } else {
                 self?.handleInvalidTokenRequest(with: request)

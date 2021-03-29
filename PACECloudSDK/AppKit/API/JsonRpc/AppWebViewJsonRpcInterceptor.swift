@@ -107,7 +107,7 @@ class AppWebViewJsonRpcInterceptor {
             app?.handleOpenURLInNewTabAction(with: request, requestUrl: message.frameInfo.request.url)
 
         case JsonRpcHandler.invalidToken.rawValue:
-            guard let request = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data) else {
+            guard let request = try? JSONDecoder().decode(AppKit.AppRequestData<AppKit.InvalidTokenData>.self, from: data) else {
                 send(id: "", error: .badRequest)
                 return
             }
