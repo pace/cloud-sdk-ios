@@ -14,7 +14,7 @@ public extension PACECloudSDK {
         case transactions
         case fueling(id: String?)
 
-        init?(rawValue: String) {
+        public init?(rawValue: String) {
             switch rawValue {
             case "paceID":
                 self = .paceID
