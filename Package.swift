@@ -15,9 +15,9 @@ let package = Package(
             targets: ["PACECloudSDK"])
     ],
     dependencies: [
-        .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", .branch("master")),
+        .package(name: "AppAuth", url: "https://github.com/pace/AppAuth-iOS", .exact("1.5.0")),
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .exact("1.15.0")),
-        .package(name: "OneTimePassword", url: "https://github.com/bas-d/OneTimePassword", .branch("spm")),
+        .package(name: "OneTimePassword", url: "https://github.com/pace/OneTimePassword", .exact("3.3.1")),
     ],
     targets: [
         .target(

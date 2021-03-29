@@ -1,3 +1,3 @@
-github "apple/swift-protobuf" ~> 1.13
-github "mattrubin/OneTimePassword" ~> 3.2
-github "openid/AppAuth-iOS" "e191b1beadf3041259652e6e464eaceff16e5fbb"
+github "apple/swift-protobuf" ~> 1.15
+github "pace/OneTimePassword" ~> 3.3
+github "pace/AppAuth-iOS" ~> 1.5

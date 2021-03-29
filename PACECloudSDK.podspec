@@ -12,6 +12,6 @@ Pod::Spec.new do |spec|
   spec.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER': 'cloud.pace.sdk' }
   spec.resources            = ["PACECloudSDK/**/*.{strings,png,otf}", "PACECloudSDK/Utils/**/*.plist"]
   spec.dependency "AppAuth"
-  spec.dependency "SwiftProtobuf", "~> 1.13.0"
+  spec.dependency "SwiftProtobuf", "~> 1.15.0"
   spec.dependency "OneTimePassword", "~> 3.2.0"
 end
