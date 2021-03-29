@@ -21,6 +21,7 @@ protocol POIKitAPIProtocol {
                  delegate: POIKitObserverTokenDelegate?,
                  maxDistance: (distance: Double, padding: Double)?,
                  zoomLevel: Int?,
+                 forceLoad: Bool,
                  handler: @escaping (Bool, Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.BoundingBoxNotificationToken
 
     func observe(uuids: [String],
@@ -39,10 +40,12 @@ protocol POIKitAPIProtocol {
 
     func fetchPOIs(poisOfType: POIKit.POILayer,
                    boundingBox: POIKit.BoundingBox,
+                   forceLoad: Bool,
                    handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
     func loadPOIs(poisOfType: POIKit.POILayer,
                   boundingBox: POIKit.BoundingBox,
+                  forceLoad: Bool,
                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
     func loadPOIs(uuids: [String],

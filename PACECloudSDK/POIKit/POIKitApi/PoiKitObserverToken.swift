@@ -36,6 +36,7 @@ public extension POIKit {
         var api: POIKitAPI
         var downloadTask: CancellablePOIAPIRequest?
         let zoomLevel: Int
+        let forceLoad: Bool
 
         private (set) public var boundingBox: BoundingBox
         private let maxDistance: (distance: Double, padding: Double)?
@@ -45,6 +46,7 @@ public extension POIKit {
              delegate: POIKitObserverTokenDelegate? = nil,
              maxDistance: (distance: Double, padding: Double)? = nil,
              zoomLevel: Int = POIKitConfig.maxZoomLevel,
+             forceLoad: Bool = false,
              handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.boundingBox = boundingBox
             self.api = api
@@ -52,6 +54,7 @@ public extension POIKit {
 
             let maxZoomLevel = POIKitConfig.maxZoomLevel
             self.zoomLevel = zoomLevel > maxZoomLevel ? maxZoomLevel : zoomLevel
+            self.forceLoad = forceLoad
 
             super.init(delegate: delegate, handler: handler)
 
