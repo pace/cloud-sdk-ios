@@ -1,11 +1,16 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
-<!-- ### Breaking Changes - ONLY INCLUDE FOR NEW MAJOR version -->
+### Breaking Changes
+
+* Remove raw representable conformance of `URL`
+
 ### Enhancements
 
 * Make more `AppManifest` properties publicly accessible
 * Add interfaces to handle pin and biometry actions
 * Enable the passcode fallback for 2FA
+* Add `presetUrl` for `fueling`
+* Add raw representable `init` to `URL` for cases without parameters
 
 ### Fixes
 
