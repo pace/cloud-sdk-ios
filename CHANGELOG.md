@@ -4,6 +4,8 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Remove raw representable conformance of `URL`
 * Changed handling of Apple Pay responses
+* Pass `reason` and `oldToken` in the `tokenInvalid` callback.
+> **_NOTE:_** Remember to adjust the implementation of your `tokenInvalid` function.
 
 ### Enhancements
 
