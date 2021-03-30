@@ -3,6 +3,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Breaking Changes
 
 * Remove raw representable conformance of `URL`
+* Changed handling of Apple Pay responses
 
 ### Enhancements
 

@@ -20,7 +20,7 @@ public protocol AppKitDelegate: AnyObject {
 
     func tokenInvalid(completion: @escaping ((String) -> Void))
     func didReceiveImageData(_ image: UIImage)
-    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void))
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void))
 
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void))
 }
@@ -33,7 +33,7 @@ public extension AppKitDelegate {
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
     func tokenInvalid(completion: @escaping ((String) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
-    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void)) {}
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) {}
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) {}
 }
 
@@ -87,7 +87,7 @@ extension AppKit {
         }
     }
 
-    func notifyApplePayData(with request: ApplePayRequest, callback: @escaping ((String) -> Void)) {
+    func notifyApplePayData(with request: ApplePayRequest, callback: @escaping (([String: Any]?) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.didReceiveApplePayDataRequest(request, completion: callback)
         }

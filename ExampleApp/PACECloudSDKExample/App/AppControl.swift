@@ -47,8 +47,8 @@ class AppControl {
 extension AppControl: AppKitDelegate {
     func didReceiveAppData(_ appData: [AppKit.AppData]) {}
 
-    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping ((String) -> Void)) {
-        completion("")
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) {
+        completion(nil)
     }
 
     func didFail(with error: AppKit.AppError) {
