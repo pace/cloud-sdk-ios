@@ -172,6 +172,11 @@ extension App {
 
     func handleApplePayPaymentRequest(with request: AppKit.AppRequestData<AppKit.ApplePayRequest>) {
         AppKit.shared.notifyApplePayData(with: request.message) { [weak self] response in
+            guard let response = response else {
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+                return
+            }
+
             self?.jsonRpcInterceptor?.respond(id: request.id, message: response)
         }
     }
