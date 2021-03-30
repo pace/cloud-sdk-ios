@@ -19,7 +19,7 @@ public extension POIKit.BoundingBoxNotificationToken {
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
-        if let invalidationToken = api.invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
+        if !forceLoad, let invalidationToken = api.invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
             area.invalidationToken = invalidationToken
         }
 

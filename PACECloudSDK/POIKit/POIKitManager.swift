@@ -95,8 +95,15 @@ public extension POIKit {
                             delegate: POIKitObserverTokenDelegate? = nil,
                             maxDistance: (distance: Double, padding: Double)? = nil,
                             zoomLevel: Int? = nil,
+                            forceLoad: Bool = false,
                             handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> BoundingBoxNotificationToken {
-            return api.observe(poisOfType: poisOfType, boundingBox: boundingBox, delegate: delegate, maxDistance: maxDistance, zoomLevel: zoomLevel, handler: handler)
+            return api.observe(poisOfType: poisOfType,
+                               boundingBox: boundingBox,
+                               delegate: delegate,
+                               maxDistance: maxDistance,
+                               zoomLevel: zoomLevel,
+                               forceLoad: forceLoad,
+                               handler: handler)
         }
 
         public func observe(uuids: [String],

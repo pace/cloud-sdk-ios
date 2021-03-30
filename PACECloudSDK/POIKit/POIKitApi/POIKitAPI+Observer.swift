@@ -19,10 +19,17 @@ extension POIKitAPI {
                  delegate: POIKitObserverTokenDelegate? = nil,
                  maxDistance: (distance: Double, padding: Double)? = nil,
                  zoomLevel: Int? = nil,
+                 forceLoad: Bool = false,
                  handler: @escaping (Bool, Swift.Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.BoundingBoxNotificationToken {
 
         let zoomLevel = zoomLevel ?? POIKitConfig.maxZoomLevel
-        let token = POIKit.BoundingBoxNotificationToken(boundingBox: boundingBox, api: self, delegate: delegate, maxDistance: maxDistance, zoomLevel: zoomLevel, handler: handler)
+        let token = POIKit.BoundingBoxNotificationToken(boundingBox: boundingBox,
+                                                        api: self,
+                                                        delegate: delegate,
+                                                        maxDistance: maxDistance,
+                                                        zoomLevel: zoomLevel,
+                                                        forceLoad: forceLoad,
+                                                        handler: handler)
 
         return token
     }

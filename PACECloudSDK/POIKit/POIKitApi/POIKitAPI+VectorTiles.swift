@@ -11,13 +11,14 @@ import UIKit
 extension POIKitAPI {
     func fetchPOIs(poisOfType: POIKit.POILayer,
                    boundingBox: POIKit.BoundingBox,
+                   forceLoad: Bool = false,
                    handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
-        if let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
+        if !forceLoad, let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
             area.invalidationToken = invalidationToken
         }
 
@@ -37,13 +38,14 @@ extension POIKitAPI {
 
     func loadPOIs(poisOfType: POIKit.POILayer,
                   boundingBox: POIKit.BoundingBox,
+                  forceLoad: Bool = false,
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.maxZoomLevel
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
-        if let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
+        if !forceLoad, let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
             area.invalidationToken = invalidationToken
         }
 
