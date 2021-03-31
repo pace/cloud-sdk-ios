@@ -211,6 +211,32 @@ extension App {
 
         jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.link.rawValue: customScheme])
     }
+
+    func handleSetUserProperty(with request: AppKit.AppRequestData<AppKit.SetUserPropertyData>) {
+        let key = request.message.key
+        let value = request.message.value
+        let update = request.message.update ?? false
+        AppKit.shared.notifySetUserProperty(key: key, value: value, update: update)
+        jsonRpcInterceptor?.respond(id: request.id, statusCode: .okNoContent)
+    }
+
+    func handleLogEvent(with request: AppKit.AppRequestData<AppKit.LogEventData>) {
+        let key = request.message.key
+        let parameters: [String: Any] = request.message.parameters.reduce(into: [:], { $0[$1.key] = $1.value.value })
+        AppKit.shared.notifyLogEvent(key: key, parameters: parameters)
+        jsonRpcInterceptor?.respond(id: request.id, statusCode: .okNoContent)
+    }
+
+    func handleGetConfig(with request: AppKit.AppRequestData<AppKit.GetConfigData>) {
+        let key = request.message.key
+        AppKit.shared.notifyGetConfig(key: key) { [weak self] value in
+            guard let value = value else {
+                self?.jsonRpcInterceptor?.send(id: request.id, error: .notFound)
+                return
+            }
+            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: "\(value)"])
+        }
+    }
 }
 
 // MARK: - Location verification

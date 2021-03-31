@@ -12,9 +12,6 @@ enum MessageHandlerParam: String {
     case totp
     case biometryMethod
 
-    // GetSecureData
-    case value
-
     // Disable
     case until
 
@@ -29,6 +26,8 @@ enum MessageHandlerParam: String {
 
     // Redirect scheme
     case link
+
+    case value
 
     case error
     case statusCode
