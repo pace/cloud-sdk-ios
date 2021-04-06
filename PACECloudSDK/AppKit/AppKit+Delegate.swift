@@ -18,7 +18,7 @@ public protocol AppKitDelegate: AnyObject {
     func didExitGeofence(with id: String)
     func didFailToMonitorRegion(_ region: CLRegion, error: Error)
 
-    func tokenInvalid(completion: @escaping ((String) -> Void))
+    func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: @escaping ((String) -> Void))
     func didReceiveImageData(_ image: UIImage)
     func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void))
 
@@ -31,7 +31,7 @@ public extension AppKitDelegate {
     func didEnterGeofence(with id: String) {}
     func didExitGeofence(with id: String) {}
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
-    func tokenInvalid(completion: @escaping ((String) -> Void)) {}
+    func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: @escaping ((String) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
     func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) {}
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) {}
@@ -75,9 +75,9 @@ extension AppKit {
         }
     }
 
-    func notifyInvalidToken(callback: @escaping ((String) -> Void)) {
+    func notifyInvalidToken(reason: AppKit.InvalidTokenReason, oldToken: String?, callback: @escaping ((String) -> Void)) {
         notifyClient { [weak self] in
-            self?.delegate?.tokenInvalid(completion: callback)
+            self?.delegate?.tokenInvalid(reason: reason, oldToken: oldToken, completion: callback)
         }
     }
 

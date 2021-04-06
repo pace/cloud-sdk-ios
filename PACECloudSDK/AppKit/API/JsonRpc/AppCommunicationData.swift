@@ -32,6 +32,11 @@ extension AppKit {
         let threshold: Double
     }
 
+    struct InvalidTokenData: Codable {
+        let reason: String
+        let oldToken: String?
+    }
+
     // MARK: - 2FA
     enum BiometryMethod: String {
         case other, face, fingerprint
@@ -57,5 +62,12 @@ extension AppKit {
 
     struct GetSecureData: Codable {
         let key: String
+    }
+}
+
+public extension AppKit {
+    enum InvalidTokenReason: String {
+        case unauthorized
+        case other
     }
 }

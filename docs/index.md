@@ -165,7 +165,7 @@ Biometry is needed for 2FA during the payment process, thus make sure that `NSFa
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
 it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`.
 
-There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(completion: ((String) -> Void))`,
+There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: ((String) -> Void))`,
 which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes
 or has been revoked. You are responsible for retrieving and passing a valid token to the `completion` block.
 In case that you can't retrieve a new valid token, don't call the `completion` handler, otherwise you will most likely end up
@@ -174,7 +174,7 @@ in an endless loop. Make sure to clean up all the App related views as well.
 Pseudocode of implementing the protocol method and passing the response to `AppKit`:
 
 ```swift
-func tokenInvalid(completion: ((String) -> Void)) {
+func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: ((String) -> Void)) {
     retrieveNewToken { newToken in
         completion(newToken)
     }
@@ -332,7 +332,7 @@ Possible errors:
 
 ## Miscellaneous
 ### Preset Urls
-`PACECloudSDK` provides preset URLs for the most common apps, such as `PACE ID`, `payment` and `transactions` based on the enviroment the SDK was initialized with. You may access these URLs via the enum `PACECloudSDK.URL`.
+`PACECloudSDK` provides preset URLs for the most common apps, such as `PACE ID`, `payment`, `transactions` and `fueling` based on the enviroment the SDK was initialized with. You may access these URLs via the enum `PACECloudSDK.URL`.
  
 ### Logging 
 Besides the own logs of the SDK's kits an `AppWebView` also intercepts the logs of their loaded apps. You may retrieve all of the mentioned logs as shown in the following code example:

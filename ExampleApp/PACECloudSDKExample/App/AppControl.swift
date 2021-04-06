@@ -75,7 +75,7 @@ extension AppControl: AppKitDelegate {
         UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
     }
 
-    func tokenInvalid(completion: @escaping ((String) -> Void)) {
+    func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: @escaping ((String) -> Void)) {
         IDControl.shared.refresh(completion)
     }
 }
