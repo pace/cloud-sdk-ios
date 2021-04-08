@@ -1,5 +1,15 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
+
+<!-- ### Breaking Changes - Include, if needed -->
+### Enhancements
+
+### Fixes
+
+<!-- ### Internal - Include, if needed -->
+
+6.0.0 Release notes (2021-04-08)
+=============================================================
 ### Breaking Changes
 
 * Remove raw representable conformance of `URL`
@@ -16,16 +26,11 @@ x.y.z Release notes (yyyy-MM-dd)
 * Add raw representable `init` to `URL` for cases without parameters
 * Add optional invalidation token use to poi requests
 
-### Fixes
-
-* None
-
 ### Internal
 
 * Adjust POIKit's user agent to include the client's name
-* Adjust dependencies for spm support
+* Adjust dependencies for SPM support
 * Refactor the 2FA communication with the PWAs
-<!-- ### Internal - Include, if needed -->
 
 5.0.1 Release notes (2021-03-23)
 =============================================================

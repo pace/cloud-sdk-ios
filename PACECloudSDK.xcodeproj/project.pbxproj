@@ -133,11 +133,11 @@
 		3BA5149525EE396100CC1FC3 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5149325EE396100CC1FC3 /* Double+Extension.swift */; };
 		3BA58336256BCDCC0099629B /* IDKit+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA58335256BCDCC0099629B /* IDKit+User.swift */; };
 		3BA5833D256BCDF90099629B /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5833C256BCDF90099629B /* UserInfo.swift */; };
-		3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BA6A79B260DDF5A005D4B5C /* AppAuth */; };
 		3BA6030425ECDF2900E9320F /* IDKit+PIN+Biometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA6030325ECDF2900E9320F /* IDKit+PIN+Biometry.swift */; };
 		3BA6A763260DD06A005D4B5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA6A762260DD06A005D4B5C /* AppDelegate.swift */; };
 		3BA6A76C260DD06B005D4B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76B260DD06B005D4B5C /* Assets.xcassets */; };
 		3BA6A76F260DD06B005D4B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76D260DD06B005D4B5C /* LaunchScreen.storyboard */; };
+		3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BA6A79B260DDF5A005D4B5C /* AppAuth */; };
 		3BA9134C25DFF4F100219156 /* RayCasting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9134B25DFF4F100219156 /* RayCasting.swift */; };
 		3BAA8FA625CD5F2A00510FA5 /* InvalidationTokenCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */; };
 		3BB1442725386EA9004E9F63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
@@ -3887,7 +3887,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4014,7 +4014,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4199,7 +4199,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4237,7 +4237,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -4360,7 +4360,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4437,7 +4437,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.slim.sdk;
@@ -4514,7 +4514,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.slim.sdk;
@@ -4591,7 +4591,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0.1;
+				MARKETING_VERSION = 6.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.slim.sdk;
