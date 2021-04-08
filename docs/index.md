@@ -13,6 +13,7 @@
         + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
         + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
         + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
+        + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -54,7 +55,7 @@ It has some external dependencies which you will need to inlcude as well:
 ### Carthage
 With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
 ```
-github "pace/cloud-sdk-ios" ~> 5.0
+github "pace/cloud-sdk-ios" ~> 6.0
 ```
 The integration of the SDK as `XCFramework` is currently not supported.
 
@@ -68,7 +69,7 @@ pod 'PACECloudSDK'
 With [Swift Package Manager](https://swift.org/package-manager/), add the following dependency to your Package.swift:
 ```swift
 dependencies: [
-    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "5.0.0"))
+    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "6.0.0"))
 ]
 ```
 
@@ -108,7 +109,10 @@ Furthermore, the handling of the redirect scheme has been updated. The SDK autom
 The `PoiKitManager` has been removed as `PACECloudSDK`'s instance property. Instead it can be initialized directly via `POIKit.POIKitManager(environment:)`.
 
 ### From 4.x.x to 5.x.x
-In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.refreshSession(...)` call (see [Token refresh](#token-refresh)). 
+In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.refreshSession(...)` call (see [Token refresh](#token-refresh)).
+
+### From 5.x.x to 6.x.x
+We've added more information in the `tokenInvalid` callback, thus the client can better react to the callback, i.e. a `reason` and the `oldToken` (if one has been passed before), will be included in the callback. Please refer to  [Native login](#native-login) for more information.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
