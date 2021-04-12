@@ -10,23 +10,21 @@ import UIKit
 public extension AppKit.AppDrawer {
     @objc
     open func openApp() {
+        if appViewController == nil {
+            initializeAppViewController()
+        }
+
+        appViewController?.delegate = self
+
         guard let appViewController = appViewController else { return }
+
         appWindow?.show(with: appViewController)
+
+        delegate?.didOpenApp()
     }
 }
 
 extension AppKit.AppDrawer: AppViewControllerDelegate {
-    func preloadApp() {
-        appViewController = nil
-
-        // Don't preload the appViewController
-        if PACECloudSDK.shared.authenticationMode == .native {
-            guard let token = PACECloudSDK.shared.currentAccessToken, !token.isEmpty, AppKit.TokenValidator.isTokenValid(token) else { return }
-        }
-
-        initializeAppViewController()
-    }
-
     func prepareForOpenApp() {
         if #available(iOS 13.0, *) {
             guard let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as? UIApplication else { return }
@@ -39,15 +37,7 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
             appWindow = AppWindow(frame: UIScreen.main.bounds)
         }
 
-        if appViewController == nil {
-            initializeAppViewController()
-        }
-
-        appViewController?.delegate = self
-
         openApp()
-
-        delegate?.didOpenApp()
     }
 
     override public func removeFromSuperview() {
@@ -68,7 +58,6 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
     func forceCloseApp() {
         isSlidingLocked = false
         dismissAppViews()
-        preloadApp()
     }
 
     private func initializeAppViewController() {
@@ -90,7 +79,5 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
         isSlidingLocked = false
 
         dismissAppViews()
-
-        preloadApp()
     }
 }

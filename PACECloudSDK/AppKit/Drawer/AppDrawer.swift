@@ -90,7 +90,6 @@ public extension AppKit {
             setupGestureRecognizers()
 
             loadIcon()
-            preloadApp()
         }
 
         required public init?(coder: NSCoder) {

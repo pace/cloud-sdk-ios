@@ -6,7 +6,8 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Fixes
 
-<!-- ### Internal - Include, if needed -->
+### Internal
+* Remove PWA preloading in AppDrawer
 
 6.0.0 Release notes (2021-04-08)
 =============================================================
