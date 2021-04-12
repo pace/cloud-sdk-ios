@@ -144,14 +144,18 @@ extension App {
         let reason = AppKit.InvalidTokenReason(rawValue: requestReason) ?? .other
         let oldToken = request.message.oldToken
 
-        AppKit.shared.notifyInvalidToken(reason: reason, oldToken: oldToken) { [weak self] token in
-            if AppKit.TokenValidator.isTokenValid(token) {
-                PACECloudSDK.shared.currentAccessToken = token
-                self?.jsonRpcInterceptor?.respond(id: request.id, message: token)
-            } else {
-                self?.handleInvalidTokenRequest(with: request)
-            }
-        }
+        AppKit.shared.callbackCache.handle(callbackName: .tokenInvalid,
+                                           requestId: request.id,
+                                           responseHandler: { [weak self] id, token in
+                                            PACECloudSDK.shared.currentAccessToken = token
+                                            self?.jsonRpcInterceptor?.respond(id: id, message: token)
+                                           },
+                                           responseValueHandler: { (token: String) -> String in
+                                            return token
+                                           },
+                                           notifyClientHandler: { (callback: @escaping (String) -> Void) -> Void in
+                                            AppKit.shared.notifyInvalidToken(reason: reason, oldToken: oldToken, callback: callback)
+                                           })
     }
 
     func handleImageDataRequest(with request: AppKit.AppRequestData<String>) {
@@ -231,9 +235,15 @@ extension App {
     }
 
     private func passVerificationToClient(id: String, locationToVerify: CLLocation, threshold: Double) {
-        AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold) { [weak self] isInRange in
-            self?.jsonRpcInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
-        }
+        AppKit.shared.callbackCache.handle(callbackName: .verifyLocation,
+                                           requestId: id,
+                                           responseHandler: { [weak self] id, isInRange in
+                                            self?.jsonRpcInterceptor?.respond(id: id, message: isInRange)
+                                           }, responseValueHandler: { (isInRange: Bool) -> String in
+                                            return isInRange ? "true" : "false"
+                                           }, notifyClientHandler: { (callback: @escaping (Bool) -> Void) -> Void in
+                                            AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold, callback: callback)
+                                           })
     }
 
     private func verifyLocation(id: String, userLocation: CLLocation?, locationToVerify: CLLocation, distanceThreshold: Double) {
