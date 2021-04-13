@@ -5,6 +5,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 ### Fixes
+* Fix PWA communication for iOS < 13
 
 ### Internal
 * Remove PWA preloading in AppDrawer

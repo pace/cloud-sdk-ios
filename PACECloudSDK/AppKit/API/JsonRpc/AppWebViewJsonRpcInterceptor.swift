@@ -177,7 +177,7 @@ class AppWebViewJsonRpcInterceptor {
 
     private func respond(result: String) {
         DispatchQueue.main.async {
-            let jsonRpcResponseCode = "window.postMessage('\(result)')"
+            let jsonRpcResponseCode = "window.postMessage('\(result)', window.origin)"
 
             self.app?.evaluateJavaScript(jsonRpcResponseCode, completionHandler: { _, error in
                 if let error = error {
@@ -220,7 +220,7 @@ class AppWebViewJsonRpcInterceptor {
         DispatchQueue.main.async {
             guard let jsonString = error.jsonString() else { return }
 
-            self.app?.evaluateJavaScript("window.postMessage('\(jsonString)')", completionHandler: { _, error in
+            self.app?.evaluateJavaScript("window.postMessage('\(jsonString)', window.origin)", completionHandler: { _, error in
                 if let error = error {
                     AppKitLogger.e("[AppWebViewJsonRpcInterceptor] Error trying to inject JS, with error: \(error)")
                 }
