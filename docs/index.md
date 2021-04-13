@@ -19,6 +19,10 @@
         + [Authorization](#authorization)
         + [Token refresh](#token-refresh)
         + [Session refreshToken](#session-refreshtoken)
+        + [2FA setup](#2fa-setup)
+            * [Mail-OTP](#mail-otp)
+            * [Biometry](#biometry)
+            * [PIN](#pin)
     * [AppKit](#appkit)
         + [Main Features](#main-features)
         + [Setup](#setup-2)
@@ -80,17 +84,20 @@ Each release has an `XCFramework` attached, which can be added to your applicati
 The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
 `applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
 
-`PACECloudSDK.Configuration` only has `apiKey` as a mandatory property, all others are optional and can be passed as necessary.
+`PACECloudSDK.Configuration` only has `apiKey` as a mandatory property, all other parameter either have a default value or are optional .
 
 **Note**: `PACECloudSDK` is using the `.production` environment as default. In case you are still doing tests, you probably want to change it to `.sandbox` or `.stage`.
 
 Available parameters:
 
 ```swift
-apiKey: String? // Default: nil
+apiKey: String
 authenticationMode: AuthenticationMode // Default: .web
 environment: Environment // Default: .production
-configValues: [ConfigValue: Any]? // Default: nil
+domainACL: [String]? // Default: nil
+allowedLowAccuracy: Double? // Default: nil
+speedThreshold: Double? // Default: nil
+geoAppsScope: String? // Default: nil
 ```
 
 ## Migration
@@ -154,6 +161,76 @@ IDKit.resetSession()
 ```
 A new authorization will be required afterwards.
 
+### 2FA setup
+In numerous cases a second authentication factor is required when using Connected Fueling, e.g. when authorizing a payment. Following are methods that can be used to setup biometric authentication on the user's device or setup an account PIN.
+
+In order to prevent websites from accessing your TOTP secrets (used when biometric authentication is used), a domain access control list has to be passed to the `domainACL` property of the `Configuration` object in the [setup phase](#setup). If you're not using a custom PWA, then setting the `domainACL` to `"pace.cloud"` is enough.
+
+#### Mail-OTP
+For some of the below mentioned methods an OTP is needed, which can be requested to be sent to the user's email via
+
+```swift
+IDKit.sendMailOTP(completion: ((Result<Bool, IDKitError>) -> Void)? = nil)
+```
+
+#### Biometry
+The `PACECloudSDK` provides the following methods to enable and disable biometric authentication:
+
+* Check if biometric authentication has been enabled on the device
+
+	```swift
+	IDKit.isBiometricAuthenticationEnabled()
+	```
+
+* Enable biometric authentication with either PIN, password or OTP (see [OTP](#mail-otp))
+
+	```swift
+	IDKit.enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?)
+	```
+
+* Disable biometric authentication on the device:
+
+	```swift
+	IDKit.disableBiometricAuthentication()
+	```
+
+#### PIN
+The `PACECloudSDK` provides the following methods to check and set the PIN:
+
+* Check if the user PIN has been set
+
+	```swift
+	IDKit.isPINSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
+	```
+
+* Check if the user password has been set
+
+	```swift
+	IDKit.isPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)	```
+
+* Check if the user PIN or password has been set
+
+	```swift
+	isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
+	```
+
+* Set the user PIN with biometry; only works, if biometry has been setup before
+
+	```swift
+	IDKit.setPINWithBiometry(pin: String, completion: ((Result<Bool, IDKitError>) -> Void)? = nil)
+	```
+
+* Set the user PIN and authorize with the user password
+
+	```swift
+	IDKit.func setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
+	```
+
+* Set the user PIN and authorize with an OTP previously sent by mail (see [OTP](#mail-otp))
+
+	```swift
+	IDKit.setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
+	```
 
 ## AppKit
 ### Main Features
