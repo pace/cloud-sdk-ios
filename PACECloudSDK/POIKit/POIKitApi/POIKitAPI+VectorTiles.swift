@@ -141,8 +141,12 @@ extension POIKitAPI {
                 case .decodingError(let error):
                     completion(.failure(error))
 
-                default:
-                    completion(.failure(apiError))
+                case .unexpectedStatusCode(statusCode: let statusCode, data: _):
+                    if statusCode == HttpStatusCode.rangeNotSatisfiable.rawValue {
+                        completion(.failure(POIKit.POIKitAPIError.searchDiameterTooLarge))
+                    } else {
+                        completion(.failure(POIKit.POIKitAPIError.unknown))
+                    }
                 }
             }
         }
