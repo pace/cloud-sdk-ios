@@ -5,6 +5,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Adjust error case of tile request
+* Add `cofuPaymentMethods` property to `GasStation`
 
 ### Fixes
 * Fix PWA communication for iOS < 13

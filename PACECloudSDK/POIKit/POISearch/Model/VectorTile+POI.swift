@@ -59,7 +59,9 @@ extension VectorTile_Tile {
         if let paymentMethods = values["pm"] {
             let splittedResponse = splitResponse(for: paymentMethods)
             let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIPaymentMethods(rawValue: $0) }
+            let cofuPaymentMethods = splittedResponse.filter { $0.hasPrefix("cofu:") }
             gasStation.attributes?.paymentMethods = wrapped
+            gasStation.cofuPaymentMethods = cofuPaymentMethods
         }
 
         if let addressString = values["a"] {
