@@ -18,6 +18,8 @@ public extension POIKit {
 
         public var distance: Float?
 
+        public var cofuPaymentMethods: [String] = []
+
         public var geometry: [GeometryCommand] = [] {
             didSet {
                 var lat: Double?
