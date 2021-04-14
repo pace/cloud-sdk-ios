@@ -209,6 +209,8 @@
 		3BE586BE25DE95FC002EBDDB /* GeoGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */; };
 		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		3BF1527625DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
+		3BF303D32625A7E90079ED64 /* CallbackCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF303D22625A7E90079ED64 /* CallbackCache.swift */; };
+		3BF303D42625A7E90079ED64 /* CallbackCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF303D22625A7E90079ED64 /* CallbackCache.swift */; };
 		8414A59125CC0D370077E050 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414A59025CC0D370077E050 /* User.swift */; };
 		8418E22C25B1AD2600D3722B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		8418E23025B1AEF300D3722B /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
@@ -941,6 +943,7 @@
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
 		3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoGasStation.swift; sourceTree = "<group>"; };
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
+		3BF303D22625A7E90079ED64 /* CallbackCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackCache.swift; sourceTree = "<group>"; };
 		8414A59025CC0D370077E050 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		841A3EA825B9C8D40065284A /* FuelingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPI.swift; sourceTree = "<group>"; };
 		841A3EA925B9C8D40065284A /* FuelingAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIService.swift; sourceTree = "<group>"; };
@@ -1421,6 +1424,7 @@
 				3B970A0D2542D9BA0072F6BA /* AppManager.swift */,
 				3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */,
 				3B970A0F2542D9BA0072F6BA /* App+2FA.swift */,
+				3BF303D22625A7E90079ED64 /* CallbackCache.swift */,
 				3B970A0B2542D9BA0072F6BA /* NavigationTitleView.swift */,
 				92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */,
 				3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */,
@@ -2924,6 +2928,7 @@
 				3BC9A8062539DDAD00B933AE /* POIKitAPI+VectorTiles.swift in Sources */,
 				3B387F8F256C0D0100DD6F52 /* GasStation.swift in Sources */,
 				3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */,
+				3BF303D32625A7E90079ED64 /* CallbackCache.swift in Sources */,
 				84D6C08B258A03280094982D /* PCPayPaymentMethodRelationship.swift in Sources */,
 				84D6C052258A03270094982D /* PCPOIMoveRequest.swift in Sources */,
 				841A3EBC25B9C8D40065284A /* FuelingAPIService.swift in Sources */,
@@ -3293,6 +3298,7 @@
 				84600F1325C03B1E0087194F /* POIAPIGetTiles.swift in Sources */,
 				92EDDC1325A7270300E480F4 /* AppKitLogger.swift in Sources */,
 				92EDDD3725A7394B00E480F4 /* (null) in Sources */,
+				3BF303D42625A7E90079ED64 /* CallbackCache.swift in Sources */,
 				84600EFD25C03B1E0087194F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */,
 				92EDDBFB25A7270300E480F4 /* Encodable+Extension.swift in Sources */,
 				92EDDD2225A7391E00E480F4 /* NavigationRequest.swift in Sources */,

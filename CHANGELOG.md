@@ -9,6 +9,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Internal
 * Remove PWA preloading in AppDrawer
+* Implement PWA callback cache
 
 6.0.0 Release notes (2021-04-08)
 =============================================================

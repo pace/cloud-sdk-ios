@@ -18,6 +18,8 @@ public class AppKit {
     /// The initial value is `.automatic``which is based on the current system interface style
     public var theme: AppKitTheme = .automatic
 
+    let callbackCache: CallbackCache
+
     private var proximityCheckPoiID: String?
     private var proximityCheckCompletion: ((Bool) -> Void)?
 
@@ -25,6 +27,8 @@ public class AppKit {
 
     private init() {
         AppStyle.loadAllFonts()
+
+        callbackCache = CallbackCache()
 
         appManager = AppManager()
         appManager.delegate = self
