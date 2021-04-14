@@ -4,6 +4,8 @@ x.y.z Release notes (yyyy-MM-dd)
 <!-- ### Breaking Changes - Include, if needed -->
 ### Enhancements
 
+* Adjust error case of tile request
+
 ### Fixes
 * Fix PWA communication for iOS < 13
 
