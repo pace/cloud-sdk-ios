@@ -17,6 +17,7 @@ class Settings {
     private(set) var fuelingApiHostUrl = ""
     private(set) var userApiHostUrl = ""
     private(set) var geoApiHostUrl = ""
+    private(set) var cmsApiHostUrl = ""
     private(set) var osrmBaseUrl = ""
     private(set) var searchBaseUrl = ""
     private(set) var reverseGeocodeBaseUrl = ""
@@ -51,6 +52,7 @@ class Settings {
         fuelingApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("fueling").absoluteString
         userApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("user").absoluteString
         geoApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("geo").absoluteString
+        cmsApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("cms").absoluteString
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
@@ -74,6 +76,9 @@ class Settings {
 
         case .geo:
             return geoApiHostUrl
+
+        case .cms:
+            return cmsApiHostUrl
 
         case .osrm:
             return osrmBaseUrl
@@ -103,5 +108,6 @@ class Settings {
         case fuelingApi
         case userApi
         case geo
+        case cms
     }
 }
