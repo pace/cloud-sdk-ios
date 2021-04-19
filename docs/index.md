@@ -178,59 +178,65 @@ The `PACECloudSDK` provides the following methods to enable and disable biometri
 
 * Check if biometric authentication has been enabled on the device
 
-	```swift
-	IDKit.isBiometricAuthenticationEnabled()
-	```
+    ```swift
+    IDKit.isBiometricAuthenticationEnabled()
+    ```
 
-* Enable biometric authentication with either PIN, password or OTP (see [OTP](#mail-otp))
+* Enable biometric authentication with either PIN, password or OTP (see [OTP](#mail-otp)).  
+_**NOTE:**_ Up until 5 minutes after a successful authorization you may enable biometry without having to pass any of the aforementioned credentials.
 
-	```swift
-	IDKit.enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?)
-	```
+    ```swift
+    IDKit.enableBiometricAuthentication(pin: String, completion: ((Result<Bool, IDKitError>) -> Void)?)
+    IDKit.enableBiometricAuthentication(otp: String, completion: ((Result<Bool, IDKitError>) -> Void)?)
+    IDKit.enableBiometricAuthentication(password: String, completion: ((Result<Bool, IDKitError>) -> Void)?)
+
+    // After a successful authorization
+    IDKit.enableBiometricAuthentication(completion: ((Result<Bool, IDKitError>) -> Void)?)
+    ```
 
 * Disable biometric authentication on the device:
 
-	```swift
-	IDKit.disableBiometricAuthentication()
-	```
+    ```swift
+    IDKit.disableBiometricAuthentication()
+    ```
 
 #### PIN
 The `PACECloudSDK` provides the following methods to check and set the PIN:
 
 * Check if the user PIN has been set
 
-	```swift
-	IDKit.isPINSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
-	```
+    ```swift
+    IDKit.isPINSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
+    ```
 
 * Check if the user password has been set
 
-	```swift
-	IDKit.isPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)	```
+    ```swift
+    IDKit.isPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)   ```
 
 * Check if the user PIN or password has been set
 
-	```swift
-	isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
-	```
+    ```swift
+    isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
+    ```
 
 * Set the user PIN with biometry; only works, if biometry has been setup before
 
-	```swift
-	IDKit.setPINWithBiometry(pin: String, completion: ((Result<Bool, IDKitError>) -> Void)? = nil)
-	```
+    ```swift
+    IDKit.setPINWithBiometry(pin: String, completion: ((Result<Bool, IDKitError>) -> Void)? = nil)
+    ```
 
 * Set the user PIN and authorize with the user password
 
-	```swift
-	IDKit.func setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
-	```
+    ```swift
+    IDKit.func setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
+    ```
 
 * Set the user PIN and authorize with an OTP previously sent by mail (see [OTP](#mail-otp))
 
-	```swift
-	IDKit.setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
-	```
+    ```swift
+    IDKit.setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
+    ```
 
 ## AppKit
 ### Main Features

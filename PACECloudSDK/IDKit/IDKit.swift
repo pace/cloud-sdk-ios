@@ -229,6 +229,19 @@ public extension IDKit {
     }
 
     /**
+     Enables biometric authentication for the current user.
+
+     This request will only succeed if called directly after an authorization.
+
+     - parameter completion:
+     The block to be called when the request is completed
+     including either the information if biometric authentication has been enabled `successfully` or an `error`.
+     */
+    static func enableBiometricAuthentication(completion: ((Result<Bool, IDKitError>) -> Void)? = nil) {
+        shared?.enableBiometricAuthentication(pin: nil, password: nil, otp: nil) { completion?($0) }
+    }
+
+    /**
      Disables biometric authentication for the current user.
      */
     static func disableBiometricAuthentication() {
