@@ -24,6 +24,7 @@ class FuelingViewController: UIViewController {
         case setPINWithPassword
         case setPINWithBiometry
         case isBiometrySet
+        case enableBiometryAfterLogin
         case enableBiometryWithOTP
         case enableBiometryWithPIN
         case enableBiometryWithPassword
@@ -73,6 +74,9 @@ class FuelingViewController: UIViewController {
 
             case .isBiometrySet:
                 return "Is biometry set?"
+
+            case .enableBiometryAfterLogin:
+                return "Enable biometry after login"
 
             case .enableBiometryWithOTP:
                 return "Enable biometry with otp"
@@ -132,6 +136,7 @@ class FuelingViewController: UIViewController {
                       .setPINWithPassword,
                       .setPINWithBiometry,
                       .isBiometrySet,
+                      .enableBiometryAfterLogin,
                       .enableBiometryWithOTP,
                       .enableBiometryWithPIN,
                       .enableBiometryWithPassword,
@@ -255,6 +260,9 @@ class FuelingViewController: UIViewController {
 
         case ButtonType.isBiometrySet.rawValue:
             IDControl.shared.isBiometrySet()
+
+        case ButtonType.enableBiometryAfterLogin.rawValue:
+            IDControl.shared.enableBiometry()
 
         case ButtonType.enableBiometryWithOTP.rawValue:
             handleEnableBiometryWithOTP()

@@ -159,6 +159,18 @@ class IDControl {
         NSLog("Is biometry enabled: \(enabled)")
     }
 
+    func enableBiometry() {
+        IDKit.enableBiometricAuthentication { result in
+            switch result {
+            case .success(let successful):
+                NSLog("Enabling biometry after login successful: \(successful)")
+
+            case .failure(let error):
+                NSLog("Enabling biometry after login failed with error \(error)")
+            }
+        }
+    }
+
     func enableBiometry(otp: String) {
         IDKit.enableBiometricAuthentication(otp: otp) { result in
             switch result {
