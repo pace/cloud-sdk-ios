@@ -23,6 +23,10 @@ public protocol AppKitDelegate: AnyObject {
     func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void))
 
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void))
+
+    func setUserProperty(key: String, value: String, update: Bool)
+    func logEvent(key: String, parameters: [String: Any])
+    func getConfig(key: String, completion: @escaping ((Any?) -> Void))
 }
 
 public extension AppKitDelegate {
@@ -35,6 +39,9 @@ public extension AppKitDelegate {
     func didReceiveImageData(_ image: UIImage) {}
     func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) {}
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) {}
+    func setUserProperty(key: String, value: String, update: Bool) {}
+    func logEvent(key: String, parameters: [String: Any]) {}
+    func getConfig(key: String, completion: @escaping ((Any?) -> Void)) {}
 }
 
 extension AppKit {
@@ -96,6 +103,24 @@ extension AppKit {
     func notifyDidRequestLocationVerfication(location: CLLocation, threshold: Double, callback: @escaping ((Bool) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.didRequestLocationVerification(location: location, threshold: threshold, completion: callback)
+        }
+    }
+
+    func notifySetUserProperty(key: String, value: String, update: Bool) {
+        notifyClient { [weak self] in
+            self?.delegate?.setUserProperty(key: key, value: value, update: update)
+        }
+    }
+
+    func notifyLogEvent(key: String, parameters: [String: Any]) {
+        notifyClient { [weak self] in
+            self?.delegate?.logEvent(key: key, parameters: parameters)
+        }
+    }
+
+    func notifyGetConfig(key: String, completion: @escaping ((Any?) -> Void)) {
+        notifyClient { [weak self] in
+            self?.delegate?.getConfig(key: key, completion: completion)
         }
     }
 

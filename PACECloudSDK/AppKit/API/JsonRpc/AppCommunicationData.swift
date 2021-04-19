@@ -63,6 +63,21 @@ extension AppKit {
     struct GetSecureData: Codable {
         let key: String
     }
+
+    struct SetUserPropertyData: Codable {
+        let key: String
+        let value: String
+        let update: Bool?
+    }
+
+    struct LogEventData: Codable {
+        let key: String
+        let parameters: [String: AnyCodable]
+    }
+
+    struct GetConfigData: Codable {
+        let key: String
+    }
 }
 
 public extension AppKit {
