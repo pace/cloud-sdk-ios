@@ -31,7 +31,7 @@ class ButtonRectangular: UIButton {
         }
     }
 
-    override var tintColor: UIColor! {
+    override var tintColor: UIColor! { // swiftlint:disable:this implicitly_unwrapped_optional
         get {
             return _tintColor
         }

@@ -22,7 +22,7 @@ struct DeviceInformation {
         var keyData = Data(count: 32)
 
         let result = keyData.withUnsafeMutableBytes {
-            SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+            SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!) // swiftlint:disable:this force_unwrapping
         }
 
         if result == errSecSuccess {

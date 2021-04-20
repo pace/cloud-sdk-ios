@@ -12,7 +12,7 @@ public protocol AppDrawerProtocol: AnyObject {
     func didDisableApp(_ appDrawer: AppKit.AppDrawer, host: String)
 }
 
-public extension AppKit {
+extension AppKit {
     open class AppDrawer: UIView {
         public let appData: AppData
         public var currentState: State = .collapsed

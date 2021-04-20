@@ -90,7 +90,9 @@ extension POIKitAPI {
         }
     }
 
-    func loadPois(_ tileRequest: TileQueryRequest, boundingBox: POIKit.BoundingBox?, completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> CancellablePOIAPIRequest? {
+    func loadPois(_ tileRequest: TileQueryRequest, // swiftlint:disable:this cyclomatic_complexity function_body_length
+                  boundingBox: POIKit.BoundingBox?,
+                  completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> CancellablePOIAPIRequest? {
         guard let data = try? tileRequest.serializedData() else {
             completion(.failure(POIKit.POIKitAPIError.unknown))
             return nil

@@ -287,13 +287,13 @@ private extension IDKit {
 
 // MARK: - Biometry Data
 private extension IDKit {
-    func masterTOTPData() -> Data? {
+    func masterTOTPData() -> Data? { // swiftlint:disable:this inclusive_language
         let secretKey = BiometryPolicy.retrieveMasterKey()
         let totpData = Keychain().getData(for: secretKey)
         return totpData
     }
 
-    func setMasterTOTPData(to newValue: Data?) {
+    func setMasterTOTPData(to newValue: Data?) { // swiftlint:disable:this inclusive_language
         let keychain = Keychain()
         let secretKey = BiometryPolicy.retrieveMasterKey()
 

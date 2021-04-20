@@ -190,7 +190,7 @@ private extension App {
         return userDefaultsTotpData
     }
 
-    func masterTOTPData(host: String) -> Data? {
+    func masterTOTPData(host: String) -> Data? { // swiftlint:disable:this inclusive_language
         guard let domainACL = PACECloudSDK.shared.config?.domainACL,
               domainACL.contains(where: { host.hasSuffix($0) }) else {
             return nil

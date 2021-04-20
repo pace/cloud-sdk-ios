@@ -16,7 +16,7 @@ struct URLRequestBuilder {
 
         var request = URLRequest(url: urlWithQueryParams)
 
-        //Set headers
+        // Set headers
         additionalHeaders?.forEach {
             request.setValue($0.value, forHTTPHeaderField: $0.key)
         }

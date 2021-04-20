@@ -170,7 +170,9 @@ class HttpRequest: NSObject, HttpRequestProtocol {
     }
 
     // MARK: - Generic Request
-    private func performRequest(_ request: URLRequest, on queue: DispatchQueue, onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
+    private func performRequest(_ request: URLRequest,
+                                on queue: DispatchQueue,
+                                onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
         var newRequest = request
 
         if let oldUrl = request.url, let modifiedUrl = QueryParamHandler.buildUrl(for: oldUrl) {
@@ -178,7 +180,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
         }
 
         // Perform task
-        let task = self.session.dataTask(with: newRequest, completionHandler: { [weak self] data, response, error -> Void in
+        let task = self.session.dataTask(with: newRequest, completionHandler: { data, response, error -> Void in
             // Handle response
             queue.async {
                 if let requestResponse = response as? HTTPURLResponse {

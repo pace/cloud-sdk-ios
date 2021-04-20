@@ -2661,7 +2661,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					3BA6A75F260DD06A005D4B5C = {
 						CreatedOnToolsVersion = 12.4;
@@ -2971,8 +2971,6 @@
 				841A3EBC25B9C8D40065284A /* FuelingAPIService.swift in Sources */,
 				841A3EF625B9C96A0065284A /* PCFuelingPump.swift in Sources */,
 				3B970AAA2542D9BB0072F6BA /* RedirectServiceData.swift in Sources */,
-				84D6C052258A03270094982D /* PCPOIMoveRequest.swift in Sources */,
-				84D6C08B258A03280094982D /* PCPayPaymentMethodRelationship.swift in Sources */,
 				3BC9A7F72539DDAD00B933AE /* Waypoint.swift in Sources */,
 				92EFB207258B5C00001768F0 /* PACECloudSDK.swift in Sources */,
 				84A439F72580E33B00DE36FA /* POIAPI.swift in Sources */,
@@ -2991,7 +2989,6 @@
 				84600F1425C03B1E0087194F /* POIAPIChangePoi.swift in Sources */,
 				3B76F77025765014008D8F9A /* Pay.swift in Sources */,
 				3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */,
-				92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */,
 				92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */,
 				3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */,
 				3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */,
@@ -3069,7 +3066,6 @@
 				3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */,
 				8431E1A5258B89F0009401BF /* APIRequestUtils.swift in Sources */,
 				84D6C062258A03270094982D /* PCPOIReferenceStatuses.swift in Sources */,
-				8431E1A5258B89F0009401BF /* APIRequestUtils.swift in Sources */,
 				8447A39B25CAAE740095BEF1 /* UserAPI.swift in Sources */,
 				3B970A9B2542D9BB0072F6BA /* URLDecomposer.swift in Sources */,
 				3BC9A8122539DDAD00B933AE /* vector_tile.pb.swift in Sources */,
@@ -3129,9 +3125,6 @@
 				84600F3A25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
 				84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */,
 				84A43B1425825B5700DE36FA /* AnyPayRequest.swift in Sources */,
-				84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */,
-				84D6C090258A03280094982D /* PCPOICategory.swift in Sources */,
-				84D6C060258A03270094982D /* PCPayPaymentTokenCreate.swift in Sources */,
 				92EDDDC325A7433700E480F4 /* SecureDataCommunicationProtocol.swift in Sources */,
 				3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */,
 				84D6C07E258A03280094982D /* PCPOIEvent.swift in Sources */,
@@ -3172,8 +3165,6 @@
 				84A43B1A25825B6300DE36FA /* AnyPOIRequest.swift in Sources */,
 				3BC9A7FC2539DDAD00B933AE /* GasStationApiResponse.swift in Sources */,
 				84600EAE25C03B0C0087194F /* PayAPIGetReceiptByFormat.swift in Sources */,
-				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
-				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
 				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
 				3BC9A7FF2539DDAD00B933AE /* PriceHistoryResponse.swift in Sources */,
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
@@ -3274,7 +3265,6 @@
 				8418E25025B1B85A00D3722B /* PCPOIMoveRequest.swift in Sources */,
 				8418E27925B1B85A00D3722B /* PCPOIFieldName.swift in Sources */,
 				92EDDC2325A7270300E480F4 /* NoNetworkPlaceholderView.swift in Sources */,
-				92EDDC2325A7270300E480F4 /* NoNetworkPlaceholderView.swift in Sources */,
 				92EDDD6D25A7397200E480F4 /* (null) in Sources */,
 				92EDDC6C25A737AC00E480F4 /* POIKit.swift in Sources */,
 				84600F2525C03B1E0087194F /* POIAPIDeleteSource.swift in Sources */,
@@ -3287,7 +3277,6 @@
 				843A86D325C2BBF40062B124 /* POIAPIClient+URLProtocol.swift in Sources */,
 				84600F2D25C03B1F0087194F /* POIAPICreateApp.swift in Sources */,
 				92EDDC2625A7270300E480F4 /* AppManager.swift in Sources */,
-				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
 				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
 				84600F3125C03B1F0087194F /* POIAPIDeleteApp.swift in Sources */,
 				92EDDD3825A7394B00E480F4 /* (null) in Sources */,
@@ -3324,14 +3313,11 @@
 				8418E22C25B1AD2600D3722B /* API.swift in Sources */,
 				92EDDDDD25A7461500E480F4 /* POIKitAPIProtocol+Slim.swift in Sources */,
 				92EDDD4825A7395400E480F4 /* (null) in Sources */,
-				92EDDDDD25A7461500E480F4 /* POIKitAPIProtocol+Slim.swift in Sources */,
 				92EDDD1E25A7391800E480F4 /* GasStationApiResponse.swift in Sources */,
 				8418E29A25B1B85E00D3722B /* APIRequestUtils.swift in Sources */,
 				92EDDC7425A737B600E480F4 /* POIKitDelegate.swift in Sources */,
 				8418E26225B1B85A00D3722B /* PCPOIRegionalPrices.swift in Sources */,
 				92EDDD8325A73A0700E480F4 /* MimeTypes.swift in Sources */,
-				92EDDC0A25A7270300E480F4 /* AppWebViewJsonRpcInterceptor.swift in Sources */,
-				92EDDC2A25A7270300E480F4 /* AppEvent.swift in Sources */,
 				92EDDC0A25A7270300E480F4 /* AppWebViewJsonRpcInterceptor.swift in Sources */,
 				92EDDC2A25A7270300E480F4 /* AppEvent.swift in Sources */,
 				8418E25825B1B85A00D3722B /* PCPOILocationBasedApps.swift in Sources */,
@@ -3353,12 +3339,9 @@
 				92EDDC4825A729C900E480F4 /* Bundle+Extension.swift in Sources */,
 				8418E27A25B1B85A00D3722B /* PCPOIFuelType.swift in Sources */,
 				92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */,
-				92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */,
 				92EDDD6625A7396C00E480F4 /* (null) in Sources */,
 				92EDDD3E25A7394E00E480F4 /* (null) in Sources */,
-				92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */,
 				92EDDD5525A7395A00E480F4 /* (null) in Sources */,
-				92EDDBF725A7270300E480F4 /* AppDrawerLocationProvider.swift in Sources */,
 				8418E25225B1B85A00D3722B /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				3BC1AD8125C2F16C00725CB9 /* PACECloudSDK+URL.swift in Sources */,
 				8418E24C25B1B85A00D3722B /* PCPOIReferenceStatuses.swift in Sources */,
@@ -3379,7 +3362,6 @@
 				92EDDD7325A7397700E480F4 /* (null) in Sources */,
 				84600F0F25C03B1E0087194F /* POIAPIGetSubscriptions.swift in Sources */,
 				8418E26625B1B85A00D3722B /* PCPOICategories.swift in Sources */,
-				8418E24F25B1B85A00D3722B /* PCPOIEvent.swift in Sources */,
 				92EDDC2825A7270300E480F4 /* AppError.swift in Sources */,
 				92EDDC7025A737B200E480F4 /* POIKitConfig.swift in Sources */,
 				8418E2C125B1B88E00D3722B /* POIAPIService.swift in Sources */,
@@ -3410,7 +3392,6 @@
 				8418E25125B1B85A00D3722B /* PCPOISubscription.swift in Sources */,
 				84600F0D25C03B1E0087194F /* POIAPIStoreSubscription.swift in Sources */,
 				84600EF525C03B1E0087194F /* POIAPIGetMetadataFilters.swift in Sources */,
-				8418E25125B1B85A00D3722B /* PCPOISubscription.swift in Sources */,
 				84600F2325C03B1E0087194F /* POIAPIGetSource.swift in Sources */,
 				92EDDD6425A7396C00E480F4 /* (null) in Sources */,
 				92EDDD4925A7395400E480F4 /* (null) in Sources */,
@@ -3845,6 +3826,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3972,6 +3954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4099,6 +4082,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4163,6 +4147,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
