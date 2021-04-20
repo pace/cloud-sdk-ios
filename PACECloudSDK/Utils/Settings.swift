@@ -60,7 +60,7 @@ class Settings {
         tilesApiUrl = settings[tilesApiUrlKey]!
     }
 
-    func baseUrl(_ type: POIKitBaseUrl) -> String {
+    func baseUrl(_ type: POIKitBaseUrl) -> String { // swiftlint:disable:this cyclomatic_complexity
         switch type {
         case .poiApi:
             return poiApiHostUrl

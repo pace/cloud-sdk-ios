@@ -9,7 +9,7 @@ import CoreLocation
 import Foundation
 
 extension POIKitAPI {
-    func gasStation(_ request: GasStationRequest,
+    func gasStation(_ request: GasStationRequest, // swiftlint:disable:this cyclomatic_complexity
                     result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void) {
         let apiRequest = POIAPI.GasStations.GetGasStation.Request(id: request.id)
         API.POI.client.makeRequest(apiRequest) { apiResult in

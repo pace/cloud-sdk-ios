@@ -77,7 +77,7 @@ extension BiometryPolicy {
         }
     }
 
-    static func retrieveMasterKey() -> String {
+    static func retrieveMasterKey() -> String { // swiftlint:disable:this inclusive_language
         // We are appending a device id, because the Keychain is
         // persisted outside of the app's sandbox, therefore
         // we cannot guarantee that it will be deleted, when

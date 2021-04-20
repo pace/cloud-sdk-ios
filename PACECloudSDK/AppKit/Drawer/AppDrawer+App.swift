@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension AppKit.AppDrawer {
+extension AppKit.AppDrawer {
     @objc
     open func openApp() {
         if appViewController == nil {
