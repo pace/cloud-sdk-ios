@@ -74,7 +74,7 @@ class AppWebView: WKWebView, App {
         addCustomScripts()
 
         // Attach message handlers
-        AppWebViewMessageInterceptor.MessageHandler.allCases.forEach {
+        MessageHandler.allCases.forEach {
             self.configuration.userContentController.add(self, name: $0.rawValue)
         }
 
@@ -164,7 +164,7 @@ class AppWebView: WKWebView, App {
     }
 
     func cleanUp() {
-        AppWebViewMessageInterceptor.MessageHandler.allCases.forEach {
+        MessageHandler.allCases.forEach {
             self.configuration.userContentController.removeScriptMessageHandler(forName: $0.rawValue)
         }
     }

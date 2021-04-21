@@ -56,227 +56,237 @@ extension App {
         loadingView.isLoading = false
         loadingView.isHidden = true
     }
-}
 
-// MARK: - Message handling
-extension App {
-    func handleCloseAction(with request: AppKit.EmptyRequestData) {
-        messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
-
-        guard let appActionsDelegate = appActionsDelegate else {
-            // WebView directly added to client's view
-            self.removeFromSuperview()
-            return
-        }
-
-        // WebView opened in view controller
-        appActionsDelegate.appRequestedCloseAction() // Close AppViewController if available
+    func decode<T: Decodable>(from data: Data) -> T? {
+        let request = try? JSONDecoder().decode(T.self, from: data)
+        return request
     }
 
-    func handleDisableAction(with request: AppKit.AppRequestData<AppKit.DisableAction>, requestUrl: URL?) {
-        guard let host = requestUrl?.host else {
-            messageInterceptor?.send(id: request.id, error: .badRequest)
+    func handle(_ messageHandler: MessageHandler, with data: Data, requestUrl: URL?) { // swiftlint:disable:this cyclomatic_complexity function_body_length
+        if messageHandler == .logger {
+            guard let log = String(data: data, encoding: .utf8) else { return }
+            handleLog(with: log)
+            return // Don't schedule a timer for this request
+        }
+
+        guard let requestId: String = try? JSONDecoder().decode(AppKit.EmptyRequestData.self, from: data).id else {
+            messageInterceptor?.send(id: "", error: .badRequest)
             return
         }
 
-        let untilTime = request.message.until
+        let messageExecution: (@escaping () -> Void) -> Void
 
-        // Persist disable's until date
-        AppKitLogger.i("[App] Set disable timer for \(host): \(untilTime)")
-        UserDefaults.standard.set(untilTime, forKey: "disable_time_\(host)")
+        switch messageHandler {
+        case .close:
+            guard let request: AppKit.EmptyRequestData = decode(from: data) else {
+                messageInterceptor?.send(id: "", error: .badRequest)
+                return
+            }
 
-        // Close App after everything has been set
-        guard let appActionsDelegate = appActionsDelegate else {
-            // WebView directly added to client's view
-            self.removeFromSuperview()
+            messageExecution = { [weak self] completion in
+                self?.handleCloseAction(with: request)
+                completion()
+            }
+
+        case .getBiometricStatus:
+            guard let request: AppKit.EmptyRequestData = decode(from: data) else {
+                messageInterceptor?.send(id: "", error: .badRequest)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleBiometryAvailabilityRequest(with: request)
+                completion()
+            }
+
+        case .setTOTPSecret:
+            guard let request: AppKit.AppRequestData<AppKit.TOTPSecretData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.setTOTPSecret(with: request, requestUrl: requestUrl, completion: completion)
+            }
+
+        case .getTOTP:
+            guard let request: AppKit.AppRequestData<AppKit.GetTOTPData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.getTOTP(with: request, requestUrl: requestUrl, completion: completion)
+            }
+
+        case .setSecureData:
+            guard let request: AppKit.AppRequestData<AppKit.SetSecureData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.setSecureData(with: request, requestUrl: requestUrl)
+                completion()
+            }
+
+        case .getSecureData:
+            guard let request: AppKit.AppRequestData<AppKit.GetSecureData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.getSecureData(with: request, requestUrl: requestUrl, completion: completion)
+            }
+
+        case .disable:
+            guard let request: AppKit.AppRequestData<AppKit.DisableAction> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleDisableAction(with: request, requestUrl: requestUrl)
+                completion()
+            }
+
+        case .openURLInNewTab:
+            guard let request: AppKit.AppRequestData<AppKit.OpenUrlInNewTabData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleOpenURLInNewTabAction(with: request, requestUrl: requestUrl)
+                completion()
+            }
+
+        case .invalidToken:
+            guard let request: AppKit.AppRequestData<AppKit.InvalidTokenData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleInvalidTokenRequest(with: request, completion: completion)
+            }
+
+        case .imageData:
+            guard let request: AppKit.AppRequestData<String> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleImageDataRequest(with: request)
+                completion()
+            }
+
+        case .applePayAvailabilityCheck:
+            guard let request: AppKit.AppRequestData<String> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleApplePayAvailibilityCheck(with: request)
+                completion()
+            }
+
+        case .applePayRequest:
+            guard let request: AppKit.AppRequestData<AppKit.ApplePayRequest> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleApplePayPaymentRequest(with: request, completion: completion)
+            }
+
+        case .verifyLocation:
+            guard let request: AppKit.AppRequestData<AppKit.VerifyLocationData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleVerifyLocationRequest(with: request, completion: completion)
+            }
+
+        case .back:
+            guard let request: AppKit.EmptyRequestData = decode(from: data) else {
+                messageInterceptor?.send(id: "", error: .badRequest)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleBack(with: request)
+                completion()
+            }
+
+        case .redirectScheme:
+            guard let request: AppKit.EmptyRequestData = decode(from: data) else {
+                messageInterceptor?.send(id: "", error: .badRequest)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleRedirectScheme(with: request)
+                completion()
+            }
+
+        case .setUserProperty:
+            guard let request: AppKit.AppRequestData<AppKit.SetUserPropertyData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleSetUserProperty(with: request)
+                completion()
+            }
+
+        case .logEvent:
+            guard let request: AppKit.AppRequestData<AppKit.LogEventData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleLogEvent(with: request)
+                completion()
+            }
+
+        case .getConfig:
+            guard let request: AppKit.AppRequestData<AppKit.GetConfigData> = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleGetConfig(with: request, completion: completion)
+            }
+
+        default:
+            handleBadRequestResponse(for: data)
             return
         }
 
-        // WebView opened in view controller
-        appActionsDelegate.appRequestedDisableAction(for: host)
+        AppKit.shared.requestTimeoutHandler
+            .scheduleTimer(for: requestId,
+                           timeout: messageHandler.timeout,
+                           messageInterceptor: messageInterceptor,
+                           requestHandler: { (completion: @escaping () -> Void) in
+                            messageExecution(completion)
+                           })
     }
 
-    func handleOpenURLInNewTabAction(with request: AppKit.AppRequestData<AppKit.OpenUrlInNewTabData>, requestUrl: URL?) {
-        guard let sourceUrl = requestUrl else {
+    private func handleBadRequestResponse(for data: Data) {
+        if let request: AppKit.EmptyRequestData = decode(from: data) {
             messageInterceptor?.send(id: request.id, error: .badRequest)
-            return
-        }
-
-        guard let appActionsDelegate = appActionsDelegate else {
-            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
-
-            return
-        }
-
-        guard let cancelUrl = URL(string: request.message.cancelUrl) else {
-            messageInterceptor?.send(id: request.id, error: .badRequest)
-            AppKit.shared.notifyDidFail(with: .badRequest)
-            load(URLRequest(url: sourceUrl))
-            return
-        }
-
-        guard let customScheme = Bundle.main.clientRedirectScheme, let customUrl = URL(string: "\(customScheme)://") else {
-            AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
-            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
-
-            load(URLRequest(url: cancelUrl))
-
-            return
-        }
-
-        if UIApplication.shared.canOpenURL(customUrl) {
-            appActionsDelegate.appRequestedNewTab(for: request.message.url, cancelUrl: cancelUrl.absoluteString)
-            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
         } else {
-            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.methodNotAllowed)
-
-            AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
-
-            load(URLRequest(url: cancelUrl))
+            messageInterceptor?.send(id: "", error: .badRequest)
         }
-    }
-
-    func handleInvalidTokenRequest(with request: AppKit.AppRequestData<AppKit.InvalidTokenData>) {
-        guard PACECloudSDK.shared.authenticationMode == .native else { return }
-
-        let requestReason = request.message.reason
-
-        let reason = AppKit.InvalidTokenReason(rawValue: requestReason) ?? .other
-        let oldToken = request.message.oldToken
-
-        AppKit.shared.callbackCache.handle(callbackName: .tokenInvalid,
-                                           requestId: request.id,
-                                           responseHandler: { [weak self] id, token in
-                                            PACECloudSDK.shared.currentAccessToken = token
-                                            self?.messageInterceptor?.respond(id: id, message: token)
-                                           },
-                                           responseValueHandler: { (token: String) -> String in
-                                            return token
-                                           },
-                                           notifyClientHandler: { (callback: @escaping (String) -> Void) -> Void in
-                                            AppKit.shared.notifyInvalidToken(reason: reason, oldToken: oldToken, callback: callback)
-                                           })
-    }
-
-    func handleImageDataRequest(with request: AppKit.AppRequestData<String>) {
-        guard let decodedData = Data(base64Encoded: request.message),
-              let image = UIImage(data: decodedData) else {
-            AppKitLogger.e("[App] Could not decode base64 string")
-            messageInterceptor?.send(id: request.id, error: .badRequest)
-            return
-        }
-
-        AppKit.shared.notifyImageData(with: image)
-    }
-
-    func handleApplePayAvailibilityCheck(with request: AppKit.AppRequestData<String>) {
-        // Apple Pay Web is using a slightly different naming for their PKPaymentNetworks,
-        // hence why we need to uppercase the first letter
-        let networks: [PKPaymentNetwork] = request.message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
-        let result = PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
-
-        messageInterceptor?.respond(id: request.id, message: result ? true : false)
-    }
-
-    func handleApplePayPaymentRequest(with request: AppKit.AppRequestData<AppKit.ApplePayRequest>) {
-        AppKit.shared.notifyApplePayData(with: request.message) { [weak self] response in
-            guard let response = response else {
-                self?.messageInterceptor?.send(id: request.id, error: .internalError)
-                return
-            }
-
-            self?.messageInterceptor?.respond(id: request.id, message: response)
-        }
-    }
-
-    func handleLog(with message: String) {
-        AppKitLogger.pwa(message)
-    }
-
-    func handleBack(with request: AppKit.EmptyRequestData) {
-        if backForwardList.backItem == nil {
-            handleCloseAction(with: request)
-        } else {
-            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
-            goBack()
-        }
-    }
-
-    func handleRedirectScheme(with request: AppKit.EmptyRequestData) {
-        guard let customScheme = Bundle.main.clientRedirectScheme else {
-            messageInterceptor?.send(id: request.id, error: .notFound)
-            AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
-            return
-        }
-
-        messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.link.rawValue: customScheme])
-    }
-
-    func handleSetUserProperty(with request: AppKit.AppRequestData<AppKit.SetUserPropertyData>) {
-        let key = request.message.key
-        let value = request.message.value
-        let update = request.message.update ?? false
-        AppKit.shared.notifySetUserProperty(key: key, value: value, update: update)
-        messageInterceptor?.respond(id: request.id, statusCode: .okNoContent)
-    }
-
-    func handleLogEvent(with request: AppKit.AppRequestData<AppKit.LogEventData>) {
-        let key = request.message.key
-        let parameters: [String: Any] = request.message.parameters.reduce(into: [:], { $0[$1.key] = $1.value.value })
-        AppKit.shared.notifyLogEvent(key: key, parameters: parameters)
-        messageInterceptor?.respond(id: request.id, statusCode: .okNoContent)
-    }
-
-    func handleGetConfig(with request: AppKit.AppRequestData<AppKit.GetConfigData>) {
-        let key = request.message.key
-        AppKit.shared.notifyGetConfig(key: key) { [weak self] value in
-            guard let value = value else {
-                self?.messageInterceptor?.send(id: request.id, error: .notFound)
-                return
-            }
-            self?.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: "\(value)"])
-        }
-    }
-}
-
-// MARK: - Location verification
-extension App {
-    func handleVerifyLocationRequest(with request: AppKit.AppRequestData<AppKit.VerifyLocationData>) {
-        let locationToVerify = CLLocation(latitude: request.message.lat, longitude: request.message.lon)
-        let currentAuthStatus = CLLocationManager.authorizationStatus()
-
-        guard !(currentAuthStatus == .denied || currentAuthStatus == .notDetermined) else {
-            passVerificationToClient(id: request.id, locationToVerify: locationToVerify, threshold: request.message.threshold)
-            return
-        }
-
-        oneTimeLocationProvider.requestLocation { [weak self] userLocation in
-            guard let userLocation = userLocation else {
-                self?.passVerificationToClient(id: request.id, locationToVerify: locationToVerify, threshold: request.message.threshold)
-                return
-            }
-
-            self?.verifyLocation(id: request.id, userLocation: userLocation, locationToVerify: locationToVerify, distanceThreshold: request.message.threshold)
-        }
-    }
-
-    private func passVerificationToClient(id: String, locationToVerify: CLLocation, threshold: Double) {
-        AppKit.shared.callbackCache.handle(callbackName: .verifyLocation,
-                                           requestId: id,
-                                           responseHandler: { [weak self] id, isInRange in
-                                            self?.messageInterceptor?.respond(id: id, message: isInRange)
-                                           }, responseValueHandler: { (isInRange: Bool) -> String in
-                                            return isInRange ? "true" : "false"
-                                           }, notifyClientHandler: { (callback: @escaping (Bool) -> Void) -> Void in
-                                            AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold, callback: callback)
-                                           })
-    }
-
-    private func verifyLocation(id: String, userLocation: CLLocation?, locationToVerify: CLLocation, distanceThreshold: Double) {
-        var isInRange: Bool = false
-        if let distance = userLocation?.distance(from: locationToVerify) {
-            isInRange = distance <= distanceThreshold
-        }
-        messageInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
     }
 }

@@ -22,6 +22,7 @@ public enum HttpStatusCode: Int {
     case notFound = 404
     case methodNotAllowed = 405
     case notAcceptable = 406
+    case requestTimeout = 408
     case rangeNotSatisfiable = 416
 
     case internalError = 500

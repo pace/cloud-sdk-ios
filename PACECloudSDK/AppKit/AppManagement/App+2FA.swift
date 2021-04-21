@@ -25,10 +25,11 @@ extension App {
         messageInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
    }
 
-    func setTOTPSecret(with request: AppKit.AppRequestData<AppKit.TOTPSecretData>, requestUrl: URL?) {
+    func setTOTPSecret(with request: AppKit.AppRequestData<AppKit.TOTPSecretData>, requestUrl: URL?, completion: @escaping () -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
             messageInterceptor?.send(id: request.id, error: .badRequest)
+            completion()
             return
         }
 
@@ -37,10 +38,15 @@ extension App {
 
         guard biometryPolicy.canEvaluatePolicy else {
             messageInterceptor?.send(id: request.id, error: .notAllowed)
+            completion()
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
+            defer {
+                completion()
+            }
+
             guard error == nil, success, let unwrappedSelf = self else {
                 self?.messageInterceptor?.send(id: request.id, error: .internalError)
                 return
@@ -58,10 +64,11 @@ extension App {
         }
     }
 
-    func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?) {
+    func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?, completion: @escaping () -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
             messageInterceptor?.send(id: request.id, error: .badRequest)
+            completion()
             return
         }
 
@@ -69,6 +76,7 @@ extension App {
 
         guard let totpData = appTOTPData(for: secretKey) ?? masterTOTPData(host: host) else {
             messageInterceptor?.send(id: request.id, error: .notFound)
+            completion()
             return
         }
 
@@ -77,10 +85,15 @@ extension App {
 
         guard biometryPolicy.canEvaluatePolicy else {
             messageInterceptor?.send(id: request.id, error: .notAllowed)
+            completion()
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
+            defer {
+                completion()
+            }
+
             guard error == nil, success else {
                 self?.messageInterceptor?.send(id: request.id, error: .unauthorized)
                 return
@@ -122,10 +135,11 @@ extension App {
         messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
     }
 
-    func getSecureData(with request: AppKit.AppRequestData<AppKit.GetSecureData>, requestUrl: URL?) {
+    func getSecureData(with request: AppKit.AppRequestData<AppKit.GetSecureData>, requestUrl: URL?, completion: @escaping () -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
             messageInterceptor?.send(id: request.id, error: .badRequest)
+            completion()
             return
         }
 
@@ -133,6 +147,7 @@ extension App {
 
         guard let value = secureData(for: key) else {
             messageInterceptor?.send(id: request.id, error: .notFound)
+            completion()
             return
         }
 
@@ -141,10 +156,15 @@ extension App {
 
         guard biometryPolicy.canEvaluatePolicy else {
             messageInterceptor?.send(id: request.id, error: .notAllowed)
+            completion()
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
+            defer {
+                completion()
+            }
+
             guard error == nil, success else {
                 self?.messageInterceptor?.send(id: request.id, error: .unauthorized)
                 return
