@@ -22,7 +22,7 @@ class AppWebView: WKWebView, App {
     weak var appActionsDelegate: AppActionsDelegate?
 
     private(set) var webViewDelegate: AppWebViewDelegate? // swiftlint:disable:this weak_delegate
-    private(set) var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor?
+    private(set) var messageInterceptor: AppWebViewMessageInterceptor?
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     let appUrl: String?
@@ -73,13 +73,13 @@ class AppWebView: WKWebView, App {
 
         addCustomScripts()
 
-        // Attach json rpc handlers
-        AppWebViewJsonRpcInterceptor.JsonRpcHandler.allCases.forEach {
+        // Attach message handlers
+        AppWebViewMessageInterceptor.MessageHandler.allCases.forEach {
             self.configuration.userContentController.add(self, name: $0.rawValue)
         }
 
         webViewDelegate = AppWebViewDelegate(app: self)
-        jsonRpcInterceptor = AppWebViewJsonRpcInterceptor(app: self)
+        messageInterceptor = AppWebViewMessageInterceptor(app: self)
 
         setupDesign()
         setupView()
@@ -164,7 +164,7 @@ class AppWebView: WKWebView, App {
     }
 
     func cleanUp() {
-        AppWebViewJsonRpcInterceptor.JsonRpcHandler.allCases.forEach {
+        AppWebViewMessageInterceptor.MessageHandler.allCases.forEach {
             self.configuration.userContentController.removeScriptMessageHandler(forName: $0.rawValue)
         }
     }
@@ -178,6 +178,6 @@ extension AppWebView {
 extension AppWebView {
     @objc
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        jsonRpcInterceptor?.parseJsonRpcRequest(message: message)
+        messageInterceptor?.parseMessageRequest(message: message)
     }
 }

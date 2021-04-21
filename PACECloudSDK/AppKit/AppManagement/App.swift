@@ -16,7 +16,7 @@ protocol App: WKWebView, WKScriptMessageHandler, SecureDataCommunication {
     var loadingView: LoadingView { get }
     var successfullyLoadedOnce: Bool { get set }
     var webViewDelegate: AppWebViewDelegate? { get }
-    var jsonRpcInterceptor: AppWebViewJsonRpcInterceptor? { get }
+    var messageInterceptor: AppWebViewMessageInterceptor? { get }
     var appActionsDelegate: AppActionsDelegate? { get set }
     var oneTimeLocationProvider: OneTimeLocationProvider { get }
 }
@@ -61,7 +61,7 @@ extension App {
 // MARK: - Message handling
 extension App {
     func handleCloseAction(with request: AppKit.EmptyRequestData) {
-        jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
+        messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
 
         guard let appActionsDelegate = appActionsDelegate else {
             // WebView directly added to client's view
@@ -75,7 +75,7 @@ extension App {
 
     func handleDisableAction(with request: AppKit.AppRequestData<AppKit.DisableAction>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
@@ -98,18 +98,18 @@ extension App {
 
     func handleOpenURLInNewTabAction(with request: AppKit.AppRequestData<AppKit.OpenUrlInNewTabData>, requestUrl: URL?) {
         guard let sourceUrl = requestUrl else {
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
         guard let appActionsDelegate = appActionsDelegate else {
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
+            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
 
             return
         }
 
         guard let cancelUrl = URL(string: request.message.cancelUrl) else {
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             AppKit.shared.notifyDidFail(with: .badRequest)
             load(URLRequest(url: sourceUrl))
             return
@@ -117,7 +117,7 @@ extension App {
 
         guard let customScheme = Bundle.main.clientRedirectScheme, let customUrl = URL(string: "\(customScheme)://") else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
+            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.internalError)
 
             load(URLRequest(url: cancelUrl))
 
@@ -126,9 +126,9 @@ extension App {
 
         if UIApplication.shared.canOpenURL(customUrl) {
             appActionsDelegate.appRequestedNewTab(for: request.message.url, cancelUrl: cancelUrl.absoluteString)
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
+            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
         } else {
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.methodNotAllowed)
+            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.methodNotAllowed)
 
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
 
@@ -148,7 +148,7 @@ extension App {
                                            requestId: request.id,
                                            responseHandler: { [weak self] id, token in
                                             PACECloudSDK.shared.currentAccessToken = token
-                                            self?.jsonRpcInterceptor?.respond(id: id, message: token)
+                                            self?.messageInterceptor?.respond(id: id, message: token)
                                            },
                                            responseValueHandler: { (token: String) -> String in
                                             return token
@@ -162,7 +162,7 @@ extension App {
         guard let decodedData = Data(base64Encoded: request.message),
               let image = UIImage(data: decodedData) else {
             AppKitLogger.e("[App] Could not decode base64 string")
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
@@ -175,17 +175,17 @@ extension App {
         let networks: [PKPaymentNetwork] = request.message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
         let result = PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
 
-        jsonRpcInterceptor?.respond(id: request.id, message: result ? true : false)
+        messageInterceptor?.respond(id: request.id, message: result ? true : false)
     }
 
     func handleApplePayPaymentRequest(with request: AppKit.AppRequestData<AppKit.ApplePayRequest>) {
         AppKit.shared.notifyApplePayData(with: request.message) { [weak self] response in
             guard let response = response else {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+                self?.messageInterceptor?.send(id: request.id, error: .internalError)
                 return
             }
 
-            self?.jsonRpcInterceptor?.respond(id: request.id, message: response)
+            self?.messageInterceptor?.respond(id: request.id, message: response)
         }
     }
 
@@ -197,19 +197,19 @@ extension App {
         if backForwardList.backItem == nil {
             handleCloseAction(with: request)
         } else {
-            jsonRpcInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
+            messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
             goBack()
         }
     }
 
     func handleRedirectScheme(with request: AppKit.EmptyRequestData) {
         guard let customScheme = Bundle.main.clientRedirectScheme else {
-            jsonRpcInterceptor?.send(id: request.id, error: .notFound)
+            messageInterceptor?.send(id: request.id, error: .notFound)
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
             return
         }
 
-        jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.link.rawValue: customScheme])
+        messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.link.rawValue: customScheme])
     }
 
     func handleSetUserProperty(with request: AppKit.AppRequestData<AppKit.SetUserPropertyData>) {
@@ -217,24 +217,24 @@ extension App {
         let value = request.message.value
         let update = request.message.update ?? false
         AppKit.shared.notifySetUserProperty(key: key, value: value, update: update)
-        jsonRpcInterceptor?.respond(id: request.id, statusCode: .okNoContent)
+        messageInterceptor?.respond(id: request.id, statusCode: .okNoContent)
     }
 
     func handleLogEvent(with request: AppKit.AppRequestData<AppKit.LogEventData>) {
         let key = request.message.key
         let parameters: [String: Any] = request.message.parameters.reduce(into: [:], { $0[$1.key] = $1.value.value })
         AppKit.shared.notifyLogEvent(key: key, parameters: parameters)
-        jsonRpcInterceptor?.respond(id: request.id, statusCode: .okNoContent)
+        messageInterceptor?.respond(id: request.id, statusCode: .okNoContent)
     }
 
     func handleGetConfig(with request: AppKit.AppRequestData<AppKit.GetConfigData>) {
         let key = request.message.key
         AppKit.shared.notifyGetConfig(key: key) { [weak self] value in
             guard let value = value else {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .notFound)
+                self?.messageInterceptor?.send(id: request.id, error: .notFound)
                 return
             }
-            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: "\(value)"])
+            self?.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: "\(value)"])
         }
     }
 }
@@ -264,7 +264,7 @@ extension App {
         AppKit.shared.callbackCache.handle(callbackName: .verifyLocation,
                                            requestId: id,
                                            responseHandler: { [weak self] id, isInRange in
-                                            self?.jsonRpcInterceptor?.respond(id: id, message: isInRange)
+                                            self?.messageInterceptor?.respond(id: id, message: isInRange)
                                            }, responseValueHandler: { (isInRange: Bool) -> String in
                                             return isInRange ? "true" : "false"
                                            }, notifyClientHandler: { (callback: @escaping (Bool) -> Void) -> Void in
@@ -277,6 +277,6 @@ extension App {
         if let distance = userLocation?.distance(from: locationToVerify) {
             isInRange = distance <= distanceThreshold
         }
-        jsonRpcInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
+        messageInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
     }
 }

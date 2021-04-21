@@ -22,13 +22,13 @@ extension App {
 
     func handleBiometryAvailabilityRequest(with request: AppKit.EmptyRequestData) {
         let isBiometryAvailable = BiometryPolicy().isBiometryAvailable
-        jsonRpcInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
+        messageInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
    }
 
     func setTOTPSecret(with request: AppKit.AppRequestData<AppKit.TOTPSecretData>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
@@ -36,13 +36,13 @@ extension App {
         let reasonText = "payment.authentication.confirmation".localized
 
         guard biometryPolicy.canEvaluatePolicy else {
-            jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
+            messageInterceptor?.send(id: request.id, error: .notAllowed)
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
             guard error == nil, success, let unwrappedSelf = self else {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+                self?.messageInterceptor?.send(id: request.id, error: .internalError)
                 return
             }
 
@@ -51,24 +51,24 @@ extension App {
                 let secretKey: String = unwrappedSelf.retrieveKey(for: request.message.key, host: host)
                 unwrappedSelf.setAppTOTPData(to: data, for: secretKey)
             } catch {
-                unwrappedSelf.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+                unwrappedSelf.messageInterceptor?.send(id: request.id, error: .internalError)
             }
 
-            unwrappedSelf.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+            unwrappedSelf.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
         }
     }
 
     func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
         let secretKey: String = retrieveKey(for: request.message.key, host: host)
 
         guard let totpData = appTOTPData(for: secretKey) ?? masterTOTPData(host: host) else {
-            jsonRpcInterceptor?.send(id: request.id, error: .notFound)
+            messageInterceptor?.send(id: request.id, error: .notFound)
             return
         }
 
@@ -76,18 +76,18 @@ extension App {
         let reasonText = "payment.authentication.confirmation".localized
 
         guard biometryPolicy.canEvaluatePolicy else {
-            jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
+            messageInterceptor?.send(id: request.id, error: .notAllowed)
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
             guard error == nil, success else {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .unauthorized)
+                self?.messageInterceptor?.send(id: request.id, error: .unauthorized)
                 return
             }
 
             guard let totp = BiometryPolicy.generateTOTP(with: totpData, timeIntervalSince1970: request.message.serverTime) else {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .internalError)
+                self?.messageInterceptor?.send(id: request.id, error: .internalError)
                 return
             }
 
@@ -104,7 +104,7 @@ extension App {
                 biometryMethod = .fingerprint
             }
 
-            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.totp.rawValue: totp,
+            self?.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.totp.rawValue: totp,
                                                        MessageHandlerParam.biometryMethod.rawValue: biometryMethod.rawValue])
         }
     }
@@ -112,27 +112,27 @@ extension App {
     func setSecureData(with request: AppKit.AppRequestData<AppKit.SetSecureData>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
         let key = retrieveKey(for: request.message.key, host: host)
         setSecureData(value: request.message.value, for: key)
 
-        jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+        messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
     }
 
     func getSecureData(with request: AppKit.AppRequestData<AppKit.GetSecureData>, requestUrl: URL?) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            jsonRpcInterceptor?.send(id: request.id, error: .badRequest)
+            messageInterceptor?.send(id: request.id, error: .badRequest)
             return
         }
 
         let key = retrieveKey(for: request.message.key, host: host)
 
         guard let value = secureData(for: key) else {
-            jsonRpcInterceptor?.send(id: request.id, error: .notFound)
+            messageInterceptor?.send(id: request.id, error: .notFound)
             return
         }
 
@@ -140,17 +140,17 @@ extension App {
         let reasonText = "secureData.authentication.confirmation".localized
 
         guard biometryPolicy.canEvaluatePolicy else {
-            jsonRpcInterceptor?.send(id: request.id, error: .notAllowed)
+            messageInterceptor?.send(id: request.id, error: .notAllowed)
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
             guard error == nil, success else {
-                self?.jsonRpcInterceptor?.send(id: request.id, error: .unauthorized)
+                self?.messageInterceptor?.send(id: request.id, error: .unauthorized)
                 return
             }
 
-            self?.jsonRpcInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: value])
+            self?.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: value])
         }
     }
 }

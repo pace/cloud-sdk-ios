@@ -102,7 +102,7 @@
 		3B970A922542D9BB0072F6BA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3A2542D9BA0072F6BA /* Settings.swift */; };
 		3B970A942542D9BB0072F6BA /* IconSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3C2542D9BA0072F6BA /* IconSelector.swift */; };
 		3B970A952542D9BB0072F6BA /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
-		3B970A9A2542D9BB0072F6BA /* AppWebViewJsonRpcInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A442542D9BA0072F6BA /* AppWebViewJsonRpcInterceptor.swift */; };
+		3B970A9A2542D9BB0072F6BA /* AppWebViewMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A442542D9BA0072F6BA /* AppWebViewMessageInterceptor.swift */; };
 		3B970A9B2542D9BB0072F6BA /* URLDecomposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A462542D9BA0072F6BA /* URLDecomposer.swift */; };
 		3B970A9C2542D9BB0072F6BA /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A472542D9BA0072F6BA /* URLRequestBuilder.swift */; };
 		3B970A9D2542D9BB0072F6BA /* URLRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A482542D9BA0072F6BA /* URLRequestError.swift */; };
@@ -596,7 +596,7 @@
 		92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A482542D9BA0072F6BA /* URLRequestError.swift */; };
 		92EDDC0825A7270300E480F4 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A472542D9BA0072F6BA /* URLRequestBuilder.swift */; };
 		92EDDC0925A7270300E480F4 /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
-		92EDDC0A25A7270300E480F4 /* AppWebViewJsonRpcInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A442542D9BA0072F6BA /* AppWebViewJsonRpcInterceptor.swift */; };
+		92EDDC0A25A7270300E480F4 /* AppWebViewMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A442542D9BA0072F6BA /* AppWebViewMessageInterceptor.swift */; };
 		92EDDC0C25A7270300E480F4 /* AppWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A192542D9BA0072F6BA /* AppWebView.swift */; };
 		92EDDC0D25A7270300E480F4 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A022542D9B90072F6BA /* UIImage+Extension.swift */; };
 		92EDDC0E25A7270300E480F4 /* AppDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A122542D9BA0072F6BA /* AppDrawer.swift */; };
@@ -843,7 +843,7 @@
 		3B970A3A2542D9BA0072F6BA /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3B970A3C2542D9BA0072F6BA /* IconSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelector.swift; sourceTree = "<group>"; };
 		3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenValidator.swift; sourceTree = "<group>"; };
-		3B970A442542D9BA0072F6BA /* AppWebViewJsonRpcInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebViewJsonRpcInterceptor.swift; sourceTree = "<group>"; };
+		3B970A442542D9BA0072F6BA /* AppWebViewMessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebViewMessageInterceptor.swift; sourceTree = "<group>"; };
 		3B970A462542D9BA0072F6BA /* URLDecomposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLDecomposer.swift; sourceTree = "<group>"; };
 		3B970A472542D9BA0072F6BA /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 		3B970A482542D9BA0072F6BA /* URLRequestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestError.swift; sourceTree = "<group>"; };
@@ -1460,7 +1460,6 @@
 				3B970A0D2542D9BA0072F6BA /* AppManager.swift */,
 				3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */,
 				3B970A0F2542D9BA0072F6BA /* App+2FA.swift */,
-				3BF303D22625A7E90079ED64 /* CallbackCache.swift */,
 				3B970A0B2542D9BA0072F6BA /* NavigationTitleView.swift */,
 				92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */,
 				3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */,
@@ -1567,20 +1566,21 @@
 				3B970A562542D9BA0072F6BA /* RedirectServiceData.swift */,
 				92C89E7D2588DE7A007D7128 /* ApplePay */,
 				3B97EF3425DE923C00E096B1 /* Geo */,
-				3B970A422542D9BA0072F6BA /* JsonRpc */,
+				3B970A422542D9BA0072F6BA /* MessageHandling */,
 				3B970A452542D9BA0072F6BA /* URLHandling */,
 			);
 			path = API;
 			sourceTree = "<group>";
 		};
-		3B970A422542D9BA0072F6BA /* JsonRpc */ = {
+		3B970A422542D9BA0072F6BA /* MessageHandling */ = {
 			isa = PBXGroup;
 			children = (
 				924EEA3825FFC7B300C5A987 /* AppCommunicationData.swift */,
-				3B970A442542D9BA0072F6BA /* AppWebViewJsonRpcInterceptor.swift */,
+				3B970A442542D9BA0072F6BA /* AppWebViewMessageInterceptor.swift */,
+				3BF303D22625A7E90079ED64 /* CallbackCache.swift */,
 				3B577FBB2593815C00F65DF6 /* MessageHandlerParam.swift */,
 			);
-			path = JsonRpc;
+			path = MessageHandling;
 			sourceTree = "<group>";
 		};
 		3B970A452542D9BA0072F6BA /* URLHandling */ = {
@@ -3203,7 +3203,7 @@
 				84D6C071258A03270094982D /* PCPayPaymentMethods.swift in Sources */,
 				849C401725CAB6DE0074BCDA /* PCUserCreateOTP.swift in Sources */,
 				84600F4D25C03B340087194F /* FuelingAPIApproachingAtTheForecourt.swift in Sources */,
-				3B970A9A2542D9BB0072F6BA /* AppWebViewJsonRpcInterceptor.swift in Sources */,
+				3B970A9A2542D9BB0072F6BA /* AppWebViewMessageInterceptor.swift in Sources */,
 				8482BAD425D5342000A7CD16 /* HttpRequest.swift in Sources */,
 				84D6C065258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
 				849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */,
@@ -3318,7 +3318,7 @@
 				92EDDC7425A737B600E480F4 /* POIKitDelegate.swift in Sources */,
 				8418E26225B1B85A00D3722B /* PCPOIRegionalPrices.swift in Sources */,
 				92EDDD8325A73A0700E480F4 /* MimeTypes.swift in Sources */,
-				92EDDC0A25A7270300E480F4 /* AppWebViewJsonRpcInterceptor.swift in Sources */,
+				92EDDC0A25A7270300E480F4 /* AppWebViewMessageInterceptor.swift in Sources */,
 				92EDDC2A25A7270300E480F4 /* AppEvent.swift in Sources */,
 				8418E25825B1B85A00D3722B /* PCPOILocationBasedApps.swift in Sources */,
 				84600F1325C03B1E0087194F /* POIAPIGetTiles.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  AppWebViewJsonRpcInterceptor.swift
+//  AppWebViewMessageInterceptor.swift
 //  PACECloudSDK
 //
 //  Created by PACE Telematics GmbH.
@@ -8,8 +8,8 @@
 import Foundation
 import WebKit
 
-class AppWebViewJsonRpcInterceptor {
-    enum JsonRpcHandler: String, CaseIterable {
+class AppWebViewMessageInterceptor {
+    enum MessageHandler: String, CaseIterable {
         case close = "pace_close"
         case getBiometricStatus = "pace_getBiometricStatus"
         case setTOTPSecret = "pace_setTOTPSecret"
@@ -38,14 +38,14 @@ class AppWebViewJsonRpcInterceptor {
     }
 
     // swiftlint:disable cyclomatic_complexity
-    func parseJsonRpcRequest(message: WKScriptMessage) { // swiftlint:disable:this function_body_length
+    func parseMessageRequest(message: WKScriptMessage) { // swiftlint:disable:this function_body_length
         guard let body = message.body as? String, let data = body.data(using: .utf8) else {
             send(id: "", error: .badRequest)
             return
         }
 
         switch message.name {
-        case JsonRpcHandler.close.rawValue:
+        case MessageHandler.close.rawValue:
             guard let request: AppKit.EmptyRequestData = decode(from: data) else {
                 send(id: "", error: .badRequest)
                 return
@@ -53,7 +53,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleCloseAction(with: request)
 
-        case JsonRpcHandler.getBiometricStatus.rawValue:
+        case MessageHandler.getBiometricStatus.rawValue:
             guard let request: AppKit.EmptyRequestData = decode(from: data) else {
                 send(id: "", error: .badRequest)
                 return
@@ -61,7 +61,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleBiometryAvailabilityRequest(with: request)
 
-        case JsonRpcHandler.setTOTPSecret.rawValue:
+        case MessageHandler.setTOTPSecret.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.TOTPSecretData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -69,7 +69,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.setTOTPSecret(with: request, requestUrl: message.frameInfo.request.url)
 
-        case JsonRpcHandler.getTOTP.rawValue:
+        case MessageHandler.getTOTP.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.GetTOTPData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -77,7 +77,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.getTOTP(with: request, requestUrl: message.frameInfo.request.url)
 
-        case JsonRpcHandler.setSecureData.rawValue:
+        case MessageHandler.setSecureData.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.SetSecureData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -85,7 +85,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.setSecureData(with: request, requestUrl: message.frameInfo.request.url)
 
-        case JsonRpcHandler.getSecureData.rawValue:
+        case MessageHandler.getSecureData.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.GetSecureData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -93,7 +93,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.getSecureData(with: request, requestUrl: message.frameInfo.request.url)
 
-        case JsonRpcHandler.disable.rawValue:
+        case MessageHandler.disable.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.DisableAction> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -101,7 +101,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleDisableAction(with: request, requestUrl: message.frameInfo.request.url)
 
-        case JsonRpcHandler.openURLInNewTab.rawValue:
+        case MessageHandler.openURLInNewTab.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.OpenUrlInNewTabData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -109,7 +109,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleOpenURLInNewTabAction(with: request, requestUrl: message.frameInfo.request.url)
 
-        case JsonRpcHandler.invalidToken.rawValue:
+        case MessageHandler.invalidToken.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.InvalidTokenData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -117,7 +117,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleInvalidTokenRequest(with: request)
 
-        case JsonRpcHandler.imageData.rawValue:
+        case MessageHandler.imageData.rawValue:
             guard let request: AppKit.AppRequestData<String> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -125,7 +125,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleImageDataRequest(with: request)
 
-        case JsonRpcHandler.applePayAvailabilityCheck.rawValue:
+        case MessageHandler.applePayAvailabilityCheck.rawValue:
             guard let request: AppKit.AppRequestData<String> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -133,7 +133,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleApplePayAvailibilityCheck(with: request)
 
-        case JsonRpcHandler.applePayRequest.rawValue:
+        case MessageHandler.applePayRequest.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.ApplePayRequest> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -141,7 +141,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleApplePayPaymentRequest(with: request)
 
-        case JsonRpcHandler.verifyLocation.rawValue:
+        case MessageHandler.verifyLocation.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.VerifyLocationData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -149,10 +149,10 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleVerifyLocationRequest(with: request)
 
-        case JsonRpcHandler.logger.rawValue:
+        case MessageHandler.logger.rawValue:
             app?.handleLog(with: body)
 
-        case JsonRpcHandler.back.rawValue:
+        case MessageHandler.back.rawValue:
             guard let request: AppKit.EmptyRequestData = decode(from: data) else {
                 send(id: "", error: .badRequest)
                 return
@@ -160,7 +160,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleBack(with: request)
 
-        case JsonRpcHandler.redirectScheme.rawValue:
+        case MessageHandler.redirectScheme.rawValue:
             guard let request: AppKit.EmptyRequestData = decode(from: data) else {
                 send(id: "", error: .badRequest)
                 return
@@ -168,7 +168,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleRedirectScheme(with: request)
 
-        case JsonRpcHandler.setUserProperty.rawValue:
+        case MessageHandler.setUserProperty.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.SetUserPropertyData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -176,7 +176,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleSetUserProperty(with: request)
 
-        case JsonRpcHandler.logEvent.rawValue:
+        case MessageHandler.logEvent.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.LogEventData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -184,7 +184,7 @@ class AppWebViewJsonRpcInterceptor {
 
             app?.handleLogEvent(with: request)
 
-        case JsonRpcHandler.getConfig.rawValue:
+        case MessageHandler.getConfig.rawValue:
             guard let request: AppKit.AppRequestData<AppKit.GetConfigData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
@@ -217,11 +217,11 @@ class AppWebViewJsonRpcInterceptor {
 
     private func respond(result: String) {
         DispatchQueue.main.async {
-            let jsonRpcResponseCode = "window.postMessage('\(result)', window.origin)"
+            let messageResponse = "window.postMessage('\(result)', window.origin)"
 
-            self.app?.evaluateJavaScript(jsonRpcResponseCode, completionHandler: { _, error in
+            self.app?.evaluateJavaScript(messageResponse, completionHandler: { _, error in
                 if let error = error {
-                    AppKitLogger.e("[AppWebViewJsonRpcInterceptor] Error trying to inject JS, with error: \(error)")
+                    AppKitLogger.e("[AppWebViewMessageInterceptor] Error trying to inject JS, with error: \(error)")
                 }
             })
         }
@@ -255,14 +255,14 @@ class AppWebViewJsonRpcInterceptor {
     }
 
     private func sendError(_ error: [AnyHashable: Any]) {
-        AppKitLogger.e("[AppWebViewJsonRpcInterceptor] Sending error \(error)")
+        AppKitLogger.e("[AppWebViewMessageInterceptor] Sending error \(error)")
 
         DispatchQueue.main.async {
             guard let jsonString = error.jsonString() else { return }
 
             self.app?.evaluateJavaScript("window.postMessage('\(jsonString)', window.origin)", completionHandler: { _, error in
                 if let error = error {
-                    AppKitLogger.e("[AppWebViewJsonRpcInterceptor] Error trying to inject JS, with error: \(error)")
+                    AppKitLogger.e("[AppWebViewMessageInterceptor] Error trying to inject JS, with error: \(error)")
                 }
             })
         }
