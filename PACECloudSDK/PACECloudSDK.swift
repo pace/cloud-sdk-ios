@@ -88,7 +88,7 @@ public extension PACECloudSDK {
         case stage
         case production
 
-        var short: String {
+        public var short: String {
             switch self {
             case .development:
                 return "dev"
