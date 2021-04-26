@@ -8,7 +8,12 @@
 import AppAuth
 
 public class IDKit {
-    static var shared: IDKit?
+    static var shared: IDKit? {
+        PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
+        return sharedInternal
+    }
+
+    private static var sharedInternal: IDKit?
 
     var session: OIDAuthState?
     var authorizationFlow: OIDExternalUserAgentSession?
@@ -36,8 +41,7 @@ public class IDKit {
      Can be passed at a later point in time.
      */
     public static func setup(with configuration: OIDConfiguration, cacheSession: Bool = true, presentingViewController: UIViewController? = nil) {
-        shared = nil
-        shared = IDKit(with: configuration, cacheSession: cacheSession, presentingViewController: presentingViewController)
+        sharedInternal = IDKit(with: configuration, cacheSession: cacheSession, presentingViewController: presentingViewController)
     }
 
     /**

@@ -94,6 +94,7 @@ Available parameters:
 apiKey: String
 authenticationMode: AuthenticationMode // Default: .web
 environment: Environment // Default: .production
+isRedirectSchemeCheckEnabled: Bool // Default: true
 domainACL: [String]? // Default: nil
 allowedLowAccuracy: Double? // Default: nil
 speedThreshold: Double? // Default: nil
@@ -269,7 +270,11 @@ func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completi
 ```
 
 ### Deep Linking
-Some of our services (e.g. the onboarding of `PayPal` payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
+Some of our services (e.g. the onboarding of `PayPal` payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. 
+
+**_NOTE:_** In case you're not using deep linking at all you may want to set `isRedirectSchemeCheckEnabled` to `false` in the configuration during the setup (see [Setup](#setup)) to prevent warning messages to be logged.
+
+In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
 - Specify the `pace.YOUR_CLIENT_ID` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
 - After successfully having set the scheme, your Info.plist should look as follows:
 ```xml

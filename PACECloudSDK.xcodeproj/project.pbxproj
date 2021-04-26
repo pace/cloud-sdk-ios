@@ -28,6 +28,8 @@
 		3B6B380C26298DD4001961B6 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
 		3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
 		3B6EE85425CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EE85325CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift */; };
+		3B70FCB02636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
+		3B70FCB12636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
 		3B73074725372A40009A7DF7 /* IDKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73074625372A40009A7DF7 /* IDKit.swift */; };
 		3B76F7572576468F008D8F9A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F75E257648B0008D8F9A /* HttpUrlError.swift */; };
@@ -775,6 +777,7 @@
 		3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmsAPIClient.swift; sourceTree = "<group>"; };
 		3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CmsAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
 		3B6EE85325CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCGeoJSONCommonLatLong.swift; sourceTree = "<group>"; };
+		3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKWarningsHandler.swift; sourceTree = "<group>"; };
 		3B73074625372A40009A7DF7 /* IDKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKit.swift; sourceTree = "<group>"; };
 		3B76F7562576468F008D8F9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3B76F75E257648B0008D8F9A /* HttpUrlError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUrlError.swift; sourceTree = "<group>"; };
@@ -1691,6 +1694,7 @@
 				3BB1443225388108004E9F63 /* Logger.swift */,
 				92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */,
 				3B970A3A2542D9BA0072F6BA /* Settings.swift */,
+				3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */,
 				3B855311253D6BF3001F7B66 /* Extensions */,
 				3B970A282542D9BA0072F6BA /* Plists */,
 			);
@@ -2966,6 +2970,7 @@
 				84D6C055258A03270094982D /* PCPayApplePaySession.swift in Sources */,
 				8447A3CD25CAAE750095BEF1 /* UserAPICheckUserPassword.swift in Sources */,
 				84D6C073258A03280094982D /* PCPOIErrors.swift in Sources */,
+				3B70FCB02636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */,
 				84600F5525C03B340087194F /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */,
 				3BC9A82A2539DDAD00B933AE /* CoordinateLocation.swift in Sources */,
 				3B577FBC2593815C00F65DF6 /* MessageHandlerParam.swift in Sources */,
@@ -3301,6 +3306,7 @@
 				8418E28025B1B85A00D3722B /* PCPOICommonGeoJSONPoint.swift in Sources */,
 				8418E2A125B1B86600D3722B /* POIRequestBehaviour.swift in Sources */,
 				92EDDC5125A729D000E480F4 /* Settings.swift in Sources */,
+				3B70FCB12636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */,
 				8418E27425B1B85A00D3722B /* PCPOIPolicy.swift in Sources */,
 				84600F3D25C03B1F0087194F /* POIAPIGetApp.swift in Sources */,
 				92EDDD5E25A7396900E480F4 /* (null) in Sources */,
