@@ -14,22 +14,26 @@ public class PACECloudSDK {
     private(set) var environment: Environment = .production
     private(set) var authenticationMode: AuthenticationMode = .web
     private(set) var userAgentExtensions: [String] = []
-
     private(set) var apiKey: String?
+
     var currentAccessToken: String?
+    var warningsHandler: SDKWarningsHandler?
 
     public var additionalQueryParams: Set<URLQueryItem>?
-
+    public var redirectScheme: String?
     public var isLoggingEnabled = false
     public weak var loggingDelegate: PACECloudSDKLoggingDelegate?
 
-    public var redirectScheme: String?
+    private init() {}
 
     public func setup(with config: Configuration) {
         self.config = config
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
+
+        self.warningsHandler = SDKWarningsHandler(with: config)
+        warningsHandler?.preCheckSetup()
 
         AppKit.shared.setup()
 
@@ -45,11 +49,14 @@ public class PACECloudSDK {
     }
 }
 
+// MARK: - Configuration
 public extension PACECloudSDK {
     struct Configuration {
         let apiKey: String
         let authenticationMode: AuthenticationMode
         let environment: Environment
+
+        let isRedirectSchemeCheckEnabled: Bool
 
         let domainACL: [String]
 
@@ -60,6 +67,7 @@ public extension PACECloudSDK {
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .web,
                     environment: Environment = .production,
+                    isRedirectSchemeCheckEnabled: Bool = true,
                     domainACL: [String]? = nil,
                     allowedLowAccuracy: Double? = nil,
                     speedThresholdInKmPerHour: Double? = nil,
@@ -67,6 +75,8 @@ public extension PACECloudSDK {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
+
+            self.isRedirectSchemeCheckEnabled = isRedirectSchemeCheckEnabled
 
             self.domainACL = domainACL ?? []
 

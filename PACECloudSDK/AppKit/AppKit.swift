@@ -10,7 +10,13 @@ import UIKit
 import WebKit
 
 public class AppKit {
-    public static let shared = AppKit()
+    public static var shared: AppKit {
+        PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
+        return sharedInternal
+    }
+
+    private static let sharedInternal = AppKit()
+
     public weak var delegate: AppKitDelegate?
 
     /// The current theme of the AppViewControllers and the App itself
