@@ -6,6 +6,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Adjust error case of tile request
 * Add `cofuPaymentMethods` property to `GasStation`
+* Enable biometry after authorization
 
 ### Fixes
 * Fix PWA communication for iOS < 13
