@@ -17,6 +17,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Improve error handling for PWA communication
 * Cleanup Xcode warnings
 * Make PACECloudSDK's environment short name accessible
+* Introduce timeouts for PWA communication
 
 6.0.0 Release notes (2021-04-08)
 =============================================================

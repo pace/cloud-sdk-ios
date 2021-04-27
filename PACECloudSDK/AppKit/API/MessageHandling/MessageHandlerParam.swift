@@ -40,6 +40,7 @@ enum MessageHandlerStatusCode: String {
     case unauthorized = "Unauthorized"
     case notAllowed = "Not allowed"
     case internalError = "Internal error"
+    case requestTimeout = "Request timeout"
 
     var statusCode: String {
         let code: Int
@@ -58,6 +59,9 @@ enum MessageHandlerStatusCode: String {
 
         case .notAllowed:
             code = 405
+
+        case .requestTimeout:
+            code = 408
 
         case .internalError:
             code = 500
