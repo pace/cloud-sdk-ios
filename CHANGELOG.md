@@ -2,6 +2,13 @@ x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
 <!-- ### Breaking Changes - Include, if needed -->
+<!-- ### Enhancements - Include, if needed -->
+<!-- ### Fixes - Include, if needed -->
+<!-- ### Internal - Include, if needed -->
+
+6.1.0 Release notes (2021-04-28)
+=============================================================
+
 ### Enhancements
 
 * Adjust error case of tile request
@@ -10,10 +17,12 @@ x.y.z Release notes (yyyy-MM-dd)
 * Add pre check during setup
 
 ### Fixes
+
 * Fix PWA communication for iOS < 13
 * Regenerate Pay API `2020-4`, which includes removal of enums to prevent the clients from crashing when new values are added
 
 ### Internal
+
 * Remove PWA preloading in AppDrawer
 * Implement PWA callback cache
 * Improve error handling for PWA communication
