@@ -147,7 +147,6 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 ## Models
 
 - **PCPayApplePaySession**
-- **PCPayCurrency**
 - **PCPayErrors**
 - **PCPayFuel**
 - **PCPayPRN**

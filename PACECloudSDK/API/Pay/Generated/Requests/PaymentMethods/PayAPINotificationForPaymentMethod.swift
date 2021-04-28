@@ -12,21 +12,14 @@ extension PayAPI.PaymentMethods {
 
         public static var service = PayAPIService<Response>(id: "NotificationForPaymentMethod", tag: "Payment Methods", method: "POST", path: "/payment-methods/{paymentMethodId}/notification", hasBody: false, securityRequirements: [])
 
-        /** Type of the notification */
-        public enum PCPayType: String, Codable, Equatable, CaseIterable {
-            case concardis = "concardis"
-            case paypal = "paypal"
-            case paydirekt = "paydirekt"
-        }
-
         public final class Request: PayAPIRequest<Response> {
 
             public struct Options {
 
                 /** Type of the notification */
-                public var type: PCPayType?
+                public var type: String?
 
-                public init(type: PCPayType? = nil) {
+                public init(type: String? = nil) {
                     self.type = type
                 }
             }
@@ -39,14 +32,14 @@ extension PayAPI.PaymentMethods {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(type: PCPayType? = nil) {
+            public convenience init(type: String? = nil) {
                 let options = Options(type: type)
                 self.init(options: options)
             }
 
             public override var queryParameters: [String: Any] {
                 var params: [String: Any] = [:]
-                if let type = options.type?.encode() {
+                if let type = options.type {
                   params["type"] = type
                 }
                 return params

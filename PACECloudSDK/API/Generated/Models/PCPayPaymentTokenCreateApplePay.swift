@@ -20,7 +20,8 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
 
     public class Attributes: APIModel {
 
-        public var currency: PCPayCurrency
+        /** Currency as specified in ISO-4217. */
+        public var currency: String
 
         public var amount: Double
 
@@ -214,23 +215,12 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
         public class TwoFactor: APIModel {
 
             /** A single name for the 2fa e.g. `face-id`, `fingerprint`, `biometry`, `password`, `pin` */
-            public enum PCPayMethod: String, Codable, Equatable, CaseIterable {
-                case faceId = "face-id"
-                case fingerprint = "fingerprint"
-                case biometry = "biometry"
-                case password = "password"
-                case pin = "pin"
-                case qr = "qr"
-                case u2f = "u2f"
-            }
-
-            /** A single name for the 2fa e.g. `face-id`, `fingerprint`, `biometry`, `password`, `pin` */
-            public var method: PCPayMethod?
+            public var method: String?
 
             /** OTP (One time password) for the authorization. */
             public var otp: String?
 
-            public init(method: PCPayMethod? = nil, otp: String? = nil) {
+            public init(method: String? = nil, otp: String? = nil) {
                 self.method = method
                 self.otp = otp
             }
@@ -261,7 +251,7 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
             }
         }
 
-        public init(currency: PCPayCurrency, amount: Double, purposePRNs: [String], applePay: ApplePay, twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Double, purposePRNs: [String], applePay: ApplePay, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs
