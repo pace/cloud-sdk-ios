@@ -46,7 +46,7 @@ public extension IDKit {
 
             // Append parameters to existing ones by
             // choosing theses keys over the current ones if duplicates occur
-            shared?.configuration.additionalParameters = (shared?.configuration.additionalParameters ?? [:]).merging(parameters, uniquingKeysWith: { $1 })
+            shared?.configuration.additionalParameters = currentParams.merging(parameters, uniquingKeysWith: { $1 })
         }
 
         static func defaultOIDConfiguration(clientId: String, redirectUri: String, idpHint: String?) -> OIDConfiguration {

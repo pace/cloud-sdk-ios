@@ -9,7 +9,7 @@ import NotificationCenter
 import SafariServices
 import WebKit
 
-protocol AppViewControllerDelegate: class {
+protocol AppViewControllerDelegate: AnyObject {
     func appViewControllerRequestsClosing()
     func appViewControllerRequestsDisabling(host: String)
 }
