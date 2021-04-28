@@ -533,7 +533,6 @@
 		84D6C07F258A03280094982D /* PCPOISources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C039258A03270094982D /* PCPOISources.swift */; };
 		84D6C080258A03280094982D /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */; };
 		84D6C081258A03280094982D /* PCPOIPolicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03B258A03270094982D /* PCPOIPolicies.swift */; };
-		84D6C082258A03280094982D /* PCPayCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03C258A03270094982D /* PCPayCurrency.swift */; };
 		84D6C083258A03280094982D /* PCPOIFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03D258A03270094982D /* PCPOIFieldData.swift */; };
 		84D6C084258A03280094982D /* PCPayPaymentTokenCreateApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03E258A03270094982D /* PCPayPaymentTokenCreateApplePay.swift */; };
 		84D6C085258A03280094982D /* PCPOIFuelAmountUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03F258A03270094982D /* PCPOIFuelAmountUnit.swift */; };
@@ -1175,7 +1174,6 @@
 		84D6C039258A03270094982D /* PCPOISources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISources.swift; sourceTree = "<group>"; };
 		84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppsWithRefs.swift; sourceTree = "<group>"; };
 		84D6C03B258A03270094982D /* PCPOIPolicies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicies.swift; sourceTree = "<group>"; };
-		84D6C03C258A03270094982D /* PCPayCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayCurrency.swift; sourceTree = "<group>"; };
 		84D6C03D258A03270094982D /* PCPOIFieldData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldData.swift; sourceTree = "<group>"; };
 		84D6C03E258A03270094982D /* PCPayPaymentTokenCreateApplePay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentTokenCreateApplePay.swift; sourceTree = "<group>"; };
 		84D6C03F258A03270094982D /* PCPOIFuelAmountUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelAmountUnit.swift; sourceTree = "<group>"; };
@@ -2376,7 +2374,6 @@
 				3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */,
 				3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */,
 				84D6C00F258A03270094982D /* PCPayApplePaySession.swift */,
-				84D6C03C258A03270094982D /* PCPayCurrency.swift */,
 				84D6C023258A03270094982D /* PCPayErrors.swift */,
 				84D6C034258A03270094982D /* PCPayFuel.swift */,
 				84D6C01B258A03270094982D /* PCPayPagingMeta.swift */,
@@ -2858,7 +2855,6 @@
 				84600EA225C03B0C0087194F /* PayAPIConfirmPaymentMethod.swift in Sources */,
 				3B76F7572576468F008D8F9A /* API.swift in Sources */,
 				84A43ADB2580E35A00DE36FA /* URLEncoding.swift in Sources */,
-				84D6C082258A03280094982D /* PCPayCurrency.swift in Sources */,
 				84D6C080258A03280094982D /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				841A3EF025B9C96A0065284A /* PCFuelingFuelPriceResponse.swift in Sources */,
 				84D6C091258A03280094982D /* PCPOICommonOpeningHours.swift in Sources */,

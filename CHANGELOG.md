@@ -11,6 +11,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Fixes
 * Fix PWA communication for iOS < 13
+* Regenerate Pay API `2020-4`, which includes removal of enums to prevent the clients from crashing when new values are added
 
 ### Internal
 * Remove PWA preloading in AppDrawer

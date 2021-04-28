@@ -26,16 +26,6 @@ public class PCPayPaymentMethod: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCPayKind: String, Codable, Equatable, CaseIterable {
-            case sepa = "sepa"
-            case creditcard = "creditcard"
-            case paypal = "paypal"
-            case paydirekt = "paydirekt"
-            case dkv = "dkv"
-            case hoyer = "hoyer"
-            case applepay = "applepay"
-        }
-
         /** Customer chosen alias for the payment method */
         public var alias: String?
 
@@ -47,7 +37,8 @@ public class PCPayPaymentMethod: APIModel {
         /** Implicit (`true`) payment methods are read-only and cannot be deleted, e.g., ApplePay */
         public var implicit: Bool?
 
-        public var kind: PCPayKind?
+        /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
+        public var kind: String?
 
         /** indicates if the payment method kind requires two factors later on */
         public var twoFactor: Bool?
@@ -55,7 +46,7 @@ public class PCPayPaymentMethod: APIModel {
         /** PACE resource name(s) to payment method vendor */
         public var vendorPRN: String?
 
-        public init(alias: String? = nil, approvalURL: String? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: PCPayKind? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+        public init(alias: String? = nil, approvalURL: String? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: String? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
             self.alias = alias
             self.approvalURL = approvalURL
             self.identificationString = identificationString

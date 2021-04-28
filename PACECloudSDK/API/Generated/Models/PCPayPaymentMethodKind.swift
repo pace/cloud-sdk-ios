@@ -7,23 +7,14 @@ import Foundation
 
 public class PCPayPaymentMethodKind: APIModel {
 
-    public enum PCPayId: String, Codable, Equatable, CaseIterable {
-        case sepa = "sepa"
-        case creditcard = "creditcard"
-        case paypal = "paypal"
-        case paydirekt = "paydirekt"
-        case dkv = "dkv"
-        case hoyer = "hoyer"
-        case applepay = "applepay"
-    }
-
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentMethodKind = "paymentMethodKind"
     }
 
     public var attributes: Attributes?
 
-    public var id: PCPayId?
+    /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
+    public var id: String?
 
     public var type: PCPayType?
 
@@ -31,6 +22,9 @@ public class PCPayPaymentMethodKind: APIModel {
 
         /** data privacy information */
         public var dataPrivacy: DataPrivacy?
+
+        /** Indicates whether the payment method is a fuel card. Fuelcard `no` means no. */
+        public var fuelcard: Bool?
 
         /** Indicates whether the payment method can be onboarded/modified. Implict `true` means no. Otherwise yes.
     Most payment method kinds are no implicit, i.e., `implicit=false`.
@@ -153,8 +147,9 @@ public class PCPayPaymentMethodKind: APIModel {
             }
         }
 
-        public init(dataPrivacy: DataPrivacy? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
+        public init(dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
             self.dataPrivacy = dataPrivacy
+            self.fuelcard = fuelcard
             self.implicit = implicit
             self.name = name
             self.twoFactor = twoFactor
@@ -165,6 +160,7 @@ public class PCPayPaymentMethodKind: APIModel {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             dataPrivacy = try container.decodeIfPresent("dataPrivacy")
+            fuelcard = try container.decodeIfPresent("fuelcard")
             implicit = try container.decodeIfPresent("implicit")
             name = try container.decodeIfPresent("name")
             twoFactor = try container.decodeIfPresent("twoFactor")
@@ -175,6 +171,7 @@ public class PCPayPaymentMethodKind: APIModel {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encodeIfPresent(dataPrivacy, forKey: "dataPrivacy")
+            try container.encodeIfPresent(fuelcard, forKey: "fuelcard")
             try container.encodeIfPresent(implicit, forKey: "implicit")
             try container.encodeIfPresent(name, forKey: "name")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
@@ -184,6 +181,7 @@ public class PCPayPaymentMethodKind: APIModel {
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
           guard self.dataPrivacy == object.dataPrivacy else { return false }
+          guard self.fuelcard == object.fuelcard else { return false }
           guard self.implicit == object.implicit else { return false }
           guard self.name == object.name else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
@@ -196,7 +194,7 @@ public class PCPayPaymentMethodKind: APIModel {
         }
     }
 
-    public init(attributes: Attributes? = nil, id: PCPayId? = nil, type: PCPayType? = nil) {
+    public init(attributes: Attributes? = nil, id: String? = nil, type: PCPayType? = nil) {
         self.attributes = attributes
         self.id = id
         self.type = type

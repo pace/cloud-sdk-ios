@@ -28,7 +28,8 @@ public class PCPayTransaction: APIModel {
      */
         public var createdAt: DateTime?
 
-        public var currency: PCPayCurrency?
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
         public var fuel: PCPayFuel?
 
@@ -105,7 +106,7 @@ public class PCPayTransaction: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, createdAt: DateTime? = nil, currency: PCPayCurrency? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, priceWithoutVAT: Double? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+        public init(vat: VAT? = nil, createdAt: DateTime? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, priceWithoutVAT: Double? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
             self.vat = vat
             self.createdAt = createdAt
             self.currency = currency
