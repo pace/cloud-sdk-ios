@@ -6,6 +6,10 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Fixes
 
 * Fix a bug where PWA wasn't closed properly in the AppDrawer
+### Enhancements
+* Introduce `requestCofuGasStations` to `AppKit` to fetch all available `CofuGasStation` which will have an attribute to tell you, if a gas station is currently online
+
+<!-- ### Fixes - Include, if needed -->
 
 ### Breaking Changes
 * Added new SDK methods `getAccessToken` and 'logout'. The `getAccessToken` call replaces the `invalidToken` method.
@@ -14,6 +18,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Refactored the handling of ApplePay requests. The updated callback now already returns a `PKPaymentRequest`. Additionally a new callback to retrieve the `merchantIdentifier` needs to be implemented
 * Improve selection of app drawer icon size
+* Rename `GeoGasStation` to `CofuGasStation` to match capabilities of the new Geo API
 
 6.3.0 Release notes (2021-06-01)
 =============================================================

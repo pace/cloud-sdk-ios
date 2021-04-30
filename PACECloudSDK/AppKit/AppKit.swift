@@ -43,6 +43,10 @@ public class AppKit {
         appManager.setConfigValues()
     }
 
+    public func requestCofuGasStations(completion: @escaping ([CofuGasStation]?) -> Void) {
+        appManager.getCofuGasStations(completion: completion)
+    }
+
     // MARK: - Drawer / Location based apps
     public func requestLocalApps() {
         appManager.startRetrievingLocation()
