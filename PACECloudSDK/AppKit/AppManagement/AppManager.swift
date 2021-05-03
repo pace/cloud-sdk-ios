@@ -14,7 +14,6 @@ protocol AppManagerDelegate: class {
     func didEnterGeofence(with id: String)
     func didExitGeofence(with id: String)
     func didFailToMonitorRegion(_ region: CLRegion, error: Error)
-    func didReceiveAppReferences(_ references: [String])
 }
 
 class AppManager {
@@ -45,16 +44,18 @@ class AppManager {
         locationProvider.startFetchingLocation()
     }
 
-    func fetchAppsForOneTimeLocation() {
-        oneTimeLocationProvider.requestLocation { [weak self] location in
-            guard let location = location else {
-                self?.delegate?.didReceiveAppReferences([])
-                return
-            }
+    func fetchAppsForOneTimeLocation(completion: @escaping ([GeoGasStation]) -> Void) {
+        DispatchQueue.main.async { [weak self] in
+            self?.oneTimeLocationProvider.requestLocation { [weak self] location in
+                guard let location = location else {
+                    completion([])
+                    return
+                }
 
-            self?.checkAvailableApps(for: location, completion: { apps in
-                self?.delegate?.didReceiveAppReferences(apps?.map { $0.id } ?? [])
-            })
+                self?.checkAvailableApps(for: location, completion: { apps in
+                    completion(apps ?? [])
+                })
+            }
         }
     }
 }

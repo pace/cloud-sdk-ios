@@ -26,9 +26,6 @@ public class AppKit {
 
     let requestTimeoutHandler: RequestTimeoutHandler
 
-    private var proximityCheckPoiID: String?
-    private var proximityCheckCompletion: ((Bool) -> Void)?
-
     private let appManager: AppManager
 
     private init() {
@@ -107,24 +104,17 @@ public class AppKit {
 
     // MARK: - POI proximity check
     public func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
-        proximityCheckPoiID = id
-        proximityCheckCompletion = completion
-        appManager.fetchAppsForOneTimeLocation()
+        appManager.fetchAppsForOneTimeLocation { apps in
+            let references = apps.map { $0.id }
+
+            DispatchQueue.main.async {
+                completion(references.contains(where: { $0.contains(id) }))
+            }
+        }
     }
 }
 
 extension AppKit: AppManagerDelegate {
-    func didReceiveAppReferences(_ references: [String]) {
-        AppKitLogger.i("Received the following references: \(references.joined(separator: ", "))")
-
-        guard let id = proximityCheckPoiID, let completion = proximityCheckCompletion else { return }
-
-        completion(references.contains(where: { $0.contains(id) }))
-
-        proximityCheckPoiID = nil
-        proximityCheckCompletion = nil
-    }
-
     func didEnterGeofence(with id: String) {
         notifyDidEnterGeofence(with: id)
     }

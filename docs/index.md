@@ -327,15 +327,17 @@ all available Apps as AppDrawers by asynchronously invoking `AppKitDelegate's` `
 Because of the fact that AppDrawers are dependent on the user's position, it's necessary to call the mentioned method periodically to make sure that Apps
 will stay up to date. If a request does not contain a currently presented App / AppDrawer it will be removed by *AppKit* automatically. This may happen if the user changes the position to where the previously fetched App is no longer available at.
 
+_**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) the delegate method will not be called. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
+
 ### Is POI in range?
 To check if there is a App for the given POI ID at the current location, call `AppKit.shared.isPoiInRange(id: String, completion: @escaping ((Bool) -> Void))`.
 
-Note that this method is also triggering `AppKitDelegate`'s `didReceiveAppDrawers` callback.
+_**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) this method will return `false`. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
 
 ```swift
 AppKit.shared.isPoiInRange(id: poiId) { found in
-        NSLog("==== Found id in range: \(found)")
-    }
+    NSLog("==== Found id in range: \(found)")
+}
 ```
 
 ### AppWebView / AppViewController
