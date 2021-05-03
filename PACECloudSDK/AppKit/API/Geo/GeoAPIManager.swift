@@ -98,7 +98,7 @@ class GeoAPIManager {
             return
         }
 
-        let request = URLRequest(url: urlWithQueryParams)
+        let request = URLRequest(url: urlWithQueryParams, withTracingId: true)
 
         cloudQueue.async { [weak self] in
             guard let self = self else { return }

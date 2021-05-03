@@ -53,6 +53,18 @@ extension String {
 
         return self.range(of: regex, options: options, range: nil, locale: nil) != nil
     }
+
+    static func randomHex(length: Int) -> String? {
+        guard length > 0 else { return nil }
+
+        var bytes = [UInt8](repeating: 0, count: length)
+        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+
+        guard status == errSecSuccess else { return nil }
+
+        let randomHex = bytes.reduce(into: "", { $0 += String(format: "%02X", $1) })
+        return String(randomHex.prefix(length))
+    }
 }
 
 extension StringProtocol {

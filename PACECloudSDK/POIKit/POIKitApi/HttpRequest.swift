@@ -179,6 +179,8 @@ class HttpRequest: NSObject, HttpRequestProtocol {
             newRequest.url = modifiedUrl
         }
 
+        newRequest.setValue(Constants.Tracing.identifier, forHTTPHeaderField: Constants.Tracing.key)
+
         // Perform task
         let task = self.session.dataTask(with: newRequest, completionHandler: { data, response, error -> Void in
             // Handle response

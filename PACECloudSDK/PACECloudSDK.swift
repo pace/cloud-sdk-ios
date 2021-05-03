@@ -16,6 +16,9 @@ public class PACECloudSDK {
     private(set) var userAgentExtensions: [String] = []
     private(set) var apiKey: String?
 
+    private var traceIdCreatedAt: Date?
+    private var currentTraceId: String?
+
     var currentAccessToken: String?
     var warningsHandler: SDKWarningsHandler?
 
@@ -46,6 +49,16 @@ public class PACECloudSDK {
 
     public func resetAccessToken() {
         currentAccessToken = nil
+    }
+}
+
+extension PACECloudSDK {
+    var traceId: String? {
+        if abs(traceIdCreatedAt?.timeIntervalSinceNow ?? .greatestFiniteMagnitude) > Constants.Tracing.timeThreshold {
+            currentTraceId = String.randomHex(length: 8)
+        }
+        traceIdCreatedAt = Date()
+        return currentTraceId
     }
 }
 

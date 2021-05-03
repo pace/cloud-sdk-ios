@@ -188,6 +188,14 @@ extension App {
             completion()
         }
     }
+
+    func handleGetTraceId(with request: AppKit.EmptyRequestData) {
+        guard let traceId = PACECloudSDK.shared.traceId else {
+            messageInterceptor?.send(id: request.id, error: .internalError)
+            return
+        }
+        messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: "\(traceId)"])
+    }
 }
 
 // MARK: - Location verification
