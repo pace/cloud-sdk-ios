@@ -60,9 +60,8 @@ class GeoAPIManager {
         // Negative value means the speed property is invalid,
         // we will therefore only consider the speed, if the
         // accuracy is anywhere between 0 and ~10km/h.
-        // Only return apps if current speed is less than the threshold
         if 0...3 ~= location.speedAccuracy && location.speed > speedThreshold {
-            // Don't call completion block here
+            completion([])
             return
         }
 

@@ -6,6 +6,8 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Fixes
 
 * Fix accept header of Pay API
+* Fix completion call for isPoiInRange
+
 <!-- ### Internal - Include, if needed -->
 
 6.1.0 Release notes (2021-04-28)
