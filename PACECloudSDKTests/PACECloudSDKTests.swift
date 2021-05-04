@@ -91,4 +91,18 @@ class PACECloudSDKTests: XCTestCase {
         XCTAssertNil(missingStringValue)
         XCTAssertNil(missingDataValue)
     }
+
+    func testRandomHexString() {
+        let hex = String.randomHex(length: 8)
+        XCTAssertEqual(hex?.count, 8)
+
+        let emptyHex1 = String.randomHex(length: -4)
+        XCTAssertNil(emptyHex1)
+
+        let emptyHex2 = String.randomHex(length: 0)
+        XCTAssertNil(emptyHex2)
+
+        let bigHex = String.randomHex(length: 50)
+        XCTAssertEqual(bigHex?.count, 50)
+    }
 }

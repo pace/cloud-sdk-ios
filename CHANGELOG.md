@@ -10,6 +10,10 @@ x.y.z Release notes (yyyy-MM-dd)
 
 <!-- ### Internal - Include, if needed -->
 
+### Internal
+
+* Introduce tracing identifier
+
 6.1.0 Release notes (2021-04-28)
 =============================================================
 

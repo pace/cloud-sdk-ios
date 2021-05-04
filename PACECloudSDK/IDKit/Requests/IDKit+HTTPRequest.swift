@@ -14,7 +14,7 @@ extension IDKit {
             return
         }
 
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: url, withTracingId: true)
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
 
         URLSession.shared.dataTask(with: request) { data, response, error in

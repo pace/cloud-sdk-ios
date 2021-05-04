@@ -37,7 +37,7 @@ extension App {
             return
         }
 
-        load(URLRequest(url: utmUrl), with: cookies)
+        load(URLRequest(url: utmUrl, withTracingId: true), with: cookies)
     }
 
     func load(_ request: URLRequest, with cookies: [HTTPCookie]) {
@@ -266,6 +266,17 @@ extension App {
 
             messageExecution = { [weak self] completion in
                 self?.handleGetConfig(with: request, completion: completion)
+            }
+
+        case .getTraceId:
+            guard let request: AppKit.EmptyRequestData = decode(from: data) else {
+                messageInterceptor?.send(id: "", error: .badRequest)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleGetTraceId(with: request)
+                completion()
             }
 
         default:

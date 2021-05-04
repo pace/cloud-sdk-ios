@@ -27,11 +27,12 @@ enum MessageHandler: String, CaseIterable {
     case setUserProperty = "pace_setUserProperty"
     case logEvent = "pace_logEvent"
     case getConfig = "pace_getConfig"
+    case getTraceId = "pace_getTraceId"
 
     var timeout: TimeInterval {
         switch self {
         case .close, .getBiometricStatus, .setSecureData, .disable, .openURLInNewTab, .imageData, .applePayAvailabilityCheck,
-             .logger, .back, .redirectScheme, .setUserProperty, .logEvent:
+             .logger, .back, .redirectScheme, .setUserProperty, .logEvent, .getTraceId:
             return 5
 
         case .setTOTPSecret, .getTOTP, .getSecureData:

@@ -14,7 +14,7 @@ struct URLRequestBuilder {
             return nil
         }
 
-        var request = URLRequest(url: urlWithQueryParams)
+        var request = URLRequest(url: urlWithQueryParams, withTracingId: true)
 
         // Set headers
         additionalHeaders?.forEach {
