@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name                 = "PACECloudSDK"
-  spec.version              = "6.1.0"
+  spec.version              = "6.1.1"
   spec.summary              = "Easily integrate your app with the PACE API to support Connected Fueling"
   spec.homepage             = "http://github.com/pace/cloud-sdk-ios"
   spec.license              = { :type => "MIT", :file => "LICENSE.md" }
