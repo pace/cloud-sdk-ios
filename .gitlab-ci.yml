@@ -165,3 +165,17 @@ documentation:
       - ./*.zip
     name: "ios-pace-cloud-sdk-$TAG_NAME.zip"
     expire_in: 1 week
+
+# GitHub Release
+framework_publish_github:
+  script:
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@${COMMON_REPO} tmp/common
+    - pip3 install -r tmp/common/scripts/screenshots/requirements.txt
+    - python3 tmp/common/scripts/tags/create_github_release.py -d pace/cloud-sdk-ios
+  tags:
+    - xcode-12.4
+  allow_failure: true
+  stage: publish
+  only:
+    - tags
+  when: manual
