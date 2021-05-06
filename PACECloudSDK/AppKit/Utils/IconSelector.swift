@@ -9,9 +9,10 @@ import UIKit
 
 struct IconSelector {
     static func chooseSuitableDrawerIcon(in icons: [AppIcon]) -> AppIcon? {
-        let pngIcons: [AppIcon] = icons.filter { $0.type?.contains("png") ?? false }
+        let drawerIcons = icons.filter { $0.source?.contains("notification_logo") ?? false }
+        let pngIcons: [AppIcon] = drawerIcons.filter { $0.type?.contains("png") ?? false }
 
-        let prefIcons = pngIcons.isEmpty ? icons : pngIcons
+        let prefIcons = pngIcons.isEmpty ? drawerIcons : pngIcons
 
         let suitableIcon: AppIcon? = prefIcons.compactMap({ icon in
 
