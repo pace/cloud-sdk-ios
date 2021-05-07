@@ -4,7 +4,10 @@ x.y.z Release notes (yyyy-MM-dd)
 <!-- ### Breaking Changes - Include, if needed -->
 <!-- ### Enhancements - Include, if needed -->
 <!-- ### Fixes - Include, if needed -->
-<!-- ### Internal - Include, if needed -->
+
+### Internal
+
+* Improve completion handling of location manager
 
 6.1.1 Release notes (2021-05-04)
 =============================================================
