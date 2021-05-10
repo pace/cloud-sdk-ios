@@ -55,66 +55,84 @@ class GeoAPIManager {
         self.session = URLSession(configuration: configuration)
     }
 
-    func apps(for location: CLLocation, completion: @escaping ([GeoGasStation]?) -> Void) {
+    func apps(for location: CLLocation, result: @escaping (Result<[GeoGasStation], GeoApiManagerError>) -> Void) {
         // Speed accuracy is measured in m/s.
         // Negative value means the speed property is invalid,
         // we will therefore only consider the speed, if the
         // accuracy is anywhere between 0 and ~10km/h.
         if 0...3 ~= location.speedAccuracy && location.speed > speedThreshold {
-            completion([])
+            result(.failure(.invalidSpeed))
             return
         }
 
         guard let cachedFeatures = cachedFeatures, !isCacheOutdated(for: location) else {
             // Send request if cache is not available or outdated
-            fetchPolygons(for: location, completion: completion)
+            fetchPolygons(for: location, result: result)
             return
         }
 
         // Load apps from cache
-        loadApps(for: location, with: cachedFeatures, completion: completion)
+        loadApps(for: location, with: cachedFeatures, result: result)
     }
 
-    private func fetchPolygons(for location: CLLocation, completion: @escaping ([GeoGasStation]?) -> Void) {
-        performGeoRequest { [weak self] apiResponse in
-            guard let unwrappedSelf = self, let features = apiResponse?.features else {
-                // If request fails reset cache to try again next time
-                self?.resetCache()
-                completion(nil)
+    private func fetchPolygons(for location: CLLocation, result: @escaping (Result<[GeoGasStation], GeoApiManagerError>) -> Void) {
+        performGeoRequest { [weak self] apiResult in
+            guard let unwrappedSelf = self else {
+                result(.failure(.unknownError))
                 return
             }
 
-            let cachedFeatures = unwrappedSelf.buildCachedGeoAPIResponse(with: features, for: location)
-            unwrappedSelf.cachedFeatures = cachedFeatures
-            unwrappedSelf.loadApps(for: location, with: cachedFeatures, completion: completion)
+            switch apiResult {
+            case .success(let apiResponse):
+                guard let features = apiResponse?.features else {
+                    // If request fails reset cache to try again next time
+                    self?.resetCache()
+                    result(.failure(.invalidResponse))
+                    return
+                }
+
+                let cachedFeatures = unwrappedSelf.buildCachedGeoAPIResponse(with: features, for: location)
+                unwrappedSelf.cachedFeatures = cachedFeatures
+                unwrappedSelf.loadApps(for: location, with: cachedFeatures, result: result)
+
+            case .failure(let error):
+                result(.failure(error))
+            }
         }
     }
 
-    private func performGeoRequest(completion: ((GeoAPIResponse?) -> Void)?) {
+    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) {
         let baseUrl = Settings.shared.geoApiHostUrl
         guard let url = URL(string: "\(baseUrl)/\(apiVersion)/apps/\(geoAppsScope).geojson"),
               let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {
-            completion?(nil)
+            result(.failure(.unknownError))
             return
         }
 
         let request = URLRequest(url: urlWithQueryParams, withTracingId: true)
 
         cloudQueue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self else {
+                result(.failure(.unknownError))
+                return
+            }
 
             self.sessionTask?.cancel()
             self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error -> Void in
                 if let error = error {
-                    if (error as NSError?)?.code == NSURLErrorCancelled { return }
+                    if (error as NSError?)?.code == NSURLErrorCancelled {
+                        result(.failure(.requestCancelled))
+                        return
+                    }
+
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons with error \(error)")
-                    completion?(nil)
+                    result(.failure(.unknownError))
                     return
                 }
 
                 guard let response = response as? HTTPURLResponse else {
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid response")
-                    completion?(nil)
+                    result(.failure(.invalidResponse))
                     return
                 }
 
@@ -122,25 +140,25 @@ class GeoAPIManager {
 
                 guard statusCode < 400 else {
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons with status code \(statusCode)")
-                    completion?(nil)
+                    result(.failure(.unknownError))
                     return
                 }
 
                 guard let data = data else {
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid data")
-                    completion?(nil)
+                    result(.failure(.invalidResponse))
                     return
                 }
 
                 let decodedResponse = self?.decodeGeoAPIResonse(geoApiData: data)
-                completion?(decodedResponse)
+                result(.success(decodedResponse))
             })
 
             self.sessionTask?.resume()
         }
     }
 
-    private func loadApps(for location: CLLocation, with features: [GeoAPIFeature], completion: @escaping (([GeoGasStation]) -> Void)) {
+    private func loadApps(for location: CLLocation, with features: [GeoAPIFeature], result: @escaping ((Result<[GeoGasStation], GeoApiManagerError>) -> Void)) {
         let point = [location.coordinate.longitude, location.coordinate.latitude]
 
         cloudQueue.async {
@@ -155,7 +173,7 @@ class GeoAPIManager {
                 return nil
             }
 
-            completion(apps)
+            result(.success(apps))
         }
     }
 

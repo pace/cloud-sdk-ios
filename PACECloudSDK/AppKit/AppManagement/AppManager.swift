@@ -63,14 +63,21 @@ class AppManager {
 // MARK: - API requests
 extension AppManager {
     private func checkAvailableApps(for location: CLLocation, completion: @escaping (([GeoGasStation]?) -> Void)) {
-        geoAPIManager.apps(for: location) { [weak self] apps in
-            guard let apps = apps else {
-                // In case the apps couldn't be retrieved
-                self?.fetchAppsByLocation(with: location, completion: completion)
-                return
-            }
+        geoAPIManager.apps(for: location) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                switch error {
+                case .requestCancelled:
+                    completion(nil)
 
-            completion(apps)
+                default:
+                    // In case the apps couldn't be retrieved
+                    self?.fetchAppsByLocation(with: location, completion: completion)
+                }
+
+            case .success(let stations):
+                completion(stations)
+            }
         }
     }
 

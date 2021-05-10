@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05521B0E26490F3E00AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
+		05521B1326490F7500AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
 		3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
 		3B1D40CA25FA45C2007CF531 /* BiometryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */; };
@@ -759,6 +761,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Error.swift"; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
@@ -1655,9 +1658,10 @@
 		3B97EF3425DE923C00E096B1 /* Geo */ = {
 			isa = PBXGroup;
 			children = (
-				3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */,
 				3B86C74F25DD67E500039296 /* GeoAPIManager.swift */,
+				05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */,
 				3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */,
+				3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */,
 			);
 			path = Geo;
 			sourceTree = "<group>";
@@ -3153,6 +3157,7 @@
 				84D6C063258A03270094982D /* PCPOISource.swift in Sources */,
 				3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */,
 				84D6C07D258A03280094982D /* PCPOIRegionalPrices.swift in Sources */,
+				05521B0E26490F3E00AA4DBB /* GeoAPIManager+Error.swift in Sources */,
 				84600E8A25C03B0C0087194F /* PayAPICreatePaymentMethodPayPal.swift in Sources */,
 				84600F5725C03B340087194F /* FuelingAPICancelPreAuth.swift in Sources */,
 				841A3EBA25B9C8D40065284A /* FuelingAPI.swift in Sources */,
@@ -3331,6 +3336,7 @@
 				92EDDDDD25A7461500E480F4 /* POIKitAPIProtocol+Slim.swift in Sources */,
 				92EDDD4825A7395400E480F4 /* (null) in Sources */,
 				92EDDD1E25A7391800E480F4 /* GasStationApiResponse.swift in Sources */,
+				05521B1326490F7500AA4DBB /* GeoAPIManager+Error.swift in Sources */,
 				8418E29A25B1B85E00D3722B /* APIRequestUtils.swift in Sources */,
 				92EDDC7425A737B600E480F4 /* POIKitDelegate.swift in Sources */,
 				8418E26225B1B85A00D3722B /* PCPOIRegionalPrices.swift in Sources */,
