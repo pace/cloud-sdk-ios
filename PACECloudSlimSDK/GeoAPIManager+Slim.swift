@@ -17,4 +17,8 @@ class GeoAPIManager {
     func apps(for location: CLLocation, result: @escaping (Result<[GeoGasStation], GeoApiManagerError>) -> Void) {
         result(.failure(.unknownError))
     }
+
+    func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void)  {
+        completion(false)
+    }
 }

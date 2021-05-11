@@ -10,8 +10,10 @@ import Foundation
 struct Constants {
     static let logTag = "[PACECloudSDK]"
 
+    static let isPoiInRangeThreshold: Double = 500
+
     struct Configuration {
-        static let defaultAllowedLowAccuracy: Double = 200
+        static let defaultAllowedLowAccuracy: Double = 250
         static let defaultSpeedThreshold: Double = 13
         static let defaultGeoAppsScope: String = "pace"
     }
