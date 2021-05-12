@@ -67,7 +67,20 @@ class GeoAPIManager {
 
         guard let cachedFeatures = cachedFeatures, !isCacheOutdated(for: location) else {
             // Send request if cache is not available or outdated
-            fetchPolygons(for: location, result: result)
+            fetchPolygons(for: location) { [weak self] response in
+                guard let self = self else {
+                    result(.failure(.unknownError))
+                    return
+                }
+
+                switch response {
+                case .success(let cachedFeatures):
+                    self.loadApps(for: location, with: cachedFeatures, result: result)
+
+                case .failure(let error):
+                    result(.failure(error))
+                }
+            }
             return
         }
 
@@ -75,9 +88,9 @@ class GeoAPIManager {
         loadApps(for: location, with: cachedFeatures, result: result)
     }
 
-    private func fetchPolygons(for location: CLLocation, result: @escaping (Result<[GeoGasStation], GeoApiManagerError>) -> Void) {
+    private func fetchPolygons(for location: CLLocation, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
         performGeoRequest { [weak self] apiResult in
-            guard let unwrappedSelf = self else {
+            guard let self = self else {
                 result(.failure(.unknownError))
                 return
             }
@@ -86,14 +99,15 @@ class GeoAPIManager {
             case .success(let apiResponse):
                 guard let features = apiResponse?.features else {
                     // If request fails reset cache to try again next time
-                    self?.resetCache()
+                    self.resetCache()
                     result(.failure(.invalidResponse))
                     return
                 }
 
-                let cachedFeatures = unwrappedSelf.buildCachedGeoAPIResponse(with: features, for: location)
-                unwrappedSelf.cachedFeatures = cachedFeatures
-                unwrappedSelf.loadApps(for: location, with: cachedFeatures, result: result)
+                let cachedFeatures = self.buildCachedGeoAPIResponse(with: features, for: location)
+                self.cachedFeatures = cachedFeatures
+
+                result(.success(cachedFeatures))
 
             case .failure(let error):
                 result(.failure(error))
@@ -226,5 +240,51 @@ private extension GeoAPIManager {
         cacheLastUpdatedAt = nil
         cachedFeatures = nil
         cacheCenter = nil
+    }
+}
+
+// MARK: - isPoiInRange
+extension GeoAPIManager {
+    func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void) {
+        if 0...3 ~= location.speedAccuracy && location.speed > speedThreshold {
+            completion(false)
+            return
+        }
+
+        guard let cachedFeatures = cachedFeatures, !isCacheOutdated(for: location) else {
+            // Send request if cache is not available or outdated
+            fetchPolygons(for: location) { [weak self] response in
+                guard let self = self else {
+                    completion(false)
+                    return
+                }
+
+                switch response {
+                case .success(let cachedFeatures):
+                    let isAvailable = self.isAppAvailable(for: id, location: location, features: cachedFeatures)
+                    completion(isAvailable)
+
+                case .failure:
+                    completion(false)
+                }
+            }
+            return
+        }
+
+        let isAvailable = isAppAvailable(for: id, location: location, features: cachedFeatures)
+        completion(isAvailable)
+    }
+
+    private func isAppAvailable(for id: String, location: CLLocation, features: [GeoAPIFeature]) -> Bool {
+        guard let app = features.first(where: { $0.id == id }),
+              let coordinates = app.geometry?.coordinates?.flatMap({ $0 }) else { return false }
+
+        let isAvailable = coordinates.contains(where: { coordinate in
+            guard let lon = coordinate[safe: 0], let lat = coordinate[safe: 1] else { return false }
+            let polygonEdgeLocation = CLLocation(latitude: lat, longitude: lon)
+            return location.distance(from: polygonEdgeLocation) <= Constants.isPoiInRangeThreshold
+        })
+
+        return isAvailable
     }
 }

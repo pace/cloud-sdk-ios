@@ -104,11 +104,9 @@ public class AppKit {
 
     // MARK: - POI proximity check
     public func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
-        appManager.fetchAppsForOneTimeLocation { apps in
-            let references = apps.map { $0.id }
-
+        appManager.isPoiInRange(with: id) { isAvailable in
             DispatchQueue.main.async {
-                completion(references.contains(where: { $0.contains(id) }))
+                completion(isAvailable)
             }
         }
     }

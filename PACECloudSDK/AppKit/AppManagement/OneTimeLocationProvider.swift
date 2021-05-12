@@ -15,6 +15,8 @@ protocol OneTimeLocationProviderDelegate: AnyObject {
 class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
     weak var delegate: OneTimeLocationProviderDelegate?
 
+    var lowAccuracy: CLLocationDistance = Constants.Configuration.defaultAllowedLowAccuracy
+
     private let manager: CLLocationManager = .init()
     private var locationUpdateHandler: [((CLLocation?) -> Void)] = .init()
     private lazy var workQueue: DispatchQueue = .init(label: "location-provider-queue")
@@ -23,6 +25,7 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
         super.init()
 
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
     }
 
     func requestLocation(completion: ((CLLocation?) -> Void)? = nil) {
@@ -32,11 +35,13 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
             }
         }
 
-        manager.requestLocation()
+        manager.startUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last
+        manager.stopUpdatingLocation()
+
+        let location = locations.first(where: { 0...lowAccuracy ~= $0.horizontalAccuracy })
         delegate?.didFinishLocationRequest(with: location)
 
         notifyHandlers(location)
@@ -44,6 +49,8 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         AppKitLogger.e("[OneTimeLocationProvider] Requesting location failed with error \(error)")
+
+        manager.stopUpdatingLocation()
         delegate?.didFinishLocationRequest(with: nil)
 
         notifyHandlers(nil)

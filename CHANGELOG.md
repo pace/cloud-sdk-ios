@@ -2,7 +2,9 @@ x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
 <!-- ### Breaking Changes - Include, if needed -->
-<!-- ### Enhancements - Include, if needed -->
+### Enhancements
+
+* Adjust isPoiInRange handling 
 <!-- ### Fixes - Include, if needed -->
 
 ### Internal

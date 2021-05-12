@@ -36,6 +36,7 @@ class AppManager {
 
     func setConfigValues() {
         locationProvider.lowAccuracy = PACECloudSDK.shared.config?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
+        oneTimeLocationProvider.lowAccuracy = PACECloudSDK.shared.config?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
         geoAPIManager.speedThreshold = PACECloudSDK.shared.config?.speedThreshold ?? Constants.Configuration.defaultSpeedThreshold
         geoAPIManager.geoAppsScope = PACECloudSDK.shared.config?.geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
     }
@@ -44,17 +45,15 @@ class AppManager {
         locationProvider.startFetchingLocation()
     }
 
-    func fetchAppsForOneTimeLocation(completion: @escaping ([GeoGasStation]) -> Void) {
+    func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void) {
         DispatchQueue.main.async { [weak self] in
             self?.oneTimeLocationProvider.requestLocation { [weak self] location in
                 guard let location = location else {
-                    completion([])
+                    completion(false)
                     return
                 }
 
-                self?.checkAvailableApps(for: location, completion: { apps in
-                    completion(apps ?? [])
-                })
+                self?.geoAPIManager.isPoiInRange(with: id, near: location, completion: completion)
             }
         }
     }
