@@ -2,10 +2,17 @@ x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
 <!-- ### Breaking Changes - Include, if needed -->
+<!-- ### Enhancements - Include, if needed -->
+<!-- ### Fixes - Include, if needed -->
+<!-- ### Internal - Include, if needed -->
+
+
+6.2.0 Release notes (2021-05-12)
+=============================================================
+
 ### Enhancements
 
-* Adjust isPoiInRange handling 
-<!-- ### Fixes - Include, if needed -->
+* Refactor `isPoiInRange` check so that it no longer checks if the position is within the POI's polygon, but if the beeline distance to the POI is within 500m
 
 ### Internal
 
