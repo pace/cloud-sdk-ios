@@ -19,7 +19,8 @@ public protocol AppKitDelegate: AnyObject {
     func didExitGeofence(with id: String)
     func didFailToMonitorRegion(_ region: CLRegion, error: Error)
 
-    func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: @escaping ((String) -> Void))
+    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void))
+    func logout(completion: @escaping ((AppKit.LogoutResponse) -> Void))
     func didReceiveImageData(_ image: UIImage)
 
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)
@@ -38,7 +39,6 @@ public extension AppKitDelegate {
     func didEnterGeofence(with id: String) {}
     func didExitGeofence(with id: String) {}
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
-    func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: @escaping ((String) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) { completion("") }
     func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (([String: Any]?) -> Void)) { completion(nil) }
@@ -86,9 +86,15 @@ extension AppKit {
         }
     }
 
-    func notifyInvalidToken(reason: AppKit.InvalidTokenReason, oldToken: String?, callback: @escaping ((String) -> Void)) {
+    func notifyGetAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, callback: @escaping ((GetAccessTokenResponse) -> Void)) {
         notifyClient { [weak self] in
-            self?.delegate?.tokenInvalid(reason: reason, oldToken: oldToken, completion: callback)
+            self?.delegate?.getAccessToken(reason: reason, oldToken: oldToken, completion: callback)
+        }
+    }
+
+    func notifyLogout(callback: @escaping ((LogoutResponse) -> Void)) {
+        notifyClient { [weak self] in
+            self?.delegate?.logout(completion: callback)
         }
     }
 

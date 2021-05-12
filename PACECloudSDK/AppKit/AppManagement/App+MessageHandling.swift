@@ -90,17 +90,24 @@ extension App {
         }
     }
 
-    func handleInvalidTokenRequest(with request: AppKit.AppRequestData<AppKit.InvalidTokenData>, completion: @escaping () -> Void) {
+    func handleGetAccessTokenRequest(with request: AppKit.AppRequestData<AppKit.GetAccessTokenData>, completion: @escaping () -> Void) {
         guard PACECloudSDK.shared.authenticationMode == .native else { return }
 
         let requestReason = request.message.reason
 
-        let reason = AppKit.InvalidTokenReason(rawValue: requestReason) ?? .other
+        let reason = AppKit.GetAccessTokenReason(rawValue: requestReason) ?? .other
         let oldToken = request.message.oldToken
 
-        AppKit.shared.notifyInvalidToken(reason: reason, oldToken: oldToken) { [weak self] token in
-            PACECloudSDK.shared.currentAccessToken = token
-            self?.messageInterceptor?.respond(id: request.id, message: token)
+        AppKit.shared.notifyGetAccessToken(reason: reason, oldToken: oldToken) { [weak self] response in
+            PACECloudSDK.shared.currentAccessToken = response.accessToken
+            self?.messageInterceptor?.respond(id: request.id, message: response.toDictionary())
+            completion()
+        }
+    }
+
+    func handleLogout(with request: AppKit.EmptyRequestData, completion: @escaping () -> Void) {
+        AppKit.shared.notifyLogout { [weak self] response in
+            self?.messageInterceptor?.respond(id: request.id, message: response)
             completion()
         }
     }

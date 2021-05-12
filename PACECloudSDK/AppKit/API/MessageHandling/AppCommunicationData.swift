@@ -32,7 +32,7 @@ extension AppKit {
         let threshold: Double
     }
 
-    struct InvalidTokenData: Codable {
+    struct GetAccessTokenData: Codable {
         let reason: String
         let oldToken: String?
     }
@@ -81,8 +81,36 @@ extension AppKit {
 }
 
 public extension AppKit {
-    enum InvalidTokenReason: String {
+    enum GetAccessTokenReason: String {
         case unauthorized
         case other
+    }
+
+    struct GetAccessTokenResponse: Codable {
+        let accessToken: String
+        let isInitialToken: Bool
+
+        public init(accessToken: String, isInitialToken: Bool = false) {
+            self.accessToken = accessToken
+            self.isInitialToken = isInitialToken
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.accessToken = try container.decode(.accessToken)
+            self.isInitialToken = try container.decodeIfPresent(.isInitialToken) ?? false
+        }
+
+        public func toDictionary() -> [String: Any] {
+            return ["accessToken": accessToken, "isInitialToken": isInitialToken]
+        }
+    }
+
+    struct LogoutResponse: Codable {
+        let statusCode: String
+
+        public init(statusCode: String) {
+            self.statusCode = statusCode
+        }
     }
 }

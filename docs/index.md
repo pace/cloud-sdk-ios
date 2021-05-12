@@ -122,6 +122,9 @@ In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.re
 ### From 5.x.x to 6.x.x
 We've added more information in the `tokenInvalid` callback, thus the client can better react to the callback, i.e. a `reason` and the `oldToken` (if one has been passed before), will be included in the callback. Please refer to  [Native login](#native-login) for more information.
 
+### From 6.x.x to 7.x.x
+We've added two new sdk methods `getAccessToken` & `logout`. The `getAccessToken` method replaces the `invalidToken` call. While its callback is equal to the `invalidToken` callback, we changed the response to be an object with an `accessToken` property and a new `isInitialToken` boolean. Please refer to  [Native login](#native-login) for more information.
+
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
 
@@ -253,19 +256,31 @@ Biometry is needed for 2FA during the payment process, thus make sure that `NSFa
 You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
 it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`.
 
-There is a `AppKitDelegate` method that you will need to implement, i.e. `tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: ((String) -> Void))`,
+There is a `AppKitDelegate` method that you will need to implement, i.e. `func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void))`,
 which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes
-or has been revoked. You are responsible for retrieving and passing a valid token to the `completion` block.
+or has been revoked. You are responsible for retrieving a valid access token and passing a `GetAccessTokenResponse` with the token and wether it is a initial token or not (defaults to `false`) to the `completion` block.
 In case that you can't retrieve a new valid token, don't call the `completion` handler, otherwise you will most likely end up
 in an endless loop. Make sure to clean up all the App related views as well.
 
 Pseudocode of implementing the protocol method and passing the response to `AppKit`:
 
 ```swift
-func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: ((String) -> Void)) {
-    retrieveNewToken { newToken in
-        completion(newToken)
+func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void)) {
+    IDControl.shared.refresh { token in
+        completion(AppKit.GetAccessTokenResponse(accessToken: token))
     }
+}
+```
+
+The `GetAccessTokenReponse` struct:
+
+```swift
+struct GetAccessTokenResponse: Codable {
+    let accessToken: String
+    let isInitialToken: Bool
+        
+    public init(accessToken: String, isInitialToken: Bool = 
+    public init(from decoder: Decoder) throws
 }
 ```
 

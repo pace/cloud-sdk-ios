@@ -162,14 +162,24 @@ extension App {
                 completion()
             }
 
-        case .invalidToken:
-            guard let request: AppKit.AppRequestData<AppKit.InvalidTokenData> = decode(from: data) else {
+        case .getAccessToken:
+            guard let request: AppKit.AppRequestData<AppKit.GetAccessTokenData> = decode(from: data) else {
                 handleBadRequestResponse(for: data)
                 return
             }
 
             messageExecution = { [weak self] completion in
-                self?.handleInvalidTokenRequest(with: request, completion: completion)
+                self?.handleGetAccessTokenRequest(with: request, completion: completion)
+            }
+
+        case .logout:
+            guard let request: AppKit.EmptyRequestData = decode(from: data) else {
+                handleBadRequestResponse(for: data)
+                return
+            }
+
+            messageExecution = { [weak self] completion in
+                self?.handleLogout(with: request, completion: completion)
             }
 
         case .imageData:
