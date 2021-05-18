@@ -7,7 +7,9 @@ import Foundation
 
 public extension GeoJSONAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
-        .default
+        let config = URLSessionConfiguration.default
+        config.setCustomURLProtocolIfAvailable()
+        return config
     }
 
     static var custom = GeoJSONAPIClient(baseURL: GeoJSONAPIClient.default.baseURL, configuration: urlConfiguration)

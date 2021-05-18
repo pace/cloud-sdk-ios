@@ -52,6 +52,8 @@ class GeoAPIManager {
         let cache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: diskCachePath)
         configuration.urlCache = cache
 
+        configuration.setCustomURLProtocolIfAvailable()
+
         self.session = URLSession(configuration: configuration)
     }
 

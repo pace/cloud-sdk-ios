@@ -7,7 +7,9 @@ import Foundation
 
 public extension PayAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
-        .default
+        let config = URLSessionConfiguration.default
+        config.setCustomURLProtocolIfAvailable()
+        return config
     }
 
     static var custom = PayAPIClient(baseURL: PayAPIClient.default.baseURL, configuration: urlConfiguration)

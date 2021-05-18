@@ -27,6 +27,8 @@ public class PACECloudSDK {
     public var isLoggingEnabled = false
     public weak var loggingDelegate: PACECloudSDKLoggingDelegate?
 
+    public var customURLProtocol: URLProtocol?
+
     private init() {}
 
     public func setup(with config: Configuration) {
@@ -34,6 +36,8 @@ public class PACECloudSDK {
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
+
+        setupCustomURLProtocolIfAvailable()
 
         self.warningsHandler = SDKWarningsHandler(with: config)
         warningsHandler?.preCheckSetup()
@@ -52,6 +56,7 @@ public class PACECloudSDK {
     }
 }
 
+// MARK: - Trace ID
 extension PACECloudSDK {
     var traceId: String? {
         if abs(traceIdCreatedAt?.timeIntervalSinceNow ?? .greatestFiniteMagnitude) > Constants.Tracing.timeThreshold {
@@ -59,6 +64,19 @@ extension PACECloudSDK {
         }
         traceIdCreatedAt = Date()
         return currentTraceId
+    }
+}
+
+// MARK: - CustomURLProtocol
+extension PACECloudSDK {
+    var isCustomURLProtocolEnabled: Bool {
+        Bundle.main.isCustomURLProtocolKeySet && config?.environment == .development
+    }
+
+    private func setupCustomURLProtocolIfAvailable() {
+        guard isCustomURLProtocolEnabled, let customURLProtocol = customURLProtocol else { return }
+        URLProtocol.registerClass(customURLProtocol.classForCoder)
+        URLSession.shared.configuration.setCustomURLProtocolIfAvailable()
     }
 }
 
