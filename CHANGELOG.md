@@ -3,9 +3,11 @@ x.y.z Release notes (yyyy-MM-dd)
 
 <!-- ### Breaking Changes - Include, if needed -->
 <!-- ### Enhancements - Include, if needed -->
-<!-- ### Fixes - Include, if needed -->
 <!-- ### Internal - Include, if needed -->
 
+### Fixes
+
+* Fix date encoding to use UTC time format instead of local
 
 6.2.0 Release notes (2021-05-12)
 =============================================================

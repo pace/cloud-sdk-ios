@@ -308,6 +308,7 @@ extension Date {
     func encode() -> Any {
         var dateEncodingFormatter = DateFormatter(formatString: "yyyy-MM-dd'T'HH:mm:ss'Z'",
                                                                 locale: Locale(identifier: "de_DE"),
+                                                                timeZone: TimeZone(abbreviation: "UTC"),
                                                                 calendar: Calendar(identifier: .gregorian))
         return dateEncodingFormatter.string(from: self)
     }
