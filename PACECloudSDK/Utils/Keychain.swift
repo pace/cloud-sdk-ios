@@ -8,75 +8,79 @@
 import Foundation
 import Security
 
-class Keychain {
-    private let lock = NSLock()
+public extension PACECloudSDK {
+    class Keychain {
+        private let lock = NSLock()
 
-    func set(_ value: String, for key: String) {
-        if let value = value.data(using: .utf8) {
-            set(value, for: key)
-        }
-    }
+        public init() {}
 
-    func set(_ value: Data, for key: String) {
-        lock.lock()
-
-        // Delete existing key before saving a new one
-        deleteWithoutLock(key)
-
-        let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                      kSecAttrAccount: key,
-                                      kSecValueData: value,
-                                      kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly]
-
-        let resultCode = SecItemAdd(query as CFDictionary, nil)
-
-        if resultCode != noErr && resultCode != errSecItemNotFound {
-            Logger.e("[Keychain] Failed setting keychain data with error code \(resultCode)")
+        public func set(_ value: String, for key: String) {
+            if let value = value.data(using: .utf8) {
+                set(value, for: key)
+            }
         }
 
-        lock.unlock()
-    }
+        public func set(_ value: Data, for key: String) {
+            lock.lock()
 
-    func getString(for key: String) -> String? {
-        guard let data = getData(for: key), let stringValue = String(data: data, encoding: .utf8) else { return nil }
-        return stringValue
-    }
+            // Delete existing key before saving a new one
+            deleteWithoutLock(key)
 
-    func getData(for key: String) -> Data? {
-        lock.lock()
-        defer { lock.unlock() }
+            let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                          kSecAttrAccount: key,
+                                          kSecValueData: value,
+                                          kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly]
 
-        var query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                      kSecAttrAccount: key,
-                                      kSecMatchLimit: kSecMatchLimitOne]
-        query[kSecReturnData] = kCFBooleanTrue
+            let resultCode = SecItemAdd(query as CFDictionary, nil)
 
-        var result: AnyObject?
+            if resultCode != noErr && resultCode != errSecItemNotFound {
+                Logger.e("[Keychain] Failed setting keychain data with error code \(resultCode)")
+            }
 
-        let resultCode = withUnsafeMutablePointer(to: &result) {
-            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+            lock.unlock()
         }
 
-        if resultCode != noErr && resultCode != errSecItemNotFound {
-            Logger.e("[Keychain] Failed retrieving data from keychain with error code \(resultCode)")
+        public func getString(for key: String) -> String? {
+            guard let data = getData(for: key), let stringValue = String(data: data, encoding: .utf8) else { return nil }
+            return stringValue
         }
 
-        return result as? Data
-    }
+        public func getData(for key: String) -> Data? {
+            lock.lock()
+            defer { lock.unlock() }
 
-    func delete(_ key: String) {
-        lock.lock()
-        deleteWithoutLock(key)
-        lock.unlock()
-    }
+            var query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                          kSecAttrAccount: key,
+                                          kSecMatchLimit: kSecMatchLimitOne]
+            query[kSecReturnData] = kCFBooleanTrue
 
-    private func deleteWithoutLock(_ key: String) {
-        let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
-                                      kSecAttrAccount: key]
-        let resultCode = SecItemDelete(query as CFDictionary)
+            var result: AnyObject?
 
-        if resultCode != noErr && resultCode != errSecItemNotFound {
-            Logger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
+            let resultCode = withUnsafeMutablePointer(to: &result) {
+                SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+            }
+
+            if resultCode != noErr && resultCode != errSecItemNotFound {
+                Logger.e("[Keychain] Failed retrieving data from keychain with error code \(resultCode)")
+            }
+
+            return result as? Data
+        }
+
+        public func delete(_ key: String) {
+            lock.lock()
+            deleteWithoutLock(key)
+            lock.unlock()
+        }
+
+        private func deleteWithoutLock(_ key: String) {
+            let query: [CFString: Any] = [kSecClass: kSecClassGenericPassword,
+                                          kSecAttrAccount: key]
+            let resultCode = SecItemDelete(query as CFDictionary)
+
+            if resultCode != noErr && resultCode != errSecItemNotFound {
+                Logger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
+            }
         }
     }
 }

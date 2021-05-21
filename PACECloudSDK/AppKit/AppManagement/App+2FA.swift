@@ -178,7 +178,7 @@ extension App {
 private extension App {
     func secureData(for key: String) -> String? {
         let userDefaults = UserDefaults.standard
-        let keychain = Keychain()
+        let keychain = PACECloudSDK.Keychain()
 
         guard let secureDataString = userDefaults.string(forKey: key) else {
             return keychain.getString(for: key)
@@ -192,12 +192,12 @@ private extension App {
     }
 
     func setSecureData(value: String, for key: String) {
-        Keychain().set(value, for: key)
+        PACECloudSDK.Keychain().set(value, for: key)
     }
 
     func appTOTPData(for key: String) -> Data? {
         let userDefaults = UserDefaults.standard
-        let keychain = Keychain()
+        let keychain = PACECloudSDK.Keychain()
 
         guard let userDefaultsTotpData = userDefaults.data(forKey: key) else {
             return keychain.getData(for: key)
@@ -217,11 +217,11 @@ private extension App {
         }
 
         let secretKey = BiometryPolicy.retrieveMasterKey()
-        let totpData = Keychain().getData(for: secretKey)
+        let totpData = PACECloudSDK.Keychain().getData(for: secretKey)
         return totpData
     }
 
     func setAppTOTPData(to newValue: Data, for key: String) {
-        Keychain().set(newValue, for: key)
+        PACECloudSDK.Keychain().set(newValue, for: key)
     }
 }
