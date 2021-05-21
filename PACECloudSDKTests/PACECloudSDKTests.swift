@@ -65,7 +65,7 @@ class PACECloudSDKTests: XCTestCase {
     }
 
     func testKeychain() {
-        let keychain = Keychain()
+        let keychain = PACECloudSDK.Keychain()
 
         let stringKey = "stringKey"
         let stringValue = "stringValue"

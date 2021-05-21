@@ -2,7 +2,10 @@ x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
 <!-- ### Breaking Changes - Include, if needed -->
-<!-- ### Enhancements - Include, if needed -->
+### Enhancements
+
+* Make 'Keychain' wrapper accessible
+
 <!-- ### Internal - Include, if needed -->
 
 ### Fixes
