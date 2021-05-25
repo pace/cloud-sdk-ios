@@ -23,7 +23,9 @@ class AppManager {
     private var geoAPIManager: GeoAPIManager
     private var isLocationFetchRunning = false
     private var isGeneralFetchRunning = false
-    private var currentlyDisplayedLocationApps: [AppKit.AppData] = []
+
+    private var currentlyDisplayedApps: (apps: [AppKit.AppData], location: CLLocation)?
+    private var currentlyDisplayedAppsRemovalThreshold: CLLocationDistance = 150
 
     private lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
@@ -223,7 +225,7 @@ extension AppManager {
         URLBuilder.buildAppStartUrl(with: appUrl, decomposedParams: [.references], references: reference)
     }
 
-    private func retrieveAppData(for geoGasStations: [GeoGasStation]) {
+    private func retrieveAppData(for geoGasStations: [GeoGasStation], with location: CLLocation) {
         let appDatas: [AppKit.AppData] = geoGasStations.reduce(into: []) { result, station in
             let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.references: [station.id]]
             let appDatas: [AppKit.AppData] = station.apps.map { app in
@@ -233,27 +235,36 @@ extension AppManager {
             result.append(contentsOf: appDatas)
         }
 
-        process(appDatas: appDatas, references: geoGasStations.map { $0.id })
+        process(appDatas: appDatas, location: location)
     }
 
-    private func process(appDatas: [AppKit.AppData], references: [String]) {
+    private func process(appDatas: [AppKit.AppData], location: CLLocation) {
+        if appDatas.isEmpty,
+           let currentLocation = currentlyDisplayedApps?.location,
+           currentLocation.distance(from: location) < currentlyDisplayedAppsRemovalThreshold {
+            // If the new location returns no apps and
+            // it's not farther away than 150 from the previous location
+            // we keep the current apps
+            return
+        }
+
         let newGasStationIds = appDatas.map { $0.poiId }
 
-        checkDidEscapeForecourtEvent(with: newGasStationIds)
-        currentlyDisplayedLocationApps = appDatas
+        removeDisplayedAppsIfNeeded(with: newGasStationIds)
+        currentlyDisplayedApps = (apps: appDatas, location: location)
         fetchAppManifest(with: appDatas)
     }
 
-    private func checkDidEscapeForecourtEvent(with newApps: [String]) {
-        let appsToRemove = currentlyDisplayedLocationApps.filter { !newApps.contains($0.poiId) }
+    private func removeDisplayedAppsIfNeeded(with newApps: [String]) {
+        let appsToRemove = currentlyDisplayedApps?.apps.filter { !newApps.contains($0.poiId) } ?? []
 
         guard !appsToRemove.isEmpty else { return }
 
-        sendEscapedForecourtEvent(to: appsToRemove)
+        removeDisplayedApps(with: appsToRemove)
         delegate?.didEscapeForecourt(appsToRemove)
     }
 
-    private func sendEscapedForecourtEvent(to apps: [AppKit.AppData]) {
+    private func removeDisplayedApps(with apps: [AppKit.AppData]) {
         apps.forEach {
             NotificationCenter.default.post(name: .appEventOccured, object: AppKit.AppEvent.escapedForecourt(gasStationId: $0.poiId))
         }
@@ -289,7 +300,7 @@ extension AppManager: AppDrawerLocationProviderDelegate {
 
         checkAvailableApps(for: location) { [weak self] apps in
             guard let apps = apps else { return }
-            self?.retrieveAppData(for: apps)
+            self?.retrieveAppData(for: apps, with: location)
         }
     }
 
@@ -302,7 +313,8 @@ extension AppManager: AppDrawerLocationProviderDelegate {
 
         // Reduced Accuracy -> Remove current app drawers
         if let error = error as? CLError, error.code == .deferredAccuracyTooLow {
-            sendEscapedForecourtEvent(to: currentlyDisplayedLocationApps)
+            removeDisplayedApps(with: currentlyDisplayedApps?.apps ?? [])
+            currentlyDisplayedApps = nil
             delegate?.passErrorToClient(.other(error))
         }
     }
