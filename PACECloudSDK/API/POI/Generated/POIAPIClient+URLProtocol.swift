@@ -7,7 +7,9 @@ import Foundation
 
 public extension POIAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
-        .default
+        let config = URLSessionConfiguration.default
+        config.setCustomURLProtocolIfAvailable()
+        return config
     }
 
     static var custom = POIAPIClient(baseURL: POIAPIClient.default.baseURL, configuration: urlConfiguration)

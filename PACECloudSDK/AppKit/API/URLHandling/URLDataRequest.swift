@@ -14,7 +14,7 @@ struct URLDataRequest {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadRevalidatingCacheData
         config.httpAdditionalHeaders = AppKitConstants.userAgentHeader
-
+        config.setCustomURLProtocolIfAvailable()
         return URLSession(configuration: config)
     }
 

@@ -65,9 +65,15 @@ extension Bundle {
         let scheme = schemes.first(where: { $0.hasPrefix("pace.") })
         return scheme ?? PACECloudSDK.shared.redirectScheme
     }
+
+    var isCustomURLProtocolKeySet: Bool {
+        object(forInfoDictionaryKey: Bundle.customURLProtocol) as? Bool ?? false
+    }
 }
 
 extension Bundle {
     static let urlTypesInfoPlistKey = "CFBundleURLTypes"
     static let urlSchemesInfoPlistKey = "CFBundleURLSchemes"
+
+    static let customURLProtocol = "PACECloudSDKCustomURLProtocolEnabled"
 }

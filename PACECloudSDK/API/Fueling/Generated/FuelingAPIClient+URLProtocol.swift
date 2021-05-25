@@ -7,7 +7,9 @@ import Foundation
 
 public extension FuelingAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
-        .default
+        let config = URLSessionConfiguration.default
+        config.setCustomURLProtocolIfAvailable()
+        return config
     }
 
     static var custom = FuelingAPIClient(baseURL: FuelingAPIClient.default.baseURL, configuration: urlConfiguration)

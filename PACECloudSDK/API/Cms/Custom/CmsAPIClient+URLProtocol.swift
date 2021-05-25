@@ -9,7 +9,9 @@ import Foundation
 
 public extension CmsAPIClient {
     private static var urlConfiguration: URLSessionConfiguration {
-        .default
+        let config = URLSessionConfiguration.default
+        config.setCustomURLProtocolIfAvailable()
+        return config
     }
 
     static var custom = CmsAPIClient(baseURL: CmsAPIClient.default.baseURL, configuration: urlConfiguration)

@@ -60,6 +60,8 @@
 		3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
 		3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02F4255C228E0020A6FA /* JWTTests.swift */; };
 		3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
+		3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
+		3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
 		3B96928A25E3C18700E42703 /* GeoGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */; };
 		3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */; };
@@ -809,6 +811,7 @@
 		3B8B02EC255C1D780020A6FA /* JWTToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTToken.swift; sourceTree = "<group>"; };
 		3B8B02F4255C228E0020A6FA /* JWTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTests.swift; sourceTree = "<group>"; };
 		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
+		3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Extension.swift"; sourceTree = "<group>"; };
 		3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Slim.swift"; sourceTree = "<group>"; };
 		3B96929925E3C20900E42703 /* RayCastingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCastingTests.swift; sourceTree = "<group>"; };
 		3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -1379,6 +1382,7 @@
 				3B970A062542D9BA0072F6BA /* Notification+Extension.swift */,
 				3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */,
 				3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */,
+				3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3007,6 +3011,7 @@
 				84600F1425C03B1E0087194F /* POIAPIChangePoi.swift in Sources */,
 				3B76F77025765014008D8F9A /* Pay.swift in Sources */,
 				3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */,
+				3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */,
 				92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */,
 				3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */,
 				3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */,
@@ -3487,6 +3492,7 @@
 				92EDDE8225A917A500E480F4 /* POIKitAPIProtocol.swift in Sources */,
 				92EDDC8025A737F200E480F4 /* Database.swift in Sources */,
 				3B40F83325D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift in Sources */,
+				3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */,
 				92EDDC0125A7270300E480F4 /* ApplePayRequest.swift in Sources */,
 				92EDDBEC25A7270300E480F4 /* AppKitConstants.swift in Sources */,
 				8418E27B25B1B85A00D3722B /* PCPOIFuelPrice.swift in Sources */,
