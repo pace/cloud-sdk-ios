@@ -212,7 +212,7 @@ extension App {
             return
         }
 
-        oneTimeLocationProvider.requestLocation { [weak self] userLocation in
+        oneTimeLocationProvider.requestLocation(useLastKnownLocationIfViable: true) { [weak self] userLocation in
             guard let userLocation = userLocation else {
                 self?.passVerificationToClient(id: request.id,
                                                locationToVerify: locationToVerify,

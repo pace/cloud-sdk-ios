@@ -18,6 +18,7 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
     var lowAccuracy: CLLocationDistance = Constants.Configuration.defaultAllowedLowAccuracy
 
     private let manager: CLLocationManager = .init()
+    private let maximalLocationAge: TimeInterval = 30
     private var locationUpdateHandler: [((CLLocation?) -> Void)] = .init()
     private lazy var workQueue: DispatchQueue = .init(label: "location-provider-queue")
 
@@ -28,35 +29,47 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
     }
 
-    func requestLocation(completion: ((CLLocation?) -> Void)? = nil) {
+    func requestLocation(useLastKnownLocationIfViable: Bool = false, completion: ((CLLocation?) -> Void)? = nil) {
         workQueue.async { [weak self] in
             if let handler = completion {
                 self?.locationUpdateHandler.append(handler)
             }
         }
 
-        manager.startUpdatingLocation()
+        guard useLastKnownLocationIfViable,
+              let location = lastKnownLocationIfViable() else {
+            manager.startUpdatingLocation()
+            return
+        }
+
+        notifyReceivers(location)
+        AppKitLogger.i("[OneTimeLocationProvider] Using the last known location as it's still viable.")
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
 
         let location = locations.first(where: { 0...lowAccuracy ~= $0.horizontalAccuracy })
-        delegate?.didFinishLocationRequest(with: location)
-
-        notifyHandlers(location)
+        notifyReceivers(location)
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         AppKitLogger.e("[OneTimeLocationProvider] Requesting location failed with error \(error)")
 
         manager.stopUpdatingLocation()
-        delegate?.didFinishLocationRequest(with: nil)
-
-        notifyHandlers(nil)
+        notifyReceivers(nil)
     }
 
-    private func notifyHandlers(_ location: CLLocation?) {
+    private func lastKnownLocationIfViable() -> CLLocation? {
+        guard let lastKnownLocation = manager.location,
+              0...lowAccuracy ~= lastKnownLocation.horizontalAccuracy,
+              0...maximalLocationAge ~= abs(lastKnownLocation.timestamp.timeIntervalSinceNow) else { return nil }
+        return lastKnownLocation
+    }
+
+    private func notifyReceivers(_ location: CLLocation?) {
+        delegate?.didFinishLocationRequest(with: location)
+
         workQueue.async { [weak self] in
             self?.locationUpdateHandler.forEach { $0(location) }
             self?.locationUpdateHandler.removeAll()
