@@ -14,6 +14,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Internal
 
 * Speed up verify location call
+* Set default utm source
 
 6.2.0 Release notes (2021-05-12)
 =============================================================
