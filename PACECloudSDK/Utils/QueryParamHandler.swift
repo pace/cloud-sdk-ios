@@ -15,16 +15,25 @@ class QueryParamHandler {
     ]
 
     static func buildUrl(for url: URL) -> URL? {
-        guard let additionalQueryParams = PACECloudSDK.shared.additionalQueryParams,
-              !ignoredUrls.contains(where: url.absoluteString.contains),
+        guard !ignoredUrls.contains(where: url.absoluteString.contains),
               var urlComponents = URLComponents(string: url.absoluteString)
         else {
             return url
         }
 
-        let queryItems: [URLQueryItem] = urlComponents.queryItems ?? []
+        var queryItems: [URLQueryItem] = (urlComponents.queryItems ?? []) + (PACECloudSDK.shared.additionalQueryParams ?? [])
 
-        urlComponents.queryItems = queryItems + Array(additionalQueryParams)
+        // If there is no value for utm_source yet
+        // use the main bundle's name if not empty
+        let utmSource = "utm_source"
+        let mainBundleName = Bundle.main.bundleName
+
+        if !mainBundleName.isEmpty,
+           !queryItems.contains(where: { $0.name == utmSource }) {
+            queryItems.append(.init(name: utmSource, value: mainBundleName))
+        }
+
+        urlComponents.queryItems = queryItems
 
         return urlComponents.url
     }

@@ -15,7 +15,7 @@ class QueryParamHandlerTests: XCTestCase {
     }
 
     func testWithoutAdditionalQueryParams() {
-        let url = URL(string: "https://pace.cloud?id=1337&foo=bar")
+        let url = URL(string: "https://pace.cloud?id=1337&foo=bar&utm_source=UnitTestDummy")
         PACECloudSDK.shared.additionalQueryParams = nil
 
         let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
@@ -33,6 +33,20 @@ class QueryParamHandlerTests: XCTestCase {
         let components = URLComponents(string: modifiedUrl!.absoluteString)
 
         XCTAssertNotEqual(url!.absoluteString, modifiedUrl!.absoluteString)
+        XCTAssertTrue(queryItems.allSatisfy(components!.queryItems!.contains))
+    }
+
+    func testWithCustomUTMSource() {
+        let url = URL(string: "https://pace.cloud?id=1337&foo=bar")
+        let utmURL = URL(string: "https://pace.cloud?id=1337&foo=bar&utm_source=foo")
+        let queryItems = ["utm_source": "foo"].map { URLQueryItem(name: $0.key, value: $0.value) }
+
+        PACECloudSDK.shared.additionalQueryParams = Set(queryItems)
+
+        let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
+        let components = URLComponents(string: modifiedUrl!.absoluteString)
+
+        XCTAssertEqual(utmURL!.absoluteString, modifiedUrl!.absoluteString)
         XCTAssertTrue(queryItems.allSatisfy(components!.queryItems!.contains))
     }
 
