@@ -120,7 +120,7 @@ extension App {
         // Apple Pay Web is using a slightly different naming for their PKPaymentNetworks,
         // hence why we need to uppercase the first letter
         let networks: [PKPaymentNetwork] = request.message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
-        let result = PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
+        let result = networks.isEmpty ? PKPaymentAuthorizationController.canMakePayments() : PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
 
         messageInterceptor?.respond(id: request.id, message: result ? true : false)
     }
