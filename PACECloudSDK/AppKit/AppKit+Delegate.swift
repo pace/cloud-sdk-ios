@@ -37,11 +37,11 @@ public extension AppKitDelegate {
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
     func tokenInvalid(reason: AppKit.InvalidTokenReason, oldToken: String?, completion: @escaping ((String) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
-    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) {}
-    func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) {}
+    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) { completion(nil) }
+    func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) { completion(false) }
     func setUserProperty(key: String, value: String, update: Bool) {}
     func logEvent(key: String, parameters: [String: Any]) {}
-    func getConfig(key: String, completion: @escaping ((Any?) -> Void)) {}
+    func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
 }
 
 extension AppKit {
