@@ -11,6 +11,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Fix date encoding to use UTC time format instead of local
 * Handle 403 response correctly for `setPIN(with otp:)`
+* Fix wrong status code data type in PWA communication
 
 ### Internal
 

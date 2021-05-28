@@ -57,9 +57,9 @@ class AppWebViewMessageInterceptor {
         respond(id: id, message: [MessageHandlerParam.statusCode.rawValue: statusCode.rawValue])
     }
 
-    func send(id: String, error: [String: String]) {
+    func send(id: String, error: [String: Int]) {
         var message = error
-        message[MessageHandlerParam.statusCode.rawValue] = MessageHandlerStatusCode.internalError.rawValue
+        message[MessageHandlerParam.statusCode.rawValue] = MessageHandlerStatusCode.internalError.statusCode
         let errorData: [String: Any] = ["id": id, "message": message]
         sendError(errorData)
     }

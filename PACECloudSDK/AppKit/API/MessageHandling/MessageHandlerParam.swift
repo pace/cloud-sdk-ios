@@ -42,7 +42,7 @@ enum MessageHandlerStatusCode: String {
     case internalError = "Internal error"
     case requestTimeout = "Request timeout"
 
-    var statusCode: String {
+    var statusCode: Int {
         let code: Int
         switch self {
         case .success:
@@ -67,6 +67,6 @@ enum MessageHandlerStatusCode: String {
             code = 500
         }
 
-        return "\(code)"
+        return code
     }
 }
