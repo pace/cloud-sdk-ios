@@ -10,6 +10,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Fixes
 
 * Fix date encoding to use UTC time format instead of local
+* Handle 403 response correctly for `setPIN(with otp:)`
 
 ### Internal
 

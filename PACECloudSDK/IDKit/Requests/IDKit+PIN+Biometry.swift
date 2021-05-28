@@ -84,6 +84,8 @@ extension IDKit {
             case .success(let result):
                 if result.statusCode == HttpStatusCode.notAcceptable.rawValue {
                     completion(.failure(.pinNotSecure))
+                } else if result.statusCode == HttpStatusCode.forbidden.rawValue {
+                    completion(.failure(.invalidCredentials))
                 } else {
                     completion(.success(result.successful))
                 }
