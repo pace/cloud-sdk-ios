@@ -1,25 +1,9 @@
-/* 
-  Localizable.strings
- AppKit
-
-  Created by PACE Telematics GmbH.
-*/
-
-"app.loading.error" = "Sorry, something went wrong. Please try again later";
-"user.alert.retry" = "Try again";
-"loading.text" = "Loading data";
-"action.cancel" = "Cancel";
-"action.close" = "Close";
-
-"connection.problem.network_headline" = "Insufficient network connection";
-"connection.problem.network" = "PACE needs a stable and sufficiently fast network connection to continue.\n\nPlease make sure that your PACE Car app is allowed to access your phone’s mobile data. You can also use Wi-Fi.";
-
-"payment.method.title" = "Payment method";
-"payment.method.amount.description" = "Total";
-"payment.payButton.title" = "Pay now";
-"payment.authentication.successful" = "Transferring data...";
-"payment.authentication.confirmation" = "Pay now";
-
-"payment.method.kind.sepa" = "SEPA direct debit";
-
-"secureData.authentication.confirmation" = "Authorize to access secured data";
+"error_generic" = "Sorry, something went wrong. Please try again later.";
+"common_retry" = "Try again";
+"loading_text" = "Loading data";
+"common_action_close" = "Close";
+"error_connection_problem_network_headline" = "Insufficient network connection";
+"error_connection_problem_network" = "PACE needs a stable and sufficiently fast network connection to continue.\n\nPlease make sure that your app is allowed to access your phone’s mobile data. You can also use Wi-Fi.";
+"appkit_payment_authentication_confirmation" = "Pay now";
+"appkit_secureData_authentication_confirmation" = "Authorize to access secured data";
+"idkit_biometryAuthentication_confirmation" = "Confirm the use of biometric authentication";
