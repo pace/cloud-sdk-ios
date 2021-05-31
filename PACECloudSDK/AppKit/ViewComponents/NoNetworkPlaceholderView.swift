@@ -42,7 +42,7 @@ class NoNetworkPlaceholderView: UIView {
 
     private lazy var closeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("action.close".localized, for: .normal)
+        button.setTitle(L10n.commonActionClose, for: .normal)
         button.setTitleColor(AppStyle.blueColor, for: .normal)
         button.addTarget(self, action: #selector(handleCloseTapped), for: .touchUpInside)
         return button
@@ -63,9 +63,9 @@ class NoNetworkPlaceholderView: UIView {
         setup()
     }
 
-    init(titleText: String = "connection.problem.network_headline".localized,
-         placeholderText: String = "connection.problem.network".localized,
-         buttonText: String = "user.alert.retry".localized,
+    init(titleText: String = L10n.errorConnectionProblemNetworkHeadline,
+         placeholderText: String = L10n.errorConnectionProblemNetwork,
+         buttonText: String = L10n.commonRetry,
          image: UIImage = AppStyle.noNetworkIcon,
          hideCloseButton: Bool = false) {
         super.init(frame: .zero)
@@ -87,9 +87,9 @@ class NoNetworkPlaceholderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func set(titleText: String = "connection.problem.network_headline".localized,
-             placeholderText: String = "connection.problem.network".localized,
-             buttonText: String = "user.alert.retry".localized,
+    func set(titleText: String = L10n.errorConnectionProblemNetworkHeadline,
+             placeholderText: String = L10n.errorConnectionProblemNetwork,
+             buttonText: String = L10n.commonRetry,
              image: UIImage = AppStyle.noNetworkIcon) {
 
         placeholderTitleLabel.text = titleText

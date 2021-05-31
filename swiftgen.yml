@@ -1,0 +1,5 @@
+strings:
+  inputs: PACECloudSDK/AppKit/Localization/en.lproj
+  outputs:
+    - templateName: structured-swift5
+      output: PACECloudSDK/Generated/Strings.swift

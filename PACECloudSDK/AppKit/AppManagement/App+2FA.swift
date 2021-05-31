@@ -34,7 +34,7 @@ extension App {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = "payment.authentication.confirmation".localized
+        let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             messageInterceptor?.send(id: request.id, error: .notAllowed)
@@ -81,7 +81,7 @@ extension App {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = "payment.authentication.confirmation".localized
+        let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             messageInterceptor?.send(id: request.id, error: .notAllowed)
@@ -152,7 +152,7 @@ extension App {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = "secureData.authentication.confirmation".localized
+        let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             messageInterceptor?.send(id: request.id, error: .notAllowed)
