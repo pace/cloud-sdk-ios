@@ -71,6 +71,8 @@ extension IDKit {
     }
 
     func setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
+        logBiometryWarningsIfNeeded()
+
         guard let accessToken = IDKit.latestAccessToken() else {
             completion(.failure(.invalidSession))
             return
@@ -99,12 +101,16 @@ extension IDKit {
     // MARK: - Biometry
 
     func isBiometricAuthenticationEnabled() -> Bool {
+        logBiometryWarningsIfNeeded()
+
         guard IDKit.latestAccessToken() != nil else { return false }
         let isSet = masterTOTPData() != nil
         return isSet
     }
 
     func enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?) {
+        logBiometryWarningsIfNeeded()
+
         guard let accessToken = IDKit.latestAccessToken() else {
             completion?(.failure(.invalidSession))
             return
@@ -305,5 +311,9 @@ private extension IDKit {
         }
 
         keychain.set(newValue, for: secretKey)
+    }
+
+    func logBiometryWarningsIfNeeded() {
+        PACECloudSDK.shared.warningsHandler?.logBiometryWarningsIfNeeded()
     }
 }

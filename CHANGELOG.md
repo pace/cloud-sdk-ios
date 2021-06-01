@@ -7,6 +7,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Make 'Keychain' wrapper accessible
 * Make app drawer more robust by allowing a threshold of 150m in which it won't be removed if no other apps are available
 * Implement default completion handlers for `AppKitDelegate` 
+* Implemented console warning for a missing `domainACL` if using 2FA methods
 
 ### Fixes
 
