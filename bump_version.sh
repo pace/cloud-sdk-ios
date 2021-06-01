@@ -25,5 +25,6 @@ sed -i '' -e "s/x.y.z Release notes (yyyy-MM-dd)/${NEW_VERSION} Release notes ($
 echo "Updated CHANGELOG.md to $NEW_VERSION"
 
 # Commit changes
+git checkout -b "bump-version-$NEW_VERSION"
 git add -u
 git commit -m "Bump version to $NEW_VERSION"
