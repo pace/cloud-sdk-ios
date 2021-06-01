@@ -12,6 +12,7 @@ extension PACECloudSDK {
         let apiKey: String
         let redirectScheme: String?
         let environment: Environment
+        let domainACL: [String]?
 
         let isRedirectSchemeCheckEnabled: Bool
 
@@ -33,6 +34,7 @@ extension PACECloudSDK {
             self.apiKey = config.apiKey
             self.redirectScheme = Bundle.main.clientRedirectScheme
             self.environment = config.environment
+            self.domainACL = config.domainACL
 
             self.isRedirectSchemeCheckEnabled = config.isRedirectSchemeCheckEnabled
         }
@@ -58,6 +60,11 @@ extension PACECloudSDK {
         func logSDKWarningsIfNeeded() {
             guard !missingValues.isEmpty else { return }
             Logger.w("\n❌ You haven't set any PACECloudSDK values for: [\(missingValues.joined(separator: ", "))].")
+        }
+
+        func logBiometryWarningsIfNeeded() {
+            guard domainACL?.isEmpty ?? true else { return }
+            Logger.w("\n⚠️ We've noticed that you are using IDKit's 2FA methods but haven't set up a valid 'domainACL' yet. Please do so in your PACECloudSDK's configuration.")
         }
     }
 }

@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let config: PACECloudSDK.Configuration = .init(apiKey: "apikey",
                                                        authenticationMode: .native,
-                                                       environment: currentAppEnvironment())
+                                                       environment: currentAppEnvironment(),
+                                                       domainACL: ["pace.cloud"])
 
         PACECloudSDK.shared.setup(with: config)
 
