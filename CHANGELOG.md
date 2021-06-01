@@ -2,11 +2,17 @@ x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
 <!-- ### Breaking Changes - Include, if needed -->
+<!-- ### Enhancements - Include, if needed -->
+<!-- ### Fixes - Include, if needed -->
+<!-- ### Internal - Include, if needed -->
+
+6.3.0 Release notes (2021-06-01)
+=============================================================
+
 ### Enhancements
 
 * Make 'Keychain' wrapper accessible
 * Make app drawer more robust by allowing a threshold of 150m in which it won't be removed if no other apps are available
-* Implement default completion handlers for `AppKitDelegate` 
 * Implemented console warning for a missing `domainACL` if using 2FA methods
 
 ### Fixes
@@ -15,6 +21,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Handle 403 response correctly for `setPIN(with otp:)`
 * Fix wrong status code data type in PWA communication
 * Fix faulty message when authorizing biometric authentication
+* Implement default completion handlers for `AppKitDelegate` 
 
 ### Internal
 
@@ -168,6 +175,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Update Xcode version tag and fix CI script
 * Use SPM instead of Carthage as package dependency manager
+* Change PWA actions to message handlers
 
 3.0.1 Release notes (2020-12-22)
 =============================================================
