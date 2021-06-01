@@ -228,16 +228,24 @@ extension App {
 
     private func passVerificationToClient(id: String, locationToVerify: CLLocation, threshold: Double, completion: @escaping () -> Void) {
         AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold) { [weak self] isInRange in
-            self?.messageInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
+            self?.respondToVerifyLocation(with: id, isInRange: isInRange, accuracy: nil)
             completion()
         }
     }
 
-    private func verifyLocation(id: String, userLocation: CLLocation?, locationToVerify: CLLocation, distanceThreshold: Double) {
-        var isInRange: Bool = false
-        if let distance = userLocation?.distance(from: locationToVerify) {
-            isInRange = distance <= distanceThreshold
+    private func verifyLocation(id: String, userLocation: CLLocation, locationToVerify: CLLocation, distanceThreshold: Double) {
+        let distance = userLocation.distance(from: locationToVerify)
+        let isInRange = distance <= distanceThreshold
+        respondToVerifyLocation(with: id, isInRange: isInRange, accuracy: userLocation.horizontalAccuracy)
+    }
+
+    private func respondToVerifyLocation(with id: String, isInRange: Bool, accuracy: CLLocationAccuracy?) {
+        var message: [String: Any] = [MessageHandlerParam.verified.rawValue: isInRange]
+
+        if let accuracy = accuracy {
+            message[MessageHandlerParam.accuracy.rawValue] = accuracy
         }
-        messageInterceptor?.respond(id: id, message: isInRange ? "true" : "false")
+
+        messageInterceptor?.respond(id: id, message: message)
     }
 }

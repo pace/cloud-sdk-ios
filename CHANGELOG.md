@@ -19,6 +19,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Speed up verify location call
 * Set default utm source
 * Don't send empty network list to Apple Pay availability check
+* Return location accuracy in `verifyLocation` call
 
 6.2.0 Release notes (2021-05-12)
 =============================================================

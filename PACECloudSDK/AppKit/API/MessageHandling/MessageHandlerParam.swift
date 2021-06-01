@@ -23,6 +23,8 @@ enum MessageHandlerParam: String {
     case lat
     case lon
     case threshold
+    case verified
+    case accuracy
 
     // Redirect scheme
     case link
