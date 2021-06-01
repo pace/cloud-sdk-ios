@@ -134,7 +134,7 @@ extension IDKit {
                 }
 
                 let biometryPolicy = BiometryPolicy()
-                let reasonText = "payment.authentication.confirmation".localized
+                let reasonText = L10n.idkitBiometryAuthenticationConfirmation
 
                 guard biometryPolicy.canEvaluatePolicy else {
                     completion?(.failure(.biometryNotSupported))
@@ -221,7 +221,7 @@ extension IDKit {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = "payment.authentication.confirmation".localized
+        let reasonText = L10n.idkitBiometryAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             completion(.failure(.biometryNotSupported))

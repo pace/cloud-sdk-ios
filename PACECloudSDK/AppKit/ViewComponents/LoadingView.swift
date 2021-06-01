@@ -12,7 +12,7 @@ class LoadingView: UIView {
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "loading.text".localized
+        label.text = L10n.loadingText
         label.font = AppStyle.regularFont(ofSize: 17)
         label.numberOfLines = 0
         label.textAlignment = .center

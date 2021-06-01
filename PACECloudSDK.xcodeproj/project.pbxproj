@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		05521B0E26490F3E00AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
 		05521B1326490F7500AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
+		05F57A31266635B5008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
+		05F57A36266635B7008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
 		3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
 		3B1D40CA25FA45C2007CF531 /* BiometryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */; };
@@ -764,6 +766,7 @@
 
 /* Begin PBXFileReference section */
 		05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Error.swift"; sourceTree = "<group>"; };
+		05F57A30266635B5008F2272 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
@@ -1278,6 +1281,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05F57A292666359A008F2272 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				05F57A30266635B5008F2272 /* Strings.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		3B19FA3225FB66F4008B05D6 /* Biometry */ = {
 			isa = PBXGroup;
 			children = (
@@ -2495,10 +2506,10 @@
 			isa = PBXGroup;
 			children = (
 				921E682E2534883100438491 /* PACECloudSDK */,
-				92EDDBCE25A71EEB00E480F4 /* PACECloudSlimSDK */,
 				921E68392534883200438491 /* PACECloudSDKTests */,
-				3BA6A761260DD06A005D4B5C /* UnitTestDummy */,
+				92EDDBCE25A71EEB00E480F4 /* PACECloudSlimSDK */,
 				921E682D2534883100438491 /* Products */,
+				3BA6A761260DD06A005D4B5C /* UnitTestDummy */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2518,12 +2529,13 @@
 			children = (
 				3B1E9105253D844E00DC4BB1 /* API */,
 				3B9709FA2542D9460072F6BA /* AppKit */,
+				05F57A292666359A008F2272 /* Generated */,
 				3B730745253729C0009A7DF7 /* IDKit */,
 				3BC9A78E2539DD2000B933AE /* POIKit */,
 				3BB1442525386E9C004E9F63 /* Utils */,
 				921E682F2534883200438491 /* PACECloudSDK.h */,
-				921E68302534883200438491 /* Info.plist */,
 				926D0F6A2541BA3200409432 /* README.md */,
+				921E68302534883200438491 /* Info.plist */,
 				92EFB206258B5C00001768F0 /* PACECloudSDK.swift */,
 				923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */,
 				3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */,
@@ -2920,6 +2932,7 @@
 				84600F2025C03B1E0087194F /* POIAPIGetSources.swift in Sources */,
 				3BC9A7FB2539DDAD00B933AE /* NavigationRequest.swift in Sources */,
 				84D6C087258A03280094982D /* PCPayPaymentToken.swift in Sources */,
+				05F57A31266635B5008F2272 /* Strings.swift in Sources */,
 				84A439CF2580E33B00DE36FA /* POIRequestBehaviour.swift in Sources */,
 				3BC9A7FE2539DDAD00B933AE /* tile_query_request.proto in Sources */,
 				84600F4F25C03B340087194F /* FuelingAPIGetPumps.swift in Sources */,
@@ -3336,6 +3349,7 @@
 				92EDDCA025A7385000E480F4 /* TileInformation.swift in Sources */,
 				92EDDD9225A73A1900E480F4 /* Poly.swift in Sources */,
 				92EDDDB425A73C7900E480F4 /* POIKitAPI+Observer.swift in Sources */,
+				05F57A36266635B7008F2272 /* Strings.swift in Sources */,
 				8418E28C25B1B85A00D3722B /* PCPOIFieldMetaData.swift in Sources */,
 				8418E22C25B1AD2600D3722B /* API.swift in Sources */,
 				92EDDDDD25A7461500E480F4 /* POIKitAPIProtocol+Slim.swift in Sources */,

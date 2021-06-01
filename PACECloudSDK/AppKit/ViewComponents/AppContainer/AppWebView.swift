@@ -30,10 +30,10 @@ class AppWebView: WKWebView, App {
 
     lazy var loadingView: LoadingView = LoadingView()
     lazy var placeholder: NoNetworkPlaceholderView = {
-        NoNetworkPlaceholderView(titleText: "app.loading.error".localized,
-                                        placeholderText: "",
-                                        buttonText: "user.alert.retry".localized,
-                                        image: AppStyle.iconNotificationError)
+        NoNetworkPlaceholderView(titleText: L10n.loadingText,
+                                 placeholderText: "",
+                                 buttonText: L10n.commonRetry,
+                                 image: AppStyle.iconNotificationError)
     }()
 
     required init(with url: String?) {

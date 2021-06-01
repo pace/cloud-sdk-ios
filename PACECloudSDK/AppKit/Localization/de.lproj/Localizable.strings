@@ -1,26 +1,9 @@
-/* 
-  Localizable.strings
- AppKit
-
-  Created by PACE Telematics GmbH.
-*/
-
-"app.loading.error" = "Es ist ein Fehler aufgetreten. Bitte probiere es später noch einmal.";
-"user.alert.retry" = "Erneut versuchen";
-"loading.text" = "Daten werden geladen";
-"action.cancel" = "Abbrechen";
-"action.close" = "Schließen";
-
-"connection.problem.network_headline" = "Internetverbindung nicht ausreichend";
-"connection.problem.network" = "PACE benötigt eine stabile und ausreichend schnelle Internetverbindung, um fortzufahren.\n\nBitte stelle sicher, dass die PACE Car App auf mobile Daten zugreifen darf, oder nutze eine WLAN-Verbindung.";
-
-"payment.method.title" = "Zahlungsmethode";
-"payment.method.description" = "SEPA Lastschrift";
-"payment.method.amount.description" = "Gesamtbetrag";
-"payment.payButton.title" = "Jetzt bezahlen";
-"payment.authentication.successful" = "Daten werden übertragen...";
-"payment.authentication.confirmation" = "Jetzt bezahlen";
-
-"payment.method.kind.sepa" = "SEPA Lastschrift";
-
-"secureData.authentication.confirmation" = "Jetzt autorisieren, um auf Daten zuzugreifen";
+"error_generic" = "Es ist ein Fehler aufgetreten. Bitte probiere es später noch einmal.";
+"common_retry" = "Erneut versuchen";
+"loading_text" = "Daten werden geladen";
+"common_action_close" = "Schließen";
+"error_connection_problem_network_headline" = "Internetverbindung nicht ausreichend";
+"error_connection_problem_network" = "PACE benötigt eine stabile und ausreichend schnelle Internetverbindung, um fortzufahren.\n\nBitte stelle sicher, dass deine App auf mobile Daten zugreifen darf, oder nutze eine WLAN-Verbindung.";
+"appkit_payment_authentication_confirmation" = "Jetzt bezahlen";
+"appkit_secureData_authentication_confirmation" = "Jetzt autorisieren, um auf gesicherte Daten zuzugreifen";
+"idkit_biometryAuthentication_confirmation" = "Bestätige die Verwendung der biometrischen Authentifizierung";
