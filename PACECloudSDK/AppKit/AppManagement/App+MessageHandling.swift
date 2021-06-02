@@ -7,7 +7,7 @@
 
 import CoreLocation
 import Foundation
-import PassKit
+import UIKit
 
 // MARK: - Message handling
 extension App {
@@ -114,28 +114,6 @@ extension App {
         }
 
         AppKit.shared.notifyImageData(with: image)
-    }
-
-    func handleApplePayAvailibilityCheck(with request: AppKit.AppRequestData<String>) {
-        // Apple Pay Web is using a slightly different naming for their PKPaymentNetworks,
-        // hence why we need to uppercase the first letter
-        let networks: [PKPaymentNetwork] = request.message.split(separator: ",").compactMap { PKPaymentNetwork(String($0).firstUppercased) }
-        let result = networks.isEmpty ? PKPaymentAuthorizationController.canMakePayments() : PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
-
-        messageInterceptor?.respond(id: request.id, message: result ? true : false)
-    }
-
-    func handleApplePayPaymentRequest(with request: AppKit.AppRequestData<AppKit.ApplePayRequest>, completion: @escaping () -> Void) {
-        AppKit.shared.notifyApplePayData(with: request.message) { [weak self] response in
-            guard let response = response else {
-                self?.messageInterceptor?.send(id: request.id, error: .internalError)
-                completion()
-                return
-            }
-
-            self?.messageInterceptor?.respond(id: request.id, message: response)
-            completion()
-        }
     }
 
     func handleLog(with message: String) {
