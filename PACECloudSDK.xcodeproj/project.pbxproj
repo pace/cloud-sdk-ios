@@ -62,6 +62,8 @@
 		3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
 		3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02F4255C228E0020A6FA /* JWTTests.swift */; };
 		3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
+		3B8C5A0E26678A4800D7D5D6 /* App+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C5A0D26678A4800D7D5D6 /* App+ApplePay.swift */; };
+		3B8C5A17266790CF00D7D5D6 /* App+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C5A0D26678A4800D7D5D6 /* App+ApplePay.swift */; };
 		3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
@@ -814,6 +816,7 @@
 		3B8B02EC255C1D780020A6FA /* JWTToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTToken.swift; sourceTree = "<group>"; };
 		3B8B02F4255C228E0020A6FA /* JWTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTests.swift; sourceTree = "<group>"; };
 		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
+		3B8C5A0D26678A4800D7D5D6 /* App+ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+ApplePay.swift"; sourceTree = "<group>"; };
 		3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Extension.swift"; sourceTree = "<group>"; };
 		3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Slim.swift"; sourceTree = "<group>"; };
 		3B96929925E3C20900E42703 /* RayCastingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCastingTests.swift; sourceTree = "<group>"; };
@@ -1485,6 +1488,7 @@
 			isa = PBXGroup;
 			children = (
 				3B970A0A2542D9BA0072F6BA /* App.swift */,
+				3B8C5A0D26678A4800D7D5D6 /* App+ApplePay.swift */,
 				3BD19ADD2631766400D68580 /* App+MessageHandling.swift */,
 				3B970A0F2542D9BA0072F6BA /* App+2FA.swift */,
 				3B970A0E2542D9BA0072F6BA /* AppDrawerLocationProvider.swift */,
@@ -3212,6 +3216,7 @@
 				3B970A7A2542D9BB0072F6BA /* AppViewController.swift in Sources */,
 				84C5E707258A149200E5B20B /* POI.swift in Sources */,
 				3B970AE42542DF450072F6BA /* AppKitLogger.swift in Sources */,
+				3B8C5A0E26678A4800D7D5D6 /* App+ApplePay.swift in Sources */,
 				3BC9A8292539DDAD00B933AE /* TileInformation.swift in Sources */,
 				84600F0E25C03B1E0087194F /* POIAPIGetSubscriptions.swift in Sources */,
 				84A43A252580E34D00DE36FA /* PayAPIClient.swift in Sources */,
@@ -3348,6 +3353,7 @@
 				92EDDBFD25A7270300E480F4 /* AppStyle.swift in Sources */,
 				92EDDCA025A7385000E480F4 /* TileInformation.swift in Sources */,
 				92EDDD9225A73A1900E480F4 /* Poly.swift in Sources */,
+				3B8C5A17266790CF00D7D5D6 /* App+ApplePay.swift in Sources */,
 				92EDDDB425A73C7900E480F4 /* POIKitAPI+Observer.swift in Sources */,
 				05F57A36266635B7008F2272 /* Strings.swift in Sources */,
 				8418E28C25B1B85A00D3722B /* PCPOIFieldMetaData.swift in Sources */,

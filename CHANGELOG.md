@@ -1,10 +1,13 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
-<!-- ### Breaking Changes - Include, if needed -->
+<!-- ### Breaking Changes -->
 <!-- ### Enhancements - Include, if needed -->
 <!-- ### Fixes - Include, if needed -->
-<!-- ### Internal - Include, if needed -->
+
+### Internal
+
+* Refactored the handling of ApplePay requests. The updated callback now already returns a `PKPaymentRequest`. Additionally a new callback to retrieve the `merchantIdentifier` needs to be implemented
 
 6.3.0 Release notes (2021-06-01)
 =============================================================
