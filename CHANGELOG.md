@@ -8,6 +8,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Internal
 
 * Refactored the handling of ApplePay requests. The updated callback now already returns a `PKPaymentRequest`. Additionally a new callback to retrieve the `merchantIdentifier` needs to be implemented
+* Improve selection of app drawer icon size
 
 6.3.0 Release notes (2021-06-01)
 =============================================================
