@@ -38,6 +38,7 @@
 		3B76F7572576468F008D8F9A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F75E257648B0008D8F9A /* HttpUrlError.swift */; };
 		3B76F77025765014008D8F9A /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F76F25765014008D8F9A /* Pay.swift */; };
+		3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */; };
 		3B855313253D6C12001F7B66 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855312253D6C12001F7B66 /* Bundle+Extension.swift */; };
 		3B855319253D6C70001F7B66 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */; };
 		3B85531D253D6FD8001F7B66 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */; };
@@ -793,6 +794,7 @@
 		3B76F7562576468F008D8F9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3B76F75E257648B0008D8F9A /* HttpUrlError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUrlError.swift; sourceTree = "<group>"; };
 		3B76F76F25765014008D8F9A /* Pay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
+		3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorTests.swift; sourceTree = "<group>"; };
 		3B855312253D6C12001F7B66 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
@@ -1462,6 +1464,7 @@
 				3B970AB72542D9DB0072F6BA /* MockData */,
 				3B970ABA2542D9DB0072F6BA /* AssetTests.swift */,
 				3B970ABE2542D9DB0072F6BA /* AppKitTests.swift */,
+				3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */,
 				3B8B02F4255C228E0020A6FA /* JWTTests.swift */,
 				3B96929925E3C20900E42703 /* RayCastingTests.swift */,
 				3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */,
@@ -3275,6 +3278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */,
+				3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
 				3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */,
