@@ -39,6 +39,9 @@
 		3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F75E257648B0008D8F9A /* HttpUrlError.swift */; };
 		3B76F77025765014008D8F9A /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F76F25765014008D8F9A /* Pay.swift */; };
 		3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */; };
+		3B7C0C07266A594400346FCC /* UserAPIGrantFederatedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */; };
+		3B7C0C08266A594400346FCC /* UserAPISetFederatedIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */; };
+		3B7C0C0E266A59D800346FCC /* PCUserAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */; };
 		3B855313253D6C12001F7B66 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855312253D6C12001F7B66 /* Bundle+Extension.swift */; };
 		3B855319253D6C70001F7B66 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */; };
 		3B85531D253D6FD8001F7B66 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */; };
@@ -795,6 +798,9 @@
 		3B76F75E257648B0008D8F9A /* HttpUrlError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUrlError.swift; sourceTree = "<group>"; };
 		3B76F76F25765014008D8F9A /* Pay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
 		3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorTests.swift; sourceTree = "<group>"; };
+		3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIGrantFederatedToken.swift; sourceTree = "<group>"; };
+		3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPISetFederatedIdentity.swift; sourceTree = "<group>"; };
+		3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserAccessToken.swift; sourceTree = "<group>"; };
 		3B855312253D6C12001F7B66 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
@@ -1387,6 +1393,15 @@
 			path = Pay;
 			sourceTree = "<group>";
 		};
+		3B7C0C04266A594400346FCC /* FederatedIdentity */ = {
+			isa = PBXGroup;
+			children = (
+				3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */,
+				3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */,
+			);
+			path = FederatedIdentity;
+			sourceTree = "<group>";
+		};
 		3B855311253D6BF3001F7B66 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1973,6 +1988,7 @@
 		8447A37525CAAE740095BEF1 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				3B7C0C04266A594400346FCC /* FederatedIdentity */,
 				8447A37625CAAE740095BEF1 /* Preferences */,
 				8447A37925CAAE740095BEF1 /* Terms */,
 				8447A37E25CAAE740095BEF1 /* User */,
@@ -2472,6 +2488,7 @@
 				84D6C01D258A03270094982D /* PCPOISource.swift */,
 				84D6C039258A03270094982D /* PCPOISources.swift */,
 				84D6C01E258A03270094982D /* PCPOISubscription.swift */,
+				3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */,
 				849C400325CAB6DD0074BCDA /* PCUserCreateOTP.swift */,
 				849C400025CAB6DD0074BCDA /* PCUserDeviceTOTP.swift */,
 				849C400625CAB6DD0074BCDA /* PCUserErrors.swift */,
@@ -3023,6 +3040,7 @@
 				84D6C06F258A03270094982D /* PCPayPRN.swift in Sources */,
 				8447A3DB25CAAE750095BEF1 /* AnyUserRequest.swift in Sources */,
 				3BC9A80F2539DDAD00B933AE /* vector_tile.proto in Sources */,
+				3B7C0C08266A594400346FCC /* UserAPISetFederatedIdentity.swift in Sources */,
 				84600F3225C03B1F0087194F /* POIAPIGetAppPOIsRelationships.swift in Sources */,
 				3BB208852538338A008DDE45 /* IDKitError.swift in Sources */,
 				3BA4807E2565492600187D0A /* IDKitUserAgent.swift in Sources */,
@@ -3113,6 +3131,7 @@
 				3B970A9B2542D9BB0072F6BA /* URLDecomposer.swift in Sources */,
 				3BC9A8122539DDAD00B933AE /* vector_tile.pb.swift in Sources */,
 				84600EF825C03B1E0087194F /* POIAPIGetGasStation.swift in Sources */,
+				3B7C0C0E266A59D800346FCC /* PCUserAccessToken.swift in Sources */,
 				84600F2A25C03B1F0087194F /* POIAPIGetEvents.swift in Sources */,
 				84600E9425C03B0C0087194F /* PayAPIAuthorizeApplePayPaymentToken.swift in Sources */,
 				3B970A9E2542D9BB0072F6BA /* URLDataRequest.swift in Sources */,
@@ -3197,6 +3216,7 @@
 				3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */,
 				841A3EF825B9C96A0065284A /* PCFuelingErrors.swift in Sources */,
 				3BBCFF3C25EF96BE0035683F /* Array+Extension.swift in Sources */,
+				3B7C0C07266A594400346FCC /* UserAPIGrantFederatedToken.swift in Sources */,
 				84A43B222582646700DE36FA /* PayAPIResponse.swift in Sources */,
 				8447A3A925CAAE740095BEF1 /* UserAPIAcceptTerms.swift in Sources */,
 				3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */,

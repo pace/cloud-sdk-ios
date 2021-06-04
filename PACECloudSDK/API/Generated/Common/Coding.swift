@@ -68,9 +68,9 @@ struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
 // any json decoding
 extension ResponseDecoder {
 
-    func decodeAny<T>(_ type: T.Type, from data: Data) throws -> T {
-        guard let decoded = try decode(AnyCodable.self, from: data) as? T else {
-            throw DecodingError.typeMismatch(T.self, DecodingError.Context(codingPath: [StringCodingKey(string: "")], debugDescription: "Decoding of \(T.self) failed"))
+    func decodeAnyJson(from data: Data) throws -> [String: AnyCodable] {
+        guard let decoded = try? decode([String: AnyCodable].self, from: data) else {
+            throw DecodingError.typeMismatch([String: AnyCodable].self, DecodingError.Context(codingPath: [StringCodingKey(string: "")], debugDescription: "Decoding of \([String: AnyCodable].self) failed"))
         }
         return decoded
     }

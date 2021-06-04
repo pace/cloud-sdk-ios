@@ -5,50 +5,43 @@
 
 import Foundation
 
-extension UserAPI.Sessions {
+extension UserAPI.FederatedIdentity {
 
     /**
-    Update session
+    Define federated identity
 
-    Update the status for the current user session.
-In case the session is created an OTP for the user is created and send via email, the caller can verify the OTP using [VerifyOTP](#operation/VerifyOTP) or use the provided value.
+    Set a federated identity for the user with the given identity provider
     */
-    public enum UpdateSession {
+    public enum SetFederatedIdentity {
 
-        public static var service = UserAPIService<Response>(id: "UpdateSession", tag: "Sessions", method: "PUT", path: "/sessions/{sessionId}", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:sessions:update"]), SecurityRequirement(type: "OIDC", scopes: ["user:sessions:update"])])
+        public static var service = UserAPIService<Response>(id: "SetFederatedIdentity", tag: "FederatedIdentity", method: "PUT", path: "/federated-identities/{identityProvider}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:federated-identity:set"]), SecurityRequirement(type: "OIDC", scopes: ["user:federated-identity:set"])])
 
         public final class Request: UserAPIRequest<Response> {
 
             public struct Options {
 
-                public var sessionId: ID?
+                public var identityProvider: String?
 
-                public init(sessionId: ID? = nil) {
-                    self.sessionId = sessionId
+                public init(identityProvider: String? = nil) {
+                    self.identityProvider = identityProvider
                 }
             }
 
             public var options: Options
 
-            public var body: PCUserSession
-
-            public init(body: PCUserSession, options: Options, encoder: RequestEncoder? = nil) {
-                self.body = body
+            public init(options: Options) {
                 self.options = options
-                super.init(service: UpdateSession.service) { defaultEncoder in
-                    return try (encoder ?? defaultEncoder).encode(body)
-                }
-                self.contentType = "application/json"
+                super.init(service: SetFederatedIdentity.service)
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(sessionId: ID? = nil, body: PCUserSession) {
-                let options = Options(sessionId: sessionId)
-                self.init(body: body, options: options)
+            public convenience init(identityProvider: String? = nil) {
+                let options = Options(identityProvider: identityProvider)
+                self.init(options: options)
             }
 
             public override var path: String {
-                return super.path.replacingOccurrences(of: "{" + "sessionId" + "}", with: "\(self.options.sessionId?.encode() ?? "")")
+                return super.path.replacingOccurrences(of: "{" + "identityProvider" + "}", with: "\(self.options.identityProvider ?? "")")
             }
         }
 
@@ -722,12 +715,9 @@ In case the session is created an OTP for the user is created and send via email
                     return lhs.isEqual(to: rhs)
                 }
             }
-            public typealias SuccessType = PCUserCreateOTP
+            public typealias SuccessType = Void
 
-            /** OTP send. */
-            case status200(PCUserCreateOTP)
-
-            /** Session updated. */
+            /** Identity set. */
             case status204
 
             /** OAuth token missing or invalid */
@@ -739,16 +729,15 @@ In case the session is created an OTP for the user is created and send via email
             /** Internal server error */
             case status500(Status500)
 
-            public var success: PCUserCreateOTP? {
+            public var success: Void? {
                 switch self {
-                case .status200(let response): return response
+                case .status204: return ()
                 default: return nil
                 }
             }
 
             public var response: Any {
                 switch self {
-                case .status200(let response): return response
                 case .status401(let response): return response
                 case .status404(let response): return response
                 case .status500(let response): return response
@@ -758,7 +747,6 @@ In case the session is created an OTP for the user is created and send via email
 
             public var statusCode: Int {
                 switch self {
-                case .status200: return 200
                 case .status204: return 204
                 case .status401: return 401
                 case .status404: return 404
@@ -768,7 +756,6 @@ In case the session is created an OTP for the user is created and send via email
 
             public var successful: Bool {
                 switch self {
-                case .status200: return true
                 case .status204: return true
                 case .status401: return false
                 case .status404: return false
@@ -778,7 +765,6 @@ In case the session is created an OTP for the user is created and send via email
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(decoder.decode(PCUserCreateOTP.self, from: data))
                 case 204: self = .status204
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
