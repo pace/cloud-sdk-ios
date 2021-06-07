@@ -10,15 +10,15 @@ extension UserAPI.TOTP {
     /**
     Create device TOTP
 
-    Creates a device TOTP token using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+    A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or  it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
     */
     public enum CreateTOTP {
 
-        public static var service = UserAPIService<Response>(id: "CreateTOTP", tag: "TOTP", method: "POST", path: "/user/devices/totp", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:device-totps:create"]), SecurityRequirement(type: "OIDC", scopes: ["user:device-totps:create"])])
+        public static var service = UserAPIService<Response>(id: "CreateTOTP", tag: "TOTP", method: "POST", path: "/user/devices/totp", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:device-totps:create", "user:device-totps:create-after-login"]), SecurityRequirement(type: "OIDC", scopes: ["user:device-totps:create", "user:device-totps:create-after-login"])])
 
         public final class Request: UserAPIRequest<Response> {
 
-            /** Creates a device TOTP token using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or  it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
              */
             public class Body: APIModel {
 
@@ -64,7 +64,7 @@ extension UserAPI.TOTP {
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** Creates a device TOTP token using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or  it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
              */
             public class Status201: APIModel {
 
@@ -99,11 +99,13 @@ extension UserAPI.TOTP {
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status401: APIModel {
 
@@ -111,11 +113,13 @@ extension UserAPI.TOTP {
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -150,11 +154,13 @@ extension UserAPI.TOTP {
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -316,11 +322,13 @@ extension UserAPI.TOTP {
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status403: APIModel {
 
@@ -328,11 +336,13 @@ extension UserAPI.TOTP {
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -367,11 +377,13 @@ extension UserAPI.TOTP {
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -533,11 +545,13 @@ extension UserAPI.TOTP {
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status406: APIModel {
 
@@ -545,11 +559,13 @@ extension UserAPI.TOTP {
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -584,11 +600,13 @@ extension UserAPI.TOTP {
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -750,11 +768,13 @@ extension UserAPI.TOTP {
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status415: APIModel {
 
@@ -762,11 +782,13 @@ extension UserAPI.TOTP {
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -801,11 +823,13 @@ extension UserAPI.TOTP {
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -967,11 +991,13 @@ extension UserAPI.TOTP {
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status422: APIModel {
 
@@ -979,11 +1005,13 @@ extension UserAPI.TOTP {
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -1018,11 +1046,13 @@ extension UserAPI.TOTP {
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -1184,11 +1214,13 @@ extension UserAPI.TOTP {
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status500: APIModel {
 
@@ -1196,11 +1228,13 @@ extension UserAPI.TOTP {
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -1235,11 +1269,13 @@ extension UserAPI.TOTP {
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 

@@ -146,6 +146,7 @@ To add support for a specific asynchronous library, just add an extension on `Us
 
 ## Models
 
+- **PCUserAccessToken**
 - **PCUserCreateOTP**
 - **PCUserDeviceTOTP**
 - **PCUserErrors**
@@ -167,6 +168,11 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **CheckUserPinOrPassword**: GET `/user/pin-or-password`
 	- **CreateUserPassword**: PUT `/user/password`
 	- **UpdateUserPIN**: PUT `/user/pin`
+- **UserAPI.FederatedIdentity**
+	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
+	- **SetFederatedIdentity**: PUT `/federated-identities/{identityprovider}`
+- **UserAPI.OAuth2**
+	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
 - **UserAPI.Phone**
 	- **CheckUserPhone**: GET `/user/phone`
 	- **UpdateUserPhone**: PUT `/user/phone`

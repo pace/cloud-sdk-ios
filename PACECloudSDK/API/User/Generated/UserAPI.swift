@@ -20,6 +20,8 @@ public struct UserAPI {
     public static let version = "2020-4"
 
     public enum Credentials {}
+    public enum FederatedIdentity {}
+    public enum OAuth2 {}
     public enum Phone {}
     public enum Preferences {}
     public enum Sessions {}

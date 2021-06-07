@@ -54,11 +54,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status401: APIModel {
 
@@ -66,11 +68,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -105,11 +109,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -271,11 +277,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status403: APIModel {
 
@@ -283,11 +291,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -322,11 +332,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -488,11 +500,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status404: APIModel {
 
@@ -500,11 +514,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -539,11 +555,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -705,11 +723,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * code `1000`:  generic error
-                * code `1001`:  payment processing temporarily unavailable
-                * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                * code `1003`:  implicit payment methods cannot be modified
-                * code `1004`:  payment method rejected by provider
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
             public class Status501: APIModel {
 
@@ -717,11 +737,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                 /** Error objects provide additional information about problems encountered while performing an operation.
                 Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * code `1000`:  generic error
-                    * code `1001`:  payment processing temporarily unavailable
-                    * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * code `1003`:  implicit payment methods cannot be modified
-                    * code `1004`:  payment method rejected by provider
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                  */
                 public class Errors: APIModel {
 
@@ -756,11 +778,13 @@ In case no preferences were ever set an empty object `{}` is returned.
 
                     /** Error objects provide additional information about problems encountered while performing an operation.
                     Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * code `1000`:  generic error
-                        * code `1001`:  payment processing temporarily unavailable
-                        * code `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * code `1003`:  implicit payment methods cannot be modified
-                        * code `1004`:  payment method rejected by provider
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
                      */
                     public class Links: APIModel {
 
@@ -919,10 +943,10 @@ In case no preferences were ever set an empty object `{}` is returned.
                     return lhs.isEqual(to: rhs)
                 }
             }
-            public typealias SuccessType = Void
+            public typealias SuccessType = [String: Any]
 
             /** Deletion process started */
-            case status200
+            case status200([String: Any])
 
             /** OAuth token missing or invalid */
             case status401(Status401)
@@ -936,20 +960,20 @@ In case no preferences were ever set an empty object `{}` is returned.
             /** Internal server error */
             case status501(Status501)
 
-            public var success: Void? {
+            public var success: [String: Any]? {
                 switch self {
-                case .status200: return ()
+                case .status200(let response): return response
                 default: return nil
                 }
             }
 
             public var response: Any {
                 switch self {
+                case .status200(let response): return response
                 case .status401(let response): return response
                 case .status403(let response): return response
                 case .status404(let response): return response
                 case .status501(let response): return response
-                default: return ()
                 }
             }
 
@@ -975,7 +999,7 @@ In case no preferences were ever set an empty object `{}` is returned.
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = .status200
+                case 200: self = try .status200(decoder.decodeAnyJson(from: data))
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 403: self = try .status403(decoder.decode(Status403.self, from: data))
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
