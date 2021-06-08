@@ -39,6 +39,7 @@ public extension AppKitDelegate {
     func didEnterGeofence(with id: String) {}
     func didExitGeofence(with id: String) {}
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
+    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) { completion("") }
     func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (([String: Any]?) -> Void)) { completion(nil) }

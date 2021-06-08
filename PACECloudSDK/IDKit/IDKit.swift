@@ -13,35 +13,72 @@ public class IDKit {
         return sharedInternal
     }
 
+    static var isSetUp: Bool {
+        sharedInternal != nil
+    }
+
+    var isSessionAvailable: Bool {
+        session != nil
+    }
+
     private static var sharedInternal: IDKit?
+
+    weak var delegate: IDKitDelegate?
 
     var session: OIDAuthState?
     var authorizationFlow: OIDExternalUserAgentSession?
-
     var cacheSession: Bool
-
     var configuration: OIDConfiguration
-    var presentingViewController: UIViewController?
 
-    private init(with configuration: OIDConfiguration, cacheSession: Bool, presentingViewController: UIViewController?) {
+    var clientPresentingViewController: UIViewController?
+    var paceIDSignInWindow: PaceIDSignInWindow?
+
+    private init(with configuration: OIDConfiguration,
+                 delegate: IDKitDelegate?,
+                 cacheSession: Bool,
+                 clientPresentingViewController: UIViewController?) {
         self.configuration = configuration
+        self.delegate = delegate
         self.cacheSession = cacheSession
-        self.presentingViewController = presentingViewController
+        self.clientPresentingViewController = clientPresentingViewController
 
         guard cacheSession, let session = SessionCache.loadSession() else { return }
 
         self.session = session
     }
 
+    static func appInducedAuthorization(_ completion: @escaping (String?) -> Void) {
+        shared?.performAppInducedAuthorization(completion)
+    }
+
+    static func appInducedRefresh(_ completion: @escaping (String?) -> Void) {
+        shared?.performAppInducedRefresh(completion)
+    }
+
+    static func appInducedSessionReset(with error: IDKitError? = nil, _ completion: @escaping (String?) -> Void) {
+        shared?.performAppInducedSessionReset(with: error, completion)
+    }
+
+    func presentSignInWindow() {
+        paceIDSignInWindow = PaceIDSignInWindow.create()
+    }
+}
+
+// MARK: - Setup
+public extension IDKit {
     /**
      Sets up IDKit with the passed configuration.
      - parameter configuration: The current `OIDConfiguration`.
+     - parameter delegate: An instance of the class conforming to `IDKitDelegate`
      - parameter cacheSession: If set to `true` the session will be persisted by IDKit to improve the chance of not having to resign in again. Defaults to `true`.
      - parameter presentingViewControllerl: The view controller to present the authorization's view on.
      Can be passed at a later point in time.
      */
-    public static func setup(with configuration: OIDConfiguration, cacheSession: Bool = true, presentingViewController: UIViewController? = nil) {
-        sharedInternal = IDKit(with: configuration, cacheSession: cacheSession, presentingViewController: presentingViewController)
+    static func setup(with configuration: OIDConfiguration,
+                      delegate: IDKitDelegate? = nil,
+                      cacheSession: Bool = true,
+                      presentingViewController: UIViewController? = nil) {
+        sharedInternal = IDKit(with: configuration, delegate: delegate, cacheSession: cacheSession, clientPresentingViewController: presentingViewController)
     }
 
     /**
@@ -49,8 +86,8 @@ public class IDKit {
      without having to call `setup(with configuration: OIDConfiguration, presentingViewController: UIViewController? = nil)` again.
      - parameter newViewController: The new presenting view controller.
      */
-    public static func swapPresentingViewController(with newViewController: UIViewController) {
-        shared?.presentingViewController = newViewController
+    static func swapPresentingViewController(with newViewController: UIViewController) {
+        shared?.clientPresentingViewController = newViewController
     }
 }
 
@@ -73,7 +110,7 @@ public extension IDKit {
      - parameter completion: The block to be called when the request is completed including either a valid `accessToken` or an `error`.
      */
     static func authorize(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
-        shared?.performAuthorization(completion)
+        shared?.performAuthorization(showSignInMask: false, completion)
     }
 
     /**
