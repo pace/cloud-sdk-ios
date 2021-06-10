@@ -68,6 +68,7 @@ extension AppKit.AppDrawer: AppViewControllerDelegate {
     private func dismissAppViews() {
         appViewController?.dismiss(animated: true) { [weak self] in
             self?.appWindow = nil
+            self?.appViewController = nil
         }
     }
 

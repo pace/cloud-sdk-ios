@@ -3,7 +3,9 @@ x.y.z Release notes (yyyy-MM-dd)
 
 <!-- ### Breaking Changes -->
 <!-- ### Enhancements - Include, if needed -->
-<!-- ### Fixes - Include, if needed -->
+### Fixes
+
+* Fix a bug where PWA wasn't closed properly in the AppDrawer
 
 ### Internal
 
