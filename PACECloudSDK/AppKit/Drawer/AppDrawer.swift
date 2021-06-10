@@ -157,7 +157,8 @@ extension AppKit {
         private func loadIcon() {
             guard let manifest = appData.appManifest,
                 let icons = manifest.icons,
-                let icon = IconSelector.chooseSuitableDrawerIcon(in: icons),
+                let icon = IconSelector.chooseSuitableDrawerIcon(in: icons,
+                                                                 requestedSize: (Int(AppStyle.drawerSize), Int(AppStyle.drawerSize))),
                 let iconSource = icon.source,
                 let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
             else { return }
