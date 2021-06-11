@@ -464,6 +464,9 @@
 		84600F5725C03B340087194F /* FuelingAPICancelPreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */; };
 		847EBE4A25C0531F001507D2 /* MessageHandlerParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B577FBB2593815C00F65DF6 /* MessageHandlerParam.swift */; };
 		8482BAD425D5342000A7CD16 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482BAD325D5342000A7CD16 /* HttpRequest.swift */; };
+		84961AB7264E578E0070CB0B /* AppKit+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A5C2542D9BB0072F6BA /* AppKit+Delegate.swift */; };
+		84961ABD264E5A270070CB0B /* AppKit+Delegate+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84961ABC264E5A270070CB0B /* AppKit+Delegate+Logout.swift */; };
+		84961AC3264E5A810070CB0B /* AppKit+Delegate+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84961AC2264E5A810070CB0B /* AppKit+Delegate+Slim.swift */; };
 		849C400725CAB6DD0074BCDA /* PCUserTerms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFB25CAB6DC0074BCDA /* PCUserTerms.swift */; };
 		849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFC25CAB6DD0074BCDA /* PCUserUserPIN.swift */; };
 		849C400B25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C3FFD25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift */; };
@@ -591,7 +594,6 @@
 		92EDDBD125A71EEB00E480F4 /* PACECloudSlimSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 92EDDBCF25A71EEB00E480F4 /* PACECloudSlimSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFB206258B5C00001768F0 /* PACECloudSDK.swift */; };
 		92EDDBE125A7252300E480F4 /* AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A232542D9BA0072F6BA /* AppKit.swift */; };
-		92EDDBE525A726AD00E480F4 /* AppKit+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A5C2542D9BB0072F6BA /* AppKit+Delegate.swift */; };
 		92EDDBE625A726AD00E480F4 /* AppKit+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A222542D9BA0072F6BA /* AppKit+Authorization.swift */; };
 		92EDDBE725A726AD00E480F4 /* AppKit+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A212542D9BA0072F6BA /* AppKit+Configuration.swift */; };
 		92EDDBEB25A7270300E480F4 /* AppDrawer+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A152542D9BA0072F6BA /* AppDrawer+App.swift */; };
@@ -1114,6 +1116,8 @@
 		84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIWaitOnPumpStatusChange.swift; sourceTree = "<group>"; };
 		84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPICancelPreAuth.swift; sourceTree = "<group>"; };
 		8482BAD325D5342000A7CD16 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		84961ABC264E5A270070CB0B /* AppKit+Delegate+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+Delegate+Logout.swift"; sourceTree = "<group>"; };
+		84961AC2264E5A810070CB0B /* AppKit+Delegate+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+Delegate+Slim.swift"; sourceTree = "<group>"; };
 		849C3FFB25CAB6DC0074BCDA /* PCUserTerms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserTerms.swift; sourceTree = "<group>"; };
 		849C3FFC25CAB6DD0074BCDA /* PCUserUserPIN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserUserPIN.swift; sourceTree = "<group>"; };
 		849C3FFD25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserVerifyUserPhone.swift; sourceTree = "<group>"; };
@@ -1458,6 +1462,8 @@
 				3B970A222542D9BA0072F6BA /* AppKit+Authorization.swift */,
 				3B970A212542D9BA0072F6BA /* AppKit+Configuration.swift */,
 				3B970A5C2542D9BB0072F6BA /* AppKit+Delegate.swift */,
+				84961ABC264E5A270070CB0B /* AppKit+Delegate+Logout.swift */,
+				84961AC2264E5A810070CB0B /* AppKit+Delegate+Slim.swift */,
 				3B970A3F2542D9BA0072F6BA /* API */,
 				3B970A092542D9BA0072F6BA /* AppManagement */,
 				3B970A5D2542D9BB0072F6BA /* AppModels */,
@@ -3051,6 +3057,7 @@
 				3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */,
 				3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */,
 				92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */,
+				84961ABD264E5A270070CB0B /* AppKit+Delegate+Logout.swift in Sources */,
 				3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */,
 				3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */,
 				92C89E7F2588DE86007D7128 /* ApplePayRequest.swift in Sources */,
@@ -3446,11 +3453,11 @@
 				8418E27025B1B85A00D3722B /* PCPOIEvents.swift in Sources */,
 				92EDDC4025A729A300E480F4 /* Logger.swift in Sources */,
 				84600F0525C03B1E0087194F /* POIAPIDeduplicatePoi.swift in Sources */,
-				92EDDBE525A726AD00E480F4 /* AppKit+Delegate.swift in Sources */,
 				92EDDC5025A729D000E480F4 /* HttpHeaderFields.swift in Sources */,
 				92EDDDA825A73A9000E480F4 /* Compass.swift in Sources */,
 				92EDDDCC25A7441C00E480F4 /* App+Slim.swift in Sources */,
 				92EDDCEA25A738B400E480F4 /* NSMutableData+Extension.swift in Sources */,
+				84961AC3264E5A810070CB0B /* AppKit+Delegate+Slim.swift in Sources */,
 				8418E29825B1B85E00D3722B /* URLEncoding.swift in Sources */,
 				84600F3725C03B1F0087194F /* POIAPIUpdateApp.swift in Sources */,
 				92EDDD0125A738DD00E480F4 /* POIKitAPI+ReverseGeocode.swift in Sources */,
@@ -3460,6 +3467,7 @@
 				8418E29F25B1B86600D3722B /* AnyPOIRequest.swift in Sources */,
 				92EDDD0525A738E800E480F4 /* NSURLErrors.swift in Sources */,
 				8418E2A025B1B86600D3722B /* POIAPIResponse.swift in Sources */,
+				84961AB7264E578E0070CB0B /* AppKit+Delegate.swift in Sources */,
 				92EDDD8B25A73A1100E480F4 /* LiveData.swift in Sources */,
 				8418E28325B1B85A00D3722B /* PCPOIErrors.swift in Sources */,
 				8418E25125B1B85A00D3722B /* PCPOISubscription.swift in Sources */,

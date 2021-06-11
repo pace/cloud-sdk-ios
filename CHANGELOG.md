@@ -7,6 +7,9 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Fix a bug where PWA wasn't closed properly in the AppDrawer
 
+### Breaking Changes
+* Added new SDK methods `getAccessToken` and 'logout'. The `getAccessToken` call replaces the `invalidToken` method.
+
 ### Internal
 
 * Refactored the handling of ApplePay requests. The updated callback now already returns a `PKPaymentRequest`. Additionally a new callback to retrieve the `merchantIdentifier` needs to be implemented

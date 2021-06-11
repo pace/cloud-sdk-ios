@@ -16,7 +16,8 @@ enum MessageHandler: String, CaseIterable {
     case getSecureData = "pace_getSecureData"
     case disable = "pace_disable"
     case openURLInNewTab = "pace_openURLInNewTab"
-    case invalidToken = "pace_invalidToken"
+    case getAccessToken = "pace_getAccessToken"
+    case logout = "pace_logout"
     case imageData = "pace_imageData"
     case applePayAvailabilityCheck = "pace_applePayAvailabilityCheck"
     case applePayRequest = "pace_applePayRequest"
@@ -38,11 +39,14 @@ enum MessageHandler: String, CaseIterable {
         case .setTOTPSecret, .getTOTP, .getSecureData:
             return 120
 
-        case .invalidToken, .verifyLocation, .getConfig:
+        case .verifyLocation, .getConfig, .getAccessToken:
             return 60
 
         case .applePayRequest:
             return 300
+
+        case .logout:
+            return 30
         }
     }
 }
