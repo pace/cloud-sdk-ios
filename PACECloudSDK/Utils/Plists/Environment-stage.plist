@@ -14,5 +14,11 @@
 	<string>https://maps.pacelink.net/tiles/car-mm</string>
 	<key>TilesApiUrl</key>
 	<string>https://api.stage.pace.cloud/poi/v1/tiles</string>
+	<key>AuthorizationEndpoint</key>
+	<string>https://id.stage.pace.cloud/auth/realms/pace/protocol/openid-connect/auth</string>
+	<key>TokenEndpoint</key>
+	<string>https://id.stage.pace.cloud/auth/realms/pace/protocol/openid-connect/token</string>
+	<key>UserEndpoint</key>
+	<string>https://id.stage.pace.cloud/auth/realms/pace/protocol/openid-connect/userinfo</string>
 </dict>
 </plist>

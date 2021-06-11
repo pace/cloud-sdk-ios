@@ -124,19 +124,50 @@ In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.re
 We've added more information in the `tokenInvalid` callback, thus the client can better react to the callback, i.e. a `reason` and the `oldToken` (if one has been passed before), will be included in the callback. Please refer to  [Native login](#native-login) for more information.
 
 ### From 6.x.x to 7.x.x
-In version `7.x.x` we've added two new sdk methods `getAccessToken` & `logout`. The `getAccessToken` method replaces the `invalidToken` call. While its callback is equal to the `invalidToken` callback, we changed the response to be an object with an `accessToken` property and a new `isInitialToken` boolean. Please refer to  [Native login](#native-login) for more information.  Also from now on this callback will only be sent if `IDKit` is not used/set up. If you're using `IDKit` the SDK will now first try to renew the session automatically. If the renewal fails there is a new `func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)` function that you may implement to specify your own behaviour to retrieve a new access token. To implement this method pass an instance that conforms to `IDKitDelegate` during IDKit's setup. If either this delegate method is not implemented or you didn't pass a delegate instance at all the SDK will automatically perform an authorization hence showing a sign in mask for the user.
+In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
-Additionally we've removed `resetAccessToken()` from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
+- `AppKit`'s `invalidToken` callback has been replaced with a new `getAccessToken` callback. Please refer to [Native login](#native-login) for more information.
+  + If you're **not** using `IDKit` this callback will be invoked and will have the same functionality as `invalidToken` before.
+  + However if you **are** using and having set up `IDKit` the behavior now heavily changes:
+    - `getAccessToken` will not be called anymore.
+    - Instead `IDKit` first starts an attempt to refresh the session automatically.
+    - If the session renewal fails there is a new `func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)` function that you may implement to specify your own behaviour for retrieving a new access token. This can be achieved by specifying an `IDKitDelegate` conformance and setting the `IDKit.delegate` property.
+    -  If either this delegate method is not implemented or you didn't set the delegate property at all the SDK will automatically perform an authorization hence showing a sign in mask for the user
+- The `IDKit` setup has been combined with the general SDK setup. 
+  + `IDKit.setup(...)` is no longer accessible.
+  + By adding the keys `OIDConfigurationClientID` and `OIDConfigurationRedirectURI` with non-empty values to your Info.plist `IDKit` will be initiated with the default PACE OID configuration. Please head over to [IDKit setup](#setup-1) to learn how to set up this functionality.
+  + A custom OID configuration can still be passed to the `PACECloudSDK.Configuration` if desired.
+- `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
+- `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
+- `IDKit.swapPresentingViewController(...)` has been removed. The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`.
 
-All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
-
-**_Noteworthy_**: If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
+#### Noteworthy changes
+- If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
+- A new `logout` callback has been added to `AppKitDelegate`
+- All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
 
 ### Setup
-This code example shows how to setup *IDKit*. The parameter `cacheSession` defines if *IDKit* will persist the session.
+All that needs to be done to use `IDKit` is to specify the OID Configuration. If you want to use the PACE default configuration you'll at least have to add `OIDConfigurationRedirectURI` and `OIDConfigurationClientID` with non-empty values to your `Info.plist`. `OIDConfigurationIDPHint` is only needed if required in your specific situation.
+```xml
+<key>PACECloudSDKOIDConfigurationClientID</key>
+<string>YOUR_CLIENT_ID</string>
+<key>PACECloudSDKOIDConfigurationRedirectURI</key>
+<string>YOUR_REDIRECT_URI</string>
+
+<key>PACECloudSDKIDKitSetup</key>
+<dict>
+    <key>OIDConfigurationRedirectURI</key>
+    <string>pace://cloud-sdk-example</string>
+    <key>OIDConfigurationClientID</key>
+    <string>cloud-sdk-example-app</string>
+    <key>OIDConfigurationIDPHint</key>
+    <string>OPTIONAL_IDP_HINT</string>
+</dict>
+```
+In case you would like to use your own OID Configuration create it like so and pass it to the `PACECloudSDK.Configuration`:
 ```swift
 let config = IDKit.OIDConfiguration(authorizationEndpoint: AUTH_ENDPOINT,
                                     tokenEndpoint: TOKEN_ENDPOINT,
@@ -144,7 +175,22 @@ let config = IDKit.OIDConfiguration(authorizationEndpoint: AUTH_ENDPOINT,
                                     redirectUrl: REDIRECT_URL,
                                     additionalParameters: [KEY: VALUE])
 
-IDKit.setup(with: config, cacheSession: true, presentingViewController: YOUR_VIEWCONTROLLER)
+let config: PACECloudSDK.Configuration =
+    .init(
+        apiKey: "YOUR_API_KEY",
+        authenticationMode: .native,
+        environment: ENV,
+        customOIDConfiguration: config
+    )
+
+// Keep in mind to setup the 'PACECloudSDK' before setting any 'IDKit' properties
+PACECloudSDK.shared.setup(with: config)
+
+IDKit.presentingViewController = YOUR_VIEWCONTROLLER
+IDKit.delegate = YOUR_DELEGATE
+
+// In case you want to set additional properties to you OIDConfiguration after its initialization
+IDKit.OIDConfiguration.appendAdditionalParameters([String: String])
 ```
 
 ### Authorization
@@ -154,7 +200,7 @@ IDKit.authorize { accessToken, error in
     ...
 }
 ```
-*IDKit* will automatically try to refresh the previous session if you passed `cacheSession: true` during the setup.
+*IDKit* will automatically try to refresh the previous session.
 For all devices on iOS 12 and below a native permission prompt for the internally requested `ASWebAuthenticationSession` will be displayed to the user.
 
 ### Token refresh

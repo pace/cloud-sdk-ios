@@ -7,6 +7,9 @@ x.y.z Release notes (yyyy-MM-dd)
 * Update all APIs. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable. 
 * Remove `resetAccessToken()` from the `PACECloudSDK.shared` property. This functionality is no longer needed.
 * Implement automatic session handling for apps. If `IDKit` is used the SDK will now try to renew the session automatically when an app requests a new token. In this case the `getAccessToken` callback will no longer be called. If the renewal fails an `IDKitDelegate` may be implemented to specify a custom behaviour for the token retrieval. Otherwise the sign in mask will be shown.
+* Combine IDKit setup with PACECloudSDK setup. `IDKit.setup(...)` is no longer accessible. The IDKit may now be set up by either passing a custom oid configuration to the `PACECloudSDK.Configuration` or by adding both `PACECloudSDKOIDConfigurationClientID` and `PACECloudSDKOIDConfigurationRedirectURI` with non-empty values to your Info.plist which invokes the setup with the default PACE OID configuration.  
+* The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`
+* `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
 
 ### Enhancements
 

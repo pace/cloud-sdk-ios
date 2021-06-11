@@ -69,6 +69,24 @@ extension Bundle {
     var isCustomURLProtocolKeySet: Bool {
         object(forInfoDictionaryKey: Bundle.customURLProtocol) as? Bool ?? false
     }
+
+    var oidConfigClientId: String? {
+        guard let idKitSetup = object(forInfoDictionaryKey: Bundle.idKitSetupKey) as? [String: String],
+              let value = idKitSetup[Bundle.oidConfigClientId], !value.isEmpty else { return nil }
+        return value
+    }
+
+    var oidConfigRedirectUri: String? {
+        guard let idKitSetup = object(forInfoDictionaryKey: Bundle.idKitSetupKey) as? [String: String],
+              let value = idKitSetup[Bundle.oidConfigRedirectUri], !value.isEmpty else { return nil }
+        return value
+    }
+
+    var oidConfigIdpHint: String? {
+        guard let idKitSetup = object(forInfoDictionaryKey: Bundle.idKitSetupKey) as? [String: String],
+              let value = idKitSetup[Bundle.oidConfigIdpHint], !value.isEmpty else { return nil }
+        return value
+    }
 }
 
 extension Bundle {
@@ -76,4 +94,9 @@ extension Bundle {
     static let urlSchemesInfoPlistKey = "CFBundleURLSchemes"
 
     static let customURLProtocol = "PACECloudSDKCustomURLProtocolEnabled"
+
+    static let idKitSetupKey = "PACECloudSDKIDKitSetup"
+    static let oidConfigClientId = "OIDConfigurationClientID"
+    static let oidConfigRedirectUri = "OIDConfigurationRedirectURI"
+    static let oidConfigIdpHint = "OIDConfigurationIDPHint"
 }

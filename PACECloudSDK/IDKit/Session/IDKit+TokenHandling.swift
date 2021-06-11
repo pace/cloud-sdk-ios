@@ -20,7 +20,7 @@ extension IDKit {
             return
         }
 
-        guard let redirectUrl = URL(string: configuration.redirectUrl) else {
+        guard let redirectUrl = URL(string: configuration.redirectUri) else {
             completion(nil, IDKitError.invalidRedirectUrl)
             return
         }
@@ -42,7 +42,7 @@ extension IDKit {
         let request = buildAuthorizationRequest(authorizationEndpoint: authorizationEndpointUrl, tokenEndpoint: tokenEndpointUrl, redirectUrl: redirectUrl)
 
         // Try to refresh token from last session cache
-        if cacheSession, session != nil {
+        if session != nil {
             IDKitLogger.i("Trying to refresh session...")
             performRefresh(completion)
             return
@@ -84,9 +84,7 @@ extension IDKit {
             }
 
             // Persist current session
-            if self?.cacheSession == true {
-                SessionCache.persistSession(session)
-            }
+            SessionCache.persistSession(session)
 
             self?.session = authState
             let accessToken = session.lastTokenResponse?.accessToken
