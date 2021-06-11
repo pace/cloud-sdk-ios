@@ -29,6 +29,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Refactored the handling of ApplePay requests. The updated callback now already returns a `PKPaymentRequest`. Additionally a new callback to retrieve the `merchantIdentifier` needs to be implemented
 * Improve selection of app drawer icon size
 * Rename `GeoGasStation` to `CofuGasStation` to match capabilities of the new Geo API
+* Upgrade to XCode 12.5
 
 6.3.0 Release notes (2021-06-01)
 =============================================================
