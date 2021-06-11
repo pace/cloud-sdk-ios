@@ -9,6 +9,13 @@ x.y.z Release notes (yyyy-MM-dd)
 
 ### Breaking Changes
 * Added new SDK methods `getAccessToken` and 'logout'. The `getAccessToken` call replaces the `invalidToken` method.
+### Breaking Changes
+
+* Remove `resetAccessToken()` from the `PACECloudSDK.shared` property. This functionality is no longer needed.
+* Implement automatic session handling for apps. If `IDKit` is used the SDK will now try to renew the session automatically when an app requests a new token. In this case the `getAccessToken` callback will no longer be called. If the renewal fails an `IDKitDelegate` may be implemented to specify a custom behaviour for the token retrieval. Otherwise the sign in mask will be shown.
+
+<!-- Enhancements  - Include, if needed -->
+<!-- ### Fixes - Include, if needed -->
 
 ### Internal
 

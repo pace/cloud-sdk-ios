@@ -74,10 +74,4 @@ extension AppControl: AppKitDelegate {
         let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
     }
-
-    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void)) {
-        IDControl.shared.refresh { token in
-            completion(AppKit.GetAccessTokenResponse(accessToken: token, isInitialToken: false))
-        }
-    }
 }
