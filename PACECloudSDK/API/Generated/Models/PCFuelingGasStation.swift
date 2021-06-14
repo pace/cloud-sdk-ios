@@ -22,10 +22,6 @@ public class PCFuelingGasStation: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCFuelingPaymentMethods: String, Codable, Equatable, CaseIterable {
-            case sepa = "sepa"
-        }
-
         public var address: Address?
 
         public var amenities: [String]?
@@ -39,7 +35,7 @@ public class PCFuelingGasStation: APIModel {
 
         public var openingHours: PCFuelingCommonOpeningHours?
 
-        public var paymentMethods: [PCFuelingPaymentMethods]?
+        public var paymentMethods: [String]?
 
         public var stationName: String?
 
@@ -99,7 +95,7 @@ public class PCFuelingGasStation: APIModel {
             }
         }
 
-        public init(address: Address? = nil, amenities: [String]? = nil, lastUpdateTime: DateTime? = nil, latitude: Float? = nil, longitude: Float? = nil, openingHours: PCFuelingCommonOpeningHours? = nil, paymentMethods: [PCFuelingPaymentMethods]? = nil, stationName: String? = nil) {
+        public init(address: Address? = nil, amenities: [String]? = nil, lastUpdateTime: DateTime? = nil, latitude: Float? = nil, longitude: Float? = nil, openingHours: PCFuelingCommonOpeningHours? = nil, paymentMethods: [String]? = nil, stationName: String? = nil) {
             self.address = address
             self.amenities = amenities
             self.lastUpdateTime = lastUpdateTime

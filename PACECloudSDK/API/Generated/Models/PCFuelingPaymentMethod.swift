@@ -22,15 +22,10 @@ public class PCFuelingPaymentMethod: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCFuelingKind: String, Codable, Equatable, CaseIterable {
-            case sepa = "sepa"
-            case creditcard = "creditcard"
-            case paypal = "paypal"
-        }
-
         public var identificationString: String?
 
-        public var kind: PCFuelingKind?
+        /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
+        public var kind: String?
 
         /** indicates if the payment method kind requires two factors later on */
         public var twoFactor: Bool?
@@ -38,7 +33,7 @@ public class PCFuelingPaymentMethod: APIModel {
         /** PACE resource name(s) to payment method vendor */
         public var vendorPRN: String?
 
-        public init(identificationString: String? = nil, kind: PCFuelingKind? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+        public init(identificationString: String? = nil, kind: String? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
             self.identificationString = identificationString
             self.kind = kind
             self.twoFactor = twoFactor

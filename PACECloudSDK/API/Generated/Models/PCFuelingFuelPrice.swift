@@ -22,10 +22,6 @@ public class PCFuelingFuelPrice: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCFuelingCurrency: String, Codable, Equatable, CaseIterable {
-            case eur = "EUR"
-        }
-
         /** Fuel type for cars, based on the EU fuel marking */
         public enum PCFuelingFuelType: String, Codable, Equatable, CaseIterable {
             case ron98 = "ron98"
@@ -52,7 +48,8 @@ public class PCFuelingFuelPrice: APIModel {
             case heatingOil = "heatingOil"
         }
 
-        public var currency: PCFuelingCurrency?
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
         /** Fuel type for cars, based on the EU fuel marking */
         public var fuelType: PCFuelingFuelType?
@@ -62,7 +59,7 @@ public class PCFuelingFuelPrice: APIModel {
 
         public var productName: String?
 
-        public init(currency: PCFuelingCurrency? = nil, fuelType: PCFuelingFuelType? = nil, price: Double? = nil, productName: String? = nil) {
+        public init(currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Double? = nil, productName: String? = nil) {
             self.currency = currency
             self.fuelType = fuelType
             self.price = price
