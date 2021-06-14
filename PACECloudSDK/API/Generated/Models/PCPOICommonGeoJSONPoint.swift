@@ -13,11 +13,12 @@ public class PCPOICommonGeoJSONPoint: APIModel {
         case point = "Point"
     }
 
-    public var coordinates: PCPOICommonLatLong?
+    /** https://tools.ietf.org/html/rfc7946 */
+    public var coordinates: [Float]?
 
     public var type: PCPOIType?
 
-    public init(coordinates: PCPOICommonLatLong? = nil, type: PCPOIType? = nil) {
+    public init(coordinates: [Float]? = nil, type: PCPOIType? = nil) {
         self.coordinates = coordinates
         self.type = type
     }
@@ -25,7 +26,7 @@ public class PCPOICommonGeoJSONPoint: APIModel {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        coordinates = try container.decodeIfPresent("coordinates")
+        coordinates = try container.decodeArrayIfPresent("coordinates")
         type = try container.decodeIfPresent("type")
     }
 

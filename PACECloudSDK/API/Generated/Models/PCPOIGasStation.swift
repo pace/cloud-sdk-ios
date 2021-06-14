@@ -22,142 +22,36 @@ public class PCPOIGasStation: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCPOIAmenities: String, Codable, Equatable, CaseIterable {
-            case atm = "atm"
-            case disabilityFriendly = "disabilityFriendly"
-            case shop = "shop"
-            case shower = "shower"
-            case toilet = "toilet"
-            case tollTerminal = "tollTerminal"
-            case carParking = "carParking"
-            case truckParking = "truckParking"
-            case truckSuitable = "truckSuitable"
-            case unmanned = "unmanned"
-            case paymentTerminal = "paymentTerminal"
-            case motel = "motel"
-            case carSuitable = "carSuitable"
-        }
-
-        public enum PCPOIFood: String, Codable, Equatable, CaseIterable {
-            case bakery = "bakery"
-            case bistro = "bistro"
-            case cafe = "cafe"
-            case restaurant = "restaurant"
-            case takeaway = "takeaway"
-        }
-
-        public enum PCPOILoyaltyPrograms: String, Codable, Equatable, CaseIterable {
-            case deutschlandCard = "deutschlandCard"
-            case payback = "payback"
-            case shellClubsmart = "shellClubsmart"
-            case totalClub = "totalClub"
-        }
-
-        public enum PCPOIPaymentMethods: String, Codable, Equatable, CaseIterable {
-            case americanExpress = "americanExpress"
-            case applyPay = "applyPay"
-            case aralKomfort = "aralKomfort"
-            case aviaCard = "aviaCard"
-            case barclays = "barclays"
-            case bayWaCard = "bayWaCard"
-            case cash = "cash"
-            case dinersClub = "dinersClub"
-            case dkv = "dkv"
-            case essoCard = "essoCard"
-            case essoVoucher = "essoVoucher"
-            case euroshell = "euroshell"
-            case ffCard = "ffCard"
-            case girocard = "girocard"
-            case googlePay = "googlePay"
-            case hemMycard = "hemMycard"
-            case jetCard = "jetCard"
-            case logPay = "logPay"
-            case maestro = "maestro"
-            case masterCard = "masterCard"
-            case novofleet = "novofleet"
-            case pacePay = "pacePay"
-            case paypal = "paypal"
-            case routex = "routex"
-            case sepaDirectDebit = "sepaDirectDebit"
-            case starFleetCard = "starFleetCard"
-            case tndCard = "tndCard"
-            case totalCard = "totalCard"
-            case uta = "uta"
-            case visa = "visa"
-            case vPay = "vPay"
-            case westfalenCard = "westfalenCard"
-        }
-
-        public enum PCPOIPostalServices: String, Codable, Equatable, CaseIterable {
-            case dhl = "dhl"
-            case dhlPackstation = "dhlPackstation"
-            case dpd = "dpd"
-            case gls = "gls"
-            case hermes = "hermes"
-            case post = "post"
-            case ups = "ups"
-        }
-
-        public enum PCPOIServices: String, Codable, Equatable, CaseIterable {
-            case carWash = "carWash"
-            case freeWifi = "freeWifi"
-            case gasBottleRefill = "gasBottleRefill"
-            case gasStationAttendant = "gasStationAttendant"
-            case laundryService = "laundryService"
-            case lotto = "lotto"
-            case oilService = "oilService"
-            case paceConnectedFueling = "paceConnectedFueling"
-            case screenWashWater = "screenWashWater"
-            case selfServiceCarWash = "selfServiceCarWash"
-            case truckWash = "truckWash"
-            case twentyFourHoursFueling = "twentyFourHoursFueling"
-            case twentyFourHoursShopping = "twentyFourHoursShopping"
-            case tyreAir = "tyreAir"
-            case tyreService = "tyreService"
-            case vacuum = "vacuum"
-            case wifi = "wifi"
-            case workshop = "workshop"
-        }
-
-        public enum PCPOIShopGoods: String, Codable, Equatable, CaseIterable {
-            case adBlue = "adBlue"
-            case contactLenses = "contactLenses"
-            case crushedIce = "crushedIce"
-            case flowers = "flowers"
-            case vignette = "vignette"
-            case lubricants = "lubricants"
-        }
-
         public var address: Address?
 
-        public var amenities: [PCPOIAmenities]?
+        public var amenities: [String]?
 
         public var brand: String?
 
         public var contact: Contact?
 
-        public var food: [PCPOIFood]?
+        public var food: [String]?
 
         public var latitude: Float?
 
         public var longitude: Float?
 
-        public var loyaltyPrograms: [PCPOILoyaltyPrograms]?
+        public var loyaltyPrograms: [String]?
 
         public var openingHours: PCPOICommonOpeningHours?
 
-        public var paymentMethods: [PCPOIPaymentMethods]?
+        public var paymentMethods: [String]?
 
-        public var postalServices: [PCPOIPostalServices]?
+        public var postalServices: [String]?
 
         public var priceFormat: String?
 
         /** References are PRNs to external and internal resources that are represented by this poi */
         public var references: [String]?
 
-        public var services: [PCPOIServices]?
+        public var services: [String]?
 
-        public var shopGoods: [PCPOIShopGoods]?
+        public var shopGoods: [String]?
 
         public var stationName: String?
 
@@ -284,7 +178,7 @@ public class PCPOIGasStation: APIModel {
             }
         }
 
-        public init(address: Address? = nil, amenities: [PCPOIAmenities]? = nil, brand: String? = nil, contact: Contact? = nil, food: [PCPOIFood]? = nil, latitude: Float? = nil, longitude: Float? = nil, loyaltyPrograms: [PCPOILoyaltyPrograms]? = nil, openingHours: PCPOICommonOpeningHours? = nil, paymentMethods: [PCPOIPaymentMethods]? = nil, postalServices: [PCPOIPostalServices]? = nil, priceFormat: String? = nil, references: [String]? = nil, services: [PCPOIServices]? = nil, shopGoods: [PCPOIShopGoods]? = nil, stationName: String? = nil) {
+        public init(address: Address? = nil, amenities: [String]? = nil, brand: String? = nil, contact: Contact? = nil, food: [String]? = nil, latitude: Float? = nil, longitude: Float? = nil, loyaltyPrograms: [String]? = nil, openingHours: PCPOICommonOpeningHours? = nil, paymentMethods: [String]? = nil, postalServices: [String]? = nil, priceFormat: String? = nil, references: [String]? = nil, services: [String]? = nil, shopGoods: [String]? = nil, stationName: String? = nil) {
             self.address = address
             self.amenities = amenities
             self.brand = brand

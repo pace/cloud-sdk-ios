@@ -13,11 +13,11 @@ public class PCPOICommonGeoJSONPolygon: APIModel {
         case polygon = "Polygon"
     }
 
-    public var coordinates: [PCPOICommonLatLong]?
+    public var coordinates: [[Float]]?
 
     public var type: PCPOIType?
 
-    public init(coordinates: [PCPOICommonLatLong]? = nil, type: PCPOIType? = nil) {
+    public init(coordinates: [[Float]]? = nil, type: PCPOIType? = nil) {
         self.coordinates = coordinates
         self.type = type
     }
