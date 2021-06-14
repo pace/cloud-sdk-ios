@@ -21,6 +21,14 @@ extension UserAPI.Credentials {
             public init() {
                 super.init(service: CreateUserPassword.service)
             }
+
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
