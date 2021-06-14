@@ -58,7 +58,7 @@ extension VectorTile_Tile {
 
         if let paymentMethods = values["pm"] {
             let splittedResponse = splitResponse(for: paymentMethods)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIPaymentMethods(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             let cofuPaymentMethods = splittedResponse.filter { $0.hasPrefix("cofu:") }
             gasStation.attributes?.paymentMethods = wrapped
             gasStation.cofuPaymentMethods = cofuPaymentMethods
@@ -74,37 +74,37 @@ extension VectorTile_Tile {
 
         if let amenities = values["am"] {
             let splittedResponse = splitResponse(for: amenities)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIAmenities(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             gasStation.attributes?.amenities = wrapped
         }
 
         if let foods = values["fd"] {
             let splittedResponse = splitResponse(for: foods)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIFood(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             gasStation.attributes?.food = wrapped
         }
 
         if let loyalityPrograms = values["lp"] {
             let splittedResponse = splitResponse(for: loyalityPrograms)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOILoyaltyPrograms(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             gasStation.attributes?.loyaltyPrograms = wrapped
         }
 
         if let postService = values["ps"] {
             let splittedResponse = splitResponse(for: postService)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIPostalServices(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             gasStation.attributes?.postalServices = wrapped
         }
 
         if let services = values["sv"] {
             let splittedResponse = splitResponse(for: services)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIServices(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             gasStation.attributes?.services = wrapped
         }
 
         if let shop = values["sg"] {
             let splittedResponse = splitResponse(for: shop)
-            let wrapped = splittedResponse.compactMap { PCPOIGasStation.Attributes.PCPOIShopGoods(rawValue: $0) }
+            let wrapped = splittedResponse.compactMap { $0 }
             gasStation.attributes?.shopGoods =  wrapped
         }
         
@@ -184,8 +184,7 @@ extension VectorTile_Tile {
                 price = Double(unwrapped)
             }
 
-            let fuel = PCPOIFuel(rawValue: productType)
-            let fuelPrice = PCPOIFuelPrice(attributes: .init(fuelType: fuel, price: price, productName: name), type: .fuelPrice)
+            let fuelPrice = PCPOIFuelPrice(attributes: .init(fuelType: productType, price: price, productName: name), type: .fuelPrice)
             return fuelPrice
         }
     }

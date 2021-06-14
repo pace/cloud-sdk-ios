@@ -126,6 +126,10 @@ We've added more information in the `tokenInvalid` callback, thus the client can
 ### From 6.x.x to 7.x.x
 We've added two new sdk methods `getAccessToken` & `logout`. The `getAccessToken` method replaces the `invalidToken` call. While its callback is equal to the `invalidToken` callback, we changed the response to be an object with an `accessToken` property and a new `isInitialToken` boolean. Please refer to  [Native login](#native-login) for more information.
 
+All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
+
+**_Noteworthy_**: If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
+
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
 

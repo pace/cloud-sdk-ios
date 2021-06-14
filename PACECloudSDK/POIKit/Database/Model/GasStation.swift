@@ -70,12 +70,12 @@ public extension POIKit {
 
         /// Returns a sorted list of all services
         public var allServices: [String] {
-            let amenities = attributes?.amenities?.map { $0.rawValue } ?? []
-            let foods = attributes?.food?.map { $0.rawValue } ?? []
-            let loyaltyPrograms = attributes?.loyaltyPrograms?.map { $0.rawValue } ?? []
-            let postalServices = attributes?.postalServices?.map { $0.rawValue } ?? []
-            let services = attributes?.services?.map { $0.rawValue } ?? []
-            let shopGoods = attributes?.shopGoods?.map { $0.rawValue } ?? []
+            let amenities = attributes?.amenities ?? []
+            let foods = attributes?.food ?? []
+            let loyaltyPrograms = attributes?.loyaltyPrograms ?? []
+            let postalServices = attributes?.postalServices ?? []
+            let services = attributes?.services ?? []
+            let shopGoods = attributes?.shopGoods ?? []
 
             var result = amenities + foods + loyaltyPrograms + postalServices + services + shopGoods
 

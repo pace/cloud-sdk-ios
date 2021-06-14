@@ -22,7 +22,7 @@ public extension POIKit {
         public let attributes: PriceLevels
 
         init(_ data: PCPOIRegionalPrices.DataType) {
-            self.id = data.id?.rawValue ?? ""
+            self.id = data.id ?? ""
             self.type = data.type?.rawValue ?? ""
             attributes = PriceLevels(data.attributes)
         }
