@@ -146,7 +146,6 @@ To add support for a specific asynchronous library, just add an extension on `Ge
 
 ## Models
 
-- **PCGeoJSONCommonLatLong**
 - **PCGeoJSONGeoJson**
 - **PCGeoJSONGeoJsonFeature**
 - **PCGeoJSONGeoJsonGeometry**

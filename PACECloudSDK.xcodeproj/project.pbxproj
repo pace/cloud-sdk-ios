@@ -33,7 +33,6 @@
 		3B6B37F726298CF3001961B6 /* Cms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B37F626298CF3001961B6 /* Cms.swift */; };
 		3B6B380C26298DD4001961B6 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
 		3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
-		3B6EE85425CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EE85325CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift */; };
 		3B70FCB02636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
 		3B70FCB12636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
 		3B73074725372A40009A7DF7 /* IDKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73074625372A40009A7DF7 /* IDKit.swift */; };
@@ -792,7 +791,6 @@
 		3B6B37F626298CF3001961B6 /* Cms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cms.swift; sourceTree = "<group>"; };
 		3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmsAPIClient.swift; sourceTree = "<group>"; };
 		3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CmsAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
-		3B6EE85325CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCGeoJSONCommonLatLong.swift; sourceTree = "<group>"; };
 		3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKWarningsHandler.swift; sourceTree = "<group>"; };
 		3B73074625372A40009A7DF7 /* IDKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKit.swift; sourceTree = "<group>"; };
 		3B76F7562576468F008D8F9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -2417,7 +2415,6 @@
 				841A3EE225B9C9690065284A /* PCFuelingPump.swift */,
 				841A3EDE25B9C9690065284A /* PCFuelingPumpResponse.swift */,
 				841A3EDD25B9C9690065284A /* PCFuelingTransactionRequest.swift */,
-				3B6EE85325CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift */,
 				3B88788225CBEE2E008D1551 /* PCGeoJSONGeoJson.swift */,
 				3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */,
 				3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */,
@@ -3249,7 +3246,6 @@
 				3B970A782542D9BB0072F6BA /* AppDrawerContainer.swift in Sources */,
 				84D6C088258A03280094982D /* PCPayTransaction.swift in Sources */,
 				843A86D825C2BC040062B124 /* FuelingAPIClient+URLProtocol.swift in Sources */,
-				3B6EE85425CD4B6C0058BEF8 /* PCGeoJSONCommonLatLong.swift in Sources */,
 				84D6C078258A03280094982D /* PCPayPaymentTokens.swift in Sources */,
 				84E1AC3D2562800D00C673EF /* Poly.swift in Sources */,
 				84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */,
