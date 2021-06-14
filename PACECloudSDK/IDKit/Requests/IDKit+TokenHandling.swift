@@ -77,6 +77,8 @@ extension IDKit {
 
             self?.session = authState
             let accessToken = session.lastTokenResponse?.accessToken
+            API.accessToken = accessToken
+
             completion(accessToken, nil)
             IDKitLogger.i("Authorization successful")
         }
@@ -109,6 +111,7 @@ extension IDKit {
         session.setNeedsTokenRefresh()
         session.performAction(freshTokens: { [weak self] accessToken, _, error in
             guard let error = error else {
+                API.accessToken = accessToken
                 completion(accessToken, nil)
                 IDKitLogger.i("Refresh successful")
                 return
@@ -131,6 +134,7 @@ extension IDKit {
 
         session = nil
         SessionCache.reset()
+        API.accessToken = nil
 
         guard let authorizationFlow = authorizationFlow else {
             completion?()
