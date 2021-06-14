@@ -40,6 +40,14 @@ extension PayAPI.PaymentTokens {
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "paymentTokenId" + "}", with: "\(self.options.paymentTokenId)")
             }
+
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

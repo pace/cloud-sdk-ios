@@ -17,6 +17,14 @@ extension PayAPI.PaymentMethods {
             public init() {
                 super.init(service: GetPaymentMethods.service)
             }
+
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
