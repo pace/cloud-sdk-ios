@@ -9,7 +9,7 @@ import AppAuth
 
 // MARK: - Authorization
 extension IDKit {
-    func performAuthorization(showSignInMask: Bool, _ completion: @escaping ((String?, IDKitError?) -> Void)) {
+    func performAuthorization(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
         guard let authorizationEndpointUrl = URL(string: configuration.authorizationEndpoint) else {
             completion(nil, IDKitError.invalidAuthorizationEndpoint)
             return
@@ -25,16 +25,7 @@ extension IDKit {
             return
         }
 
-        let presentingViewController: UIViewController? = {
-            if showSignInMask {
-                presentSignInWindow()
-                return paceIDSignInWindow?.rootViewController
-            } else {
-                return clientPresentingViewController
-            }
-        }()
-
-        guard let viewController = presentingViewController else {
+        guard let presentingViewController = presentingViewController else {
             completion(nil, IDKitError.invalidPresentingViewController)
             return
         }
@@ -48,7 +39,7 @@ extension IDKit {
             return
         }
 
-        startAuthorizationFlow(with: request, presentingViewController: viewController, completion)
+        startAuthorizationFlow(with: request, presentingViewController: presentingViewController, completion)
     }
 
     private func buildAuthorizationRequest(authorizationEndpoint: URL, tokenEndpoint: URL, redirectUrl: URL) -> OIDAuthorizationRequest {
@@ -69,10 +60,6 @@ extension IDKit {
                                         presentingViewController: UIViewController,
                                         _ completion: @escaping ((String?, IDKitError?) -> Void)) {
         let callback: OIDAuthStateAuthorizationCallback = { [weak self] authState, error in
-            defer {
-                self?.paceIDSignInWindow = nil
-            }
-
             if let error = error {
                 self?.performReset { completion(nil, IDKitError.other(error)) }
                 return

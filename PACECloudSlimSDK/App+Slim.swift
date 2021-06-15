@@ -17,8 +17,3 @@ extension App {
     func setSecureData(with request: AppKit.AppRequestData<AppKit.SetSecureData>, requestUrl: URL?) {}
     func getSecureData(with request: AppKit.AppRequestData<AppKit.GetSecureData>, requestUrl: URL?, completion: @escaping () -> Void) {}
 }
-
-// MARK: - Access token
-extension App {
-    func handleGetAccessTokenRequest(with request: AppKit.AppRequestData<AppKit.GetAccessTokenData>, completion: @escaping () -> Void) {}
-}

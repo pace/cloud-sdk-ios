@@ -142,6 +142,8 @@ class FuelingViewController: UIViewController {
                       .enableBiometryWithPassword,
                       .disableBiometry,
                       .sendMailOTP].map { buttonCreation($0) }
+
+        isAuthorized(false)
     }
 
     private func setupLayout() {
@@ -416,6 +418,13 @@ extension FuelingViewController: AppControlDelegate {
 }
 
 extension FuelingViewController: IDControlDelegate {
+    func isAuthorized(_ authorized: Bool) {
+        appButtons.forEach {
+            $0.isEnabled = authorized
+            $0.alpha = authorized ? 1 : 0.5
+        }
+    }
+
     func didReceiveUserInfo(_ userInfo: IDKit.UserInfo) {
         navigationItem.title = "\(Strings.titleFuelingAuthorized.rawValue) \(userInfo.email ?? "No email")"
     }

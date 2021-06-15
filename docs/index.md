@@ -14,7 +14,6 @@
         + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
         + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
         + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
-        + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -124,9 +123,7 @@ In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.re
 We've added more information in the `tokenInvalid` callback, thus the client can better react to the callback, i.e. a `reason` and the `oldToken` (if one has been passed before), will be included in the callback. Please refer to  [Native login](#native-login) for more information.
 
 ### From 6.x.x to 7.x.x
-In version `7.x.x` we've added two new sdk methods `getAccessToken` & `logout`. The `getAccessToken` method replaces the `invalidToken` call. While its callback is equal to the `invalidToken` callback, we changed the response to be an object with an `accessToken` property and a new `isInitialToken` boolean. Please refer to  [Native login](#native-login) for more information.  Also from now on this callback will only be sent if `IDKit` is not used/set up. If you're using `IDKit` the SDK will now first try to renew the session automatically. If the renewal fails there is a new `func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)` function that you may implement to specify your own behaviour to retrieve a new access token. To implement this method pass an instance that conforms to `IDKitDelegate` during IDKit's setup. If either this delegate method is not implemented or you didn't pass a delegate instance at all the SDK will automatically perform an authorization hence showing a sign in mask for the user.
-
-Additionally we've removed `resetAccessToken()` from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
+We've added two new sdk methods `getAccessToken` & `logout`. The `getAccessToken` method replaces the `invalidToken` call. While its callback is equal to the `invalidToken` callback, we changed the response to be an object with an `accessToken` property and a new `isInitialToken` boolean. Please refer to  [Native login](#native-login) for more information.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
@@ -265,15 +262,12 @@ or has been revoked. You are responsible for retrieving a valid access token and
 In case that you can't retrieve a new valid token, don't call the `completion` handler, otherwise you will most likely end up
 in an endless loop. Make sure to clean up all the App related views as well.
 
-**_NOTE:_** With SDK version `7.x.x` this callback will only be sent if you're not using `IDKit` (see [6.x.x -> 7.x.x](#from-6xx-to-7xx)).
-
 Pseudocode of implementing the protocol method and passing the response to `AppKit`:
 
 ```swift
 func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void)) {
-    retrieveNewToken { newToken in
-        let response = AppKit.GetAccessTokenResponse(accessToken: newToken)
-        completion(response)
+    IDControl.shared.refresh { token in
+        completion(AppKit.GetAccessTokenResponse(accessToken: token))
     }
 }
 ```
