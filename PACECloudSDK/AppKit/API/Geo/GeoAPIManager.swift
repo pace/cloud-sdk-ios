@@ -68,6 +68,7 @@ class GeoAPIManager {
         }
     }
 
+    // Load cofu stations for a specific area
     private func cofuGasStations(for location: CLLocation, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
         // Speed accuracy is measured in m/s.
         // Negative value means the speed property is invalid,
@@ -78,7 +79,7 @@ class GeoAPIManager {
             return
         }
 
-        guard let cachedFeatures = cachedFeatures, !isCacheOutdated(for: location) else {
+        guard let cachedFeatures = cachedFeatures, !isCacheOutdated(with: location) else {
             // Send request if cache is not available or outdated
             fetchCofuGasStations(for: location) { [weak self] response in
                 guard let self = self else {
@@ -102,10 +103,11 @@ class GeoAPIManager {
         loadCofuStations(with: cachedFeatures, for: location, result: result)
     }
 
+    // Load all available cofu stations
     private func cofuGasStations(result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
-        guard let cachedCofuFeatures = cachedFeatures, !isCacheOutdated() else {
+        guard let cachedCofuFeatures = cachedFeatures, !isCofuCacheOutdated() else {
             // Send request if cache is not available or outdated
-            fetchCofuGasStations { [weak self] response in
+            fetchCofuGasStations(for: nil) { [weak self] response in
                 guard let self = self else {
                     result(.failure(.unknownError))
                     return
@@ -114,7 +116,7 @@ class GeoAPIManager {
                 switch response {
                 case .success:
                     guard let cachedCofuFeatures = self.cachedCofuFeatures else { return }
-                    self.loadCofuStations(with: cachedCofuFeatures, result: result)
+                    self.loadCofuStations(with: cachedCofuFeatures, for: nil, result: result)
 
                 case .failure(let error):
                     result(.failure(error))
@@ -124,10 +126,10 @@ class GeoAPIManager {
         }
 
         // Load cofu stations from cache
-        loadCofuStations(with: cachedCofuFeatures, result: result)
+        loadCofuStations(with: cachedCofuFeatures, for: nil, result: result)
     }
 
-    func loadCofuStations(with features: [GeoAPIFeature], for location: CLLocation? = nil, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
+    func loadCofuStations(with features: [GeoAPIFeature], for location: CLLocation?, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
         cloudQueue.async {
             let cofuStations = self.retrieveCoFuGasStations(from: features)
 
@@ -143,7 +145,7 @@ class GeoAPIManager {
         }
     }
 
-    func fetchCofuGasStations(for location: CLLocation? = nil, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
+    func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
         performGeoRequest { [weak self] apiResult in
             guard let unwrappedSelf = self else {
                 result(.failure(.unknownError))
@@ -331,14 +333,6 @@ class GeoAPIManager {
 
 // MARK: - Cache
 private extension GeoAPIManager {
-    private func isCacheOutdated(for location: CLLocation? = nil) -> Bool {
-        if let location = location {
-            return isCacheOutdated(with: location)
-        } else {
-            return isCofuCacheOutdated()
-        }
-    }
-
     private func isCofuCacheOutdated() -> Bool {
         guard let lastUpdated = cacheCofuLastUpdatedAt else { return true }
         return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge
@@ -373,9 +367,9 @@ extension GeoAPIManager {
             return
         }
 
-        guard let cachedFeatures = cachedFeatures, !isCacheOutdated() else {
+        guard let cachedFeatures = cachedFeatures, !isCacheOutdated(with: location) else {
             // Send request if cache is not available or outdated
-            fetchCofuGasStations { [weak self] response in
+            fetchCofuGasStations(for: location) { [weak self] response in
                 guard let self = self else {
                     completion(false)
                     return
@@ -460,7 +454,6 @@ extension GeoAPIManager {
         return false
     }
 
-
     private func isAppAvailable(for id: String, location: CLLocation, cofuStations: [CofuGasStation]) -> Bool {
         guard let app = cofuStations.first(where: { $0.id == id }),
               let coordinates = app.coordinates,
@@ -469,6 +462,7 @@ extension GeoAPIManager {
         return location.distance(from: CLLocation(latitude: lat, longitude: lon)) <= Constants.isPoiInRangeThreshold
     }
 
+    // Only check polygons here
     private func isAppAvailable(for id: String, location: CLLocation, features: [GeoAPIFeature]) -> Bool {
         guard let app = features.first(where: { $0.id == id }) else { return false }
 
