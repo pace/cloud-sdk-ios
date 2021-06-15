@@ -11,6 +11,8 @@
 		05521B1326490F7500AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
 		05F57A31266635B5008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		05F57A36266635B7008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
+		1705506C266612FC00C5119C /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
+		175019DA263C45B000DBA1FF /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
 		3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
 		3B1D40CA25FA45C2007CF531 /* BiometryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */; };
@@ -71,7 +73,6 @@
 		3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
-		3B96928A25E3C18700E42703 /* GeoGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */; };
 		3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */; };
 		3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96929925E3C20900E42703 /* RayCastingTests.swift */; };
 		3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */; };
@@ -226,7 +227,6 @@
 		3BD19ADF2631766400D68580 /* App+MessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD19ADD2631766400D68580 /* App+MessageHandling.swift */; };
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
-		3BE586BE25DE95FC002EBDDB /* GeoGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */; };
 		3BEECBCB26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
@@ -775,6 +775,7 @@
 /* Begin PBXFileReference section */
 		05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Error.swift"; sourceTree = "<group>"; };
 		05F57A30266635B5008F2272 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		175019D9263C45B000DBA1FF /* CofuGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CofuGasStation.swift; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
@@ -980,7 +981,6 @@
 		3BD19ADD2631766400D68580 /* App+MessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling.swift"; sourceTree = "<group>"; };
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
-		3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoGasStation.swift; sourceTree = "<group>"; };
 		3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTimeoutHandler.swift; sourceTree = "<group>"; };
@@ -1703,7 +1703,7 @@
 				3B86C74F25DD67E500039296 /* GeoAPIManager.swift */,
 				05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */,
 				3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */,
-				3BE586BD25DE95FC002EBDDB /* GeoGasStation.swift */,
+				175019D9263C45B000DBA1FF /* CofuGasStation.swift */,
 			);
 			path = Geo;
 			sourceTree = "<group>";
@@ -3185,7 +3185,6 @@
 				3B970A822542D9BB0072F6BA /* AppKit+Configuration.swift in Sources */,
 				84600EA425C03B0C0087194F /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
 				84D6C095258A03280094982D /* PCPOICommonGeoJSONPolygon.swift in Sources */,
-				3BE586BE25DE95FC002EBDDB /* GeoGasStation.swift in Sources */,
 				924EEA3925FFC7B300C5A987 /* AppCommunicationData.swift in Sources */,
 				3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */,
 				84D6C059258A03270094982D /* PCPOIPolicyRulePriority.swift in Sources */,
@@ -3218,6 +3217,7 @@
 				84600F3C25C03B1F0087194F /* POIAPIGetApp.swift in Sources */,
 				3BC9A8142539DDAD00B933AE /* POISearchError.swift in Sources */,
 				8447A3B525CAAE740095BEF1 /* UserAPIUpdateUser.swift in Sources */,
+				175019DA263C45B000DBA1FF /* CofuGasStation.swift in Sources */,
 				3B970A6E2542D9BB0072F6BA /* Data+Extension.swift in Sources */,
 				8431E1A6258B89F0009401BF /* APIResponseUtils.swift in Sources */,
 				3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */,
@@ -3536,6 +3536,7 @@
 				92EDDC0D25A7270300E480F4 /* UIImage+Extension.swift in Sources */,
 				924EEA3A25FFC7B300C5A987 /* AppCommunicationData.swift in Sources */,
 				92EDDD5625A7395A00E480F4 /* (null) in Sources */,
+				1705506C266612FC00C5119C /* CofuGasStation.swift in Sources */,
 				92EDDD4F25A7395400E480F4 /* (null) in Sources */,
 				92EDDD7725A7397B00E480F4 /* (null) in Sources */,
 				92EDDBE725A726AD00E480F4 /* AppKit+Configuration.swift in Sources */,
@@ -3579,7 +3580,6 @@
 				8418E26825B1B85A00D3722B /* PCPOIGasStation.swift in Sources */,
 				8418E2A225B1B86600D3722B /* POIAPIRequest.swift in Sources */,
 				92EDDC5925A729D300E480F4 /* UIDevice+Extension.swift in Sources */,
-				3B96928A25E3C18700E42703 /* GeoGasStation.swift in Sources */,
 				92EDDC4C25A729CC00E480F4 /* DeviceInformation.swift in Sources */,
 				92EDDDA025A73A6C00E480F4 /* CoordinateLocation.swift in Sources */,
 				92EDDC0025A7270300E480F4 /* AppMetadata.swift in Sources */,

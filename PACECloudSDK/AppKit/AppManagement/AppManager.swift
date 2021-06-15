@@ -63,8 +63,8 @@ class AppManager {
 
 // MARK: - API requests
 extension AppManager {
-    private func checkAvailableApps(for location: CLLocation, completion: @escaping (([GeoGasStation]?) -> Void)) {
-        geoAPIManager.apps(for: location) { [weak self] result in
+    func getCofuGasStations(for location: CLLocation? = nil, completion: @escaping ([CofuGasStation]?) -> Void) {
+        geoAPIManager.cofuGasStations(for: location) { [weak self] result in
             switch result {
             case .failure(let error):
                 switch error {
@@ -72,8 +72,11 @@ extension AppManager {
                     completion(nil)
 
                 default:
-                    // In case the apps couldn't be retrieved
-                    self?.fetchAppsByLocation(with: location, completion: completion)
+                    if let location = location {
+                        self?.fetchAppsByLocation(with: location, completion: completion)
+                    } else {
+                        completion(nil)
+                    }
                 }
 
             case .success(let stations):
@@ -82,7 +85,7 @@ extension AppManager {
         }
     }
 
-    private func fetchAppsByLocation(with location: CLLocation, completion: @escaping (([GeoGasStation]?) -> Void)) {
+    private func fetchAppsByLocation(with location: CLLocation, completion: @escaping (([CofuGasStation]?) -> Void)) {
         guard !isLocationFetchRunning else {
             completion(nil)
             delegate?.passErrorToClient(.fetchAlreadyRunning)
@@ -111,16 +114,17 @@ extension AppManager {
                     return
                 }
 
-                let apps: [GeoGasStation] = appsResponse.reduce(into: []) { result, app in
+                let cofuStations: [CofuGasStation] = appsResponse.reduce(into: []) { result, app in
                     guard let gasStationReferences = app.attributes?.references, let url = app.attributes?.pwaUrl else { return }
 
-                    let apps: [GeoGasStation] = gasStationReferences.map { reference in
-                        .init(id: reference, apps: [.init(type: nil, url: url)])
+                    let apps: [CofuGasStation] = gasStationReferences.map { reference in
+                        .init(id: reference, coordinates: nil, polygon: nil, properties: ["apps": ["url": url]])
                     }
+
                     result.append(contentsOf: apps)
                 }
 
-                completion(apps)
+                completion(cofuStations)
 
             case .failure(let error):
                 AppKitLogger.e("[AppManager] failed fetching local apps with error \(error)")
@@ -225,11 +229,11 @@ extension AppManager {
         URLBuilder.buildAppStartUrl(with: appUrl, decomposedParams: [.references], references: reference)
     }
 
-    private func retrieveAppData(for geoGasStations: [GeoGasStation], with location: CLLocation) {
-        let appDatas: [AppKit.AppData] = geoGasStations.reduce(into: []) { result, station in
+    private func retrieveAppData(for cofuGasStations: [CofuGasStation], with location: CLLocation) {
+        let appDatas: [AppKit.AppData] = cofuGasStations.reduce(into: []) { result, station in
             let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.references: [station.id]]
-            let appDatas: [AppKit.AppData] = station.apps.map { app in
-                let appData = AppKit.AppData(appID: nil, appUrl: app.url, metadata: metadata)
+            let appDatas: [AppKit.AppData] = (station.properties["apps"] as? [[String: Any]] ?? []).map { app in
+                let appData = AppKit.AppData(appID: nil, appUrl: app["url"] as? String ?? "", metadata: metadata)
                 return appData
             }
             result.append(contentsOf: appDatas)
@@ -298,7 +302,7 @@ extension AppManager: AppDrawerLocationProviderDelegate {
     func didReceiveLocation(_ location: CLLocation) {
         AppKitLogger.i("[App Manager] Did receive location. Checking for available apps...")
 
-        checkAvailableApps(for: location) { [weak self] apps in
+        getCofuGasStations(for: location) { [weak self] apps in
             guard let apps = apps else { return }
             self?.retrieveAppData(for: apps, with: location)
         }

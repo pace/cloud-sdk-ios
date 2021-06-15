@@ -14,9 +14,11 @@ class GeoAPIManager {
 
     func fetchPolygons() {}
 
-    func apps(for location: CLLocation, result: @escaping (Result<[GeoGasStation], GeoApiManagerError>) -> Void) {
+    func cofuGasStations(for location: CLLocation? = nil, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
         result(.failure(.unknownError))
     }
+
+    func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? { nil }
 
     func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void)  {
         completion(false)
