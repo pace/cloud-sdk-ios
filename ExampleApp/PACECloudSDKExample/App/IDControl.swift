@@ -9,6 +9,7 @@ import PACECloudSDK
 import UIKit
 
 protocol IDControlDelegate: AnyObject {
+    func isAuthorized(_ authorized: Bool)
     func didReceiveUserInfo(_ userInfo: IDKit.UserInfo)
 }
 
@@ -32,13 +33,16 @@ class IDControl {
         IDKit.authorize { [weak self] accessToken, error in
             if let error = error {
                 NSLog("Failed authorizing with error \(error)")
+                self?.delegate?.isAuthorized(false)
             }
 
             guard let token = accessToken, !token.isEmpty else {
                 NSLog("Token invalid")
+                self?.delegate?.isAuthorized(false)
                 return
             }
 
+            self?.delegate?.isAuthorized(true)
             self?.userInfo()
         }
     }
@@ -47,10 +51,12 @@ class IDControl {
         IDKit.refreshToken { accessToken, error in
             if let error = error {
                 NSLog("Failed refreshing with error \(error)")
+                self.delegate?.isAuthorized(false)
             }
 
             guard let token = accessToken, !token.isEmpty else {
                 NSLog("Token invalid")
+                self.delegate?.isAuthorized(false)
                 return
             }
 
@@ -59,7 +65,9 @@ class IDControl {
     }
 
     func reset() {
-        IDKit.resetSession()
+        IDKit.resetSession { [weak self] in
+            self?.delegate?.isAuthorized(false)
+        }
     }
 
     func userInfo() {

@@ -5,8 +5,6 @@
 //  Created by PACE Telematics GmbH.
 //
 
-import Foundation
-
 struct IDKitConstants {
     static let logTag = "[IDKit]"
 
