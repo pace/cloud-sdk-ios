@@ -87,8 +87,8 @@ public extension AppKit {
     }
 
     struct GetAccessTokenResponse: Codable {
-        let accessToken: String
-        let isInitialToken: Bool
+        public let accessToken: String
+        public let isInitialToken: Bool
 
         public init(accessToken: String, isInitialToken: Bool = false) {
             self.accessToken = accessToken
