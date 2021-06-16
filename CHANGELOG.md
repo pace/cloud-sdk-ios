@@ -1,18 +1,15 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
-<!-- ### Breaking Changes -->
-<!-- ### Enhancements - Include, if needed -->
-### Fixes
+### Breaking Changes
+* Added new SDK methods `getAccessToken` and 'logout'. The `getAccessToken` call replaces the `invalidToken` method.
 
-* Fix a bug where PWA wasn't closed properly in the AppDrawer
 ### Enhancements
 * Introduce `requestCofuGasStations` to `AppKit` to fetch all available `CofuGasStation` which will have an attribute to tell you, if a gas station is currently online
 
-<!-- ### Fixes - Include, if needed -->
+### Fixes
 
-### Breaking Changes
-* Added new SDK methods `getAccessToken` and 'logout'. The `getAccessToken` call replaces the `invalidToken` method.
+* Fix a bug where PWA wasn't closed properly in the AppDrawer
 
 ### Internal
 

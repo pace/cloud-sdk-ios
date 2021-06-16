@@ -14,6 +14,7 @@
         + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
         + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
         + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
+        + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
