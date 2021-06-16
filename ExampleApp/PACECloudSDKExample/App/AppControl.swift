@@ -29,6 +29,12 @@ class AppControl {
         AppKit.shared.requestLocalApps()
     }
 
+    func requestAllCoFuStations() {
+        AppKit.shared.requestCofuGasStations { stations in
+            NSLog("Current cofu stations count: \(stations?.count ?? -1)")
+        }
+    }
+
     func appViewController(appUrl: String) -> UIViewController {
         AppKit.shared.appViewController(appUrl: appUrl)
     }
