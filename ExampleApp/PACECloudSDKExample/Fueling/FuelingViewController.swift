@@ -13,6 +13,7 @@ class FuelingViewController: UIViewController {
         case authorize
         case reset
         case drawer
+        case allCofuStations
         case fueling
         case payment
         case transactions
@@ -41,6 +42,9 @@ class FuelingViewController: UIViewController {
 
             case .drawer:
                 return "Request App Drawer"
+
+            case .allCofuStations:
+                return "All CoFu Stations"
 
             case .fueling:
                 return "Request Fueling App"
@@ -126,6 +130,7 @@ class FuelingViewController: UIViewController {
 
         idButtons = [ButtonType.authorize, .reset].map { buttonCreation($0) }
         appButtons = [ButtonType.drawer,
+                      .allCofuStations,
                       .fueling, .payment,
                       .transactions,
                       .poiInRange,
@@ -224,6 +229,9 @@ class FuelingViewController: UIViewController {
 
         case ButtonType.drawer.rawValue:
             AppControl.shared.requestLocalApps()
+
+        case ButtonType.allCofuStations.rawValue:
+            AppControl.shared.requestAllCoFuStations()
 
         case ButtonType.fueling.rawValue:
             let vc = AppControl.shared.appViewController(appUrl: Constants.URLs.fuelingUrl)

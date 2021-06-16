@@ -88,9 +88,8 @@ class GeoAPIManager {
                 }
 
                 switch response {
-                case .success:
-                    guard let cachedFeatures = self.cachedFeatures else { return }
-                    self.loadCofuStations(with: cachedFeatures, for: location, result: result)
+                case .success(let features):
+                    self.loadCofuStations(with: features, for: location, result: result)
 
                 case .failure(let error):
                     result(.failure(error))
@@ -105,7 +104,7 @@ class GeoAPIManager {
 
     // Load all available cofu stations
     private func cofuGasStations(result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
-        guard let cachedCofuFeatures = cachedFeatures, !isCofuCacheOutdated() else {
+        guard let cachedCofuFeatures = cachedCofuFeatures, !isCofuCacheOutdated() else {
             // Send request if cache is not available or outdated
             fetchCofuGasStations(for: nil) { [weak self] response in
                 guard let self = self else {
@@ -114,9 +113,8 @@ class GeoAPIManager {
                 }
 
                 switch response {
-                case .success:
-                    guard let cachedCofuFeatures = self.cachedCofuFeatures else { return }
-                    self.loadCofuStations(with: cachedCofuFeatures, for: nil, result: result)
+                case .success(let cofuFeatures):
+                    self.loadCofuStations(with: cofuFeatures, for: nil, result: result)
 
                 case .failure(let error):
                     result(.failure(error))
@@ -145,7 +143,7 @@ class GeoAPIManager {
         }
     }
 
-    func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
+    func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
         performGeoRequest { [weak self] apiResult in
             guard let unwrappedSelf = self else {
                 result(.failure(.unknownError))
@@ -162,17 +160,15 @@ class GeoAPIManager {
                 }
 
                 if let location = location {
-                    let relevantFeatures = unwrappedSelf.filterRelevant(features, for: location)
-                    unwrappedSelf.cachedFeatures = relevantFeatures
+                    let filteredFeatures = unwrappedSelf.filterRelevant(features, for: location)
+                    unwrappedSelf.cachedFeatures = filteredFeatures
                     unwrappedSelf.cacheLastUpdatedAt = Date()
                     unwrappedSelf.cacheCenter = location
-                    let cofuStations: [CofuGasStation] = unwrappedSelf.retrieveCoFuGasStations(from: relevantFeatures)
-                    result(.success(cofuStations))
+                    result(.success(filteredFeatures))
                 } else {
                     unwrappedSelf.cachedCofuFeatures = features
                     unwrappedSelf.cacheCofuLastUpdatedAt = Date()
-                    let cofuStations: [CofuGasStation] = unwrappedSelf.retrieveCoFuGasStations(from: features)
-                    result(.success(cofuStations))
+                    result(.success(features))
                 }
 
             case .failure(let error):
@@ -376,11 +372,12 @@ extension GeoAPIManager {
                 }
 
                 switch response {
-                case .success(let fetchedStations):
-                    var isAvailable = self.isAppAvailable(for: id, location: location, cofuStations: fetchedStations)
-                    if !isAvailable,
-                       let cachedFeatures = self.cachedFeatures {
-                        isAvailable = self.isAppAvailable(for: id, location: location, features: cachedFeatures)
+                case .success(let fetchedFeatures):
+                    let cofuStations: [CofuGasStation] = self.retrieveCoFuGasStations(from: fetchedFeatures)
+                    var isAvailable = self.isAppAvailable(for: id, location: location, cofuStations: cofuStations)
+
+                    if !isAvailable {
+                        isAvailable = self.isAppAvailable(for: id, location: location, features: fetchedFeatures)
                     }
                     completion(isAvailable)
 
