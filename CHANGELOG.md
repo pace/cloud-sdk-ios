@@ -10,6 +10,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Fixes
 
 * Fix a bug where PWA wasn't closed properly in the AppDrawer
+* Don't retrieve any apps if speed threshold is exceeded
 
 ### Internal
 
