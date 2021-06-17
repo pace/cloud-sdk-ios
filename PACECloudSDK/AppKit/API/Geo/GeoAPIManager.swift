@@ -70,11 +70,7 @@ class GeoAPIManager {
 
     // Load cofu stations for a specific area
     private func cofuGasStations(for location: CLLocation, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
-        // Speed accuracy is measured in m/s.
-        // Negative value means the speed property is invalid,
-        // we will therefore only consider the speed, if the
-        // accuracy is anywhere between 0 and ~10km/h.
-        if 0...3 ~= location.speedAccuracy && location.speed > speedThreshold {
+        if isSpeedThresholdExceeded(for: location) {
             result(.failure(.invalidSpeed))
             return
         }
@@ -127,7 +123,7 @@ class GeoAPIManager {
         loadCofuStations(with: cachedCofuFeatures, for: nil, result: result)
     }
 
-    func loadCofuStations(with features: [GeoAPIFeature], for location: CLLocation?, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
+    private func loadCofuStations(with features: [GeoAPIFeature], for location: CLLocation?, result: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
         cloudQueue.async {
             let cofuStations = self.retrieveCoFuGasStations(from: features)
 
@@ -143,7 +139,7 @@ class GeoAPIManager {
         }
     }
 
-    func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
+    private func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
         performGeoRequest { [weak self] apiResult in
             guard let unwrappedSelf = self else {
                 result(.failure(.unknownError))
@@ -177,7 +173,7 @@ class GeoAPIManager {
         }
     }
 
-    func retrieveCoFuGasStations(from geoFeatures: [GeoAPIFeature]) -> [CofuGasStation] {
+    private func retrieveCoFuGasStations(from geoFeatures: [GeoAPIFeature]) -> [CofuGasStation] {
         return (geoFeatures.compactMap { feature in
             var collectionFeature: GeometryCollectionsFeature?
             var pointValue: [Double]?
@@ -281,6 +277,14 @@ class GeoAPIManager {
         }
     }
 
+    private func isSpeedThresholdExceeded(for location: CLLocation) -> Bool {
+        // Speed accuracy is measured in m/s.
+        // Negative value means the speed property is invalid,
+        // we will therefore only consider the speed, if the
+        // accuracy is anywhere between 0 and ~10km/h.
+        0...3 ~= location.speedAccuracy && location.speed > speedThreshold
+    }
+
     private func retrievePolygon(from feature: GeoAPIFeature) -> [[[Double]]]? {
         switch feature.geometry {
         case .collections(let collection):
@@ -358,7 +362,7 @@ private extension GeoAPIManager {
 // MARK: - isPoiInRange
 extension GeoAPIManager {
     func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void) {
-        if 0...3 ~= location.speedAccuracy && location.speed > speedThreshold {
+        if isSpeedThresholdExceeded(for: location) {
             completion(false)
             return
         }

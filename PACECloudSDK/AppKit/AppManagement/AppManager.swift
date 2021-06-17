@@ -68,7 +68,7 @@ extension AppManager {
             switch result {
             case .failure(let error):
                 switch error {
-                case .requestCancelled:
+                case .requestCancelled, .invalidSpeed:
                     completion(nil)
 
                 default:
