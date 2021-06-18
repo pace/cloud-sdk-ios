@@ -19,7 +19,6 @@ public class PACECloudSDK {
     private var traceIdCreatedAt: Date?
     private var currentTraceId: String?
 
-    var currentAccessToken: String?
     var warningsHandler: SDKWarningsHandler?
 
     public var additionalQueryParams: Set<URLQueryItem>?
@@ -49,10 +48,6 @@ public class PACECloudSDK {
 
     public func extendUserAgent(with extensions: [String]) {
         userAgentExtensions = extensions
-    }
-
-    public func resetAccessToken() {
-        currentAccessToken = nil
     }
 }
 
