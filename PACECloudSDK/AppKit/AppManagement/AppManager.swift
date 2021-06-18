@@ -190,7 +190,7 @@ extension AppManager {
             }
 
             var localizationHeader: [String: String]?
-            if let currentLanguageCode = AppKitConstants.currentLanguageCode {
+            if let currentLanguageCode = AppKit.Constants.currentLanguageCode {
                 localizationHeader = [HttpHeaderFields.acceptLanguage.rawValue: currentLanguageCode]
             }
 

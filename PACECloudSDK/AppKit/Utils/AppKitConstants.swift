@@ -8,13 +8,17 @@
 import NotificationCenter
 import UIKit
 
-struct AppKitConstants {
+public extension AppKit {
+    struct Constants {}
+}
+
+extension AppKit.Constants {
     static let logTag = "[AppKit]"
 
     /**
-    Creates a user agent for given project name with following format:
-    `{client-app}/{client-app-version} ({os} {os-version}) PWA-SDK/{app-sdk version} (clientid:{client-id};)`
-    */
+     Creates a user agent for given project name with following format:
+     `{client-app}/{client-app-version} ({os} {os-version}) PWA-SDK/{app-sdk version} (clientid:{client-id};)`
+     */
     static var userAgent: String {
         let authenticationMode: String = PACECloudSDK.shared.authenticationMode.rawValue
 
@@ -34,7 +38,7 @@ struct AppKitConstants {
     }
 
     static var userAgentHeader: [String: String] {
-        return [HttpHeaderFields.userAgent.rawValue: AppKitConstants.userAgent]
+        return [HttpHeaderFields.userAgent.rawValue: userAgent]
     }
 
     static var currentLanguageCode: String? {
@@ -49,4 +53,8 @@ struct AppKitConstants {
     struct RedirectServiceParams {
         static let url: String = "url"
     }
+}
+
+public extension AppKit.Constants {
+    static let appCloseRedirectUri = "cloudsdk://close"
 }
