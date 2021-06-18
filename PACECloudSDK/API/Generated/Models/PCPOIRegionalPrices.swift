@@ -29,7 +29,7 @@ public class PCPOIRegionalPrices: APIModel {
             /** Average price for this fuel type */
             public var average: Double?
 
-            /** Currency based on country */
+            /** Currency as specified in ISO-4217. */
             public var currency: String?
 
             /** Price value indicator below which a price is considered cheap */

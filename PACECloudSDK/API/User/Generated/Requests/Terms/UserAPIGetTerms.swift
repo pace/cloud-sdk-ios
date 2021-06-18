@@ -63,6 +63,7 @@ extension UserAPI.Terms {
                 if let acceptLanguage = options.acceptLanguage {
                   headers["Accept-Language"] = acceptLanguage
                 }
+
                 return headers
             }
         }

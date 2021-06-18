@@ -23,14 +23,14 @@ extension IDKit {
     }
 
     func isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void) {
-        guard let accessToken = IDKit.latestAccessToken() else {
+        guard IDKit.latestAccessToken() != nil else {
             completion(.failure(.invalidSession))
             return
         }
 
         let request = UserAPI.Credentials.CheckUserPinOrPassword.Request()
 
-        makeRequest(request, accessToken: accessToken) { [weak self] response in
+        API.User.client.makeRequest(request) { [weak self] response in
             switch response.result {
             case .success(let result):
                 guard let data = result.success else {
@@ -73,7 +73,7 @@ extension IDKit {
     func setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         logBiometryWarningsIfNeeded()
 
-        guard let accessToken = IDKit.latestAccessToken() else {
+        guard IDKit.latestAccessToken() != nil else {
             completion(.failure(.invalidSession))
             return
         }
@@ -81,7 +81,7 @@ extension IDKit {
         let pinData = PCUserUserPIN(attributes: .init(pin: pin, otp: otp), type: .pin)
         let request = UserAPI.Credentials.UpdateUserPIN.Request(body: .init(data: pinData))
 
-        makeRequest(request, accessToken: accessToken) { [weak self] response in
+        API.User.client.makeRequest(request) { [weak self] response in
             switch response.result {
             case .success(let result):
                 if result.statusCode == HttpStatusCode.notAcceptable.rawValue {
@@ -111,7 +111,7 @@ extension IDKit {
     func enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?) {
         logBiometryWarningsIfNeeded()
 
-        guard let accessToken = IDKit.latestAccessToken() else {
+        guard IDKit.latestAccessToken() != nil else {
             completion?(.failure(.invalidSession))
             return
         }
@@ -119,7 +119,7 @@ extension IDKit {
         let totpData = PCUserDeviceTOTP(attributes: .init(otp: otp, password: password, pin: pin), id: UUID().uuidString.lowercased(), type: .deviceTOTP)
         let request = UserAPI.TOTP.CreateTOTP.Request(body: .init(data: totpData))
 
-        makeRequest(request, accessToken: accessToken) { [weak self] response in
+        API.User.client.makeRequest(request) { [weak self] response in
             switch response.result {
             case .success(let result):
                 if result.statusCode == HttpStatusCode.forbidden.rawValue {
@@ -169,7 +169,7 @@ extension IDKit {
     // MARK: - OTP
 
     func otp(for password: String, completion: @escaping (Result<String, IDKitError>) -> Void) {
-        guard let accessToken = IDKit.latestAccessToken() else {
+        guard IDKit.latestAccessToken() != nil else {
             completion(.failure(.invalidSession))
             return
         }
@@ -177,7 +177,7 @@ extension IDKit {
         let totpData = PCUserCreateOTP(password: password)
         let request = UserAPI.TOTP.CreateOTP.Request(body: totpData)
 
-        makeRequest(request, accessToken: accessToken) { response in
+        API.User.client.makeRequest(request) { response in
             switch response.result {
             case .success(let result):
                 if result.statusCode >= HttpStatusCode.notFound.rawValue {
@@ -252,12 +252,12 @@ extension IDKit {
 // MARK: - Requests
 private extension IDKit {
     func makeBoolRequest<T>(with request: UserAPIRequest<T>, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
-        guard let accessToken = IDKit.latestAccessToken() else {
+        guard IDKit.latestAccessToken() != nil else {
             completion(.failure(.invalidSession))
             return
         }
 
-        makeRequest(request, accessToken: accessToken) { [weak self] response in
+        API.User.client.makeRequest(request) { [weak self] response in
             switch response.result {
             case .success(let result):
                 completion(.success(result.successful))
@@ -281,15 +281,6 @@ private extension IDKit {
         } else {
             completion?(.success(false))
         }
-    }
-
-    func makeRequest<T>(_ request: UserAPIRequest<T>, accessToken: String, completion: @escaping (UserAPIResponse<T>) -> Void) where T: APIResponseValue {
-        addAuthorizationHeader(to: request, with: accessToken)
-        API.User.client.makeRequest(request, complete: completion)
-    }
-
-    func addAuthorizationHeader<T>(to request: UserAPIRequest<T>, with accessToken: String) {
-        request.customHeaders[HttpHeaderFields.authorization.rawValue] = "Bearer \(accessToken)"
     }
 }
 

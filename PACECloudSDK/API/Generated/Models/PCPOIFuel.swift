@@ -6,27 +6,4 @@
 import Foundation
 
 /** Fuel type for cars, based on the EU fuel marking */
-/** Fuel type for cars, based on the EU fuel marking */
-public enum PCPOIFuel: String, Codable, Equatable, CaseIterable {
-    case ron98 = "ron98"
-    case ron98e5 = "ron98e5"
-    case ron95e10 = "ron95e10"
-    case diesel = "diesel"
-    case e85 = "e85"
-    case ron91 = "ron91"
-    case ron95e5 = "ron95e5"
-    case ron100 = "ron100"
-    case dieselGtl = "dieselGtl"
-    case dieselB7 = "dieselB7"
-    case dieselPremium = "dieselPremium"
-    case lpg = "lpg"
-    case cng = "cng"
-    case lng = "lng"
-    case h2 = "h2"
-    case truckDiesel = "truckDiesel"
-    case adBlue = "adBlue"
-    case truckAdBlue = "truckAdBlue"
-    case truckDieselPremium = "truckDieselPremium"
-    case truckLpg = "truckLpg"
-    case heatingOil = "heatingOil"
-}
+public typealias PCPOIFuel = String

@@ -50,10 +50,6 @@ public class PCFuelingTransactionRequest: APIModel {
                 case heatingOil = "heatingOil"
             }
 
-            public enum PCFuelingCurrency: String, Codable, Equatable, CaseIterable {
-                case eur = "EUR"
-            }
-
             /** 'Value' field of the payment token (not the payment token ID) */
             public var paymentToken: String
 
@@ -63,7 +59,8 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Fuel type for cars, based on the EU fuel marking */
             public var carFuelType: PCFuelingCarFuelType?
 
-            public var currency: PCFuelingCurrency?
+            /** Currency as specified in ISO-4217. */
+            public var currency: String?
 
             /** Current mileage in meters */
             public var mileage: Int?
@@ -73,7 +70,7 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Vehicle identification number */
             public var vin: String?
 
-            public init(paymentToken: String, pumpId: ID, carFuelType: PCFuelingCarFuelType? = nil, currency: PCFuelingCurrency? = nil, mileage: Int? = nil, priceIncludingVAT: Double? = nil, vin: String? = nil) {
+            public init(paymentToken: String, pumpId: ID, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, mileage: Int? = nil, priceIncludingVAT: Double? = nil, vin: String? = nil) {
                 self.paymentToken = paymentToken
                 self.pumpId = pumpId
                 self.carFuelType = carFuelType

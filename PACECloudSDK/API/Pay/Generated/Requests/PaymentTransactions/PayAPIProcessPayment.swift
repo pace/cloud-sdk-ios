@@ -93,6 +93,14 @@ Only use after approaching (fueling api), otherwise returns `403 Forbidden`.
                 }
                 return params
             }
+
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

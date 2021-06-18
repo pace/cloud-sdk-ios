@@ -54,6 +54,14 @@ extension PayAPI.PaymentTransactions {
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "transactionID" + "}", with: "\(self.options.transactionID)").replacingOccurrences(of: "{" + "fileFormat" + "}", with: "\(self.options.fileFormat?.encode() ?? "")")
             }
+
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

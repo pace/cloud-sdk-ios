@@ -5,18 +5,20 @@
 
 import Foundation
 
+/** https://tools.ietf.org/html/rfc7946#section-3.1.2 */
 public class PCGeoJSONGeoJsonGeometry: APIModel {
 
+    /** https://tools.ietf.org/html/rfc7946#section-3.1.2 */
     public enum PCGeoJSONType: String, Codable, Equatable, CaseIterable {
         case point = "Point"
     }
 
-    /** An array of two decimal numbers. Order is fix [longitude, latitude] */
-    public var coordinates: PCGeoJSONCommonLatLong?
+    /** https://tools.ietf.org/html/rfc7946 */
+    public var coordinates: [Float]?
 
     public var type: PCGeoJSONType?
 
-    public init(coordinates: PCGeoJSONCommonLatLong? = nil, type: PCGeoJSONType? = nil) {
+    public init(coordinates: [Float]? = nil, type: PCGeoJSONType? = nil) {
         self.coordinates = coordinates
         self.type = type
     }

@@ -22,10 +22,6 @@ public class PCFuelingPumpResponse: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCFuelingCurrency: String, Codable, Equatable, CaseIterable {
-            case eur = "EUR"
-        }
-
         /** The fueling process that has to be followed
         * `postPay` the pump is *free* and needs to be [paid](#operation/ProcessPayment) after fueling
         * `preAuth` the pump is *locked* and has to be [unlocked](#operation/ProcessPayment)
@@ -56,7 +52,8 @@ public class PCFuelingPumpResponse: APIModel {
 
         public var vat: VAT?
 
-        public var currency: PCFuelingCurrency?
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
         /** Fuel amount in liters */
         public var fuelAmount: Double?
@@ -132,7 +129,7 @@ public class PCFuelingPumpResponse: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, currency: PCFuelingCurrency? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: PCFuelingStatus? = nil, transactionId: ID? = nil) {
+        public init(vat: VAT? = nil, currency: String? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: PCFuelingStatus? = nil, transactionId: ID? = nil) {
             self.vat = vat
             self.currency = currency
             self.fuelAmount = fuelAmount

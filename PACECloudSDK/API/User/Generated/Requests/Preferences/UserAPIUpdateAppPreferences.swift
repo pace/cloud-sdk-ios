@@ -56,6 +56,14 @@ value not longer than 255 bytes (including complex json objects).
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "clientId" + "}", with: "\(self.options.clientId ?? "")")
             }
+
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

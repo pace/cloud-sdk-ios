@@ -20,7 +20,8 @@ public class PCPOIPriceHistory: APIModel {
 
     public class Attributes: APIModel {
 
-        public var currency: PCPOICurrency?
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
         /** Beginning of time interval */
         public var from: DateTime?
@@ -71,7 +72,7 @@ public class PCPOIPriceHistory: APIModel {
             }
         }
 
-        public init(currency: PCPOICurrency? = nil, from: DateTime? = nil, fuelPrices: [FuelPrices]? = nil, productName: String? = nil, to: DateTime? = nil) {
+        public init(currency: String? = nil, from: DateTime? = nil, fuelPrices: [FuelPrices]? = nil, productName: String? = nil, to: DateTime? = nil) {
             self.currency = currency
             self.from = from
             self.fuelPrices = fuelPrices

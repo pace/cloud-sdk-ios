@@ -20,13 +20,10 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
     public class Attributes: APIModel {
 
-        public enum PCFuelingCurrency: String, Codable, Equatable, CaseIterable {
-            case eur = "EUR"
-        }
-
         public var vat: VAT?
 
-        public var currency: PCFuelingCurrency?
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
         public var gasStationId: ID?
 
@@ -81,7 +78,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, currency: PCFuelingCurrency? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, priceWithoutVAT: Double? = nil, pumpId: ID? = nil, vin: String? = nil) {
+        public init(vat: VAT? = nil, currency: String? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, priceWithoutVAT: Double? = nil, pumpId: ID? = nil, vin: String? = nil) {
             self.vat = vat
             self.currency = currency
             self.gasStationId = gasStationId

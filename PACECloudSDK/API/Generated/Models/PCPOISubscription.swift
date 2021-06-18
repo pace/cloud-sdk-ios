@@ -88,35 +88,9 @@ public class PCPOISubscription: APIModel {
             public class FuelType: APIModel {
 
                 /** Fuel type is equal to given value */
-                public enum PCPOIEq: String, Codable, Equatable, CaseIterable {
-                    case ron98 = "ron98"
-                    case ron98e5 = "ron98e5"
-                    case ron95e10 = "ron95e10"
-                    case diesel = "diesel"
-                    case e85 = "e85"
-                    case ron91 = "ron91"
-                    case ron95e5 = "ron95e5"
-                    case ron100 = "ron100"
-                    case dieselGtl = "dieselGtl"
-                    case dieselB7 = "dieselB7"
-                    case dieselB15 = "dieselB15"
-                    case dieselPremium = "dieselPremium"
-                    case lpg = "lpg"
-                    case cng = "cng"
-                    case lng = "lng"
-                    case h2 = "h2"
-                    case truckDiesel = "truckDiesel"
-                    case adBlue = "adBlue"
-                    case truckAdBlue = "truckAdBlue"
-                    case truckDieselPremium = "truckDieselPremium"
-                    case truckLpg = "truckLpg"
-                    case heatingOil = "heatingOil"
-                }
+                public var eq: String?
 
-                /** Fuel type is equal to given value */
-                public var eq: PCPOIEq?
-
-                public init(eq: PCPOIEq? = nil) {
+                public init(eq: String? = nil) {
                     self.eq = eq
                 }
 

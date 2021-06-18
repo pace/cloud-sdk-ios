@@ -23,7 +23,7 @@ struct PriceHistoryRequest {
             .GetPriceHistory
             .Request
             .Options(id: id,
-                     fuelType: PCPOIFuel(rawValue: fuelType),
+                     fuelType: fuelType,
                      filterfrom: dateFormatter.date(from: from),
                      filterto: dateFormatter.date(from: to))
     }

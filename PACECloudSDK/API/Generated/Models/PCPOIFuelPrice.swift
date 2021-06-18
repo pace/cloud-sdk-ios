@@ -22,7 +22,8 @@ public class PCPOIFuelPrice: APIModel {
 
     public class Attributes: APIModel {
 
-        public var currency: PCPOICurrency?
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
         public var fuelType: PCPOIFuel?
 
@@ -34,7 +35,7 @@ public class PCPOIFuelPrice: APIModel {
         /** Time of FuelPrices last update iso8601 with microseconds UTC */
         public var updatedAt: DateTime?
 
-        public init(currency: PCPOICurrency? = nil, fuelType: PCPOIFuel? = nil, price: Double? = nil, productName: String? = nil, updatedAt: DateTime? = nil) {
+        public init(currency: String? = nil, fuelType: PCPOIFuel? = nil, price: Double? = nil, productName: String? = nil, updatedAt: DateTime? = nil) {
             self.currency = currency
             self.fuelType = fuelType
             self.price = price
