@@ -9,6 +9,6 @@ import Foundation
 
 class AppKitLogger: Logger {
     override class var moduleTag: String {
-        AppKitConstants.logTag
+        AppKit.Constants.logTag
     }
 }

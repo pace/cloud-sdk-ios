@@ -16,7 +16,7 @@ protocol AppActionsDelegate: AnyObject {
 
 class AppWebView: WKWebView, App {
     private var userAgent: String {
-        return AppKitConstants.userAgent
+        return AppKit.Constants.userAgent
     }
 
     weak var appActionsDelegate: AppActionsDelegate?

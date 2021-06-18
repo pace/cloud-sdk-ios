@@ -21,6 +21,12 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
             return
         }
 
+        if url.absoluteString == AppKit.Constants.appCloseRedirectUri {
+            app?.performClose()
+            decisionHandler(.allow)
+            return
+        }
+
         // We only want http & https to be handled by the webview itself
         guard url.isFileURL || url.scheme == "http" || url.scheme == "https" else {
             UIApplication.shared.open(url)

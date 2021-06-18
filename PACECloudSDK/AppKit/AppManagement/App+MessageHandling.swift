@@ -13,7 +13,10 @@ import UIKit
 extension App {
     func handleCloseAction(with request: AppKit.EmptyRequestData) {
         messageInterceptor?.respond(id: request.id, statusCode: HttpStatusCode.okNoContent)
+        performClose()
+    }
 
+    func performClose() {
         DispatchQueue.main.async { [weak self] in
             guard let appActionsDelegate = self?.appActionsDelegate else {
                 // WebView directly added to client's view

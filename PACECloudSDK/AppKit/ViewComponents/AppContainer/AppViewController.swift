@@ -31,7 +31,7 @@ public class AppViewController: UIViewController {
 
         webView.appActionsDelegate = self
 
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRedirectURL(_:)), name: AppKitConstants.NotificationIdentifier.caughtRedirectService, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRedirectURL(_:)), name: AppKit.Constants.NotificationIdentifier.caughtRedirectService, object: nil)
 
         navigationController?.setNavigationBarHidden(!hasNavigationBar, animated: false)
     }
@@ -92,7 +92,7 @@ public class AppViewController: UIViewController {
 
     @objc
     private func handleRedirectURL(_ notification: NSNotification) {
-        guard let url = notification.userInfo?[AppKitConstants.RedirectServiceParams.url] as? URL,
+        guard let url = notification.userInfo?[AppKit.Constants.RedirectServiceParams.url] as? URL,
             let urlQuery = url.query,
             let redirectUrlString = RedirectServiceData(from: urlQuery).to
         else {

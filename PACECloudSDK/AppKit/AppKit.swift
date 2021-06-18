@@ -103,7 +103,9 @@ public class AppKit {
     }
 
     public func handleRedirectURL(_ url: URL) {
-        NotificationCenter.default.post(name: AppKitConstants.NotificationIdentifier.caughtRedirectService, object: nil, userInfo: [AppKitConstants.RedirectServiceParams.url: url])
+        NotificationCenter.default.post(name: AppKit.Constants.NotificationIdentifier.caughtRedirectService,
+                                        object: nil,
+                                        userInfo: [AppKit.Constants.RedirectServiceParams.url: url])
     }
 
     // MARK: - POI proximity check
