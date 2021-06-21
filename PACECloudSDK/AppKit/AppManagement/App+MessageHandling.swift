@@ -110,7 +110,7 @@ extension App {
 
     func handleLogout(with request: AppKit.EmptyRequestData, completion: @escaping () -> Void) {
         AppKit.shared.notifyLogout { [weak self] response in
-            self?.messageInterceptor?.respond(id: request.id, message: response)
+            self?.messageInterceptor?.respond(id: request.id, statusCode: response.statusCode)
             completion()
         }
     }
