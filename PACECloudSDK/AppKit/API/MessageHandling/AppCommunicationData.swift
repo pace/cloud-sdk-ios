@@ -107,9 +107,9 @@ public extension AppKit {
     }
 
     struct LogoutResponse: Codable {
-        let statusCode: String
+        let statusCode: HttpStatusCode
 
-        public init(statusCode: String) {
+        public init(statusCode: HttpStatusCode) {
             self.statusCode = statusCode
         }
     }

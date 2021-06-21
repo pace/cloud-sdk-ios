@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum HttpStatusCode: Int {
+public enum HttpStatusCode: Int, Codable {
     case ok = 200
     case created = 201
     case okNoContent = 204
