@@ -43,8 +43,8 @@ public class AppKit {
         appManager.setConfigValues()
     }
 
-    public func requestCofuGasStations(completion: @escaping ([CofuGasStation]?) -> Void) {
-        appManager.getCofuGasStations(completion: completion)
+    public func requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) -> Void) {
+        appManager.cofuGasStations(option: option, completion: completion)
     }
 
     // MARK: - Drawer / Location based apps

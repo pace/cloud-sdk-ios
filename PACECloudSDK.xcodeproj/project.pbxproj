@@ -74,6 +74,8 @@
 		3B8C5A17266790CF00D7D5D6 /* App+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C5A0D26678A4800D7D5D6 /* App+ApplePay.swift */; };
 		3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
+		3B8F9F8726809676004EA512 /* CofuGasStation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8F9F8626809676004EA512 /* CofuGasStation+Extension.swift */; };
+		3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */; };
 		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
 		3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */; };
 		3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96929925E3C20900E42703 /* RayCastingTests.swift */; };
@@ -837,6 +839,7 @@
 		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
 		3B8C5A0D26678A4800D7D5D6 /* App+ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+ApplePay.swift"; sourceTree = "<group>"; };
 		3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Extension.swift"; sourceTree = "<group>"; };
+		3B8F9F8626809676004EA512 /* CofuGasStation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CofuGasStation+Extension.swift"; sourceTree = "<group>"; };
 		3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Slim.swift"; sourceTree = "<group>"; };
 		3B96929925E3C20900E42703 /* RayCastingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCastingTests.swift; sourceTree = "<group>"; };
 		3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -1519,6 +1522,7 @@
 		3B9709FE2542D9B90072F6BA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3B8F9F8626809676004EA512 /* CofuGasStation+Extension.swift */,
 				3B970A072542D9BA0072F6BA /* Dictionary+Extension.swift */,
 				3B970A032542D9B90072F6BA /* Encodable+Extension.swift */,
 				3B970A052542D9B90072F6BA /* String+Extension.swift */,
@@ -3234,6 +3238,7 @@
 				84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */,
 				84A43B1425825B5700DE36FA /* AnyPayRequest.swift in Sources */,
 				92EDDDC325A7433700E480F4 /* SecureDataCommunicationProtocol.swift in Sources */,
+				3B8F9F8726809676004EA512 /* CofuGasStation+Extension.swift in Sources */,
 				3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */,
 				84D6C07E258A03280094982D /* PCPOIEvent.swift in Sources */,
 				84A43B1325825B5700DE36FA /* PayAPIRequest.swift in Sources */,
@@ -3503,6 +3508,7 @@
 				8418E29825B1B85E00D3722B /* URLEncoding.swift in Sources */,
 				84600F3725C03B1F0087194F /* POIAPIUpdateApp.swift in Sources */,
 				92EDDD0125A738DD00E480F4 /* POIKitAPI+ReverseGeocode.swift in Sources */,
+				3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */,
 				92EDDBF325A7270300E480F4 /* NavigationTitleView.swift in Sources */,
 				92EDDC1625A7270300E480F4 /* AppDrawerContainer.swift in Sources */,
 				84600F1D25C03B1E0087194F /* POIAPIPutGasStationReferenceStatus.swift in Sources */,
