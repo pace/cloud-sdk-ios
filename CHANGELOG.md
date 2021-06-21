@@ -16,6 +16,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Introduce `requestCofuGasStations` to `AppKit` to fetch all available `CofuGasStation` which will have an attribute to tell you, if a gas station is currently online
 * If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
 * Close app if it contains a specific redirect uri
+* Add function to load pois based on their location via the tiles request
 
 ### Fixes
 

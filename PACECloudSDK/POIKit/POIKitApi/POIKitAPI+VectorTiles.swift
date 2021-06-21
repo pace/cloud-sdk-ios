@@ -90,6 +90,28 @@ extension POIKitAPI {
         }
     }
 
+    func loadPOIs(locations: [CLLocation], handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
+        let zoomLevel = POIKitConfig.maxZoomLevel
+        let tiles = locations
+            .map { $0.coordinate.tileCoordinate(withZoom: zoomLevel) }
+            .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) }
+
+        let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
+
+        return loadPois(tileRequest, boundingBox: nil) { result in
+            switch result {
+            case .failure(let error):
+                handler(.failure(error))
+
+            case .success(let tiles):
+                // Parse gas stations and save to database
+                self.save(tiles)
+                let stations = self.extractPOIS(from: tiles)
+                handler(.success(stations))
+            }
+        }
+    }
+
     func loadPois(_ tileRequest: TileQueryRequest, // swiftlint:disable:this cyclomatic_complexity function_body_length
                   boundingBox: POIKit.BoundingBox?,
                   completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> CancellablePOIAPIRequest? {
