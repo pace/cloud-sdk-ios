@@ -171,6 +171,9 @@ extension POIKitAPI {
                     } else {
                         completion(.failure(POIKit.POIKitAPIError.unknown))
                     }
+
+                default:
+                    completion(.failure(POIKit.POIKitAPIError.unknown))
                 }
             }
         }

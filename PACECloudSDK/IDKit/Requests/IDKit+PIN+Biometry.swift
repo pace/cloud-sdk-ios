@@ -23,11 +23,6 @@ extension IDKit {
     }
 
     func isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void) {
-        guard IDKit.latestAccessToken() != nil else {
-            completion(.failure(.invalidSession))
-            return
-        }
-
         let request = UserAPI.Credentials.CheckUserPinOrPassword.Request()
 
         API.User.client.makeRequest(request) { [weak self] response in
@@ -73,11 +68,6 @@ extension IDKit {
     func setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         logBiometryWarningsIfNeeded()
 
-        guard IDKit.latestAccessToken() != nil else {
-            completion(.failure(.invalidSession))
-            return
-        }
-
         let pinData = PCUserUserPIN(attributes: .init(pin: pin, otp: otp), type: .pin)
         let request = UserAPI.Credentials.UpdateUserPIN.Request(body: .init(data: pinData))
 
@@ -110,11 +100,6 @@ extension IDKit {
 
     func enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?) {
         logBiometryWarningsIfNeeded()
-
-        guard IDKit.latestAccessToken() != nil else {
-            completion?(.failure(.invalidSession))
-            return
-        }
 
         let totpData = PCUserDeviceTOTP(attributes: .init(otp: otp, password: password, pin: pin), id: UUID().uuidString.lowercased(), type: .deviceTOTP)
         let request = UserAPI.TOTP.CreateTOTP.Request(body: .init(data: totpData))
@@ -169,11 +154,6 @@ extension IDKit {
     // MARK: - OTP
 
     func otp(for password: String, completion: @escaping (Result<String, IDKitError>) -> Void) {
-        guard IDKit.latestAccessToken() != nil else {
-            completion(.failure(.invalidSession))
-            return
-        }
-
         let totpData = PCUserCreateOTP(password: password)
         let request = UserAPI.TOTP.CreateOTP.Request(body: totpData)
 
@@ -210,11 +190,6 @@ extension IDKit {
     }
 
     func otpWithBiometry(completion: @escaping (Result<String, IDKitError>) -> Void) {
-        guard IDKit.latestAccessToken() != nil else {
-            completion(.failure(.invalidSession))
-            return
-        }
-
         guard let totpData = masterTOTPData() else {
             completion(.failure(.biometryNotFound))
             return
@@ -252,11 +227,6 @@ extension IDKit {
 // MARK: - Requests
 private extension IDKit {
     func makeBoolRequest<T>(with request: UserAPIRequest<T>, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
-        guard IDKit.latestAccessToken() != nil else {
-            completion(.failure(.invalidSession))
-            return
-        }
-
         API.User.client.makeRequest(request) { [weak self] response in
             switch response.result {
             case .success(let result):
