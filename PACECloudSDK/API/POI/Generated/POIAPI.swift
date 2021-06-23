@@ -27,6 +27,7 @@ public struct POIAPI {
     public enum PriceHistories {}
     public enum Prices {}
     public enum Sources {}
+    public enum Stats {}
     public enum Subscriptions {}
     public enum Tiles {}
 
