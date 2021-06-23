@@ -14,6 +14,8 @@
 		1705506C266612FC00C5119C /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
 		175019DA263C45B000DBA1FF /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
+		3B1841E72683354600A0F625 /* POIAPIGetStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841E62683354600A0F625 /* POIAPIGetStats.swift */; };
+		3B1841ED2683356400A0F625 /* PCPOIStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841EC2683356400A0F625 /* PCPOIStats.swift */; };
 		3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
 		3B1D40CA25FA45C2007CF531 /* BiometryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */; };
 		3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E917F253D92A800DC4BB1 /* POIKit.swift */; };
@@ -779,6 +781,8 @@
 		05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Error.swift"; sourceTree = "<group>"; };
 		05F57A30266635B5008F2272 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		175019D9263C45B000DBA1FF /* CofuGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CofuGasStation.swift; sourceTree = "<group>"; };
+		3B1841E62683354600A0F625 /* POIAPIGetStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIGetStats.swift; sourceTree = "<group>"; };
+		3B1841EC2683356400A0F625 /* PCPOIStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIStats.swift; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
@@ -1309,6 +1313,14 @@
 				05F57A30266635B5008F2272 /* Strings.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		3B1841E52683354600A0F625 /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				3B1841E62683354600A0F625 /* POIAPIGetStats.swift */,
+			);
+			path = Stats;
 			sourceTree = "<group>";
 		};
 		3B19FA3225FB66F4008B05D6 /* Biometry */ = {
@@ -2177,20 +2189,21 @@
 		84600EC025C03B1D0087194F /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				84600EC125C03B1E0087194F /* MetadataFilters */,
-				84600EC325C03B1E0087194F /* Prices */,
-				84600EC525C03B1E0087194F /* GasStations */,
-				84600EC925C03B1E0087194F /* DataDumps */,
 				84600ECC25C03B1E0087194F /* Admin */,
+				84600EEA25C03B1E0087194F /* Apps */,
+				84600EC925C03B1E0087194F /* DataDumps */,
+				84600EDF25C03B1E0087194F /* Delivery */,
+				84600EE825C03B1E0087194F /* Events */,
+				84600EC525C03B1E0087194F /* GasStations */,
+				84600EC125C03B1E0087194F /* MetadataFilters */,
+				84600ED925C03B1E0087194F /* POI */,
 				84600ECF25C03B1E0087194F /* Policies */,
+				84600EDD25C03B1E0087194F /* PriceHistories */,
+				84600EC325C03B1E0087194F /* Prices */,
+				84600EE225C03B1E0087194F /* Sources */,
+				3B1841E52683354600A0F625 /* Stats */,
 				84600ED325C03B1E0087194F /* Subscriptions */,
 				84600ED725C03B1E0087194F /* Tiles */,
-				84600ED925C03B1E0087194F /* POI */,
-				84600EDD25C03B1E0087194F /* PriceHistories */,
-				84600EDF25C03B1E0087194F /* Delivery */,
-				84600EE225C03B1E0087194F /* Sources */,
-				84600EE825C03B1E0087194F /* Events */,
-				84600EEA25C03B1E0087194F /* Apps */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -2511,6 +2524,7 @@
 				84D6C037258A03270094982D /* PCPOIRegionalPrices.swift */,
 				84D6C01D258A03270094982D /* PCPOISource.swift */,
 				84D6C039258A03270094982D /* PCPOISources.swift */,
+				3B1841EC2683356400A0F625 /* PCPOIStats.swift */,
 				84D6C01E258A03270094982D /* PCPOISubscription.swift */,
 				3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */,
 				849C400325CAB6DD0074BCDA /* PCUserCreateOTP.swift */,
@@ -2949,6 +2963,7 @@
 				3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */,
 				84A43A432580E34D00DE36FA /* PayAPI.swift in Sources */,
 				3BC9A8032539DDAD00B933AE /* PriceHistoryRequest.swift in Sources */,
+				3B1841E72683354600A0F625 /* POIAPIGetStats.swift in Sources */,
 				84600F1225C03B1E0087194F /* POIAPIGetTiles.swift in Sources */,
 				3B970AB02542D9BB0072F6BA /* AppMetadata.swift in Sources */,
 				3B970A792542D9BB0072F6BA /* AppDrawer+App.swift in Sources */,
@@ -2970,6 +2985,7 @@
 				3B970A7C2542D9BB0072F6BA /* AppWindow.swift in Sources */,
 				84600F0625C03B1E0087194F /* POIAPIGetPolicy.swift in Sources */,
 				84600EB025C03B0C0087194F /* PayAPIProcessPayment.swift in Sources */,
+				3B1841ED2683356400A0F625 /* PCPOIStats.swift in Sources */,
 				84600F3625C03B1F0087194F /* POIAPIUpdateApp.swift in Sources */,
 				84D6C08C258A03280094982D /* PCPOIPOIType.swift in Sources */,
 				84D6C07B258A03280094982D /* PCPOIFuel.swift in Sources */,

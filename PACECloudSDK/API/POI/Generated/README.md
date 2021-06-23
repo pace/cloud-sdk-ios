@@ -186,6 +186,7 @@ To add support for a specific asynchronous library, just add an extension on `PO
 - **PCPOIRegionalPrices**
 - **PCPOISource**
 - **PCPOISources**
+- **PCPOIStats**
 - **PCPOISubscription**
 
 ## Requests
@@ -235,6 +236,8 @@ To add support for a specific asynchronous library, just add an extension on `PO
 	- **GetSource**: GET `/sources/{sourceid}`
 	- **GetSources**: GET `/sources`
 	- **UpdateSource**: PUT `/sources/{sourceid}`
+- **POIAPI.Stats**
+	- **GetStats**: GET `/stats`
 - **POIAPI.Subscriptions**
 	- **DeleteSubscription**: DELETE `/subscriptions/{id}`
 	- **GetSubscriptions**: GET `/subscriptions`
