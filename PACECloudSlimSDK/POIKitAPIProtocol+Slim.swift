@@ -5,6 +5,7 @@
 //  Created by PACE Telematics GmbH.
 //
 
+import CoreLocation
 import Foundation
 
 extension POIKitAPIProtocol {
@@ -23,6 +24,11 @@ extension POIKitAPIProtocol {
     }
 
     func loadPOIs(uuids: [String],
+                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
+        nil
+    }
+
+    func loadPOIs(locations: [CLLocation],
                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         nil
     }

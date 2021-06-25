@@ -5,6 +5,7 @@
 //  Created by PACE Telematics GmbH.
 //
 
+import CoreLocation
 import Foundation
 
 protocol POIKitAPIProtocol {
@@ -49,5 +50,8 @@ protocol POIKitAPIProtocol {
                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
     func loadPOIs(uuids: [String],
+                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
+
+    func loadPOIs(locations: [CLLocation],
                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 }
