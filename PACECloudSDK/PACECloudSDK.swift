@@ -41,6 +41,7 @@ public class PACECloudSDK {
         self.warningsHandler = SDKWarningsHandler(with: config)
         warningsHandler?.preCheckSetup()
 
+        IDKit.determineOIDConfiguration(with: config.customOIDConfiguration)
         AppKit.shared.setup()
 
         setupAPI()
@@ -81,6 +82,7 @@ public extension PACECloudSDK {
         let apiKey: String
         let authenticationMode: AuthenticationMode
         let environment: Environment
+        let customOIDConfiguration: IDKit.OIDConfiguration?
 
         let isRedirectSchemeCheckEnabled: Bool
 
@@ -93,6 +95,7 @@ public extension PACECloudSDK {
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .web,
                     environment: Environment = .production,
+                    customOIDConfiguration: IDKit.OIDConfiguration? = nil,
                     isRedirectSchemeCheckEnabled: Bool = true,
                     domainACL: [String]? = nil,
                     allowedLowAccuracy: Double? = nil,
@@ -101,6 +104,7 @@ public extension PACECloudSDK {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
+            self.customOIDConfiguration = customOIDConfiguration
 
             self.isRedirectSchemeCheckEnabled = isRedirectSchemeCheckEnabled
 

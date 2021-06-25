@@ -32,12 +32,23 @@ class Settings {
     private let tileBaseUrlKey = "TileBaseUrl"
     private let tilesApiUrlKey = "TilesApiUrl"
 
+    // MARK: - OIDConfiguration
+    private let oidConfigurationKey = "OIDConfiguration"
+    private let authorizationEndpoint = "AuthorizationEndpoint"
+    private let tokenEndpoint = "TokenEndpoint"
+    private let userEndpoint = "UserEndpoint"
+
+    private(set) var authorizationEndpointUrl = ""
+    private(set) var tokenEndpointUrl = ""
+    private(set) var userEndpointUrl = ""
+
     struct SettingsBundleKeys {
         static let AppVersionKey = "AppVersionAndBuild"
     }
 
     private init() {
         setupEnvironment(for: PACECloudSDK.shared.environment)
+        setupOIDConfiguration(for: PACECloudSDK.shared.environment)
     }
 
     private func setupEnvironment(for environment: PACECloudSDK.Environment) {
@@ -58,6 +69,17 @@ class Settings {
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
         tileBaseUrl = settings[tileBaseUrlKey]!
         tilesApiUrl = settings[tilesApiUrlKey]!
+    }
+
+    private func setupOIDConfiguration(for environment: PACECloudSDK.Environment) {
+        let environmentKey = "\(environmentPrefix)-\(environment.rawValue)"
+
+        guard let path = Bundle.paceCloudSDK.path(forResource: environmentKey, ofType: "plist"),
+              let settings = NSDictionary(contentsOfFile: path) as? [String: String] else { return }
+
+        authorizationEndpointUrl = settings[authorizationEndpoint]!
+        tokenEndpointUrl = settings[tokenEndpoint]!
+        userEndpointUrl = settings[userEndpoint]!
     }
 
     func baseUrl(_ type: POIKitBaseUrl) -> String { // swiftlint:disable:this cyclomatic_complexity

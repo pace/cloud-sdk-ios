@@ -27,24 +27,32 @@ public class IDKit {
 
     var session: OIDAuthState?
     var authorizationFlow: OIDExternalUserAgentSession?
-    var cacheSession: Bool
     var configuration: OIDConfiguration
 
     var clientPresentingViewController: UIViewController?
     var paceIDSignInWindow: PaceIDSignInWindow?
 
-    private init(with configuration: OIDConfiguration,
-                 delegate: IDKitDelegate?,
-                 cacheSession: Bool,
-                 clientPresentingViewController: UIViewController?) {
+    private init(with configuration: OIDConfiguration) {
         self.configuration = configuration
-        self.delegate = delegate
-        self.cacheSession = cacheSession
-        self.clientPresentingViewController = clientPresentingViewController
 
-        guard cacheSession, let session = SessionCache.loadSession() else { return }
-
+        guard let session = SessionCache.loadSession() else { return }
         self.session = session
+    }
+
+    private static func setup(with configuration: OIDConfiguration) {
+        sharedInternal = IDKit(with: configuration)
+    }
+
+    static func determineOIDConfiguration(with customOIDConfig: OIDConfiguration?) {
+        if let customOIDConfig = customOIDConfig {
+            setup(with: customOIDConfig)
+        } else if let oidConfigClientId = Bundle.main.oidConfigClientId,
+                  let oidConfigRedirectUri = Bundle.main.oidConfigRedirectUri {
+            let defaultOIDConfiguration = OIDConfiguration.defaultOIDConfiguration(clientId: oidConfigClientId,
+                                                                                   redirectUri: oidConfigRedirectUri,
+                                                                                   idpHint: Bundle.main.oidConfigIdpHint)
+            setup(with: defaultOIDConfiguration)
+        }
     }
 
     static func appInducedAuthorization(_ completion: @escaping (String?) -> Void) {
@@ -67,27 +75,19 @@ public class IDKit {
 // MARK: - Setup
 public extension IDKit {
     /**
-     Sets up IDKit with the passed configuration.
-     - parameter configuration: The current `OIDConfiguration`.
-     - parameter delegate: An instance of the class conforming to `IDKitDelegate`
-     - parameter cacheSession: If set to `true` the session will be persisted by IDKit to improve the chance of not having to resign in again. Defaults to `true`.
-     - parameter presentingViewControllerl: The view controller to present the authorization's view on.
-     Can be passed at a later point in time.
+     Sets the delegate of IDKit.
      */
-    static func setup(with configuration: OIDConfiguration,
-                      delegate: IDKitDelegate? = nil,
-                      cacheSession: Bool = true,
-                      presentingViewController: UIViewController? = nil) {
-        sharedInternal = IDKit(with: configuration, delegate: delegate, cacheSession: cacheSession, clientPresentingViewController: presentingViewController)
+    static var delegate: IDKitDelegate? {
+        get { shared?.delegate }
+        set { shared?.delegate = newValue }
     }
 
     /**
-     Swaps the current presenting view controller with a new one
-     without having to call `setup(with configuration: OIDConfiguration, presentingViewController: UIViewController? = nil)` again.
-     - parameter newViewController: The new presenting view controller.
+     Sets the view controller instance that will present the sign in mask.
      */
-    static func swapPresentingViewController(with newViewController: UIViewController) {
-        shared?.clientPresentingViewController = newViewController
+    static var presentingViewController: UIViewController? {
+        get { shared?.clientPresentingViewController }
+        set { shared?.clientPresentingViewController = newValue }
     }
 }
 

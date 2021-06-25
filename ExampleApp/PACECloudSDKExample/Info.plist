@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PACECloudSDKIDKitSetup</key>
+	<dict>
+		<key>OIDConfigurationRedirectURI</key>
+		<string>pace://cloud-sdk-example</string>
+		<key>OIDConfigurationClientID</key>
+		<string>cloud-sdk-example-app</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

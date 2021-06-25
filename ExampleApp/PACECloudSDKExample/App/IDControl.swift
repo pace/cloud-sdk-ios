@@ -19,13 +19,7 @@ class IDControl {
     private init() {}
 
     func setup(for navigationController: UINavigationController) {
-        let config = IDKit.OIDConfiguration(authorizationEndpoint: "https://\(Constants.paceIDHost)/auth/realms/pace/protocol/openid-connect/auth",
-                                            tokenEndpoint: "https://\(Constants.paceIDHost)/auth/realms/pace/protocol/openid-connect/token",
-                                            userEndpoint: "https://\(Constants.paceIDHost)/auth/realms/pace/protocol/openid-connect/userinfo",
-                                            clientId: "cloud-sdk-example-app",
-                                            redirectUrl: "pace://cloud-sdk-example")
-
-        IDKit.setup(with: config, cacheSession: true, presentingViewController: navigationController)
+        IDKit.presentingViewController = navigationController
     }
 
     func authorize() {
