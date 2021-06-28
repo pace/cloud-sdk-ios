@@ -9,6 +9,10 @@ import Foundation
 
 struct Constants {
     struct URLs {
+        static var simulatorUrl: String {
+            "https://pwa-simulator.dev.pace.cloud"
+        }
+
         static var fuelingUrl: String {
             #if PRODUCTION
             return "https://fuel.site"
