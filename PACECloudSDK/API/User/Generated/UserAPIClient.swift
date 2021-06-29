@@ -27,6 +27,8 @@ public class UserAPIClient {
 
     public var decodingQueue = DispatchQueue(label: "UserAPIClient", qos: .utility, attributes: .concurrent)
 
+    public var maxUnauthorizedRetryCount = 1
+
     public init(baseURL: String, configuration: URLSessionConfiguration = .default, defaultHeaders: [String: String] = [:], behaviours: [UserAPIRequestBehaviour] = []) {
         self.baseURL = baseURL
         self.behaviours = behaviours
@@ -45,7 +47,7 @@ public class UserAPIClient {
     ///   - complete: A closure that gets passed the UserAPIResponse
     /// - Returns: A cancellable request. Not that cancellation will only work after any validation RequestBehaviours have run
     @discardableResult
-    public func makeRequest<T>(_ request: UserAPIRequest<T>, behaviours: [UserAPIRequestBehaviour] = [], completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (UserAPIResponse<T>) -> Void) -> CancellableUserAPIRequest? {
+    public func makeRequest<T>(_ request: UserAPIRequest<T>, behaviours: [UserAPIRequestBehaviour] = [], currentNumberOfRetries: Int = 0, completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (UserAPIResponse<T>) -> Void) -> CancellableUserAPIRequest? {
         // create composite behaviour to make it easy to call functions on array of behaviours
         let requestBehaviour = UserAPIRequestBehaviourGroup(request: request, behaviours: self.behaviours + behaviours)
 
@@ -76,7 +78,7 @@ public class UserAPIClient {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
-                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, completionQueue: completionQueue, complete: complete)
+                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, currentNumberOfRetries: currentNumberOfRetries, completionQueue: completionQueue, complete: complete)
             case .failure(let error):
                 let error = APIClientError.validationError(error)
                 let response = UserAPIResponse<T>(request: request, result: .failure(error), urlRequest: urlRequest)
@@ -87,7 +89,7 @@ public class UserAPIClient {
         return cancellableRequest
     }
 
-    private func makeNetworkRequest<T>(request: UserAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellableUserAPIRequest, requestBehaviour: UserAPIRequestBehaviourGroup, completionQueue: DispatchQueue, complete: @escaping (UserAPIResponse<T>) -> Void) {
+    private func makeNetworkRequest<T>(request: UserAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellableUserAPIRequest, requestBehaviour: UserAPIRequestBehaviourGroup, currentNumberOfRetries: Int, completionQueue: DispatchQueue, complete: @escaping (UserAPIResponse<T>) -> Void) {
         requestBehaviour.beforeSend()
         if request.service.isUpload {
             let body = NSMutableData()
@@ -170,6 +172,7 @@ public class UserAPIClient {
                                          response: response,
                                          error: error,
                                          urlRequest: urlRequest,
+                                         currentNumberOfRetries: currentNumberOfRetries,
                                          completionQueue: completionQueue,
                                          complete: complete)
                 }
@@ -189,6 +192,7 @@ public class UserAPIClient {
                                    response: HTTPURLResponse,
                                    error: Error?,
                                    urlRequest: URLRequest,
+                                   currentNumberOfRetries: Int,
                                    completionQueue: DispatchQueue,
                                    complete: @escaping (UserAPIResponse<T>) -> Void) {
         let result: APIResult<T>
@@ -206,7 +210,55 @@ public class UserAPIClient {
             return
         }
 
-        guard let data = data else { return }
+        if response.statusCode == HttpStatusCode.unauthorized.rawValue
+            && currentNumberOfRetries < maxUnauthorizedRetryCount
+            && IDKit.isSessionAvailable {
+            IDKit.apiInducedRefresh { [weak self] isSuccessful in
+                guard isSuccessful else {
+                    self?.handleResponseData(request: request,
+                                             requestBehaviour: requestBehaviour,
+                                             data: data,
+                                             response: response,
+                                             urlRequest: urlRequest,
+                                             completionQueue: completionQueue,
+                                             complete: complete)
+                    return
+                }
+                self?.makeRequest(request, behaviours: requestBehaviour.behaviours, currentNumberOfRetries: currentNumberOfRetries + 1, completionQueue: completionQueue, complete: complete)
+            }
+            return
+        }
+
+        handleResponseData(request: request,
+                           requestBehaviour: requestBehaviour,
+                           data: data,
+                           response: response,
+                           urlRequest: urlRequest,
+                           completionQueue: completionQueue,
+                           complete: complete)
+    }
+
+    private func handleResponseData<T>(request: UserAPIRequest<T>,
+                                       requestBehaviour: UserAPIRequestBehaviourGroup,
+                                       data: Data?,
+                                       response: HTTPURLResponse,
+                                       urlRequest: URLRequest,
+                                       completionQueue: DispatchQueue,
+                                       complete: @escaping (UserAPIResponse<T>) -> Void) {
+        let result: APIResult<T>
+
+        guard let data = data else {
+            let error = APIClientError.invalidDataError
+            result = .failure(error)
+            requestBehaviour.onFailure(error: error)
+            let response = UserAPIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: nil)
+            requestBehaviour.onResponse(response: response.asAny())
+
+            completionQueue.async {
+                complete(response)
+            }
+            return
+        }
 
         do {
             let statusCode = response.statusCode

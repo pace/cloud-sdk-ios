@@ -17,8 +17,8 @@ public class IDKit {
         sharedInternal != nil
     }
 
-    var isSessionAvailable: Bool {
-        session != nil
+    static var isSessionAvailable: Bool {
+        sharedInternal?.session != nil
     }
 
     private static var sharedInternal: IDKit?
@@ -65,6 +65,10 @@ public class IDKit {
 
     static func appInducedSessionReset(with error: IDKitError? = nil, _ completion: @escaping (String?) -> Void) {
         shared?.performAppInducedSessionReset(with: error, completion)
+    }
+
+    static func apiInducedRefresh(_ completion: @escaping (Bool) -> Void) {
+        shared?.performApiInducedRefresh(completion)
     }
 
     func presentSignInWindow() {

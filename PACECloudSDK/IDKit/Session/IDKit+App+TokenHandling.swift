@@ -10,7 +10,7 @@ import Foundation
 
 extension IDKit {
     func performAppInducedRefresh(_ completion: @escaping (String?) -> Void) {
-        guard isSessionAvailable else {
+        guard IDKit.isSessionAvailable else {
             performAppInducedAuthorization(completion)
             return
         }

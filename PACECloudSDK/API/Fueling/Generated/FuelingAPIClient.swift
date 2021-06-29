@@ -27,6 +27,8 @@ public class FuelingAPIClient {
 
     public var decodingQueue = DispatchQueue(label: "FuelingAPIClient", qos: .utility, attributes: .concurrent)
 
+    public var maxUnauthorizedRetryCount = 1
+
     public init(baseURL: String, configuration: URLSessionConfiguration = .default, defaultHeaders: [String: String] = [:], behaviours: [FuelingAPIRequestBehaviour] = []) {
         self.baseURL = baseURL
         self.behaviours = behaviours
@@ -45,7 +47,7 @@ public class FuelingAPIClient {
     ///   - complete: A closure that gets passed the FuelingAPIResponse
     /// - Returns: A cancellable request. Not that cancellation will only work after any validation RequestBehaviours have run
     @discardableResult
-    public func makeRequest<T>(_ request: FuelingAPIRequest<T>, behaviours: [FuelingAPIRequestBehaviour] = [], completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (FuelingAPIResponse<T>) -> Void) -> CancellableFuelingAPIRequest? {
+    public func makeRequest<T>(_ request: FuelingAPIRequest<T>, behaviours: [FuelingAPIRequestBehaviour] = [], currentNumberOfRetries: Int = 0, completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (FuelingAPIResponse<T>) -> Void) -> CancellableFuelingAPIRequest? {
         // create composite behaviour to make it easy to call functions on array of behaviours
         let requestBehaviour = FuelingAPIRequestBehaviourGroup(request: request, behaviours: self.behaviours + behaviours)
 
@@ -76,7 +78,7 @@ public class FuelingAPIClient {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
-                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, completionQueue: completionQueue, complete: complete)
+                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, currentNumberOfRetries: currentNumberOfRetries, completionQueue: completionQueue, complete: complete)
             case .failure(let error):
                 let error = APIClientError.validationError(error)
                 let response = FuelingAPIResponse<T>(request: request, result: .failure(error), urlRequest: urlRequest)
@@ -87,7 +89,7 @@ public class FuelingAPIClient {
         return cancellableRequest
     }
 
-    private func makeNetworkRequest<T>(request: FuelingAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellableFuelingAPIRequest, requestBehaviour: FuelingAPIRequestBehaviourGroup, completionQueue: DispatchQueue, complete: @escaping (FuelingAPIResponse<T>) -> Void) {
+    private func makeNetworkRequest<T>(request: FuelingAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellableFuelingAPIRequest, requestBehaviour: FuelingAPIRequestBehaviourGroup, currentNumberOfRetries: Int, completionQueue: DispatchQueue, complete: @escaping (FuelingAPIResponse<T>) -> Void) {
         requestBehaviour.beforeSend()
         if request.service.isUpload {
             let body = NSMutableData()
@@ -170,6 +172,7 @@ public class FuelingAPIClient {
                                          response: response,
                                          error: error,
                                          urlRequest: urlRequest,
+                                         currentNumberOfRetries: currentNumberOfRetries,
                                          completionQueue: completionQueue,
                                          complete: complete)
                 }
@@ -189,6 +192,7 @@ public class FuelingAPIClient {
                                    response: HTTPURLResponse,
                                    error: Error?,
                                    urlRequest: URLRequest,
+                                   currentNumberOfRetries: Int,
                                    completionQueue: DispatchQueue,
                                    complete: @escaping (FuelingAPIResponse<T>) -> Void) {
         let result: APIResult<T>
@@ -206,7 +210,55 @@ public class FuelingAPIClient {
             return
         }
 
-        guard let data = data else { return }
+        if response.statusCode == HttpStatusCode.unauthorized.rawValue
+            && currentNumberOfRetries < maxUnauthorizedRetryCount
+            && IDKit.isSessionAvailable {
+            IDKit.apiInducedRefresh { [weak self] isSuccessful in
+                guard isSuccessful else {
+                    self?.handleResponseData(request: request,
+                                             requestBehaviour: requestBehaviour,
+                                             data: data,
+                                             response: response,
+                                             urlRequest: urlRequest,
+                                             completionQueue: completionQueue,
+                                             complete: complete)
+                    return
+                }
+                self?.makeRequest(request, behaviours: requestBehaviour.behaviours, currentNumberOfRetries: currentNumberOfRetries + 1, completionQueue: completionQueue, complete: complete)
+            }
+            return
+        }
+
+        handleResponseData(request: request,
+                           requestBehaviour: requestBehaviour,
+                           data: data,
+                           response: response,
+                           urlRequest: urlRequest,
+                           completionQueue: completionQueue,
+                           complete: complete)
+    }
+
+    private func handleResponseData<T>(request: FuelingAPIRequest<T>,
+                                       requestBehaviour: FuelingAPIRequestBehaviourGroup,
+                                       data: Data?,
+                                       response: HTTPURLResponse,
+                                       urlRequest: URLRequest,
+                                       completionQueue: DispatchQueue,
+                                       complete: @escaping (FuelingAPIResponse<T>) -> Void) {
+        let result: APIResult<T>
+
+        guard let data = data else {
+            let error = APIClientError.invalidDataError
+            result = .failure(error)
+            requestBehaviour.onFailure(error: error)
+            let response = FuelingAPIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: nil)
+            requestBehaviour.onResponse(response: response.asAny())
+
+            completionQueue.async {
+                complete(response)
+            }
+            return
+        }
 
         do {
             let statusCode = response.statusCode

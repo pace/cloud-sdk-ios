@@ -27,6 +27,8 @@ public class POIAPIClient {
 
     public var decodingQueue = DispatchQueue(label: "POIAPIClient", qos: .utility, attributes: .concurrent)
 
+    public var maxUnauthorizedRetryCount = 1
+
     public init(baseURL: String, configuration: URLSessionConfiguration = .default, defaultHeaders: [String: String] = [:], behaviours: [POIAPIRequestBehaviour] = []) {
         self.baseURL = baseURL
         self.behaviours = behaviours
@@ -45,7 +47,7 @@ public class POIAPIClient {
     ///   - complete: A closure that gets passed the POIAPIResponse
     /// - Returns: A cancellable request. Not that cancellation will only work after any validation RequestBehaviours have run
     @discardableResult
-    public func makeRequest<T>(_ request: POIAPIRequest<T>, behaviours: [POIAPIRequestBehaviour] = [], completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (POIAPIResponse<T>) -> Void) -> CancellablePOIAPIRequest? {
+    public func makeRequest<T>(_ request: POIAPIRequest<T>, behaviours: [POIAPIRequestBehaviour] = [], currentNumberOfRetries: Int = 0, completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (POIAPIResponse<T>) -> Void) -> CancellablePOIAPIRequest? {
         // create composite behaviour to make it easy to call functions on array of behaviours
         let requestBehaviour = POIAPIRequestBehaviourGroup(request: request, behaviours: self.behaviours + behaviours)
 
@@ -76,7 +78,7 @@ public class POIAPIClient {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
-                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, completionQueue: completionQueue, complete: complete)
+                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, currentNumberOfRetries: currentNumberOfRetries, completionQueue: completionQueue, complete: complete)
             case .failure(let error):
                 let error = APIClientError.validationError(error)
                 let response = POIAPIResponse<T>(request: request, result: .failure(error), urlRequest: urlRequest)
@@ -87,7 +89,7 @@ public class POIAPIClient {
         return cancellableRequest
     }
 
-    private func makeNetworkRequest<T>(request: POIAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellablePOIAPIRequest, requestBehaviour: POIAPIRequestBehaviourGroup, completionQueue: DispatchQueue, complete: @escaping (POIAPIResponse<T>) -> Void) {
+    private func makeNetworkRequest<T>(request: POIAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellablePOIAPIRequest, requestBehaviour: POIAPIRequestBehaviourGroup, currentNumberOfRetries: Int, completionQueue: DispatchQueue, complete: @escaping (POIAPIResponse<T>) -> Void) {
         requestBehaviour.beforeSend()
         if request.service.isUpload {
             let body = NSMutableData()
@@ -170,6 +172,7 @@ public class POIAPIClient {
                                          response: response,
                                          error: error,
                                          urlRequest: urlRequest,
+                                         currentNumberOfRetries: currentNumberOfRetries,
                                          completionQueue: completionQueue,
                                          complete: complete)
                 }
@@ -189,6 +192,7 @@ public class POIAPIClient {
                                    response: HTTPURLResponse,
                                    error: Error?,
                                    urlRequest: URLRequest,
+                                   currentNumberOfRetries: Int,
                                    completionQueue: DispatchQueue,
                                    complete: @escaping (POIAPIResponse<T>) -> Void) {
         let result: APIResult<T>
@@ -206,7 +210,55 @@ public class POIAPIClient {
             return
         }
 
-        guard let data = data else { return }
+        if response.statusCode == HttpStatusCode.unauthorized.rawValue
+            && currentNumberOfRetries < maxUnauthorizedRetryCount
+            && IDKit.isSessionAvailable {
+            IDKit.apiInducedRefresh { [weak self] isSuccessful in
+                guard isSuccessful else {
+                    self?.handleResponseData(request: request,
+                                             requestBehaviour: requestBehaviour,
+                                             data: data,
+                                             response: response,
+                                             urlRequest: urlRequest,
+                                             completionQueue: completionQueue,
+                                             complete: complete)
+                    return
+                }
+                self?.makeRequest(request, behaviours: requestBehaviour.behaviours, currentNumberOfRetries: currentNumberOfRetries + 1, completionQueue: completionQueue, complete: complete)
+            }
+            return
+        }
+
+        handleResponseData(request: request,
+                           requestBehaviour: requestBehaviour,
+                           data: data,
+                           response: response,
+                           urlRequest: urlRequest,
+                           completionQueue: completionQueue,
+                           complete: complete)
+    }
+
+    private func handleResponseData<T>(request: POIAPIRequest<T>,
+                                       requestBehaviour: POIAPIRequestBehaviourGroup,
+                                       data: Data?,
+                                       response: HTTPURLResponse,
+                                       urlRequest: URLRequest,
+                                       completionQueue: DispatchQueue,
+                                       complete: @escaping (POIAPIResponse<T>) -> Void) {
+        let result: APIResult<T>
+
+        guard let data = data else {
+            let error = APIClientError.invalidDataError
+            result = .failure(error)
+            requestBehaviour.onFailure(error: error)
+            let response = POIAPIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: nil)
+            requestBehaviour.onResponse(response: response.asAny())
+
+            completionQueue.async {
+                complete(response)
+            }
+            return
+        }
 
         do {
             let statusCode = response.statusCode

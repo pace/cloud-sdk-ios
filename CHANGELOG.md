@@ -17,6 +17,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
 * Close app if it contains a specific redirect uri
 * Add function to load pois based on their location via the tiles request
+* Automatically retry unauthorized api requests
 
 ### Fixes
 
