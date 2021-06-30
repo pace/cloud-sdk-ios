@@ -14,4 +14,9 @@ extension PACECloudSDK {
         API.POI.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Bundle.paceCloudSDK.poiKitUserAgent,
                                          HttpHeaderFields.apiKey.rawValue: apiKey ?? "Missing API key"]
     }
+
+    func setupKits(with config: Configuration) {
+        IDKit.determineOIDConfiguration(with: config.customOIDConfiguration)
+        AppKit.shared.setup()
+    }
 }

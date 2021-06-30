@@ -41,9 +41,7 @@ public class PACECloudSDK {
         self.warningsHandler = SDKWarningsHandler(with: config)
         warningsHandler?.preCheckSetup()
 
-        IDKit.determineOIDConfiguration(with: config.customOIDConfiguration)
-        AppKit.shared.setup()
-
+        setupKits(with: config)
         setupAPI()
     }
 
