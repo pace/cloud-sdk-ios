@@ -7,7 +7,7 @@
 
 import CoreLocation
 
-protocol AppManagerDelegate: class {
+protocol AppManagerDelegate: AnyObject {
     func passErrorToClient(_ error: AppKit.AppError)
     func didReceiveAppDatas(_ appDatas: [AppKit.AppData])
     func didEscapeForecourt(_ appDatas: [AppKit.AppData])
