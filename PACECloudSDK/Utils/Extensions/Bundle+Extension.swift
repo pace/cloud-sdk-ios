@@ -18,14 +18,6 @@ extension Bundle {
         return version
     }
 
-    var poiKitUserAgent: String {
-        return [
-            "\(Bundle.main.bundleName)/\(Bundle.main.releaseVersionNumber)",
-            "(\(UIDevice.current.systemName) \(UIDevice.current.systemVersion))",
-            "POIKit-iOS/\(releaseVersionNumber)_\(buildVersionNumber)"
-        ].filter { !$0.isEmpty }.joined(separator: " ")
-    }
-
     var versionString: String {
         return "\(self.releaseVersionNumber).\(self.buildVersionNumber)"
     }
