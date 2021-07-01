@@ -19,12 +19,12 @@ public protocol AppKitDelegate: AnyObject {
     func didExitGeofence(with id: String)
     func didFailToMonitorRegion(_ region: CLRegion, error: Error)
 
-    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void))
+    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void))
     func logout(completion: @escaping ((AppKit.LogoutResponse) -> Void))
     func didReceiveImageData(_ image: UIImage)
 
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)
-    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (([String: Any]?) -> Void))
+    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)
 
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void))
 
@@ -39,10 +39,10 @@ public extension AppKitDelegate {
     func didEnterGeofence(with id: String) {}
     func didExitGeofence(with id: String) {}
     func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
-    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void)) {}
+    func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {}
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) { completion("") }
-    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (([String: Any]?) -> Void)) { completion(nil) }
+    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) { completion(nil) }
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) { completion(false) }
     func setUserProperty(key: String, value: String, update: Bool) {}
     func logEvent(key: String, parameters: [String: Any]) {}
@@ -87,7 +87,7 @@ extension AppKit {
         }
     }
 
-    func notifyGetAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, callback: @escaping ((GetAccessTokenResponse) -> Void)) {
+    func notifyGetAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, callback: @escaping ((API.Communication.GetAccessTokenResponse) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.getAccessToken(reason: reason, oldToken: oldToken, completion: callback)
         }
@@ -111,7 +111,7 @@ extension AppKit {
         }
     }
 
-    func notifyApplePayRequest(with request: PKPaymentRequest, callback: @escaping (([String: Any]?) -> Void)) {
+    func notifyApplePayRequest(with request: PKPaymentRequest, callback: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) {
         notifyClient { [weak self] in
             self?.delegate?.didCreateApplePayPaymentRequest(request, completion: callback)
         }

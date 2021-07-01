@@ -20,5 +20,5 @@ extension App {
 
 // MARK: - Access token
 extension App {
-    func handleGetAccessTokenRequest(with request: AppKit.AppRequestData<AppKit.GetAccessTokenData>, completion: @escaping () -> Void) {}
+    func handleGetAccessToken(with request: API.Communication.GetAccessTokenRequest, completion: @escaping (API.Communication.GetAccessTokenResult) -> Void) {}
 }

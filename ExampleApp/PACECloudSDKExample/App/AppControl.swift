@@ -6,6 +6,7 @@
 //
 
 import PACECloudSDK
+import PassKit
 import UIKit
 
 protocol AppControlDelegate: AnyObject {
@@ -53,10 +54,6 @@ class AppControl {
 extension AppControl: AppKitDelegate {
     func didReceiveAppData(_ appData: [AppKit.AppData]) {}
 
-    func didReceiveApplePayDataRequest(_ request: AppKit.ApplePayRequest, completion: @escaping (([String: Any]?) -> Void)) {
-        completion(nil)
-    }
-
     func didFail(with error: AppKit.AppError) {
         switch error {
         case .locationNotAuthorized:
@@ -79,5 +76,22 @@ extension AppControl: AppKitDelegate {
     func didReceiveImageData(_ image: UIImage) {
         let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
+    }
+
+    func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) {
+        completion("merchantIdentifier")
+    }
+
+    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) {
+        completion(.init(paymentMethod: .init(displayName: "DisplayName",
+                                              network: "Network",
+                                              type: .credit),
+                         paymentData: .init(version: "123",
+                                            data: "data",
+                                            signature: "signature",
+                                            header: .init(ephemeralPublicKey: "publicKey",
+                                                          publicKeyHash: "hash",
+                                                          transactionId: "transactionId")),
+                         transactionIdentifier: "transactionIdentifier"))
     }
 }

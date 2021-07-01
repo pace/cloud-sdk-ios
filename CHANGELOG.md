@@ -5,6 +5,8 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Set default `authenticationMode` of the SDK to `.native`.  
 > **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
+* The data type of the completion parameter for the `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
+* The data type of the completion parameter for the `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
 
 ### Enhancements
 
@@ -17,6 +19,11 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix overlapping labels in AppDrawer
 
 <!-- ### Internal - Include, if needed -->
+<!-- ### Fixes - Include, if needed -->
+
+### Internal
+
+* Rework communication between apps and SDK
 
 7.0.0 Release notes (2021-06-30)
 =============================================================
