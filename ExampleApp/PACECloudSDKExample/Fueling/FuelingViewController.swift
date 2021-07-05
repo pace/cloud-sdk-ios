@@ -11,6 +11,7 @@ import UIKit
 // swiftlint:disable type_body_length file_length
 class FuelingViewController: UIViewController {
     enum ButtonType: Int {
+        case simulator
         case authorize
         case reset
         case drawer
@@ -35,6 +36,9 @@ class FuelingViewController: UIViewController {
 
         var title: String {
             switch self {
+            case .simulator:
+                return "PWA Simulator"
+
             case .authorize:
                 return "Authorize"
 
@@ -129,8 +133,9 @@ class FuelingViewController: UIViewController {
             return button
         }
 
-        idButtons = [ButtonType.authorize, .reset].map { buttonCreation($0) }
-        appButtons = [ButtonType.drawer,
+        idButtons = [.authorize, .reset].map { buttonCreation($0) }
+        appButtons = [.drawer,
+                      .simulator,
                       .allCofuStations,
                       .fueling, .payment,
                       .transactions,
@@ -219,6 +224,10 @@ class FuelingViewController: UIViewController {
     @objc
     private func handleButtonTapped(sender: UIButton) {
         switch sender.tag {
+        case ButtonType.simulator.rawValue:
+            let vc = AppControl.shared.appViewController(appUrl: Constants.URLs.simulatorUrl)
+            present(vc, animated: true)
+
         case ButtonType.authorize.rawValue:
             IDControl.shared.authorize()
 
