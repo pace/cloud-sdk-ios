@@ -12,18 +12,17 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Add callback `didPerformAuthorization` to `IDKitDelegate` to inform client about an authentication triggered via an app
 * Show AppDrawer based on distance instead of an area
+* Add new `func currentLocation(completion: @escaping (CLLocation?) -> Void)` callback to `AppKitDelegate`. This request only gets called if an app requests the user's current location and the SDK can't retrieve a valid one.
 
 ### Fixes
 
 * Don't reset session before refreshing if session isn't even available
 * Fix overlapping labels in AppDrawer
 
-<!-- ### Internal - Include, if needed -->
-<!-- ### Fixes - Include, if needed -->
-
 ### Internal
 
 * Rework communication between apps and SDK
+* Implement `isBiometryAuthEnabled` call
 
 7.0.0 Release notes (2021-06-30)
 =============================================================

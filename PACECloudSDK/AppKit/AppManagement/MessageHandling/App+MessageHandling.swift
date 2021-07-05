@@ -171,11 +171,6 @@ extension App {
         completion(.init(.init(response: .init(value: traceId))))
     }
 
-    func handleGetLocation(completion: @escaping (API.Communication.GetLocationResult) -> Void) {
-        // TODO: Implement get location
-        completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Not yet implemented."))))
-    }
-
     func handleAppRedirect(with request: API.Communication.AppRedirectRequest, completion: @escaping (API.Communication.AppRedirectResult) -> Void) {
         // TODO Handle app redirect
         completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Not yet implemented."))))

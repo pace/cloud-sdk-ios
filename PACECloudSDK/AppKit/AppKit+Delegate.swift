@@ -27,6 +27,7 @@ public protocol AppKitDelegate: AnyObject {
     func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)
 
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void))
+    func currentLocation(completion: @escaping (CLLocation?) -> Void)
 
     func setUserProperty(key: String, value: String, update: Bool)
     func logEvent(key: String, parameters: [String: Any])
@@ -44,6 +45,7 @@ public extension AppKitDelegate {
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) { completion("") }
     func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) { completion(nil) }
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) { completion(false) }
+    func currentLocation(completion: @escaping (CLLocation?) -> Void) { completion(nil) }
     func setUserProperty(key: String, value: String, update: Bool) {}
     func logEvent(key: String, parameters: [String: Any]) {}
     func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
@@ -120,6 +122,12 @@ extension AppKit {
     func notifyDidRequestLocationVerfication(location: CLLocation, threshold: Double, callback: @escaping ((Bool) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.didRequestLocationVerification(location: location, threshold: threshold, completion: callback)
+        }
+    }
+
+    func notifyCurrentLocation(callback: @escaping (CLLocation?) -> Void) {
+        notifyClient { [weak self] in
+            self?.delegate?.currentLocation(completion: callback)
         }
     }
 
