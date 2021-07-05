@@ -157,8 +157,8 @@ extension App {
     }
 
     func handleIsBiometricAuthEnabled(completion: @escaping (API.Communication.IsBiometricAuthEnabledResult) -> Void) {
-        // TODO
-        completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Not yet implemented."))))
+        let isEnabled = IDKit.isBiometricAuthenticationEnabled()
+        completion(.init(.init(response: .init(isEnabled: isEnabled))))
     }
 }
 

@@ -832,8 +832,6 @@
 		92EDDDB025A73C6900E480F4 /* POIKitAPI+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */; };
 		92EDDDB425A73C7900E480F4 /* POIKitAPI+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */; };
 		92EDDDB925A73EDD00E480F4 /* POIKitManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDB825A73EDD00E480F4 /* POIKitManager+Tiles.swift */; };
-		92EDDDC325A7433700E480F4 /* SecureDataCommunicationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */; };
-		92EDDDC725A7433D00E480F4 /* SecureDataCommunicationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */; };
 		92EDDDCC25A7441C00E480F4 /* App+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDCB25A7441C00E480F4 /* App+Slim.swift */; };
 		92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDD025A745C400E480F4 /* POIKitAPIProtocol.swift */; };
 		92EDDDDD25A7461500E480F4 /* POIKitAPIProtocol+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDD825A7460D00E480F4 /* POIKitAPIProtocol+Slim.swift */; };
@@ -1390,7 +1388,6 @@
 		92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+Observer.swift"; sourceTree = "<group>"; };
 		92EDDDB825A73EDD00E480F4 /* POIKitManager+Tiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKitManager+Tiles.swift"; sourceTree = "<group>"; };
 		92EDDDBD25A7401A00E480F4 /* PoiKitObserverToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiKitObserverToken.swift; sourceTree = "<group>"; };
-		92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureDataCommunicationProtocol.swift; sourceTree = "<group>"; };
 		92EDDDCB25A7441C00E480F4 /* App+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+Slim.swift"; sourceTree = "<group>"; };
 		92EDDDD025A745C400E480F4 /* POIKitAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitAPIProtocol.swift; sourceTree = "<group>"; };
 		92EDDDD825A7460D00E480F4 /* POIKitAPIProtocol+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKitAPIProtocol+Slim.swift"; sourceTree = "<group>"; };
@@ -1680,7 +1677,6 @@
 				3B970A102542D9BA0072F6BA /* AppWebViewDelegate.swift */,
 				3B970A0B2542D9BA0072F6BA /* NavigationTitleView.swift */,
 				3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */,
-				92EDDDC225A7433700E480F4 /* SecureDataCommunicationProtocol.swift */,
 			);
 			path = AppManagement;
 			sourceTree = "<group>";
@@ -3477,7 +3473,6 @@
 				84600F3A25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
 				84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */,
 				84A43B1425825B5700DE36FA /* AnyPayRequest.swift in Sources */,
-				92EDDDC325A7433700E480F4 /* SecureDataCommunicationProtocol.swift in Sources */,
 				3B8F9F8726809676004EA512 /* CofuGasStation+Extension.swift in Sources */,
 				3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */,
 				84D6C07E258A03280094982D /* PCPOIEvent.swift in Sources */,
@@ -3853,7 +3848,6 @@
 				8418E25B25B1B85A00D3722B /* PCPOIDedupeRequest.swift in Sources */,
 				8418E27F25B1B85A00D3722B /* PCPOISource.swift in Sources */,
 				92EDDD7F25A7399800E480F4 /* POIFiltersRequest.swift in Sources */,
-				92EDDDC725A7433D00E480F4 /* SecureDataCommunicationProtocol.swift in Sources */,
 				8418E29725B1B85E00D3722B /* Coding.swift in Sources */,
 				92EDDC1F25A7270300E480F4 /* AppViewController.swift in Sources */,
 				92EDDC1D25A7270300E480F4 /* AppStyle+Colors.swift in Sources */,

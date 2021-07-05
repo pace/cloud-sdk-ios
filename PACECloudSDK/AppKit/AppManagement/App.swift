@@ -10,7 +10,7 @@ import Foundation
 import PassKit
 import WebKit
 
-protocol App: WKWebView, WKScriptMessageHandler, SecureDataCommunication, CommunicationProtocol {
+protocol App: WKWebView, WKScriptMessageHandler, CommunicationProtocol {
     var appUrl: String? { get }
     var placeholder: NoNetworkPlaceholderView { get set }
     var loadingView: LoadingView { get }
