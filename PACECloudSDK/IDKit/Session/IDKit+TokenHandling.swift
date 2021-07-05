@@ -115,7 +115,7 @@ extension IDKit {
 extension IDKit {
     func performRefresh(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
         guard let session = session else {
-            performReset { completion(nil, IDKitError.invalidSession) }
+            completion(nil, IDKitError.invalidSession)
             return
         }
 
