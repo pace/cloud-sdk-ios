@@ -107,14 +107,14 @@ The approaching is a necessary first api call for connected fueling. Without a v
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    included = try container.decodeArrayIfPresent("included")
+//                    included = try container.decodeArrayIfPresent("included")
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(included, forKey: "included")
+//                    try container.encodeIfPresent(included, forKey: "included")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
