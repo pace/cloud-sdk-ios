@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		053456B926965275007D482D /* Poly+AllTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC332562800D00C673EF /* Poly+AllTypes.swift */; };
+		053456BA269657D0007D482D /* BundleUserAgent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */; };
 		05521B0E26490F3E00AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
 		05521B1326490F7500AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
 		05F57A31266635B5008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
@@ -3879,6 +3880,7 @@
 				92EDDD5F25A7396900E480F4 /* (null) in Sources */,
 				92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */,
 				92EDDC0225A7270300E480F4 /* RedirectServiceData.swift in Sources */,
+				053456BA269657D0007D482D /* BundleUserAgent+Extension.swift in Sources */,
 				92EDDC1025A7270300E480F4 /* LoadingView.swift in Sources */,
 				92EDDD0925A738F200E480F4 /* RegionalPriceRequest.swift in Sources */,
 				84600F0B25C03B1E0087194F /* POIAPIGetPolicies.swift in Sources */,
