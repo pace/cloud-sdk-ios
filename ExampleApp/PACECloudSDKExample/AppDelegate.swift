@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
 
         let config: PACECloudSDK.Configuration = .init(apiKey: "apikey",
-                                                       authenticationMode: .native,
                                                        environment: currentAppEnvironment(),
                                                        domainACL: ["pace.cloud"],
                                                        geoAppsScope: "pace-drive-ios")

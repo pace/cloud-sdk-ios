@@ -15,6 +15,7 @@
         + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
         + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
         + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
+        + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -93,7 +94,7 @@ Available parameters:
 
 ```swift
 apiKey: String
-authenticationMode: AuthenticationMode // Default: .web
+authenticationMode: AuthenticationMode // Default: .native
 environment: Environment // Default: .production
 isRedirectSchemeCheckEnabled: Bool // Default: true
 domainACL: [String]? // Default: nil
@@ -140,6 +141,11 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 - `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
 - `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
 - `IDKit.swapPresentingViewController(...)` has been removed. The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`.
+
+### From 7.x.x to 8.x.x
+
+- We've set the default `authenticationMode` of the SDK to `.native`.  
+> **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
 
 #### Noteworthy changes
 - If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
@@ -306,8 +312,7 @@ The `PACECloudSDK` provides the following methods to check and set the PIN:
 Biometry is needed for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties.
 
 ### Native login
-You can use *AppKit* with your native login (given that your token has the necessary scopes) as well. In case of a native login,
-it is crucial that you set the configuration during setup accordingly, i.e. setting the `authenticationMode` to `.native`.
+By default *AppKit* is used with your native login (given that your token has the necessary scopes) as well.
 
 There is a `AppKitDelegate` method that you will need to implement, i.e. `func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((AppKit.GetAccessTokenResponse) -> Void))`,
 which is triggered whenever your access token (or possible lack thereof) is invalid; possible reasons: it has expired, has missing scopes
