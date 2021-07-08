@@ -1558,9 +1558,9 @@
 			isa = PBXGroup;
 			children = (
 				3B970A122542D9BA0072F6BA /* AppDrawer.swift */,
-				3B970A142542D9BA0072F6BA /* AppDrawerContainer.swift */,
 				3B970A152542D9BA0072F6BA /* AppDrawer+App.swift */,
 				3B970A132542D9BA0072F6BA /* AppDrawer+Gestures.swift */,
+				3B970A142542D9BA0072F6BA /* AppDrawerContainer.swift */,
 			);
 			path = Drawer;
 			sourceTree = "<group>";
