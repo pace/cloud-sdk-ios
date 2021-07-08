@@ -12,7 +12,7 @@ public class PACECloudSDK {
 
     private(set) var config: Configuration?
     private(set) var environment: Environment = .production
-    private(set) var authenticationMode: AuthenticationMode = .web
+    private(set) var authenticationMode: AuthenticationMode = .native
     private(set) var userAgentExtensions: [String] = []
     private(set) var apiKey: String?
 
@@ -93,7 +93,7 @@ public extension PACECloudSDK {
         let geoAppsScope: String
 
         public init(apiKey: String,
-                    authenticationMode: AuthenticationMode = .web,
+                    authenticationMode: AuthenticationMode = .native,
                     environment: Environment = .production,
                     customOIDConfiguration: IDKit.OIDConfiguration? = nil,
                     isRedirectSchemeCheckEnabled: Bool = true,

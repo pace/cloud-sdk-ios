@@ -1,7 +1,11 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
-<!-- ### Breaking Changes - Include, if needed -->
+### Breaking Changes
+
+* Set default `authenticationMode` of the SDK to `.native`.  
+> **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
+
 <!-- ### Enhancements - Include, if needed -->
 ### Fixes
 
