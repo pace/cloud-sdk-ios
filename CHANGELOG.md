@@ -6,6 +6,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Fixes
 
 * Don't reset session before refreshing if session isn't even available
+* Fix overlapping labels in AppDrawer
 
 <!-- ### Internal - Include, if needed -->
 

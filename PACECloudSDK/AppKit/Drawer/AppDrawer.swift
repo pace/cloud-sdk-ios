@@ -111,7 +111,6 @@ extension AppKit {
             switchTheme(to: theme)
             setupDesign()
             layoutView()
-            addCloseButton()
         }
 
         func switchTheme(to theme: AppDrawerTheme) {
@@ -230,26 +229,31 @@ extension AppKit.AppDrawer {
         drawerWidthConstraint = self.widthAnchor.constraint(equalToConstant: AppStyle.drawerSize)
         drawerWidthConstraint?.isActive = true
 
-        addSubview(drawerBackgroundView)
-        addSubview(appImageBackgroundView)
-
+        [drawerBackgroundView, appImageBackgroundView].forEach(addSubview)
+        [titleLabel, subtitleLabel, closeButton].forEach(drawerBackgroundView.addSubview)
         appImageBackgroundView.addSubview(appImageView)
-        drawerBackgroundView.addSubview(titleLabel)
-        drawerBackgroundView.addSubview(subtitleLabel)
 
         appImageBackgroundView.anchor(top: topAnchor,
                                       leading: leadingAnchor,
                                       bottom: bottomAnchor,
                                       size: .init(width: AppStyle.drawerSize, height: AppStyle.drawerSize))
 
+        let closeButtonSize = AppStyle.closeButtonSize
+        let labelWidth = AppStyle.drawerMaxWidth - labelsPadding - closeButtonSize + 16 // 16 == trailing inset label <-> closeButton
+
         titleLabel.anchor(leading: drawerBackgroundView.leadingAnchor,
                           bottom: drawerBackgroundView.bottomAnchor,
-                          padding: .init(top: 0, left: labelsPadding, bottom: 9.5, right: 0))
+                          padding: .init(top: 0, left: labelsPadding, bottom: 9.5, right: 0),
+                          size: .init(width: labelWidth, height: 0))
 
         subtitleLabel.anchor(top: drawerBackgroundView.topAnchor,
                              leading: drawerBackgroundView.leadingAnchor,
                              bottom: titleLabel.topAnchor,
-                             padding: .init(top: 9, left: labelsPadding, bottom: 4.5, right: 0))
+                             padding: .init(top: 9, left: labelsPadding, bottom: 4.5, right: 0),
+                             size: .init(width: labelWidth, height: 0))
+
+        closeButton.anchor(centerY: drawerBackgroundView.centerYAnchor, size: .init(width: closeButtonSize, height: closeButtonSize))
+        closeButton.anchor(trailing: drawerBackgroundView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
 
         drawerBackgroundView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, padding: .init(top: 0, left: 1, bottom: 0, right: 0))
 
@@ -258,14 +262,6 @@ extension AppKit.AppDrawer {
 
         let iconSize = AppStyle.iconSize
         appImageView.centerInSuperview(size: .init(width: iconSize, height: iconSize))
-    }
-
-    func addCloseButton() {
-        drawerBackgroundView.addSubview(closeButton)
-
-        let size = AppStyle.closeButtonSize
-        closeButton.anchor(centerY: drawerBackgroundView.centerYAnchor, size: .init(width: size, height: size))
-        closeButton.anchor(trailing: drawerBackgroundView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
     }
 }
 
