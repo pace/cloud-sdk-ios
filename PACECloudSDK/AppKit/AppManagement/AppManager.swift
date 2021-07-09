@@ -25,7 +25,6 @@ class AppManager {
     private var isGeneralFetchRunning = false
 
     private var currentlyDisplayedApps: (apps: [AppKit.AppData], location: CLLocation)?
-    private var currentlyDisplayedAppsRemovalThreshold: CLLocationDistance = 150
 
     private lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
@@ -74,7 +73,7 @@ class AppManager {
 // MARK: - API requests
 extension AppManager {
     private func cofuGasStations(for location: CLLocation, completion: @escaping ([AppKit.CofuGasStation]?) -> Void) {
-        geoAPIManager.cofuGasStations(for: location) { [weak self] result in
+        geoAPIManager.locationBasedCofuStations(for: location) { [weak self] result in
             switch result {
             case .failure(let error):
                 switch error {
@@ -249,17 +248,7 @@ extension AppManager {
     }
 
     private func process(appDatas: [AppKit.AppData], location: CLLocation) {
-        if appDatas.isEmpty,
-           let currentLocation = currentlyDisplayedApps?.location,
-           currentLocation.distance(from: location) < currentlyDisplayedAppsRemovalThreshold {
-            // If the new location returns no apps and
-            // it's not farther away than 150 from the previous location
-            // we keep the current apps
-            return
-        }
-
         let newGasStationIds = appDatas.map { $0.poiId }
-
         removeDisplayedAppsIfNeeded(with: newGasStationIds)
         currentlyDisplayedApps = (apps: appDatas, location: location)
         fetchAppManifest(with: appDatas)

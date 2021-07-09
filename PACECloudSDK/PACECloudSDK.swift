@@ -91,6 +91,7 @@ public extension PACECloudSDK {
         let allowedLowAccuracy: Double
         let speedThreshold: Double
         let geoAppsScope: String
+        let allowedAppDrawerLocationOffset: Double
 
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .native,
@@ -100,7 +101,8 @@ public extension PACECloudSDK {
                     domainACL: [String]? = nil,
                     allowedLowAccuracy: Double? = nil,
                     speedThresholdInKmPerHour: Double? = nil,
-                    geoAppsScope: String? = nil) {
+                    geoAppsScope: String? = nil,
+                    allowedAppDrawerLocationOffset: Double? = nil) {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
@@ -119,6 +121,7 @@ public extension PACECloudSDK {
             }
 
             self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
+            self.allowedAppDrawerLocationOffset = allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
         }
     }
 

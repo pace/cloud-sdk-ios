@@ -79,7 +79,6 @@
 		3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */; };
 		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
 		3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */; };
-		3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96929925E3C20900E42703 /* RayCastingTests.swift */; };
 		3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */; };
 		3B970A662542D9BB0072F6BA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A002542D9B90072F6BA /* UIColor+Extension.swift */; };
 		3B970A672542D9BB0072F6BA /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A012542D9B90072F6BA /* UIView+Extension.swift */; };
@@ -168,7 +167,6 @@
 		3BA6A76C260DD06B005D4B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76B260DD06B005D4B5C /* Assets.xcassets */; };
 		3BA6A76F260DD06B005D4B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76D260DD06B005D4B5C /* LaunchScreen.storyboard */; };
 		3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BA6A79B260DDF5A005D4B5C /* AppAuth */; };
-		3BA9134C25DFF4F100219156 /* RayCasting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9134B25DFF4F100219156 /* RayCasting.swift */; };
 		3BAA8FA625CD5F2A00510FA5 /* InvalidationTokenCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */; };
 		3BB1442725386EA9004E9F63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
 		3BB1442D25386F2C004E9F63 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442C25386F2C004E9F63 /* SessionCache.swift */; };
@@ -843,7 +841,6 @@
 		3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Extension.swift"; sourceTree = "<group>"; };
 		3B8F9F8626809676004EA512 /* CofuGasStation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CofuGasStation+Extension.swift"; sourceTree = "<group>"; };
 		3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Slim.swift"; sourceTree = "<group>"; };
-		3B96929925E3C20900E42703 /* RayCastingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCastingTests.swift; sourceTree = "<group>"; };
 		3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		3B970A002542D9B90072F6BA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3B970A012542D9B90072F6BA /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -933,7 +930,6 @@
 		3BA6A76B260DD06B005D4B5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BA6A76E260DD06B005D4B5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BA6A770260DD06B005D4B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3BA9134B25DFF4F100219156 /* RayCasting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RayCasting.swift; sourceTree = "<group>"; };
 		3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidationTokenCache.swift; sourceTree = "<group>"; };
 		3BB1442625386EA9004E9F63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BB1442C25386F2C004E9F63 /* SessionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCache.swift; sourceTree = "<group>"; };
@@ -1514,7 +1510,6 @@
 				3B970ABE2542D9DB0072F6BA /* AppKitTests.swift */,
 				3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */,
 				3B8B02F4255C228E0020A6FA /* JWTTests.swift */,
-				3B96929925E3C20900E42703 /* RayCastingTests.swift */,
 				3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */,
 				3B970ABD2542D9DB0072F6BA /* URLDecomposerTests.swift */,
 			);
@@ -2630,7 +2625,6 @@
 			isa = PBXGroup;
 			children = (
 				927110D92573AA43001D6DDA /* CookieStorage.swift */,
-				3BA9134B25DFF4F100219156 /* RayCasting.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3026,7 +3020,6 @@
 				3B970AAF2542D9BB0072F6BA /* AppKit+Delegate.swift in Sources */,
 				84D6C092258A03280094982D /* PCPayPaymentMethodPayDirektCreate.swift in Sources */,
 				84D6C05E258A03270094982D /* PCPayPaymentMethodKind.swift in Sources */,
-				3BA9134C25DFF4F100219156 /* RayCasting.swift in Sources */,
 				849C401325CAB6DD0074BCDA /* PCUserPlainOTP.swift in Sources */,
 				3BC9A7F42539DDAD00B933AE /* POIFiltersResponse.swift in Sources */,
 				84A43B0C2580EA3700DE36FA /* AnyResponse.swift in Sources */,
@@ -3359,7 +3352,6 @@
 				3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
-				3B96929A25E3C20900E42703 /* RayCastingTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,

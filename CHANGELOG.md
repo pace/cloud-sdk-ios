@@ -9,6 +9,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Add callback `didPerformAuthorization` to `IDKitDelegate` to inform client about an authentication triggered via an app
+* Show AppDrawer based on distance instead of an area
 
 ### Fixes
 

@@ -14,7 +14,7 @@ class GeoAPIManager {
 
     func fetchPolygons() {}
 
-    func cofuGasStations(for location: CLLocation, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+    func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         result(.failure(.unknownError))
     }
 
