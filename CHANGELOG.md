@@ -6,7 +6,10 @@ x.y.z Release notes (yyyy-MM-dd)
 * Set default `authenticationMode` of the SDK to `.native`.  
 > **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
 
-<!-- ### Enhancements - Include, if needed -->
+### Enhancements
+
+* Add callback `didPerformAuthorization` to `IDKitDelegate` to inform client about an authentication triggered via an app
+
 ### Fixes
 
 * Don't reset session before refreshing if session isn't even available

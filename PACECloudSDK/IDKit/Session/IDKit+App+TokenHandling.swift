@@ -33,7 +33,10 @@ extension IDKit {
     func performAppInducedAuthorization(_ completion: @escaping (String?) -> Void) {
         performAuthorization(showSignInMask: true) { accessToken, error in
             if let error = error {
+                self.delegate?.didPerformAuthorization(.failure(error))
                 IDKitLogger.e("App induced authorization failed with error \(error).")
+            } else if let accessToken = accessToken {
+                self.delegate?.didPerformAuthorization(.success(accessToken))
             }
             completion(accessToken)
         }
