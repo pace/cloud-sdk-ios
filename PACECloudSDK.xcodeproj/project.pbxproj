@@ -18,6 +18,7 @@
 		05F57A31266635B5008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		05F57A36266635B7008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		1705506C266612FC00C5119C /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
+		173799CE269D8D6A00ACD3CE /* Bundle+Watch+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */; };
 		175019DA263C45B000DBA1FF /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
 		1785C95C26935EEE0041A20E /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1785C95B26935EEE0041A20E /* AppAuth */; };
@@ -140,7 +141,6 @@
 		17BB0D54268CD533009D4755 /* PCFuelingFuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE025B9C9690065284A /* PCFuelingFuelPrice.swift */; };
 		17BB0D55268CD553009D4755 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855312253D6C12001F7B66 /* Bundle+Extension.swift */; };
 		17BB0DFC268DF9C2009D4755 /* BundleUserAgent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */; };
-		17BB0DFD268DF9FF009D4755 /* Bundle+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDED425AC7E0000E480F4 /* Bundle+Resource.swift */; };
 		17BB0DFE268E040C009D4755 /* PCFuelingPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE625B9C96A0065284A /* PCFuelingPaymentMethod.swift */; };
 		17BB0DFF268E0468009D4755 /* PCFuelingPaymentMethodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE425B9C96A0065284A /* PCFuelingPaymentMethodKind.swift */; };
 		3B1841E72683354600A0F625 /* POIAPIGetStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841E62683354600A0F625 /* POIAPIGetStats.swift */; };
@@ -913,6 +913,7 @@
 /* Begin PBXFileReference section */
 		05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Error.swift"; sourceTree = "<group>"; };
 		05F57A30266635B5008F2272 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Watch+Resource.swift"; sourceTree = "<group>"; };
 		175019D9263C45B000DBA1FF /* CofuGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CofuGasStation.swift; sourceTree = "<group>"; };
 		1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+WatchSDK.swift"; sourceTree = "<group>"; };
 		17BB0CD7268CCED6009D4755 /* PACECloudWatchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PACECloudWatchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1608,6 +1609,7 @@
 				3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */,
 				3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */,
 				17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */,
+				173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3123,7 +3125,6 @@
 				17BB0D3D268CD1CE009D4755 /* PCPayTransaction.swift in Sources */,
 				17BB0CE2268CCEFB009D4755 /* PayAPIResponse.swift in Sources */,
 				17BB0D11268CCF88009D4755 /* FuelingAPIClient.swift in Sources */,
-				17BB0DFD268DF9FF009D4755 /* Bundle+Resource.swift in Sources */,
 				17BB0D16268CCF92009D4755 /* FuelingAPIGetPumps.swift in Sources */,
 				17BB0D06268CCF26009D4755 /* PACECloudSDK.swift in Sources */,
 				17BB0CE5268CCEFB009D4755 /* PayAPIRequest.swift in Sources */,
@@ -3149,6 +3150,7 @@
 				17BB0D54268CD533009D4755 /* PCFuelingFuelPrice.swift in Sources */,
 				17BB0D1A268CCF92009D4755 /* FuelingAPIProcessPayment.swift in Sources */,
 				17BB0D27268CD08B009D4755 /* PCPayRequestApplePaySession.swift in Sources */,
+				173799CE269D8D6A00ACD3CE /* Bundle+Watch+Resource.swift in Sources */,
 				17BB0CFA268CCF13009D4755 /* PayAPIGetPaymentMethodKinds.swift in Sources */,
 				17BB0D20268CD01A009D4755 /* AnyResponse.swift in Sources */,
 				17BB0CFF268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
