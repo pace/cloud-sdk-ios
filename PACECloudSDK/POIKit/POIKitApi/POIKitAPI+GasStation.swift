@@ -107,8 +107,10 @@ extension POIKitAPI {
         let delegate = POIKit.Database.shared.delegate
         if delegate?.get(uuid: id) == nil {
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let gasStation = POIKit.GasStation(id: id, coordinate: coordinate)
-            delegate?.add(gasStation)
+            let poiKitGasStation = POIKit.GasStation(id: id, coordinate: coordinate)
+            poiKitGasStation.attributes = gasStation.attributes
+            poiKitGasStation.relationships = gasStation.relationships
+            delegate?.add(poiKitGasStation)
         }
 
         let response = POIKit.GasStationResponse(id: id,
