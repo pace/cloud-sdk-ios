@@ -18,6 +18,8 @@ public protocol IDKitDelegate: AnyObject {
      - parameter completion: The block to be called to pass the new access token if available.
      */
     func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)
+
+    func didPerformAuthorization(_ result: Result<String, IDKit.IDKitError>)
 }
 
 public extension IDKitDelegate {
