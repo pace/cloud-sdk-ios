@@ -35,15 +35,21 @@ extension UserAPI.Terms {
 
             public var options: Options
 
-            public init(options: Options) {
+            public enum GetTermsAcceptHeader: String {
+                case application_vnd_api_json = "application/vnd.api+json"
+                case text_html = "text/html"
+            }
+
+            public init(options: Options, responseContentType: GetTermsAcceptHeader) {
                 self.options = options
                 super.init(service: GetTerms.service)
+                self.contentType = responseContentType.rawValue
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(termsId: ID? = nil, redirectUri: String? = nil, acceptLanguage: String? = nil) {
+            public convenience init(termsId: ID? = nil, redirectUri: String? = nil, acceptLanguage: String? = nil, responseContentType: GetTermsAcceptHeader) {
                 let options = Options(termsId: termsId, redirectUri: redirectUri, acceptLanguage: acceptLanguage)
-                self.init(options: options)
+                self.init(options: options, responseContentType: responseContentType)
             }
 
             public override var path: String {

@@ -40,15 +40,21 @@ extension PayAPI.PaymentTransactions {
 
             public var options: Options
 
-            public init(options: Options) {
+            public enum GetReceiptByFormatAcceptHeader: String {
+                case image_png = "image/png"
+                case application_pdf = "application/pdf"
+            }
+
+            public init(options: Options, responseContentType: GetReceiptByFormatAcceptHeader) {
                 self.options = options
                 super.init(service: GetReceiptByFormat.service)
+                self.contentType = responseContentType.rawValue
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(transactionID: String, fileFormat: PCPayFileFormat? = nil) {
+            public convenience init(transactionID: String, fileFormat: PCPayFileFormat? = nil, responseContentType: GetReceiptByFormatAcceptHeader) {
                 let options = Options(transactionID: transactionID, fileFormat: fileFormat)
-                self.init(options: options)
+                self.init(options: options, responseContentType: responseContentType)
             }
 
             public override var path: String {
