@@ -16,6 +16,7 @@ struct Constants {
         static let defaultAllowedLowAccuracy: Double = 250
         static let defaultSpeedThreshold: Double = 13
         static let defaultGeoAppsScope: String = "pace"
+        static let defaultAllowedAppDrawerLocationOffset: Double = 150 // meters
     }
 
     struct Tracing {

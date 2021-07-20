@@ -32,11 +32,12 @@ class GeoAPIManager {
 
     private var sessionTask: URLSessionDataTask?
 
-    private var cachedCofuFeatures: [GeoAPIFeature]?
-    private var cacheCofuLastUpdatedAt: Date?
+    private var allCofuFeatures: [GeoAPIFeature]?
+    private var allCofuLastUpdatedAt: Date?
 
-    private var cachedFeatures: [GeoAPIFeature]?
-    private var cacheLastUpdatedAt: Date?
+    private var locationBasedFeatures: [GeoAPIFeature]?
+    private var locationBasedLastUpdatedAt: Date?
+
     private var cacheCenter: CLLocation?
     private let cacheMaxAge: TimeInterval = 60 * 60 // 1h
     private let cacheRadius: CLLocationDistance = 30_000 // 30km
@@ -61,13 +62,13 @@ class GeoAPIManager {
     }
 
     // Load cofu stations for a specific area; location based
-    func cofuGasStations(for location: CLLocation, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+    func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         if isSpeedThresholdExceeded(for: location) {
             result(.failure(.invalidSpeed))
             return
         }
 
-        guard let cachedFeatures = cachedFeatures, !isCacheOutdated(with: location) else {
+        guard let cachedFeatures = locationBasedFeatures, !isLocationBasedCacheOutdated(with: location) else {
             // Send request if cache is not available or outdated
             fetchCofuGasStations(for: location) { [weak self] response in
                 guard let self = self else {
@@ -77,7 +78,7 @@ class GeoAPIManager {
 
                 switch response {
                 case .success(let cofuFeatures):
-                    self.loadCofuStations(with: cofuFeatures, location: location, result: result)
+                    self.loadLocationBasedCofuStations(with: cofuFeatures, location: location, result: result)
 
                 case .failure(let error):
                     result(.failure(error))
@@ -87,12 +88,12 @@ class GeoAPIManager {
         }
 
         // Load cofu stations from cache
-        loadCofuStations(with: cachedFeatures, location: location, result: result)
+        loadLocationBasedCofuStations(with: cachedFeatures, location: location, result: result)
     }
 
     // Load all available cofu stations with certain options
     func cofuGasStations(option: AppKit.CofuGasStation.Option, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        guard let cachedCofuFeatures = cachedCofuFeatures, !isCofuCacheOutdated() else {
+        guard let cachedCofuFeatures = allCofuFeatures, !isCofuCacheOutdated() else {
             // Send request if cache is not available or outdated
             fetchCofuGasStations(for: nil) { [weak self] response in
                 guard let self = self else {
@@ -102,7 +103,7 @@ class GeoAPIManager {
 
                 switch response {
                 case .success(let cofuFeatures):
-                    self.loadCofuStations(with: cofuFeatures, option: option, result: result)
+                    self.loadAllCofuStations(with: cofuFeatures, option: option, result: result)
 
                 case .failure(let error):
                     result(.failure(error))
@@ -112,30 +113,49 @@ class GeoAPIManager {
         }
 
         // Load cofu stations from cache
-        loadCofuStations(with: cachedCofuFeatures, option: option, result: result)
+        loadAllCofuStations(with: cachedCofuFeatures, option: option, result: result)
     }
 
-    private func loadCofuStations(with features: [GeoAPIFeature],
-                                  location: CLLocation,
-                                  result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        cloudQueue.async {
-            let cofuStations = self.retrieveCoFuGasStations(from: features)
+    private func loadLocationBasedCofuStations(with features: [GeoAPIFeature],
+                                               location: CLLocation,
+                                               result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+        cloudQueue.async { [weak self] in
+            guard let self = self else { return }
+            let cofuStations = self.retrieveCoFuGasStations(from: features).onlineStations
 
-            let point = [location.coordinate.longitude, location.coordinate.latitude]
-            let apps: [AppKit.CofuGasStation] = cofuStations.filter { RayCasting.contains(shape: $0.polygon?.first ?? [], point: point) }
+            let apps: [AppKit.CofuGasStation] = cofuStations.filter { station in
+                if let coordinates = station.coordinates,
+                   let lat = coordinates[safe: 1],
+                   let lon = coordinates[safe: 0] {
+                    let cofuStationLocation = CLLocation(latitude: lat, longitude: lon)
+                    return self.isUserInLocationBasedCofuStationRange(cofuStationLocation: cofuStationLocation, userLocation: location)
+                } else {
+                    let coordinates = station.polygon?.flatMap { $0 } ?? []
+                    return coordinates.contains(where: { coordinates in
+                        guard let lat = coordinates[safe: 1], let lon = coordinates[safe: 0] else { return false }
+                        let cofuStationLocation = CLLocation(latitude: lat, longitude: lon)
+                        return self.isUserInLocationBasedCofuStationRange(cofuStationLocation: cofuStationLocation, userLocation: location)
+                    })
+                }
+            }
 
             result(.success(apps))
         }
     }
 
-    private func loadCofuStations(with features: [GeoAPIFeature],
-                                  option: AppKit.CofuGasStation.Option,
-                                  result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+    private func isUserInLocationBasedCofuStationRange(cofuStationLocation: CLLocation, userLocation: CLLocation) -> Bool {
+        let locationOffset = PACECloudSDK.shared.config?.allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
+        return cofuStationLocation.distance(from: userLocation) <= locationOffset
+    }
+
+    private func loadAllCofuStations(with features: [GeoAPIFeature],
+                                     option: AppKit.CofuGasStation.Option,
+                                     result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         cloudQueue.async {
             var cofuStations: [AppKit.CofuGasStation] = []
 
             if case let .boundingBox(center, radius) = option {
-                let filteredFeatures = self.filterRelevant(features, for: center, radius: radius)
+                let filteredFeatures = self.applyRadiusFilter(features, for: center, radius: radius)
                 cofuStations = self.retrieveCoFuGasStations(from: filteredFeatures)
             } else if case .all = option {
                 cofuStations = self.retrieveCoFuGasStations(from: features)
@@ -162,14 +182,14 @@ class GeoAPIManager {
                 }
 
                 if let location = location {
-                    let filteredFeatures = self.filterRelevant(features, for: location, radius: self.cacheRadius)
-                    self.cachedFeatures = filteredFeatures
-                    self.cacheLastUpdatedAt = Date()
+                    let filteredFeatures = self.applyRadiusFilter(features, for: location, radius: self.cacheRadius)
+                    self.locationBasedFeatures = filteredFeatures
+                    self.locationBasedLastUpdatedAt = Date()
                     self.cacheCenter = location
                     result(.success(filteredFeatures))
                 } else {
-                    self.cachedCofuFeatures = features
-                    self.cacheCofuLastUpdatedAt = Date()
+                    self.allCofuFeatures = features
+                    self.allCofuLastUpdatedAt = Date()
                     result(.success(features))
                 }
 
@@ -340,16 +360,16 @@ class GeoAPIManager {
 // MARK: - Cache
 private extension GeoAPIManager {
     func isCofuCacheOutdated() -> Bool {
-        guard let lastUpdated = cacheCofuLastUpdatedAt else { return true }
+        guard let lastUpdated = allCofuLastUpdatedAt else { return true }
         return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge
     }
 
-    func isCacheOutdated(with location: CLLocation) -> Bool {
-        guard let lastUpdated = cacheLastUpdatedAt, let cacheCenter = cacheCenter else { return true }
+    func isLocationBasedCacheOutdated(with location: CLLocation) -> Bool {
+        guard let lastUpdated = locationBasedLastUpdatedAt, let cacheCenter = cacheCenter else { return true }
         return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge || cacheCenter.distance(from: location) > cacheRadius
     }
 
-    func filterRelevant(_ features: [GeoAPIFeature], for location: CLLocation, radius: CLLocationDistance) -> [GeoAPIFeature] {
+    func applyRadiusFilter(_ features: [GeoAPIFeature], for location: CLLocation, radius: CLLocationDistance) -> [GeoAPIFeature] {
         let filteredResponse = features.filter { feature in
             guard let geometry = feature.geometry else { return false }
             return isInRadius(geometry: geometry, location: location, radius: radius)
@@ -359,9 +379,12 @@ private extension GeoAPIManager {
     }
 
     func resetCache() {
-        cacheLastUpdatedAt = nil
-        cachedFeatures = nil
+        locationBasedLastUpdatedAt = nil
+        locationBasedFeatures = nil
         cacheCenter = nil
+
+        allCofuLastUpdatedAt = nil
+        allCofuFeatures = nil
     }
 
     func isInRadius(geometry: GeometryFeature, location: CLLocation, radius: CLLocationDistance) -> Bool {
@@ -427,7 +450,7 @@ extension GeoAPIManager {
             return
         }
 
-        guard let cachedFeatures = cachedFeatures, !isCacheOutdated(with: location) else {
+        guard let cachedFeatures = locationBasedFeatures, !isLocationBasedCacheOutdated(with: location) else {
             // Send request if cache is not available or outdated
             fetchCofuGasStations(for: location) { [weak self] response in
                 guard let self = self else {

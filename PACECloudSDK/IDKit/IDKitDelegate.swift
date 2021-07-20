@@ -19,6 +19,13 @@ public protocol IDKitDelegate: AnyObject {
      */
     func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)
 
+    /**
+     Will be invoked after the SDK performed an automatic authorization.
+
+     Implement this method to be able to react to automatic authorizations by the SDK.
+
+     - parameter result:The result of the authorization containing either the access token if successful or an error.
+     */
     func didPerformAuthorization(_ result: Result<String, IDKit.IDKitError>)
 }
 
@@ -26,4 +33,6 @@ public extension IDKitDelegate {
     func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void) {
         IDKit.appInducedAuthorization(completion)
     }
+
+    func didPerformAuthorization(_ result: Result<String, IDKit.IDKitError>) {}
 }
