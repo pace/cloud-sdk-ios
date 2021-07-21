@@ -5,18 +5,24 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Set default `authenticationMode` of the SDK to `.native`.  
 > **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
+* The data type of the completion parameter for the `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
+* The data type of the completion parameter for the `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
 
 ### Enhancements
 
 * Add callback `didPerformAuthorization` to `IDKitDelegate` to inform client about an authentication triggered via an app
 * Show AppDrawer based on distance instead of an area
+* Add new `func currentLocation(completion: @escaping (CLLocation?) -> Void)` callback to `AppKitDelegate`. This request only gets called if an app requests the user's current location and the SDK can't retrieve a valid one.
 
 ### Fixes
 
 * Don't reset session before refreshing if session isn't even available
 * Fix overlapping labels in AppDrawer
 
-<!-- ### Internal - Include, if needed -->
+### Internal
+
+* Rework communication between apps and SDK
+* Implement `isBiometryAuthEnabled` call
 
 7.0.0 Release notes (2021-06-30)
 =============================================================

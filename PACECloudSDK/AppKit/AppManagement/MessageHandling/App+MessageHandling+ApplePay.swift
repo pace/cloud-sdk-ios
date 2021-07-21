@@ -9,37 +9,34 @@ import Foundation
 import PassKit
 
 extension App {
-    func handleApplePayAvailibilityCheck(with request: AppKit.AppRequestData<String>) {
-        let supportedNetworks = request.message.split(separator: ",").map { String($0) }
-        let networks: [PKPaymentNetwork] = paymentNetworks(for: supportedNetworks)
+    func handleApplePayAvailabilityCheck(with request: API.Communication.ApplePayAvailabilityCheckRequest,
+                                         completion: @escaping (API.Communication.ApplePayAvailabilityCheckResult) -> Void) {
+        let networks: [PKPaymentNetwork] = paymentNetworks(for: request.supportedNetworks)
         let result = networks.isEmpty ? PKPaymentAuthorizationController.canMakePayments() : PKPaymentAuthorizationController.canMakePayments(usingNetworks: networks)
 
-        messageInterceptor?.respond(id: request.id, message: result)
+        completion(.init(.init(response: .init(isAvailable: result))))
     }
 
-    func handleApplePayPaymentRequest(with request: AppKit.AppRequestData<AppKit.ApplePayRequest>, completion: @escaping () -> Void) {
+    func handleApplePayRequest(with request: API.Communication.ApplePayRequestRequest, completion: @escaping (API.Communication.ApplePayRequestResult) -> Void) {
         AppKit.shared.notifyMerchantIdentifier { [weak self] merchantIdentifier in
             guard !merchantIdentifier.isEmpty,
-                  let applePayRequest = self?.paymentRequest(for: merchantIdentifier, with: request.message) else {
-                self?.messageInterceptor?.send(id: request.id, error: .internalError)
-                completion()
+                  let applePayRequest = self?.paymentRequest(for: merchantIdentifier, with: request) else {
+                completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Couldn't create a valid 'PKPaymentRequest'."))))
                 return
             }
 
-            AppKit.shared.notifyApplePayRequest(with: applePayRequest) { [weak self] response in
+            AppKit.shared.notifyApplePayRequest(with: applePayRequest) { response in
                 guard let response = response else {
-                    self?.messageInterceptor?.send(id: request.id, error: .internalError)
-                    completion()
+                    completion(.init(.init(statusCode: .internalServerError, response: .init(message: "The payment request couldn't be processed correctly be the client."))))
                     return
                 }
 
-                self?.messageInterceptor?.respond(id: request.id, message: response)
-                completion()
+                completion(.init(.init(response: response)))
             }
         }
     }
 
-    private func paymentRequest(for merchantIdentifier: String, with request: AppKit.ApplePayRequest) -> PKPaymentRequest {
+    private func paymentRequest(for merchantIdentifier: String, with request: API.Communication.ApplePayRequestRequest) -> PKPaymentRequest {
         let paymentRequest = PKPaymentRequest()
         paymentRequest.countryCode = request.countryCode
         paymentRequest.currencyCode = request.currencyCode
@@ -47,8 +44,8 @@ extension App {
 
         paymentRequest.merchantCapabilities = retrieveMerchantCapabilities(request)
         paymentRequest.shippingType = retrieveShippingType(request)
-        paymentRequest.requiredBillingContactFields = .init()
-        paymentRequest.requiredShippingContactFields = .init()
+        paymentRequest.requiredBillingContactFields = retrieveContactFields(request.requiredBillingContactFields)
+        paymentRequest.requiredShippingContactFields = retrieveContactFields(request.requiredShippingContactFields)
         paymentRequest.paymentSummaryItems = [PKPaymentSummaryItem(label: request.total.label,
                                                                    amount: NSDecimalNumber(string: request.total.amount),
                                                                    type: request.total.type == "final" ? .final : .pending)]
@@ -81,7 +78,7 @@ extension App {
         return matchingNetworks
     }
 
-    private func retrieveShippingType(_ request: AppKit.ApplePayRequest) -> PKShippingType {
+    private func retrieveShippingType(_ request: API.Communication.ApplePayRequestRequest) -> PKShippingType {
         return {
             switch request.shippingType {
             case "servicePickup":
@@ -102,7 +99,7 @@ extension App {
         }()
     }
 
-    private func retrieveMerchantCapabilities(_ request: AppKit.ApplePayRequest) -> PKMerchantCapability {
+    private func retrieveMerchantCapabilities(_ request: API.Communication.ApplePayRequestRequest) -> PKMerchantCapability {
         var merchantCapabilities: PKMerchantCapability = .init()
 
         request.merchantCapabilities.forEach {
@@ -125,5 +122,33 @@ extension App {
         }
 
         return merchantCapabilities
+    }
+
+    private func retrieveContactFields(_ fields: [String]) -> Set<PKContactField> {
+        var contactFields: Set<PKContactField> = .init()
+
+        fields.forEach {
+            switch $0 {
+            case "postalAddress":
+                contactFields.insert(.postalAddress)
+
+            case "emailAddress":
+                contactFields.insert(.emailAddress)
+
+            case "phoneNumber":
+                contactFields.insert(.phoneNumber)
+
+            case "name":
+                contactFields.insert(.name)
+
+            case "phoneticName":
+                contactFields.insert(.phoneticName)
+
+            default:
+                break
+            }
+        }
+
+        return contactFields
     }
 }

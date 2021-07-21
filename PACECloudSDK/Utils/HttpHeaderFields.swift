@@ -21,4 +21,5 @@ public enum HttpHeaderFields: String {
     case noCache = "No-Cache"
     case apiKey = "API-Key"
     case acceptLanguage = "Accept-Language"
+    case keepAlive = "Keep-Alive"
 }

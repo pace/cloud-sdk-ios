@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let config: PACECloudSDK.Configuration = .init(apiKey: "apikey",
                                                        environment: currentAppEnvironment(),
-                                                       domainACL: ["pace.cloud"],
+                                                       domainACL: ["pace.cloud", "pacelink.net"],
                                                        geoAppsScope: "pace-drive-ios")
 
         PACECloudSDK.shared.setup(with: config)

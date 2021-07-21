@@ -20,16 +20,15 @@ extension App {
         return "\(DeviceInformation.id)_\(host)_\(key)"
     }
 
-    func handleBiometryAvailabilityRequest(with request: AppKit.EmptyRequestData) {
+    func handleGetBiometricStatus(completion: @escaping (API.Communication.GetBiometricStatusResult) -> Void) {
         let isBiometryAvailable = BiometryPolicy().isBiometryAvailable
-        messageInterceptor?.respond(id: request.id, message: isBiometryAvailable ? true : false)
-   }
+        completion(.init(.init(response: .init(biometryAvailable: isBiometryAvailable))))
+    }
 
-    func setTOTPSecret(with request: AppKit.AppRequestData<AppKit.TOTPSecretData>, requestUrl: URL?, completion: @escaping () -> Void) {
+    func handleSetTOTP(with request: API.Communication.SetTOTPRequest, requestUrl: URL?, completion: @escaping (API.Communication.SetTOTPResult) -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            messageInterceptor?.send(id: request.id, error: .badRequest)
-            completion()
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The request url couldn't be retrieved."))))
             return
         }
 
@@ -37,46 +36,40 @@ extension App {
         let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
-            messageInterceptor?.send(id: request.id, error: .notAllowed)
-            completion()
+            completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Couldn't evaluate the client's biometry policy."))))
             return
         }
 
         biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
-            defer {
-                completion()
-            }
-
             guard error == nil, success, let unwrappedSelf = self else {
-                self?.messageInterceptor?.send(id: request.id, error: .internalError)
+                completion(.init(.init(statusCode: .unauthorized,
+                                       response: .init(message: "The authorization failed while evaluating the biometry policy. - \(String(describing: error))"))))
                 return
             }
 
             do {
-                let data = try PropertyListEncoder().encode(request.message)
-                let secretKey: String = unwrappedSelf.retrieveKey(for: request.message.key, host: host)
+                let data = try JSONEncoder().encode(request)
+                let secretKey: String = unwrappedSelf.retrieveKey(for: request.key, host: host)
                 unwrappedSelf.setAppTOTPData(to: data, for: secretKey)
             } catch {
-                unwrappedSelf.messageInterceptor?.send(id: request.id, error: .internalError)
+                completion(.init(.init(statusCode: .internalServerError, response: .init(message: "\(error)"))))
             }
 
-            unwrappedSelf.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+            completion(.init(.init()))
         }
     }
 
-    func getTOTP(with request: AppKit.AppRequestData<AppKit.GetTOTPData>, requestUrl: URL?, completion: @escaping () -> Void) {
+    func handleGetTOTP(with request: API.Communication.GetTOTPRequest, requestUrl: URL?, completion: @escaping (API.Communication.GetTOTPResult) -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            messageInterceptor?.send(id: request.id, error: .badRequest)
-            completion()
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The request url couldn't be retrieved."))))
             return
         }
 
-        let secretKey: String = retrieveKey(for: request.message.key, host: host)
+        let secretKey: String = retrieveKey(for: request.key, host: host)
 
         guard let totpData = appTOTPData(for: secretKey) ?? masterTOTPData(host: host) else {
-            messageInterceptor?.send(id: request.id, error: .notFound)
-            completion()
+            completion(.init(.init(statusCode: .notFound, response: .init(message: "Couldn't retrieve totp data."))))
             return
         }
 
@@ -84,23 +77,19 @@ extension App {
         let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
-            messageInterceptor?.send(id: request.id, error: .notAllowed)
-            completion()
+            completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Couldn't evaluate the client's biometry policy."))))
             return
         }
 
-        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
-            defer {
-                completion()
-            }
-
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { success, error in
             guard error == nil, success else {
-                self?.messageInterceptor?.send(id: request.id, error: .unauthorized)
+                completion(.init(.init(statusCode: .unauthorized,
+                                       response: .init(message: "The authorization failed while evaluating the biometry policy. - \(String(describing: error))"))))
                 return
             }
 
-            guard let totp = BiometryPolicy.generateTOTP(with: totpData, timeIntervalSince1970: request.message.serverTime) else {
-                self?.messageInterceptor?.send(id: request.id, error: .internalError)
+            guard let totp = BiometryPolicy.generateTOTP(with: totpData, timeIntervalSince1970: request.serverTime) else {
+                completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Failed generating a device totp."))))
                 return
             }
 
@@ -117,37 +106,34 @@ extension App {
                 biometryMethod = .fingerprint
             }
 
-            self?.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.totp.rawValue: totp,
-                                                       MessageHandlerParam.biometryMethod.rawValue: biometryMethod.rawValue])
+            completion(.init(.init(response: .init(totp: totp, biometryMethod: biometryMethod.rawValue))))
         }
     }
 
-    func setSecureData(with request: AppKit.AppRequestData<AppKit.SetSecureData>, requestUrl: URL?) {
+    func handleSetSecureData(with request: API.Communication.SetSecureDataRequest, requestUrl: URL?, completion: @escaping (API.Communication.SetSecureDataResult) -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            messageInterceptor?.send(id: request.id, error: .badRequest)
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The request url couldn't be retrieved."))))
             return
         }
 
-        let key = retrieveKey(for: request.message.key, host: host)
-        setSecureData(value: request.message.value, for: key)
+        let key = retrieveKey(for: request.key, host: host)
+        setSecureData(value: request.value, for: key)
 
-        messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.statusCode.rawValue: MessageHandlerStatusCode.success.statusCode])
+        completion(.init(.init()))
     }
 
-    func getSecureData(with request: AppKit.AppRequestData<AppKit.GetSecureData>, requestUrl: URL?, completion: @escaping () -> Void) {
+    func handleGetSecureData(with request: API.Communication.GetSecureDataRequest, requestUrl: URL?, completion: @escaping (API.Communication.GetSecureDataResult) -> Void) {
         guard let host = requestUrl?.host else {
             AppKit.shared.notifyDidFail(with: .badRequest)
-            messageInterceptor?.send(id: request.id, error: .badRequest)
-            completion()
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The request url couldn't be retrieved."))))
             return
         }
 
-        let key = retrieveKey(for: request.message.key, host: host)
+        let key = retrieveKey(for: request.key, host: host)
 
         guard let value = secureData(for: key) else {
-            messageInterceptor?.send(id: request.id, error: .notFound)
-            completion()
+            completion(.init(.init(statusCode: .notFound, response: .init(message: "Couldn't retrieve the secure data."))))
             return
         }
 
@@ -155,23 +141,24 @@ extension App {
         let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
-            messageInterceptor?.send(id: request.id, error: .notAllowed)
-            completion()
+            completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Couldn't evaluate the client's biometry policy."))))
             return
         }
 
-        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
-            defer {
-                completion()
-            }
-
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { success, error in
             guard error == nil, success else {
-                self?.messageInterceptor?.send(id: request.id, error: .unauthorized)
+                completion(.init(.init(statusCode: .unauthorized,
+                                       response: .init(message: "The authorization failed while evaluating the biometry policy - \(String(describing: error))"))))
                 return
             }
 
-            self?.messageInterceptor?.respond(id: request.id, message: [MessageHandlerParam.value.rawValue: value])
+            completion(.init(.init(response: .init(value: value))))
         }
+    }
+
+    func handleIsBiometricAuthEnabled(completion: @escaping (API.Communication.IsBiometricAuthEnabledResult) -> Void) {
+        let isEnabled = IDKit.isBiometricAuthenticationEnabled()
+        completion(.init(.init(response: .init(isEnabled: isEnabled))))
     }
 }
 

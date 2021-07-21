@@ -146,6 +146,8 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 - We've set the default `authenticationMode` of the SDK to `.native`.  
 > **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
+- The data type of the completion parameter for the `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
+- The data type of the completion parameter for the `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
 
 #### Noteworthy changes
 - If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.

@@ -22,7 +22,7 @@ class AppWebView: WKWebView, App {
     weak var appActionsDelegate: AppActionsDelegate?
 
     private(set) var webViewDelegate: AppWebViewDelegate? // swiftlint:disable:this weak_delegate
-    private(set) var messageInterceptor: AppWebViewMessageInterceptor?
+    private(set) var messageHandler: API.Communication.MessageHandler?
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     let appUrl: String?
@@ -74,12 +74,12 @@ class AppWebView: WKWebView, App {
         addCustomScripts()
 
         // Attach message handlers
-        MessageHandler.allCases.forEach {
+        ScriptMessageHandler.allCases.forEach {
             self.configuration.userContentController.add(self, name: $0.rawValue)
         }
 
-        webViewDelegate = AppWebViewDelegate(app: self)
-        messageInterceptor = AppWebViewMessageInterceptor(app: self)
+        webViewDelegate = .init(app: self)
+        messageHandler = .init(delegate: self)
 
         setupDesign()
         setupView()
@@ -164,7 +164,7 @@ class AppWebView: WKWebView, App {
     }
 
     func cleanUp() {
-        MessageHandler.allCases.forEach {
+        ScriptMessageHandler.allCases.forEach {
             self.configuration.userContentController.removeScriptMessageHandler(forName: $0.rawValue)
         }
     }
@@ -178,6 +178,6 @@ extension AppWebView {
 extension AppWebView {
     @objc
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        messageInterceptor?.parseMessageRequest(message: message)
+        handleMessage(message: message)
     }
 }
