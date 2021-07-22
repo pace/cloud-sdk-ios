@@ -56,7 +56,7 @@ public extension POIKit.UUIDNotificationToken {
         // Build request from bounding box
         guard let delegate = POIKit.Database.shared.delegate else { return }
 
-        let zoomLevel = POIKitConfig.maxZoomLevel
+        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
         let tiles = delegate
             .get(uuids: uuids)
             .filter {
