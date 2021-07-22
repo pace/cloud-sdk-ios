@@ -49,6 +49,15 @@ public extension POIKit.BoundingBoxNotificationToken {
 
         super.refresh(notOlderThan: notOlderThan)
     }
+
+    private func isDiameterValid() -> Bool {
+        guard let validatedBoundingBox = api.validateBoundingBoxDiameter(with: boundingBox) else {
+            handler(false, .failure(POIKit.POIKitAPIError.searchDiameterTooLarge))
+            return false
+        }
+        boundingBox = validatedBoundingBox
+        return true
+    }
 }
 
 public extension POIKit.UUIDNotificationToken {

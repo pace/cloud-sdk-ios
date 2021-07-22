@@ -19,6 +19,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Don't reset session before refreshing if session isn't even available
 * Fix overlapping labels in AppDrawer
 * Fix generation of accept headers
+* Adjust handling of too large bounding boxes when requesting tiles
 
 ### Internal
 

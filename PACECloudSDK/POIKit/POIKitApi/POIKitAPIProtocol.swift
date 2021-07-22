@@ -20,7 +20,6 @@ protocol POIKitAPIProtocol {
     func observe(poisOfType: POIKit.POILayer, // swiftlint:disable:this function_parameter_count
                  boundingBox: POIKit.BoundingBox,
                  delegate: POIKitObserverTokenDelegate?,
-                 maxDistance: (distance: Double, padding: Double)?,
                  zoomLevel: Int?,
                  forceLoad: Bool,
                  handler: @escaping (Bool, Result<[POIKit.GasStation], Error>) -> Void) -> POIKit.BoundingBoxNotificationToken

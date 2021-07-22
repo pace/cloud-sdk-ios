@@ -38,19 +38,16 @@ public extension POIKit {
         let zoomLevel: Int
         let forceLoad: Bool
 
-        private (set) public var boundingBox: BoundingBox
-        private let maxDistance: (distance: Double, padding: Double)?
+        internal(set) public var boundingBox: BoundingBox
 
         init(boundingBox: BoundingBox,
              api: POIKitAPI,
              delegate: POIKitObserverTokenDelegate? = nil,
-             maxDistance: (distance: Double, padding: Double)? = nil,
              zoomLevel: Int = POIKitConfig.maxZoomLevel,
              forceLoad: Bool = false,
              handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.boundingBox = boundingBox
             self.api = api
-            self.maxDistance = maxDistance
 
             let maxZoomLevel = POIKitConfig.maxZoomLevel
             self.zoomLevel = zoomLevel > maxZoomLevel ? maxZoomLevel : zoomLevel
@@ -61,20 +58,6 @@ public extension POIKit {
             self.token = self.delegate?.observe { isInitial, stations in
                 self.updateStations(isInitial: isInitial, stations: stations)
             }
-        }
-
-        func isDiameterValid() -> Bool {
-            // Only check diameter if != nil
-            if let maxDistanceTuple = maxDistance {
-                let allowedDiameter = maxDistanceTuple.distance * (1 + maxDistanceTuple.padding)
-
-                if boundingBox.diameter > allowedDiameter {
-                    handler(false, .failure(POIKitAPIError.searchDiameterTooLarge))
-                    return false
-                }
-            }
-
-            return true
         }
 
         func isZoomLevelValid() -> Bool {

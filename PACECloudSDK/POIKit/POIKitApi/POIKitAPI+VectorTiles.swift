@@ -13,9 +13,14 @@ extension POIKitAPI {
                    boundingBox: POIKit.BoundingBox,
                    forceLoad: Bool = false,
                    handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
+        guard let validatedBoundingBox = validateBoundingBoxDiameter(with: boundingBox) else {
+            handler(.failure(POIKit.POIKitAPIError.searchDiameterTooLarge))
+            return nil
+        }
+
         let zoomLevel = POIKitConfig.maxZoomLevel
-        let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
-        let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
+        let northEast = validatedBoundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
+        let southWest = validatedBoundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
         if !forceLoad, let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
@@ -24,7 +29,7 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest, boundingBox: boundingBox) { result in
+        return loadPois(tileRequest, boundingBox: validatedBoundingBox) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
@@ -40,9 +45,14 @@ extension POIKitAPI {
                   boundingBox: POIKit.BoundingBox,
                   forceLoad: Bool = false,
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
+        guard let validatedBoundingBox = validateBoundingBoxDiameter(with: boundingBox) else {
+            handler(.failure(POIKit.POIKitAPIError.searchDiameterTooLarge))
+            return nil
+        }
+
         let zoomLevel = POIKitConfig.maxZoomLevel
-        let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
-        let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
+        let northEast = validatedBoundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
+        let southWest = validatedBoundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
 
         if !forceLoad, let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
@@ -51,16 +61,16 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest, boundingBox: boundingBox) { result in
+        return loadPois(tileRequest, boundingBox: validatedBoundingBox) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
 
             case .success(let tiles):
                 // Save to database
-                self.save(tiles, for: boundingBox)
+                self.save(tiles, for: validatedBoundingBox)
 
-                let stations = POIKit.Database.shared.delegate?.get(inRect: boundingBox) ?? []
+                let stations = POIKit.Database.shared.delegate?.get(inRect: validatedBoundingBox) ?? []
                 handler(.success(stations))
             }
         }
@@ -196,6 +206,26 @@ extension POIKitAPI {
 
         // Add new POIs to database and update existing ones
         POIKit.Database.shared.delegate?.add(pois)
+    }
+
+    func validateBoundingBoxDiameter(with boundingBox: POIKit.BoundingBox) -> POIKit.BoundingBox? {
+        let maxPoiSearchBoxSize = POIKitConfig.maxPoiSearchBoxSize * 2
+        let toleratedDiameter = maxPoiSearchBoxSize * 1.01
+
+        guard boundingBox.diameter <= toleratedDiameter else {
+            // Diameter too large. Bounding box cannot be used
+            return nil
+        }
+
+        if (maxPoiSearchBoxSize...toleratedDiameter).contains(boundingBox.diameter) {
+            // Diameter is within the tolerated range. Adjust bounding box to the nearly exact max allowed diameter
+            let adjustedRadius = POIKitConfig.maxPoiSearchBoxSize * 0.998 // Decrease the radius a bit to match the allowed diameter -> 0.998 == diameter of ~39983
+            let adjustedBoundingBox = POIKit.BoundingBox(center: boundingBox.center, radius: adjustedRadius, padding: boundingBox.padding)
+            return adjustedBoundingBox
+        }
+
+        // Return bounding box as is. Nothing has to be adjusted
+        return boundingBox
     }
 
     private func timeToLive(from response: HTTPURLResponse?) -> Int? {
