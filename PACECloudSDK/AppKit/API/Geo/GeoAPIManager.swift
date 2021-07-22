@@ -121,7 +121,7 @@ class GeoAPIManager {
                                                result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         cloudQueue.async { [weak self] in
             guard let self = self else { return }
-            let cofuStations = self.retrieveCoFuGasStations(from: features).onlineStations
+            let cofuStations = self.retrieveCoFuGasStations(from: features)
 
             let apps: [AppKit.CofuGasStation] = cofuStations.filter { station in
                 if let coordinates = station.coordinates,
