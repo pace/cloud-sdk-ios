@@ -45,7 +45,7 @@ public extension POIKit {
              api: POIKitAPI,
              delegate: POIKitObserverTokenDelegate? = nil,
              maxDistance: (distance: Double, padding: Double)? = nil,
-             zoomLevel: Int = POIKitConfig.maxZoomLevel,
+             zoomLevel: Int = POIKitConfig.minZoomLevelFullDetails,
              forceLoad: Bool = false,
              handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.boundingBox = boundingBox

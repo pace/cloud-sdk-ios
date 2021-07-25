@@ -54,6 +54,9 @@ struct POIKitConfig {
     /// Maximum zoom level
     static let maxZoomLevel = 16
 
+    /// Min zoom level to still get fully detailed station information
+    static let minZoomLevelFullDetails = 13
+
     /// Min zoom level
     static let minZoomLevel = 10
 

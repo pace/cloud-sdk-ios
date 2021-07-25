@@ -13,7 +13,7 @@ extension POIKitAPI {
                    boundingBox: POIKit.BoundingBox,
                    forceLoad: Bool = false,
                    handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.maxZoomLevel
+        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
@@ -40,7 +40,7 @@ extension POIKitAPI {
                   boundingBox: POIKit.BoundingBox,
                   forceLoad: Bool = false,
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.maxZoomLevel
+        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
         let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
         let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
         var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
@@ -68,7 +68,7 @@ extension POIKitAPI {
 
     func loadPOIs(uuids: [String],
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.maxZoomLevel
+        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
         let tiles = POIKit.Database.shared.delegate?
             .get(uuids: uuids)
             .compactMap { $0.coordinate?.tileCoordinate(withZoom: zoomLevel) }
@@ -91,7 +91,7 @@ extension POIKitAPI {
     }
 
     func loadPOIs(locations: [CLLocation], handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.maxZoomLevel
+        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
         let tiles = locations
             .map { $0.coordinate.tileCoordinate(withZoom: zoomLevel) }
             .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) }
