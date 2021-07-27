@@ -172,8 +172,14 @@ extension App {
     }
 
     func handleAppRedirect(with request: API.Communication.AppRedirectRequest, completion: @escaping (API.Communication.AppRedirectResult) -> Void) {
-        // TODO Handle app redirect
-        completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Not yet implemented."))))
+        AppKit.shared.notifyIsAppRedirectAllowed(app: request.app) { isAllowed in
+            if isAllowed {
+                completion(.init(.init()))
+            } else {
+                self.performClose()
+                completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "The app redirect is not allowed."))))
+            }
+        }
     }
 
     func respond(with response: String) {
