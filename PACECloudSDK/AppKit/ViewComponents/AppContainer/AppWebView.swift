@@ -29,12 +29,7 @@ class AppWebView: WKWebView, App {
     var successfullyLoadedOnce = false
 
     lazy var loadingView: LoadingView = LoadingView()
-    lazy var placeholder: NoNetworkPlaceholderView = {
-        NoNetworkPlaceholderView(titleText: L10n.loadingText,
-                                 placeholderText: "",
-                                 buttonText: L10n.commonRetry,
-                                 image: AppStyle.iconNotificationError)
-    }()
+    lazy var placeholder: ErrorPlaceholderView = .init()
 
     required init(with url: String?) {
         self.appUrl = url

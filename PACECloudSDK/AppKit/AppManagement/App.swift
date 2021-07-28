@@ -12,7 +12,7 @@ import WebKit
 
 protocol App: WKWebView, WKScriptMessageHandler, CommunicationProtocol {
     var appUrl: String? { get }
-    var placeholder: NoNetworkPlaceholderView { get set }
+    var placeholder: ErrorPlaceholderView { get set }
     var loadingView: LoadingView { get }
     var successfullyLoadedOnce: Bool { get set }
     var webViewDelegate: AppWebViewDelegate? { get }
