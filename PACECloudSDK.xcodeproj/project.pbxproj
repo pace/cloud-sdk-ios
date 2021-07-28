@@ -243,7 +243,7 @@
 		3B970A7A2542D9BB0072F6BA /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A182542D9BA0072F6BA /* AppViewController.swift */; };
 		3B970A7B2542D9BB0072F6BA /* AppWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A192542D9BA0072F6BA /* AppWebView.swift */; };
 		3B970A7C2542D9BB0072F6BA /* AppWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1A2542D9BA0072F6BA /* AppWindow.swift */; };
-		3B970A7E2542D9BB0072F6BA /* NoNetworkPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1D2542D9BA0072F6BA /* NoNetworkPlaceholderView.swift */; };
+		3B970A7E2542D9BB0072F6BA /* ErrorPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1D2542D9BA0072F6BA /* ErrorPlaceholderView.swift */; };
 		3B970A7F2542D9BB0072F6BA /* ButtonRectangular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */; };
 		3B970A802542D9BB0072F6BA /* AppActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */; };
 		3B970A812542D9BB0072F6BA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A202542D9BA0072F6BA /* LoadingView.swift */; };
@@ -866,7 +866,7 @@
 		92EDDC2025A7270300E480F4 /* AppActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */; };
 		92EDDC2125A7270300E480F4 /* AppStyle+Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A5B2542D9BA0072F6BA /* AppStyle+Fonts.swift */; };
 		92EDDC2225A7270300E480F4 /* URLDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A492542D9BA0072F6BA /* URLDataRequest.swift */; };
-		92EDDC2325A7270300E480F4 /* NoNetworkPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1D2542D9BA0072F6BA /* NoNetworkPlaceholderView.swift */; };
+		92EDDC2325A7270300E480F4 /* ErrorPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1D2542D9BA0072F6BA /* ErrorPlaceholderView.swift */; };
 		92EDDC2425A7270300E480F4 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0A2542D9BA0072F6BA /* App.swift */; };
 		92EDDC2625A7270300E480F4 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A0D2542D9BA0072F6BA /* AppManager.swift */; };
 		92EDDC2725A7270300E480F4 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */; };
@@ -1095,7 +1095,7 @@
 		3B970A182542D9BA0072F6BA /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		3B970A192542D9BA0072F6BA /* AppWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebView.swift; sourceTree = "<group>"; };
 		3B970A1A2542D9BA0072F6BA /* AppWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWindow.swift; sourceTree = "<group>"; };
-		3B970A1D2542D9BA0072F6BA /* NoNetworkPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNetworkPlaceholderView.swift; sourceTree = "<group>"; };
+		3B970A1D2542D9BA0072F6BA /* ErrorPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorPlaceholderView.swift; sourceTree = "<group>"; };
 		3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonRectangular.swift; sourceTree = "<group>"; };
 		3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppActivityIndicatorView.swift; sourceTree = "<group>"; };
 		3B970A202542D9BA0072F6BA /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -1875,7 +1875,7 @@
 				3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */,
 				3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */,
 				3B970A202542D9BA0072F6BA /* LoadingView.swift */,
-				3B970A1D2542D9BA0072F6BA /* NoNetworkPlaceholderView.swift */,
+				3B970A1D2542D9BA0072F6BA /* ErrorPlaceholderView.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -3919,7 +3919,7 @@
 				84600F3825C03B1F0087194F /* POIAPIGetAppRedirect.swift in Sources */,
 				8447A3C525CAAE750095BEF1 /* UserAPISendmailOTP.swift in Sources */,
 				3B987079268E06AE00A0458F /* ApplePayRequestResult.swift in Sources */,
-				3B970A7E2542D9BB0072F6BA /* NoNetworkPlaceholderView.swift in Sources */,
+				3B970A7E2542D9BB0072F6BA /* ErrorPlaceholderView.swift in Sources */,
 				3BD19ADE2631766400D68580 /* App+MessageHandling.swift in Sources */,
 				3B987091268E06AE00A0458F /* ImageDataRequest.swift in Sources */,
 				84D6C05B258A03270094982D /* PCPOIPolicyRule.swift in Sources */,
@@ -3990,7 +3990,7 @@
 				8418E25025B1B85A00D3722B /* PCPOIMoveRequest.swift in Sources */,
 				3B987080268E06AE00A0458F /* GetConfigRequest.swift in Sources */,
 				8418E27925B1B85A00D3722B /* PCPOIFieldName.swift in Sources */,
-				92EDDC2325A7270300E480F4 /* NoNetworkPlaceholderView.swift in Sources */,
+				92EDDC2325A7270300E480F4 /* ErrorPlaceholderView.swift in Sources */,
 				92EDDD6D25A7397200E480F4 /* (null) in Sources */,
 				92EDDC6C25A737AC00E480F4 /* POIKit.swift in Sources */,
 				84600F2525C03B1E0087194F /* POIAPIDeleteSource.swift in Sources */,

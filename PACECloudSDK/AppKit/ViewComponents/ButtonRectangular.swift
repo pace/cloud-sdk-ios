@@ -8,7 +8,7 @@
 import UIKit
 
 class ButtonRectangular: UIButton {
-    var cornerRadius: CGFloat = 2.0 {
+    var cornerRadius: CGFloat = 6.0 {
         didSet {
             setNeedsDisplay()
         }

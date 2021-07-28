@@ -1,5 +1,5 @@
 //
-//  NoNetworkPlaceholderView.swift
+//  ErrorPlaceholderView.swift
 //  PACECloudSDK
 //
 //  Created by PACE Telematics GmbH.
@@ -7,8 +7,7 @@
 
 import UIKit
 
-class NoNetworkPlaceholderView: UIView {
-
+class ErrorPlaceholderView: UIView {
     private lazy var placeholderImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -17,7 +16,7 @@ class NoNetworkPlaceholderView: UIView {
 
     private lazy var placeholderTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = AppStyle.regularFont(ofSize: 20)
+        label.font = AppStyle.lightFont(ofSize: 18)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.textColor = AppStyle.textColor1
@@ -26,7 +25,7 @@ class NoNetworkPlaceholderView: UIView {
 
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
-        label.font = AppStyle.regularFont(ofSize: 16)
+        label.font = AppStyle.lightFont(ofSize: 14)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.textColor = AppStyle.textColor2
@@ -37,13 +36,14 @@ class NoNetworkPlaceholderView: UIView {
         let button = ButtonRectangular()
         button.tintColor = AppStyle.blueColor
         button.setTitleColor(AppStyle.whiteColor, for: .normal)
+        button.titleLabel?.font = AppStyle.regularFont(ofSize: 18)
         return button
     }()
 
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         button.setTitle(L10n.commonActionClose, for: .normal)
-        button.setTitleColor(AppStyle.blueColor, for: .normal)
+        button.setTitleColor(AppStyle.textColor1, for: .normal)
         button.addTarget(self, action: #selector(handleCloseTapped), for: .touchUpInside)
         return button
     }()
@@ -57,16 +57,10 @@ class NoNetworkPlaceholderView: UIView {
         }
     }
 
-    init() {
-        super.init(frame: CGRect.zero)
-        set()
-        setup()
-    }
-
-    init(titleText: String = L10n.errorConnectionProblemNetworkHeadline,
-         placeholderText: String = L10n.errorConnectionProblemNetwork,
+    init(titleText: String = L10n.errorGeneric,
+         placeholderText: String = "",
          buttonText: String = L10n.commonRetry,
-         image: UIImage = AppStyle.noNetworkIcon,
+         image: UIImage = AppStyle.iconNotificationError,
          hideCloseButton: Bool = false) {
         super.init(frame: .zero)
 
@@ -76,22 +70,14 @@ class NoNetworkPlaceholderView: UIView {
         setup()
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        set()
-        setup()
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func set(titleText: String = L10n.errorConnectionProblemNetworkHeadline,
-             placeholderText: String = L10n.errorConnectionProblemNetwork,
-             buttonText: String = L10n.commonRetry,
-             image: UIImage = AppStyle.noNetworkIcon) {
-
+    func set(titleText: String,
+             placeholderText: String,
+             buttonText: String,
+             image: UIImage) {
         placeholderTitleLabel.text = titleText
         placeholderLabel.text = placeholderText
         retryButton.setTitle(buttonText, for: .normal)
@@ -102,15 +88,16 @@ class NoNetworkPlaceholderView: UIView {
         [closeButton, placeholderImageView, placeholderTitleLabel, placeholderLabel, retryButton].forEach { addSubview($0) }
 
         setupConstraints()
+        backgroundColor = AppStyle.backgroundColor3
     }
 
     private func setupConstraints() {
-        let padding = AppStyle.leftAndRightScreenPadding
+        let padding: CGFloat = 20
 
-        closeButton.anchor(top: topAnchor, trailing: trailingAnchor, padding: .init(top: padding / 2, left: 0, bottom: 0, right: padding), size: .init(width: 0, height: 35))
+        closeButton.anchor(top: topAnchor, trailing: trailingAnchor, padding: .init(top: padding / 2, left: 0, bottom: 0, right: padding), size: .init(width: 0, height: 40))
 
-        placeholderTitleLabel.anchor(leading: self.leadingAnchor,
-                                     trailing: self.trailingAnchor,
+        placeholderTitleLabel.anchor(leading: leadingAnchor,
+                                     trailing: trailingAnchor,
                                      centerX: centerXAnchor,
                                      padding: .init(top: 0, left: padding, bottom: 0, right: padding))
 
@@ -119,18 +106,18 @@ class NoNetworkPlaceholderView: UIView {
                                 trailing: trailingAnchor,
                                 centerX: centerXAnchor,
                                 centerY: centerYAnchor,
-                                padding: .init(top: padding, left: padding, bottom: 0, right: padding))
+                                padding: .init(top: padding / 2, left: padding, bottom: 0, right: padding))
 
         placeholderImageView.anchor(bottom: placeholderTitleLabel.topAnchor,
                                     centerX: centerXAnchor,
                                     padding: .init(top: 0, left: 0, bottom: AppStyle.leftAndRightScreenPadding, right: 0),
                                     size: .init(width: self.bounds.width * 0.3, height: 0))
 
-        let paddingButton = AppStyle.buttonScreenPadding
         retryButton.anchor(leading: leadingAnchor,
-                      bottom: bottomAnchor,
-                      trailing: trailingAnchor,
-                      padding: .init(top: 0, left: paddingButton, bottom: 50, right: paddingButton))
+                           bottom: bottomAnchor,
+                           trailing: trailingAnchor,
+                           padding: .init(top: 0, left: padding, bottom: 50, right: padding),
+                           size: .init(width: 0, height: 44))
     }
 
     @objc
