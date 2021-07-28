@@ -7,13 +7,150 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		053456B926965275007D482D /* Poly+AllTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC332562800D00C673EF /* Poly+AllTypes.swift */; };
+		053456BA269657D0007D482D /* BundleUserAgent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */; };
 		05521B0E26490F3E00AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
 		05521B1326490F7500AA4DBB /* GeoAPIManager+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */; };
+		05AEBABB2696C9A2000B75F5 /* Poly+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC352562800D00C673EF /* Poly+Codable.swift */; };
+		05AEBABC2696CA6C000B75F5 /* Poly+CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */; };
+		05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
+		05AEBABE2696CAE1000B75F5 /* Collection+Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC342562800D00C673EF /* Collection+Poly.swift */; };
 		05F57A31266635B5008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		05F57A36266635B7008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		1705506C266612FC00C5119C /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
+		1718B16626B02F040044146C /* PACECloudSDK+Kits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */; };
+		1718B16826B02F690044146C /* PACECloudSlimSDK+Kits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1718B16726B02F690044146C /* PACECloudSlimSDK+Kits.swift */; };
+		1718B16A26B02FA20044146C /* PACECloudWatchSDK+Kits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */; };
+		173799CE269D8D6A00ACD3CE /* Bundle+Watch+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */; };
 		175019DA263C45B000DBA1FF /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175019D9263C45B000DBA1FF /* CofuGasStation.swift */; };
 		17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
+		1785C95C26935EEE0041A20E /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1785C95B26935EEE0041A20E /* AppAuth */; };
+		1785C95E269432CF0041A20E /* HttpHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927111512573B295001D6DDA /* HttpHeaderFields.swift */; };
+		1785C96326943B420041A20E /* IDKit+WatchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */; };
+		17BB0CDB268CCED6009D4755 /* PACECloudWatchSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		17BB0CE1268CCEFB009D4755 /* PayAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439FE2580E34D00DE36FA /* PayAPIService.swift */; };
+		17BB0CE2268CCEFB009D4755 /* PayAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B212582646600DE36FA /* PayAPIResponse.swift */; };
+		17BB0CE3268CCEFB009D4755 /* PayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A232580E34D00DE36FA /* PayAPI.swift */; };
+		17BB0CE4268CCEFB009D4755 /* PayAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439FF2580E34D00DE36FA /* PayAPIClient.swift */; };
+		17BB0CE5268CCEFB009D4755 /* PayAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1125825B5700DE36FA /* PayAPIRequest.swift */; };
+		17BB0CE6268CCEFB009D4755 /* AnyPayRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1225825B5700DE36FA /* AnyPayRequest.swift */; };
+		17BB0CE7268CCEFB009D4755 /* PayRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A222580E34D00DE36FA /* PayRequestBehaviour.swift */; };
+		17BB0CE8268CCEFB009D4755 /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F76F25765014008D8F9A /* Pay.swift */; };
+		17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843A86CB25C2BBE70062B124 /* PayAPIClient+URLProtocol.swift */; };
+		17BB0CEA268CCF13009D4755 /* PayAPIGetPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6925C03B0C0087194F /* PayAPIGetPaymentToken.swift */; };
+		17BB0CEB268CCF13009D4755 /* PayAPIConfirmPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7525C03B0C0087194F /* PayAPIConfirmPaymentMethod.swift */; };
+		17BB0CEC268CCF13009D4755 /* PayAPIListTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E8025C03B0C0087194F /* PayAPIListTransactions.swift */; };
+		17BB0CED268CCF13009D4755 /* PayAPICreatePaymentMethodCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6725C03B0C0087194F /* PayAPICreatePaymentMethodCreditCard.swift */; };
+		17BB0CEE268CCF13009D4755 /* PayAPICreatePaymentMethodPayPal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6625C03B0C0087194F /* PayAPICreatePaymentMethodPayPal.swift */; };
+		17BB0CEF268CCF13009D4755 /* PayAPIGetPaymentMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7425C03B0C0087194F /* PayAPIGetPaymentMethods.swift */; };
+		17BB0CF0268CCF13009D4755 /* PayAPIGetPaymentTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6A25C03B0C0087194F /* PayAPIGetPaymentTokens.swift */; };
+		17BB0CF1268CCF13009D4755 /* PayAPIDeletePaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6B25C03B0C0087194F /* PayAPIDeletePaymentToken.swift */; };
+		17BB0CF2268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7925C03B0C0087194F /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift */; };
+		17BB0CF3268CCF13009D4755 /* PayAPINotificationForPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7325C03B0C0087194F /* PayAPINotificationForPaymentMethod.swift */; };
+		17BB0CF4268CCF13009D4755 /* PayAPIListTransactionsCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7F25C03B0C0087194F /* PayAPIListTransactionsCSV.swift */; };
+		17BB0CF5268CCF13009D4755 /* PayAPIRequestApplePaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6D25C03B0C0087194F /* PayAPIRequestApplePaySession.swift */; };
+		17BB0CF6268CCF13009D4755 /* PayAPIPatchPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7225C03B0C0087194F /* PayAPIPatchPaymentMethod.swift */; };
+		17BB0CF7268CCF13009D4755 /* PayAPICreatePaymentMethodDKV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6225C03B0C0087194F /* PayAPICreatePaymentMethodDKV.swift */; };
+		17BB0CF8268CCF13009D4755 /* PayAPICreatePaymentMethodPayDirekt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6525C03B0C0087194F /* PayAPICreatePaymentMethodPayDirekt.swift */; };
+		17BB0CF9268CCF13009D4755 /* PayAPIAuthorizeApplePayPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6C25C03B0C0087194F /* PayAPIAuthorizeApplePayPaymentToken.swift */; };
+		17BB0CFA268CCF13009D4755 /* PayAPIGetPaymentMethodKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7025C03B0C0087194F /* PayAPIGetPaymentMethodKinds.swift */; };
+		17BB0CFB268CCF13009D4755 /* PayAPICreatePaymentMethodHoyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6425C03B0C0087194F /* PayAPICreatePaymentMethodHoyer.swift */; };
+		17BB0CFC268CCF13009D4755 /* PayAPIGetPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7725C03B0C0087194F /* PayAPIGetPaymentMethod.swift */; };
+		17BB0CFD268CCF13009D4755 /* PayAPIProcessPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7D25C03B0C0087194F /* PayAPIProcessPayment.swift */; };
+		17BB0CFE268CCF13009D4755 /* PayAPIGetReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7E25C03B0C0087194F /* PayAPIGetReceipt.swift */; };
+		17BB0CFF268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7625C03B0C0087194F /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift */; };
+		17BB0D00268CCF13009D4755 /* PayAPIDeletePaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7825C03B0C0087194F /* PayAPIDeletePaymentMethod.swift */; };
+		17BB0D01268CCF13009D4755 /* PayAPIGetReceiptByFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7C25C03B0C0087194F /* PayAPIGetReceiptByFormat.swift */; };
+		17BB0D02268CCF13009D4755 /* PayAPICancelPreAuthPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E8125C03B0C0087194F /* PayAPICancelPreAuthPayment.swift */; };
+		17BB0D03268CCF13009D4755 /* PayAPIAuthorizePaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6E25C03B0C0087194F /* PayAPIAuthorizePaymentToken.swift */; };
+		17BB0D04268CCF13009D4755 /* PayAPIGetTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E7B25C03B0C0087194F /* PayAPIGetTransaction.swift */; };
+		17BB0D05268CCF13009D4755 /* PayAPICreatePaymentMethodSEPA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600E6325C03B0C0087194F /* PayAPICreatePaymentMethodSEPA.swift */; };
+		17BB0D06268CCF26009D4755 /* PACECloudSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFB206258B5C00001768F0 /* PACECloudSDK.swift */; };
+		17BB0D09268CCF53009D4755 /* PACECloudWatchSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */; };
+		17BB0D0A268CCF7A009D4755 /* PACECloudSDK+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */; };
+		17BB0D0B268CCF82009D4755 /* Fueling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6F88525BAC1F3002824F9 /* Fueling.swift */; };
+		17BB0D0C268CCF88009D4755 /* FuelingRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EAA25B9C8D40065284A /* FuelingRequestBehaviour.swift */; };
+		17BB0D0D268CCF88009D4755 /* FuelingAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EA925B9C8D40065284A /* FuelingAPIService.swift */; };
+		17BB0D0E268CCF88009D4755 /* FuelingAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EB925B9C8D40065284A /* FuelingAPIResponse.swift */; };
+		17BB0D0F268CCF88009D4755 /* FuelingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EA825B9C8D40065284A /* FuelingAPI.swift */; };
+		17BB0D10268CCF88009D4755 /* FuelingAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EB725B9C8D40065284A /* FuelingAPIRequest.swift */; };
+		17BB0D11268CCF88009D4755 /* FuelingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EB825B9C8D40065284A /* FuelingAPIClient.swift */; };
+		17BB0D12268CCF88009D4755 /* AnyFuelingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EAB25B9C8D40065284A /* AnyFuelingRequest.swift */; };
+		17BB0D13268CCF8B009D4755 /* FuelingAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843A86D725C2BC030062B124 /* FuelingAPIClient+URLProtocol.swift */; };
+		17BB0D14268CCF92009D4755 /* FuelingAPIApproachingAtTheForecourt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4525C03B330087194F /* FuelingAPIApproachingAtTheForecourt.swift */; };
+		17BB0D15268CCF92009D4755 /* FuelingAPICancelPreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */; };
+		17BB0D16268CCF92009D4755 /* FuelingAPIGetPumps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4625C03B330087194F /* FuelingAPIGetPumps.swift */; };
+		17BB0D17268CCF92009D4755 /* FuelingAPICreateNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4325C03B330087194F /* FuelingAPICreateNotification.swift */; };
+		17BB0D18268CCF92009D4755 /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */; };
+		17BB0D19268CCF92009D4755 /* FuelingAPIGetPump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4725C03B330087194F /* FuelingAPIGetPump.swift */; };
+		17BB0D1A268CCF92009D4755 /* FuelingAPIProcessPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4825C03B330087194F /* FuelingAPIProcessPayment.swift */; };
+		17BB0D1B268CCFA9009D4755 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
+		17BB0D1C268CCFD2009D4755 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A8C2580E35A00DE36FA /* Coding.swift */; };
+		17BB0D1D268CCFEF009D4755 /* APIRequestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431E1A3258B89F0009401BF /* APIRequestUtils.swift */; };
+		17BB0D1E268CCFFF009D4755 /* APIResponseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8431E1A4258B89F0009401BF /* APIResponseUtils.swift */; };
+		17BB0D1F268CD007009D4755 /* PCPayPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C017258A03270094982D /* PCPayPaymentMethod.swift */; };
+		17BB0D20268CD01A009D4755 /* AnyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B0B2580EA3700DE36FA /* AnyResponse.swift */; };
+		17BB0D21268CD024009D4755 /* APIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A8F2580E35A00DE36FA /* APIClientError.swift */; };
+		17BB0D22268CD031009D4755 /* QueryParamHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92843A0925B1A2DF004CF9D6 /* QueryParamHandler.swift */; };
+		17BB0D23268CD042009D4755 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3A2542D9BA0072F6BA /* Settings.swift */; };
+		17BB0D24268CD04F009D4755 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
+		17BB0D25268CD072009D4755 /* PCPayPaymentTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C032258A03270094982D /* PCPayPaymentTokens.swift */; };
+		17BB0D26268CD079009D4755 /* PCPayPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C041258A03270094982D /* PCPayPaymentToken.swift */; };
+		17BB0D27268CD08B009D4755 /* PCPayRequestApplePaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C049258A03270094982D /* PCPayRequestApplePaySession.swift */; };
+		17BB0D28268CD09E009D4755 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
+		17BB0D29268CD0B2009D4755 /* PCPayErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C023258A03270094982D /* PCPayErrors.swift */; };
+		17BB0D2A268CD0C3009D4755 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A8D2580E35A00DE36FA /* APIResult.swift */; };
+		17BB0D2B268CD0CF009D4755 /* PCPayPaymentMethodRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C045258A03270094982D /* PCPayPaymentMethodRelationship.swift */; };
+		17BB0D2C268CD0D8009D4755 /* PCPayPaymentMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02B258A03270094982D /* PCPayPaymentMethods.swift */; };
+		17BB0D2D268CD0EB009D4755 /* PCFuelingTransactionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDD25B9C9690065284A /* PCFuelingTransactionRequest.swift */; };
+		17BB0D2E268CD0F5009D4755 /* PCFuelingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE325B9C9690065284A /* PCFuelingErrors.swift */; };
+		17BB0D2F268CD104009D4755 /* PCPayPaymentMethodKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00B258A03270094982D /* PCPayPaymentMethodKinds.swift */; };
+		17BB0D30268CD10A009D4755 /* PCPayPaymentMethodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C018258A03270094982D /* PCPayPaymentMethodKind.swift */; };
+		17BB0D31268CD112009D4755 /* PCPayPRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C029258A03270094982D /* PCPayPRN.swift */; };
+		17BB0D32268CD11E009D4755 /* NSMutableData+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */; };
+		17BB0D33268CD133009D4755 /* PCPayApplePaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00F258A03270094982D /* PCPayApplePaySession.swift */; };
+		17BB0D34268CD140009D4755 /* HttpStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */; };
+		17BB0D35268CD149009D4755 /* URLRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A482542D9BA0072F6BA /* URLRequestError.swift */; };
+		17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDB25B9C9690065284A /* PCFuelingGetPumpsResponse.swift */; };
+		17BB0D37268CD15A009D4755 /* PCFuelingPump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE225B9C9690065284A /* PCFuelingPump.swift */; };
+		17BB0D38268CD163009D4755 /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
+		17BB0D39268CD16E009D4755 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1443225388108004E9F63 /* Logger.swift */; };
+		17BB0D3A268CD181009D4755 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5149325EE396100CC1FC3 /* Double+Extension.swift */; };
+		17BB0D3B268CD188009D4755 /* URLEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A912580E35A00DE36FA /* URLEncoding.swift */; };
+		17BB0D3C268CD1C4009D4755 /* PCPayTransactionCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C043258A03270094982D /* PCPayTransactionCreate.swift */; };
+		17BB0D3D268CD1CE009D4755 /* PCPayTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C042258A03270094982D /* PCPayTransaction.swift */; };
+		17BB0D3E268CD1D7009D4755 /* PCPayPaymentMethodSepaCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C014258A03270094982D /* PCPayPaymentMethodSepaCreate.swift */; };
+		17BB0D3F268CD1DF009D4755 /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A922580E35A00DE36FA /* AnyCodable.swift */; };
+		17BB0D40268CD1E8009D4755 /* PCFuelingPumpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDE25B9C9690065284A /* PCFuelingPumpResponse.swift */; };
+		17BB0D41268CD1F7009D4755 /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
+		17BB0D42268CD22C009D4755 /* PCFuelingProcessPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE725B9C96A0065284A /* PCFuelingProcessPaymentResponse.swift */; };
+		17BB0D43268CD234009D4755 /* PCPayPaymentTokenCreateApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03E258A03270094982D /* PCPayPaymentTokenCreateApplePay.swift */; };
+		17BB0D44268CD23C009D4755 /* PCPayTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C011258A03270094982D /* PCPayTransactions.swift */; };
+		17BB0D45268CD248009D4755 /* PCPayFuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C034258A03270094982D /* PCPayFuel.swift */; };
+		17BB0D46268CD252009D4755 /* PCPayReadOnlyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C044258A03270094982D /* PCPayReadOnlyLocation.swift */; };
+		17BB0D47268CD263009D4755 /* PCPayTransactionLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02A258A03270094982D /* PCPayTransactionLinks.swift */; };
+		17BB0D48268CD284009D4755 /* PCPayPaymentMethodPayDirektCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04C258A03270094982D /* PCPayPaymentMethodPayDirektCreate.swift */; };
+		17BB0D49268CD28D009D4755 /* PCPayPaymentTokenCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01A258A03270094982D /* PCPayPaymentTokenCreate.swift */; };
+		17BB0D4A268CD295009D4755 /* PCPayPaymentMethodDKVCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C012258A03270094982D /* PCPayPaymentMethodDKVCreate.swift */; };
+		17BB0D4B268CD29F009D4755 /* PCPayPaymentTokensRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C024258A03270094982D /* PCPayPaymentTokensRelationship.swift */; };
+		17BB0D4C268CD4AC009D4755 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A052542D9B90072F6BA /* String+Extension.swift */; };
+		17BB0D4D268CD4CD009D4755 /* PCPayPaymentMethodPayPalCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C047258A03270094982D /* PCPayPaymentMethodPayPalCreate.swift */; };
+		17BB0D4E268CD4D5009D4755 /* PCFuelingApproachingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDC25B9C9690065284A /* PCFuelingApproachingResponse.swift */; };
+		17BB0D4F268CD4F3009D4755 /* PCPayPagingMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01B258A03270094982D /* PCPayPagingMeta.swift */; };
+		17BB0D50268CD4FA009D4755 /* PCFuelingGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE125B9C9690065284A /* PCFuelingGasStation.swift */; };
+		17BB0D51268CD503009D4755 /* PCPayPaymentMethodCreditCardCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C026258A03270094982D /* PCPayPaymentMethodCreditCardCreate.swift */; };
+		17BB0D52268CD50B009D4755 /* PCPayPaymentMethodHoyerCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01F258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift */; };
+		17BB0D53268CD52A009D4755 /* PCFuelingCommonOpeningHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE525B9C96A0065284A /* PCFuelingCommonOpeningHours.swift */; };
+		17BB0D54268CD533009D4755 /* PCFuelingFuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE025B9C9690065284A /* PCFuelingFuelPrice.swift */; };
+		17BB0D55268CD553009D4755 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855312253D6C12001F7B66 /* Bundle+Extension.swift */; };
+		17BB0DFC268DF9C2009D4755 /* BundleUserAgent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */; };
+		17BB0DFE268E040C009D4755 /* PCFuelingPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE625B9C96A0065284A /* PCFuelingPaymentMethod.swift */; };
+		17BB0DFF268E0468009D4755 /* PCFuelingPaymentMethodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE425B9C96A0065284A /* PCFuelingPaymentMethodKind.swift */; };
+		17D5495526A9BFB100911D0D /* Environment-development.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2D2542D9BA0072F6BA /* Environment-development.plist */; };
+		17D5495626A9BFB500911D0D /* Environment-production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2C2542D9BA0072F6BA /* Environment-production.plist */; };
+		17D5495726A9BFC100911D0D /* Environment-sandbox.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2A2542D9BA0072F6BA /* Environment-sandbox.plist */; };
+		17D5495826A9BFC400911D0D /* Environment-stage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2B2542D9BA0072F6BA /* Environment-stage.plist */; };
+		17D5495926A9BFC800911D0D /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		3B1841E72683354600A0F625 /* POIAPIGetStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841E62683354600A0F625 /* POIAPIGetStats.swift */; };
 		3B1841ED2683356400A0F625 /* PCPOIStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841EC2683356400A0F625 /* PCPOIStats.swift */; };
 		3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
@@ -864,7 +1001,17 @@
 /* Begin PBXFileReference section */
 		05521B0D26490F3E00AA4DBB /* GeoAPIManager+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Error.swift"; sourceTree = "<group>"; };
 		05F57A30266635B5008F2272 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+Kits.swift"; sourceTree = "<group>"; };
+		1718B16726B02F690044146C /* PACECloudSlimSDK+Kits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSlimSDK+Kits.swift"; sourceTree = "<group>"; };
+		1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudWatchSDK+Kits.swift"; sourceTree = "<group>"; };
+		173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Watch+Resource.swift"; sourceTree = "<group>"; };
 		175019D9263C45B000DBA1FF /* CofuGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CofuGasStation.swift; sourceTree = "<group>"; };
+		1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+WatchSDK.swift"; sourceTree = "<group>"; };
+		17BB0CD7268CCED6009D4755 /* PACECloudWatchSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PACECloudWatchSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PACECloudWatchSDK.h; sourceTree = "<group>"; };
+		17BB0CDA268CCED6009D4755 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudWatchSDK+API.swift"; sourceTree = "<group>"; };
+		17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BundleUserAgent+Extension.swift"; sourceTree = "<group>"; };
 		3B1841E62683354600A0F625 /* POIAPIGetStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIGetStats.swift; sourceTree = "<group>"; };
 		3B1841EC2683356400A0F625 /* PCPOIStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIStats.swift; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
@@ -1398,6 +1545,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		17BB0CD4268CCED6009D4755 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1785C95C26935EEE0041A20E /* AppAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BA6A75D260DD06A005D4B5C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1439,6 +1594,26 @@
 				05F57A30266635B5008F2272 /* Strings.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		1785C95A26935EEE0041A20E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		17BB0CD8268CCED6009D4755 /* PACECloudWatchSDK */ = {
+			isa = PBXGroup;
+			children = (
+				17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */,
+				17BB0CDA268CCED6009D4755 /* Info.plist */,
+				17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */,
+				1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */,
+				1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */,
+				173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */,
+			);
+			path = PACECloudWatchSDK;
 			sourceTree = "<group>";
 		};
 		3B1841E52683354600A0F625 /* Stats */ = {
@@ -1578,6 +1753,7 @@
 				3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */,
 				3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */,
 				3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */,
+				17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2787,8 +2963,10 @@
 				921E682E2534883100438491 /* PACECloudSDK */,
 				921E68392534883200438491 /* PACECloudSDKTests */,
 				92EDDBCE25A71EEB00E480F4 /* PACECloudSlimSDK */,
+				17BB0CD8268CCED6009D4755 /* PACECloudWatchSDK */,
 				921E682D2534883100438491 /* Products */,
 				3BA6A761260DD06A005D4B5C /* UnitTestDummy */,
+				1785C95A26935EEE0041A20E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2799,6 +2977,7 @@
 				921E68352534883200438491 /* PACECloudSDKTests.xctest */,
 				92EDDBCD25A71EEB00E480F4 /* PACECloudSlimSDK.framework */,
 				3BA6A760260DD06A005D4B5C /* UnitTestDummy.app */,
+				17BB0CD7268CCED6009D4755 /* PACECloudWatchSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2818,6 +2997,7 @@
 				92EFB206258B5C00001768F0 /* PACECloudSDK.swift */,
 				923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */,
 				3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */,
+				1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */,
 			);
 			path = PACECloudSDK;
 			sourceTree = "<group>";
@@ -2854,6 +3034,7 @@
 				3B2B7BD8268071B100ECFDE2 /* IDKit+Slim.swift */,
 				3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */,
 				923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */,
+				1718B16726B02F690044146C /* PACECloudSlimSDK+Kits.swift */,
 				92EDDDD825A7460D00E480F4 /* POIKitAPIProtocol+Slim.swift */,
 			);
 			path = PACECloudSlimSDK;
@@ -2862,6 +3043,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		17BB0CD2268CCED6009D4755 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17BB0CDB268CCED6009D4755 /* PACECloudWatchSDK.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		921E68272534883100438491 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2880,6 +3069,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		17BB0CD6268CCED6009D4755 /* PACECloudWatchSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17BB0CE0268CCED6009D4755 /* Build configuration list for PBXNativeTarget "PACECloudWatchSDK" */;
+			buildPhases = (
+				17BB0CD2268CCED6009D4755 /* Headers */,
+				17BB0CD3268CCED6009D4755 /* Sources */,
+				17BB0CD4268CCED6009D4755 /* Frameworks */,
+				17BB0CD5268CCED6009D4755 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PACECloudWatchSDK;
+			packageProductDependencies = (
+				1785C95B26935EEE0041A20E /* AppAuth */,
+			);
+			productName = PACECloudWatchSDK;
+			productReference = 17BB0CD7268CCED6009D4755 /* PACECloudWatchSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		3BA6A75F260DD06A005D4B5C /* UnitTestDummy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BA6A775260DD06B005D4B5C /* Build configuration list for PBXNativeTarget "UnitTestDummy" */;
@@ -2967,6 +3177,9 @@
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					17BB0CD6268CCED6009D4755 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
 					3BA6A75F260DD06A005D4B5C = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -3007,11 +3220,24 @@
 				92EDDBCC25A71EEB00E480F4 /* PACECloudSlimSDK */,
 				921E68342534883200438491 /* PACECloudSDKTests */,
 				3BA6A75F260DD06A005D4B5C /* UnitTestDummy */,
+				17BB0CD6268CCED6009D4755 /* PACECloudWatchSDK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		17BB0CD5268CCED6009D4755 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17D5495926A9BFC800911D0D /* FallbackVersions.plist in Resources */,
+				17D5495526A9BFB100911D0D /* Environment-development.plist in Resources */,
+				17D5495726A9BFC100911D0D /* Environment-sandbox.plist in Resources */,
+				17D5495626A9BFB500911D0D /* Environment-production.plist in Resources */,
+				17D5495826A9BFC400911D0D /* Environment-stage.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BA6A75E260DD06A005D4B5C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3087,6 +3313,139 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		17BB0CD3268CCED6009D4755 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17BB0D53268CD52A009D4755 /* PCFuelingCommonOpeningHours.swift in Sources */,
+				05AEBABE2696CAE1000B75F5 /* Collection+Poly.swift in Sources */,
+				17BB0D01268CCF13009D4755 /* PayAPIGetReceiptByFormat.swift in Sources */,
+				17BB0D1B268CCFA9009D4755 /* API.swift in Sources */,
+				17BB0D35268CD149009D4755 /* URLRequestError.swift in Sources */,
+				17BB0CEC268CCF13009D4755 /* PayAPIListTransactions.swift in Sources */,
+				17BB0D1D268CCFEF009D4755 /* APIRequestUtils.swift in Sources */,
+				17BB0DFE268E040C009D4755 /* PCFuelingPaymentMethod.swift in Sources */,
+				17BB0CF2268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */,
+				17BB0D04268CCF13009D4755 /* PayAPIGetTransaction.swift in Sources */,
+				05AEBABC2696CA6C000B75F5 /* Poly+CustomStringConvertible.swift in Sources */,
+				17BB0D17268CCF92009D4755 /* FuelingAPICreateNotification.swift in Sources */,
+				17BB0D43268CD234009D4755 /* PCPayPaymentTokenCreateApplePay.swift in Sources */,
+				17BB0CE4268CCEFB009D4755 /* PayAPIClient.swift in Sources */,
+				17BB0CF4268CCF13009D4755 /* PayAPIListTransactionsCSV.swift in Sources */,
+				17BB0CF1268CCF13009D4755 /* PayAPIDeletePaymentToken.swift in Sources */,
+				17BB0D1F268CD007009D4755 /* PCPayPaymentMethod.swift in Sources */,
+				053456B926965275007D482D /* Poly+AllTypes.swift in Sources */,
+				17BB0D4D268CD4CD009D4755 /* PCPayPaymentMethodPayPalCreate.swift in Sources */,
+				17BB0CED268CCF13009D4755 /* PayAPICreatePaymentMethodCreditCard.swift in Sources */,
+				17BB0CFB268CCF13009D4755 /* PayAPICreatePaymentMethodHoyer.swift in Sources */,
+				17BB0CFE268CCF13009D4755 /* PayAPIGetReceipt.swift in Sources */,
+				17BB0D3D268CD1CE009D4755 /* PCPayTransaction.swift in Sources */,
+				17BB0CE2268CCEFB009D4755 /* PayAPIResponse.swift in Sources */,
+				17BB0D11268CCF88009D4755 /* FuelingAPIClient.swift in Sources */,
+				17BB0D16268CCF92009D4755 /* FuelingAPIGetPumps.swift in Sources */,
+				1718B16A26B02FA20044146C /* PACECloudWatchSDK+Kits.swift in Sources */,
+				17BB0D06268CCF26009D4755 /* PACECloudSDK.swift in Sources */,
+				17BB0CE5268CCEFB009D4755 /* PayAPIRequest.swift in Sources */,
+				17BB0D4B268CD29F009D4755 /* PCPayPaymentTokensRelationship.swift in Sources */,
+				17BB0D3B268CD188009D4755 /* URLEncoding.swift in Sources */,
+				17BB0D10268CCF88009D4755 /* FuelingAPIRequest.swift in Sources */,
+				17BB0D19268CCF92009D4755 /* FuelingAPIGetPump.swift in Sources */,
+				17BB0D25268CD072009D4755 /* PCPayPaymentTokens.swift in Sources */,
+				17BB0D31268CD112009D4755 /* PCPayPRN.swift in Sources */,
+				17BB0D03268CCF13009D4755 /* PayAPIAuthorizePaymentToken.swift in Sources */,
+				17BB0D13268CCF8B009D4755 /* FuelingAPIClient+URLProtocol.swift in Sources */,
+				17BB0D24268CD04F009D4755 /* Constants.swift in Sources */,
+				17BB0CEA268CCF13009D4755 /* PayAPIGetPaymentToken.swift in Sources */,
+				17BB0CF7268CCF13009D4755 /* PayAPICreatePaymentMethodDKV.swift in Sources */,
+				17BB0D2A268CD0C3009D4755 /* APIResult.swift in Sources */,
+				17BB0CE6268CCEFB009D4755 /* AnyPayRequest.swift in Sources */,
+				17BB0D02268CCF13009D4755 /* PayAPICancelPreAuthPayment.swift in Sources */,
+				17BB0D4A268CD295009D4755 /* PCPayPaymentMethodDKVCreate.swift in Sources */,
+				17BB0CE3268CCEFB009D4755 /* PayAPI.swift in Sources */,
+				17BB0D09268CCF53009D4755 /* PACECloudWatchSDK+API.swift in Sources */,
+				17BB0D39268CD16E009D4755 /* Logger.swift in Sources */,
+				17BB0D51268CD503009D4755 /* PCPayPaymentMethodCreditCardCreate.swift in Sources */,
+				17BB0D54268CD533009D4755 /* PCFuelingFuelPrice.swift in Sources */,
+				17BB0D1A268CCF92009D4755 /* FuelingAPIProcessPayment.swift in Sources */,
+				17BB0D27268CD08B009D4755 /* PCPayRequestApplePaySession.swift in Sources */,
+				173799CE269D8D6A00ACD3CE /* Bundle+Watch+Resource.swift in Sources */,
+				17BB0CFA268CCF13009D4755 /* PayAPIGetPaymentMethodKinds.swift in Sources */,
+				17BB0D20268CD01A009D4755 /* AnyResponse.swift in Sources */,
+				17BB0CFF268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
+				17BB0D1E268CCFFF009D4755 /* APIResponseUtils.swift in Sources */,
+				17BB0D33268CD133009D4755 /* PCPayApplePaySession.swift in Sources */,
+				17BB0D49268CD28D009D4755 /* PCPayPaymentTokenCreate.swift in Sources */,
+				17BB0D2E268CD0F5009D4755 /* PCFuelingErrors.swift in Sources */,
+				17BB0D2F268CD104009D4755 /* PCPayPaymentMethodKinds.swift in Sources */,
+				17BB0D21268CD024009D4755 /* APIClientError.swift in Sources */,
+				05AEBABB2696C9A2000B75F5 /* Poly+Codable.swift in Sources */,
+				17BB0D15268CCF92009D4755 /* FuelingAPICancelPreAuth.swift in Sources */,
+				17BB0D00268CCF13009D4755 /* PayAPIDeletePaymentMethod.swift in Sources */,
+				17BB0D05268CCF13009D4755 /* PayAPICreatePaymentMethodSEPA.swift in Sources */,
+				17BB0D1C268CCFD2009D4755 /* Coding.swift in Sources */,
+				17BB0CE1268CCEFB009D4755 /* PayAPIService.swift in Sources */,
+				17BB0D18268CCF92009D4755 /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */,
+				17BB0D0A268CCF7A009D4755 /* PACECloudSDK+URL.swift in Sources */,
+				17BB0D14268CCF92009D4755 /* FuelingAPIApproachingAtTheForecourt.swift in Sources */,
+				17BB0D50268CD4FA009D4755 /* PCFuelingGasStation.swift in Sources */,
+				17BB0CFD268CCF13009D4755 /* PayAPIProcessPayment.swift in Sources */,
+				17BB0D4E268CD4D5009D4755 /* PCFuelingApproachingResponse.swift in Sources */,
+				17BB0D28268CD09E009D4755 /* URLSessionConfiguration+Extension.swift in Sources */,
+				17BB0D26268CD079009D4755 /* PCPayPaymentToken.swift in Sources */,
+				17BB0D3E268CD1D7009D4755 /* PCPayPaymentMethodSepaCreate.swift in Sources */,
+				17BB0CEF268CCF13009D4755 /* PayAPIGetPaymentMethods.swift in Sources */,
+				17BB0D2B268CD0CF009D4755 /* PCPayPaymentMethodRelationship.swift in Sources */,
+				05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */,
+				17BB0D0C268CCF88009D4755 /* FuelingRequestBehaviour.swift in Sources */,
+				17BB0D48268CD284009D4755 /* PCPayPaymentMethodPayDirektCreate.swift in Sources */,
+				17BB0D0D268CCF88009D4755 /* FuelingAPIService.swift in Sources */,
+				17BB0D3A268CD181009D4755 /* Double+Extension.swift in Sources */,
+				17BB0CE8268CCEFB009D4755 /* Pay.swift in Sources */,
+				17BB0D47268CD263009D4755 /* PCPayTransactionLinks.swift in Sources */,
+				17BB0CF9268CCF13009D4755 /* PayAPIAuthorizeApplePayPaymentToken.swift in Sources */,
+				17BB0CF8268CCF13009D4755 /* PayAPICreatePaymentMethodPayDirekt.swift in Sources */,
+				17BB0D52268CD50B009D4755 /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
+				17BB0CF6268CCF13009D4755 /* PayAPIPatchPaymentMethod.swift in Sources */,
+				17BB0D4F268CD4F3009D4755 /* PCPayPagingMeta.swift in Sources */,
+				17BB0CEE268CCF13009D4755 /* PayAPICreatePaymentMethodPayPal.swift in Sources */,
+				17BB0D45268CD248009D4755 /* PCPayFuel.swift in Sources */,
+				17BB0D4C268CD4AC009D4755 /* String+Extension.swift in Sources */,
+				17BB0D2D268CD0EB009D4755 /* PCFuelingTransactionRequest.swift in Sources */,
+				1785C96326943B420041A20E /* IDKit+WatchSDK.swift in Sources */,
+				17BB0D0F268CCF88009D4755 /* FuelingAPI.swift in Sources */,
+				17BB0D0B268CCF82009D4755 /* Fueling.swift in Sources */,
+				17BB0D46268CD252009D4755 /* PCPayReadOnlyLocation.swift in Sources */,
+				17BB0D37268CD15A009D4755 /* PCFuelingPump.swift in Sources */,
+				17BB0D42268CD22C009D4755 /* PCFuelingProcessPaymentResponse.swift in Sources */,
+				17BB0D23268CD042009D4755 /* Settings.swift in Sources */,
+				17BB0D3F268CD1DF009D4755 /* AnyCodable.swift in Sources */,
+				17BB0CF5268CCF13009D4755 /* PayAPIRequestApplePaySession.swift in Sources */,
+				17BB0D38268CD163009D4755 /* SDKWarningsHandler.swift in Sources */,
+				17BB0D3C268CD1C4009D4755 /* PCPayTransactionCreate.swift in Sources */,
+				1785C95E269432CF0041A20E /* HttpHeaderFields.swift in Sources */,
+				17BB0D44268CD23C009D4755 /* PCPayTransactions.swift in Sources */,
+				17BB0D34268CD140009D4755 /* HttpStatusCode.swift in Sources */,
+				17BB0D2C268CD0D8009D4755 /* PCPayPaymentMethods.swift in Sources */,
+				17BB0D22268CD031009D4755 /* QueryParamHandler.swift in Sources */,
+				17BB0DFF268E0468009D4755 /* PCFuelingPaymentMethodKind.swift in Sources */,
+				17BB0D32268CD11E009D4755 /* NSMutableData+Extension.swift in Sources */,
+				17BB0D55268CD553009D4755 /* Bundle+Extension.swift in Sources */,
+				17BB0D40268CD1E8009D4755 /* PCFuelingPumpResponse.swift in Sources */,
+				17BB0CE7268CCEFB009D4755 /* PayRequestBehaviour.swift in Sources */,
+				17BB0CF3268CCF13009D4755 /* PayAPINotificationForPaymentMethod.swift in Sources */,
+				17BB0D29268CD0B2009D4755 /* PCPayErrors.swift in Sources */,
+				17BB0CF0268CCF13009D4755 /* PayAPIGetPaymentTokens.swift in Sources */,
+				17BB0CEB268CCF13009D4755 /* PayAPIConfirmPaymentMethod.swift in Sources */,
+				17BB0CFC268CCF13009D4755 /* PayAPIGetPaymentMethod.swift in Sources */,
+				17BB0D12268CCF88009D4755 /* AnyFuelingRequest.swift in Sources */,
+				17BB0D41268CD1F7009D4755 /* Poly.swift in Sources */,
+				17BB0D30268CD10A009D4755 /* PCPayPaymentMethodKind.swift in Sources */,
+				17BB0D0E268CCF88009D4755 /* FuelingAPIResponse.swift in Sources */,
+				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
+				17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BA6A75C260DD06A005D4B5C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3325,6 +3684,7 @@
 				3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */,
 				3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */,
 				92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */,
+				17BB0DFC268DF9C2009D4755 /* BundleUserAgent+Extension.swift in Sources */,
 				84961ABD264E5A270070CB0B /* AppKit+Delegate+Logout.swift in Sources */,
 				3B987049268E06AE00A0458F /* MessageHandler.swift in Sources */,
 				3B98709D268E06AE00A0458F /* Operation.swift in Sources */,
@@ -3518,6 +3878,7 @@
 				3B970A922542D9BB0072F6BA /* Settings.swift in Sources */,
 				84A43B1E2582645E00DE36FA /* POIAPIResponse.swift in Sources */,
 				84600F0025C03B1E0087194F /* POIAPIGetDuplicatesKML.swift in Sources */,
+				1718B16626B02F040044146C /* PACECloudSDK+Kits.swift in Sources */,
 				84D6C06A258A03270094982D /* PCPayPaymentTokensRelationship.swift in Sources */,
 				84A439F62580E33B00DE36FA /* POIAPIService.swift in Sources */,
 				84A43B1A25825B6300DE36FA /* AnyPOIRequest.swift in Sources */,
@@ -3815,6 +4176,7 @@
 				92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */,
 				3B987084268E06AE00A0458F /* SetUserPropertyRequest.swift in Sources */,
 				92EDDC0225A7270300E480F4 /* RedirectServiceData.swift in Sources */,
+				053456BA269657D0007D482D /* BundleUserAgent+Extension.swift in Sources */,
 				92EDDC1025A7270300E480F4 /* LoadingView.swift in Sources */,
 				3B987094268E06AE00A0458F /* SetTOTPRequest.swift in Sources */,
 				92EDDD0925A738F200E480F4 /* RegionalPriceRequest.swift in Sources */,
@@ -3919,6 +4281,7 @@
 				92EDDC5225A729D000E480F4 /* HttpStatusCode.swift in Sources */,
 				8418E23025B1AEF300D3722B /* POIAPI.swift in Sources */,
 				92EDDC2925A7270300E480F4 /* IconSelector.swift in Sources */,
+				1718B16826B02F690044146C /* PACECloudSlimSDK+Kits.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3958,6 +4321,320 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		17BB0CDC268CCED6009D4755 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 8T694MPXAZ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = PACECloudWatchSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.watch.sdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Development;
+		};
+		17BB0CDD268CCED6009D4755 /* Stage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 8T694MPXAZ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = PACECloudWatchSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.watch.sdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Stage;
+		};
+		17BB0CDE268CCED6009D4755 /* Sandbox */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 8T694MPXAZ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = PACECloudWatchSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.watch.sdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Sandbox;
+		};
+		17BB0CDF268CCED6009D4755 /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 8T694MPXAZ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = PACECloudWatchSDK/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = cloud.pace.watch.sdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Production;
+		};
 		3BA6A771260DD06B005D4B5C /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5060,6 +5737,17 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		17BB0CE0268CCED6009D4755 /* Build configuration list for PBXNativeTarget "PACECloudWatchSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17BB0CDC268CCED6009D4755 /* Development */,
+				17BB0CDD268CCED6009D4755 /* Stage */,
+				17BB0CDE268CCED6009D4755 /* Sandbox */,
+				17BB0CDF268CCED6009D4755 /* Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Production;
+		};
 		3BA6A775260DD06B005D4B5C /* Build configuration list for PBXNativeTarget "UnitTestDummy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5145,6 +5833,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1785C95B26935EEE0041A20E /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
 		3B29884E260DE39100708B6C /* OneTimePassword */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3B29884D260DE39100708B6C /* XCRemoteSwiftPackageReference "OneTimePassword" */;

@@ -4,6 +4,8 @@ include:
 variables:
   PROJECT_PATH: "PACECloudSDK"
   PROJECT_NAME: "PACECloudSDK"
+  SIMULATOR_SDK: "iphonesimulator"
+  DEVICE_SDK: "iphoneos"
   REPO_PLATFORM: "ios"
   REPO_BASE_URL: "https://repo.dev.k8s.pacelink.net/api"
   REPO_PROJECT_ID: ""
@@ -78,7 +80,7 @@ before_script:
   extends: .xcode_version
   stage: build
   script:
-    - xcodebuild -scheme $TARGET_SCHEME -sdk iphonesimulator
+    - xcodebuild -scheme $TARGET_SCHEME -sdk $SIMULATOR_SDK
   only:
     - merge_requests
   except:
@@ -90,11 +92,11 @@ before_script:
     - bundle exec fastlane set_version version_number:$TAG_NAME
     - xcodebuild archive
       -scheme $PROJECT_NAME
-      -sdk iphoneos
+      -sdk $DEVICE_SDK
       -archivePath "archives/ios_devices.xcarchive" BUILD_LIBRARY_FOR_DISTRIBUTION=YES SKIP_INSTALL=NO
     - xcodebuild archive
       -scheme $PROJECT_NAME
-      -sdk iphonesimulator
+      -sdk $SIMULATOR_SDK
       -archivePath "archives/ios_simulators.xcarchive" BUILD_LIBRARY_FOR_DISTRIBUTION=YES SKIP_INSTALL=NO
     - xcodebuild
       -create-xcframework
@@ -128,6 +130,13 @@ framework_slim_review:
   variables:
     TARGET_SCHEME: "PACECloudSlimSDK"
 
+framework_watch_review:
+  extends: .review
+  stage: build
+  variables:
+    SIMULATOR_SDK: "watchsimulator"
+    TARGET_SCHEME: "PACECloudWatchSDK"
+
 ## Build xcframework
 framework_release_build:
   extends: .xcode_version
@@ -140,6 +149,27 @@ framework_release_build:
     paths:
       - ./build/
     expire_in: 1 week
+
+## Build watch xcframework
+framework_watch_release_build:
+  extends: .xcode_version
+  variables:
+    PROJECT_NAME: "PACECloudWatchSDK"
+    SIMULATOR_SDK: "watchsimulator"
+    DEVICE_SDK: "watchos"
+  stage: build
+  <<: *xcframework
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /WIP/
+  artifacts:
+    name: "PACECloudWatchSDK"
+    paths:
+      - ./build/
+    expire_in: 1 week
+  when: manual
 
 # Update CocoaPods trunk
 framework_publish_pods:
