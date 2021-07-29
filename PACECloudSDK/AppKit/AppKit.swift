@@ -12,10 +12,10 @@ import WebKit
 public class AppKit {
     public static var shared: AppKit {
         PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
-        return sharedInternal
+        return sharedInstance
     }
 
-    private static let sharedInternal = AppKit()
+    private static let sharedInstance = AppKit()
 
     public weak var delegate: AppKitDelegate?
 
@@ -41,10 +41,6 @@ public class AppKit {
         self.theme = theme
 
         appManager.setConfigValues()
-    }
-
-    public func requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) -> Void) {
-        appManager.cofuGasStations(option: option, completion: completion)
     }
 
     // MARK: - Drawer / Location based apps
@@ -106,15 +102,6 @@ public class AppKit {
         NotificationCenter.default.post(name: AppKit.Constants.NotificationIdentifier.caughtRedirectService,
                                         object: nil,
                                         userInfo: [AppKit.Constants.RedirectServiceParams.url: url])
-    }
-
-    // MARK: - POI proximity check
-    public func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
-        appManager.isPoiInRange(with: id) { isAvailable in
-            DispatchQueue.main.async {
-                completion(isAvailable)
-            }
-        }
     }
 }
 

@@ -11,5 +11,6 @@ extension PACECloudSDK {
     func setupKits(with config: Configuration) {
         IDKit.determineOIDConfiguration(with: config.customOIDConfiguration)
         AppKit.shared.setup()
+        // POIKit setup not needed
     }
 }

@@ -31,7 +31,7 @@ class AppControl {
     }
 
     func requestAllCoFuStations() {
-        AppKit.shared.requestCofuGasStations { stations in
+        POIKit.requestCofuGasStations { stations in
             NSLog("Current cofu stations count: \(stations?.count ?? -1)")
         }
     }
@@ -45,7 +45,7 @@ class AppControl {
     }
 
     func isPoiInRange(with id: String) {
-        AppKit.shared.isPoiInRange(id: id) { result in
+        POIKit.isPoiInRange(id: id) { result in
             NSLog("\(id) in range: \(result)")
         }
     }

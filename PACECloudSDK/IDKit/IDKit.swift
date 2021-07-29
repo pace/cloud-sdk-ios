@@ -10,18 +10,18 @@ import AppAuth
 public class IDKit {
     static var shared: IDKit? {
         PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
-        return sharedInternal
+        return sharedInstance
     }
 
     static var isSetUp: Bool {
-        sharedInternal != nil
+        sharedInstance != nil
     }
 
     static var isSessionAvailable: Bool {
-        sharedInternal?.session != nil
+        sharedInstance?.session != nil
     }
 
-    private static var sharedInternal: IDKit?
+    private static var sharedInstance: IDKit?
 
     weak var delegate: IDKitDelegate?
 
@@ -40,7 +40,7 @@ public class IDKit {
     }
 
     private static func setup(with configuration: OIDConfiguration) {
-        sharedInternal = IDKit(with: configuration)
+        sharedInstance = IDKit(with: configuration)
     }
 
     static func determineOIDConfiguration(with customOIDConfig: OIDConfiguration?) {
