@@ -102,7 +102,7 @@ public extension IDKit {
      - parameter issueUrl: The issuer url.
      - parameter completion: The block to be called when the discovery is completed either including the `authorizationEndpoint` and `tokenEndpoint` or an `error`.
      */
-    static func discoverConfiguration(issuerUrl: String, _ completion: @escaping ((String?, String?, IDKitError?) -> Void)) {
+    static func discoverConfiguration(issuerUrl: String, _ completion: @escaping (Result<OIDConfiguration.Response, IDKitError>) -> Void) {
         performDiscovery(issuerUrl: issuerUrl, completion)
     }
 }
@@ -113,7 +113,7 @@ public extension IDKit {
      Performs an OID authorization request.
      - parameter completion: The block to be called when the request is completed including either a valid `accessToken` or an `error`.
      */
-    static func authorize(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
+    static func authorize(_ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         shared?.performAuthorization(showSignInMask: false, completion)
     }
 
@@ -121,7 +121,7 @@ public extension IDKit {
      Refreshes the current access token if needed.
      - parameter completion: The block to be called when the request is completed including either a new valid `accessToken` or an `error`.
      */
-    static func refreshToken(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
+    static func refreshToken(_ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         shared?.performRefresh(completion)
     }
 
@@ -165,7 +165,7 @@ public extension IDKit {
     Retrieves the currently authorized user's information.
      - parameter completion: The block to be called when the request is completed including either a valid `userInfo` or an `error`.
      */
-    static func userInfo(completion: @escaping (UserInfo?, IDKitError?) -> Void) {
+    static func userInfo(completion: @escaping (Result<UserInfo, IDKitError>) -> Void) {
         shared?.userInfo(completion: completion)
     }
 }

@@ -14,6 +14,10 @@ x.y.z Release notes (yyyy-MM-dd)
 * The data type of the completion parameter of AppKit's `fetchListOfApps(...)` has been changed from `([AppKit.AppData]?, AppKit.AppError?)` to `(Result<[AppKit.AppData], AppKit.AppError>)`
 * The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
 * POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
+* The data type of the completion parameter of IDKit's `authorize(...)` has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+* The data type of the completion parameter of IDKit's `refreshToken(...)` has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+* The data type of the completion parameter of IDKit's `discoverConfiguration(...)` has been changed from `(String?, String?, IDKitError?)` to `(Result<OIDConfiguration.Response, IDKitError>)`
+* The data type of the completion parameter of IDKit's `userInfo(...)` has been changed from `(UserInfo?, IDKitError?)` to `(Result<UserInfo, IDKitError>)`
 
 ### Enhancements
 
@@ -21,6 +25,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Show AppDrawer based on distance instead of an area
 * Add new `func currentLocation(completion: @escaping (CLLocation?) -> Void)` callback to `AppKitDelegate`. This request only gets called if an app requests the user's current location and the SDK can't retrieve a valid one.
 * Add new target for watch application
+* Add code documentation for most of AppKit's and POIKit's / POIKitManager's calls
 
 ### Fixes
 
@@ -28,6 +33,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix overlapping labels in AppDrawer
 * Fix generation of accept headers
 * Adjust handling of too large bounding boxes when requesting tiles
+* Adjust sdk error view
 
 ### Internal
 

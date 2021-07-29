@@ -9,19 +9,19 @@ import AppAuth
 
 // MARK: - Authorization
 extension IDKit {
-    func performAuthorization(showSignInMask: Bool, _ completion: @escaping ((String?, IDKitError?) -> Void)) {
+    func performAuthorization(showSignInMask: Bool, _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         guard let authorizationEndpointUrl = URL(string: configuration.authorizationEndpoint) else {
-            completion(nil, IDKitError.invalidAuthorizationEndpoint)
+            completion(.failure(.invalidAuthorizationEndpoint))
             return
         }
 
         guard let tokenEndpointUrl = URL(string: configuration.tokenEndpoint) else {
-            completion(nil, IDKitError.invalidTokenEndpoint)
+            completion(.failure(.invalidTokenEndpoint))
             return
         }
 
         guard let redirectUrl = URL(string: configuration.redirectUri) else {
-            completion(nil, IDKitError.invalidRedirectUrl)
+            completion(.failure(.invalidRedirectUrl))
             return
         }
 
@@ -35,7 +35,7 @@ extension IDKit {
         }()
 
         guard let viewController = presentingViewController else {
-            completion(nil, IDKitError.invalidPresentingViewController)
+            completion(.failure(.invalidPresentingViewController))
             return
         }
 
@@ -67,19 +67,19 @@ extension IDKit {
 
     private func startAuthorizationFlow(with request: OIDAuthorizationRequest,
                                         presentingViewController: UIViewController,
-                                        _ completion: @escaping ((String?, IDKitError?) -> Void)) {
+                                        _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         let callback: OIDAuthStateAuthorizationCallback = { [weak self] authState, error in
             defer {
                 self?.paceIDSignInWindow = nil
             }
 
             if let error = error {
-                self?.performReset { completion(nil, IDKitError.other(error)) }
+                self?.performReset { completion(.failure(.other(error))) }
                 return
             }
 
             guard let session = authState else {
-                self?.performReset { completion(nil, IDKitError.failedRetrievingSessionWhileAuthorizing) }
+                self?.performReset { completion(.failure(.failedRetrievingSessionWhileAuthorizing)) }
                 return
             }
 
@@ -90,7 +90,7 @@ extension IDKit {
             let accessToken = session.lastTokenResponse?.accessToken
             API.accessToken = accessToken
 
-            completion(accessToken, nil)
+            completion(.success(accessToken))
             IDKitLogger.i("Authorization successful")
         }
 
@@ -113,9 +113,9 @@ extension IDKit {
 
 // MARK: - Refresh
 extension IDKit {
-    func performRefresh(_ completion: @escaping ((String?, IDKitError?) -> Void)) {
+    func performRefresh(_ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         guard let session = session else {
-            completion(nil, IDKitError.invalidSession)
+            completion(.failure(.invalidSession))
             return
         }
 
@@ -123,16 +123,16 @@ extension IDKit {
         session.performAction(freshTokens: { [weak self] accessToken, _, error in
             guard let error = error else {
                 API.accessToken = accessToken
-                completion(accessToken, nil)
+                completion(.success(accessToken))
                 IDKitLogger.i("Refresh successful")
                 return
             }
 
             if session.isAuthorized {
                 // e.g network error
-                completion(nil, IDKitError.other(error))
+                completion(.failure(.other(error)))
             } else {
-                self?.performReset { completion(nil, IDKitError.failedTokenRefresh(error)) }
+                self?.performReset { completion(.failure(.failedTokenRefresh(error))) }
             }
         })
     }
