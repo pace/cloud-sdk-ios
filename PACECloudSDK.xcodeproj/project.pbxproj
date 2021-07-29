@@ -218,10 +218,11 @@
 		3B91804E268F435300176ECD /* IsBiometricAuthEnabledResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */; };
 		3B9655E626B286A700921766 /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655E526B286A700921766 /* CofuGasStation.swift */; };
 		3B9655E726B286B600921766 /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655E526B286A700921766 /* CofuGasStation.swift */; };
-		3B9655E826B286EA00921766 /* GeoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C74F25DD67E500039296 /* GeoAPIManager.swift */; };
 		3B9655EA26B28E2800921766 /* CofuGasStation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655E926B28E2800921766 /* CofuGasStation+Extension.swift */; };
 		3B9655EC26B2981700921766 /* POIKit+GeoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655EB26B2981700921766 /* POIKit+GeoService.swift */; };
 		3B9655ED26B2981D00921766 /* POIKit+GeoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655EB26B2981700921766 /* POIKit+GeoService.swift */; };
+		3B9655F026B2A00900921766 /* AppKit+AppManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655EF26B2A00900921766 /* AppKit+AppManagerDelegate.swift */; };
+		3B9655F126B2A01700921766 /* AppKit+AppManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655EF26B2A00900921766 /* AppKit+AppManagerDelegate.swift */; };
 		3B96928625E3C18300E42703 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
 		3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */; };
 		3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */; };
@@ -1076,6 +1077,7 @@
 		3B9655E526B286A700921766 /* CofuGasStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CofuGasStation.swift; sourceTree = "<group>"; };
 		3B9655E926B28E2800921766 /* CofuGasStation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CofuGasStation+Extension.swift"; sourceTree = "<group>"; };
 		3B9655EB26B2981700921766 /* POIKit+GeoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKit+GeoService.swift"; sourceTree = "<group>"; };
+		3B9655EF26B2A00900921766 /* AppKit+AppManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+AppManagerDelegate.swift"; sourceTree = "<group>"; };
 		3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoAPIManager+Slim.swift"; sourceTree = "<group>"; };
 		3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		3B970A002542D9B90072F6BA /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -1675,9 +1677,9 @@
 		3B5503ED2539E53100C291F1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3B9655E926B28E2800921766 /* CofuGasStation+Extension.swift */,
 				3B5504122539E81F00C291F1 /* Date+Extension.swift */,
 				3BC9A7E72539DDAD00B933AE /* Vector2+Extension.swift */,
-				3B9655E926B28E2800921766 /* CofuGasStation+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1812,6 +1814,7 @@
 			isa = PBXGroup;
 			children = (
 				3B970A232542D9BA0072F6BA /* AppKit.swift */,
+				3B9655EF26B2A00900921766 /* AppKit+AppManagerDelegate.swift */,
 				3B970A222542D9BA0072F6BA /* AppKit+Authorization.swift */,
 				3B970A212542D9BA0072F6BA /* AppKit+Configuration.swift */,
 				3B970A5C2542D9BB0072F6BA /* AppKit+Delegate.swift */,
@@ -1969,7 +1972,6 @@
 			children = (
 				3B970A4C2542D9BA0072F6BA /* BaseQueryParams.swift */,
 				3B970A562542D9BA0072F6BA /* RedirectServiceData.swift */,
-				3B97EF3425DE923C00E096B1 /* Geo */,
 				3B970A422542D9BA0072F6BA /* MessageHandling */,
 				3B970A452542D9BA0072F6BA /* URLHandling */,
 			);
@@ -2041,13 +2043,6 @@
 				3BB1442C25386F2C004E9F63 /* SessionCache.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		3B97EF3425DE923C00E096B1 /* Geo */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Geo;
 			sourceTree = "<group>";
 		};
 		3B987019268E06AE00A0458F /* Communication */ = {
@@ -2222,21 +2217,21 @@
 			isa = PBXGroup;
 			children = (
 				3BC9A7A32539DDAC00B933AE /* Model */,
-				3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */,
 				8482BAD325D5342000A7CD16 /* HttpRequest.swift */,
 				3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */,
-				3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */,
-				3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */,
 				3BC9A7BC2539DDAC00B933AE /* POIKitAPI.swift */,
-				92EDDDD025A745C400E480F4 /* POIKitAPIProtocol.swift */,
-				3BC9A7BD2539DDAC00B933AE /* POIKitAPI+VectorTiles.swift */,
+				3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */,
 				92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */,
+				3BC9A7C12539DDAC00B933AE /* POIKitAPI+POIFilters.swift */,
+				3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */,
+				3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */,
 				3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */,
+				3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */,
+				3BC9A7BD2539DDAC00B933AE /* POIKitAPI+VectorTiles.swift */,
+				3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */,
+				92EDDDD025A745C400E480F4 /* POIKitAPIProtocol.swift */,
 				92EDDDBD25A7401A00E480F4 /* PoiKitObserverToken.swift */,
 				92EDDE7625A916E000E480F4 /* PoiKitObserverToken+Tiles.swift */,
-				3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */,
-				3BC9A7C12539DDAC00B933AE /* POIKitAPI+POIFilters.swift */,
-				3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */,
 			);
 			path = POIKitApi;
 			sourceTree = "<group>";
@@ -3472,6 +3467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84600EB625C03B0C0087194F /* PayAPIListTransactions.swift in Sources */,
+				3B9655F026B2A00900921766 /* AppKit+AppManagerDelegate.swift in Sources */,
 				3B987055268E06AE00A0458F /* SetUserPropertyResult.swift in Sources */,
 				84D6F88625BAC1F3002824F9 /* Fueling.swift in Sources */,
 				92EDDE7725A916E000E480F4 /* PoiKitObserverToken+Tiles.swift in Sources */,
@@ -4208,7 +4204,6 @@
 				8418E26325B1B85A00D3722B /* PCPOIPolicyRulePriority.swift in Sources */,
 				92EDDBF825A7270300E480F4 /* AppDrawerTheme.swift in Sources */,
 				92EDDC1825A7270300E480F4 /* URLBuilder.swift in Sources */,
-				3B9655E826B286EA00921766 /* GeoAPIManager.swift in Sources */,
 				84600F3325C03B1F0087194F /* POIAPIGetAppPOIsRelationships.swift in Sources */,
 				8418E23C25B1B82900D3722B /* PCPOIFuel.swift in Sources */,
 				92EDDBE625A726AD00E480F4 /* AppKit+Authorization.swift in Sources */,
@@ -4252,6 +4247,7 @@
 				3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */,
 				84600F3925C03B1F0087194F /* POIAPIGetAppRedirect.swift in Sources */,
 				92EDDC0F25A7270300E480F4 /* CookieStorage.swift in Sources */,
+				3B9655F126B2A01700921766 /* AppKit+AppManagerDelegate.swift in Sources */,
 				92EDDC5725A729D300E480F4 /* Data+Extension.swift in Sources */,
 				92EDDBED25A7270300E480F4 /* URLParam.swift in Sources */,
 				3B98708A268E06AE00A0458F /* GetSecureDataRequest.swift in Sources */,

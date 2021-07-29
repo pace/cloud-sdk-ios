@@ -10,6 +10,10 @@ x.y.z Release notes (yyyy-MM-dd)
 * AppKit's `isPoiInRange(...)` is now part of `POIKit`, available under `POIKit.isPoiInRange(...)`
 * AppKit's `requestCofuGasStations(...)` is now part of `POIKit`, available under `POIKit.requestCofuGasStations(...)`
 * AppKit's model `CofuGasStation` is now part of `POIKit`, available under `POIKit.CofuGasStation`
+* AppKit's `shared` property is no longer publicly accessible. All methods and properties of type `AppKit.shared.fooBar()` are now accessible via `AppKit.fooBar()`
+* The data type of the completion parameter of AppKit's `fetchListOfApps(...)` has been changed from `([AppKit.AppData]?, AppKit.AppError?)` to `(Result<[AppKit.AppData], AppKit.AppError>)`
+* The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
+* POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
 
 ### Enhancements
 

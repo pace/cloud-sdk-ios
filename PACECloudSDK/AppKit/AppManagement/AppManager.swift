@@ -114,9 +114,9 @@ extension AppManager {
         }
     }
 
-    func fetchListOfApps(completion: @escaping (([AppKit.AppData]?, AppKit.AppError?) -> Void)) {
+    func fetchListOfApps(completion: @escaping (Result<[AppKit.AppData], AppKit.AppError>) -> Void) {
         guard !isGeneralFetchRunning else {
-            completion(nil, .fetchAlreadyRunning)
+            completion(.failure(.fetchAlreadyRunning))
             return
         }
 
@@ -130,7 +130,7 @@ extension AppManager {
             switch apiResult.result {
             case .success(let response):
                 guard let apps = response.success?.data else {
-                    completion(nil, .couldNotFetchApp)
+                    completion(.failure(.couldNotFetchApp))
                     return
                 }
 
@@ -152,11 +152,11 @@ extension AppManager {
                     appDatas.append(appData)
                 }
 
-                completion(appDatas, nil)
+                completion(.success(appDatas))
 
             case .failure(let error):
                 AppKitLogger.e("[AppManager] failed fetching list of apps with error \(error)")
-                completion(nil, .other(error))
+                completion(.failure(.other(error)))
             }
         }
     }

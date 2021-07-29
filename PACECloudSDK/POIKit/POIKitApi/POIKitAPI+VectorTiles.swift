@@ -8,9 +8,9 @@
 import CoreLocation
 import UIKit
 
+// MARK: - Retrieving pois without needing a database
 extension POIKitAPI {
-    func fetchPOIs(poisOfType: POIKit.POILayer,
-                   boundingBox: POIKit.BoundingBox,
+    func fetchPOIs(boundingBox: POIKit.BoundingBox,
                    forceLoad: Bool = false,
                    handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.minZoomLevelFullDetails
@@ -36,8 +36,32 @@ extension POIKitAPI {
         }
     }
 
-    func loadPOIs(poisOfType: POIKit.POILayer,
-                  boundingBox: POIKit.BoundingBox,
+    func fetchPOIs(locations: [CLLocation], handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
+        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
+        let tiles = locations
+            .map { $0.coordinate.tileCoordinate(withZoom: zoomLevel) }
+            .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) }
+
+        let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
+
+        return loadPois(tileRequest, boundingBox: nil) { result in
+            switch result {
+            case .failure(let error):
+                handler(.failure(error))
+
+            case .success(let tiles):
+                // Parse gas stations and save to database
+                self.save(tiles)
+                let stations = self.extractPOIS(from: tiles)
+                handler(.success(stations))
+            }
+        }
+    }
+}
+
+// MARK: - Retrieving pois only with a database
+extension POIKitAPI {
+    func loadPOIs(boundingBox: POIKit.BoundingBox,
                   forceLoad: Bool = false,
                   handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
         let zoomLevel = POIKitConfig.minZoomLevelFullDetails
@@ -89,29 +113,9 @@ extension POIKitAPI {
             }
         }
     }
+}
 
-    func loadPOIs(locations: [CLLocation], handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
-        let tiles = locations
-            .map { $0.coordinate.tileCoordinate(withZoom: zoomLevel) }
-            .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) }
-
-        let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
-
-        return loadPois(tileRequest, boundingBox: nil) { result in
-            switch result {
-            case .failure(let error):
-                handler(.failure(error))
-
-            case .success(let tiles):
-                // Parse gas stations and save to database
-                self.save(tiles)
-                let stations = self.extractPOIS(from: tiles)
-                handler(.success(stations))
-            }
-        }
-    }
-
+extension POIKitAPI {
     func loadPois(_ tileRequest: TileQueryRequest, // swiftlint:disable:this cyclomatic_complexity function_body_length
                   boundingBox: POIKit.BoundingBox?,
                   completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> CancellablePOIAPIRequest? {

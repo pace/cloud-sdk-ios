@@ -15,11 +15,20 @@ extension POIKit {
 }
 
 public extension POIKit {
+    /**
+     Request connected fueling gas stations for the specified option.
+     - parameter option: The option that defines which connected fueling gas stations will be contained in the response.
+     - parameter completion: The block to be called when the response is available either containing a list of connected fueling gas stations or `nil` if the retrieval failed.
+     */
     static func requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) -> Void) {
         shared.requestCofuGasStations(option: option, completion: completion)
     }
 
-    // MARK: - POI proximity check
+    /**
+     Checks if the gas station with the specified id is in the range of the user's current location.
+     - parameter id: The id of the gas station.
+     - parameter completion: The block to be called when the check has been completed containing the result.
+     */
     static func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
         shared.isPoiInRange(id: id, completion: completion)
     }

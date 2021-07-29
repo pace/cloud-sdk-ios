@@ -39,19 +39,17 @@ protocol POIKitAPIProtocol {
 
     func gasStation(_ request: GasStationRequest, result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void)
 
-    func fetchPOIs(poisOfType: POIKit.POILayer,
-                   boundingBox: POIKit.BoundingBox,
+    func fetchPOIs(boundingBox: POIKit.BoundingBox,
                    forceLoad: Bool,
                    handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
-    func loadPOIs(poisOfType: POIKit.POILayer,
-                  boundingBox: POIKit.BoundingBox,
+    func fetchPOIs(locations: [CLLocation],
+                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
+
+    func loadPOIs(boundingBox: POIKit.BoundingBox,
                   forceLoad: Bool,
                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 
     func loadPOIs(uuids: [String],
-                  handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
-
-    func loadPOIs(locations: [CLLocation],
                   handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
 }
