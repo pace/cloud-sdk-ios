@@ -274,6 +274,7 @@ class GeoAPIManager {
                 }
 
                 if let error = error {
+                    print("POI error")
                     if (error as NSError?)?.code == NSURLErrorCancelled {
                         self?.notifyResultHandlers(with: .failure(.requestCancelled))
                         return

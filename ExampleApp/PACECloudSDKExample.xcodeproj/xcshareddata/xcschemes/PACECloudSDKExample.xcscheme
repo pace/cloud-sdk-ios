@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B3D31202553E6F200FDF82B"
+               BlueprintIdentifier = "3B784C3126B3E5E500B1D859"
                BuildableName = "PACECloudSDKExample.app"
                BlueprintName = "PACECloudSDKExample"
                ReferencedContainer = "container:PACECloudSDKExample.xcodeproj">
@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B3D31362553E6F200FDF82B"
-               BuildableName = "PACECloudSDKExampleTests.xctest"
-               BlueprintName = "PACECloudSDKExampleTests"
-               ReferencedContainer = "container:PACECloudSDKExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B3D31412553E6F200FDF82B"
-               BuildableName = "PACECloudSDKExampleUITests.xctest"
-               BlueprintName = "PACECloudSDKExampleUITests"
-               ReferencedContainer = "container:PACECloudSDKExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -64,14 +44,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3B3D31202553E6F200FDF82B"
+            BlueprintIdentifier = "3B784C3126B3E5E500B1D859"
             BuildableName = "PACECloudSDKExample.app"
             BlueprintName = "PACECloudSDKExample"
             ReferencedContainer = "container:PACECloudSDKExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <LocationScenarioReference
-         identifier = "../../PACECloudSDKExample/PACE.gpx"
+         identifier = "../../PACECloudSDKExample/Utils/GPX/PACE.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
@@ -85,7 +65,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3B3D31202553E6F200FDF82B"
+            BlueprintIdentifier = "3B784C3126B3E5E500B1D859"
             BuildableName = "PACECloudSDKExample.app"
             BlueprintName = "PACECloudSDKExample"
             ReferencedContainer = "container:PACECloudSDKExample.xcodeproj">
