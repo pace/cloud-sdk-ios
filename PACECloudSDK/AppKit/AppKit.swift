@@ -10,20 +10,16 @@ import UIKit
 import WebKit
 
 public class AppKit {
-    public static var shared: AppKit {
+    static var shared: AppKit {
         PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
-        return sharedInternal
+        return sharedInstance
     }
 
-    private static let sharedInternal = AppKit()
+    private static let sharedInstance = AppKit()
 
-    public weak var delegate: AppKitDelegate?
+    weak var delegate: AppKitDelegate?
 
-    /// The current theme of the AppViewControllers and the App itself
-    /// Choose between `.light`, `.dark` and `.automatic`
-    /// The initial value is `.automatic``which is based on the current system interface style
-    public var theme: AppKitTheme = .automatic
-
+    var theme: AppKitTheme = .automatic
     let requestTimeoutHandler: RequestTimeoutHandler
 
     private let appManager: AppManager
@@ -39,127 +35,149 @@ public class AppKit {
 
     func setup(theme: AppKitTheme = .automatic) {
         self.theme = theme
-
         appManager.setConfigValues()
     }
+}
 
-    public func requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) -> Void) {
-        appManager.cofuGasStations(option: option, completion: completion)
+// MARK: - Setup
+public extension AppKit {
+    /**
+     The delegate of AppKit.
+     */
+    static var delegate: AppKitDelegate? {
+        get { shared.delegate }
+        set { shared.delegate = newValue }
     }
 
-    // MARK: - Drawer / Location based apps
-    public func requestLocalApps() {
-        appManager.startRetrievingLocation()
+    /**
+     The current theme of the AppViewControllers and the App itself.
+     Choose between `.light`, `.dark` and `.automatic`.
+     The initial value is `.automatic``which is based on the current system interface style.
+     */
+    static var theme: AppKitTheme {
+        get { shared.theme }
+        set { shared.theme = newValue }
+    }
+}
+
+// MARK: - AppViewControllers
+public extension AppKit {
+    /**
+     Returns an `AppViewController` object that loads an app with the specified url.
+     - parameter appUrl: The URL of the app.
+     - parameter hasNavigationBar: Specifies if the navigation bar of the view controller will be displayed. Defaults to `false`.
+     - parameter completion: The block to be called when the view controller gets closed.
+     - returns: The prepared `AppViewController` object.
+     */
+    static func appViewController(appUrl: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
+        AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
     }
 
-    // MARK: - Apps as list
-    public func requestListOfAppData(completion: @escaping (([AppData]?, AppError?) -> Void)) {
-        appManager.fetchListOfApps { appDatas, error in
+    /**
+     Returns an `AppViewController` object that loads an app with the specified preset url.
+     - parameter presetUrl: The pre-set url for an app.
+     - parameter hasNavigationBar: Specifies if the navigation bar of the view controller will be displayed. Defaults to `false`.
+     - parameter completion: The block to be called when the view controller gets closed.
+     - returns: The prepared `AppViewController` object.
+     */
+    static func appViewController(presetUrl: PACECloudSDK.URL, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
+        appViewController(appUrl: presetUrl.absoluteString, hasNavigationBar: hasNavigationBar, completion: completion)
+    }
+
+    /**
+     Returns an `AppViewController` object that loads an app with the specified url and gas station reference.
+     - parameter appUrl: The URL of the app.
+     - parameter reference: The gas station reference.
+     - parameter hasNavigationBar: Specifies if the navigation bar of the view controller will be displayed. Defaults to `false`.
+     - parameter completion: The block to be called when the view controller gets closed.
+     - returns: The prepared `AppViewController` object.
+     */
+    static func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
+        let appUrl = shared.appManager.buildAppUrl(with: appUrl, for: reference)
+        return AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
+    }
+}
+
+// MARK: - AppWebViews
+public extension AppKit {
+    /**
+     Returns an webview object that loads an app with the specified url.
+     - parameter appUrl: The URL of the app.
+     - returns: The prepared webview object.
+     */
+    static func appWebView(appUrl: String) -> WKWebView {
+        AppWebView(with: appUrl)
+    }
+
+    /**
+     Returns a webview object that loads an app with the specified preset url.
+     - parameter presetUrl: The pre-set url for an app.
+     - returns: The prepared webview object.
+     */
+    static func appWebView(presetUrl: PACECloudSDK.URL) -> WKWebView {
+        appWebView(appUrl: presetUrl.absoluteString)
+    }
+
+    /**
+     Returns a webview object that loads an app with the specified url and gas station reference.
+     - parameter appUrl: The URL of the app.
+     - parameter reference: The gas station reference.
+     - returns: The prepared webview object.
+     */
+    static func appWebView(appUrl: String, reference: String) -> WKWebView {
+        let appUrl = shared.appManager.buildAppUrl(with: appUrl, for: reference)
+        return AppWebView(with: appUrl)
+    }
+}
+
+public extension AppKit {
+    /**
+     Requests apps near the user's current location.
+
+     The response will be delivered via both AppKitDelegate's callbacks `didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])`
+     and `didReceiveAppData(_ appData: [AppKit.AppData])`
+     */
+    static func requestLocalApps() {
+        shared.appManager.startRetrievingLocation()
+    }
+
+    /**
+     Requests a list `AppData` for all available apps.
+     */
+    static func requestListOfAppData(completion: @escaping (Result<[AppKit.AppData], AppKit.AppError>) -> Void) {
+        shared.appManager.fetchListOfApps { result in
             DispatchQueue.main.async {
-                completion(appDatas, error)
+                completion(result)
             }
         }
     }
 
-    // MARK: - WebView or ViewController / apps with url
-    public func appViewController(appUrl: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
-        AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
+    /**
+     Sets up geofences and starts monitoring the specified regions.
+     - parameter locations: A list of keys along a given coordinate.
+     */
+    static func setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D]) {
+        shared.appManager.setupGeofenceRegions(for: locations)
     }
 
-    public func appWebView(appUrl: String) -> WKWebView {
-        AppWebView(with: appUrl)
+    /**
+     Resets the geofences that have previously been set up via `setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D])`.
+     */
+    static func resetGeofences() {
+        shared.appManager.resetGeofences()
     }
 
-    // MARK: - WebView or ViewController with preset urls
-    public func appViewController(presetUrl: PACECloudSDK.URL, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
-        appViewController(appUrl: presetUrl.absoluteString, hasNavigationBar: hasNavigationBar, completion: completion)
-    }
-
-    public func appWebView(presetUrl: PACECloudSDK.URL) -> WKWebView {
-        appWebView(appUrl: presetUrl.absoluteString)
-    }
-
-    // MARK: - WebView or ViewController / apps with app url and reference
-    public func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
-        let appUrl = appManager.buildAppUrl(with: appUrl, for: reference)
-        return AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
-    }
-
-    public func appWebView(appUrl: String, reference: String) -> WKWebView {
-        let appUrl = appManager.buildAppUrl(with: appUrl, for: reference)
-        return AppWebView(with: appUrl)
-    }
-
-    public func sendEvent(_ event: AppEvent) {
-        NotificationCenter.default.post(name: .appEventOccured, object: event)
-    }
-
-    public func setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D]) {
-        appManager.setupGeofenceRegions(for: locations)
-    }
-
-    public func resetGeofences() {
-        appManager.resetGeofences()
-    }
-
-    public func handleRedirectURL(_ url: URL) {
+    /**
+     Handles the specified redirect URL within an `AppViewController`.
+     - parameter url: The redirect URL.
+     */
+    static func handleRedirectURL(_ url: URL) {
         NotificationCenter.default.post(name: AppKit.Constants.NotificationIdentifier.caughtRedirectService,
                                         object: nil,
                                         userInfo: [AppKit.Constants.RedirectServiceParams.url: url])
     }
 
-    // MARK: - POI proximity check
-    public func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
-        appManager.isPoiInRange(with: id) { isAvailable in
-            DispatchQueue.main.async {
-                completion(isAvailable)
-            }
-        }
-    }
-}
-
-extension AppKit: AppManagerDelegate {
-    func didEnterGeofence(with id: String) {
-        notifyDidEnterGeofence(with: id)
-    }
-
-    func didExitGeofence(with id: String) {
-        notifyDidExitGeofence(with: id)
-    }
-
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error) {
-        notifyDidFailToMonitorRegion(region, error: error)
-    }
-
-    func passErrorToClient(_ error: AppError) {
-        notifyDidFail(with: error)
-    }
-
-    func didReceiveAppDatas(_ appDatas: [AppData]) {
-        // Filter out Apps that should not be shown
-        let filteredAppData: [AppData] = appDatas.filter {
-            guard let urlHost = URL(string: $0.appBaseUrl ?? "")?.host,
-                let disableTime: Double = UserDefaults.standard.value(forKey: "disable_time_\(urlHost)") as? Double
-            else {
-                return true
-            }
-
-            if Date().timeIntervalSince1970 >= disableTime {
-                AppKitLogger.i("Disable timer for \(urlHost) has been reached.")
-                UserDefaults.standard.removeObject(forKey: "disable_time_\(urlHost)")
-
-                return true
-            }
-
-            AppKitLogger.i("Don't show \(urlHost), because disable timer has not been reached.")
-            return false
-        }
-
-        let appDrawers = filteredAppData.map { AppDrawer(with: $0) }
-        notifyDidReceiveAppDrawerContainer(appDrawers, filteredAppData)
-    }
-
-    func didEscapeForecourt(_ appDatas: [AppData]) {
-        notifyDidEscapeForecourt(appDatas)
+    static func sendEvent(_ event: AppEvent) {
+        NotificationCenter.default.post(name: .appEventOccured, object: event)
     }
 }

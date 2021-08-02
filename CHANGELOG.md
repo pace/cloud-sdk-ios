@@ -7,6 +7,17 @@ x.y.z Release notes (yyyy-MM-dd)
 > **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
 * The data type of the completion parameter for the `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
 * The data type of the completion parameter for the `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
+* AppKit's `isPoiInRange(...)` is now part of `POIKit`, available under `POIKit.isPoiInRange(...)`
+* AppKit's `requestCofuGasStations(...)` is now part of `POIKit`, available under `POIKit.requestCofuGasStations(...)`
+* AppKit's model `CofuGasStation` is now part of `POIKit`, available under `POIKit.CofuGasStation`
+* AppKit's `shared` property is no longer publicly accessible. All methods and properties of type `AppKit.shared.fooBar()` are now accessible via `AppKit.fooBar()`
+* The data type of the completion parameter of AppKit's `fetchListOfApps(...)` has been changed from `([AppKit.AppData]?, AppKit.AppError?)` to `(Result<[AppKit.AppData], AppKit.AppError>)`
+* The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
+* POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
+* The data type of the completion parameter of IDKit's `authorize(...)` has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+* The data type of the completion parameter of IDKit's `refreshToken(...)` has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+* The data type of the completion parameter of IDKit's `discoverConfiguration(...)` has been changed from `(String?, String?, IDKitError?)` to `(Result<OIDConfiguration.Response, IDKitError>)`
+* The data type of the completion parameter of IDKit's `userInfo(...)` has been changed from `(UserInfo?, IDKitError?)` to `(Result<UserInfo, IDKitError>)`
 
 ### Enhancements
 
@@ -14,6 +25,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Show AppDrawer based on distance instead of an area
 * Add new `func currentLocation(completion: @escaping (CLLocation?) -> Void)` callback to `AppKitDelegate`. This request only gets called if an app requests the user's current location and the SDK can't retrieve a valid one.
 * Add new target for watch application
+* Add code documentation for most of AppKit's and POIKit's / POIKitManager's calls
 
 ### Fixes
 
@@ -21,6 +33,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix overlapping labels in AppDrawer
 * Fix generation of accept headers
 * Adjust handling of too large bounding boxes when requesting tiles
+* Adjust sdk error view
 
 ### Internal
 

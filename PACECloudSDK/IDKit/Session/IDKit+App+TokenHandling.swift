@@ -15,30 +15,36 @@ extension IDKit {
             return
         }
 
-        performRefresh { [weak self] accessToken, error in
-            guard let error = error else {
+        performRefresh { [weak self] result in
+            switch result {
+            case .success(let accessToken):
                 completion(accessToken)
-                return
-            }
 
-            guard case .failedTokenRefresh = error else {
-                completion(nil)
-                return
-            }
+            case .failure(let error):
+                guard case .failedTokenRefresh = error else {
+                    completion(nil)
+                    return
+                }
 
-            self?.performAppInducedSessionReset(with: error, completion)
+                self?.performAppInducedSessionReset(with: error, completion)
+            }
         }
     }
 
     func performAppInducedAuthorization(_ completion: @escaping (String?) -> Void) {
-        performAuthorization(showSignInMask: true) { accessToken, error in
-            if let error = error {
-                self.delegate?.didPerformAuthorization(.failure(error))
+        performAuthorization(showSignInMask: true) { [weak self] result in
+            switch result {
+            case .success(let accessToken):
+                if let accessToken = accessToken {
+                    self?.delegate?.didPerformAuthorization(.success(accessToken))
+                }
+                completion(accessToken)
+
+            case .failure(let error):
+                self?.delegate?.didPerformAuthorization(.failure(error))
                 IDKitLogger.e("App induced authorization failed with error \(error).")
-            } else if let accessToken = accessToken {
-                self.delegate?.didPerformAuthorization(.success(accessToken))
+                completion(nil)
             }
-            completion(accessToken)
         }
     }
 

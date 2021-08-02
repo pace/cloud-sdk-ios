@@ -12,11 +12,8 @@ import Foundation
  This class is used to fetch and temporarily store a geojson response
  which contains every cofu gas station with its polygon and app information.
 
- For every `requestLocalApps()` triggered by the client it returns the currently
- available apps for the given location without sending a request every time.
-
  To reduce network requests and computation the caching is implemented as follows:
- - Fetch the geojson information with the initial `requestLocalApps()` call and decode the json
+ - Fetch the geojson information with the initial call and decode the json
  - Build a cache object by only using the cofu stations that are within a specified radius
  - This cache object is valid for a predefined time to return apps
  - If the cache expires or the user's location isn't in the specified radius anymore -> Send new request
@@ -27,7 +24,7 @@ class GeoAPIManager {
     var geoAppsScope: String = PACECloudSDK.shared.config?.geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
 
     private let session: URLSession
-    private let cloudQueue = DispatchQueue(label: "appkit-cloud-queue")
+    private let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
     private let apiVersion = "2021-1"
 
     private var sessionTask: URLSessionDataTask?
@@ -62,7 +59,7 @@ class GeoAPIManager {
     }
 
     // Load cofu stations for a specific area; location based
-    func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+    func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         if isSpeedThresholdExceeded(for: location) {
             result(.failure(.invalidSpeed))
             return
@@ -92,7 +89,7 @@ class GeoAPIManager {
     }
 
     // Load all available cofu stations with certain options
-    func cofuGasStations(option: AppKit.CofuGasStation.Option, result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+    func cofuGasStations(option: POIKit.CofuGasStation.Option, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         guard let cachedCofuFeatures = allCofuFeatures, !isCofuCacheOutdated() else {
             // Send request if cache is not available or outdated
             fetchCofuGasStations(for: nil) { [weak self] response in
@@ -118,12 +115,12 @@ class GeoAPIManager {
 
     private func loadLocationBasedCofuStations(with features: [GeoAPIFeature],
                                                location: CLLocation,
-                                               result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+                                               result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         cloudQueue.async { [weak self] in
             guard let self = self else { return }
             let cofuStations = self.retrieveCoFuGasStations(from: features)
 
-            let apps: [AppKit.CofuGasStation] = cofuStations.filter { station in
+            let apps: [POIKit.CofuGasStation] = cofuStations.filter { station in
                 if let coordinates = station.coordinates,
                    let lat = coordinates[safe: 1],
                    let lon = coordinates[safe: 0] {
@@ -149,10 +146,10 @@ class GeoAPIManager {
     }
 
     private func loadAllCofuStations(with features: [GeoAPIFeature],
-                                     option: AppKit.CofuGasStation.Option,
-                                     result: @escaping (Result<[AppKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+                                     option: POIKit.CofuGasStation.Option,
+                                     result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         cloudQueue.async {
-            var cofuStations: [AppKit.CofuGasStation] = []
+            var cofuStations: [POIKit.CofuGasStation] = []
 
             if case let .boundingBox(center, radius) = option {
                 let filteredFeatures = self.applyRadiusFilter(features, for: center, radius: radius)
@@ -199,7 +196,7 @@ class GeoAPIManager {
         }
     }
 
-    private func retrieveCoFuGasStations(from geoFeatures: [GeoAPIFeature]) -> [AppKit.CofuGasStation] {
+    private func retrieveCoFuGasStations(from geoFeatures: [GeoAPIFeature]) -> [POIKit.CofuGasStation] {
         return (geoFeatures.compactMap { feature in
             var collectionFeature: GeometryCollectionsFeature?
             var pointValue: [Double]?
@@ -242,7 +239,7 @@ class GeoAPIManager {
 
             let newProperties = Dictionary(uniqueKeysWithValues: properties.map { key, value in (key, value.value) })
 
-            return AppKit.CofuGasStation(id: id, coordinates: pointValue, polygon: polygonValue, properties: newProperties)
+            return POIKit.CofuGasStation(id: id, coordinates: pointValue, polygon: polygonValue, properties: newProperties)
         })
     }
 
@@ -460,7 +457,7 @@ extension GeoAPIManager {
 
                 switch response {
                 case .success(let fetchedFeatures):
-                    let cofuStations: [AppKit.CofuGasStation] = self.retrieveCoFuGasStations(from: fetchedFeatures)
+                    let cofuStations: [POIKit.CofuGasStation] = self.retrieveCoFuGasStations(from: fetchedFeatures)
                     let isAvailable = self.isAppAvailable(for: id, location: location, cofuStations: cofuStations)
                     completion(isAvailable)
 
@@ -476,7 +473,7 @@ extension GeoAPIManager {
         completion(isAvailable)
     }
 
-    private func isAppAvailable(for id: String, location: CLLocation, cofuStations: [AppKit.CofuGasStation]) -> Bool {
+    private func isAppAvailable(for id: String, location: CLLocation, cofuStations: [POIKit.CofuGasStation]) -> Bool {
         guard let app = cofuStations.first(where: { $0.id == id }),
               let distance = app.distance(from: location) else { return false }
 

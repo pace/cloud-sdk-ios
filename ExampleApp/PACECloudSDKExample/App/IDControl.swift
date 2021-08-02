@@ -23,32 +23,35 @@ class IDControl {
     }
 
     func authorize() {
-        IDKit.authorize { [weak self] accessToken, error in
-            if let error = error {
+        IDKit.authorize { [weak self] result in
+            switch result {
+            case .success(let accessToken):
+                guard let token = accessToken, !token.isEmpty else {
+                    NSLog("Token invalid")
+                    return
+                }
+                self?.userInfo()
+
+            case .failure(let error):
                 NSLog("Failed authorizing with error \(error)")
             }
-
-            guard let token = accessToken, !token.isEmpty else {
-                NSLog("Token invalid")
-                return
-            }
-
-            self?.userInfo()
         }
     }
 
     func refresh(_ completion: @escaping ((String) -> Void)) {
-        IDKit.refreshToken { accessToken, error in
-            if let error = error {
+        IDKit.refreshToken { result in
+            switch result {
+            case .success(let accessToken):
+                guard let token = accessToken, !token.isEmpty else {
+                    NSLog("Token invalid")
+                    return
+                }
+
+                completion(token)
+
+            case .failure(let error):
                 NSLog("Failed refreshing with error \(error)")
             }
-
-            guard let token = accessToken, !token.isEmpty else {
-                NSLog("Token invalid")
-                return
-            }
-
-            completion(token)
         }
     }
 
@@ -57,14 +60,14 @@ class IDControl {
     }
 
     func userInfo() {
-        IDKit.userInfo { [weak self] userInfo, error in
-            if let error = error {
+        IDKit.userInfo { [weak self] result in
+            switch result {
+            case .success(let userInfo):
+                self?.delegate?.didReceiveUserInfo(userInfo)
+
+            case .failure(let error):
                 NSLog("UserInfo error \(error)")
             }
-
-            guard let userInfo = userInfo else { return }
-
-            self?.delegate?.didReceiveUserInfo(userInfo)
         }
     }
 

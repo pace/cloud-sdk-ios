@@ -65,3 +65,10 @@ public extension IDKit {
         }
     }
 }
+
+public extension IDKit.OIDConfiguration {
+    struct Response {
+        let authorizationEndpoint: String
+        let tokenEndpoint: String
+    }
+}

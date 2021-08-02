@@ -23,29 +23,29 @@ class AppControl {
     private var didAuthorize = false
 
     private init() {
-        AppKit.shared.delegate = self
+        AppKit.delegate = self
     }
 
     func requestLocalApps() {
-        AppKit.shared.requestLocalApps()
+        AppKit.requestLocalApps()
     }
 
     func requestAllCoFuStations() {
-        AppKit.shared.requestCofuGasStations { stations in
+        POIKit.requestCofuGasStations { stations in
             NSLog("Current cofu stations count: \(stations?.count ?? -1)")
         }
     }
 
     func appViewController(appUrl: String) -> UIViewController {
-        AppKit.shared.appViewController(appUrl: appUrl)
+        AppKit.appViewController(appUrl: appUrl)
     }
 
     func handleRedirectURL(_ url: URL) {
-        AppKit.shared.handleRedirectURL(url)
+        AppKit.handleRedirectURL(url)
     }
 
     func isPoiInRange(with id: String) {
-        AppKit.shared.isPoiInRange(id: id) { result in
+        POIKit.isPoiInRange(id: id) { result in
             NSLog("\(id) in range: \(result)")
         }
     }

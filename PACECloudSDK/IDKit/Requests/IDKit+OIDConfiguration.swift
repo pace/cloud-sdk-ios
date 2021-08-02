@@ -8,27 +8,28 @@
 import AppAuth
 
 extension IDKit {
-    static func performDiscovery(issuerUrl: String, _ completion: @escaping ((String?, String?, IDKitError?) -> Void)) {
+    static func performDiscovery(issuerUrl: String, _ completion: @escaping (Result<OIDConfiguration.Response, IDKitError>) -> Void) {
         guard let issuer = URL(string: issuerUrl) else {
-            completion(nil, nil, IDKitError.invalidIssuerUrl)
+            completion(.failure(.invalidIssuerUrl))
             return
         }
 
         OIDAuthorizationService.discoverConfiguration(forIssuer: issuer) { configuration, error in
             if let error = error {
-                completion(nil, nil, IDKitError.other(error))
+                completion(.failure(.other(error)))
                 return
             }
 
             guard let configuration = configuration else {
-                completion(nil, nil, IDKitError.failedRetrievingConfigurationWhileDiscovering)
+                completion(.failure(.failedRetrievingConfigurationWhileDiscovering))
                 return
             }
 
             let authorizationEndpoint = configuration.authorizationEndpoint.absoluteString
             let tokenEndpoint = configuration.tokenEndpoint.absoluteString
 
-            completion(authorizationEndpoint, tokenEndpoint, nil)
+            completion(.success(.init(authorizationEndpoint: authorizationEndpoint,
+                                      tokenEndpoint: tokenEndpoint)))
 
             IDKitLogger.i("Discovery successful")
         }

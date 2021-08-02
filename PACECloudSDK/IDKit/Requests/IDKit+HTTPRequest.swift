@@ -8,9 +8,9 @@
 import Foundation
 
 extension IDKit {
-    func performHTTPRequest<T: Decodable>(for url: URL, type: T.Type, currentNumberOfRetries: Int = 0, completion: @escaping ((T?, IDKitError?) -> Void)) {
+    func performHTTPRequest<T: Decodable>(for url: URL, type: T.Type, currentNumberOfRetries: Int = 0, completion: @escaping (Result<T, IDKitError>) -> Void) {
         guard let accessToken = IDKit.latestAccessToken() else {
-            completion(nil, .invalidSession)
+            completion(.failure(.invalidSession))
             return
         }
 
@@ -20,12 +20,12 @@ extension IDKit {
         URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             guard let self = self else { return }
             if let error = error {
-                completion(nil, .other(error))
+                completion(.failure(.other(error)))
                 return
             }
 
             guard let response = response as? HTTPURLResponse else {
-                completion(nil, .invalidHTTPURLResponse(url))
+                completion(.failure(.invalidHTTPURLResponse(url)))
                 return
             }
 
@@ -37,13 +37,13 @@ extension IDKit {
                     && IDKit.isSessionAvailable {
                     IDKit.apiInducedRefresh { [weak self] isSuccessful in
                         guard isSuccessful else {
-                            completion(nil, .statusCode(response.statusCode))
+                            completion(.failure(.statusCode(response.statusCode)))
                             return
                         }
                         self?.performHTTPRequest(for: url, type: type, currentNumberOfRetries: currentNumberOfRetries + 1, completion: completion)
                     }
                 } else {
-                    completion(nil, .statusCode(response.statusCode))
+                    completion(.failure(.statusCode(response.statusCode)))
                 }
             } else {
                 self.handleResponseData(for: url,
@@ -54,17 +54,17 @@ extension IDKit {
         }.resume()
     }
 
-    func handleResponseData<T: Decodable>(for url: URL, data: Data?, type: T.Type, completion: @escaping ((T?, IDKitError?) -> Void)) {
+    func handleResponseData<T: Decodable>(for url: URL, data: Data?, type: T.Type, completion: @escaping (Result<T, IDKitError>) -> Void) {
         guard let data = data else {
-            completion(nil, .invalidData(url))
+            completion(.failure(.invalidData(url)))
             return
         }
 
         do {
             let result = try JSONDecoder().decode(type, from: data)
-            completion(result, nil)
+            completion(.success(result))
         } catch {
-            completion(nil, .other(error))
+            completion(.failure(.other(error)))
         }
     }
 }

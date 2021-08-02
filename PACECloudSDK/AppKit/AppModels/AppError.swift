@@ -9,7 +9,7 @@ import Foundation
 
 // swiftlint:disable line_length
 public extension AppKit {
-    enum AppError: Equatable, CustomStringConvertible {
+    enum AppError: Error, Equatable, CustomStringConvertible {
         case noLocationFound
         case locationNotAuthorized
         case couldNotFetchApp

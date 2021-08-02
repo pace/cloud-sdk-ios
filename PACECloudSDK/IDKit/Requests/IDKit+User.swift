@@ -8,16 +8,16 @@
 import Foundation
 
 extension IDKit {
-    func userInfo(completion: @escaping (UserInfo?, IDKitError?) -> Void) {
+    func userInfo(completion: @escaping (Result<UserInfo, IDKitError>) -> Void) {
         guard let userEndpointUrlString = configuration.userEndpoint,
               let userEndpointUrl = URL(string: userEndpointUrlString) else {
-            completion(nil, IDKitError.invalidAuthorizationEndpoint)
+            completion(.failure(.invalidAuthorizationEndpoint))
             return
         }
 
-        performHTTPRequest(for: userEndpointUrl, type: UserInfo.self) { userInfo, error in
+        performHTTPRequest(for: userEndpointUrl, type: UserInfo.self) { result in
             DispatchQueue.main.async {
-                completion(userInfo, error)
+                completion(result)
             }
         }
     }

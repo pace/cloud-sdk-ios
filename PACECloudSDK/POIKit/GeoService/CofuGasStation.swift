@@ -8,7 +8,7 @@
 import CoreLocation
 import Foundation
 
-public extension AppKit {
+public extension POIKit {
     struct CofuGasStation {
         public let id: String
         public let coordinates: GeoAPICoordinate?
@@ -54,7 +54,7 @@ public extension AppKit {
     }
 }
 
-public extension AppKit.CofuGasStation {
+public extension POIKit.CofuGasStation {
     enum CofuStatus: String {
         case online, offline
     }

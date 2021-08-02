@@ -46,7 +46,7 @@ class ListViewModel: NSObject {
         downloadTask?.cancel()
         isLoading.value = true
 
-        downloadTask = poiKitManager.fetchPOIs(poisOfType: .gasStation, boundingBox: POIKit.BoundingBox(center: coordinate, radius: 5_000)) { [weak self] result in
+        downloadTask = poiKitManager.fetchPOIs(boundingBox: POIKit.BoundingBox(center: coordinate, radius: 5_000)) { [weak self] result in
 
             defer {
                 self?.isLoading.value = false

@@ -8,12 +8,12 @@
 import CoreLocation
 import Foundation
 
-public extension Array where Element == AppKit.CofuGasStation {
-    var onlineStations: [AppKit.CofuGasStation] {
+public extension Array where Element == POIKit.CofuGasStation {
+    var onlineStations: [POIKit.CofuGasStation] {
         filter { $0.cofuStatus == .online }
     }
 
-    func sortedByDistance(from location: CLLocation) -> [AppKit.CofuGasStation] {
+    func sortedByDistance(from location: CLLocation) -> [POIKit.CofuGasStation] {
         sorted { lhs, rhs -> Bool in
             guard let lhsDistance = lhs.distance(from: location),
                   let rhsDistance = rhs.distance(from: location) else { return false }

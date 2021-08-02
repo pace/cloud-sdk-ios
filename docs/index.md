@@ -142,17 +142,33 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 - `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
 - `IDKit.swapPresentingViewController(...)` has been removed. The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`.
 
-### From 7.x.x to 8.x.x
-
-- We've set the default `authenticationMode` of the SDK to `.native`.  
-> **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
-- The data type of the completion parameter for the `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
-- The data type of the completion parameter for the `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
-
 #### Noteworthy changes
 - If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
 - A new `logout` callback has been added to `AppKitDelegate`
 - All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
+
+### From 7.x.x to 8.x.x
+- We've set the default `authenticationMode` of the SDK to `.native`.  
+> **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
+
+- IDKit
+    + The data type of the completion parameter of the `authorize(...)` call has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+    + The data type of the completion parameter of the `refreshToken(...)` call has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+    + The data type of the completion parameter of the `discoverConfiguration(...)` call has been changed from `(String?, String?, IDKitError?)` to `(Result<OIDConfiguration.Response, IDKitError>)`
+    + The data type of the completion parameter of the `userInfo(...)` call has been changed from `(UserInfo?, IDKitError?)` to `(Result<UserInfo, IDKitError>)`
+
+- AppKit:
+    + The data type of the completion parameter for AppKitDelegate's `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
+    + The data type of the completion parameter for AppKitDelegate's `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
+    + The `isPoiInRange(...)` call is now part of `POIKit`, available under `POIKit.isPoiInRange(...)`
+    + The `requestCofuGasStations(...)` call is now part of `POIKit`, available under `POIKit.requestCofuGasStations(...)`
+    + The model `CofuGasStation` is now part of `POIKit`, available under `POIKit.CofuGasStation`
+    + AppKit's `shared` property is no longer publicly accessible. All methods and properties of type `AppKit.shared.fooBar()` are now accessible via `AppKit.fooBar()`
+    + The data type of the completion parameter of the `fetchListOfApps(...)` call has been changed from `([AppKit.AppData]?, AppKit.AppError?)` to `(Result<[AppKit.AppData], AppKit.AppError>)`
+
+- POIKit:
+    + The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
+    + POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
@@ -204,8 +220,11 @@ IDKit.OIDConfiguration.appendAdditionalParameters([String: String])
 ### Authorization
 To start the authorization process and to retrieve your access token simply call:
 ```swift
-IDKit.authorize { accessToken, error in
-    ...
+IDKit.authorize { result in
+    switch result {
+    case .success(let accessToken):
+    case .failure(let error):
+    }
 }
 ```
 *IDKit* will automatically try to refresh the previous session.
@@ -214,8 +233,11 @@ For all devices on iOS 12 and below a native permission prompt for the internall
 ### Token refresh
 If you prefer to refresh the access token of your current session manually call:
 ```swift
-IDKit.refreshToken { accessToken, error in
-    ...
+IDKit.refreshToken { result in
+    switch result {
+    case .success(let accessToken):
+    case .failure(let error):
+    }
 }
 ```
 
@@ -375,13 +397,13 @@ In order to set the redirect URL correctly and to ensure that the client app int
 PACECloudSDK.shared.redirectScheme = "pace.YOUR_CLIENT_ID"
 ```
 
-In your `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` you will have to catch the `redirect` host and call `AppKit.shared.handleRedirectURL` to handle the callback.
+In your `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` you will have to catch the `redirect` host and call `AppKit.handleRedirectURL` to handle the callback.
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
     switch url.host {
     case "redirect":
-    AppKit.shared.handleRedirectURL(url)
+    AppKit.handleRedirectURL(url)
         return true
 
     default:
@@ -391,7 +413,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 ```
 
 ### Theming
-`AppKit` offers both a `.light` and `.dark` theme. The theme is set to `.automatic` by default, which then takes the system's appearance setting. In case you want to enforce either `.light` or `.dark` theme, you can set it via the public `theme` property: `AppKit.shared.theme`.
+`AppKit` offers both a `.light` and `.dark` theme. The theme is set to `.automatic` by default, which then takes the system's appearance setting. In case you want to enforce either `.light` or `.dark` theme, you can set it via the public `theme` property: `AppKit.theme`.
 
 ### AppKitDelegate
 This protocol needs to be implemented in order to receive further information about your requests. It will also provide specific data that allows you to correctly display Apps.
@@ -400,20 +422,22 @@ This protocol needs to be implemented in order to receive further information ab
 
 ### Requesting local Apps
 You need to make sure your users allowed your application to use their location. *AppKit* requires the user's current location but will not request the permissions.
-To request the check for available local Apps call `AppKit.shared.requestLocalApps()`. This function will start retrieving the user's current position and return
+To request the check for available local Apps call `AppKit.requestLocalApps()`. This function will start retrieving the user's current position and return
 all available Apps as AppDrawers by asynchronously invoking `AppKitDelegate's` `didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData])` once for each request. Possible errors during the request will also be passed via the `AppKitDelegate`.
 Because of the fact that AppDrawers are dependent on the user's position, it's necessary to call the mentioned method periodically to make sure that Apps
 will stay up to date. If a request does not contain a currently presented App / AppDrawer it will be removed by *AppKit* automatically. This may happen if the user changes the position to where the previously fetched App is no longer available at.
 
-_**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) the delegate method will not be called. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
+> _**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) the delegate method will not be called. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
 
 ### Is POI in range?
 To check if there is a App for the given POI ID at the current location, call `AppKit.shared.isPoiInRange(id: String, completion: @escaping ((Bool) -> Void))`.
 
-_**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) this method will return `false`. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
+> _**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) this method will return `false`. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
+
+> _**NOTE:**_ With SDK version `8.0.0` this call is not part of `AppKit` anymore but available under `POIKit.isPoiInRange(...)`.
 
 ```swift
-AppKit.shared.isPoiInRange(id: poiId) { found in
+POIKit.isPoiInRange(id: poiId) { found in
     NSLog("==== Found id in range: \(found)")
 }
 ```
@@ -421,13 +445,13 @@ AppKit.shared.isPoiInRange(id: poiId) { found in
 ### AppWebView / AppViewController
 *AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl`, a `appUrl` with some `reference` (e.g. a gas station reference) or a `presetUrl` (see [Preset Urls](#preset-urls)).
 ```swift
-let webView = AppKit.shared.appWebView(appUrl: "App_URL")
-let viewController = AppKit.shared.appViewController(appUrl: "App_URL")
+let webView = AppKit.appWebView(appUrl: "App_URL")
+let viewController = AppKit.appViewController(appUrl: "App_URL")
 ```
 
 ```swift
-let webView = AppKit.shared.appWebView(appUrl: "App_URL", reference: "REFERENCE")
-let viewController = AppKit.shared.appViewController(appUrl: "App_URL", reference: "REFERENCE")
+let webView = AppKit.appWebView(appUrl: "App_URL", reference: "REFERENCE")
+let viewController = AppKit.appViewController(appUrl: "App_URL", reference: "REFERENCE")
 
 // Example reference
 // The reference starts with a specific namespace identifier followed by the gas station id in this case
@@ -436,8 +460,8 @@ let reference = "1a3b5c7d-1a3b-12a4-abcd-8c106b8360d3"
 ```
 
 ```swift
-let webView = AppKit.shared.appWebView(presetUrl: .paceID)
-let viewController = AppKit.shared.appViewController(presetUrl: .payment)
+let webView = AppKit.appWebView(presetUrl: .paceID)
+let viewController = AppKit.appViewController(presetUrl: .payment)
 ```
 
 ### AppDrawerContainer
@@ -450,9 +474,9 @@ App. The drawers need to be added to a `AppDrawerContainer` in order to work cor
 A AppDrawer and the eventually opened App will automatically remove themselves if the App is no longer available at the user's current position.
 
 ### Custom AppDrawer
-The responsible class needs to conform to the `AppKitDelegate` and must be set as `AppKit`'s delegate: `AppKit.shared.delegate = self`.
+The responsible class needs to conform to the `AppKitDelegate` and must be set as `AppKit`'s delegate: `AppKit.delegate = self`.
 
-In order to check if there are apps available in the current position call `AppKit.shared.requestLocalApps()`.
+In order to check if there are apps available in the current position call `AppKit.requestLocalApps()`.
 
 As defined in [AppKitDelegate](#appkitdelegate), there are some methods that need to be implemented in, i.e.
 `didReceiveAppData(_ appData: [AppKit.AppData])` and
@@ -522,7 +546,6 @@ class LoggingInterceptor: PACECloudSDKLoggingDelegate {
 ```
 
 ## SDK API Docs
-
 Here is a complete list of all our SDK API documentations:
 
 - [latest](/cloud-sdk-ios/latest/index.html) – the current `master`
