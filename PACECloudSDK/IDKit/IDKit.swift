@@ -168,6 +168,22 @@ public extension IDKit {
     static func userInfo(completion: @escaping (Result<UserInfo, IDKitError>) -> Void) {
         shared?.userInfo(completion: completion)
     }
+
+    /**
+     Fetches a list of valid payment methods for the current user.
+     - parameter completion: The block to be called when the request is completed including either the `paymentMethods` or an `error`.
+     */
+    static func paymentMethods(completion: @escaping (Result<PCPayPaymentMethods, IDKitError>) -> Void) {
+        shared?.paymentMethods(completion: completion)
+    }
+
+    /**
+     Fetches a list of transactions for the current user sorted in descending order by creation date.
+     - parameter completion: The block to be called when the request is completed including either the `transactions` or an `error`.
+     */
+    static func transactions(completion: @escaping (Result<PCPayTransactions, IDKitError>) -> Void) {
+        shared?.transactions(completion: completion)
+    }
 }
 
 // MARK: - PIN / Biometry
@@ -194,6 +210,21 @@ public extension IDKit {
      */
     static func isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         shared?.isPINOrPasswordSet(completion: completion)
+    }
+
+    /**
+     Checks if the given PIN is valid.
+
+     The following rules apply to verify the PIN:
+     - Must be 4 digits long
+     - Must use 3 different digits
+     - Must not be a numerical series (e.g. 1234, 4321, ...)
+
+     - parameter pin: The PIN to be checked.
+     - returns: `true` if the PIN is valid, `false` otherwise.
+     */
+    static func isPINValid(pin: String) -> Bool {
+        shared?.isPINValid(pin: pin) ?? false
     }
 
     /**

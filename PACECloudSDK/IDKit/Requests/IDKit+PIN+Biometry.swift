@@ -41,6 +41,16 @@ extension IDKit {
         }
     }
 
+    func isPINValid(pin: String) -> Bool {
+        let charSet = Set(pin.enumerated().map { $0.element })
+        let charChain = "0123456789012"
+
+        return pin.count == 4
+            && charSet.count >= 3
+            && !charChain.contains(pin)
+            && !charChain.reversed().map({ String($0) }).joined().contains(pin)
+    }
+
     func setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         otp(for: password) { [weak self] result in
             switch result {
