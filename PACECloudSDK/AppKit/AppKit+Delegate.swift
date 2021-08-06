@@ -32,6 +32,7 @@ public protocol AppKitDelegate: AnyObject {
     func setUserProperty(key: String, value: String, update: Bool)
     func logEvent(key: String, parameters: [String: Any])
     func getConfig(key: String, completion: @escaping ((Any?) -> Void))
+    func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void))
 }
 
 public extension AppKitDelegate {
@@ -49,6 +50,7 @@ public extension AppKitDelegate {
     func setUserProperty(key: String, value: String, update: Bool) {}
     func logEvent(key: String, parameters: [String: Any]) {}
     func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
+    func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) { isAllowed(true) }
 }
 
 extension AppKit {
@@ -146,6 +148,12 @@ extension AppKit {
     func notifyGetConfig(key: String, completion: @escaping ((Any?) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.getConfig(key: key, completion: completion)
+        }
+    }
+
+    func notifyIsAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) {
+        notifyClient { [weak self] in
+            self?.delegate?.isAppRedirectAllowed(app: app, isAllowed: isAllowed)
         }
     }
 
