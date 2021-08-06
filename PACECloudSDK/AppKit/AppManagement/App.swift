@@ -73,7 +73,10 @@ extension App {
 
     func respond(result: String) {
         DispatchQueue.main.async { [weak self] in
-            let jsString = result.replacingOccurrences(of: "'", with: "\u{2019}")
+            let jsString = result
+                .replacingOccurrences(of: "'", with: "\u{2019}")
+                .replacingOccurrences(of: "\\", with: "\u{005c}\u{005c}")
+
             let messageResponse = "window.postMessage('\(jsString)', window.origin)"
             self?.evaluateJavaScript(messageResponse, completionHandler: { _, error in
                 if let error = error {
