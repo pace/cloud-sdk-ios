@@ -39,6 +39,9 @@ class GeoAPIManager {
     private let cacheMaxAge: TimeInterval = 60 * 60 // 1h
     private let cacheRadius: CLLocationDistance = 30_000 // 30km
 
+    private var isGeoRequestRunning: Bool = false
+    private var resultHandlers: [(Result<GeoAPIResponse?, GeoApiManagerError>) -> Void] = []
+
     init() {
         let configuration = URLSessionConfiguration.default
         configuration.requestCachePolicy = .useProtocolCachePolicy
@@ -259,22 +262,31 @@ class GeoAPIManager {
                 return
             }
 
+            self.resultHandlers.append(result)
+
+            guard !self.isGeoRequestRunning else { return }
+
+            self.isGeoRequestRunning = true
             self.sessionTask?.cancel()
             self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error -> Void in
+                defer {
+                    self?.isGeoRequestRunning = false
+                }
+
                 if let error = error {
                     if (error as NSError?)?.code == NSURLErrorCancelled {
-                        result(.failure(.requestCancelled))
+                        self?.notifyResultHandlers(with: .failure(.requestCancelled))
                         return
                     }
 
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons with error \(error)")
-                    result(.failure(.unknownError))
+                    self?.notifyResultHandlers(with: .failure(.unknownError))
                     return
                 }
 
                 guard let response = response as? HTTPURLResponse else {
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid response")
-                    result(.failure(.invalidResponse))
+                    self?.notifyResultHandlers(with: .failure(.invalidResponse))
                     return
                 }
 
@@ -282,22 +294,27 @@ class GeoAPIManager {
 
                 guard statusCode < 400 else {
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons with status code \(statusCode)")
-                    result(.failure(.unknownError))
+                    self?.notifyResultHandlers(with: .failure(.unknownError))
                     return
                 }
 
                 guard let data = data else {
                     AppKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid data")
-                    result(.failure(.invalidResponse))
+                    self?.notifyResultHandlers(with: .failure(.invalidResponse))
                     return
                 }
 
                 let decodedResponse = self?.decodeGeoAPIResponse(geoApiData: data)
-                result(.success(decodedResponse))
+                self?.notifyResultHandlers(with: .success(decodedResponse))
             })
 
             self.sessionTask?.resume()
         }
+    }
+
+    private func notifyResultHandlers(with result: Result<GeoAPIResponse?, GeoApiManagerError>) {
+        resultHandlers.forEach { $0(result) }
+        resultHandlers.removeAll()
     }
 
     private func isSpeedThresholdExceeded(for location: CLLocation) -> Bool {
