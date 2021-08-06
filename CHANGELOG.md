@@ -28,6 +28,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Add code documentation for most of AppKit's and POIKit's / POIKitManager's calls
 * Add `AppRedirect` handler to PWA communication to let the client app decide if a redirect from the current PWA to another specified PWA should be allowed
 * Add methods to `IDKit` that returns the user's payment methods, transactions and checks the PIN requirements
+* Add `requestCofuGasStations` method to `POIKit` with location and radius parameter that returns connected fueling gas stations with detailed information
 
 ### Fixes
 

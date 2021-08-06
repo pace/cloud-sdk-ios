@@ -176,6 +176,8 @@
 		3B76F7572576468F008D8F9A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F75E257648B0008D8F9A /* HttpUrlError.swift */; };
 		3B76F77025765014008D8F9A /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F76F25765014008D8F9A /* Pay.swift */; };
+		3B79F8E626C12D3400C0278F /* GasStation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */; };
+		3B79F8E726C12D3400C0278F /* GasStation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */; };
 		3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */; };
 		3B7C0C07266A594400346FCC /* UserAPIGrantFederatedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */; };
 		3B7C0C08266A594400346FCC /* UserAPISetFederatedIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */; };
@@ -1041,6 +1043,7 @@
 		3B76F7562576468F008D8F9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3B76F75E257648B0008D8F9A /* HttpUrlError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUrlError.swift; sourceTree = "<group>"; };
 		3B76F76F25765014008D8F9A /* Pay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
+		3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GasStation+Extension.swift"; sourceTree = "<group>"; };
 		3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorTests.swift; sourceTree = "<group>"; };
 		3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIGrantFederatedToken.swift; sourceTree = "<group>"; };
 		3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPISetFederatedIdentity.swift; sourceTree = "<group>"; };
@@ -1681,6 +1684,7 @@
 			children = (
 				3B9655E926B28E2800921766 /* CofuGasStation+Extension.swift */,
 				3B5504122539E81F00C291F1 /* Date+Extension.swift */,
+				3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */,
 				3BC9A7E72539DDAD00B933AE /* Vector2+Extension.swift */,
 			);
 			path = Extensions;
@@ -3823,6 +3827,7 @@
 				849C400B25CAB6DD0074BCDA /* PCUserVerifyUserPhone.swift in Sources */,
 				3B970A802542D9BB0072F6BA /* AppActivityIndicatorView.swift in Sources */,
 				8447A3C925CAAE750095BEF1 /* UserAPIUpdateUserPIN.swift in Sources */,
+				3B79F8E626C12D3400C0278F /* GasStation+Extension.swift in Sources */,
 				8447A3A525CAAE740095BEF1 /* UserAPICheckTerms.swift in Sources */,
 				84D6C061258A03270094982D /* PCPayPagingMeta.swift in Sources */,
 				3BC1AD7D25C2F13000725CB9 /* PACECloudSDK+URL.swift in Sources */,
@@ -4287,6 +4292,7 @@
 				92EDDCF225A738C900E480F4 /* POIKitAPI.swift in Sources */,
 				92EDDBEB25A7270300E480F4 /* AppDrawer+App.swift in Sources */,
 				17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */,
+				3B79F8E726C12D3400C0278F /* GasStation+Extension.swift in Sources */,
 				8418E28625B1B85A00D3722B /* PCPOICommonOpeningHours.swift in Sources */,
 				92EDDBF625A7270300E480F4 /* AppManifest.swift in Sources */,
 				92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */,

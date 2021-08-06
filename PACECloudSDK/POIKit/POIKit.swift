@@ -19,8 +19,11 @@ public class POIKit {
     private var geoAPIManager: GeoAPIManager
     private lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
+    private var currentEnvironment: PACECloudSDK.Environment
+
     private init() {
         geoAPIManager = GeoAPIManager()
+        currentEnvironment = PACECloudSDK.shared.environment
     }
 
     static func setup() {
@@ -42,6 +45,31 @@ extension POIKit {
                 return
             }
             completion(stations)
+        }
+    }
+
+    func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
+        requestCofuGasStations(option: .boundingBox(center: center, radius: radius)) { stations in
+            guard let stations = stations else {
+                completion(.failure(.unknown))
+                return
+            }
+
+            let poiKitManager = POIKit.POIKitManager(environment: self.currentEnvironment)
+
+            _ = poiKitManager.fetchPOIs(locations: stations.compactMap { $0.location }) { result in
+                switch result {
+                case .success(let pois):
+                    let cofuGasStations = pois.filter { $0.isConnectedFuelingAvailable }
+                    completion(.success(cofuGasStations))
+
+                case .failure(let error as POIKit.POIKitAPIError):
+                    completion(.failure(error))
+
+                case .failure(_):
+                    completion(.failure(.unknown))
+                }
+            }
         }
     }
 
