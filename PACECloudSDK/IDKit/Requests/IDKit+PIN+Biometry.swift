@@ -133,7 +133,7 @@ extension IDKit {
                     }
 
                     do {
-                        let data = try PropertyListEncoder().encode(totpData)
+                        let data = try JSONEncoder().encode(totpData)
                         self?.setMasterTOTPData(to: data)
                         completion?(.success(true))
                     } catch {

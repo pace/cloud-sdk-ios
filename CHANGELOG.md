@@ -35,6 +35,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix generation of accept headers
 * Adjust handling of too large bounding boxes when requesting tiles
 * Adjust sdk error view
+* Fix encoding issue when enabling biometric authentication
 
 ### Internal
 
