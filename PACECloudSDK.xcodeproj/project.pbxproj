@@ -469,6 +469,7 @@
 		3BD19ADE2631766400D68580 /* App+MessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD19ADD2631766400D68580 /* App+MessageHandling.swift */; };
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
+		3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD870FE26BD548E0098C411 /* PINValidityTests.swift */; };
 		3BEECBCB26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
@@ -1276,6 +1277,7 @@
 		3BD19ADD2631766400D68580 /* App+MessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling.swift"; sourceTree = "<group>"; };
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
+		3BD870FE26BD548E0098C411 /* PINValidityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINValidityTests.swift; sourceTree = "<group>"; };
 		3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTimeoutHandler.swift; sourceTree = "<group>"; };
@@ -2374,6 +2376,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3BD870FD26BD547C0098C411 /* IDKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				3BD870FE26BD548E0098C411 /* PINValidityTests.swift */,
+			);
+			path = IDKitTests;
+			sourceTree = "<group>";
+		};
 		841A3D2125B99A9C0065284A /* Fueling */ = {
 			isa = PBXGroup;
 			children = (
@@ -3017,6 +3027,7 @@
 				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
 				3B9709FD2542D9720072F6BA /* AppKitTests */,
 				3BC9A78F2539DD3200B933AE /* POIKitTests */,
+				3BD870FD26BD547C0098C411 /* IDKitTests */,
 				9211951D25ECD64E0066AA5D /* Utils */,
 			);
 			path = PACECloudSDKTests;
@@ -3969,6 +3980,7 @@
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
+				3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
 				3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */,
