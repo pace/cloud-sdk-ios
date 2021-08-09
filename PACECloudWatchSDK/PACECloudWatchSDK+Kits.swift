@@ -8,5 +8,7 @@
 import Foundation
 
 extension PACECloudSDK {
-    func setupKits(with config: Configuration) {}
+    func setupKits(with config: Configuration) {
+        POIKit.setup()
+    }
 }
