@@ -279,13 +279,13 @@ class GeoAPIManager {
                         return
                     }
 
-                    AppKitLogger.e("[GeoAPIManager] Failed fetching polygons with error \(error)")
+                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons with error \(error)")
                     self?.notifyResultHandlers(with: .failure(.unknownError))
                     return
                 }
 
                 guard let response = response as? HTTPURLResponse else {
-                    AppKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid response")
+                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid response")
                     self?.notifyResultHandlers(with: .failure(.invalidResponse))
                     return
                 }
@@ -293,13 +293,13 @@ class GeoAPIManager {
                 let statusCode = response.statusCode
 
                 guard statusCode < 400 else {
-                    AppKitLogger.e("[GeoAPIManager] Failed fetching polygons with status code \(statusCode)")
+                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons with status code \(statusCode)")
                     self?.notifyResultHandlers(with: .failure(.unknownError))
                     return
                 }
 
                 guard let data = data else {
-                    AppKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid data")
+                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid data")
                     self?.notifyResultHandlers(with: .failure(.invalidResponse))
                     return
                 }
@@ -361,7 +361,7 @@ class GeoAPIManager {
             let response = try JSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
             return response
         } catch {
-            AppKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
+            POIKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
             return nil
         }
     }
