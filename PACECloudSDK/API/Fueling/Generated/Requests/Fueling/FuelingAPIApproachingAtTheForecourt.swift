@@ -107,7 +107,28 @@ The approaching is a necessary first api call for connected fueling. Without a v
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    included = try container.decodeArrayIfPresent("included")
+
+                    guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
+
+                    let includedStations = included.filter { $0["type"] as? String == PCFuelingGasStation.PCFuelingType.gasStation.rawValue }
+                    let includedPrices = included.filter { $0["type"] as? String == PCFuelingFuelPrice.PCFuelingType.fuelPrice.rawValue }
+                    let includedPumps = included.filter { $0["type"] as? String == PCFuelingPump.PCFuelingType.pump.rawValue }
+                    let includedPaymentMethods = included.filter { $0["type"] as? String == PCFuelingPaymentMethod.PCFuelingType.paymentMethod.rawValue }
+                    let includedPaymentMethodKinds = included.filter { $0["type"] as? String == PCFuelingPaymentMethodKind.PCFuelingType.paymentMethodKind.rawValue }
+
+                    let decoder = JSONDecoder()
+                    let stations: [PCFuelingGasStation] = try decoder.decodeJSONObject(includedStations)
+                    let prices: [PCFuelingFuelPrice] = try decoder.decodeJSONObject(includedPrices)
+                    let pumps: [PCFuelingPump] = try decoder.decodeJSONObject(includedPumps)
+                    let paymentMethods: [PCFuelingPaymentMethod] = try decoder.decodeJSONObject(includedPaymentMethods)
+                    let paymentMethodKinds: [PCFuelingPaymentMethodKind] = try decoder.decodeJSONObject(includedPaymentMethodKinds)
+
+                    self.included =
+                        stations.map(Poly5.init)
+                        + prices.map(Poly5.init)
+                        + pumps.map(Poly5.init)
+                        + paymentMethods.map(Poly5.init)
+                        + paymentMethodKinds.map(Poly5.init)
                 }
 
                 public func encode(to encoder: Encoder) throws {

@@ -40,11 +40,13 @@ x.y.z Release notes (yyyy-MM-dd)
 * Fix encoding issue when enabling biometric authentication
 * Fix string encoding when evaluating javascript
 * Make multiple cofu gas station requests in quick succcession possible and return correct response to all of them
+* Fix decoding of `ApproachingAtForecourt` success response 
 
 ### Internal
 
 * Rework communication between apps and SDK
 * Implement `isBiometryAuthEnabled` call
+* Include `POIKit` in `PACECloudWatchSDK`
 
 7.0.0 Release notes (2021-06-30)
 =============================================================

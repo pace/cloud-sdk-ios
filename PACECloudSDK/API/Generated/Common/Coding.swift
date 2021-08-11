@@ -18,6 +18,14 @@ public protocol ResponseDecoder {
 
 extension JSONDecoder: ResponseDecoder {}
 
+extension JSONDecoder {
+    func decodeJSONObject<T: Decodable>(_ object: Any) throws -> T {
+        let jsonData = try JSONSerialization.data(withJSONObject: object, options: [])
+        let result = try decode(T.self, from: jsonData)
+        return result
+    }
+}
+
 public protocol RequestEncoder {
 
     func encode<T: Encodable>(_ value: T) throws -> Data
