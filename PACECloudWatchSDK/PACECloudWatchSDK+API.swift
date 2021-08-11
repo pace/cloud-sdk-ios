@@ -9,7 +9,11 @@ import Foundation
 
 extension PACECloudSDK {
     func setupAPI() {
+        API.POI.client.baseURL = Settings.shared.baseUrl(.poiApi)
         API.Pay.client.baseURL = Settings.shared.baseUrl(.payApi)
         API.Fueling.client.baseURL = Settings.shared.baseUrl(.fuelingApi)
+
+        API.POI.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Bundle.paceCloudSDK.poiKitUserAgent,
+                                         HttpHeaderFields.apiKey.rawValue: apiKey ?? "Missing API key"]
     }
 }
