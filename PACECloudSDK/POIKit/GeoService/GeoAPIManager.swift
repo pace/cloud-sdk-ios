@@ -48,7 +48,7 @@ class GeoAPIManager {
 
         // https://pspdfkit.com/blog/2020/downloading-large-files-with-urlsession/
         // cache size must be at least 20x as big as the data that needes to be cached
-        // the defined capacity will actually not be allocated but still needs to be defined as such
+        // the defined capacity will actually not be allocated but still needs to be defined as such.
         let memoryCapacity = 200 * 1024 * 1024 // 200 MB
         let diskCapacity = 1 * 1024 * 1024 * 1024 // 1 GB
         let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
