@@ -73,16 +73,20 @@ extension POIKit {
         }
     }
 
-    func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
+    func isPoiInRange(id: String, at location: CLLocation?, completion: @escaping ((Bool) -> Void)) {
         DispatchQueue.main.async { [weak self] in
-            self?.oneTimeLocationProvider.requestLocation { [weak self] location in
-                guard let location = location else {
-                    completion(false)
-                    return
-                }
+            guard let location = location else {
+                self?.oneTimeLocationProvider.requestLocation { [weak self] location in
+                    guard let location = location else {
+                        completion(false)
+                        return
+                    }
 
-                self?.geoAPIManager.isPoiInRange(with: id, near: location, completion: completion)
+                    self?.geoAPIManager.isPoiInRange(with: id, near: location, completion: completion)
+                }
+                return
             }
+            self?.geoAPIManager.isPoiInRange(with: id, near: location, completion: completion)
         }
     }
 }

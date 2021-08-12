@@ -53,9 +53,10 @@ public extension POIKit {
     /**
      Checks if the connected fueling gas station with the specified id is in range of the user's current location.
      - parameter id: The id of the gas station.
+     - parameter location: The location to be checked. Defaults to `nil`. If `location` is not specified the SDK will request the current location itself.
      - parameter completion: The block to be called when the check has been completed containing the result.
      */
-    static func isPoiInRange(id: String, completion: @escaping ((Bool) -> Void)) {
-        shared.isPoiInRange(id: id, completion: completion)
+    static func isPoiInRange(id: String, at location: CLLocation? = nil, completion: @escaping ((Bool) -> Void)) {
+        shared.isPoiInRange(id: id, at: location, completion: completion)
     }
 }
