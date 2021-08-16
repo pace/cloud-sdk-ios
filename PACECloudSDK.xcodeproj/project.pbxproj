@@ -404,6 +404,9 @@
 		3B7C0C07266A594400346FCC /* UserAPIGrantFederatedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */; };
 		3B7C0C08266A594400346FCC /* UserAPISetFederatedIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */; };
 		3B7C0C0E266A59D800346FCC /* PCUserAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */; };
+		3B808AFD26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
+		3B808AFE26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
+		3B808AFF26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
 		3B819C52268EF8F900441917 /* App+MessageHandling+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */; };
 		3B855313253D6C12001F7B66 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855312253D6C12001F7B66 /* Bundle+Extension.swift */; };
 		3B855319253D6C70001F7B66 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */; };
@@ -1271,6 +1274,7 @@
 		3B7C0C05266A594400346FCC /* UserAPIGrantFederatedToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIGrantFederatedToken.swift; sourceTree = "<group>"; };
 		3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPISetFederatedIdentity.swift; sourceTree = "<group>"; };
 		3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserAccessToken.swift; sourceTree = "<group>"; };
+		3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+PriceHistory.swift"; sourceTree = "<group>"; };
 		3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling+Location.swift"; sourceTree = "<group>"; };
 		3B855312253D6C12001F7B66 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
 		3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
@@ -1966,6 +1970,15 @@
 			path = FederatedIdentity;
 			sourceTree = "<group>";
 		};
+		3B808B0026CA41FA006EDE92 /* PriceHistory */ = {
+			isa = PBXGroup;
+			children = (
+				3BC9A7BA2539DDAC00B933AE /* PriceHistoryRequest.swift */,
+				3BC9A7B52539DDAC00B933AE /* PriceHistoryResponse.swift */,
+			);
+			path = PriceHistory;
+			sourceTree = "<group>";
+		};
 		3B819C50268EF8C500441917 /* MessageHandling */ = {
 			isa = PBXGroup;
 			children = (
@@ -2455,6 +2468,7 @@
 				92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */,
 				3BC9A7C12539DDAC00B933AE /* POIKitAPI+POIFilters.swift */,
 				3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */,
+				3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */,
 				3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */,
 				3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */,
 				3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */,
@@ -2472,13 +2486,12 @@
 			children = (
 				3BC9A7A62539DDAC00B933AE /* Filters */,
 				3BC9A7AF2539DDAC00B933AE /* Navigation */,
+				3B808B0026CA41FA006EDE92 /* PriceHistory */,
 				3BC9A7A92539DDAC00B933AE /* RegionalPrices */,
 				3BC9A7B62539DDAC00B933AE /* Tiles */,
 				3BC9A7B22539DDAC00B933AE /* GasStationApiResponse.swift */,
 				3BC9A7A42539DDAC00B933AE /* GasStationRequest.swift */,
 				3BC9A7A52539DDAC00B933AE /* LayerType.swift */,
-				3BC9A7BA2539DDAC00B933AE /* PriceHistoryRequest.swift */,
-				3BC9A7B52539DDAC00B933AE /* PriceHistoryResponse.swift */,
 				3BC9A7B92539DDAC00B933AE /* Route.swift */,
 				3BC9A7AC2539DDAC00B933AE /* Waypoint.swift */,
 				3BC9A7AD2539DDAC00B933AE /* tile_query_request.pb.swift */,
@@ -3682,6 +3695,7 @@
 				17B4E56426D3C22800AEAF13 /* PCUserPlainOTP.swift in Sources */,
 				3B79FA0E26C15B6300C0278F /* POIAPIClient.swift in Sources */,
 				3B79FA4026C15BBF00C0278F /* PCPOILocationBasedApp.swift in Sources */,
+				3B808AFF26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */,
 				3B79FA1A26C15B8500C0278F /* POIAPICreateApp.swift in Sources */,
 				17BB0CEA268CCF13009D4755 /* PayAPIGetPaymentToken.swift in Sources */,
 				3B79FA4F26C15BBF00C0278F /* PCPOICommonGeoJSONPolygon.swift in Sources */,
@@ -4404,6 +4418,7 @@
 				84D6C065258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
 				849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */,
 				3B970AAC2542D9BB0072F6BA /* AppStyle+Images.swift in Sources */,
+				3B808AFD26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */,
 				84D6C05F258A03270094982D /* PCPOIAppPOIsRelationships.swift in Sources */,
 				84A43B1925825B6300DE36FA /* POIAPIRequest.swift in Sources */,
 				3B970AB32542D9BB0072F6BA /* AppError.swift in Sources */,
@@ -4457,6 +4472,7 @@
 				92EDDD2B25A7392A00E480F4 /* GasStationRequest.swift in Sources */,
 				92EDDCFF25A738DD00E480F4 /* POIKitAPI+POIFilters.swift in Sources */,
 				92EDDDA425A73A7E00E480F4 /* Vector2+Extension.swift in Sources */,
+				3B808AFE26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */,
 				3B987078268E06AE00A0458F /* LogoutResult.swift in Sources */,
 				92EDDBE125A7252300E480F4 /* AppKit.swift in Sources */,
 				92EDDC1E25A7270300E480F4 /* AppWebViewDelegate.swift in Sources */,

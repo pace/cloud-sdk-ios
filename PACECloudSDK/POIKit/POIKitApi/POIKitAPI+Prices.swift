@@ -28,23 +28,4 @@ extension POIKitAPI {
             }
         }
     }
-
-    func priceHistory(_ request: PriceHistoryRequest,
-                      result: @escaping (Result<PCPOIPriceHistory, Error>) -> Void) {
-        let apiRequest = POIAPI.PriceHistories.GetPriceHistory.Request(options: request.options)
-        API.POI.client.makeRequest(apiRequest) { apiResult in
-            switch apiResult.result {
-            case .success(let response):
-                guard response.statusCode == POIKitHTTPReturnCode.STATUS_OK,
-                      let priceHistory = response.success?.data else {
-                    result(.failure(POIKit.POIKitAPIError.serverError))
-                    return
-                }
-                result(.success(priceHistory))
-
-            case .failure(let error):
-                result(.failure(error))
-            }
-        }
-    }
 }

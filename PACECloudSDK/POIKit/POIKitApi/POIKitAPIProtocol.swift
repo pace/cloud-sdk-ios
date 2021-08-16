@@ -35,7 +35,7 @@ protocol POIKitAPIProtocol {
 
     func filters(_ request: POIFiltersRequest, result: @escaping (Result<POIFiltersResponse, Error>) -> Void)
 
-    func priceHistory(_ request: PriceHistoryRequest, result: @escaping (Result<PCPOIPriceHistory, Error>) -> Void)
+    func priceHistory<T: AnyPriceHistoryResponse>(_ request: POIKit.PriceHistoryRequest<T>, result: @escaping (Result<T, Error>) -> Void)
 
     func gasStation(_ request: GasStationRequest, result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void)
 

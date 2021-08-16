@@ -177,13 +177,10 @@ public extension POIKit {
         /**
          Fetches the price history for a given id, fuelType and period of time.
 
-         - parameter id: UUID of the gas station
-         - parameter fuelType: Desired fuelType of the prices
-         - parameter from: Desired start date of prices (needs to be in )
-         - parameter result: Result block called with either the response or an error message.
+         - parameter request: The price history request.
+         - parameter result: The block to be called when the request is completed either containing the price history data or an error.
          */
-        public func getPriceHistory(for id: String, fuelType: String, from: String, to: String, result: @escaping (Result<PCPOIPriceHistory, Error>) -> Void) {
-            let request = PriceHistoryRequest(id: id, fuelType: fuelType, from: from, to: to)
+        public func priceHistory<T: AnyPriceHistoryResponse>(_ request: PriceHistoryRequest<T>, result: @escaping (Result<T, Error>) -> Void) {
             api.priceHistory(request, result: result)
         }
 

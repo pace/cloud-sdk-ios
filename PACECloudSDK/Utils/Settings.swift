@@ -18,6 +18,7 @@ class Settings {
     private(set) var userApiHostUrl = ""
     private(set) var geoApiHostUrl = ""
     private(set) var cmsApiHostUrl = ""
+    private(set) var priceServiceApiHostUrl = ""
     private(set) var osrmBaseUrl = ""
     private(set) var searchBaseUrl = ""
     private(set) var reverseGeocodeBaseUrl = ""
@@ -64,6 +65,7 @@ class Settings {
         userApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("user").absoluteString
         geoApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("geo").absoluteString
         cmsApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("cms").absoluteString
+        priceServiceApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("price-service").absoluteString
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
@@ -102,6 +104,9 @@ class Settings {
         case .cms:
             return cmsApiHostUrl
 
+        case .priceService:
+            return priceServiceApiHostUrl
+
         case .osrm:
             return osrmBaseUrl
 
@@ -131,5 +136,6 @@ class Settings {
         case userApi
         case geo
         case cms
+        case priceService
     }
 }
