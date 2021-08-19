@@ -25,6 +25,10 @@
 		1785C95C26935EEE0041A20E /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1785C95B26935EEE0041A20E /* AppAuth */; };
 		1785C95E269432CF0041A20E /* HttpHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927111512573B295001D6DDA /* HttpHeaderFields.swift */; };
 		1785C96326943B420041A20E /* IDKit+WatchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */; };
+		17B4E3F326CE52F600AEAF13 /* Cms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B37F626298CF3001961B6 /* Cms.swift */; };
+		17B4E3FA26CE81A900AEAF13 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
+		17B4E3FB26CE883600AEAF13 /* PaymentMethodVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D1DEC2629929D00C629C8 /* PaymentMethodVendor.swift */; };
+		17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
 		17BB0CDB268CCED6009D4755 /* PACECloudWatchSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17BB0CE1268CCEFB009D4755 /* PayAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439FE2580E34D00DE36FA /* PayAPIService.swift */; };
 		17BB0CE2268CCEFB009D4755 /* PayAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B212582646600DE36FA /* PayAPIResponse.swift */; };
@@ -3537,6 +3541,7 @@
 				17BB0D1D268CCFEF009D4755 /* APIRequestUtils.swift in Sources */,
 				3B79FA1726C15B8500C0278F /* POIAPIDeleteApp.swift in Sources */,
 				17BB0DFE268E040C009D4755 /* PCFuelingPaymentMethod.swift in Sources */,
+				17B4E3FB26CE883600AEAF13 /* PaymentMethodVendor.swift in Sources */,
 				17BB0CF2268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */,
 				3B79FA9526C15BEE00C0278F /* POIKitAPI+Routing.swift in Sources */,
 				3B79FA1C26C15B8500C0278F /* POIAPIGetAppRedirect.swift in Sources */,
@@ -3586,6 +3591,7 @@
 				3B79FA2326C15B8E00C0278F /* POIAPIGetEvents.swift in Sources */,
 				3B79FAAF26C15C0800C0278F /* NSURLErrors.swift in Sources */,
 				17BB0D16268CCF92009D4755 /* FuelingAPIGetPumps.swift in Sources */,
+				17B4E3F326CE52F600AEAF13 /* Cms.swift in Sources */,
 				1718B16A26B02FA20044146C /* PACECloudWatchSDK+Kits.swift in Sources */,
 				3B79FA7A26C15BDB00C0278F /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				3B79FA9726C15BEE00C0278F /* POIKitAPI+VectorTiles.swift in Sources */,
@@ -3706,6 +3712,7 @@
 				3B79FA3826C15BA500C0278F /* POIAPIDeleteSubscription.swift in Sources */,
 				17BB0D48268CD284009D4755 /* PCPayPaymentMethodPayDirektCreate.swift in Sources */,
 				3B79FA9D26C15BEE00C0278F /* POIKitAPI+Search.swift in Sources */,
+				17B4E3FA26CE81A900AEAF13 /* CmsAPIClient.swift in Sources */,
 				17BB0D0D268CCF88009D4755 /* FuelingAPIService.swift in Sources */,
 				17BB0D3A268CD181009D4755 /* Double+Extension.swift in Sources */,
 				3B79FA7526C15BDB00C0278F /* Vector2.swift in Sources */,
@@ -3795,6 +3802,7 @@
 				17BB0D0E268CCF88009D4755 /* FuelingAPIResponse.swift in Sources */,
 				3B79FA8026C15BE100C0278F /* NavigationRequest.swift in Sources */,
 				3B79FAA926C15BF900C0278F /* POIKitLogger.swift in Sources */,
+				17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
 				3B79FA1026C15B6300C0278F /* POIRequestBehaviour.swift in Sources */,
 				17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */,

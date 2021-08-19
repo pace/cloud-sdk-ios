@@ -333,4 +333,8 @@ public extension IDKit {
     static func sendMailOTP(completion: ((Result<Bool, IDKitError>) -> Void)? = nil) {
         shared?.sendMailOTP { completion?($0) }
     }
+
+    static func getKeychainSecretData(with key: String) -> Data? {
+        return PACECloudSDK.Keychain().getData(for: key)
+    }
 }
