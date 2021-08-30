@@ -6,6 +6,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Implement new price history endpoints
+* Add bearing to `GetLocation` call
 
 <!-- ### Fixes - Include, if needed -->
 <!-- ### Internal - Include, if needed -->

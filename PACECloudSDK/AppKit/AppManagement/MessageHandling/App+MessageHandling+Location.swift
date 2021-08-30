@@ -67,7 +67,7 @@ extension App {
     private func respondToGetLocation(userLocation: CLLocation?, completion: @escaping (API.Communication.GetLocationResult) -> Void) {
         if let location = userLocation {
             let coordinates = location.coordinate
-            completion(.init(.init(response: .init(lat: coordinates.latitude, lon: coordinates.longitude, accuracy: location.horizontalAccuracy))))
+            completion(.init(.init(response: .init(lat: coordinates.latitude, lon: coordinates.longitude, accuracy: location.horizontalAccuracy, bearing: location.course))))
         } else {
             completion(.init(.init(statusCode: .notFound, response: .init(message: "Couldn't retrieve the user's location."))))
         }
