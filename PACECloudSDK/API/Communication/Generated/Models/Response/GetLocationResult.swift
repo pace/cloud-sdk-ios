@@ -12,11 +12,18 @@ public extension API.Communication {
         public let lat: Double
         public let lon: Double
         public let accuracy: Double?
+        /**
+         * The bearing of the current location in degress to the true north.
+         * Thus, north is 0 and 360 degrees, east is 90 degrees, south is 180 degrees, west 270 degrees.
+         * A negative value indicates an invalid direction.
+         */
+        public let bearing: Double?
 
-        public init(lat: Double, lon: Double, accuracy: Double?) {
+        public init(lat: Double, lon: Double, accuracy: Double?, bearing: Double?) {
             self.lat = lat
             self.lon = lon
             self.accuracy = accuracy
+            self.bearing = bearing
         }
     }
 }
