@@ -1,7 +1,9 @@
 x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
-<!-- ### Breaking Changes - Include, if needed -->
+### Breaking Changes
+
+* `TokenValidator` is now part of `IDKit` instead of `AppKit`
 
 ### Enhancements
 

@@ -16,6 +16,7 @@
         + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
         + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
         + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
+        + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
         + [Authorization](#authorization)
@@ -169,6 +170,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 - POIKit:
     + The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
     + POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
+
+### From 8.x.x to 9.x.x
+
++ `TokenValidator` is now part of `IDKit` instead of `AppKit`
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
