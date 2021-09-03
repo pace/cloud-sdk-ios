@@ -17,11 +17,11 @@ struct Constants {
             #if PRODUCTION
             return "https://fuel.site"
             #elseif STAGE
-            return "https://fueling.stage.pace.cloud"
+            return "https://stage.fuel.site"
             #elseif SANDBOX
-            return "https://fueling.sandbox.pace.cloud"
+            return "https://sandbox.fuel.site"
             #else
-            return "https://fueling.dev.pace.cloud"
+            return "https://dev.fuel.site"
             #endif
         }
 
