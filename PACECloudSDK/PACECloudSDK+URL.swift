@@ -51,13 +51,8 @@ public extension PACECloudSDK {
 
         private func buildFuelingUrl(with id: String?) -> String {
             let currentEnvironment = PACECloudSDK.shared.environment
-            var baseUrl: String
-
-            if currentEnvironment == .production {
-                baseUrl = "https://fuel.site"
-            } else {
-                baseUrl = "https://fueling.\(currentEnvironment.short).pace.cloud"
-            }
+            let environmentPrefix = currentEnvironment == .production ? "" : "\(currentEnvironment.short)."
+            var baseUrl = "https://\(environmentPrefix)fuel.site"
 
             if let id = id {
                 baseUrl += "?r=\(id)"

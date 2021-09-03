@@ -8,7 +8,10 @@ x.y.z Release notes (yyyy-MM-dd)
 * Implement new price history endpoints
 * Add bearing to `GetLocation` call
 
-<!-- ### Fixes - Include, if needed -->
+### Fixes
+
+* Fix Fueling PWA's URL for non-prod environments
+
 <!-- ### Internal - Include, if needed -->
 
 8.0.0 Release notes (2021-08-16)
