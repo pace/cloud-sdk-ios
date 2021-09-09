@@ -17,6 +17,7 @@ extension App {
     func handleSetSecureData(with request: API.Communication.SetSecureDataRequest, requestUrl: URL?, completion: @escaping (API.Communication.SetSecureDataResult) -> Void) {}
     func handleGetSecureData(with request: API.Communication.GetSecureDataRequest, requestUrl: URL?, completion: @escaping (API.Communication.GetSecureDataResult) -> Void) {}
     func handleIsBiometricAuthEnabled(completion: @escaping (API.Communication.IsBiometricAuthEnabledResult) -> Void) {}
+    func handleIsSignedIn(completion: @escaping (API.Communication.IsSignedInResult) -> Void) {}
 }
 
 // MARK: - Access token

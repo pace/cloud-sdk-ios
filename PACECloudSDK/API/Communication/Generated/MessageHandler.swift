@@ -176,6 +176,11 @@ extension API.Communication {
                 delegate?.handleIsBiometricAuthEnabled { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation)
                 }
+
+            case .isSignedIn:
+                delegate?.handleIsSignedIn { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation)
+                }
             }
         }
 

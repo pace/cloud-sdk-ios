@@ -44,4 +44,9 @@ extension App {
             completion(.init(.init(statusCode: .notFound, response: .init(message: "The access token couldn't be retrieved."))))
         }
     }
+
+    func handleIsSignedIn(completion: @escaping (API.Communication.IsSignedInResult) -> Void) {
+        guard PACECloudSDK.shared.authenticationMode == .native else { return }
+        completion(.init(.init(response: .init(signedIn: IDKit.isAuthorizationValid()))))
+    }
 }

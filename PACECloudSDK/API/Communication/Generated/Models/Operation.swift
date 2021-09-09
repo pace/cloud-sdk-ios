@@ -30,5 +30,6 @@ extension API.Communication {
         case getLocation
         case appRedirect
         case isBiometricAuthEnabled
+        case isSignedIn
     }
 }
