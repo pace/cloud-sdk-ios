@@ -954,6 +954,8 @@
 		849C401925CAB6DE0074BCDA /* PCUserOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C400425CAB6DD0074BCDA /* PCUserOTP.swift */; };
 		849C401B25CAB6DE0074BCDA /* PCUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C400525CAB6DD0074BCDA /* PCUserSession.swift */; };
 		849C401D25CAB6DE0074BCDA /* PCUserErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C400625CAB6DD0074BCDA /* PCUserErrors.swift */; };
+		849D8F0326E8E1DA0042413A /* IsSignedInResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */; };
+		849D8F0426E8E1EF0042413A /* IsSignedInResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */; };
 		84A439CF2580E33B00DE36FA /* POIRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439972580E33A00DE36FA /* POIRequestBehaviour.swift */; };
 		84A439F52580E33B00DE36FA /* POIAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CC2580E33B00DE36FA /* POIAPIClient.swift */; };
 		84A439F62580E33B00DE36FA /* POIAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CD2580E33B00DE36FA /* POIAPIService.swift */; };
@@ -1663,6 +1665,7 @@
 		849C400425CAB6DD0074BCDA /* PCUserOTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserOTP.swift; sourceTree = "<group>"; };
 		849C400525CAB6DD0074BCDA /* PCUserSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserSession.swift; sourceTree = "<group>"; };
 		849C400625CAB6DD0074BCDA /* PCUserErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserErrors.swift; sourceTree = "<group>"; };
+		849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsSignedInResult.swift; sourceTree = "<group>"; };
 		84A439972580E33A00DE36FA /* POIRequestBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIRequestBehaviour.swift; sourceTree = "<group>"; };
 		84A439CC2580E33B00DE36FA /* POIAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIClient.swift; sourceTree = "<group>"; };
 		84A439CD2580E33B00DE36FA /* POIAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIService.swift; sourceTree = "<group>"; };
@@ -2329,6 +2332,7 @@
 		3B98701E268E06AE00A0458F /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */,
 				3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */,
 				3B987026268E06AE00A0458F /* AppInterceptableLinkResult.swift */,
 				3B987027268E06AE00A0458F /* ApplePayAvailabilityCheckResult.swift */,
@@ -4161,6 +4165,7 @@
 				92EFB207258B5C00001768F0 /* PACECloudSDK.swift in Sources */,
 				84A439F72580E33B00DE36FA /* POIAPI.swift in Sources */,
 				84600E8625C03B0C0087194F /* PayAPICreatePaymentMethodHoyer.swift in Sources */,
+				849D8F0326E8E1DA0042413A /* IsSignedInResult.swift in Sources */,
 				3BC9A7F62539DDAD00B933AE /* RegionalPricesResponse.swift in Sources */,
 				3B970A6D2542D9BB0072F6BA /* Dictionary+Extension.swift in Sources */,
 				8447A3A325CAAE740095BEF1 /* UserAPIUpdateAppPreferences.swift in Sources */,
@@ -4537,6 +4542,7 @@
 				92EDDD8725A73A0E00E480F4 /* PKOperation.swift in Sources */,
 				92EDDD1A25A7391200E480F4 /* PriceHistoryResponse.swift in Sources */,
 				92EDDD9325A73A1900E480F4 /* Result+Value.swift in Sources */,
+				849D8F0426E8E1EF0042413A /* IsSignedInResult.swift in Sources */,
 				92EDDC4425A729AC00E480F4 /* Constants.swift in Sources */,
 				8418E26025B1B85A00D3722B /* PCPOICommonLatLong.swift in Sources */,
 				92EDDC8425A737FE00E480F4 /* GasStation.swift in Sources */,
