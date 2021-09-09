@@ -104,6 +104,8 @@ speedThreshold: Double? // Default: nil
 geoAppsScope: String? // Default: nil
 ```
 
+The permission `Photo Library Usage` is needed in order to download and save receipts to the user's Photo Library, thus make sure that `NSPhotoLibraryUsageDescription` is correctly set in your target properties.
+
 ## Migration
 ### From 2.x.x to 3.x.x
 In `3.0.0` we've introduced a universal setup method: `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)` and removed the setup for `AppKit` and `POIKitManager`.
@@ -174,6 +176,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 8.x.x to 9.x.x
 
 + `TokenValidator` is now part of `IDKit` instead of `AppKit`
++ Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
