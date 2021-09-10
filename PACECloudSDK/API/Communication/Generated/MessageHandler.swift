@@ -35,9 +35,14 @@ extension API.Communication {
             let requestUrl = message.frameInfo.request.url
             let response = Response(id: id, header: header, status: nil, body: nil)
 
-            let timeout: TimeInterval = header?[HttpHeaderFields.keepAlive.rawValue]?.value as? NSNumber as? TimeInterval ?? 5
-            requestTimeoutHandler.scheduleTimer(with: id, timeout: timeout, operation: operation) { [weak self] in
+            let determineOperationHandler: () -> Void = { [weak self] in
                 self?.determineOperation(operation, request: request, response: response, requestUrl: requestUrl)
+            }
+
+            if let timeout: TimeInterval = header?[HttpHeaderFields.keepAlive.rawValue]?.value as? NSNumber as? TimeInterval {
+                requestTimeoutHandler.scheduleTimer(with: id, timeout: timeout, operation: operation, completion: determineOperationHandler)
+            } else {
+                determineOperationHandler()
             }
         }
 
