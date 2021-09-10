@@ -15,7 +15,9 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Fix Fueling PWA's URL for non-prod environments
 
-<!-- ### Internal - Include, if needed -->
+### Internal
+
+* Remove default timeout in communication api
 
 8.0.0 Release notes (2021-08-16)
 =============================================================
