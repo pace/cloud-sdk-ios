@@ -46,7 +46,11 @@ extension AppManager {
             switch result {
             case .failure(let error):
                 switch error {
-                case .requestCancelled, .invalidSpeed:
+                case .requestCancelled:
+                    completion(nil)
+
+                case .invalidSpeed:
+                    self?.removeDisplayedAppsIfNeeded(with: location)
                     completion(nil)
 
                 default:
@@ -236,6 +240,20 @@ extension AppManager {
 
         removeDisplayedApps(with: appsToRemove)
         delegate?.didEscapeForecourt(appsToRemove)
+    }
+
+    private func removeDisplayedAppsIfNeeded(with newLocation: CLLocation) {
+        let allowedLocationOffset = PACECloudSDK.shared.config?.allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
+
+        guard let currentlyDisplayedApps = currentlyDisplayedApps,
+              !currentlyDisplayedApps.apps.isEmpty,
+              currentlyDisplayedApps.location.distance(from: newLocation) > allowedLocationOffset
+        else { return }
+
+        let appsToRemove = currentlyDisplayedApps.apps
+        removeDisplayedApps(with: appsToRemove)
+        delegate?.didEscapeForecourt(appsToRemove)
+        self.currentlyDisplayedApps = nil
     }
 
     private func removeDisplayedApps(with apps: [AppKit.AppData]) {
