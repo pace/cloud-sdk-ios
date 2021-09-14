@@ -9,7 +9,7 @@ import Foundation
 
 extension POIKitAPI {
     func priceHistory<T: AnyPriceHistoryResponse>(_ request: POIKit.PriceHistoryRequest<T>,
-                                               result: @escaping (Result<T, Error>) -> Void) {
+                                                  result: @escaping (Result<T, Error>) -> Void) {
         guard let url = buildURL(.priceService, path: request.path, urlParams: request.queryParams) else {
             result(.failure(POIKit.POIKitAPIError.unknown))
             return
