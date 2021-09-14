@@ -48,10 +48,7 @@ extension POIKit {
         }
     }
 
-    func requestCofuGasStations(center: CLLocation,
-                                radius: CLLocationDistance,
-                                includesOnlineOnly: Bool,
-                                completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
+    func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
         requestCofuGasStations(option: .boundingBox(center: center, radius: radius)) { stations in
             guard let stations = stations else {
                 completion(.failure(.unknown))
@@ -66,13 +63,7 @@ extension POIKit {
                     let cofuStations = poiStations.filter { poiStation in
                         stations.contains(where: { $0.id == poiStation.id })
                     }
-
-                    if includesOnlineOnly {
-                        let onlineStations = cofuStations.filter { $0.isConnectedFuelingAvailable }
-                        completion(.success(onlineStations))
-                    } else {
-                        completion(.success(cofuStations))
-                    }
+                    completion(.success(cofuStations))
 
                 case .failure(let error as POIKit.POIKitAPIError):
                     completion(.failure(error))

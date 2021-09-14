@@ -4,13 +4,13 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Breaking Changes
 
 * `TokenValidator` is now part of `IDKit` instead of `AppKit`
+* The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more.
 
 ### Enhancements
 
 * Implement new price history endpoints
 * Add bearing to `GetLocation` call
 * Add 'isSignedIn' sdk call
-* Add `includesOnlineOnly` parameter to `POIKit.requestCoFuGasStation(center:, radius:)` which enables the option to also request offline cofu stations
 
 ### Fixes
 

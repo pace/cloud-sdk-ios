@@ -18,7 +18,7 @@ public extension POIKit {
     /**
      Requests connected fueling gas stations for the specified option.
 
-     The response does also include connected fueling stations that are currently **offline**.
+     The response might also include connected fueling stations that are currently **offline**.
      You may use the `onlineStations` property on the response array to filter the stations by their online status.
 
      ```swift
@@ -42,24 +42,19 @@ public extension POIKit {
     /**
      Requests connected fueling gas stations for the specified area with detailed information.
 
+     The response might also include connected fueling stations that are currently **offline**.
+
      If you only need a list of connected fueling gas stations e.g. for their ids or their location, please use
      `requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) -> Void)`
      instead.
 
      - parameter center: The center of the area you are requesting.
      - parameter radius: The radius for the desired area.
-     - parameter includesOnlineOnly: If `true` only gas stations that are currently online will be included in the response. Defaults to `true`.
      - parameter completion: The block to be called when the response is available
      either containing a list of online connected fueling gas stations with detailed information or an `error`.
      */
-    static func requestCofuGasStations(center: CLLocation,
-                                       radius: CLLocationDistance,
-                                       includesOnlineOnly: Bool = true,
-                                       completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
-        shared.requestCofuGasStations(center: center,
-                                      radius: radius,
-                                      includesOnlineOnly: includesOnlineOnly,
-                                      completion: completion)
+    static func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
+        shared.requestCofuGasStations(center: center, radius: radius, completion: completion)
     }
 
     /**
