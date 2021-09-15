@@ -3,87 +3,106 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B3D31252553E6F200FDF82B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D31242553E6F200FDF82B /* AppDelegate.swift */; };
-		3B3D312E2553E6F200FDF82B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3D312D2553E6F200FDF82B /* Assets.xcassets */; };
-		3B3D31312553E6F200FDF82B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B3D312F2553E6F200FDF82B /* LaunchScreen.storyboard */; };
-		3B3D313C2553E6F200FDF82B /* PACECloudSDKExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D313B2553E6F200FDF82B /* PACECloudSDKExampleTests.swift */; };
-		3B3D31472553E6F200FDF82B /* PACECloudSDKExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D31462553E6F200FDF82B /* PACECloudSDKExampleUITests.swift */; };
-		3B3D319D2553EC8C00FDF82B /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D319C2553EC8C00FDF82B /* Coordinator.swift */; };
-		3B3D31A12553ED0500FDF82B /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D31A02553ED0500FDF82B /* AppCoordinator.swift */; };
-		3B3D31A72553ED7B00FDF82B /* ListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D31A62553ED7B00FDF82B /* ListCoordinator.swift */; };
-		3B3D31AB2553ED8600FDF82B /* FuelingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D31AA2553ED8600FDF82B /* FuelingCoordinator.swift */; };
-		3B3D32282553EE9800FDF82B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32272553EE9800FDF82B /* ListViewController.swift */; };
-		3B3D322E2553EEBC00FDF82B /* FuelingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D322D2553EEBC00FDF82B /* FuelingViewController.swift */; };
-		3B3D32EE2553F99B00FDF82B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32ED2553F99B00FDF82B /* UIColor+Extension.swift */; };
-		3B3D32F22553FC3300FDF82B /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32F12553FC3300FDF82B /* UIFont+Extension.swift */; };
-		3B3D32F72553FD1D00FDF82B /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D32F62553FD1D00FDF82B /* Images.swift */; };
-		3B3D33032554027500FDF82B /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D33022554027500FDF82B /* Strings.swift */; };
-		3B3D33082554030400FDF82B /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D33072554030400FDF82B /* ListViewModel.swift */; };
-		3B3D3315255404E200FDF82B /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D3314255404E200FDF82B /* ListItemCell.swift */; };
-		3B3D33192554050300FDF82B /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D33182554050300FDF82B /* UITableViewCell+Extension.swift */; };
-		3B3D333425540F5200FDF82B /* AppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D333325540F5200FDF82B /* AppControl.swift */; };
-		3B7552B3255539210073C3CA /* IDControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7552B2255539210073C3CA /* IDControl.swift */; };
-		3B7552B725553B070073C3CA /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7552B625553B070073C3CA /* LiveData.swift */; };
-		3B755337255552290073C3CA /* SpinningWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B755336255552290073C3CA /* SpinningWheel.swift */; };
-		3B75533B255552BD0073C3CA /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75533A255552BD0073C3CA /* LoadingView.swift */; };
-		3BAAFEE225DBAA4900D344D6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3BAAFEE125DBAA4900D344D6 /* SnapKit */; };
-		3BDD7B7C2554340100827F28 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; };
-		3BDD7B7D2554340800827F28 /* PACECloudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDD7B75255433F300827F28 /* PACECloudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3BEC848C255432B700AB5F2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC848B255432B700AB5F2F /* Constants.swift */; };
-		3BEF2F8A25544AB700A6C6AA /* NavigationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF2F8925544AB700A6C6AA /* NavigationService.swift */; };
-		3BEF2F9125544F5600A6C6AA /* PaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF2F9025544F5600A6C6AA /* PaceButton.swift */; };
+		3B784C3626B3E5E500B1D859 /* PACECloudSDKExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B784C3526B3E5E500B1D859 /* PACECloudSDKExampleApp.swift */; };
+		3B784C3A26B3E5E600B1D859 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B784C3926B3E5E600B1D859 /* Assets.xcassets */; };
+		3B784C3D26B3E5E600B1D859 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B784C3C26B3E5E600B1D859 /* Preview Assets.xcassets */; };
+		3B784C4626B3E6F600B1D859 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B784C4526B3E6F600B1D859 /* LoginView.swift */; };
+		3B784C4D26B3E83F00B1D859 /* PACE.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B784C4C26B3E83F00B1D859 /* PACE.gpx */; };
+		3B784C4F26B3E84800B1D859 /* QA-Test.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B784C4E26B3E84800B1D859 /* QA-Test.gpx */; };
+		3B784C5226B3E85700B1D859 /* HEM(Baden).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B784C5126B3E85700B1D859 /* HEM(Baden).gpx */; };
+		3B784C5426B3E86000B1D859 /* Kirche-Jet.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3B784C5326B3E86000B1D859 /* Kirche-Jet.gpx */; };
+		3B784C6C26B3EA8900B1D859 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B784C6126B3EA7400B1D859 /* PACECloudSDK.framework */; };
+		3B784C6D26B3EA8900B1D859 /* PACECloudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B784C6126B3EA7400B1D859 /* PACECloudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B784C7026B3F26500B1D859 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B784C6F26B3F26500B1D859 /* Color+Extension.swift */; };
+		3B784C7226B3F79C00B1D859 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B784C7126B3F79C00B1D859 /* CGFloat+Extension.swift */; };
+		3B784C7526B3FC2D00B1D859 /* IDControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B784C7426B3FC2D00B1D859 /* IDControl.swift */; };
+		3B784C7926B3FCA300B1D859 /* AppControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B784C7826B3FCA300B1D859 /* AppControl.swift */; };
+		3B78D45A26B94BD000C1E6EF /* RectangularButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B78D45926B94BD000C1E6EF /* RectangularButton.swift */; };
+		3B7F4D4E26EB9B9800D84B70 /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F4D4D26EB9B9800D84B70 /* TextFieldAlert.swift */; };
+		3B7F4D5026EB9BB700D84B70 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F4D4F26EB9BB700D84B70 /* UIAlertController+Extension.swift */; };
+		3B7F4D5226EB9C1400D84B70 /* TextFieldAlertWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F4D5126EB9C1400D84B70 /* TextFieldAlertWrapper.swift */; };
+		3B7F4D5426EB9C5000D84B70 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7F4D5326EB9C5000D84B70 /* View+Extension.swift */; };
+		3B82EB8126C2960A0086A4BE /* LoadingSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB8026C2960A0086A4BE /* LoadingSpinner.swift */; };
+		3B82EB8726C2A1D90086A4BE /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB8626C2A1D90086A4BE /* AppView.swift */; };
+		3B82EB8926C2A4BF0086A4BE /* DashboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB8826C2A4BF0086A4BE /* DashboardButton.swift */; };
+		3B82EB8B26C2AC100086A4BE /* SettingsPWASimulatorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB8A26C2AC100086A4BE /* SettingsPWASimulatorRow.swift */; };
+		3B82EB8D26C2ACB50086A4BE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB8C26C2ACB50086A4BE /* Constants.swift */; };
+		3B82EB8F26C2ADCF0086A4BE /* SettingsIsPoiInRangeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB8E26C2ADCF0086A4BE /* SettingsIsPoiInRangeRow.swift */; };
+		3B82EB9126C2B5AC0086A4BE /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82EB9026C2B5AC0086A4BE /* ErrorView.swift */; };
+		3B83CA8726B7CB9B00A604BE /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CA8626B7CB9B00A604BE /* LoginViewModel.swift */; };
+		3B83CA8926B7CBA300A604BE /* LoginViewModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CA8826B7CBA300A604BE /* LoginViewModelImplementation.swift */; };
+		3B83CABA26B7D15400A604BE /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAB926B7D15400A604BE /* MainTabView.swift */; };
+		3B83CAC026B7E93800A604BE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CABF26B7E93800A604BE /* SettingsView.swift */; };
+		3B83CAC326B7EB3800A604BE /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAC226B7EB3800A604BE /* SettingsRow.swift */; };
+		3B83CAC826B7F73E00A604BE /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAC726B7F73E00A604BE /* SettingsViewModel.swift */; };
+		3B83CACA26B7F7B400A604BE /* SettingsViewModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAC926B7F7B400A604BE /* SettingsViewModelImplementation.swift */; };
+		3B83CAFC26B81F4600A604BE /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAFB26B81F4600A604BE /* ListView.swift */; };
+		3B83CAFE26B81FC200A604BE /* DrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAFD26B81FC200A604BE /* DrawerView.swift */; };
+		3B83CB0026B81FEA00A604BE /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CAFF26B81FEA00A604BE /* DashboardView.swift */; };
+		3B83CB0326B8213300A604BE /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CB0226B8213300A604BE /* ListViewModel.swift */; };
+		3B83CB0526B8213C00A604BE /* ListViewModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CB0426B8213C00A604BE /* ListViewModelImplementation.swift */; };
+		3B83CB0826B8221D00A604BE /* ListViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CB0726B8221D00A604BE /* ListViewRow.swift */; };
+		3B83CB0B26B82B5700A604BE /* DrawerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CB0A26B82B5700A604BE /* DrawerViewModel.swift */; };
+		3B83CB0D26B82BBB00A604BE /* DrawerViewModelImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CB0C26B82BBB00A604BE /* DrawerViewModelImplementation.swift */; };
+		3B83CB1026B834B900A604BE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83CB0F26B834B900A604BE /* LocationManager.swift */; };
+		3B846EAD26F1FC6700B36E54 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B846EAC26F1FC6700B36E54 /* SettingsAccountView.swift */; };
+		3B8C91B226F0C89300D60656 /* SecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C91B126F0C89300D60656 /* SecurityView.swift */; };
+		3B8C91B426F0C8C700D60656 /* SettingsSecurityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C91B326F0C8C700D60656 /* SettingsSecurityRow.swift */; };
+		3B8C921726F0ECAB00D60656 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C921626F0ECAB00D60656 /* Double+Extension.swift */; };
+		3B952FCD26EF6E5200354B62 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B952FCC26EF6E5200354B62 /* Array+Extension.swift */; };
+		3B952FCF26EF77C600354B62 /* SettingsPINStatusRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B952FCE26EF77C600354B62 /* SettingsPINStatusRow.swift */; };
+		3B952FD126EF77CD00354B62 /* SettingsPasswordStatusRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B952FD026EF77CD00354B62 /* SettingsPasswordStatusRow.swift */; };
+		3B9A821726F1CC480065FAF3 /* StyledText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9A821626F1CC480065FAF3 /* StyledText.swift */; };
+		3B9FCAC726BA891D0007B324 /* SettingsBiometricAuthenticationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAC626BA891D0007B324 /* SettingsBiometricAuthenticationRow.swift */; };
+		3B9FCACD26BA89260007B324 /* SettingsPINSetupRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCACC26BA89260007B324 /* SettingsPINSetupRow.swift */; };
+		3B9FCACF26BA892D0007B324 /* SettingsMailOTPRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */; };
+		3B9FCAD126BA89340007B324 /* SettingsLogoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */; };
+		3B9FCAD326BA979A0007B324 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAD226BA979A0007B324 /* ToggleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3B3D31382553E6F200FDF82B /* PBXContainerItemProxy */ = {
+		3B784C6026B3EA7400B1D859 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3B3D31192553E6F200FDF82B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3B3D31202553E6F200FDF82B;
-			remoteInfo = PACECloudSDKExample;
-		};
-		3B3D31432553E6F200FDF82B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B3D31192553E6F200FDF82B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3B3D31202553E6F200FDF82B;
-			remoteInfo = PACECloudSDKExample;
-		};
-		3BA5A49825D281F500B8102A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 92EDDBCD25A71EEB00E480F4;
-			remoteInfo = PACECloudSlimSDK;
-		};
-		3BB2234B2639AAD600FEC4E7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3BA6A760260DD06A005D4B5C;
-			remoteInfo = UnitTestDummy;
-		};
-		3BDD7B74255433F300827F28 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
+			containerPortal = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 921E682C2534883100438491;
 			remoteInfo = PACECloudSDK;
 		};
-		3BDD7B76255433F300827F28 /* PBXContainerItemProxy */ = {
+		3B784C6226B3EA7400B1D859 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
+			containerPortal = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 92EDDBCD25A71EEB00E480F4;
+			remoteInfo = PACECloudSlimSDK;
+		};
+		3B784C6426B3EA7400B1D859 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 921E68352534883200438491;
 			remoteInfo = PACECloudSDKTests;
 		};
-		3BDD7B7A255433FC00827F28 /* PBXContainerItemProxy */ = {
+		3B784C6626B3EA7400B1D859 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
+			containerPortal = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3BA6A760260DD06A005D4B5C;
+			remoteInfo = UnitTestDummy;
+		};
+		3B784C6826B3EA7400B1D859 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 17BB0CD7268CCED6009D4755;
+			remoteInfo = PACECloudWatchSDK;
+		};
+		3B784C6A26B3EA8100B1D859 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 921E682B2534883100438491;
 			remoteInfo = PACECloudSDK;
@@ -91,13 +110,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3B3D31852553E83600FDF82B /* Embed Frameworks */ = {
+		3B784C6E26B3EA8A00B1D859 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3BDD7B7D2554340800827F28 /* PACECloudSDK.framework in Embed Frameworks */,
+				3B784C6D26B3EA8900B1D859 /* PACECloudSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,309 +124,356 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3B3D31212553E6F200FDF82B /* PACECloudSDKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PACECloudSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B3D31242553E6F200FDF82B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3B3D312D2553E6F200FDF82B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3B3D31302553E6F200FDF82B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3B3D31322553E6F200FDF82B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B3D31372553E6F200FDF82B /* PACECloudSDKExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PACECloudSDKExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B3D313B2553E6F200FDF82B /* PACECloudSDKExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKExampleTests.swift; sourceTree = "<group>"; };
-		3B3D313D2553E6F200FDF82B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B3D31422553E6F200FDF82B /* PACECloudSDKExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PACECloudSDKExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B3D31462553E6F200FDF82B /* PACECloudSDKExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKExampleUITests.swift; sourceTree = "<group>"; };
-		3B3D31482553E6F200FDF82B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3B3D319C2553EC8C00FDF82B /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		3B3D31A02553ED0500FDF82B /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		3B3D31A62553ED7B00FDF82B /* ListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCoordinator.swift; sourceTree = "<group>"; };
-		3B3D31AA2553ED8600FDF82B /* FuelingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelingCoordinator.swift; sourceTree = "<group>"; };
-		3B3D32272553EE9800FDF82B /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		3B3D322D2553EEBC00FDF82B /* FuelingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuelingViewController.swift; sourceTree = "<group>"; };
-		3B3D32ED2553F99B00FDF82B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		3B3D32F12553FC3300FDF82B /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
-		3B3D32F62553FD1D00FDF82B /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
-		3B3D33022554027500FDF82B /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		3B3D33072554030400FDF82B /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
-		3B3D3314255404E200FDF82B /* ListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
-		3B3D33182554050300FDF82B /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
-		3B3D333325540F5200FDF82B /* AppControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControl.swift; sourceTree = "<group>"; };
-		3B7552B2255539210073C3CA /* IDControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDControl.swift; sourceTree = "<group>"; };
-		3B7552B625553B070073C3CA /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
-		3B755336255552290073C3CA /* SpinningWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinningWheel.swift; sourceTree = "<group>"; };
-		3B75533A255552BD0073C3CA /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		3B96927A25E3B7D600E42703 /* PACE.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = PACE.gpx; path = PACECloudSDKExample/PACE.gpx; sourceTree = "<group>"; };
-		3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PACECloudSDK.xcodeproj; path = ../PACECloudSDK.xcodeproj; sourceTree = "<group>"; };
-		3BEC848B255432B700AB5F2F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		3BEF2F8925544AB700A6C6AA /* NavigationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationService.swift; sourceTree = "<group>"; };
-		3BEF2F9025544F5600A6C6AA /* PaceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceButton.swift; sourceTree = "<group>"; };
+		3B784C3226B3E5E500B1D859 /* PACECloudSDKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PACECloudSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B784C3526B3E5E500B1D859 /* PACECloudSDKExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKExampleApp.swift; sourceTree = "<group>"; };
+		3B784C3926B3E5E600B1D859 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B784C3C26B3E5E600B1D859 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3B784C3E26B3E5E600B1D859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B784C4526B3E6F600B1D859 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3B784C4C26B3E83F00B1D859 /* PACE.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PACE.gpx; sourceTree = "<group>"; };
+		3B784C4E26B3E84800B1D859 /* QA-Test.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "QA-Test.gpx"; sourceTree = "<group>"; };
+		3B784C5126B3E85700B1D859 /* HEM(Baden).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "HEM(Baden).gpx"; sourceTree = "<group>"; };
+		3B784C5326B3E86000B1D859 /* Kirche-Jet.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Kirche-Jet.gpx"; sourceTree = "<group>"; };
+		3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PACECloudSDK.xcodeproj; path = ../PACECloudSDK.xcodeproj; sourceTree = "<group>"; };
+		3B784C6F26B3F26500B1D859 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		3B784C7126B3F79C00B1D859 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
+		3B784C7426B3FC2D00B1D859 /* IDControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDControl.swift; sourceTree = "<group>"; };
+		3B784C7826B3FCA300B1D859 /* AppControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppControl.swift; sourceTree = "<group>"; };
+		3B78D45926B94BD000C1E6EF /* RectangularButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularButton.swift; sourceTree = "<group>"; };
+		3B7F4D4D26EB9B9800D84B70 /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
+		3B7F4D4F26EB9BB700D84B70 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		3B7F4D5126EB9C1400D84B70 /* TextFieldAlertWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlertWrapper.swift; sourceTree = "<group>"; };
+		3B7F4D5326EB9C5000D84B70 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		3B82EB8026C2960A0086A4BE /* LoadingSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSpinner.swift; sourceTree = "<group>"; };
+		3B82EB8626C2A1D90086A4BE /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		3B82EB8826C2A4BF0086A4BE /* DashboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardButton.swift; sourceTree = "<group>"; };
+		3B82EB8A26C2AC100086A4BE /* SettingsPWASimulatorRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPWASimulatorRow.swift; sourceTree = "<group>"; };
+		3B82EB8C26C2ACB50086A4BE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3B82EB8E26C2ADCF0086A4BE /* SettingsIsPoiInRangeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsIsPoiInRangeRow.swift; sourceTree = "<group>"; };
+		3B82EB9026C2B5AC0086A4BE /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		3B83CA8626B7CB9B00A604BE /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		3B83CA8826B7CBA300A604BE /* LoginViewModelImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelImplementation.swift; sourceTree = "<group>"; };
+		3B83CAB926B7D15400A604BE /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		3B83CABF26B7E93800A604BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3B83CAC226B7EB3800A604BE /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
+		3B83CAC726B7F73E00A604BE /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		3B83CAC926B7F7B400A604BE /* SettingsViewModelImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelImplementation.swift; sourceTree = "<group>"; };
+		3B83CAFB26B81F4600A604BE /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		3B83CAFD26B81FC200A604BE /* DrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerView.swift; sourceTree = "<group>"; };
+		3B83CAFF26B81FEA00A604BE /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		3B83CB0226B8213300A604BE /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		3B83CB0426B8213C00A604BE /* ListViewModelImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelImplementation.swift; sourceTree = "<group>"; };
+		3B83CB0726B8221D00A604BE /* ListViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewRow.swift; sourceTree = "<group>"; };
+		3B83CB0A26B82B5700A604BE /* DrawerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewModel.swift; sourceTree = "<group>"; };
+		3B83CB0C26B82BBB00A604BE /* DrawerViewModelImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewModelImplementation.swift; sourceTree = "<group>"; };
+		3B83CB0F26B834B900A604BE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		3B846EAC26F1FC6700B36E54 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
+		3B8C91B126F0C89300D60656 /* SecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityView.swift; sourceTree = "<group>"; };
+		3B8C91B326F0C8C700D60656 /* SettingsSecurityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSecurityRow.swift; sourceTree = "<group>"; };
+		3B8C921626F0ECAB00D60656 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		3B952FCC26EF6E5200354B62 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		3B952FCE26EF77C600354B62 /* SettingsPINStatusRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPINStatusRow.swift; sourceTree = "<group>"; };
+		3B952FD026EF77CD00354B62 /* SettingsPasswordStatusRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPasswordStatusRow.swift; sourceTree = "<group>"; };
+		3B9A821626F1CC480065FAF3 /* StyledText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledText.swift; sourceTree = "<group>"; };
+		3B9FCAC626BA891D0007B324 /* SettingsBiometricAuthenticationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBiometricAuthenticationRow.swift; sourceTree = "<group>"; };
+		3B9FCACC26BA89260007B324 /* SettingsPINSetupRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPINSetupRow.swift; sourceTree = "<group>"; };
+		3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMailOTPRow.swift; sourceTree = "<group>"; };
+		3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLogoutRow.swift; sourceTree = "<group>"; };
+		3B9FCAD226BA979A0007B324 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3B3D311E2553E6F200FDF82B /* Frameworks */ = {
+		3B784C2F26B3E5E500B1D859 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BDD7B7C2554340100827F28 /* PACECloudSDK.framework in Frameworks */,
-				3BAAFEE225DBAA4900D344D6 /* SnapKit in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B3D31342553E6F200FDF82B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B3D313F2553E6F200FDF82B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				3B784C6C26B3EA8900B1D859 /* PACECloudSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3B3D31182553E6F200FDF82B = {
+		3B784C2926B3E5E500B1D859 = {
 			isa = PBXGroup;
 			children = (
-				3B96927A25E3B7D600E42703 /* PACE.gpx */,
-				3B3D31232553E6F200FDF82B /* PACECloudSDKExample */,
-				3B3D313A2553E6F200FDF82B /* PACECloudSDKExampleTests */,
-				3B3D31452553E6F200FDF82B /* PACECloudSDKExampleUITests */,
-				3B3D31222553E6F200FDF82B /* Products */,
-				3B3D31632553E83600FDF82B /* Frameworks */,
+				3B784C3426B3E5E500B1D859 /* PACECloudSDKExample */,
+				3B784C3326B3E5E500B1D859 /* Products */,
+				3B784C5726B3EA7300B1D859 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		3B3D31222553E6F200FDF82B /* Products */ = {
+		3B784C3326B3E5E500B1D859 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B3D31212553E6F200FDF82B /* PACECloudSDKExample.app */,
-				3B3D31372553E6F200FDF82B /* PACECloudSDKExampleTests.xctest */,
-				3B3D31422553E6F200FDF82B /* PACECloudSDKExampleUITests.xctest */,
+				3B784C3226B3E5E500B1D859 /* PACECloudSDKExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3B3D31232553E6F200FDF82B /* PACECloudSDKExample */ = {
+		3B784C3426B3E5E500B1D859 /* PACECloudSDKExample */ = {
 			isa = PBXGroup;
 			children = (
-				3B3D319B2553EC7B00FDF82B /* Coordinator */,
-				3B3D32EC2553F98E00FDF82B /* Extensions */,
-				3B3D32262553EE7D00FDF82B /* Fueling */,
-				3BEF2F8825544AA700A6C6AA /* Helper */,
-				3B3D32242553EE7500FDF82B /* List */,
-				3B3D333225540F4700FDF82B /* App */,
-				3B3D32F52553FD1300FDF82B /* Utils */,
-				3B3D31242553E6F200FDF82B /* AppDelegate.swift */,
-				3B3D312D2553E6F200FDF82B /* Assets.xcassets */,
-				3B3D312F2553E6F200FDF82B /* LaunchScreen.storyboard */,
-				3B3D31322553E6F200FDF82B /* Info.plist */,
+				3B78D45426B94BC100C1E6EF /* Components */,
+				3B784C7626B3FC8D00B1D859 /* Controls */,
+				3B83CABB26B7E8BD00A604BE /* Dashboard */,
+				3B83CABD26B7E8C500A604BE /* Drawer */,
+				3B83CABC26B7E8C200A604BE /* List */,
+				3B784C4426B3E6E800B1D859 /* Login */,
+				3B83CABE26B7E8C800A604BE /* Settings */,
+				3B83CAB826B7D14200A604BE /* TabView */,
+				3B784C4B26B3E81100B1D859 /* Utils */,
+				3B784C3B26B3E5E600B1D859 /* Preview Content */,
+				3B784C3526B3E5E500B1D859 /* PACECloudSDKExampleApp.swift */,
+				3B784C3E26B3E5E600B1D859 /* Info.plist */,
+				3B784C3926B3E5E600B1D859 /* Assets.xcassets */,
 			);
 			path = PACECloudSDKExample;
 			sourceTree = "<group>";
 		};
-		3B3D313A2553E6F200FDF82B /* PACECloudSDKExampleTests */ = {
+		3B784C3B26B3E5E600B1D859 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				3B3D313B2553E6F200FDF82B /* PACECloudSDKExampleTests.swift */,
-				3B3D313D2553E6F200FDF82B /* Info.plist */,
+				3B784C3C26B3E5E600B1D859 /* Preview Assets.xcassets */,
 			);
-			path = PACECloudSDKExampleTests;
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		3B3D31452553E6F200FDF82B /* PACECloudSDKExampleUITests */ = {
+		3B784C4426B3E6E800B1D859 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				3B3D31462553E6F200FDF82B /* PACECloudSDKExampleUITests.swift */,
-				3B3D31482553E6F200FDF82B /* Info.plist */,
+				3B83CA8126B7CB9300A604BE /* ViewModel */,
+				3B784C4526B3E6F600B1D859 /* LoginView.swift */,
 			);
-			path = PACECloudSDKExampleUITests;
+			path = Login;
 			sourceTree = "<group>";
 		};
-		3B3D31632553E83600FDF82B /* Frameworks */ = {
+		3B784C4B26B3E81100B1D859 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3B3D319B2553EC7B00FDF82B /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				3B3D31A02553ED0500FDF82B /* AppCoordinator.swift */,
-				3B3D319C2553EC8C00FDF82B /* Coordinator.swift */,
-				3B3D31AA2553ED8600FDF82B /* FuelingCoordinator.swift */,
-				3B3D31A62553ED7B00FDF82B /* ListCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		3B3D32242553EE7500FDF82B /* List */ = {
-			isa = PBXGroup;
-			children = (
-				3B3D3313255404CB00FDF82B /* View */,
-				3B3D32272553EE9800FDF82B /* ListViewController.swift */,
-				3B3D33072554030400FDF82B /* ListViewModel.swift */,
-			);
-			path = List;
-			sourceTree = "<group>";
-		};
-		3B3D32262553EE7D00FDF82B /* Fueling */ = {
-			isa = PBXGroup;
-			children = (
-				3B3D322D2553EEBC00FDF82B /* FuelingViewController.swift */,
-			);
-			path = Fueling;
-			sourceTree = "<group>";
-		};
-		3B3D32EC2553F98E00FDF82B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				3B3D32ED2553F99B00FDF82B /* UIColor+Extension.swift */,
-				3B3D32F12553FC3300FDF82B /* UIFont+Extension.swift */,
-				3B3D33182554050300FDF82B /* UITableViewCell+Extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		3B3D32F52553FD1300FDF82B /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				3BEC848B255432B700AB5F2F /* Constants.swift */,
-				3B3D32F62553FD1D00FDF82B /* Images.swift */,
-				3B7552B625553B070073C3CA /* LiveData.swift */,
-				3B3D33022554027500FDF82B /* Strings.swift */,
+				3B784C5026B3E84B00B1D859 /* GPX */,
+				3B952FCC26EF6E5200354B62 /* Array+Extension.swift */,
+				3B784C7126B3F79C00B1D859 /* CGFloat+Extension.swift */,
+				3B784C6F26B3F26500B1D859 /* Color+Extension.swift */,
+				3B82EB8C26C2ACB50086A4BE /* Constants.swift */,
+				3B7F4D4F26EB9BB700D84B70 /* UIAlertController+Extension.swift */,
+				3B7F4D5326EB9C5000D84B70 /* View+Extension.swift */,
+				3B8C921626F0ECAB00D60656 /* Double+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		3B3D3313255404CB00FDF82B /* View */ = {
+		3B784C5026B3E84B00B1D859 /* GPX */ = {
 			isa = PBXGroup;
 			children = (
-				3B3D3314255404E200FDF82B /* ListItemCell.swift */,
-				3B755336255552290073C3CA /* SpinningWheel.swift */,
-				3B75533A255552BD0073C3CA /* LoadingView.swift */,
+				3B784C5126B3E85700B1D859 /* HEM(Baden).gpx */,
+				3B784C5326B3E86000B1D859 /* Kirche-Jet.gpx */,
+				3B784C4C26B3E83F00B1D859 /* PACE.gpx */,
+				3B784C4E26B3E84800B1D859 /* QA-Test.gpx */,
 			);
-			path = View;
+			path = GPX;
 			sourceTree = "<group>";
 		};
-		3B3D333225540F4700FDF82B /* App */ = {
+		3B784C5726B3EA7300B1D859 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B3D333325540F5200FDF82B /* AppControl.swift */,
-				3B7552B2255539210073C3CA /* IDControl.swift */,
+				3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */,
 			);
-			path = App;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3BDD7B70255433F300827F28 /* Products */ = {
+		3B784C5926B3EA7300B1D859 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3BDD7B75255433F300827F28 /* PACECloudSDK.framework */,
-				3BA5A49925D281F500B8102A /* PACECloudSlimSDK.framework */,
-				3BDD7B77255433F300827F28 /* PACECloudSDKTests.xctest */,
-				3BB2234C2639AAD600FEC4E7 /* UnitTestDummy.app */,
+				3B784C6126B3EA7400B1D859 /* PACECloudSDK.framework */,
+				3B784C6326B3EA7400B1D859 /* PACECloudSlimSDK.framework */,
+				3B784C6526B3EA7400B1D859 /* PACECloudSDKTests.xctest */,
+				3B784C6726B3EA7400B1D859 /* UnitTestDummy.app */,
+				3B784C6926B3EA7400B1D859 /* PACECloudWatchSDK.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3BEF2F8825544AA700A6C6AA /* Helper */ = {
+		3B784C7626B3FC8D00B1D859 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				3BEF2F8925544AB700A6C6AA /* NavigationService.swift */,
-				3BEF2F9025544F5600A6C6AA /* PaceButton.swift */,
+				3B784C7826B3FCA300B1D859 /* AppControl.swift */,
+				3B784C7426B3FC2D00B1D859 /* IDControl.swift */,
+				3B83CB0F26B834B900A604BE /* LocationManager.swift */,
 			);
-			path = Helper;
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		3B78D45426B94BC100C1E6EF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3B7F4D4826EB9B8600D84B70 /* TextfieldAlert */,
+				3B82EB8626C2A1D90086A4BE /* AppView.swift */,
+				3B82EB8826C2A4BF0086A4BE /* DashboardButton.swift */,
+				3B82EB9026C2B5AC0086A4BE /* ErrorView.swift */,
+				3B82EB8026C2960A0086A4BE /* LoadingSpinner.swift */,
+				3B78D45926B94BD000C1E6EF /* RectangularButton.swift */,
+				3B9FCAD226BA979A0007B324 /* ToggleView.swift */,
+				3B9A821626F1CC480065FAF3 /* StyledText.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3B7F4D4826EB9B8600D84B70 /* TextfieldAlert */ = {
+			isa = PBXGroup;
+			children = (
+				3B7F4D4D26EB9B9800D84B70 /* TextFieldAlert.swift */,
+				3B7F4D5126EB9C1400D84B70 /* TextFieldAlertWrapper.swift */,
+			);
+			path = TextfieldAlert;
+			sourceTree = "<group>";
+		};
+		3B83CA8126B7CB9300A604BE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CA8626B7CB9B00A604BE /* LoginViewModel.swift */,
+				3B83CA8826B7CBA300A604BE /* LoginViewModelImplementation.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B83CAB826B7D14200A604BE /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CAB926B7D15400A604BE /* MainTabView.swift */,
+			);
+			path = TabView;
+			sourceTree = "<group>";
+		};
+		3B83CABB26B7E8BD00A604BE /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CAFF26B81FEA00A604BE /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		3B83CABC26B7E8C200A604BE /* List */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CB0126B8212A00A604BE /* ViewModel */,
+				3B83CAFB26B81F4600A604BE /* ListView.swift */,
+				3B83CB0726B8221D00A604BE /* ListViewRow.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		3B83CABD26B7E8C500A604BE /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CB0926B82B4800A604BE /* ViewModel */,
+				3B83CAFD26B81FC200A604BE /* DrawerView.swift */,
+			);
+			path = Drawer;
+			sourceTree = "<group>";
+		};
+		3B83CABE26B7E8C800A604BE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CAC126B7EA7B00A604BE /* Rows */,
+				3B83CAC626B7F73300A604BE /* ViewModel */,
+				3B83CABF26B7E93800A604BE /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3B83CAC126B7EA7B00A604BE /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				3B8C91AC26F0C7E600D60656 /* Security */,
+				3B83CAC226B7EB3800A604BE /* SettingsRow.swift */,
+				3B846EAC26F1FC6700B36E54 /* SettingsAccountView.swift */,
+				3B82EB8E26C2ADCF0086A4BE /* SettingsIsPoiInRangeRow.swift */,
+				3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */,
+				3B82EB8A26C2AC100086A4BE /* SettingsPWASimulatorRow.swift */,
+				3B8C91B326F0C8C700D60656 /* SettingsSecurityRow.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
+		3B83CAC626B7F73300A604BE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CAC726B7F73E00A604BE /* SettingsViewModel.swift */,
+				3B83CAC926B7F7B400A604BE /* SettingsViewModelImplementation.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B83CB0126B8212A00A604BE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CB0226B8213300A604BE /* ListViewModel.swift */,
+				3B83CB0426B8213C00A604BE /* ListViewModelImplementation.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B83CB0926B82B4800A604BE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3B83CB0A26B82B5700A604BE /* DrawerViewModel.swift */,
+				3B83CB0C26B82BBB00A604BE /* DrawerViewModelImplementation.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B8C91AC26F0C7E600D60656 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				3B9FCAC626BA891D0007B324 /* SettingsBiometricAuthenticationRow.swift */,
+				3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */,
+				3B952FD026EF77CD00354B62 /* SettingsPasswordStatusRow.swift */,
+				3B9FCACC26BA89260007B324 /* SettingsPINSetupRow.swift */,
+				3B952FCE26EF77C600354B62 /* SettingsPINStatusRow.swift */,
+				3B8C91B126F0C89300D60656 /* SecurityView.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3B3D31202553E6F200FDF82B /* PACECloudSDKExample */ = {
+		3B784C3126B3E5E500B1D859 /* PACECloudSDKExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B3D314B2553E6F200FDF82B /* Build configuration list for PBXNativeTarget "PACECloudSDKExample" */;
+			buildConfigurationList = 3B784C4126B3E5E600B1D859 /* Build configuration list for PBXNativeTarget "PACECloudSDKExample" */;
 			buildPhases = (
-				3BEC84332554128400AB5F2F /* Run Script */,
-				3B3D311D2553E6F200FDF82B /* Sources */,
-				3B3D311E2553E6F200FDF82B /* Frameworks */,
-				3B3D311F2553E6F200FDF82B /* Resources */,
-				3B3D31852553E83600FDF82B /* Embed Frameworks */,
+				3B784C5626B3E94200B1D859 /* Swiftlint */,
+				3B784C2E26B3E5E500B1D859 /* Sources */,
+				3B784C2F26B3E5E500B1D859 /* Frameworks */,
+				3B784C3026B3E5E500B1D859 /* Resources */,
+				3B784C6E26B3EA8A00B1D859 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3BDD7B7B255433FC00827F28 /* PBXTargetDependency */,
+				3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */,
 			);
 			name = PACECloudSDKExample;
-			packageProductDependencies = (
-				3BAAFEE125DBAA4900D344D6 /* SnapKit */,
-			);
 			productName = PACECloudSDKExample;
-			productReference = 3B3D31212553E6F200FDF82B /* PACECloudSDKExample.app */;
+			productReference = 3B784C3226B3E5E500B1D859 /* PACECloudSDKExample.app */;
 			productType = "com.apple.product-type.application";
-		};
-		3B3D31362553E6F200FDF82B /* PACECloudSDKExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3B3D314E2553E6F200FDF82B /* Build configuration list for PBXNativeTarget "PACECloudSDKExampleTests" */;
-			buildPhases = (
-				3B3D31332553E6F200FDF82B /* Sources */,
-				3B3D31342553E6F200FDF82B /* Frameworks */,
-				3B3D31352553E6F200FDF82B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3B3D31392553E6F200FDF82B /* PBXTargetDependency */,
-			);
-			name = PACECloudSDKExampleTests;
-			productName = PACECloudSDKExampleTests;
-			productReference = 3B3D31372553E6F200FDF82B /* PACECloudSDKExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		3B3D31412553E6F200FDF82B /* PACECloudSDKExampleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3B3D31512553E6F200FDF82B /* Build configuration list for PBXNativeTarget "PACECloudSDKExampleUITests" */;
-			buildPhases = (
-				3B3D313E2553E6F200FDF82B /* Sources */,
-				3B3D313F2553E6F200FDF82B /* Frameworks */,
-				3B3D31402553E6F200FDF82B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3B3D31442553E6F200FDF82B /* PBXTargetDependency */,
-			);
-			name = PACECloudSDKExampleUITests;
-			productName = PACECloudSDKExampleUITests;
-			productReference = 3B3D31422553E6F200FDF82B /* PACECloudSDKExampleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3B3D31192553E6F200FDF82B /* Project object */ = {
+		3B784C2A26B3E5E500B1D859 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
-					3B3D31202553E6F200FDF82B = {
-						CreatedOnToolsVersion = 12.0.1;
-					};
-					3B3D31362553E6F200FDF82B = {
-						CreatedOnToolsVersion = 12.0.1;
-						TestTargetID = 3B3D31202553E6F200FDF82B;
-					};
-					3B3D31412553E6F200FDF82B = {
-						CreatedOnToolsVersion = 12.0.1;
-						TestTargetID = 3B3D31202553E6F200FDF82B;
+					3B784C3126B3E5E500B1D859 = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
-			buildConfigurationList = 3B3D311C2553E6F200FDF82B /* Build configuration list for PBXProject "PACECloudSDKExample" */;
+			buildConfigurationList = 3B784C2D26B3E5E500B1D859 /* Build configuration list for PBXProject "PACECloudSDKExample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -415,86 +481,78 @@
 				en,
 				Base,
 			);
-			mainGroup = 3B3D31182553E6F200FDF82B;
-			packageReferences = (
-				3BAAFEE025DBAA4900D344D6 /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
-			productRefGroup = 3B3D31222553E6F200FDF82B /* Products */;
+			mainGroup = 3B784C2926B3E5E500B1D859;
+			productRefGroup = 3B784C3326B3E5E500B1D859 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3BDD7B70255433F300827F28 /* Products */;
-					ProjectRef = 3BDD7B6F255433F300827F28 /* PACECloudSDK.xcodeproj */;
+					ProductGroup = 3B784C5926B3EA7300B1D859 /* Products */;
+					ProjectRef = 3B784C5826B3EA7300B1D859 /* PACECloudSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				3B3D31202553E6F200FDF82B /* PACECloudSDKExample */,
-				3B3D31362553E6F200FDF82B /* PACECloudSDKExampleTests */,
-				3B3D31412553E6F200FDF82B /* PACECloudSDKExampleUITests */,
+				3B784C3126B3E5E500B1D859 /* PACECloudSDKExample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3BA5A49925D281F500B8102A /* PACECloudSlimSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PACECloudSlimSDK.framework;
-			remoteRef = 3BA5A49825D281F500B8102A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3BB2234C2639AAD600FEC4E7 /* UnitTestDummy.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = UnitTestDummy.app;
-			remoteRef = 3BB2234B2639AAD600FEC4E7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3BDD7B75255433F300827F28 /* PACECloudSDK.framework */ = {
+		3B784C6126B3EA7400B1D859 /* PACECloudSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = PACECloudSDK.framework;
-			remoteRef = 3BDD7B74255433F300827F28 /* PBXContainerItemProxy */;
+			remoteRef = 3B784C6026B3EA7400B1D859 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3BDD7B77255433F300827F28 /* PACECloudSDKTests.xctest */ = {
+		3B784C6326B3EA7400B1D859 /* PACECloudSlimSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PACECloudSlimSDK.framework;
+			remoteRef = 3B784C6226B3EA7400B1D859 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B784C6526B3EA7400B1D859 /* PACECloudSDKTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = PACECloudSDKTests.xctest;
-			remoteRef = 3BDD7B76255433F300827F28 /* PBXContainerItemProxy */;
+			remoteRef = 3B784C6426B3EA7400B1D859 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B784C6726B3EA7400B1D859 /* UnitTestDummy.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = UnitTestDummy.app;
+			remoteRef = 3B784C6626B3EA7400B1D859 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B784C6926B3EA7400B1D859 /* PACECloudWatchSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PACECloudWatchSDK.framework;
+			remoteRef = 3B784C6826B3EA7400B1D859 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3B3D311F2553E6F200FDF82B /* Resources */ = {
+		3B784C3026B3E5E500B1D859 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B3D31312553E6F200FDF82B /* LaunchScreen.storyboard in Resources */,
-				3B3D312E2553E6F200FDF82B /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B3D31352553E6F200FDF82B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B3D31402553E6F200FDF82B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				3B784C4D26B3E83F00B1D859 /* PACE.gpx in Resources */,
+				3B784C5426B3E86000B1D859 /* Kirche-Jet.gpx in Resources */,
+				3B784C3D26B3E5E600B1D859 /* Preview Assets.xcassets in Resources */,
+				3B784C3A26B3E5E600B1D859 /* Assets.xcassets in Resources */,
+				3B784C4F26B3E84800B1D859 /* QA-Test.gpx in Resources */,
+				3B784C5226B3E85700B1D859 /* HEM(Baden).gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3BEC84332554128400AB5F2F /* Run Script */ = {
+		3B784C5626B3E94200B1D859 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -503,96 +561,84 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = Swiftlint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    exit 1\nfi\n";
+			shellScript = "# Default homebrew directory on m1\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3B3D311D2553E6F200FDF82B /* Sources */ = {
+		3B784C2E26B3E5E500B1D859 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BEF2F9125544F5600A6C6AA /* PaceButton.swift in Sources */,
-				3B3D31A72553ED7B00FDF82B /* ListCoordinator.swift in Sources */,
-				3B3D333425540F5200FDF82B /* AppControl.swift in Sources */,
-				3B3D32F72553FD1D00FDF82B /* Images.swift in Sources */,
-				3B3D33082554030400FDF82B /* ListViewModel.swift in Sources */,
-				3B3D33192554050300FDF82B /* UITableViewCell+Extension.swift in Sources */,
-				3B3D31A12553ED0500FDF82B /* AppCoordinator.swift in Sources */,
-				3B7552B725553B070073C3CA /* LiveData.swift in Sources */,
-				3B3D319D2553EC8C00FDF82B /* Coordinator.swift in Sources */,
-				3B3D31AB2553ED8600FDF82B /* FuelingCoordinator.swift in Sources */,
-				3B3D31252553E6F200FDF82B /* AppDelegate.swift in Sources */,
-				3B3D33032554027500FDF82B /* Strings.swift in Sources */,
-				3B3D32282553EE9800FDF82B /* ListViewController.swift in Sources */,
-				3B7552B3255539210073C3CA /* IDControl.swift in Sources */,
-				3B3D322E2553EEBC00FDF82B /* FuelingViewController.swift in Sources */,
-				3B3D32EE2553F99B00FDF82B /* UIColor+Extension.swift in Sources */,
-				3B755337255552290073C3CA /* SpinningWheel.swift in Sources */,
-				3B3D32F22553FC3300FDF82B /* UIFont+Extension.swift in Sources */,
-				3B3D3315255404E200FDF82B /* ListItemCell.swift in Sources */,
-				3B75533B255552BD0073C3CA /* LoadingView.swift in Sources */,
-				3BEF2F8A25544AB700A6C6AA /* NavigationService.swift in Sources */,
-				3BEC848C255432B700AB5F2F /* Constants.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B3D31332553E6F200FDF82B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3B3D313C2553E6F200FDF82B /* PACECloudSDKExampleTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B3D313E2553E6F200FDF82B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3B3D31472553E6F200FDF82B /* PACECloudSDKExampleUITests.swift in Sources */,
+				3B83CB0D26B82BBB00A604BE /* DrawerViewModelImplementation.swift in Sources */,
+				3B82EB8726C2A1D90086A4BE /* AppView.swift in Sources */,
+				3B83CAFC26B81F4600A604BE /* ListView.swift in Sources */,
+				3B83CB0826B8221D00A604BE /* ListViewRow.swift in Sources */,
+				3B9FCACD26BA89260007B324 /* SettingsPINSetupRow.swift in Sources */,
+				3B83CA8926B7CBA300A604BE /* LoginViewModelImplementation.swift in Sources */,
+				3B784C4626B3E6F600B1D859 /* LoginView.swift in Sources */,
+				3B7F4D5026EB9BB700D84B70 /* UIAlertController+Extension.swift in Sources */,
+				3B784C7926B3FCA300B1D859 /* AppControl.swift in Sources */,
+				3B784C7026B3F26500B1D859 /* Color+Extension.swift in Sources */,
+				3B7F4D5426EB9C5000D84B70 /* View+Extension.swift in Sources */,
+				3B82EB8B26C2AC100086A4BE /* SettingsPWASimulatorRow.swift in Sources */,
+				3B82EB8F26C2ADCF0086A4BE /* SettingsIsPoiInRangeRow.swift in Sources */,
+				3B78D45A26B94BD000C1E6EF /* RectangularButton.swift in Sources */,
+				3B784C7526B3FC2D00B1D859 /* IDControl.swift in Sources */,
+				3B9FCACF26BA892D0007B324 /* SettingsMailOTPRow.swift in Sources */,
+				3B83CB0B26B82B5700A604BE /* DrawerViewModel.swift in Sources */,
+				3B8C91B426F0C8C700D60656 /* SettingsSecurityRow.swift in Sources */,
+				3B83CAC026B7E93800A604BE /* SettingsView.swift in Sources */,
+				3B7F4D4E26EB9B9800D84B70 /* TextFieldAlert.swift in Sources */,
+				3B784C3626B3E5E500B1D859 /* PACECloudSDKExampleApp.swift in Sources */,
+				3B83CAC826B7F73E00A604BE /* SettingsViewModel.swift in Sources */,
+				3B83CB0526B8213C00A604BE /* ListViewModelImplementation.swift in Sources */,
+				3B952FD126EF77CD00354B62 /* SettingsPasswordStatusRow.swift in Sources */,
+				3B784C7226B3F79C00B1D859 /* CGFloat+Extension.swift in Sources */,
+				3B9FCAD126BA89340007B324 /* SettingsLogoutRow.swift in Sources */,
+				3B9FCAC726BA891D0007B324 /* SettingsBiometricAuthenticationRow.swift in Sources */,
+				3B83CAC326B7EB3800A604BE /* SettingsRow.swift in Sources */,
+				3B9FCAD326BA979A0007B324 /* ToggleView.swift in Sources */,
+				3B82EB8D26C2ACB50086A4BE /* Constants.swift in Sources */,
+				3B952FCF26EF77C600354B62 /* SettingsPINStatusRow.swift in Sources */,
+				3B82EB9126C2B5AC0086A4BE /* ErrorView.swift in Sources */,
+				3B83CB0026B81FEA00A604BE /* DashboardView.swift in Sources */,
+				3B83CB0326B8213300A604BE /* ListViewModel.swift in Sources */,
+				3B846EAD26F1FC6700B36E54 /* SettingsAccountView.swift in Sources */,
+				3B952FCD26EF6E5200354B62 /* Array+Extension.swift in Sources */,
+				3B83CABA26B7D15400A604BE /* MainTabView.swift in Sources */,
+				3B8C91B226F0C89300D60656 /* SecurityView.swift in Sources */,
+				3B82EB8926C2A4BF0086A4BE /* DashboardButton.swift in Sources */,
+				3B8C921726F0ECAB00D60656 /* Double+Extension.swift in Sources */,
+				3B83CB1026B834B900A604BE /* LocationManager.swift in Sources */,
+				3B82EB8126C2960A0086A4BE /* LoadingSpinner.swift in Sources */,
+				3B7F4D5226EB9C1400D84B70 /* TextFieldAlertWrapper.swift in Sources */,
+				3B83CAFE26B81FC200A604BE /* DrawerView.swift in Sources */,
+				3B83CA8726B7CB9B00A604BE /* LoginViewModel.swift in Sources */,
+				3B83CACA26B7F7B400A604BE /* SettingsViewModelImplementation.swift in Sources */,
+				3B9A821726F1CC480065FAF3 /* StyledText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3B3D31392553E6F200FDF82B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3B3D31202553E6F200FDF82B /* PACECloudSDKExample */;
-			targetProxy = 3B3D31382553E6F200FDF82B /* PBXContainerItemProxy */;
-		};
-		3B3D31442553E6F200FDF82B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3B3D31202553E6F200FDF82B /* PACECloudSDKExample */;
-			targetProxy = 3B3D31432553E6F200FDF82B /* PBXContainerItemProxy */;
-		};
-		3BDD7B7B255433FC00827F28 /* PBXTargetDependency */ = {
+		3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PACECloudSDK;
-			targetProxy = 3BDD7B7A255433FC00827F28 /* PBXContainerItemProxy */;
+			targetProxy = 3B784C6A26B3EA8100B1D859 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		3B3D312F2553E6F200FDF82B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3B3D31302553E6F200FDF82B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		3B3D31492553E6F200FDF82B /* Development */ = {
+		3B784C3F26B3E5E600B1D859 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -653,7 +699,7 @@
 			};
 			name = Development;
 		};
-		3B3D314A2553E6F200FDF82B /* Production */ = {
+		3B784C4026B3E5E600B1D859 /* Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -708,47 +754,42 @@
 			};
 			name = Production;
 		};
-		3B3D314C2553E6F200FDF82B /* Development */ = {
+		3B784C4226B3E5E600B1D859 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PACECloudSDKExample/Preview Content\"";
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(BUILD_DIR)/**",
-				);
+				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEVELOPMENT DEBUG";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEVELOPMENT;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Development;
 		};
-		3B3D314D2553E6F200FDF82B /* Production */ = {
+		3B784C4326B3E5E600B1D859 /* Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PACECloudSDKExample/Preview Content\"";
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(BUILD_DIR)/**",
-				);
+				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -757,96 +798,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Production;
 		};
-		3B3D314F2553E6F200FDF82B /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PACECloudSDKExample.app/PACECloudSDKExample";
-			};
-			name = Development;
-		};
-		3B3D31502553E6F200FDF82B /* Production */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PACECloudSDKExample.app/PACECloudSDKExample";
-			};
-			name = Production;
-		};
-		3B3D31522553E6F200FDF82B /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PACECloudSDKExample;
-			};
-			name = Development;
-		};
-		3B3D31532553E6F200FDF82B /* Production */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PACECloudSDKExample;
-			};
-			name = Production;
-		};
-		3B3D33212554098700FDF82B /* Sandbox */ = {
+		3B784C4726B3E7E500B1D859 /* Sandbox */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -907,20 +863,18 @@
 			};
 			name = Sandbox;
 		};
-		3B3D33222554098700FDF82B /* Sandbox */ = {
+		3B784C4826B3E7E500B1D859 /* Sandbox */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PACECloudSDKExample/Preview Content\"";
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(BUILD_DIR)/**",
-				);
+				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -929,54 +883,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SANDBOX;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Sandbox;
 		};
-		3B3D33232554098700FDF82B /* Sandbox */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PACECloudSDKExample.app/PACECloudSDKExample";
-			};
-			name = Sandbox;
-		};
-		3B3D33242554098700FDF82B /* Sandbox */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PACECloudSDKExample;
-			};
-			name = Sandbox;
-		};
-		3B3D33252554099400FDF82B /* Stage */ = {
+		3B784C4926B3E7ED00B1D859 /* Stage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1037,20 +948,18 @@
 			};
 			name = Stage;
 		};
-		3B3D33262554099400FDF82B /* Stage */ = {
+		3B784C4A26B3E7ED00B1D859 /* Stage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"PACECloudSDKExample/Preview Content\"";
 				DEVELOPMENT_TEAM = 8T694MPXAZ;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(BUILD_DIR)/**",
-				);
+				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = PACECloudSDKExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1059,120 +968,36 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGE;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_WORKSPACE = NO;
-			};
-			name = Stage;
-		};
-		3B3D33272554099400FDF82B /* Stage */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PACECloudSDKExample.app/PACECloudSDKExample";
-			};
-			name = Stage;
-		};
-		3B3D33282554099400FDF82B /* Stage */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8T694MPXAZ;
-				INFOPLIST_FILE = PACECloudSDKExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = car.pace.PACECloudSDKExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PACECloudSDKExample;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Stage;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3B3D311C2553E6F200FDF82B /* Build configuration list for PBXProject "PACECloudSDKExample" */ = {
+		3B784C2D26B3E5E500B1D859 /* Build configuration list for PBXProject "PACECloudSDKExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3B3D31492553E6F200FDF82B /* Development */,
-				3B3D33252554099400FDF82B /* Stage */,
-				3B3D33212554098700FDF82B /* Sandbox */,
-				3B3D314A2553E6F200FDF82B /* Production */,
+				3B784C3F26B3E5E600B1D859 /* Development */,
+				3B784C4726B3E7E500B1D859 /* Sandbox */,
+				3B784C4926B3E7ED00B1D859 /* Stage */,
+				3B784C4026B3E5E600B1D859 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Production;
 		};
-		3B3D314B2553E6F200FDF82B /* Build configuration list for PBXNativeTarget "PACECloudSDKExample" */ = {
+		3B784C4126B3E5E600B1D859 /* Build configuration list for PBXNativeTarget "PACECloudSDKExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3B3D314C2553E6F200FDF82B /* Development */,
-				3B3D33262554099400FDF82B /* Stage */,
-				3B3D33222554098700FDF82B /* Sandbox */,
-				3B3D314D2553E6F200FDF82B /* Production */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Production;
-		};
-		3B3D314E2553E6F200FDF82B /* Build configuration list for PBXNativeTarget "PACECloudSDKExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3B3D314F2553E6F200FDF82B /* Development */,
-				3B3D33272554099400FDF82B /* Stage */,
-				3B3D33232554098700FDF82B /* Sandbox */,
-				3B3D31502553E6F200FDF82B /* Production */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Production;
-		};
-		3B3D31512553E6F200FDF82B /* Build configuration list for PBXNativeTarget "PACECloudSDKExampleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3B3D31522553E6F200FDF82B /* Development */,
-				3B3D33282554099400FDF82B /* Stage */,
-				3B3D33242554098700FDF82B /* Sandbox */,
-				3B3D31532553E6F200FDF82B /* Production */,
+				3B784C4226B3E5E600B1D859 /* Development */,
+				3B784C4826B3E7E500B1D859 /* Sandbox */,
+				3B784C4A26B3E7ED00B1D859 /* Stage */,
+				3B784C4326B3E5E600B1D859 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3BAAFEE025DBAA4900D344D6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = exactVersion;
-				version = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3BAAFEE125DBAA4900D344D6 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3BAAFEE025DBAA4900D344D6 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 3B3D31192553E6F200FDF82B /* Project object */;
+	rootObject = 3B784C2A26B3E5E500B1D859 /* Project object */;
 }
