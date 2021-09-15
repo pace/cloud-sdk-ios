@@ -31,5 +31,6 @@ extension API.Communication {
         case appRedirect
         case isBiometricAuthEnabled
         case isSignedIn
+        case isRemoteConfigAvailable
     }
 }

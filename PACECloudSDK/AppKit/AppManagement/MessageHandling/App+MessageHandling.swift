@@ -185,4 +185,10 @@ extension App {
     func respond(with response: String) {
         respond(result: response)
     }
+
+    func handleIsRemoteConfigAvailable(completion: @escaping (API.Communication.IsRemoteConfigAvailableResult) -> Void) {
+        AppKit.shared.notifyIsRemoteConfigAvailable { isAvailable in
+            completion(.init(.init(response: .init(remoteConfigAvailable: isAvailable))))
+        }
+    }
 }
