@@ -712,6 +712,8 @@
 		3BF303D42625A7E90079ED64 /* RequestTimeoutHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */; };
 		3BF7B42726306B010047CA34 /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */; };
 		3BF7B42826306B010047CA34 /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */; };
+		6A7FCE9A26F0E9A400384907 /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7FCE9926F0E9A400384907 /* ShareObject.swift */; };
+		6A8811B626F0F96E00C1B1CA /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7FCE9926F0E9A400384907 /* ShareObject.swift */; };
 		8414A59125CC0D370077E050 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414A59025CC0D370077E050 /* User.swift */; };
 		8418E22C25B1AD2600D3722B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		8418E23025B1AEF300D3722B /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
@@ -1520,6 +1522,7 @@
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTimeoutHandler.swift; sourceTree = "<group>"; };
 		3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptMessageHandler.swift; sourceTree = "<group>"; };
+		6A7FCE9926F0E9A400384907 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
 		8414A59025CC0D370077E050 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		841A3EA825B9C8D40065284A /* FuelingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPI.swift; sourceTree = "<group>"; };
 		841A3EA925B9C8D40065284A /* FuelingAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIService.swift; sourceTree = "<group>"; };
@@ -2433,6 +2436,7 @@
 				3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */,
 				3B855311253D6BF3001F7B66 /* Extensions */,
 				3B970A282542D9BA0072F6BA /* Plists */,
+				6A7FCE9926F0E9A400384907 /* ShareObject.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -4440,6 +4444,7 @@
 				84E1AC392562800D00C673EF /* Poly+AllTypes.swift in Sources */,
 				3BB1443325388108004E9F63 /* Logger.swift in Sources */,
 				84D6C074258A03280094982D /* PCPOICategories.swift in Sources */,
+				6A7FCE9A26F0E9A400384907 /* ShareObject.swift in Sources */,
 				3BA5833D256BCDF90099629B /* UserInfo.swift in Sources */,
 				8447A3D725CAAE750095BEF1 /* UserAPIService.swift in Sources */,
 				84D6C08E258A03280094982D /* PCPOIGasStations.swift in Sources */,
@@ -4580,6 +4585,7 @@
 				3B987056268E06AE00A0458F /* SetUserPropertyResult.swift in Sources */,
 				84600F1B25C03B1E0087194F /* POIAPIGetPriceHistory.swift in Sources */,
 				8418E28225B1B85A00D3722B /* PCPOIFuelAmountUnit.swift in Sources */,
+				6A8811B626F0F96E00C1B1CA /* ShareObject.swift in Sources */,
 				3B987050268E06AE00A0458F /* GetSecureDataResult.swift in Sources */,
 				92EDDD9125A73A1900E480F4 /* Poly+CustomStringConvertible.swift in Sources */,
 				92EDDD3F25A7394E00E480F4 /* (null) in Sources */,

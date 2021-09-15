@@ -73,10 +73,7 @@ extension AppControl: AppKitDelegate {
         currentlyVisibleDrawers.removeAll(where: { appDatas.contains($0) })
     }
 
-    func didReceiveImageData(_ image: UIImage) {
-        let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
-    }
+
 
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) {
         completion("merchantIdentifier")
