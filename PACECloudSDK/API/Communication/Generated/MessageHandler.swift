@@ -186,6 +186,11 @@ extension API.Communication {
                 delegate?.handleIsSignedIn { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation)
                 }
+
+            case .isRemoteConfigAvailable:
+                delegate?.handleIsRemoteConfigAvailable { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation)
+                }
             }
         }
 

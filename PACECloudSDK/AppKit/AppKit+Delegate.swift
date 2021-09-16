@@ -33,6 +33,7 @@ public protocol AppKitDelegate: AnyObject {
     func logEvent(key: String, parameters: [String: Any])
     func getConfig(key: String, completion: @escaping ((Any?) -> Void))
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void))
+    func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void))
 }
 
 public extension AppKitDelegate {
@@ -55,6 +56,7 @@ public extension AppKitDelegate {
     func logEvent(key: String, parameters: [String: Any]) {}
     func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) { isAllowed(true) }
+    func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) { isAvailable(false) }
 }
 
 extension AppKit {
@@ -158,6 +160,12 @@ extension AppKit {
     func notifyIsAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.isAppRedirectAllowed(app: app, isAllowed: isAllowed)
+        }
+    }
+
+    func notifyIsRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) {
+        notifyClient { [weak self] in
+            self?.delegate?.isRemoteConfigAvailable(isAvailable: isAvailable)
         }
     }
 

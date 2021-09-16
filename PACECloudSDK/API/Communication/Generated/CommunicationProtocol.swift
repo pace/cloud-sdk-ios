@@ -29,5 +29,6 @@ protocol CommunicationProtocol: AnyObject {
     func handleAppRedirect(with request: API.Communication.AppRedirectRequest, completion: @escaping (API.Communication.AppRedirectResult) -> Void)
     func handleIsBiometricAuthEnabled(completion: @escaping (API.Communication.IsBiometricAuthEnabledResult) -> Void)
     func handleIsSignedIn(completion: @escaping (API.Communication.IsSignedInResult) -> Void)
+    func handleIsRemoteConfigAvailable(completion: @escaping (API.Communication.IsRemoteConfigAvailableResult) -> Void)
     func respond(with response: String)
 }

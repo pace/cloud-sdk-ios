@@ -714,6 +714,8 @@
 		3BF7B42826306B010047CA34 /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */; };
 		6A7FCE9A26F0E9A400384907 /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7FCE9926F0E9A400384907 /* ShareObject.swift */; };
 		6A8811B626F0F96E00C1B1CA /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7FCE9926F0E9A400384907 /* ShareObject.swift */; };
+		6A8811E826F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */; };
+		6A8811E926F2096200C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */; };
 		8414A59125CC0D370077E050 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414A59025CC0D370077E050 /* User.swift */; };
 		8418E22C25B1AD2600D3722B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		8418E23025B1AEF300D3722B /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
@@ -1522,6 +1524,7 @@
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTimeoutHandler.swift; sourceTree = "<group>"; };
 		3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptMessageHandler.swift; sourceTree = "<group>"; };
+		6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsRemoteConfigAvailableResult.swift; sourceTree = "<group>"; };
 		6A7FCE9926F0E9A400384907 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
 		8414A59025CC0D370077E050 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		841A3EA825B9C8D40065284A /* FuelingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPI.swift; sourceTree = "<group>"; };
@@ -2335,6 +2338,7 @@
 		3B98701E268E06AE00A0458F /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */,
 				849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */,
 				3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */,
 				3B987026268E06AE00A0458F /* AppInterceptableLinkResult.swift */,
@@ -4119,6 +4123,7 @@
 				8447A3AD25CAAE740095BEF1 /* UserAPIDeleteCurrentUser.swift in Sources */,
 				3BC9A81E2539DDAD00B933AE /* POIKitDelegate.swift in Sources */,
 				84D6C068258A03270094982D /* PCPOIFieldName.swift in Sources */,
+				6A8811E826F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */,
 				84600F2825C03B1F0087194F /* POIAPIUpdateSource.swift in Sources */,
 				3BC9A7F02539DDAD00B933AE /* POIKitAPI+ReverseGeocode.swift in Sources */,
 				8447A3C725CAAE750095BEF1 /* UserAPICheckUserPinOrPassword.swift in Sources */,
@@ -4620,6 +4625,7 @@
 				8418E24F25B1B85A00D3722B /* PCPOIEvent.swift in Sources */,
 				84600EF725C03B1E0087194F /* POIAPIGetRegionalPrices.swift in Sources */,
 				84600F3B25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
+				6A8811E926F2096200C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */,
 				92EDDD7325A7397700E480F4 /* (null) in Sources */,
 				84600F0F25C03B1E0087194F /* POIAPIGetSubscriptions.swift in Sources */,
 				8418E26625B1B85A00D3722B /* PCPOICategories.swift in Sources */,
