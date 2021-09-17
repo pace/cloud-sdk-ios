@@ -21,7 +21,7 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
             return
         }
 
-        if url.absoluteString == AppKit.Constants.appCloseRedirectUri {
+        if url.absoluteString.hasPrefix(AppKit.Constants.appCloseRedirectUri) {
             app?.performClose()
             decisionHandler(.allow)
             return

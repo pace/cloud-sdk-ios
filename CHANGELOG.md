@@ -18,6 +18,7 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Fix Fueling PWA's URL for non-prod environments
 * Correctly remove app drawers based on the user's location if the speed threshold has been exceeded
+* Fix close call in `redirect_uri`
 
 ### Internal
 
