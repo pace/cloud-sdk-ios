@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -62,6 +62,9 @@
 		3B9FCACF26BA892D0007B324 /* SettingsMailOTPRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */; };
 		3B9FCAD126BA89340007B324 /* SettingsLogoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */; };
 		3B9FCAD326BA979A0007B324 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAD226BA979A0007B324 /* ToggleView.swift */; };
+		6ACBC02A26FA1FB100E6AC05 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 6ACBC02926FA1FB100E6AC05 /* Zip */; };
+		6ACBC03026FB758800E6AC05 /* ExampleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACBC02F26FB758800E6AC05 /* ExampleLogger.swift */; };
+		6ACBC03626FDC17D00E6AC05 /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACBC03526FDC17D00E6AC05 /* ShareObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +183,8 @@
 		3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMailOTPRow.swift; sourceTree = "<group>"; };
 		3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLogoutRow.swift; sourceTree = "<group>"; };
 		3B9FCAD226BA979A0007B324 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		6ACBC02F26FB758800E6AC05 /* ExampleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleLogger.swift; sourceTree = "<group>"; };
+		6ACBC03526FDC17D00E6AC05 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ACBC02A26FA1FB100E6AC05 /* Zip in Frameworks */,
 				3B784C6C26B3EA8900B1D859 /* PACECloudSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +265,8 @@
 				3B7F4D4F26EB9BB700D84B70 /* UIAlertController+Extension.swift */,
 				3B7F4D5326EB9C5000D84B70 /* View+Extension.swift */,
 				3B8C921626F0ECAB00D60656 /* Double+Extension.swift */,
+				6ACBC02F26FB758800E6AC05 /* ExampleLogger.swift */,
+				6ACBC03526FDC17D00E6AC05 /* ShareObject.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -455,6 +463,9 @@
 				3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */,
 			);
 			name = PACECloudSDKExample;
+			packageProductDependencies = (
+				6ACBC02926FA1FB100E6AC05 /* Zip */,
+			);
 			productName = PACECloudSDKExample;
 			productReference = 3B784C3226B3E5E500B1D859 /* PACECloudSDKExample.app */;
 			productType = "com.apple.product-type.application";
@@ -482,6 +493,9 @@
 				Base,
 			);
 			mainGroup = 3B784C2926B3E5E500B1D859;
+			packageReferences = (
+				6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */,
+			);
 			productRefGroup = 3B784C3326B3E5E500B1D859 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -581,6 +595,7 @@
 				3B82EB8726C2A1D90086A4BE /* AppView.swift in Sources */,
 				3B83CAFC26B81F4600A604BE /* ListView.swift in Sources */,
 				3B83CB0826B8221D00A604BE /* ListViewRow.swift in Sources */,
+				6ACBC03626FDC17D00E6AC05 /* ShareObject.swift in Sources */,
 				3B9FCACD26BA89260007B324 /* SettingsPINSetupRow.swift in Sources */,
 				3B83CA8926B7CBA300A604BE /* LoginViewModelImplementation.swift in Sources */,
 				3B784C4626B3E6F600B1D859 /* LoginView.swift in Sources */,
@@ -619,6 +634,7 @@
 				3B8C921726F0ECAB00D60656 /* Double+Extension.swift in Sources */,
 				3B83CB1026B834B900A604BE /* LocationManager.swift in Sources */,
 				3B82EB8126C2960A0086A4BE /* LoadingSpinner.swift in Sources */,
+				6ACBC03026FB758800E6AC05 /* ExampleLogger.swift in Sources */,
 				3B7F4D5226EB9C1400D84B70 /* TextFieldAlertWrapper.swift in Sources */,
 				3B83CAFE26B81FC200A604BE /* DrawerView.swift in Sources */,
 				3B83CA8726B7CB9B00A604BE /* LoginViewModel.swift in Sources */,
@@ -998,6 +1014,25 @@
 			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6ACBC02926FA1FB100E6AC05 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3B784C2A26B3E5E500B1D859 /* Project object */;
 }

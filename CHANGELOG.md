@@ -9,6 +9,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
 * Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
 * For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
+* Rework Logger - `PACECloudSDKLoggingDelegate` does not exist any more.
 
 ### Enhancements
 

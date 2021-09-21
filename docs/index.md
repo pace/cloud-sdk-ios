@@ -104,6 +104,7 @@ domainACL: [String]? // Default: nil
 allowedLowAccuracy: Double? // Default: nil
 speedThreshold: Double? // Default: nil
 geoAppsScope: String? // Default: nil
+enableLogging: Bool // Default: false
 ```
 
 The permission `Photo Library Usage` is needed in order to download and save receipts to the user's Photo Library, thus make sure that `NSPhotoLibraryUsageDescription` is correctly set in your target properties.
@@ -181,6 +182,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 + The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more. The response may now also include **offline** stations
 + Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
 + Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
++ `PACECloudSDKLoggingDelegate` does not exist any more. 
 + Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
 + For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
 
@@ -562,21 +564,81 @@ func fetchCofuStations() {
 ## Miscellaneous
 ### Preset Urls
 `PACECloudSDK` provides preset URLs for the most common apps, such as `PACE ID`, `payment`, `transactions` and `fueling` based on the enviroment the SDK was initialized with. You may access these URLs via the enum `PACECloudSDK.URL`.
- 
-### Logging 
-Besides the own logs of the SDK's kits an `AppWebView` also intercepts the logs of their loaded apps. You may retrieve all of the mentioned logs as shown in the following code example:
+
+### Logger
+Logging in the `PACECloudSDK` is done by our `Logger`. By default persisting logs is disabled.
+
+#### Config Logger
+If you want to enable logging you need to set `enableLogging` to `true` in `PACECloudSDK.Configuration`.
+
+#### Custom Logger
+Since our `Logger` is an `open class` you can create your custom Logger and inherit from our `Logger` to make use of its features.
+You can override the following parameters:
+* `logTag`: Should be the name of your app. Will be added as prefix to every log. Default is `"[Logger]"`.
+* `moduleTag`: This can be set if you want to implement a custom Logger for a specific module in your app. Will be added as prefix to every log after the `logTag`. Default is `""` (empty String).
+* `maxNumberOfFiles`: Determines the maximum number of files to be persisted. One file is persisted for each day. Default is `7` and maximum is also `7`.
+* `maxFileSize`: Determines the maximum size of each file. Default is `10 * 1000 * 1000` (10MB) and maximum is also `10 * 1000 * 1000` (10MB).
 ```swift
-let loggingInterceptor: LoggingInterceptor = .init()
-PACECloudSDK.shared.isLoggingEnabled = true // Defaults to `false`
-PACECloudSDK.shared.loggingDelegate = loggingInterceptor
- 
-// Conforms to the SDK logging delegate
-class LoggingInterceptor: PACECloudSDKLoggingDelegate {
-    func didLog(_ log: String) {
-        // ...
+class ExampleLogger: Logger {
+    override class var logTag: String {
+        "[YOUR_APP_NAME]"
+    }
+
+    override class var moduleTag: String {
+        "[YOUR_MODLUE_NAME]"
+    }
+
+    override class var maxNumberOfFiles: Int {
+        5 // 5 files or your custom max number of files
+    }
+
+    override class var maxFileSize: Int {
+        5 * 1000 * 1000 // 5MB or your custom max file size
     }
 }
 ```
+
+Our `Logger` will automatically add the time as prefix to every log with `"yyyy-MM-dd HH:mm:ss.SSS"` as date format. Every custom Logger which inherits from `Logger` will do the same.
+
+#### Logging
+To log a message call one of its static functions.
+```swift
+// Log with log level `verbose`
+ExampleLogger.v("YOUR_LOG_MESSAGE")
+
+// Log with log level `inform`
+ExampleLogger.i("YOUR_LOG_MESSAGE")
+
+// Log with log level `warning`
+ExampleLogger.w("YOUR_LOG_MESSAGE")
+
+// Log with log level `error`
+ExampleLogger.e("YOUR_LOG_MESSAGE")
+
+// Log with custom log level
+ExampleLogger.log(message: "YOUR_LOG_MESSAGE", level: "YOUR_LOG_LEVEL")
+```
+#### Import and export logs
+You can import and export logs.
+
+```swift
+// Import logs
+ExampleLogger.importLogs(<YOUR_LOGS_AS_[String]>)
+
+// Export logs
+ExampleLogger.exportLogs { logs in
+  // use logs here (logs are an array of String)
+}
+```
+
+#### Debug bundle
+Get URL to all persisted log files
+```swift
+ ExampleLogger.debugBundleDirectory { url in
+   // use url here
+ }
+```
+
 
 ## SDK API Docs
 Here is a complete list of all our SDK API documentations:

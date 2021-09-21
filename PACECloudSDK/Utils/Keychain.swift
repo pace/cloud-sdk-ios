@@ -34,7 +34,7 @@ public extension PACECloudSDK {
             let resultCode = SecItemAdd(query as CFDictionary, nil)
 
             if resultCode != noErr && resultCode != errSecItemNotFound {
-                Logger.e("[Keychain] Failed setting keychain data with error code \(resultCode)")
+                SDKLogger.e("[Keychain] Failed setting keychain data with error code \(resultCode)")
             }
 
             lock.unlock()
@@ -61,7 +61,7 @@ public extension PACECloudSDK {
             }
 
             if resultCode != noErr && resultCode != errSecItemNotFound {
-                Logger.e("[Keychain] Failed retrieving data from keychain with error code \(resultCode)")
+                SDKLogger.e("[Keychain] Failed retrieving data from keychain with error code \(resultCode)")
             }
 
             return result as? Data
@@ -79,7 +79,7 @@ public extension PACECloudSDK {
             let resultCode = SecItemDelete(query as CFDictionary)
 
             if resultCode != noErr && resultCode != errSecItemNotFound {
-                Logger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
+                SDKLogger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
             }
         }
     }

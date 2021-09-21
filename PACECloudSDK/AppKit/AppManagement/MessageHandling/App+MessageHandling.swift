@@ -11,7 +11,7 @@ import UIKit
 // MARK: - Message handling
 extension App {
     func handleLog(with message: String) {
-        AppKitLogger.pwa(message)
+        AppKitLogger.log(message: message, level: "[PWA]")
     }
 
     func handleClose(completion: @escaping (API.Communication.CloseResult) -> Void) {

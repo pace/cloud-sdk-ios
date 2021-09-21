@@ -27,7 +27,7 @@ class SettingsViewModelImplementation: SettingsViewModel {
                 self?.userEmail = userInfo.email ?? "Could not retrieve user info"
 
             case .failure(let error):
-                NSLog("Failed fetching user info with error \(error)")
+                ExampleLogger.e("Failed fetching user info with error \(error)")
                 self?.userEmail = "Could not retrieve user info"
             }
         }

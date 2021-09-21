@@ -32,7 +32,7 @@ extension Bundle {
               let fallbackPlist = NSDictionary(contentsOf: fallbackPlistUrl),
               let releaseVersion = fallbackPlist["ReleaseVersion"] as? String
         else {
-            Logger.e("Fallback release version couldn't be retrieved")
+            SDKLogger.e("Fallback release version couldn't be retrieved")
             return "Unknown"
         }
 
@@ -44,7 +44,7 @@ extension Bundle {
               let fallbackPlist = NSDictionary(contentsOf: fallbackPlistUrl),
               let bundleVersion = fallbackPlist["BuildVersion"] as? String
         else {
-            Logger.e("Fallback build version couldn't be retrieved")
+            SDKLogger.e("Fallback build version couldn't be retrieved")
             return "Unknown"
         }
 

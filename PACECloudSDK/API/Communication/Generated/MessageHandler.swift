@@ -241,7 +241,7 @@ extension API.Communication {
             do {
                 return try decoder.decode(T.self, from: data)
             } catch {
-                Logger.e("Failed parsing \(T.self) with error \(error)")
+                SDKLogger.e("Failed parsing \(T.self) with error \(error)")
                 return nil
             }
         }
@@ -252,7 +252,7 @@ extension API.Communication {
                 let result = String(data: jsonData, encoding: .utf8)
                 return result
             } catch {
-                Logger.e("Failed encoding response with error \(error)")
+                SDKLogger.e("Failed encoding response with error \(error)")
                 return nil
             }
         }

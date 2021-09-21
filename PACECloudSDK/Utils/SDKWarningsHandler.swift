@@ -32,17 +32,17 @@ extension PACECloudSDK {
                 return
             }
 
-            var message = "\n✅ PACECloudSDK setup successful. You are currently running the SDK as follows:"
+            var message = "✅ PACECloudSDK setup successful. \nYou are currently running the SDK as follows:"
             message += sdkSetupSuccessfulMessage
             message += idKitSetupSuccessfulMessage
 
-            Logger.i(message)
+            SDKLogger.i(message)
         }
 
         func logSDKWarningsIfNeeded() {
             guard [isSDKSetupValuesAvailable, isIDKitSetupCorrect].contains(where: { !$0 }) else { return }
 
-            var warningMessage = "\n❌ We've noticed some inconsistencies with your PACECloudSDK setup!"
+            var warningMessage = "❌ We've noticed some inconsistencies with your PACECloudSDK setup!"
 
             if !isSDKSetupValuesAvailable {
                 warningMessage += sdkSetupFailedMessage
@@ -52,12 +52,12 @@ extension PACECloudSDK {
                 warningMessage += idKitSetupFailedMessage
             }
 
-            Logger.w(warningMessage)
+            SDKLogger.w(warningMessage)
         }
 
         func logBiometryWarningsIfNeeded() {
             guard domainACL?.isEmpty ?? true else { return }
-            Logger.w("\n⚠️ We've noticed that you are using IDKit's 2FA methods but haven't set up a valid 'domainACL' yet. Please do so in your PACECloudSDK's configuration.")
+            SDKLogger.w("⚠️ We've noticed that you are using IDKit's 2FA methods but haven't set up a valid 'domainACL' yet. Please do so in your PACECloudSDK's configuration.")
         }
     }
 }

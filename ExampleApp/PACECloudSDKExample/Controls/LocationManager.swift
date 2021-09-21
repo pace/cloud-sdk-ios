@@ -36,7 +36,7 @@ class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         guard manager.authorizationStatus == .authorizedAlways || manager.authorizationStatus == .authorizedWhenInUse else {
-            NSLog("[LocationManager] Wrong location authorization status: \(manager.authorizationStatus.rawValue)")
+            ExampleLogger.i("[LocationManager] Wrong location authorization status: \(manager.authorizationStatus.rawValue)")
             return
         }
         locationManager.startUpdatingLocation()
@@ -48,6 +48,6 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         delegate?.didFail(with: error)
-        NSLog("[LocationManager] Did fail with error \(error)")
+        ExampleLogger.e("[LocationManager] Did fail with error \(error)")
     }
 }
