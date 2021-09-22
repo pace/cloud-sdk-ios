@@ -33,12 +33,14 @@
         + [Deep Linking](#deep-linking)
         + [AppKitDelegate](#appkitdelegate)
         + [Requesting local Apps](#requesting-local-apps)
-        + [Is POI in range?](#is-poi-in-range)
         + [AppWebView / AppViewController](#appwebview-appviewcontroller)
         + [AppDrawerContainer](#appdrawercontainer)
         + [AppDrawer](#appdrawer)
         + [Custom AppDrawer](#custom-appdrawer)
         + [AppError](#apperror)
+    * [POIKit](#poikit)
+        + [Is POI in range?](#is-poi-in-range)
+        + [Fetching Connected Fueling Stations](#fetching-connected-fueling-stations)
     * [Miscellaneous](#miscellaneous)
         + [Preset Urls](#preset-urls)
         + [Logging](#logging)
@@ -176,6 +178,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 8.x.x to 9.x.x
 
 + `TokenValidator` is now part of `IDKit` instead of `AppKit`
++ The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more. The response may now also include **offline** stations
 + Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
 
 ## IDKit
@@ -437,18 +440,6 @@ will stay up to date. If a request does not contain a currently presented App / 
 
 > _**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) the delegate method will not be called. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
 
-### Is POI in range?
-To check if there is a App for the given POI ID at the current location, call `AppKit.shared.isPoiInRange(id: String, completion: @escaping ((Bool) -> Void))`.
-
-> _**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) this method will return `false`. A different speed threshold can be set during the setup (see [Setup](#setup-2)).
-
-> _**NOTE:**_ With SDK version `8.0.0` this call is not part of `AppKit` anymore but available under `POIKit.isPoiInRange(...)`.
-
-```swift
-POIKit.isPoiInRange(id: poiId) { found in
-    NSLog("==== Found id in range: \(found)")
-}
-```
 
 ### AppWebView / AppViewController
 *AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl`, a `appUrl` with some `reference` (e.g. a gas station reference) or a `presetUrl` (see [Preset Urls](#preset-urls)).
@@ -533,6 +524,35 @@ Possible errors:
 - `badRequest`: The request does not match the expected format
 - `invalidURNFormat`: The passed POI reference value does not conform to our URN format
 - `customURLSchemeNotSet`: The App tried to open an URL in `SFSafariViewController`, but deep linking has not been correctly configured
+
+## POIKit
+### Is POI in range?
+To check if there is a App for the given POI ID at the current location, call `POIKit.isPoiInRange(id: String, at location: CLLocation? = nil, completion: @escaping ((Bool) -> Void))`.
+
+> _**NOTE:**_ If the user moves faster than the default value of 13 m/s (~50 km/h) this method will return `false`. A different speed threshold can be set during the setup (see [Setup](#setup)).
+
+```swift
+POIKit.isPoiInRange(id: poiId) { found in
+    NSLog("==== Found id in range: \(found)")
+}
+```
+
+### Fetching Connected Fueling Stations
+The following request will fetch cofu gas stations that are included in the specified bounding box, defined by a location and a radius. The response contains detailed information about the gas stations e.g. opening hours, prices, services, etc.
+```swift
+func fetchCofuStations() {
+    // Request connected fueling stations with a radius of 'SOME_RADIUS' around 'SOME_LOCATION'
+    POIKit.requestCofuGasStations(center: SOME_LOCATION, radius: SOME_RADIUS) { result in
+        switch result {
+        case .success(let cofuStations):
+            // Handle cofu stations
+
+        case .failure(let error):
+            // Handle error
+        }
+    }
+}   
+```
 
 ## Miscellaneous
 ### Preset Urls

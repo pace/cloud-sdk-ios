@@ -8,6 +8,8 @@
 import CoreLocation
 import Foundation
 
+// swiftlint:disable type_body_length file_length
+
 /**
  This class is used to fetch and temporarily store a geojson response
  which contains every cofu gas station with its polygon and app information.
@@ -246,7 +248,7 @@ class GeoAPIManager {
         })
     }
 
-    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) {
+    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) { // swiftlint:disable:this function_body_length
         let baseUrl = Settings.shared.geoApiHostUrl
         guard let url = URL(string: "\(baseUrl)/\(apiVersion)/apps/\(geoAppsScope).geojson"),
               let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {
