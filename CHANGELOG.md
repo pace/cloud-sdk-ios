@@ -23,6 +23,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Internal
 
 * Remove default timeout in communication api
+* Respond with 405 if communication operation doesn't exist
 
 8.0.0 Release notes (2021-08-16)
 =============================================================
