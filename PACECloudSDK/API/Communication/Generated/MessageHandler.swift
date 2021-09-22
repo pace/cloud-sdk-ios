@@ -22,12 +22,19 @@ extension API.Communication {
                 let messageBody = message.body as? String,
                 let messageBodyData = messageBody.data(using: .utf8),
                 let request: Request = decode(messageBodyData),
-                let id = request.id,
+                let id = request.id
+            else {
+                let error: Error = .init(message: "The message couldn't be decoded or is malformed.")
+                handleResult(with: .init(status: HttpStatusCode.badRequest.rawValue, body: .init(error)), response: .init(), operation: nil)
+                return
+            }
+
+            guard
                 let operationString = request.uri?.dropFirst(),
                 let operation = Operation(rawValue: String(operationString))
             else {
-                let error: Error = .init(message: "The message content is malformed. Possible reasons: a missing id, a wrong path name or content is not built as defined.")
-                handleResult(with: .init(status: HttpStatusCode.badRequest.rawValue, body: .init(error)), response: .init(), operation: nil)
+                let error: Error = .init(message: "The requested operation doesn't exist.")
+                handleResult(with: .init(status: HttpStatusCode.methodNotAllowed.rawValue, body: .init(error)), response: .init(), operation: nil)
                 return
             }
 
