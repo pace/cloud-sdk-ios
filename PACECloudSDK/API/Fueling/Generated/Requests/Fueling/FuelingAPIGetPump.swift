@@ -16,7 +16,7 @@ Only use after approaching, otherwise returns `403 Forbidden`.
     */
     public enum GetPump {
 
-        public static var service = FuelingAPIService<Response>(id: "GetPump", tag: "Fueling", method: "GET", path: "/gas-stations/{gasStationId}/pumps/{pumpId}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["fueling:pumps:read"]), SecurityRequirement(type: "OIDC", scopes: ["fueling:pumps:read"])])
+        public static var service = FuelingAPIService<Response>(id: "GetPump", tag: "Fueling", method: "GET", path: "/gas-stations/{gasStationId}/pumps/{pumpId}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["fueling:pumps:read", "fueling:transactions:read"]), SecurityRequirement(type: "OIDC", scopes: ["fueling:pumps:read", "fueling:transactions:read"])])
 
         public final class Request: FuelingAPIRequest<Response> {
 

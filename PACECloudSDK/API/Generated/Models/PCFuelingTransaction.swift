@@ -5,94 +5,43 @@
 
 import Foundation
 
-public class PCFuelingPumpResponse: APIModel {
+public class PCFuelingTransaction: APIModel {
 
-    /** Type */
     public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-        case pump = "pump"
+        case transaction = "transaction"
     }
 
     public var attributes: Attributes?
 
-    /** Pump ID */
+    /** Transaction ID */
     public var id: ID?
 
-    /** Type */
     public var type: PCFuelingType?
 
     public class Attributes: APIModel {
 
-        /** The fueling process that has to be followed
-        * `postPay` the pump is *free* and needs to be [paid](#operation/ProcessPayment) after fueling
-        * `preAuth` the pump is *locked* and has to be [unlocked](#operation/ProcessPayment)
-        * `preAuthWithFuelType` the pump is *locked* and has to be [unlocked](#operation/ProcessPayment), the `carFuelType` is required
-         */
-        public enum PCFuelingFuelingProcess: String, Codable, Equatable, CaseIterable {
-            case postPay = "postPay"
-            case preAuth = "preAuth"
-            case preAuthWithFuelType = "preAuthWithFuelType"
-        }
-
-        /** Current pump status.
-        * `free` the pump is free, fueling possible (nozzle not lifted), possible transitions *inUse*, *locked*, *outOfOrder*. Note: A transition from *free* to *locked* may implies the pump was pre-authorization was canceled.
-        * `inUse` the pump is fueling, possible transitions *readyToPay*, *locked*, *outOfOrder*
-        * `readyToPay` the pump can be payed using the post pay process, possible transitions *free*, *locked*, *outOfOrder*. Note: A transition from *readyToPay* to *free* implies the pump was paid.
-        * `locked` the pump required a pre-authorization, possible transitions *free*, *inTransaction*, *outOfOrder*. Note: A transition from *locked* to *free* implies the pre-authorization was successful.
-        * `inTransaction` the pump is in use by another user using the pre-authorization process, possible transitions *locked*, *outOfOrder*
-        * `outOfOrder` the pump has a technical problem, this can only be resolved by the gas station staff on site, possible transitions *free*, *locked*. Note: The customer has to pay in the shop
-         */
-        public enum PCFuelingStatus: String, Codable, Equatable, CaseIterable {
-            case free = "free"
-            case inUse = "inUse"
-            case readyToPay = "readyToPay"
-            case locked = "locked"
-            case inTransaction = "inTransaction"
-            case outOfOrder = "outOfOrder"
-        }
-
         public var vat: VAT?
+
+        public var authorizedAmount: Double?
 
         /** Currency as specified in ISO-4217. */
         public var currency: String?
 
-        /** Fuel amount in liters */
         public var fuelAmount: Double?
 
         public var fuelType: String?
 
-        /** The fueling process that has to be followed
-    * `postPay` the pump is *free* and needs to be [paid](#operation/ProcessPayment) after fueling
-    * `preAuth` the pump is *locked* and has to be [unlocked](#operation/ProcessPayment)
-    * `preAuthWithFuelType` the pump is *locked* and has to be [unlocked](#operation/ProcessPayment), the `carFuelType` is required
-     */
-        public var fuelingProcess: PCFuelingFuelingProcess?
-
-        /** Pump identifier */
-        public var identifier: String?
+        public var paymentToken: String?
 
         public var priceIncludingVAT: Double?
 
-        /** Fuel price in CUR/liter */
         public var pricePerUnit: Double?
 
         public var priceWithoutVAT: Double?
 
         public var productName: String?
 
-        /** Current pump status.
-    * `free` the pump is free, fueling possible (nozzle not lifted), possible transitions *inUse*, *locked*, *outOfOrder*. Note: A transition from *free* to *locked* may implies the pump was pre-authorization was canceled.
-    * `inUse` the pump is fueling, possible transitions *readyToPay*, *locked*, *outOfOrder*
-    * `readyToPay` the pump can be payed using the post pay process, possible transitions *free*, *locked*, *outOfOrder*. Note: A transition from *readyToPay* to *free* implies the pump was paid.
-    * `locked` the pump required a pre-authorization, possible transitions *free*, *inTransaction*, *outOfOrder*. Note: A transition from *locked* to *free* implies the pre-authorization was successful.
-    * `inTransaction` the pump is in use by another user using the pre-authorization process, possible transitions *locked*, *outOfOrder*
-    * `outOfOrder` the pump has a technical problem, this can only be resolved by the gas station staff on site, possible transitions *free*, *locked*. Note: The customer has to pay in the shop
-     */
-        public var status: PCFuelingStatus?
-
-        public var transaction: PCFuelingTransaction?
-
-        /** Provided if the user pre-authorized the pump */
-        public var transactionId: ID?
+        public var status: String?
 
         public class VAT: APIModel {
 
@@ -131,73 +80,65 @@ public class PCFuelingPumpResponse: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, currency: String? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: PCFuelingStatus? = nil, transaction: PCFuelingTransaction? = nil, transactionId: ID? = nil) {
+        public init(vat: VAT? = nil, authorizedAmount: Double? = nil, currency: String? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: String? = nil) {
             self.vat = vat
+            self.authorizedAmount = authorizedAmount
             self.currency = currency
             self.fuelAmount = fuelAmount
             self.fuelType = fuelType
-            self.fuelingProcess = fuelingProcess
-            self.identifier = identifier
+            self.paymentToken = paymentToken
             self.priceIncludingVAT = priceIncludingVAT
             self.pricePerUnit = pricePerUnit
             self.priceWithoutVAT = priceWithoutVAT
             self.productName = productName
             self.status = status
-            self.transaction = transaction
-            self.transactionId = transactionId
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             vat = try container.decodeIfPresent("VAT")
+            authorizedAmount = try container.decodeIfPresent("authorizedAmount")
             currency = try container.decodeIfPresent("currency")
             fuelAmount = try container.decodeIfPresent("fuelAmount")
             fuelType = try container.decodeIfPresent("fuelType")
-            fuelingProcess = try container.decodeIfPresent("fuelingProcess")
-            identifier = try container.decodeIfPresent("identifier")
+            paymentToken = try container.decodeIfPresent("paymentToken")
             priceIncludingVAT = try container.decodeIfPresent("priceIncludingVAT")
             pricePerUnit = try container.decodeIfPresent("pricePerUnit")
             priceWithoutVAT = try container.decodeIfPresent("priceWithoutVAT")
             productName = try container.decodeIfPresent("productName")
             status = try container.decodeIfPresent("status")
-            transaction = try container.decodeIfPresent("transaction")
-            transactionId = try container.decodeIfPresent("transactionId")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encodeIfPresent(vat, forKey: "VAT")
+            try container.encodeIfPresent(authorizedAmount, forKey: "authorizedAmount")
             try container.encodeIfPresent(currency, forKey: "currency")
             try container.encodeIfPresent(fuelAmount, forKey: "fuelAmount")
             try container.encodeIfPresent(fuelType, forKey: "fuelType")
-            try container.encodeIfPresent(fuelingProcess, forKey: "fuelingProcess")
-            try container.encodeIfPresent(identifier, forKey: "identifier")
+            try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
             try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
             try container.encodeIfPresent(pricePerUnit, forKey: "pricePerUnit")
             try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
             try container.encodeIfPresent(productName, forKey: "productName")
             try container.encodeIfPresent(status, forKey: "status")
-            try container.encodeIfPresent(transaction, forKey: "transaction")
-            try container.encodeIfPresent(transactionId, forKey: "transactionId")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
           guard self.vat == object.vat else { return false }
+          guard self.authorizedAmount == object.authorizedAmount else { return false }
           guard self.currency == object.currency else { return false }
           guard self.fuelAmount == object.fuelAmount else { return false }
           guard self.fuelType == object.fuelType else { return false }
-          guard self.fuelingProcess == object.fuelingProcess else { return false }
-          guard self.identifier == object.identifier else { return false }
+          guard self.paymentToken == object.paymentToken else { return false }
           guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
           guard self.pricePerUnit == object.pricePerUnit else { return false }
           guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
           guard self.productName == object.productName else { return false }
           guard self.status == object.status else { return false }
-          guard self.transaction == object.transaction else { return false }
-          guard self.transactionId == object.transactionId else { return false }
           return true
         }
 
@@ -229,14 +170,14 @@ public class PCFuelingPumpResponse: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCFuelingPumpResponse else { return false }
+      guard let object = object as? PCFuelingTransaction else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
       return true
     }
 
-    public static func == (lhs: PCFuelingPumpResponse, rhs: PCFuelingPumpResponse) -> Bool {
+    public static func == (lhs: PCFuelingTransaction, rhs: PCFuelingTransaction) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }
