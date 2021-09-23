@@ -33,6 +33,7 @@ struct ListViewRow: View {
             }, label: {
                 Image(systemName: "chevron.right")
                     .font(.body)
+                    .foregroundColor(.black)
             })
             .sheet(isPresented: $isFuelingViewControllerVisible) {
                 AppView(presetUrl: .fueling(id: cofuStation.id))

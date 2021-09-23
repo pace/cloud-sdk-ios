@@ -13,7 +13,7 @@ public class GeoJSONAPIRequest<ResponseType: APIResponseValue> {
     public let encodeBody: ((RequestEncoder) throws -> Data)?
     private(set) var headerParameters: [String: String]
     public var customHeaders: [String: String] = [:]
-    public var version: String = "0.0.1"
+    public var version: String = "master"
     public var contentType: String = "application/json"
 
     public var headers: [String: String] {
@@ -83,7 +83,7 @@ extension GeoJSONAPIRequest {
 
     /// pass in an optional baseURL, otherwise URLRequest.url will be relative
     public func createURLRequest(baseURL: String = "", encoder: RequestEncoder = JSONEncoder()) throws -> URLRequest {
-        guard var urlComponents = URLComponents(string: baseURL) else {
+        guard var urlComponents = URLComponents(string: "\(baseURL)\(version.isEmpty ? "" : "/\(version)")") else {
             throw APIClientError.requestEncodingError(APIRequestError.encodingURL)
         }
 

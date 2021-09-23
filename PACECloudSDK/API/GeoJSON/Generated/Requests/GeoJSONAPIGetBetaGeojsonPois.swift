@@ -14,7 +14,7 @@ extension GeoJSONAPI {
     */
     public enum GetBetaGeojsonPois {
 
-        public static var service = GeoJSONAPIService<Response>(id: "getBetaGeojsonPois", tag: "", method: "GET", path: "/beta/geojson/pois", hasBody: false, securityRequirements: [])
+        public static var service = GeoJSONAPIService<Response>(id: "getBetaGeojsonPois", tag: "", method: "GET", path: "/geojson/pois", hasBody: false, securityRequirements: [])
 
         /** Only show POIs of the given type */
         public enum PCGeoJSONFilterpoiType: String, Codable, Equatable, CaseIterable {
@@ -48,6 +48,9 @@ Possible values are:
                 /** Filter results based on merchant name. Value has to be the same as provided in the merchant field. */
                 public var filtermerchant: String?
 
+                /** Activate certain testing scenarios in the code */
+                public var testing: String?
+
                 /** Select a country to query. If this parameter is not provided data of all countries is returned. Country code in ISO 3166-1 alpha-2 format */
                 public var filtercountry: String?
 
@@ -61,11 +64,12 @@ To activate the filter, use one of the following values (all other values will r
  */
                 public var filterconnectedFueling: String?
 
-                public init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filteronlinePaymentMethod: String? = nil, filtermerchant: String? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil) {
+                public init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filteronlinePaymentMethod: String? = nil, filtermerchant: String? = nil, testing: String? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil) {
                     self.fieldsgasStation = fieldsgasStation
                     self.filterpoiType = filterpoiType
                     self.filteronlinePaymentMethod = filteronlinePaymentMethod
                     self.filtermerchant = filtermerchant
+                    self.testing = testing
                     self.filtercountry = filtercountry
                     self.filterconnectedFueling = filterconnectedFueling
                 }
@@ -79,8 +83,8 @@ To activate the filter, use one of the following values (all other values will r
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filteronlinePaymentMethod: String? = nil, filtermerchant: String? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil) {
-                let options = Options(fieldsgasStation: fieldsgasStation, filterpoiType: filterpoiType, filteronlinePaymentMethod: filteronlinePaymentMethod, filtermerchant: filtermerchant, filtercountry: filtercountry, filterconnectedFueling: filterconnectedFueling)
+            public convenience init(fieldsgasStation: String? = nil, filterpoiType: PCGeoJSONFilterpoiType? = nil, filteronlinePaymentMethod: String? = nil, filtermerchant: String? = nil, testing: String? = nil, filtercountry: String? = nil, filterconnectedFueling: String? = nil) {
+                let options = Options(fieldsgasStation: fieldsgasStation, filterpoiType: filterpoiType, filteronlinePaymentMethod: filteronlinePaymentMethod, filtermerchant: filtermerchant, testing: testing, filtercountry: filtercountry, filterconnectedFueling: filterconnectedFueling)
                 self.init(options: options)
             }
 
@@ -97,6 +101,9 @@ To activate the filter, use one of the following values (all other values will r
                 }
                 if let filtermerchant = options.filtermerchant {
                   params["filter[merchant]"] = filtermerchant
+                }
+                if let testing = options.testing {
+                  params["testing"] = testing
                 }
                 if let filtercountry = options.filtercountry {
                   params["filter[country]"] = filtercountry

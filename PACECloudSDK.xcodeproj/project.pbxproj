@@ -756,6 +756,7 @@
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
 		3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD870FE26BD548E0098C411 /* PINValidityTests.swift */; };
+		3BD960EE2701ED41003D8DD3 /* PCFuelingFuelPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDF25B9C9690065284A /* PCFuelingFuelPriceResponse.swift */; };
 		3BEECBCB26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
@@ -4004,6 +4005,7 @@
 				17BB0D4C268CD4AC009D4755 /* String+Extension.swift in Sources */,
 				17BB0D2D268CD0EB009D4755 /* PCFuelingTransactionRequest.swift in Sources */,
 				3B3DF5DF26E2512A00934991 /* IDKitConstants.swift in Sources */,
+				3BD960EE2701ED41003D8DD3 /* PCFuelingFuelPriceResponse.swift in Sources */,
 				1785C96326943B420041A20E /* IDKit+WatchSDK.swift in Sources */,
 				17BB0D0F268CCF88009D4755 /* FuelingAPI.swift in Sources */,
 				3B79FA9B26C15BEE00C0278F /* POIKitAPI+GasStation.swift in Sources */,

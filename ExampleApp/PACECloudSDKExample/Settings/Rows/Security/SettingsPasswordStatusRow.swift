@@ -37,6 +37,7 @@ struct SettingsPasswordStatusRow<T: SettingsViewModel>: SettingsRow {
             }, label: {
                 Image(systemName: "chevron.right")
                     .font(.body)
+                    .foregroundColor(.black)
             })
             .alert(isPresented: $showAlert) {
                 Alert(title: Text(alertMessage), dismissButton: .default(Text("OK")))

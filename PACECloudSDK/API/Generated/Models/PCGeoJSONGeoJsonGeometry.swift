@@ -5,41 +5,32 @@
 
 import Foundation
 
-/** https://tools.ietf.org/html/rfc7946#section-3.1.2 */
 public class PCGeoJSONGeoJsonGeometry: APIModel {
 
-    /** https://tools.ietf.org/html/rfc7946#section-3.1.2 */
     public enum PCGeoJSONType: String, Codable, Equatable, CaseIterable {
         case point = "Point"
     }
 
-    /** https://tools.ietf.org/html/rfc7946 */
-    public var coordinates: [Float]?
-
     public var type: PCGeoJSONType?
 
-    public init(coordinates: [Float]? = nil, type: PCGeoJSONType? = nil) {
-        self.coordinates = coordinates
+    public init(type: PCGeoJSONType? = nil) {
         self.type = type
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        coordinates = try container.decodeArrayIfPresent("coordinates")
         type = try container.decodeIfPresent("type")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(coordinates, forKey: "coordinates")
         try container.encodeIfPresent(type, forKey: "type")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCGeoJSONGeoJsonGeometry else { return false }
-      guard self.coordinates == object.coordinates else { return false }
       guard self.type == object.type else { return false }
       return true
     }

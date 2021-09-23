@@ -13,7 +13,7 @@ public struct GeoJSONAPI {
                                                             locale: Locale(identifier: "de_DE"),
                                                             calendar: Calendar(identifier: .gregorian))
 
-    public static let version = "0.0.1"
+    public static let version = "master"
 
 
     public enum GeoJSONAPIServer {

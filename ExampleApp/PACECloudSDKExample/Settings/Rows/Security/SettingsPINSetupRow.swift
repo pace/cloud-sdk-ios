@@ -30,8 +30,8 @@ struct SettingsPINSetupRow<T: SettingsViewModel>: SettingsRow {
             Spacer()
             Image(systemName: "chevron.right")
                 .font(.body)
+                .foregroundColor(.black)
         })
-        .foregroundColor(.black)
         .alert(isPresented: $showPINSetupAlert,
                TextFieldAlert(title: "PIN Setup",
                               message: "Enter your PIN and confirm the setup with one of the options below",

@@ -180,6 +180,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 + `TokenValidator` is now part of `IDKit` instead of `AppKit`
 + The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more. The response may now also include **offline** stations
 + Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
++ Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
