@@ -164,7 +164,22 @@ To search inside a bounding box provide the following query parameter:
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    included = try container.decodeArrayIfPresent("included")
+                    guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
+                    let decoder = JSONDecoder()
+
+                    let includedPCPOIFuelPrices = included.filter { $0["type"] as? String == PCPOIFuelPrice.PCPOIType.allCases.first?.rawValue }
+                    let includedPCPOILocationBasedApps = included.filter { $0["type"] as? String == PCPOILocationBasedApp.PCPOIType.allCases.first?.rawValue }
+                    let includedPCPOIReferenceStatuss = included.filter { $0["type"] as? String == PCPOIReferenceStatus.PCPOIType.allCases.first?.rawValue }
+
+                    let decodedPCPOIFuelPrices: [PCPOIFuelPrice] = try decoder.decodeJSONObject(includedPCPOIFuelPrices)
+                    let decodedPCPOILocationBasedApps: [PCPOILocationBasedApp] = try decoder.decodeJSONObject(includedPCPOILocationBasedApps)
+                    let decodedPCPOIReferenceStatuss: [PCPOIReferenceStatus] = try decoder.decodeJSONObject(includedPCPOIReferenceStatuss)
+
+                    self.included =
+                        decodedPCPOIFuelPrices.map(Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>.init)
+                        + decodedPCPOILocationBasedApps.map(Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>.init)
+                        + decodedPCPOIReferenceStatuss.map(Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>.init)
+
                 }
 
                 public func encode(to encoder: Encoder) throws {

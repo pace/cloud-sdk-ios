@@ -18,8 +18,35 @@ extension POIAPI.Stats {
 
         public final class Request: POIAPIRequest<Response> {
 
-            public init() {
+            public struct Options {
+
+                /** Comma separated strings that represent the fields to be returned in the response alongside the default response */
+                public var fields: String?
+
+                public init(fields: String? = nil) {
+                    self.fields = fields
+                }
+            }
+
+            public var options: Options
+
+            public init(options: Options) {
+                self.options = options
                 super.init(service: GetStats.service)
+            }
+
+            /// convenience initialiser so an Option doesn't have to be created
+            public convenience init(fields: String? = nil) {
+                let options = Options(fields: fields)
+                self.init(options: options)
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                if let fields = options.fields {
+                  params["fields"] = fields
+                }
+                return params
             }
         }
 
