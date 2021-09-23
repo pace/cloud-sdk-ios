@@ -41,6 +41,8 @@ public class PCPayPaymentMethodKind: APIModel {
         /** PACE resource name(s) to payment method vendors */
         public var vendorPRNs: [String]?
 
+        public var vendors: [Vendors]?
+
         /** data privacy information */
         public class DataPrivacy: APIModel {
 
@@ -147,13 +149,139 @@ public class PCPayPaymentMethodKind: APIModel {
             }
         }
 
-        public init(dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
+        public class Vendors: APIModel {
+
+            /** ID of the payment method vendor. */
+            public var id: ID?
+
+            public var logo: Logo?
+
+            public var name: String?
+
+            public var paymentMethodKindId: String?
+
+            public var slug: String?
+
+            public class Logo: APIModel {
+
+                public var href: String?
+
+                /** variants of the vendor's logo */
+                public var variants: [Variants]?
+
+                public class Variants: APIModel {
+
+                    public var href: String?
+
+                    public init(href: String? = nil) {
+                        self.href = href
+                    }
+
+                    public required init(from decoder: Decoder) throws {
+                        let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                        href = try container.decodeIfPresent("href")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                        try container.encodeIfPresent(href, forKey: "href")
+                    }
+
+                    public func isEqual(to object: Any?) -> Bool {
+                      guard let object = object as? Variants else { return false }
+                      guard self.href == object.href else { return false }
+                      return true
+                    }
+
+                    public static func == (lhs: Variants, rhs: Variants) -> Bool {
+                        return lhs.isEqual(to: rhs)
+                    }
+                }
+
+                public init(href: String? = nil, variants: [Variants]? = nil) {
+                    self.href = href
+                    self.variants = variants
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    href = try container.decodeIfPresent("href")
+                    variants = try container.decodeArrayIfPresent("variants")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(href, forKey: "href")
+                    try container.encodeIfPresent(variants, forKey: "variants")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Logo else { return false }
+                  guard self.href == object.href else { return false }
+                  guard self.variants == object.variants else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Logo, rhs: Logo) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            public init(id: ID? = nil, logo: Logo? = nil, name: String? = nil, paymentMethodKindId: String? = nil, slug: String? = nil) {
+                self.id = id
+                self.logo = logo
+                self.name = name
+                self.paymentMethodKindId = paymentMethodKindId
+                self.slug = slug
+            }
+
+            public required init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                id = try container.decodeIfPresent("id")
+                logo = try container.decodeIfPresent("logo")
+                name = try container.decodeIfPresent("name")
+                paymentMethodKindId = try container.decodeIfPresent("paymentMethodKindId")
+                slug = try container.decodeIfPresent("slug")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                try container.encodeIfPresent(id, forKey: "id")
+                try container.encodeIfPresent(logo, forKey: "logo")
+                try container.encodeIfPresent(name, forKey: "name")
+                try container.encodeIfPresent(paymentMethodKindId, forKey: "paymentMethodKindId")
+                try container.encodeIfPresent(slug, forKey: "slug")
+            }
+
+            public func isEqual(to object: Any?) -> Bool {
+              guard let object = object as? Vendors else { return false }
+              guard self.id == object.id else { return false }
+              guard self.logo == object.logo else { return false }
+              guard self.name == object.name else { return false }
+              guard self.paymentMethodKindId == object.paymentMethodKindId else { return false }
+              guard self.slug == object.slug else { return false }
+              return true
+            }
+
+            public static func == (lhs: Vendors, rhs: Vendors) -> Bool {
+                return lhs.isEqual(to: rhs)
+            }
+        }
+
+        public init(dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil, vendors: [Vendors]? = nil) {
             self.dataPrivacy = dataPrivacy
             self.fuelcard = fuelcard
             self.implicit = implicit
             self.name = name
             self.twoFactor = twoFactor
             self.vendorPRNs = vendorPRNs
+            self.vendors = vendors
         }
 
         public required init(from decoder: Decoder) throws {
@@ -165,6 +293,7 @@ public class PCPayPaymentMethodKind: APIModel {
             name = try container.decodeIfPresent("name")
             twoFactor = try container.decodeIfPresent("twoFactor")
             vendorPRNs = try container.decodeArrayIfPresent("vendorPRNs")
+            vendors = try container.decodeArrayIfPresent("vendors")
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -176,6 +305,7 @@ public class PCPayPaymentMethodKind: APIModel {
             try container.encodeIfPresent(name, forKey: "name")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
             try container.encodeIfPresent(vendorPRNs, forKey: "vendorPRNs")
+            try container.encodeIfPresent(vendors, forKey: "vendors")
         }
 
         public func isEqual(to object: Any?) -> Bool {
@@ -186,6 +316,7 @@ public class PCPayPaymentMethodKind: APIModel {
           guard self.name == object.name else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
           guard self.vendorPRNs == object.vendorPRNs else { return false }
+          guard self.vendors == object.vendors else { return false }
           return true
         }
 

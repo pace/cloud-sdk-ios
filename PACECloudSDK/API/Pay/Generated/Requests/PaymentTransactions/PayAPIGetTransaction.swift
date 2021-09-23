@@ -10,11 +10,20 @@ extension PayAPI.PaymentTransactions {
     /**
     Get a transaction
 
-    In case the transaction is not yet completed the call may be delayed 20s until a response can be given. If the client got this URL as a response to the Pre Auth process the call is save to retry. In case the transaction was canceled by the client an answer will still be delayed but always returns `404`, therefore the client has to remember, that the transaction was canceled.
+    Endpoint for fetching information about a single transaction. Only completed transactions can be returned.
+If `update=longPolling` is set, the following applies:
+In case the transaction is not yet completed the call may be delayed 20s until a response can be given. If the client got this URL as a response to the Pre Auth process the call is save to retry. In case the transaction was canceled by the client an answer will still be delayed but always returns `404`, therefore the client has to remember, that the transaction was canceled.
     */
     public enum GetTransaction {
 
         public static var service = PayAPIService<Response>(id: "GetTransaction", tag: "Payment Transactions", method: "GET", path: "/transactions/{transactionId}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:transactions:read"]), SecurityRequirement(type: "OIDC", scopes: ["pay:transactions:read"])])
+
+        /** Specify this parameter if you want to enable long-polling on this endpoint. Long-polling means that the endpoint will wait a fixed set of seconds (20s)
+        before returning the result.
+         */
+        public enum PCPayUpdate: String, Codable, Equatable, CaseIterable {
+            case longPolling = "longPolling"
+        }
 
         public final class Request: PayAPIRequest<Response> {
 
@@ -23,8 +32,14 @@ extension PayAPI.PaymentTransactions {
                 /** transaction ID. */
                 public var transactionId: String
 
-                public init(transactionId: String) {
+                /** Specify this parameter if you want to enable long-polling on this endpoint. Long-polling means that the endpoint will wait a fixed set of seconds (20s)
+before returning the result.
+ */
+                public var update: PCPayUpdate?
+
+                public init(transactionId: String, update: PCPayUpdate? = nil) {
                     self.transactionId = transactionId
+                    self.update = update
                 }
             }
 
@@ -36,13 +51,21 @@ extension PayAPI.PaymentTransactions {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(transactionId: String) {
-                let options = Options(transactionId: transactionId)
+            public convenience init(transactionId: String, update: PCPayUpdate? = nil) {
+                let options = Options(transactionId: transactionId, update: update)
                 self.init(options: options)
             }
 
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "transactionId" + "}", with: "\(self.options.transactionId)")
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                if let update = options.update?.encode() {
+                  params["update"] = update
+                }
+                return params
             }
 
             override var headerParameters: [String: String] {
@@ -56,7 +79,9 @@ extension PayAPI.PaymentTransactions {
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** In case the transaction is not yet completed the call may be delayed 20s until a response can be given. If the client got this URL as a response to the Pre Auth process the call is save to retry. In case the transaction was canceled by the client an answer will still be delayed but always returns `404`, therefore the client has to remember, that the transaction was canceled.
+            /** Endpoint for fetching information about a single transaction. Only completed transactions can be returned.
+            If `update=longPolling` is set, the following applies:
+            In case the transaction is not yet completed the call may be delayed 20s until a response can be given. If the client got this URL as a response to the Pre Auth process the call is save to retry. In case the transaction was canceled by the client an answer will still be delayed but always returns `404`, therefore the client has to remember, that the transaction was canceled.
              */
             public class Status200: APIModel {
 

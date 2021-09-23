@@ -147,6 +147,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 ## Models
 
 - **PCPayApplePaySession**
+- **PCPayCurrency**
 - **PCPayErrors**
 - **PCPayFuel**
 - **PCPayPRN**
@@ -154,13 +155,20 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentMethod**
 - **PCPayPaymentMethodCreditCardCreate**
 - **PCPayPaymentMethodDKVCreate**
+- **PCPayPaymentMethodGiropayCreate**
 - **PCPayPaymentMethodHoyerCreate**
 - **PCPayPaymentMethodKind**
+- **PCPayPaymentMethodKindMinimal**
+- **PCPayPaymentMethodKindRelationship**
 - **PCPayPaymentMethodKinds**
 - **PCPayPaymentMethodPayDirektCreate**
 - **PCPayPaymentMethodPayPalCreate**
 - **PCPayPaymentMethodRelationship**
+- **PCPayPaymentMethodRoadrunnerCreate**
 - **PCPayPaymentMethodSepaCreate**
+- **PCPayPaymentMethodVendor**
+- **PCPayPaymentMethodVendorRelationship**
+- **PCPayPaymentMethodZGMCreate**
 - **PCPayPaymentMethods**
 - **PCPayPaymentToken**
 - **PCPayPaymentTokenCreate**
@@ -179,18 +187,23 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PayAPI.NewPaymentMethods**
 	- **CreatePaymentMethodCreditCard**: POST `/payment-methods/creditcard`
 	- **CreatePaymentMethodDKV**: POST `/payment-methods/dkv`
+	- **CreatePaymentMethodGiropay**: POST `/payment-methods/giropay`
 	- **CreatePaymentMethodHoyer**: POST `/payment-methods/hoyer`
 	- **CreatePaymentMethodPayDirekt**: POST `/payment-methods/paydirekt`
 	- **CreatePaymentMethodPayPal**: POST `/payment-methods/paypal`
+	- **CreatePaymentMethodRoadrunner**: POST `/payment-methods/roadrunner`
 	- **CreatePaymentMethodSEPA**: POST `/payment-methods/sepa-direct-debit`
+	- **CreatePaymentMethodZGM**: POST `/payment-methods/zgm`
 - **PayAPI.PaymentMethodKinds**
 	- **GetPaymentMethodKinds**: GET `/payment-method-kinds`
 - **PayAPI.PaymentMethods**
 	- **ConfirmPaymentMethod**: GET `/payment-methods/confirm/{token}`
 	- **DeletePaymentMethod**: DELETE `/payment-methods/{paymentmethodid}`
+	- **DeletePaymentMethods**: DELETE `/payment-methods`
 	- **GetPaymentMethod**: GET `/payment-methods/{paymentmethodid}`
 	- **GetPaymentMethods**: GET `/payment-methods`
 	- **GetPaymentMethodsIncludingCreditCheck**: GET `/payment-methods`
+	- **GetPaymentMethodsIncludingCreditCheckMultiStatus**: GET `/payment-methods`
 	- **GetPaymentMethodsIncludingPaymentToken**: GET `/payment-methods`
 	- **NotificationForPaymentMethod**: POST `/payment-methods/{paymentmethodid}/notification`
 	- **PatchPaymentMethod**: PATCH `/payment-methods/{paymentmethodid}`

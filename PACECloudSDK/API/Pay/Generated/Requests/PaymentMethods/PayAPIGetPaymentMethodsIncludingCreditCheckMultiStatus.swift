@@ -5,75 +5,60 @@
 
 import Foundation
 
-extension PayAPI.PaymentTransactions {
+extension PayAPI.PaymentMethods {
 
     /**
-    Get receipt (download,file) for a single transaction in given file format
+    Get all ready-to-use payment methods for user, combining created and valid methods
 
-    Provides the receipt that has already been sent via email (when processing the payment) as download in the provided file format.
+    This request will return a list of supported payment methods for the current user that they can, in theory, use. That is, ones that are valid and can immediately be used including methods that could be used if the verification step is complated.</br></br>
+This is as opposed to the regular `/payment-methods`, which does not categorize payment methods as valid for use.</br></br>
+You should trigger this when the user is approaching on a gas station with fueling support to get a list of available payment methods.</br></br>
+If the list is empty, you can ask the user to add a payment method to use PACE fueling.
     */
-    public enum GetReceiptByFormat {
+    public enum GetPaymentMethodsIncludingCreditCheckMultiStatus {
 
-        public static var service = PayAPIService<Response>(id: "GetReceiptByFormat", tag: "Payment Transactions", method: "GET", path: "/receipts/{transactionID}.{fileFormat}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:transactions:receipt"]), SecurityRequirement(type: "OIDC", scopes: ["pay:transactions:receipt"])])
+        public static var service = PayAPIService<Response>(id: "GetPaymentMethodsIncludingCreditCheckMultiStatus", tag: "Payment Methods", method: "GET", path: "/payment-methods", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:read"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:read"])])
 
-        /** Format of the expected file */
-        public enum PCPayFileFormat: String, Codable, Equatable, CaseIterable {
-            case png = "png"
-            case pdf = "pdf"
+        /** This request will return a list of supported payment methods for the current user that they can, in theory, use. That is, ones that are valid and can immediately be used including methods that could be used if the verification step is complated.</br></br>
+        This is as opposed to the regular `/payment-methods`, which does not categorize payment methods as valid for use.</br></br>
+        You should trigger this when the user is approaching on a gas station with fueling support to get a list of available payment methods.</br></br>
+        If the list is empty, you can ask the user to add a payment method to use PACE fueling. */
+        public enum PCPayFilterstatus: String, Codable, Equatable, CaseIterable {
+            case createdOrValid = "createdOrValid"
         }
 
         public final class Request: PayAPIRequest<Response> {
 
             public struct Options {
 
-                /** ID of the payment transaction */
-                public var transactionID: String
+                public var filterstatus: PCPayFilterstatus
 
-                /** Format of the expected file */
-                public var fileFormat: PCPayFileFormat?
+                public var filterpurpose: PCPayPRN?
 
-                /** (Optional) Specify the language you want the returned receipt to be localized in.
-Returns the receipt in the default language that is available if the specified language is not available.
-Language does not have to be valid language. For example, `language=local` means that the receipt should be displayed
-in the language that is determined to be spoken in the area that the point of intereset at which the receipt has been generated at.
-*Prefer using the `Accept-Language` header if you use this endpoint on an end-user device.*
- */
-                public var language: String?
-
-                public init(transactionID: String, fileFormat: PCPayFileFormat? = nil, language: String? = nil) {
-                    self.transactionID = transactionID
-                    self.fileFormat = fileFormat
-                    self.language = language
+                public init(filterstatus: PCPayFilterstatus, filterpurpose: PCPayPRN? = nil) {
+                    self.filterstatus = filterstatus
+                    self.filterpurpose = filterpurpose
                 }
             }
 
             public var options: Options
 
-            public enum GetReceiptByFormatAcceptHeader: String {
-                case image_png = "image/png"
-                case application_pdf = "application/pdf"
-            }
-
-            public init(options: Options, responseContentType: GetReceiptByFormatAcceptHeader) {
+            public init(options: Options) {
                 self.options = options
-                super.init(service: GetReceiptByFormat.service)
-                self.contentType = responseContentType.rawValue
+                super.init(service: GetPaymentMethodsIncludingCreditCheckMultiStatus.service)
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(transactionID: String, fileFormat: PCPayFileFormat? = nil, language: String? = nil, responseContentType: GetReceiptByFormatAcceptHeader) {
-                let options = Options(transactionID: transactionID, fileFormat: fileFormat, language: language)
-                self.init(options: options, responseContentType: responseContentType)
-            }
-
-            public override var path: String {
-                return super.path.replacingOccurrences(of: "{" + "transactionID" + "}", with: "\(self.options.transactionID)").replacingOccurrences(of: "{" + "fileFormat" + "}", with: "\(self.options.fileFormat?.encode() ?? "")")
+            public convenience init(filterstatus: PCPayFilterstatus, filterpurpose: PCPayPRN? = nil) {
+                let options = Options(filterstatus: filterstatus, filterpurpose: filterpurpose)
+                self.init(options: options)
             }
 
             public override var queryParameters: [String: Any] {
                 var params: [String: Any] = [:]
-                if let language = options.language {
-                  params["language"] = language
+                params["filter[status]"] = options.filterstatus.encode()
+                if let filterpurpose = options.filterpurpose?.encode() {
+                  params["filter[purpose]"] = filterpurpose
                 }
                 return params
             }
@@ -89,225 +74,43 @@ in the language that is determined to be spoken in the area that the point of in
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** Error objects provide additional information about problems encountered while performing an operation.
-            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * `1000`:  generic error
-                * `1001`:  payment processing temporarily unavailable
-                * `1002`:  requested amount exceeds the authorized amount of the provided token
-                * `1003`:  implicit payment methods cannot be modified
-                * `1004`:  payment method rejected by provider
-                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-             */
-            public class Status400: APIModel {
+            /** This request will return a list of supported payment methods for the current user that they can, in theory, use. That is, ones that are valid and can immediately be used including methods that could be used if the verification step is complated.</br></br>
+            This is as opposed to the regular `/payment-methods`, which does not categorize payment methods as valid for use.</br></br>
+            You should trigger this when the user is approaching on a gas station with fueling support to get a list of available payment methods.</br></br>
+            If the list is empty, you can ask the user to add a payment method to use PACE fueling. */
+            public class Status200: APIModel {
 
-                public var errors: [Errors]?
+                public var data: PCPayPaymentMethods?
 
-                /** Error objects provide additional information about problems encountered while performing an operation.
-                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * `1000`:  generic error
-                    * `1001`:  payment processing temporarily unavailable
-                    * `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * `1003`:  implicit payment methods cannot be modified
-                    * `1004`:  payment method rejected by provider
-                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                 */
-                public class Errors: APIModel {
+                public var included: [Poly2<PCPayPaymentMethodVendor,PCPayPaymentMethodKindMinimal>]?
 
-                    /** an application-specific error code, expressed as a string value.
-                 */
-                    public var code: String?
-
-                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                 */
-                    public var detail: String?
-
-                    /** A unique identifier for this particular occurrence of the problem. */
-                    public var id: String?
-
-                    public var links: Links?
-
-                    /** a meta object containing non-standard meta-information about the error.
-                 */
-                    public var meta: [String: Any]?
-
-                    /** An object containing references to the source of the error.
-                 */
-                    public var source: Source?
-
-                    /** the HTTP status code applicable to this problem, expressed as a string value.
-                 */
-                    public var status: String?
-
-                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                 */
-                    public var title: String?
-
-                    /** Error objects provide additional information about problems encountered while performing an operation.
-                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * `1000`:  generic error
-                        * `1001`:  payment processing temporarily unavailable
-                        * `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * `1003`:  implicit payment methods cannot be modified
-                        * `1004`:  payment method rejected by provider
-                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                     */
-                    public class Links: APIModel {
-
-                        /** A link that leads to further details about this particular occurrence of the problem.
-                     */
-                        public var about: String?
-
-                        public init(about: String? = nil) {
-                            self.about = about
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            about = try container.decodeIfPresent("about")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(about, forKey: "about")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Links else { return false }
-                          guard self.about == object.about else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Links, rhs: Links) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    /** An object containing references to the source of the error.
-                     */
-                    public class Source: APIModel {
-
-                        /** A string indicating which URI query parameter caused the error.
-                     */
-                        public var parameter: String?
-
-                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-                     */
-                        public var pointer: String?
-
-                        public init(parameter: String? = nil, pointer: String? = nil) {
-                            self.parameter = parameter
-                            self.pointer = pointer
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            parameter = try container.decodeIfPresent("parameter")
-                            pointer = try container.decodeIfPresent("pointer")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(parameter, forKey: "parameter")
-                            try container.encodeIfPresent(pointer, forKey: "pointer")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Source else { return false }
-                          guard self.parameter == object.parameter else { return false }
-                          guard self.pointer == object.pointer else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Source, rhs: Source) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
-                        self.code = code
-                        self.detail = detail
-                        self.id = id
-                        self.links = links
-                        self.meta = meta
-                        self.source = source
-                        self.status = status
-                        self.title = title
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        code = try container.decodeIfPresent("code")
-                        detail = try container.decodeIfPresent("detail")
-                        id = try container.decodeIfPresent("id")
-                        links = try container.decodeIfPresent("links")
-                        meta = try container.decodeAnyIfPresent("meta")
-                        source = try container.decodeIfPresent("source")
-                        status = try container.decodeIfPresent("status")
-                        title = try container.decodeIfPresent("title")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(code, forKey: "code")
-                        try container.encodeIfPresent(detail, forKey: "detail")
-                        try container.encodeIfPresent(id, forKey: "id")
-                        try container.encodeIfPresent(links, forKey: "links")
-                        try container.encodeAnyIfPresent(meta, forKey: "meta")
-                        try container.encodeIfPresent(source, forKey: "source")
-                        try container.encodeIfPresent(status, forKey: "status")
-                        try container.encodeIfPresent(title, forKey: "title")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Errors else { return false }
-                      guard self.code == object.code else { return false }
-                      guard self.detail == object.detail else { return false }
-                      guard self.id == object.id else { return false }
-                      guard self.links == object.links else { return false }
-                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
-                      guard self.source == object.source else { return false }
-                      guard self.status == object.status else { return false }
-                      guard self.title == object.title else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(errors: [Errors]? = nil) {
-                    self.errors = errors
+                public init(data: PCPayPaymentMethods? = nil, included: [Poly2<PCPayPaymentMethodVendor,PCPayPaymentMethodKindMinimal>]? = nil) {
+                    self.data = data
+                    self.included = included
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                    errors = try container.decodeArrayIfPresent("errors")
+                    data = try container.decodeIfPresent("data")
+                    included = try container.decodeArrayIfPresent("included")
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
-                    try container.encodeIfPresent(errors, forKey: "errors")
+                    try container.encodeIfPresent(data, forKey: "data")
+                    try container.encodeIfPresent(included, forKey: "included")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status400 else { return false }
-                  guard self.errors == object.errors else { return false }
+                  guard let object = object as? Status200 else { return false }
+                  guard self.data == object.data else { return false }
+                  guard self.included == object.included else { return false }
                   return true
                 }
 
-                public static func == (lhs: Status400, rhs: Status400) -> Bool {
+                public static func == (lhs: Status200, rhs: Status200) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
@@ -768,6 +571,452 @@ in the language that is determined to be spoken in the area that the point of in
                 * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
                 * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
+            public class Status406: APIModel {
+
+                public var errors: [Errors]?
+
+                /** Error objects provide additional information about problems encountered while performing an operation.
+                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                 */
+                public class Errors: APIModel {
+
+                    /** an application-specific error code, expressed as a string value.
+                 */
+                    public var code: String?
+
+                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                 */
+                    public var detail: String?
+
+                    /** A unique identifier for this particular occurrence of the problem. */
+                    public var id: String?
+
+                    public var links: Links?
+
+                    /** a meta object containing non-standard meta-information about the error.
+                 */
+                    public var meta: [String: Any]?
+
+                    /** An object containing references to the source of the error.
+                 */
+                    public var source: Source?
+
+                    /** the HTTP status code applicable to this problem, expressed as a string value.
+                 */
+                    public var status: String?
+
+                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                 */
+                    public var title: String?
+
+                    /** Error objects provide additional information about problems encountered while performing an operation.
+                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                     */
+                    public class Links: APIModel {
+
+                        /** A link that leads to further details about this particular occurrence of the problem.
+                     */
+                        public var about: String?
+
+                        public init(about: String? = nil) {
+                            self.about = about
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            about = try container.decodeIfPresent("about")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(about, forKey: "about")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Links else { return false }
+                          guard self.about == object.about else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Links, rhs: Links) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    /** An object containing references to the source of the error.
+                     */
+                    public class Source: APIModel {
+
+                        /** A string indicating which URI query parameter caused the error.
+                     */
+                        public var parameter: String?
+
+                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+                     */
+                        public var pointer: String?
+
+                        public init(parameter: String? = nil, pointer: String? = nil) {
+                            self.parameter = parameter
+                            self.pointer = pointer
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            parameter = try container.decodeIfPresent("parameter")
+                            pointer = try container.decodeIfPresent("pointer")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(parameter, forKey: "parameter")
+                            try container.encodeIfPresent(pointer, forKey: "pointer")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Source else { return false }
+                          guard self.parameter == object.parameter else { return false }
+                          guard self.pointer == object.pointer else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Source, rhs: Source) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
+                        self.code = code
+                        self.detail = detail
+                        self.id = id
+                        self.links = links
+                        self.meta = meta
+                        self.source = source
+                        self.status = status
+                        self.title = title
+                    }
+
+                    public required init(from decoder: Decoder) throws {
+                        let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                        code = try container.decodeIfPresent("code")
+                        detail = try container.decodeIfPresent("detail")
+                        id = try container.decodeIfPresent("id")
+                        links = try container.decodeIfPresent("links")
+                        meta = try container.decodeAnyIfPresent("meta")
+                        source = try container.decodeIfPresent("source")
+                        status = try container.decodeIfPresent("status")
+                        title = try container.decodeIfPresent("title")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                        try container.encodeIfPresent(code, forKey: "code")
+                        try container.encodeIfPresent(detail, forKey: "detail")
+                        try container.encodeIfPresent(id, forKey: "id")
+                        try container.encodeIfPresent(links, forKey: "links")
+                        try container.encodeAnyIfPresent(meta, forKey: "meta")
+                        try container.encodeIfPresent(source, forKey: "source")
+                        try container.encodeIfPresent(status, forKey: "status")
+                        try container.encodeIfPresent(title, forKey: "title")
+                    }
+
+                    public func isEqual(to object: Any?) -> Bool {
+                      guard let object = object as? Errors else { return false }
+                      guard self.code == object.code else { return false }
+                      guard self.detail == object.detail else { return false }
+                      guard self.id == object.id else { return false }
+                      guard self.links == object.links else { return false }
+                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
+                      guard self.source == object.source else { return false }
+                      guard self.status == object.status else { return false }
+                      guard self.title == object.title else { return false }
+                      return true
+                    }
+
+                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
+                        return lhs.isEqual(to: rhs)
+                    }
+                }
+
+                public init(errors: [Errors]? = nil) {
+                    self.errors = errors
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    errors = try container.decodeArrayIfPresent("errors")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(errors, forKey: "errors")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Status406 else { return false }
+                  guard self.errors == object.errors else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Status406, rhs: Status406) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            /** Error objects provide additional information about problems encountered while performing an operation.
+            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+             */
+            public class Status422: APIModel {
+
+                public var errors: [Errors]?
+
+                /** Error objects provide additional information about problems encountered while performing an operation.
+                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                 */
+                public class Errors: APIModel {
+
+                    /** an application-specific error code, expressed as a string value.
+                 */
+                    public var code: String?
+
+                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                 */
+                    public var detail: String?
+
+                    /** A unique identifier for this particular occurrence of the problem. */
+                    public var id: String?
+
+                    public var links: Links?
+
+                    /** a meta object containing non-standard meta-information about the error.
+                 */
+                    public var meta: [String: Any]?
+
+                    /** An object containing references to the source of the error.
+                 */
+                    public var source: Source?
+
+                    /** the HTTP status code applicable to this problem, expressed as a string value.
+                 */
+                    public var status: String?
+
+                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                 */
+                    public var title: String?
+
+                    /** Error objects provide additional information about problems encountered while performing an operation.
+                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                     */
+                    public class Links: APIModel {
+
+                        /** A link that leads to further details about this particular occurrence of the problem.
+                     */
+                        public var about: String?
+
+                        public init(about: String? = nil) {
+                            self.about = about
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            about = try container.decodeIfPresent("about")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(about, forKey: "about")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Links else { return false }
+                          guard self.about == object.about else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Links, rhs: Links) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    /** An object containing references to the source of the error.
+                     */
+                    public class Source: APIModel {
+
+                        /** A string indicating which URI query parameter caused the error.
+                     */
+                        public var parameter: String?
+
+                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+                     */
+                        public var pointer: String?
+
+                        public init(parameter: String? = nil, pointer: String? = nil) {
+                            self.parameter = parameter
+                            self.pointer = pointer
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            parameter = try container.decodeIfPresent("parameter")
+                            pointer = try container.decodeIfPresent("pointer")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(parameter, forKey: "parameter")
+                            try container.encodeIfPresent(pointer, forKey: "pointer")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Source else { return false }
+                          guard self.parameter == object.parameter else { return false }
+                          guard self.pointer == object.pointer else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Source, rhs: Source) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
+                        self.code = code
+                        self.detail = detail
+                        self.id = id
+                        self.links = links
+                        self.meta = meta
+                        self.source = source
+                        self.status = status
+                        self.title = title
+                    }
+
+                    public required init(from decoder: Decoder) throws {
+                        let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                        code = try container.decodeIfPresent("code")
+                        detail = try container.decodeIfPresent("detail")
+                        id = try container.decodeIfPresent("id")
+                        links = try container.decodeIfPresent("links")
+                        meta = try container.decodeAnyIfPresent("meta")
+                        source = try container.decodeIfPresent("source")
+                        status = try container.decodeIfPresent("status")
+                        title = try container.decodeIfPresent("title")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                        try container.encodeIfPresent(code, forKey: "code")
+                        try container.encodeIfPresent(detail, forKey: "detail")
+                        try container.encodeIfPresent(id, forKey: "id")
+                        try container.encodeIfPresent(links, forKey: "links")
+                        try container.encodeAnyIfPresent(meta, forKey: "meta")
+                        try container.encodeIfPresent(source, forKey: "source")
+                        try container.encodeIfPresent(status, forKey: "status")
+                        try container.encodeIfPresent(title, forKey: "title")
+                    }
+
+                    public func isEqual(to object: Any?) -> Bool {
+                      guard let object = object as? Errors else { return false }
+                      guard self.code == object.code else { return false }
+                      guard self.detail == object.detail else { return false }
+                      guard self.id == object.id else { return false }
+                      guard self.links == object.links else { return false }
+                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
+                      guard self.source == object.source else { return false }
+                      guard self.status == object.status else { return false }
+                      guard self.title == object.title else { return false }
+                      return true
+                    }
+
+                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
+                        return lhs.isEqual(to: rhs)
+                    }
+                }
+
+                public init(errors: [Errors]? = nil) {
+                    self.errors = errors
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    errors = try container.decodeArrayIfPresent("errors")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(errors, forKey: "errors")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Status422 else { return false }
+                  guard self.errors == object.errors else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Status422, rhs: Status422) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            /** Error objects provide additional information about problems encountered while performing an operation.
+            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+             */
             public class Status500: APIModel {
 
                 public var errors: [Errors]?
@@ -980,13 +1229,10 @@ in the language that is determined to be spoken in the area that the point of in
                     return lhs.isEqual(to: rhs)
                 }
             }
-            public typealias SuccessType = File
+            public typealias SuccessType = Status200
 
-            /** Receipt as PNG or PDF */
-            case status200(File)
-
-            /** Bad request */
-            case status400(Status400)
+            /** All the payment methods that could be used. */
+            case status200(Status200)
 
             /** OAuth token missing or invalid */
             case status401(Status401)
@@ -994,10 +1240,16 @@ in the language that is determined to be spoken in the area that the point of in
             /** Resource not found */
             case status404(Status404)
 
+            /** The specified accept header is invalid */
+            case status406(Status406)
+
+            /** The request was well-formed but was unable to be followed due to semantic errors. */
+            case status422(Status422)
+
             /** Internal server error */
             case status500(Status500)
 
-            public var success: File? {
+            public var success: Status200? {
                 switch self {
                 case .status200(let response): return response
                 default: return nil
@@ -1007,9 +1259,10 @@ in the language that is determined to be spoken in the area that the point of in
             public var response: Any {
                 switch self {
                 case .status200(let response): return response
-                case .status400(let response): return response
                 case .status401(let response): return response
                 case .status404(let response): return response
+                case .status406(let response): return response
+                case .status422(let response): return response
                 case .status500(let response): return response
                 }
             }
@@ -1017,9 +1270,10 @@ in the language that is determined to be spoken in the area that the point of in
             public var statusCode: Int {
                 switch self {
                 case .status200: return 200
-                case .status400: return 400
                 case .status401: return 401
                 case .status404: return 404
+                case .status406: return 406
+                case .status422: return 422
                 case .status500: return 500
                 }
             }
@@ -1027,19 +1281,21 @@ in the language that is determined to be spoken in the area that the point of in
             public var successful: Bool {
                 switch self {
                 case .status200: return true
-                case .status400: return false
                 case .status401: return false
                 case .status404: return false
+                case .status406: return false
+                case .status422: return false
                 case .status500: return false
                 }
             }
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(data)
-                case 400: self = try .status400(decoder.decode(Status400.self, from: data))
+                case 200: self = try .status200(decoder.decode(Status200.self, from: data))
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
+                case 406: self = try .status406(decoder.decode(Status406.self, from: data))
+                case 422: self = try .status422(decoder.decode(Status422.self, from: data))
                 case 500: self = try .status500(decoder.decode(Status500.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
