@@ -439,6 +439,26 @@
 		3B7C8E4A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E3A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift */; };
 		3B7C8E4C26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */; };
 		3B7C8E4D26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */; };
+		3B7C8E5326FC5CDE0080B2B5 /* PCUserOAuth2Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4E26FC5CDE0080B2B5 /* PCUserOAuth2Error.swift */; };
+		3B7C8E5426FC5CDE0080B2B5 /* PCUserOAuth2Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4E26FC5CDE0080B2B5 /* PCUserOAuth2Error.swift */; };
+		3B7C8E5526FC5CDE0080B2B5 /* PCUserOAuth2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4F26FC5CDE0080B2B5 /* PCUserOAuth2Token.swift */; };
+		3B7C8E5626FC5CDE0080B2B5 /* PCUserOAuth2Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4F26FC5CDE0080B2B5 /* PCUserOAuth2Token.swift */; };
+		3B7C8E5726FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5026FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift */; };
+		3B7C8E5826FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5026FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift */; };
+		3B7C8E5926FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5126FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift */; };
+		3B7C8E5A26FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5126FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift */; };
+		3B7C8E5B26FC5CDE0080B2B5 /* PCUserEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5226FC5CDE0080B2B5 /* PCUserEmail.swift */; };
+		3B7C8E5C26FC5CDE0080B2B5 /* PCUserEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5226FC5CDE0080B2B5 /* PCUserEmail.swift */; };
+		3B7C8E5E26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */; };
+		3B7C8E5F26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */; };
+		3B7C8E6126FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6026FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift */; };
+		3B7C8E6226FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6026FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift */; };
+		3B7C8E6926FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6426FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift */; };
+		3B7C8E6A26FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6426FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift */; };
+		3B7C8E6B26FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6626FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift */; };
+		3B7C8E6C26FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6626FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift */; };
+		3B7C8E6D26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6826FC5D8E0080B2B5 /* UserAPITokenExchange.swift */; };
+		3B7C8E6E26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6826FC5D8E0080B2B5 /* UserAPITokenExchange.swift */; };
 		3B808AFD26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
 		3B808AFE26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
 		3B808AFF26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
@@ -1328,6 +1348,16 @@
 		3B7C8E3926FC59CA0080B2B5 /* PCPayCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayCurrency.swift; sourceTree = "<group>"; };
 		3B7C8E3A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodKindMinimal.swift; sourceTree = "<group>"; };
 		3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICurrency.swift; sourceTree = "<group>"; };
+		3B7C8E4E26FC5CDE0080B2B5 /* PCUserOAuth2Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserOAuth2Error.swift; sourceTree = "<group>"; };
+		3B7C8E4F26FC5CDE0080B2B5 /* PCUserOAuth2Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserOAuth2Token.swift; sourceTree = "<group>"; };
+		3B7C8E5026FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserOAuth2TokenExchange.swift; sourceTree = "<group>"; };
+		3B7C8E5126FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserAuditLogRecord.swift; sourceTree = "<group>"; };
+		3B7C8E5226FC5CDE0080B2B5 /* PCUserEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserEmail.swift; sourceTree = "<group>"; };
+		3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIResetPassword.swift; sourceTree = "<group>"; };
+		3B7C8E6026FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIVerifyEmail.swift; sourceTree = "<group>"; };
+		3B7C8E6426FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPICallbackPasswordReset.swift; sourceTree = "<group>"; };
+		3B7C8E6626FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIRecordAuditLog.swift; sourceTree = "<group>"; };
+		3B7C8E6826FC5D8E0080B2B5 /* UserAPITokenExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPITokenExchange.swift; sourceTree = "<group>"; };
 		3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+PriceHistory.swift"; sourceTree = "<group>"; };
 		3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling+Location.swift"; sourceTree = "<group>"; };
 		3B855312253D6C12001F7B66 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
@@ -2025,6 +2055,30 @@
 				3B7C0C06266A594400346FCC /* UserAPISetFederatedIdentity.swift */,
 			);
 			path = FederatedIdentity;
+			sourceTree = "<group>";
+		};
+		3B7C8E6326FC5D8E0080B2B5 /* Callbacks */ = {
+			isa = PBXGroup;
+			children = (
+				3B7C8E6426FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift */,
+			);
+			path = Callbacks;
+			sourceTree = "<group>";
+		};
+		3B7C8E6526FC5D8E0080B2B5 /* AuditLog */ = {
+			isa = PBXGroup;
+			children = (
+				3B7C8E6626FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift */,
+			);
+			path = AuditLog;
+			sourceTree = "<group>";
+		};
+		3B7C8E6726FC5D8E0080B2B5 /* OAuth2 */ = {
+			isa = PBXGroup;
+			children = (
+				3B7C8E6826FC5D8E0080B2B5 /* UserAPITokenExchange.swift */,
+			);
+			path = OAuth2;
 			sourceTree = "<group>";
 		};
 		3B808B0026CA41FA006EDE92 /* PriceHistory */ = {
@@ -2739,14 +2793,17 @@
 		8447A37525CAAE740095BEF1 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				3B7C0C04266A594400346FCC /* FederatedIdentity */,
-				8447A37625CAAE740095BEF1 /* Preferences */,
-				8447A37925CAAE740095BEF1 /* Terms */,
-				8447A37E25CAAE740095BEF1 /* User */,
-				8447A38425CAAE740095BEF1 /* Sessions */,
-				8447A38625CAAE740095BEF1 /* Phone */,
-				8447A38A25CAAE740095BEF1 /* TOTP */,
+				3B7C8E6526FC5D8E0080B2B5 /* AuditLog */,
+				3B7C8E6326FC5D8E0080B2B5 /* Callbacks */,
 				8447A38F25CAAE740095BEF1 /* Credentials */,
+				3B7C0C04266A594400346FCC /* FederatedIdentity */,
+				3B7C8E6726FC5D8E0080B2B5 /* OAuth2 */,
+				8447A38625CAAE740095BEF1 /* Phone */,
+				8447A37625CAAE740095BEF1 /* Preferences */,
+				8447A38425CAAE740095BEF1 /* Sessions */,
+				8447A37925CAAE740095BEF1 /* Terms */,
+				8447A38A25CAAE740095BEF1 /* TOTP */,
+				8447A37E25CAAE740095BEF1 /* User */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -2775,10 +2832,11 @@
 			isa = PBXGroup;
 			children = (
 				8447A37F25CAAE740095BEF1 /* UserAPIDeleteCurrentUser.swift */,
-				8447A38025CAAE740095BEF1 /* UserAPISetUser.swift */,
 				8447A38125CAAE740095BEF1 /* UserAPIDeleteUser.swift */,
 				8447A38225CAAE740095BEF1 /* UserAPIGetUser.swift */,
+				8447A38025CAAE740095BEF1 /* UserAPISetUser.swift */,
 				8447A38325CAAE740095BEF1 /* UserAPIUpdateUser.swift */,
+				3B7C8E6026FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2815,11 +2873,12 @@
 		8447A38F25CAAE740095BEF1 /* Credentials */ = {
 			isa = PBXGroup;
 			children = (
-				8447A39025CAAE740095BEF1 /* UserAPICheckUserPinOrPassword.swift */,
-				8447A39125CAAE740095BEF1 /* UserAPIUpdateUserPIN.swift */,
-				8447A39225CAAE740095BEF1 /* UserAPICreateUserPassword.swift */,
 				8447A39325CAAE740095BEF1 /* UserAPICheckUserPassword.swift */,
 				8447A39425CAAE740095BEF1 /* UserAPICheckUserPIN.swift */,
+				8447A39025CAAE740095BEF1 /* UserAPICheckUserPinOrPassword.swift */,
+				8447A39225CAAE740095BEF1 /* UserAPICreateUserPassword.swift */,
+				3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */,
+				8447A39125CAAE740095BEF1 /* UserAPIUpdateUserPIN.swift */,
 			);
 			path = Credentials;
 			sourceTree = "<group>";
@@ -3254,9 +3313,14 @@
 				3B1841EC2683356400A0F625 /* PCPOIStats.swift */,
 				84D6C01E258A03270094982D /* PCPOISubscription.swift */,
 				3B7C0C0D266A59D800346FCC /* PCUserAccessToken.swift */,
+				3B7C8E5126FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift */,
 				849C400325CAB6DD0074BCDA /* PCUserCreateOTP.swift */,
 				849C400025CAB6DD0074BCDA /* PCUserDeviceTOTP.swift */,
+				3B7C8E5226FC5CDE0080B2B5 /* PCUserEmail.swift */,
 				849C400625CAB6DD0074BCDA /* PCUserErrors.swift */,
+				3B7C8E4E26FC5CDE0080B2B5 /* PCUserOAuth2Error.swift */,
+				3B7C8E4F26FC5CDE0080B2B5 /* PCUserOAuth2Token.swift */,
+				3B7C8E5026FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift */,
 				849C400425CAB6DD0074BCDA /* PCUserOTP.swift */,
 				849C400225CAB6DD0074BCDA /* PCUserPinOrPassword.swift */,
 				849C400125CAB6DD0074BCDA /* PCUserPlainOTP.swift */,
@@ -3709,7 +3773,9 @@
 				3B79FA2F26C15B9C00C0278F /* POIAPIGetRegionalPrices.swift in Sources */,
 				3B79FA5E26C15BBF00C0278F /* PCPOIFuelPrice.swift in Sources */,
 				3B79FA6026C15BBF00C0278F /* PCPOISources.swift in Sources */,
+				3B7C8E5626FC5CDE0080B2B5 /* PCUserOAuth2Token.swift in Sources */,
 				17BB0D1F268CD007009D4755 /* PCPayPaymentMethod.swift in Sources */,
+				3B7C8E6E26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */,
 				3B79FA8D26C15BEB00C0278F /* Waypoint.swift in Sources */,
 				3B79FAA126C15BF300C0278F /* GasStation+OpeningHours.swift in Sources */,
 				3B3DF5AB26E24C8E00934991 /* JWTToken.swift in Sources */,
@@ -3753,6 +3819,7 @@
 				17BB0D4B268CD29F009D4755 /* PCPayPaymentTokensRelationship.swift in Sources */,
 				3B79FA6A26C15BD200C0278F /* Location.swift in Sources */,
 				3B79FA6D26C15BD400C0278F /* CofuGasStation+Extension.swift in Sources */,
+				3B7C8E5826FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift in Sources */,
 				3B79FA6126C15BBF00C0278F /* PCPOIPOI.swift in Sources */,
 				17BB0D3B268CD188009D4755 /* URLEncoding.swift in Sources */,
 				3B79FA5826C15BBF00C0278F /* PCPOIPolicyRulePriority.swift in Sources */,
@@ -3786,11 +3853,13 @@
 				3B79FA4C26C15BBF00C0278F /* PCPOIFuelPriceResponse.swift in Sources */,
 				3B79FA7926C15BDB00C0278F /* GeometryCommand.swift in Sources */,
 				17BB0D02268CCF13009D4755 /* PayAPICancelPreAuthPayment.swift in Sources */,
+				3B7C8E6C26FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift in Sources */,
 				3B79FA3926C15BA700C0278F /* POIAPIGetTiles.swift in Sources */,
 				3B79FA9F26C15BF300C0278F /* Feature+Geometry.swift in Sources */,
 				17BB0D4A268CD295009D4755 /* PCPayPaymentMethodDKVCreate.swift in Sources */,
 				3B79FA2626C15B9100C0278F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */,
 				3B79FA4526C15BBF00C0278F /* PCPOISubscription.swift in Sources */,
+				3B7C8E5F26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */,
 				3B79FA3726C15BA500C0278F /* POIAPIGetSubscriptions.swift in Sources */,
 				17B4E4EC26CFE47100AEAF13 /* UserAPI.swift in Sources */,
 				3B79FA3626C15BA500C0278F /* POIAPIStoreSubscription.swift in Sources */,
@@ -3824,6 +3893,7 @@
 				17BB0D1E268CCFFF009D4755 /* APIResponseUtils.swift in Sources */,
 				17BB0D33268CD133009D4755 /* PCPayApplePaySession.swift in Sources */,
 				3B79FA8A26C15BEB00C0278F /* PriceHistoryResponse.swift in Sources */,
+				3B7C8E6226FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */,
 				17B4E54D26D39CA400AEAF13 /* UserAPIDeleteUser.swift in Sources */,
 				3B79FA3D26C15BBF00C0278F /* PCPOIReferenceStatuses.swift in Sources */,
 				3B79FA5426C15BBF00C0278F /* PCPOIReferenceStatus.swift in Sources */,
@@ -3832,6 +3902,7 @@
 				17B4E4EB26CFE47100AEAF13 /* UserAPIRequest.swift in Sources */,
 				17BB0D49268CD28D009D4755 /* PCPayPaymentTokenCreate.swift in Sources */,
 				3B79FA9E26C15BEE00C0278F /* POIKitAPI+POIFilters.swift in Sources */,
+				3B7C8E5A26FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift in Sources */,
 				3B79FA2C26C15B9900C0278F /* POIAPIGetPolicies.swift in Sources */,
 				3B79FA9026C15BEB00C0278F /* tile_query_response.pb.swift in Sources */,
 				3B79FAB126C15C4B00C0278F /* URLRequest+Extension.swift in Sources */,
@@ -3869,6 +3940,7 @@
 				17BB0D0A268CCF7A009D4755 /* PACECloudSDK+URL.swift in Sources */,
 				17BB0D14268CCF92009D4755 /* FuelingAPIApproachingAtTheForecourt.swift in Sources */,
 				17BB0D50268CD4FA009D4755 /* PCFuelingGasStation.swift in Sources */,
+				3B7C8E6A26FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */,
 				17B4E54926D39C9C00AEAF13 /* UserAPIVerifyUserPhone.swift in Sources */,
 				3B79FA4326C15BBF00C0278F /* PCPOIPOIType.swift in Sources */,
 				17B4E52326D38B7500AEAF13 /* UserAPICheckUserPIN.swift in Sources */,
@@ -3943,6 +4015,7 @@
 				17BB0D23268CD042009D4755 /* Settings.swift in Sources */,
 				17B4E53F26D39C9100AEAF13 /* UserAPIUpdateUserPIN.swift in Sources */,
 				3B79FA6F26C15BD400C0278F /* Vector2+Extension.swift in Sources */,
+				3B7C8E5426FC5CDE0080B2B5 /* PCUserOAuth2Error.swift in Sources */,
 				3B79FAA326C15BF300C0278F /* vector_tile.proto in Sources */,
 				17BB0D3F268CD1DF009D4755 /* AnyCodable.swift in Sources */,
 				17B4E54E26D39CA400AEAF13 /* UserAPIGetUser.swift in Sources */,
@@ -4001,6 +4074,7 @@
 				17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
 				3B79FA1026C15B6300C0278F /* POIRequestBehaviour.swift in Sources */,
+				3B7C8E5C26FC5CDE0080B2B5 /* PCUserEmail.swift in Sources */,
 				17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */,
 				3B3DF5AA26E24C7200934991 /* TokenValidator.swift in Sources */,
 				3B79FA8E26C15BEB00C0278F /* GasStationRequest.swift in Sources */,
@@ -4049,6 +4123,7 @@
 				3B987051268E06AE00A0458F /* LogEventResult.swift in Sources */,
 				84600F0825C03B1E0087194F /* POIAPICreatePolicy.swift in Sources */,
 				84A439F52580E33B00DE36FA /* POIAPIClient.swift in Sources */,
+				3B7C8E5926FC5CDE0080B2B5 /* PCUserAuditLogRecord.swift in Sources */,
 				3B970A832542D9BB0072F6BA /* AppKit+Authorization.swift in Sources */,
 				84600EAA25C03B0C0087194F /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */,
 				3B970AA02542D9BB0072F6BA /* URLParam.swift in Sources */,
@@ -4097,6 +4172,7 @@
 				3B7C8E4526FC59CA0080B2B5 /* PCPayPaymentMethodGiropayCreate.swift in Sources */,
 				841A3EF025B9C96A0065284A /* PCFuelingFuelPriceResponse.swift in Sources */,
 				3B7C8E4C26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */,
+				3B7C8E5326FC5CDE0080B2B5 /* PCUserOAuth2Error.swift in Sources */,
 				84D6C091258A03280094982D /* PCPOICommonOpeningHours.swift in Sources */,
 				3B98706F268E06AE00A0458F /* OpenURLInNewTabResult.swift in Sources */,
 				3BC9A7EE2539DDAD00B933AE /* POIKitAPI+GasStation.swift in Sources */,
@@ -4116,6 +4192,7 @@
 				3B987077268E06AE00A0458F /* LogoutResult.swift in Sources */,
 				3B970A772542D9BB0072F6BA /* AppDrawer+Gestures.swift in Sources */,
 				84A43AD62580E35A00DE36FA /* Coding.swift in Sources */,
+				3B7C8E6B26FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift in Sources */,
 				3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */,
 				84A43A432580E34D00DE36FA /* PayAPI.swift in Sources */,
 				3BC9A8032539DDAD00B933AE /* PriceHistoryRequest.swift in Sources */,
@@ -4335,6 +4412,7 @@
 				849C400725CAB6DD0074BCDA /* PCUserTerms.swift in Sources */,
 				84D6C083258A03280094982D /* PCPOIFieldData.swift in Sources */,
 				3B970A9D2542D9BB0072F6BA /* URLRequestError.swift in Sources */,
+				3B7C8E6126FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */,
 				84600F4B25C03B340087194F /* FuelingAPICreateNotification.swift in Sources */,
 				3BC9A7F52539DDAD00B933AE /* RegionalPriceRequest.swift in Sources */,
 				84D6C07A258A03280094982D /* PCPayFuel.swift in Sources */,
@@ -4400,6 +4478,7 @@
 				84D6C064258A03270094982D /* PCPOISubscription.swift in Sources */,
 				8447A3BD25CAAE740095BEF1 /* UserAPIUpdateUserPhone.swift in Sources */,
 				3BC9A7F32539DDAD00B933AE /* POIFiltersRequest.swift in Sources */,
+				3B7C8E6D26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */,
 				3B98707B268E06AE00A0458F /* Response.swift in Sources */,
 				3BA5149425EE396100CC1FC3 /* Double+Extension.swift in Sources */,
 				923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */,
@@ -4473,17 +4552,20 @@
 				84A439F62580E33B00DE36FA /* POIAPIService.swift in Sources */,
 				3B7C8E3D26FC59CA0080B2B5 /* PCPayPaymentMethodKindRelationship.swift in Sources */,
 				84A43B1A25825B6300DE36FA /* AnyPOIRequest.swift in Sources */,
+				3B7C8E5526FC5CDE0080B2B5 /* PCUserOAuth2Token.swift in Sources */,
 				3B9655EC26B2981700921766 /* POIKit+GeoService.swift in Sources */,
 				3BC9A7FC2539DDAD00B933AE /* GasStationApiResponse.swift in Sources */,
 				84600EAE25C03B0C0087194F /* PayAPIGetReceiptByFormat.swift in Sources */,
 				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
 				3BC9A7FF2539DDAD00B933AE /* PriceHistoryResponse.swift in Sources */,
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
+				3B7C8E5B26FC5CDE0080B2B5 /* PCUserEmail.swift in Sources */,
 				84D6C08A258A03280094982D /* PCPayReadOnlyLocation.swift in Sources */,
 				3B970AB52542D9BB0072F6BA /* AppManifest.swift in Sources */,
 				92EDDDB025A73C6900E480F4 /* POIKitAPI+Observer.swift in Sources */,
 				3B970A7A2542D9BB0072F6BA /* AppViewController.swift in Sources */,
 				3B9B6446266F9A2800B2DC27 /* App+MessageHandling+AccessToken.swift in Sources */,
+				3B7C8E5726FC5CDE0080B2B5 /* PCUserOAuth2TokenExchange.swift in Sources */,
 				84C5E707258A149200E5B20B /* POI.swift in Sources */,
 				3B970AE42542DF450072F6BA /* AppKitLogger.swift in Sources */,
 				3B8C5A0E26678A4800D7D5D6 /* App+MessageHandling+ApplePay.swift in Sources */,
@@ -4531,6 +4613,7 @@
 				84A43B1925825B6300DE36FA /* POIAPIRequest.swift in Sources */,
 				3B970AB32542D9BB0072F6BA /* AppError.swift in Sources */,
 				84E1AC392562800D00C673EF /* Poly+AllTypes.swift in Sources */,
+				3B7C8E6926FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */,
 				3BB1443325388108004E9F63 /* Logger.swift in Sources */,
 				84D6C074258A03280094982D /* PCPOICategories.swift in Sources */,
 				6A7FCE9A26F0E9A400384907 /* ShareObject.swift in Sources */,
@@ -4541,6 +4624,7 @@
 				3B970A942542D9BB0072F6BA /* IconSelector.swift in Sources */,
 				84600F3425C03B1F0087194F /* POIAPICheckForPaceApp.swift in Sources */,
 				84D6C056258A03270094982D /* PCPOIPolicy.swift in Sources */,
+				3B7C8E5E26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */,
 				3B88786025CBECC2008D1551 /* GeoJSONAPI.swift in Sources */,
 				84D6C05D258A03270094982D /* PCPayPaymentMethod.swift in Sources */,
 				84600EFA25C03B1E0087194F /* POIAPIGetGasStations.swift in Sources */,

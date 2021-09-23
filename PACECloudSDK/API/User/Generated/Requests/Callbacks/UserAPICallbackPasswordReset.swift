@@ -5,26 +5,50 @@
 
 import Foundation
 
-extension UserAPI.TOTP {
+extension UserAPI.Callbacks {
 
     /**
-    Create device TOTP
+    Password reset
 
-    A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+    During a password reset the user is only able to provide the HAVE
+using the email address. In order to retain the user data the user
+has to provide a second factor, either HAVE or KNOW.
+The `prove` can be done with *PIN* (KNOW) or the *device OTP* (HAVE).
+This callback is called before the password of the user is reset.
+If the user is able to provide his/her `prove` correctly the data of
+the user remain untouched. In case the `prove` is in correctly provided
+for more than 3 times, the critical data e.g. payment data of the
+user is deleted in order to prevent theft.
+* `404` is returned in case the user has no `prove` defined.
+* `410` is returned in case the `prove` didn't match multiple times,
+  the user data will be deleted for safety reasons.
+* `422` is returned in case the the `prove` is incorrect.
     */
-    public enum CreateTOTP {
+    public enum CallbackPasswordReset {
 
-        public static var service = UserAPIService<Response>(id: "CreateTOTP", tag: "TOTP", method: "POST", path: "/user/devices/totp", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:device-totps:create", "user:device-totps:create-after-login"]), SecurityRequirement(type: "OIDC", scopes: ["user:device-totps:create", "user:device-totps:create-after-login"])])
+        public static var service = UserAPIService<Response>(id: "CallbackPasswordReset", tag: "Callbacks", method: "POST", path: "/callbacks/password-reset", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:callbacks:password-reset"]), SecurityRequirement(type: "OIDC", scopes: ["user:callbacks:password-reset"])])
 
         public final class Request: UserAPIRequest<Response> {
 
-            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+            /** During a password reset the user is only able to provide the HAVE
+            using the email address. In order to retain the user data the user
+            has to provide a second factor, either HAVE or KNOW.
+            The `prove` can be done with *PIN* (KNOW) or the *device OTP* (HAVE).
+            This callback is called before the password of the user is reset.
+            If the user is able to provide his/her `prove` correctly the data of
+            the user remain untouched. In case the `prove` is in correctly provided
+            for more than 3 times, the critical data e.g. payment data of the
+            user is deleted in order to prevent theft.
+            * `404` is returned in case the user has no `prove` defined.
+            * `410` is returned in case the `prove` didn't match multiple times,
+              the user data will be deleted for safety reasons.
+            * `422` is returned in case the the `prove` is incorrect.
              */
             public class Body: APIModel {
 
-                public var data: PCUserDeviceTOTP?
+                public var data: PCUserUserPIN?
 
-                public init(data: PCUserDeviceTOTP? = nil) {
+                public init(data: PCUserUserPIN? = nil) {
                     self.data = data
                 }
 
@@ -55,7 +79,7 @@ extension UserAPI.TOTP {
 
             public init(body: Body, encoder: RequestEncoder? = nil) {
                 self.body = body
-                super.init(service: CreateTOTP.service) { defaultEncoder in
+                super.init(service: CallbackPasswordReset.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
                 self.contentType = "application/vnd.api+json"
@@ -71,39 +95,6 @@ extension UserAPI.TOTP {
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
-
-            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
-             */
-            public class Status201: APIModel {
-
-                public var data: PCUserDeviceTOTP?
-
-                public init(data: PCUserDeviceTOTP? = nil) {
-                    self.data = data
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    data = try container.decodeIfPresent("data")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(data, forKey: "data")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status201 else { return false }
-                  guard self.data == object.data else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Status201, rhs: Status201) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
 
             /** Error objects provide additional information about problems encountered while performing an operation.
             Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
@@ -561,7 +552,7 @@ extension UserAPI.TOTP {
                 * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
                 * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
-            public class Status406: APIModel {
+            public class Status404: APIModel {
 
                 public var errors: [Errors]?
 
@@ -764,12 +755,12 @@ extension UserAPI.TOTP {
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status406 else { return false }
+                  guard let object = object as? Status404 else { return false }
                   guard self.errors == object.errors else { return false }
                   return true
                 }
 
-                public static func == (lhs: Status406, rhs: Status406) -> Bool {
+                public static func == (lhs: Status404, rhs: Status404) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
@@ -784,7 +775,7 @@ extension UserAPI.TOTP {
                 * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
                 * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
-            public class Status415: APIModel {
+            public class Status410: APIModel {
 
                 public var errors: [Errors]?
 
@@ -987,12 +978,12 @@ extension UserAPI.TOTP {
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status415 else { return false }
+                  guard let object = object as? Status410 else { return false }
                   guard self.errors == object.errors else { return false }
                   return true
                 }
 
-                public static func == (lhs: Status415, rhs: Status415) -> Bool {
+                public static func == (lhs: Status410, rhs: Status410) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
@@ -1230,7 +1221,7 @@ extension UserAPI.TOTP {
                 * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
                 * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
-            public class Status500: APIModel {
+            public class Status501: APIModel {
 
                 public var errors: [Errors]?
 
@@ -1433,19 +1424,19 @@ extension UserAPI.TOTP {
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status500 else { return false }
+                  guard let object = object as? Status501 else { return false }
                   guard self.errors == object.errors else { return false }
                   return true
                 }
 
-                public static func == (lhs: Status500, rhs: Status500) -> Bool {
+                public static func == (lhs: Status501, rhs: Status501) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
-            public typealias SuccessType = Status201
+            public typealias SuccessType = Void
 
-            /** TOTP created. */
-            case status201(Status201)
+            /** PIN is correct, data will be retained */
+            case status204
 
             /** OAuth token missing or invalid */
             case status401(Status401)
@@ -1453,70 +1444,70 @@ extension UserAPI.TOTP {
             /** Forbidden */
             case status403(Status403)
 
-            /** The specified accept header is invalid */
-            case status406(Status406)
+            /** Resource not found */
+            case status404(Status404)
 
-            /** The specified content type header is invalid */
-            case status415(Status415)
+            /** Resource is gone */
+            case status410(Status410)
 
             /** The request was well-formed but was unable to be followed due to semantic errors. */
             case status422(Status422)
 
             /** Internal server error */
-            case status500(Status500)
+            case status501(Status501)
 
-            public var success: Status201? {
+            public var success: Void? {
                 switch self {
-                case .status201(let response): return response
+                case .status204: return ()
                 default: return nil
                 }
             }
 
             public var response: Any {
                 switch self {
-                case .status201(let response): return response
                 case .status401(let response): return response
                 case .status403(let response): return response
-                case .status406(let response): return response
-                case .status415(let response): return response
+                case .status404(let response): return response
+                case .status410(let response): return response
                 case .status422(let response): return response
-                case .status500(let response): return response
+                case .status501(let response): return response
+                default: return ()
                 }
             }
 
             public var statusCode: Int {
                 switch self {
-                case .status201: return 201
+                case .status204: return 204
                 case .status401: return 401
                 case .status403: return 403
-                case .status406: return 406
-                case .status415: return 415
+                case .status404: return 404
+                case .status410: return 410
                 case .status422: return 422
-                case .status500: return 500
+                case .status501: return 501
                 }
             }
 
             public var successful: Bool {
                 switch self {
-                case .status201: return true
+                case .status204: return true
                 case .status401: return false
                 case .status403: return false
-                case .status406: return false
-                case .status415: return false
+                case .status404: return false
+                case .status410: return false
                 case .status422: return false
-                case .status500: return false
+                case .status501: return false
                 }
             }
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 201: self = try .status201(decoder.decode(Status201.self, from: data))
+                case 204: self = .status204
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 403: self = try .status403(decoder.decode(Status403.self, from: data))
-                case 406: self = try .status406(decoder.decode(Status406.self, from: data))
-                case 415: self = try .status415(decoder.decode(Status415.self, from: data))
+                case 404: self = try .status404(decoder.decode(Status404.self, from: data))
+                case 410: self = try .status410(decoder.decode(Status410.self, from: data))
                 case 422: self = try .status422(decoder.decode(Status422.self, from: data))
-                case 500: self = try .status500(decoder.decode(Status500.self, from: data))
+                case 501: self = try .status501(decoder.decode(Status501.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
             }
