@@ -68,8 +68,6 @@ extension AppControl: AppKitDelegate {
         currentlyVisibleDrawers.removeAll(where: { appDatas.contains($0) })
     }
 
-
-
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) {
         completion("merchantIdentifier")
     }

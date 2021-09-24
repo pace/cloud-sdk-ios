@@ -25,6 +25,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Remove default timeout in communication api
 * Respond with 405 if communication operation doesn't exist
 * Enable bitcode for the `PACECloudSDK` target
+* Upgrade to XCode 13
 
 8.0.0 Release notes (2021-08-16)
 =============================================================

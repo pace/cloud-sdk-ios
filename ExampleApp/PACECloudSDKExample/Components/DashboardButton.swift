@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PACECloudSDK
 import SwiftUI
 
 struct DashboardButton: View {
