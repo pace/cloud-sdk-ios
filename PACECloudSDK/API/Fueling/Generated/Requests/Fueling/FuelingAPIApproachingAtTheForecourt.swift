@@ -124,11 +124,11 @@ The approaching is a necessary first api call for connected fueling. Without a v
                     let paymentMethodKinds: [PCFuelingPaymentMethodKind] = try decoder.decodeJSONObject(includedPaymentMethodKinds)
 
                     self.included =
-                        stations.map(Poly5.init)
-                        + prices.map(Poly5.init)
-                        + pumps.map(Poly5.init)
-                        + paymentMethods.map(Poly5.init)
-                        + paymentMethodKinds.map(Poly5.init)
+                        stations.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
+                        + prices.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
+                        + pumps.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
+                        + paymentMethods.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
+                        + paymentMethodKinds.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
                 }
 
                 public func encode(to encoder: Encoder) throws {
