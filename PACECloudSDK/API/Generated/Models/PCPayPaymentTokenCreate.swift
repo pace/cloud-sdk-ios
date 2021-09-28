@@ -28,6 +28,11 @@ public class PCPayPaymentTokenCreate: APIModel {
         /** PACE resource name(s) of one or multiple resources, for which the payment should be authorized. */
         public var purposePRNs: [String]
 
+        /** Set this flag to `true` if you accept the authorized amount to be lower than the requested amount. */
+        public var allowPartialAmount: Bool?
+
+        public var discountTokens: [String]?
+
         /** The code and method for two factor authentication, if required by the payment method */
         public var twoFactor: TwoFactor?
 
@@ -71,10 +76,12 @@ public class PCPayPaymentTokenCreate: APIModel {
             }
         }
 
-        public init(currency: String, amount: Double, purposePRNs: [String], twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Double, purposePRNs: [String], allowPartialAmount: Bool? = nil, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs
+            self.allowPartialAmount = allowPartialAmount
+            self.discountTokens = discountTokens
             self.twoFactor = twoFactor
         }
 
@@ -84,6 +91,8 @@ public class PCPayPaymentTokenCreate: APIModel {
             currency = try container.decode("currency")
             amount = try container.decode("amount")
             purposePRNs = try container.decodeArray("purposePRNs")
+            allowPartialAmount = try container.decodeIfPresent("allowPartialAmount")
+            discountTokens = try container.decodeArrayIfPresent("discountTokens")
             twoFactor = try container.decodeIfPresent("twoFactor")
         }
 
@@ -93,6 +102,8 @@ public class PCPayPaymentTokenCreate: APIModel {
             try container.encode(currency, forKey: "currency")
             try container.encode(amount, forKey: "amount")
             try container.encode(purposePRNs, forKey: "purposePRNs")
+            try container.encodeIfPresent(allowPartialAmount, forKey: "allowPartialAmount")
+            try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         }
 
@@ -101,6 +112,8 @@ public class PCPayPaymentTokenCreate: APIModel {
           guard self.currency == object.currency else { return false }
           guard self.amount == object.amount else { return false }
           guard self.purposePRNs == object.purposePRNs else { return false }
+          guard self.allowPartialAmount == object.allowPartialAmount else { return false }
+          guard self.discountTokens == object.discountTokens else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
           return true
         }

@@ -30,6 +30,8 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
 
         public var applePay: ApplePay
 
+        public var discountTokens: [String]?
+
         /** The code and method for two factor authentication, if required by the payment method */
         public var twoFactor: TwoFactor?
 
@@ -251,11 +253,12 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
             }
         }
 
-        public init(currency: String, amount: Double, purposePRNs: [String], applePay: ApplePay, twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Double, purposePRNs: [String], applePay: ApplePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs
             self.applePay = applePay
+            self.discountTokens = discountTokens
             self.twoFactor = twoFactor
         }
 
@@ -266,6 +269,7 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
             amount = try container.decode("amount")
             purposePRNs = try container.decodeArray("purposePRNs")
             applePay = try container.decode("applePay")
+            discountTokens = try container.decodeArrayIfPresent("discountTokens")
             twoFactor = try container.decodeIfPresent("twoFactor")
         }
 
@@ -276,6 +280,7 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
             try container.encode(amount, forKey: "amount")
             try container.encode(purposePRNs, forKey: "purposePRNs")
             try container.encode(applePay, forKey: "applePay")
+            try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         }
 
@@ -285,6 +290,7 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
           guard self.amount == object.amount else { return false }
           guard self.purposePRNs == object.purposePRNs else { return false }
           guard self.applePay == object.applePay else { return false }
+          guard self.discountTokens == object.discountTokens else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
           return true
         }

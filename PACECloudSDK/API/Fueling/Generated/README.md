@@ -152,12 +152,14 @@ To add support for a specific asynchronous library, just add an extension on `Fu
 - **PCFuelingFuelPrice**
 - **PCFuelingFuelPriceResponse**
 - **PCFuelingGasStation**
+- **PCFuelingGasStationNote**
 - **PCFuelingGetPumpsResponse**
 - **PCFuelingPaymentMethod**
 - **PCFuelingPaymentMethodKind**
 - **PCFuelingProcessPaymentResponse**
 - **PCFuelingPump**
 - **PCFuelingPumpResponse**
+- **PCFuelingTransaction**
 - **PCFuelingTransactionRequest**
 
 ## Requests

@@ -38,6 +38,8 @@ public class PCPOIGasStation: APIModel {
 
         public var loyaltyPrograms: [String]?
 
+        public var onlinePayment: OnlinePayment?
+
         public var openingHours: PCPOICommonOpeningHours?
 
         public var paymentMethods: [String]?
@@ -178,7 +180,44 @@ public class PCPOIGasStation: APIModel {
             }
         }
 
-        public init(address: Address? = nil, amenities: [String]? = nil, brand: String? = nil, contact: Contact? = nil, food: [String]? = nil, latitude: Float? = nil, longitude: Float? = nil, loyaltyPrograms: [String]? = nil, openingHours: PCPOICommonOpeningHours? = nil, paymentMethods: [String]? = nil, postalServices: [String]? = nil, priceFormat: String? = nil, references: [String]? = nil, services: [String]? = nil, shopGoods: [String]? = nil, stationName: String? = nil) {
+        public class OnlinePayment: APIModel {
+
+            public var online: Bool?
+
+            public var paymentMethods: [String]?
+
+            public init(online: Bool? = nil, paymentMethods: [String]? = nil) {
+                self.online = online
+                self.paymentMethods = paymentMethods
+            }
+
+            public required init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                online = try container.decodeIfPresent("online")
+                paymentMethods = try container.decodeArrayIfPresent("paymentMethods")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                try container.encodeIfPresent(online, forKey: "online")
+                try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
+            }
+
+            public func isEqual(to object: Any?) -> Bool {
+              guard let object = object as? OnlinePayment else { return false }
+              guard self.online == object.online else { return false }
+              guard self.paymentMethods == object.paymentMethods else { return false }
+              return true
+            }
+
+            public static func == (lhs: OnlinePayment, rhs: OnlinePayment) -> Bool {
+                return lhs.isEqual(to: rhs)
+            }
+        }
+
+        public init(address: Address? = nil, amenities: [String]? = nil, brand: String? = nil, contact: Contact? = nil, food: [String]? = nil, latitude: Float? = nil, longitude: Float? = nil, loyaltyPrograms: [String]? = nil, onlinePayment: OnlinePayment? = nil, openingHours: PCPOICommonOpeningHours? = nil, paymentMethods: [String]? = nil, postalServices: [String]? = nil, priceFormat: String? = nil, references: [String]? = nil, services: [String]? = nil, shopGoods: [String]? = nil, stationName: String? = nil) {
             self.address = address
             self.amenities = amenities
             self.brand = brand
@@ -187,6 +226,7 @@ public class PCPOIGasStation: APIModel {
             self.latitude = latitude
             self.longitude = longitude
             self.loyaltyPrograms = loyaltyPrograms
+            self.onlinePayment = onlinePayment
             self.openingHours = openingHours
             self.paymentMethods = paymentMethods
             self.postalServices = postalServices
@@ -208,6 +248,7 @@ public class PCPOIGasStation: APIModel {
             latitude = try container.decodeIfPresent("latitude")
             longitude = try container.decodeIfPresent("longitude")
             loyaltyPrograms = try container.decodeArrayIfPresent("loyaltyPrograms")
+            onlinePayment = try container.decodeIfPresent("onlinePayment")
             openingHours = try container.decodeIfPresent("openingHours")
             paymentMethods = try container.decodeArrayIfPresent("paymentMethods")
             postalServices = try container.decodeArrayIfPresent("postalServices")
@@ -229,6 +270,7 @@ public class PCPOIGasStation: APIModel {
             try container.encodeIfPresent(latitude, forKey: "latitude")
             try container.encodeIfPresent(longitude, forKey: "longitude")
             try container.encodeIfPresent(loyaltyPrograms, forKey: "loyaltyPrograms")
+            try container.encodeIfPresent(onlinePayment, forKey: "onlinePayment")
             try container.encodeIfPresent(openingHours, forKey: "openingHours")
             try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
             try container.encodeIfPresent(postalServices, forKey: "postalServices")
@@ -249,6 +291,7 @@ public class PCPOIGasStation: APIModel {
           guard self.latitude == object.latitude else { return false }
           guard self.longitude == object.longitude else { return false }
           guard self.loyaltyPrograms == object.loyaltyPrograms else { return false }
+          guard self.onlinePayment == object.onlinePayment else { return false }
           guard self.openingHours == object.openingHours else { return false }
           guard self.paymentMethods == object.paymentMethods else { return false }
           guard self.postalServices == object.postalServices else { return false }

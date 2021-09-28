@@ -154,6 +154,7 @@ To add support for a specific asynchronous library, just add an extension on `PO
 - **PCPOICommonGeoJSONPolygon**
 - **PCPOICommonLatLong**
 - **PCPOICommonOpeningHours**
+- **PCPOICurrency**
 - **PCPOIDedupeRequest**
 - **PCPOIErrors**
 - **PCPOIEvent**

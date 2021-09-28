@@ -18,14 +18,15 @@ extension FuelingAPI.Fueling {
 * Return a list of pumps available at the gas station together with the
   current status (free, inUse, readyToPay, outOfOrder). No pumps might
   be returned if the list of payment methods is empty.
-* Create payment tokens for the paymentMethods of the user that are also
-  supported at the gas station and pre-authorize the calculated maximum
-  amount of money (background task).
 The approaching is a necessary first api call for connected fueling. Without a valid approaching the [get pump](#operation/GetPump) and [wait for status change](#operation/WaitOnPumpStatusChange) calls may be answered with a `403 Forbidden` status code. An approaching is valid for one fueling only and can't be reused. If a long (not further disclosed time) has passed, the approaching is also invalidated. So if the client is receiving a `403 Forbidden` on the above mentioned calls, a new approaching has to be issued, this can be done transparent to the user.
+Other than authorization, the most common error states encountered should be:
+  * 404, if the gas station does not exist or ConnectedFueling is not available at this station
+  * 502, if there was a communication failure with a third party (e.g. the gas station in question fails to respond). Retry is possible
+  * 503, if ConnectedFueling is available, but the site is offline
     */
     public enum ApproachingAtTheForecourt {
 
-        public static var service = FuelingAPIService<Response>(id: "ApproachingAtTheForecourt", tag: "Fueling", method: "POST", path: "/gas-stations/{gasStationId}/approaching", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["fueling:gas-stations:approaching"]), SecurityRequirement(type: "OIDC", scopes: ["fueling:gas-stations:approaching"])])
+        public static var service = FuelingAPIService<Response>(id: "ApproachingAtTheForecourt", tag: "Fueling", method: "POST", path: "/gas-stations/{gasStationId}/approaching", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["fueling:gas-stations:approaching", "fueling:transactions:read"]), SecurityRequirement(type: "OIDC", scopes: ["fueling:gas-stations:approaching", "fueling:transactions:read"])])
 
         public final class Request: FuelingAPIRequest<Response> {
 
@@ -87,18 +88,19 @@ The approaching is a necessary first api call for connected fueling. Without a v
             * Return a list of pumps available at the gas station together with the
               current status (free, inUse, readyToPay, outOfOrder). No pumps might
               be returned if the list of payment methods is empty.
-            * Create payment tokens for the paymentMethods of the user that are also
-              supported at the gas station and pre-authorize the calculated maximum
-              amount of money (background task).
             The approaching is a necessary first api call for connected fueling. Without a valid approaching the [get pump](#operation/GetPump) and [wait for status change](#operation/WaitOnPumpStatusChange) calls may be answered with a `403 Forbidden` status code. An approaching is valid for one fueling only and can't be reused. If a long (not further disclosed time) has passed, the approaching is also invalidated. So if the client is receiving a `403 Forbidden` on the above mentioned calls, a new approaching has to be issued, this can be done transparent to the user.
+            Other than authorization, the most common error states encountered should be:
+              * 404, if the gas station does not exist or ConnectedFueling is not available at this station
+              * 502, if there was a communication failure with a third party (e.g. the gas station in question fails to respond). Retry is possible
+              * 503, if ConnectedFueling is available, but the site is offline
              */
             public class Status201: APIModel {
 
                 public var data: PCFuelingApproachingResponse?
 
-                public var included: [Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>]?
+                public var included: [Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>]?
 
-                public init(data: PCFuelingApproachingResponse? = nil, included: [Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>]? = nil) {
+                public init(data: PCFuelingApproachingResponse? = nil, included: [Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>]? = nil) {
                     self.data = data
                     self.included = included
                 }
@@ -107,28 +109,34 @@ The approaching is a necessary first api call for connected fueling. Without a v
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-
                     guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
-
-                    let includedStations = included.filter { $0["type"] as? String == PCFuelingGasStation.PCFuelingType.gasStation.rawValue }
-                    let includedPrices = included.filter { $0["type"] as? String == PCFuelingFuelPrice.PCFuelingType.fuelPrice.rawValue }
-                    let includedPumps = included.filter { $0["type"] as? String == PCFuelingPump.PCFuelingType.pump.rawValue }
-                    let includedPaymentMethods = included.filter { $0["type"] as? String == PCFuelingPaymentMethod.PCFuelingType.paymentMethod.rawValue }
-                    let includedPaymentMethodKinds = included.filter { $0["type"] as? String == PCFuelingPaymentMethodKind.PCFuelingType.paymentMethodKind.rawValue }
-
                     let decoder = JSONDecoder()
-                    let stations: [PCFuelingGasStation] = try decoder.decodeJSONObject(includedStations)
-                    let prices: [PCFuelingFuelPrice] = try decoder.decodeJSONObject(includedPrices)
-                    let pumps: [PCFuelingPump] = try decoder.decodeJSONObject(includedPumps)
-                    let paymentMethods: [PCFuelingPaymentMethod] = try decoder.decodeJSONObject(includedPaymentMethods)
-                    let paymentMethodKinds: [PCFuelingPaymentMethodKind] = try decoder.decodeJSONObject(includedPaymentMethodKinds)
+
+                    let includedPCFuelingGasStations = included.filter { $0["type"] as? String == PCFuelingGasStation.PCFuelingType.allCases.first?.rawValue }
+                    let includedPCFuelingGasStationNotes = included.filter { $0["type"] as? String == PCFuelingGasStationNote.PCFuelingType.allCases.first?.rawValue }
+                    let includedPCFuelingFuelPrices = included.filter { $0["type"] as? String == PCFuelingFuelPrice.PCFuelingType.allCases.first?.rawValue }
+                    let includedPCFuelingPumps = included.filter { $0["type"] as? String == PCFuelingPump.PCFuelingType.allCases.first?.rawValue }
+                    let includedPCFuelingPaymentMethods = included.filter { $0["type"] as? String == PCFuelingPaymentMethod.PCFuelingType.allCases.first?.rawValue }
+                    let includedPCFuelingPaymentMethodKinds = included.filter { $0["type"] as? String == PCFuelingPaymentMethodKind.PCFuelingType.allCases.first?.rawValue }
+                    let includedPCFuelingTransactions = included.filter { $0["type"] as? String == PCFuelingTransaction.PCFuelingType.allCases.first?.rawValue }
+
+                    let decodedPCFuelingGasStations: [PCFuelingGasStation] = try decoder.decodeJSONObject(includedPCFuelingGasStations)
+                    let decodedPCFuelingGasStationNotes: [PCFuelingGasStationNote] = try decoder.decodeJSONObject(includedPCFuelingGasStationNotes)
+                    let decodedPCFuelingFuelPrices: [PCFuelingFuelPrice] = try decoder.decodeJSONObject(includedPCFuelingFuelPrices)
+                    let decodedPCFuelingPumps: [PCFuelingPump] = try decoder.decodeJSONObject(includedPCFuelingPumps)
+                    let decodedPCFuelingPaymentMethods: [PCFuelingPaymentMethod] = try decoder.decodeJSONObject(includedPCFuelingPaymentMethods)
+                    let decodedPCFuelingPaymentMethodKinds: [PCFuelingPaymentMethodKind] = try decoder.decodeJSONObject(includedPCFuelingPaymentMethodKinds)
+                    let decodedPCFuelingTransactions: [PCFuelingTransaction] = try decoder.decodeJSONObject(includedPCFuelingTransactions)
 
                     self.included =
-                        stations.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
-                        + prices.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
-                        + pumps.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
-                        + paymentMethods.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
-                        + paymentMethodKinds.map(Poly5<PCFuelingGasStation,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind>.init)
+                        decodedPCFuelingGasStations.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        + decodedPCFuelingGasStationNotes.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        + decodedPCFuelingFuelPrices.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        + decodedPCFuelingPumps.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        + decodedPCFuelingPaymentMethods.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        + decodedPCFuelingPaymentMethodKinds.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        + decodedPCFuelingTransactions.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+
                 }
 
                 public func encode(to encoder: Encoder) throws {

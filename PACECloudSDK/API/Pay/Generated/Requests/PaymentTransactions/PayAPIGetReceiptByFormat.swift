@@ -32,9 +32,18 @@ extension PayAPI.PaymentTransactions {
                 /** Format of the expected file */
                 public var fileFormat: PCPayFileFormat?
 
-                public init(transactionID: String, fileFormat: PCPayFileFormat? = nil) {
+                /** (Optional) Specify the language you want the returned receipt to be localized in.
+Returns the receipt in the default language that is available if the specified language is not available.
+Language does not have to be valid language. For example, `language=local` means that the receipt should be displayed
+in the language that is determined to be spoken in the area that the point of intereset at which the receipt has been generated at.
+*Prefer using the `Accept-Language` header if you use this endpoint on an end-user device.*
+ */
+                public var language: String?
+
+                public init(transactionID: String, fileFormat: PCPayFileFormat? = nil, language: String? = nil) {
                     self.transactionID = transactionID
                     self.fileFormat = fileFormat
+                    self.language = language
                 }
             }
 
@@ -52,13 +61,21 @@ extension PayAPI.PaymentTransactions {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(transactionID: String, fileFormat: PCPayFileFormat? = nil, responseContentType: GetReceiptByFormatAcceptHeader) {
-                let options = Options(transactionID: transactionID, fileFormat: fileFormat)
+            public convenience init(transactionID: String, fileFormat: PCPayFileFormat? = nil, language: String? = nil, responseContentType: GetReceiptByFormatAcceptHeader) {
+                let options = Options(transactionID: transactionID, fileFormat: fileFormat, language: language)
                 self.init(options: options, responseContentType: responseContentType)
             }
 
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "transactionID" + "}", with: "\(self.options.transactionID)").replacingOccurrences(of: "{" + "fileFormat" + "}", with: "\(self.options.fileFormat?.encode() ?? "")")
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                if let language = options.language {
+                  params["language"] = language
+                }
+                return params
             }
 
             override var headerParameters: [String: String] {

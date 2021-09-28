@@ -26,33 +26,47 @@ public class PCPayPaymentMethodHoyerCreate: APIModel {
 
         public var kind: PCPayKind
 
-        /** Identifier or PAN (Primary Account Number) representing the Hoyer Card. The identifier is payment provider specific and provided by the payment provider.
+        /** Identifier representing the Hoyer Card number. The identifier is payment provider specific and provided by the payment provider.
      */
-        public var pan: String?
+        public var cardNumber: String?
 
-        public init(kind: PCPayKind, pan: String? = nil) {
+        /** Indicates whether this payment method should be managed by the creating client, i.e., no other client can modify or delete this method. */
+        public var managed: Bool?
+
+        /** Personal identification number is a security code for verifying the user's identity. */
+        public var pin: String?
+
+        public init(kind: PCPayKind, cardNumber: String? = nil, managed: Bool? = nil, pin: String? = nil) {
             self.kind = kind
-            self.pan = pan
+            self.cardNumber = cardNumber
+            self.managed = managed
+            self.pin = pin
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             kind = try container.decode("kind")
-            pan = try container.decodeIfPresent("pan")
+            cardNumber = try container.decodeIfPresent("cardNumber")
+            managed = try container.decodeIfPresent("managed")
+            pin = try container.decodeIfPresent("pin")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encode(kind, forKey: "kind")
-            try container.encodeIfPresent(pan, forKey: "pan")
+            try container.encodeIfPresent(cardNumber, forKey: "cardNumber")
+            try container.encodeIfPresent(managed, forKey: "managed")
+            try container.encodeIfPresent(pin, forKey: "pin")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
           guard self.kind == object.kind else { return false }
-          guard self.pan == object.pan else { return false }
+          guard self.cardNumber == object.cardNumber else { return false }
+          guard self.managed == object.managed else { return false }
+          guard self.pin == object.pin else { return false }
           return true
         }
 

@@ -1473,6 +1473,7 @@ The payment method ID is optional when posting data.
 * `provider:invalid-content`: One or more fields of the payment method is not accepted by the payment provider, e.g., wrong checksum (CVC)
 * `invalid-charset`: The fields charset is not latin
 * `too-long`: The fields content is too long
+* `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004` below)
  */
             case status422(PCPayErrors)
 

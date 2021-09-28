@@ -18,6 +18,7 @@ public class PCPayFuel: APIModel {
         case ron95e5 = "ron95e5"
         case ron100 = "ron100"
         case dieselGtl = "dieselGtl"
+        case dieselB0 = "dieselB0"
         case dieselB7 = "dieselB7"
         case dieselB15 = "dieselB15"
         case dieselPremium = "dieselPremium"
@@ -45,7 +46,7 @@ public class PCPayFuel: APIModel {
     /** Price per unit (with three decimal places) */
     public var pricePerUnit: Double?
 
-    /** Product Name of the currect fuel.productName */
+    /** Product Name of the current fuel.productName */
     public var productName: String?
 
     /** Number of the pump used for fueling, i.e., the actual number that is being displayed to the customer */

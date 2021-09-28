@@ -6,6 +6,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * `TokenValidator` is now part of `IDKit` instead of `AppKit`
 * The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more.
 * Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
+* Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
 
 ### Enhancements
 

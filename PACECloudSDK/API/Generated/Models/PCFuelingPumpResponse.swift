@@ -89,6 +89,8 @@ public class PCFuelingPumpResponse: APIModel {
      */
         public var status: PCFuelingStatus?
 
+        public var transaction: PCFuelingTransaction?
+
         /** Provided if the user pre-authorized the pump */
         public var transactionId: ID?
 
@@ -129,7 +131,7 @@ public class PCFuelingPumpResponse: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, currency: String? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: PCFuelingStatus? = nil, transactionId: ID? = nil) {
+        public init(vat: VAT? = nil, currency: String? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: PCFuelingStatus? = nil, transaction: PCFuelingTransaction? = nil, transactionId: ID? = nil) {
             self.vat = vat
             self.currency = currency
             self.fuelAmount = fuelAmount
@@ -141,6 +143,7 @@ public class PCFuelingPumpResponse: APIModel {
             self.priceWithoutVAT = priceWithoutVAT
             self.productName = productName
             self.status = status
+            self.transaction = transaction
             self.transactionId = transactionId
         }
 
@@ -158,6 +161,7 @@ public class PCFuelingPumpResponse: APIModel {
             priceWithoutVAT = try container.decodeIfPresent("priceWithoutVAT")
             productName = try container.decodeIfPresent("productName")
             status = try container.decodeIfPresent("status")
+            transaction = try container.decodeIfPresent("transaction")
             transactionId = try container.decodeIfPresent("transactionId")
         }
 
@@ -175,6 +179,7 @@ public class PCFuelingPumpResponse: APIModel {
             try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
             try container.encodeIfPresent(productName, forKey: "productName")
             try container.encodeIfPresent(status, forKey: "status")
+            try container.encodeIfPresent(transaction, forKey: "transaction")
             try container.encodeIfPresent(transactionId, forKey: "transactionId")
         }
 
@@ -191,6 +196,7 @@ public class PCFuelingPumpResponse: APIModel {
           guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
           guard self.productName == object.productName else { return false }
           guard self.status == object.status else { return false }
+          guard self.transaction == object.transaction else { return false }
           guard self.transactionId == object.transactionId else { return false }
           return true
         }

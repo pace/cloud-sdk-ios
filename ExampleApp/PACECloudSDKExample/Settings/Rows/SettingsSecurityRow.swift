@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsSecurityRow: SettingsRow {
     private let title: String
+    @State private var showSecurity: Bool = false
 
     init() {
         self.title = "Security"
@@ -17,17 +18,21 @@ struct SettingsSecurityRow: SettingsRow {
 
     var body: some View {
         ZStack {
-            NavigationLink(
-                destination: SecurityView(viewModel: SettingsViewModelImplementation()),
-                label: {})
-                .hidden()
-            HStack {
-                StyledText(title)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.body)
+            NavigationLink("", isActive: $showSecurity) {
+                SecurityView(viewModel: SettingsViewModelImplementation())
+            }
+            .hidden()
+            Button {
+                showSecurity = true
+            } label: {
+                HStack {
+                    StyledText(title)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.body)
+                        .foregroundColor(.black)
+                }
             }
         }
-
     }
 }

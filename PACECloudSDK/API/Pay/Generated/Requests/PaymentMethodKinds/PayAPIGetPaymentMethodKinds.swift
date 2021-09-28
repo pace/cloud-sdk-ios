@@ -23,8 +23,12 @@ extension PayAPI.PaymentMethodKinds {
                 /** Language preference of localized response properties. The full standard of RFC 7231 (https://tools.ietf.org/html/rfc7231#section-5.3.5) is supported. */
                 public var acceptLanguage: String?
 
-                public init(acceptLanguage: String? = nil) {
+                /** Flag to allow more data to the payment method kinds. */
+                public var additionalData: Bool?
+
+                public init(acceptLanguage: String? = nil, additionalData: Bool? = nil) {
                     self.acceptLanguage = acceptLanguage
+                    self.additionalData = additionalData
                 }
             }
 
@@ -36,9 +40,17 @@ extension PayAPI.PaymentMethodKinds {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(acceptLanguage: String? = nil) {
-                let options = Options(acceptLanguage: acceptLanguage)
+            public convenience init(acceptLanguage: String? = nil, additionalData: Bool? = nil) {
+                let options = Options(acceptLanguage: acceptLanguage, additionalData: additionalData)
                 self.init(options: options)
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                if let additionalData = options.additionalData {
+                  params["additionalData"] = additionalData
+                }
+                return params
             }
 
             override var headerParameters: [String: String] {

@@ -147,9 +147,14 @@ To add support for a specific asynchronous library, just add an extension on `Us
 ## Models
 
 - **PCUserAccessToken**
+- **PCUserAuditLogRecord**
 - **PCUserCreateOTP**
 - **PCUserDeviceTOTP**
+- **PCUserEmail**
 - **PCUserErrors**
+- **PCUserOAuth2Error**
+- **PCUserOAuth2Token**
+- **PCUserOAuth2TokenExchange**
 - **PCUserOTP**
 - **PCUserPinOrPassword**
 - **PCUserPlainOTP**
@@ -162,17 +167,23 @@ To add support for a specific asynchronous library, just add an extension on `Us
 
 ## Requests
 
+- **UserAPI.AuditLog**
+	- **RecordAuditLog**: POST `/auditlogs/record`
+- **UserAPI.Callbacks**
+	- **CallbackPasswordReset**: POST `/callbacks/password-reset`
 - **UserAPI.Credentials**
 	- **CheckUserPIN**: GET `/user/pin`
 	- **CheckUserPassword**: GET `/user/password`
 	- **CheckUserPinOrPassword**: GET `/user/pin-or-password`
 	- **CreateUserPassword**: PUT `/user/password`
+	- **ResetPassword**: PUT `/user/password/reset`
 	- **UpdateUserPIN**: PUT `/user/pin`
 - **UserAPI.FederatedIdentity**
 	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
 	- **SetFederatedIdentity**: PUT `/federated-identities/{identityprovider}`
 - **UserAPI.OAuth2**
 	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
+	- **TokenExchange**: POST `/protocol/openid-connect/token`
 - **UserAPI.Phone**
 	- **CheckUserPhone**: GET `/user/phone`
 	- **UpdateUserPhone**: PUT `/user/phone`
@@ -198,3 +209,4 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **GetUser**: GET `/users/{userid}`
 	- **SetUser**: PUT `/users/{userid}`
 	- **UpdateUser**: PATCH `/users/{userid}`
+	- **VerifyEmail**: GET `/user/email/verify`

@@ -23,8 +23,17 @@ extension PayAPI.PaymentTransactions {
                 /** ID of the payment transaction */
                 public var transactionID: String
 
-                public init(transactionID: String) {
+                /** (Optional) Specify the language you want the returned receipt to be localized in.
+Returns the receipt in the default language that is available if the specified language is not available.
+Language does not have to be valid language. For example, `language=local` means that the receipt should be displayed
+in the language that is determined to be spoken in the area that the point of intereset at which the receipt has been generated at.
+*Prefer using the `Accept-Language` header if you use this endpoint on an end-user device.*
+ */
+                public var language: String?
+
+                public init(transactionID: String, language: String? = nil) {
                     self.transactionID = transactionID
+                    self.language = language
                 }
             }
 
@@ -36,13 +45,21 @@ extension PayAPI.PaymentTransactions {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(transactionID: String) {
-                let options = Options(transactionID: transactionID)
+            public convenience init(transactionID: String, language: String? = nil) {
+                let options = Options(transactionID: transactionID, language: language)
                 self.init(options: options)
             }
 
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "transactionID" + "}", with: "\(self.options.transactionID)")
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                if let language = options.language {
+                  params["language"] = language
+                }
+                return params
             }
 
             override var headerParameters: [String: String] {

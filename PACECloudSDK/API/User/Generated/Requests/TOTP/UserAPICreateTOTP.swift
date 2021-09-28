@@ -10,7 +10,7 @@ extension UserAPI.TOTP {
     /**
     Create device TOTP
 
-    A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or  it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+    A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
     */
     public enum CreateTOTP {
 
@@ -18,7 +18,7 @@ extension UserAPI.TOTP {
 
         public final class Request: UserAPIRequest<Response> {
 
-            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or  it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
              */
             public class Body: APIModel {
 
@@ -72,7 +72,7 @@ extension UserAPI.TOTP {
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or  it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
+            /** A device TOTP token is created within 5 minutes of registration without PIN, password or an user OTP or it is created using either PIN, password or an user OTP. In case the PIN, password or OTP is invalid `403` is returned. If multiple values are provided first the OTP is checked, then the password, then the PIN. In case the one of the provided values is correct, a TOTP will be created.
              */
             public class Status201: APIModel {
 
