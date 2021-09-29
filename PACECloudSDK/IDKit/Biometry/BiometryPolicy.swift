@@ -25,7 +25,7 @@ struct BiometryPolicy {
     }
 
     private var laPolicy: LAPolicy {
-        return .deviceOwnerAuthenticationWithBiometrics
+        .deviceOwnerAuthentication
     }
 
     init() {
