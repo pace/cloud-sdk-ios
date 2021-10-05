@@ -28,6 +28,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Respond with 405 if communication operation doesn't exist
 * Enable bitcode for the `PACECloudSDK` target
 * Upgrade to XCode 13
+* Use system font instead of embedding SFUIDisplay
 
 8.0.0 Release notes (2021-08-16)
 =============================================================
