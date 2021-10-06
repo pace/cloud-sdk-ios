@@ -546,9 +546,6 @@
 		3B970A882542D9BB0072F6BA /* Environment-production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2C2542D9BA0072F6BA /* Environment-production.plist */; };
 		3B970A892542D9BB0072F6BA /* Environment-development.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2D2542D9BA0072F6BA /* Environment-development.plist */; };
 		3B970A8C2542D9BB0072F6BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A322542D9BA0072F6BA /* Images.xcassets */; };
-		3B970A8D2542D9BB0072F6BA /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A342542D9BA0072F6BA /* SFUIDisplay-Light.otf */; };
-		3B970A8E2542D9BB0072F6BA /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */; };
-		3B970A8F2542D9BB0072F6BA /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */; };
 		3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A382542D9BA0072F6BA /* AppKitConstants.swift */; };
 		3B970A922542D9BB0072F6BA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3A2542D9BA0072F6BA /* Settings.swift */; };
 		3B970A942542D9BB0072F6BA /* IconSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3C2542D9BA0072F6BA /* IconSelector.swift */; };
@@ -1172,9 +1169,6 @@
 		92EDDC2A25A7270300E480F4 /* AppEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A622542D9BB0072F6BA /* AppEvent.swift */; };
 		92EDDC2B25A7270300E480F4 /* ButtonRectangular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */; };
 		92EDDC2F25A7270900E480F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A252542D9BA0072F6BA /* Localizable.strings */; };
-		92EDDC3325A7271000E480F4 /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */; };
-		92EDDC3425A7271000E480F4 /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A342542D9BA0072F6BA /* SFUIDisplay-Light.otf */; };
-		92EDDC3525A7271000E480F4 /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */; };
 		92EDDC3925A7271300E480F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A322542D9BA0072F6BA /* Images.xcassets */; };
 		92EDDC4025A729A300E480F4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1443225388108004E9F63 /* Logger.swift */; };
 		92EDDC4425A729AC00E480F4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
@@ -1437,9 +1431,6 @@
 		3B970A2C2542D9BA0072F6BA /* Environment-production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-production.plist"; sourceTree = "<group>"; };
 		3B970A2D2542D9BA0072F6BA /* Environment-development.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Environment-development.plist"; sourceTree = "<group>"; };
 		3B970A322542D9BA0072F6BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3B970A342542D9BA0072F6BA /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Light.otf"; sourceTree = "<group>"; };
-		3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
-		3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Medium.otf"; sourceTree = "<group>"; };
 		3B970A382542D9BA0072F6BA /* AppKitConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitConstants.swift; sourceTree = "<group>"; };
 		3B970A3A2542D9BA0072F6BA /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3B970A3C2542D9BA0072F6BA /* IconSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelector.swift; sourceTree = "<group>"; };
@@ -2294,7 +2285,6 @@
 			isa = PBXGroup;
 			children = (
 				3B970A312542D9BA0072F6BA /* Images */,
-				3B970A332542D9BA0072F6BA /* Fonts */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -2305,16 +2295,6 @@
 				3B970A322542D9BA0072F6BA /* Images.xcassets */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		3B970A332542D9BA0072F6BA /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				3B970A342542D9BA0072F6BA /* SFUIDisplay-Light.otf */,
-				3B970A352542D9BA0072F6BA /* SFUIDisplay-Regular.otf */,
-				3B970A362542D9BA0072F6BA /* SFUIDisplay-Medium.otf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		3B970A372542D9BA0072F6BA /* Utils */ = {
@@ -3660,11 +3640,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B970A8F2542D9BB0072F6BA /* SFUIDisplay-Medium.otf in Resources */,
-				3B970A8D2542D9BB0072F6BA /* SFUIDisplay-Light.otf in Resources */,
 				3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */,
 				3B970A8C2542D9BB0072F6BA /* Images.xcassets in Resources */,
-				3B970A8E2542D9BB0072F6BA /* SFUIDisplay-Regular.otf in Resources */,
 				3B970A872542D9BB0072F6BA /* Environment-stage.plist in Resources */,
 				3B970A862542D9BB0072F6BA /* Environment-sandbox.plist in Resources */,
 				926D0F6B2541BA3200409432 /* README.md in Resources */,
@@ -3686,12 +3663,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				92EDDC5E25A729D700E480F4 /* Environment-development.plist in Resources */,
-				92EDDC3325A7271000E480F4 /* SFUIDisplay-Medium.otf in Resources */,
 				92EDDC3925A7271300E480F4 /* Images.xcassets in Resources */,
 				92EDDC6025A729D700E480F4 /* Environment-production.plist in Resources */,
-				92EDDC3425A7271000E480F4 /* SFUIDisplay-Light.otf in Resources */,
 				3BF1527625DD2C8D00BD6751 /* FallbackVersions.plist in Resources */,
-				92EDDC3525A7271000E480F4 /* SFUIDisplay-Regular.otf in Resources */,
 				92EDDC5D25A729D700E480F4 /* Environment-sandbox.plist in Resources */,
 				92EDDC2F25A7270900E480F4 /* Localizable.strings in Resources */,
 				92EDDC5F25A729D700E480F4 /* Environment-stage.plist in Resources */,

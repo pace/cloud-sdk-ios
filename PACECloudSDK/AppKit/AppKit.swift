@@ -25,8 +25,6 @@ public class AppKit {
     private let appManager: AppManager
 
     private init() {
-        AppStyle.loadAllFonts()
-
         requestTimeoutHandler = RequestTimeoutHandler()
 
         appManager = AppManager()

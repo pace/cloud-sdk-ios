@@ -34,12 +34,4 @@ class AssetTests: XCTestCase {
         XCTAssertEqual(AppStyle.webForwardIcon, UIImage(named: "webForwardIcon", in: Bundle.paceCloudSDK, compatibleWith: nil))
         XCTAssertEqual(AppStyle.lockIcon, UIImage(named: "lock", in: Bundle.paceCloudSDK, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate))
     }
-
-    func testLoadFonts() {
-        AppStyle.loadAllFonts()
-        let fontSize: CGFloat = 10
-        XCTAssertEqual(AppStyle.lightFont(ofSize: fontSize), UIFont(name: "SFUIDisplay-Light", size: fontSize))
-        XCTAssertEqual(AppStyle.regularFont(ofSize: fontSize), UIFont(name: "SFUIDisplay-Regular", size: fontSize))
-        XCTAssertEqual(AppStyle.mediumFont(ofSize: fontSize), UIFont(name: "SFUIDisplay-Medium", size: fontSize))
-    }
 }

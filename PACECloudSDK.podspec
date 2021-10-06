@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.source               = { :git => "https://github.com/pace/cloud-sdk-ios.git", :tag => "#{spec.version}" }
   spec.source_files         = "PACECloudSDK/**/*.swift"
   spec.pod_target_xcconfig  = { 'PRODUCT_BUNDLE_IDENTIFIER': 'cloud.pace.sdk' }
-  spec.resources            = ["PACECloudSDK/**/*.{strings,png,otf}", "PACECloudSDK/Utils/**/*.plist"]
+  spec.resources            = ["PACECloudSDK/**/*.{strings,png}", "PACECloudSDK/Utils/**/*.plist"]
   spec.dependency "AppAuth"
   spec.dependency "SwiftProtobuf", "~> 1.15.0"
   spec.dependency "OneTimePassword", "~> 3.2.0"
