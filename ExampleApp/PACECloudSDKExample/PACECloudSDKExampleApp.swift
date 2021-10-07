@@ -16,7 +16,7 @@ struct PACECloudSDKExampleApp: App {
         let config: PACECloudSDK.Configuration = .init(apiKey: "apikey",
                                                        environment: currentAppEnvironment,
                                                        domainACL: ["pace.cloud", "pacelink.net"],
-                                                       geoAppsScope: "pace-drive-ios")
+                                                       geoAppsScope: "pace-drive-ios-min")
 
         PACECloudSDK.shared.setup(with: config)
         IDControl.shared.refresh()
