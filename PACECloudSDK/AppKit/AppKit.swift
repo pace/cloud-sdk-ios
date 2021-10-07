@@ -64,35 +64,57 @@ public extension AppKit {
      Returns an `AppViewController` object that loads an app with the specified url.
      - parameter appUrl: The URL of the app.
      - parameter hasNavigationBar: Specifies if the navigation bar of the view controller will be displayed. Defaults to `false`.
+     - parameter isModalInPresentation: Prevents the view controller from being dismissed when swiping down. Defaults to `true`.
      - parameter completion: The block to be called when the view controller gets closed.
      - returns: The prepared `AppViewController` object.
      */
-    static func appViewController(appUrl: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
-        AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
+    static func appViewController(appUrl: String,
+                                  hasNavigationBar: Bool = false,
+                                  isModalInPresentation: Bool = true,
+                                  completion: (() -> Void)? = nil) -> AppViewController {
+        AppViewController(appUrl: appUrl,
+                          hasNavigationBar: hasNavigationBar,
+                          isModalInPresentation: isModalInPresentation,
+                          completion: completion)
     }
 
     /**
      Returns an `AppViewController` object that loads an app with the specified preset url.
      - parameter presetUrl: The pre-set url for an app.
      - parameter hasNavigationBar: Specifies if the navigation bar of the view controller will be displayed. Defaults to `false`.
+     - parameter isModalInPresentation: Prevents the view controller from being dismissed when swiping down. Defaults to `true`.
      - parameter completion: The block to be called when the view controller gets closed.
      - returns: The prepared `AppViewController` object.
      */
-    static func appViewController(presetUrl: PACECloudSDK.URL, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
-        appViewController(appUrl: presetUrl.absoluteString, hasNavigationBar: hasNavigationBar, completion: completion)
+    static func appViewController(presetUrl: PACECloudSDK.URL,
+                                  hasNavigationBar: Bool = false,
+                                  isModalInPresentation: Bool = true,
+                                  completion: (() -> Void)? = nil) -> AppViewController {
+        appViewController(appUrl: presetUrl.absoluteString,
+                          hasNavigationBar: hasNavigationBar,
+                          isModalInPresentation: isModalInPresentation,
+                          completion: completion)
     }
 
     /**
      Returns an `AppViewController` object that loads an app with the specified url and gas station reference.
      - parameter appUrl: The URL of the app.
      - parameter reference: The gas station reference.
+     - parameter isModalInPresentation: Prevents the view controller from being dismissed when swiping down. Defaults to `true`.
      - parameter hasNavigationBar: Specifies if the navigation bar of the view controller will be displayed. Defaults to `false`.
      - parameter completion: The block to be called when the view controller gets closed.
      - returns: The prepared `AppViewController` object.
      */
-    static func appViewController(appUrl: String, reference: String, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) -> AppViewController {
+    static func appViewController(appUrl: String,
+                                  reference: String,
+                                  hasNavigationBar: Bool = false,
+                                  isModalInPresentation: Bool = true,
+                                  completion: (() -> Void)? = nil) -> AppViewController {
         let appUrl = shared.appManager.buildAppUrl(with: appUrl, for: reference)
-        return AppViewController(appUrl: appUrl, hasNavigationBar: hasNavigationBar, completion: completion)
+        return AppViewController(appUrl: appUrl,
+                                 hasNavigationBar: hasNavigationBar,
+                                 isModalInPresentation: isModalInPresentation,
+                                 completion: completion)
     }
 }
 

@@ -23,7 +23,10 @@ public class AppViewController: UIViewController {
 
     weak var delegate: AppViewControllerDelegate?
 
-    required init(appUrl: String?, hasNavigationBar: Bool = false, completion: (() -> Void)? = nil) {
+    init(appUrl: String?,
+         hasNavigationBar: Bool = false,
+         isModalInPresentation: Bool = true,
+         completion: (() -> Void)? = nil) {
         self.completion = completion
 
         webView = AppWebView(with: appUrl)
@@ -34,6 +37,10 @@ public class AppViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRedirectURL(_:)), name: AppKit.Constants.NotificationIdentifier.caughtRedirectService, object: nil)
 
         navigationController?.setNavigationBarHidden(!hasNavigationBar, animated: false)
+
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = isModalInPresentation
+        }
     }
 
     required init?(coder: NSCoder) {
