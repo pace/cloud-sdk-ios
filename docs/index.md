@@ -182,6 +182,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 + Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
 + Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
 + Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
++ For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
@@ -464,6 +465,8 @@ let reference = "1a3b5c7d-1a3b-12a4-abcd-8c106b8360d3"
 let webView = AppKit.appWebView(presetUrl: .paceID)
 let viewController = AppKit.appViewController(presetUrl: .payment)
 ```
+
+> _**NOTE:**_ With SDK version >= 9.0.0 all `AppViewController` instances have their `isModalInPresentation` property set to `true` by default. This prevents the view controller from being dismissed when swiping down. To set the value back to `false` either pass it to the initializer or directly access the property afterwards.
 
 ### AppDrawerContainer
 Before being able to display AppDrawers you need an instance of `AppDrawerContainer`. Call `setupContainerView()` to setup the container. It will automatically resize itself based on the amount of available AppDrawers.
