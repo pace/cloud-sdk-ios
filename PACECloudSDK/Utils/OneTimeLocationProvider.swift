@@ -43,7 +43,7 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
         }
 
         notifyReceivers(location)
-        Logger.i("[OneTimeLocationProvider] Using the last known location as it's still viable.")
+        SDKLogger.i("[OneTimeLocationProvider] Using the last known location as it's still viable.")
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -54,7 +54,7 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Logger.e("[OneTimeLocationProvider] Requesting location failed with error \(error)")
+        SDKLogger.e("[OneTimeLocationProvider] Requesting location failed with error \(error)")
 
         manager.stopUpdatingLocation()
         notifyReceivers(nil)

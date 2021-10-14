@@ -50,10 +50,10 @@ extension AppControl: AppKitDelegate {
     func didFail(with error: AppKit.AppError) {
         switch error {
         case .locationNotAuthorized:
-            NSLog("[AppControl] Missing location access!")
+            ExampleLogger.i("[AppControl] Missing location access!")
 
         default:
-            NSLog("[AppControl] Did fail with error \(error)")
+            ExampleLogger.e("[AppControl] Did fail with error \(error)")
         }
 
         delegate?.didFail()

@@ -37,13 +37,13 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let accessToken):
                 guard let token = accessToken, !token.isEmpty else {
-                    NSLog("Token invalid")
+                    ExampleLogger.w("Token invalid")
                     return
                 }
                 self?.userInfo()
 
             case .failure(let error):
-                NSLog("Failed authorizing with error \(error)")
+                ExampleLogger.e("Failed authorizing with error \(error)")
             }
             self?.updateSessionInformation()
         }
@@ -61,12 +61,12 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let accessToken):
                 guard let token = accessToken, !token.isEmpty else {
-                    NSLog("Token invalid")
+                    ExampleLogger.w("Token invalid")
                     return
                 }
 
             case .failure(let error):
-                NSLog("Failed refreshing with error \(error)")
+                ExampleLogger.e("Failed refreshing with error \(error)")
             }
 
             self?.updateSessionInformation()
@@ -77,10 +77,10 @@ class IDControl: ObservableObject {
         IDKit.userInfo { result in
             switch result {
             case .success(let userInfo):
-                NSLog("Did reveice user info \(userInfo)")
+                ExampleLogger.i("Did reveice user info \(userInfo)")
 
             case .failure(let error):
-                NSLog("UserInfo error \(error)")
+                ExampleLogger.e("UserInfo error \(error)")
             }
         }
     }
@@ -90,11 +90,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let isSet):
                 completion(isSet)
-                NSLog("Is pin set: \(isSet)")
+                ExampleLogger.i("Is pin set: \(isSet)")
 
             case .failure(let error):
                 completion(nil)
-                NSLog("IsPINSet failed with error \(error)")
+                ExampleLogger.e("IsPINSet failed with error \(error)")
             }
         }
     }
@@ -104,11 +104,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let isSet):
                 completion(isSet)
-                NSLog("Is password set: \(isSet)")
+                ExampleLogger.i("Is password set: \(isSet)")
 
             case .failure(let error):
                 completion(nil)
-                NSLog("IsPasswordSet failed with error \(error)")
+                ExampleLogger.e("IsPasswordSet failed with error \(error)")
             }
         }
     }
@@ -122,11 +122,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let successful):
                 completion(successful)
-                NSLog("Enabling biometry with password successful: \(successful)")
+                ExampleLogger.i("Enabling biometry with password successful: \(successful)")
 
             case .failure(let error):
                 completion(false)
-                NSLog("Enabling biometry with password failed with error \(error)")
+                ExampleLogger.e("Enabling biometry with password failed with error \(error)")
             }
         }
     }
@@ -136,11 +136,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let successful):
                 completion(successful)
-                NSLog("Enabling biometry with pin successful: \(successful)")
+                ExampleLogger.i("Enabling biometry with pin successful: \(successful)")
 
             case .failure(let error):
                 completion(false)
-                NSLog("Enabling biometry with pin failed with error \(error)")
+                ExampleLogger.e("Enabling biometry with pin failed with error \(error)")
             }
         }
     }
@@ -150,11 +150,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let successful):
                 completion(successful)
-                NSLog("Enabling biometry with otp successful: \(successful)")
+                ExampleLogger.i("Enabling biometry with otp successful: \(successful)")
 
             case .failure(let error):
                 completion(false)
-                NSLog("Enabling biometry with otp failed with error \(error)")
+                ExampleLogger.e("Enabling biometry with otp failed with error \(error)")
             }
         }
     }
@@ -164,11 +164,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let successful):
                 completion(successful)
-                NSLog("Setting PIN with otp successful: \(successful)")
+                ExampleLogger.i("Setting PIN with otp successful: \(successful)")
 
             case .failure(let error):
                 completion(false)
-                NSLog("Setting PIN with otp failed with error \(error)")
+                ExampleLogger.e("Setting PIN with otp failed with error \(error)")
             }
         }
     }
@@ -178,18 +178,18 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let successful):
                 completion(successful)
-                NSLog("Setting PIN with password successful: \(successful)")
+                ExampleLogger.i("Setting PIN with password successful: \(successful)")
 
             case .failure(let error):
                 completion(false)
-                NSLog("Setting PIN with password failed with error \(error)")
+                ExampleLogger.e("Setting PIN with password failed with error \(error)")
             }
         }
     }
 
     func disableBiometricAuthentication() {
         IDKit.disableBiometricAuthentication()
-        NSLog("Biometry disabled")
+        ExampleLogger.i("Biometry disabled")
     }
 
     func sendMailOTP(completion: @escaping (Bool?) -> Void) {
@@ -197,11 +197,11 @@ class IDControl: ObservableObject {
             switch result {
             case .success(let successful):
                 completion(successful)
-                NSLog("OTP Mail sent successfully: \(successful)")
+                ExampleLogger.i("OTP Mail sent successfully: \(successful)")
 
             case .failure(let error):
                 completion(nil)
-                NSLog("Sending OTP Mail failed with error \(error)")
+                ExampleLogger.e("Sending OTP Mail failed with error \(error)")
             }
         }
     }

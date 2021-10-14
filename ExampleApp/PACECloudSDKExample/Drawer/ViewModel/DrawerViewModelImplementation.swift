@@ -43,7 +43,7 @@ extension DrawerViewModelImplementation: LocationManagerDelegate {
     func didFail(with error: Error) {
         isLoading = false
         didFailDrawers = true
-        NSLog("\(error)")
+        ExampleLogger.e("\(error)")
     }
 }
 

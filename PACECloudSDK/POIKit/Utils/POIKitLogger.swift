@@ -8,6 +8,10 @@
 import Foundation
 
 class POIKitLogger: Logger {
+    override class var logTag: String {
+        Constants.logTag
+    }
+
     override class var moduleTag: String {
         POIKitConstants.logTag
     }

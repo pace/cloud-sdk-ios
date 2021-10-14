@@ -48,7 +48,7 @@ class ListViewModelImplementation: ListViewModel {
                     self?.cofuStations = detailedStations.compactMap { .init(from: $0, at: location) }.sorted(by: { $0.distance < $1.distance })
 
                 case .failure(let error):
-                    NSLog("Failed fetching cofu stations with error \(error)")
+                    ExampleLogger.e("Failed fetching cofu stations with error \(error)")
                     self?.didFail = true
                 }
             }
@@ -66,7 +66,7 @@ extension ListViewModelImplementation: LocationManagerDelegate {
     }
 
     func didFail(with error: Error) {
-        NSLog("\(error)")
+        ExampleLogger.e("\(error)")
     }
 }
 

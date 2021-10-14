@@ -23,8 +23,15 @@ public class PACECloudSDK {
 
     public var additionalQueryParams: Set<URLQueryItem>?
     public var redirectScheme: String?
-    public var isLoggingEnabled = false
-    public weak var loggingDelegate: PACECloudSDKLoggingDelegate?
+    public var isLoggingEnabled = false {
+        didSet {
+            if isLoggingEnabled {
+                SDKLogger.optIn()
+            } else {
+                SDKLogger.optOut()
+            }
+        }
+    }
 
     public var customURLProtocol: URLProtocol?
 
@@ -35,6 +42,7 @@ public class PACECloudSDK {
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
+        self.isLoggingEnabled = config.loggingEnabled
 
         setupCustomURLProtocolIfAvailable()
 
@@ -90,6 +98,7 @@ public extension PACECloudSDK {
         let speedThreshold: Double
         let geoAppsScope: String
         let allowedAppDrawerLocationOffset: Double
+        let loggingEnabled: Bool
 
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .native,
@@ -100,7 +109,8 @@ public extension PACECloudSDK {
                     allowedLowAccuracy: Double? = nil,
                     speedThresholdInKmPerHour: Double? = nil,
                     geoAppsScope: String? = nil,
-                    allowedAppDrawerLocationOffset: Double? = nil) {
+                    allowedAppDrawerLocationOffset: Double? = nil,
+                    enableLogging: Bool = false) {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
@@ -120,6 +130,7 @@ public extension PACECloudSDK {
 
             self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
             self.allowedAppDrawerLocationOffset = allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
+            self.loggingEnabled = enableLogging
         }
     }
 

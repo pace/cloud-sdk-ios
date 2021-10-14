@@ -25,4 +25,8 @@ extension Data {
 
         return String(utf16CodeUnits: chars, count: chars.count)
     }
+
+    public var bytes: [UInt8] {
+      Array(self)
+    }
 }

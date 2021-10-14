@@ -231,7 +231,7 @@ class GeoAPIManager {
                         polygonValue = polygonFeature.coordinates
 
                     case .collections:
-                        NSLog("[GeoAPIManager] unhandled nested GeometryCollectionsFeature")
+                        POIKitLogger.w("[GeoAPIManager] unhandled nested GeometryCollectionsFeature")
                     }
                 }
             }
