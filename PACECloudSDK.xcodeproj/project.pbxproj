@@ -489,6 +489,8 @@
 		3B88788525CBEE2E008D1551 /* PCGeoJSONGeoJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788225CBEE2E008D1551 /* PCGeoJSONGeoJson.swift */; };
 		3B88788725CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */; };
 		3B88788925CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */; };
+		3B8A65A62710723D00B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
+		3B8A65A727107C7600B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
 		3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
 		3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02F4255C228E0020A6FA /* JWTTests.swift */; };
 		3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
@@ -1393,6 +1395,7 @@
 		3B88788225CBEE2E008D1551 /* PCGeoJSONGeoJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCGeoJSONGeoJson.swift; sourceTree = "<group>"; };
 		3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCGeoJSONGeoJsonFeature.swift; sourceTree = "<group>"; };
 		3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCGeoJSONGeoJsonGeometry.swift; sourceTree = "<group>"; };
+		3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodVendorIcon.swift; sourceTree = "<group>"; };
 		3B8B02EC255C1D780020A6FA /* JWTToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTToken.swift; sourceTree = "<group>"; };
 		3B8B02F4255C228E0020A6FA /* JWTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTTests.swift; sourceTree = "<group>"; };
 		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
@@ -2007,6 +2010,7 @@
 			isa = PBXGroup;
 			children = (
 				3B2D1DEC2629929D00C629C8 /* PaymentMethodVendor.swift */,
+				3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3777,6 +3781,7 @@
 				3B79FA5226C15BBF00C0278F /* PCPOIFuelAmountUnit.swift in Sources */,
 				17BB0D17268CCF92009D4755 /* FuelingAPICreateNotification.swift in Sources */,
 				3B79FA9226C15BEE00C0278F /* POIKitAPIError.swift in Sources */,
+				3B8A65A727107C7600B87FB1 /* PaymentMethodVendorIcon.swift in Sources */,
 				3B7C8E7226FC5ED80080B2B5 /* PCFuelingTransaction.swift in Sources */,
 				3B79FA0D26C15B6300C0278F /* POIAPIResponse.swift in Sources */,
 				17BB0D43268CD234009D4755 /* PCPayPaymentTokenCreateApplePay.swift in Sources */,
@@ -4631,6 +4636,7 @@
 				849C401725CAB6DE0074BCDA /* PCUserCreateOTP.swift in Sources */,
 				84600F4D25C03B340087194F /* FuelingAPIApproachingAtTheForecourt.swift in Sources */,
 				8482BAD425D5342000A7CD16 /* HttpRequest.swift in Sources */,
+				3B8A65A62710723D00B87FB1 /* PaymentMethodVendorIcon.swift in Sources */,
 				84D6C065258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
 				849C400925CAB6DD0074BCDA /* PCUserUserPIN.swift in Sources */,
 				3B970AAC2542D9BB0072F6BA /* AppStyle+Images.swift in Sources */,
