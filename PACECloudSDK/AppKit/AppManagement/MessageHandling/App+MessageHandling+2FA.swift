@@ -50,7 +50,7 @@ extension App {
             do {
                 let data = try JSONEncoder().encode(request)
                 let secretKey: String = unwrappedSelf.retrieveKey(for: request.key, host: host)
-                unwrappedSelf.setAppTOTPData(to: data, for: secretKey)
+                unwrappedSelf.setAppTOTPData(to: data, for: secretKey, host: host)
             } catch {
                 completion(.init(.init(statusCode: .internalServerError, response: .init(message: "\(error)"))))
             }
@@ -208,7 +208,16 @@ private extension App {
         return totpData
     }
 
-    func setAppTOTPData(to newValue: Data, for key: String) {
-        PACECloudSDK.Keychain().set(newValue, for: key)
+    func setAppTOTPData(to newValue: Data, for key: String, host: String) {
+        let keychain = PACECloudSDK.Keychain()
+
+        // Set App TOTP Data
+        keychain.set(newValue, for: key)
+
+        // Set master TOTP Data if not available yet
+        guard masterTOTPData(host: host) == nil else { return }
+
+        let secretKey = BiometryPolicy.retrieveMasterKey()
+        keychain.set(newValue, for: secretKey)
     }
 }

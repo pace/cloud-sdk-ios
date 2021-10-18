@@ -36,5 +36,22 @@ public extension IDKit {
 
             return expirationDate > now
         }
+
+        /**
+         Returns the payload value of the given token associated with the specified key.
+
+         - parameter key: The key the payload value should be retrieved for.
+         - parameter token: The access token the payload value should be retrieved of.
+         - returns: The payload value if available. `Nil` otherwise.
+         */
+        public static func jwtValue(for key: String, of token: String) -> Any? {
+            do {
+                let jwtToken = try JWTToken.decode(jwt: token)
+                return jwtToken.payload?[key]
+            } catch {
+                IDKitLogger.e("[TokenValidator] Failed to decode token \(token) - Error: \(error)")
+                return nil
+            }
+        }
     }
 }

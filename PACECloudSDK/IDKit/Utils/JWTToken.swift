@@ -27,6 +27,8 @@ struct JWTToken {
         }
     }
 
+    var payload: [String: Any]?
+
     var expiresAt: Date?
 
     init(jwt: String) throws {
@@ -37,9 +39,10 @@ struct JWTToken {
             throw JWTError.invalidPartCount
         }
 
-        let json = try decodeBody(parts[1])
+        let payload = try decodeBody(parts[1])
+        self.payload = payload
 
-        expiresAt = date(from: json["exp"])
+        expiresAt = date(from: payload["exp"])
     }
 
     private func decodeBody(_ body: String) throws -> [String: Any] {
