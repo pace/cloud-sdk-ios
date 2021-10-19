@@ -41,7 +41,7 @@ extension App {
         if let token = accessToken {
             completion(.init(.init(response: .init(accessToken: token, isInitialToken: nil))))
         } else {
-            completion(.init(.init(statusCode: .notFound, response: .init(message: "The access token couldn't be retrieved."))))
+            completion(.init(.init(statusCode: .internalServerError, response: .init(message: "The access token couldn't be retrieved."))))
         }
     }
 

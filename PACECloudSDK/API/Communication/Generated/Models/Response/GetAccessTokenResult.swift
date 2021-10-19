@@ -42,8 +42,8 @@ extension API.Communication {
 
             enum StatusCode: Int {
                 case badRequest = 400
-                case notFound = 404
                 case requestTimeout = 408
+                case clientClosedRequest = 499
                 case internalServerError = 500
             }
         }
