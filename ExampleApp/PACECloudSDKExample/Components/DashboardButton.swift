@@ -14,6 +14,7 @@ struct DashboardButton: View {
         case payment
         case transactions
         case account
+        case dashboard
 
         var title: String {
             switch self {
@@ -25,6 +26,9 @@ struct DashboardButton: View {
 
             case .account:
                 return "Manage PACE ID Account"
+
+            case .dashboard:
+                return "Show Dashboard"
             }
         }
 
@@ -38,6 +42,9 @@ struct DashboardButton: View {
 
             case .account:
                 return AppView(presetUrl: .paceID)
+
+            case .dashboard:
+                return AppView(presetUrl: .dashboard)
             }
         }
     }

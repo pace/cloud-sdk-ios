@@ -12,6 +12,7 @@ public extension PACECloudSDK {
         case paceID
         case payment
         case transactions
+        case dashboard
         case fueling(id: String?)
 
         public init?(rawValue: String) {
@@ -24,6 +25,9 @@ public extension PACECloudSDK {
 
             case "transactions":
                 self = .transactions
+
+            case "dashboard":
+                self = .dashboard
 
             default:
                 return nil
@@ -43,6 +47,9 @@ public extension PACECloudSDK {
 
             case .transactions:
                 return "\(URL.payment.absoluteString)/transactions"
+
+            case .dashboard:
+                return "https://my\(shortValue).fuel.site"
 
             case .fueling(id: let id):
                 return buildFuelingUrl(with: id)

@@ -23,6 +23,9 @@ struct DashboardView: View {
                         .frame(height: .defaultPadding / 2)
                     DashboardButton(type: .account)
                     Spacer()
+                        .frame(height: .defaultPadding / 2)
+                    DashboardButton(type: .dashboard)
+                    Spacer()
                 }
             }
             .navigationTitle("Dashboard")
