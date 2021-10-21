@@ -23,7 +23,7 @@ public class PCPayPaymentToken: APIModel {
     public class Attributes: APIModel {
 
         /** The amount that this token represents. */
-        public var amount: Double?
+        public var amount: Decimal?
 
         /** Currency as specified in ISO-4217. */
         public var currency: String?
@@ -37,7 +37,7 @@ public class PCPayPaymentToken: APIModel {
         /** paymentToken value. Format might change (externally provided - by payment provider) */
         public var value: String?
 
-        public init(amount: Double? = nil, currency: String? = nil, purposePRNs: [String]? = nil, validUntil: DateTime? = nil, value: String? = nil) {
+        public init(amount: Decimal? = nil, currency: String? = nil, purposePRNs: [String]? = nil, validUntil: DateTime? = nil, value: String? = nil) {
             self.amount = amount
             self.currency = currency
             self.purposePRNs = purposePRNs

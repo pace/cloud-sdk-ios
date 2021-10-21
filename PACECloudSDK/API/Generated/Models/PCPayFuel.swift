@@ -41,10 +41,10 @@ public class PCPayFuel: APIModel {
     }
 
     /** Fuel amount in provided unit */
-    public var amount: Double?
+    public var amount: Decimal?
 
     /** Price per unit (with three decimal places) */
-    public var pricePerUnit: Double?
+    public var pricePerUnit: Decimal?
 
     /** Product Name of the current fuel.productName */
     public var productName: String?
@@ -58,7 +58,7 @@ public class PCPayFuel: APIModel {
     /** Unit */
     public var unit: PCPayUnit?
 
-    public init(amount: Double? = nil, pricePerUnit: Double? = nil, productName: String? = nil, pumpNumber: Int? = nil, type: PCPayType? = nil, unit: PCPayUnit? = nil) {
+    public init(amount: Decimal? = nil, pricePerUnit: Decimal? = nil, productName: String? = nil, pumpNumber: Int? = nil, type: PCPayType? = nil, unit: PCPayUnit? = nil) {
         self.amount = amount
         self.pricePerUnit = pricePerUnit
         self.productName = productName
