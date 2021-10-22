@@ -33,6 +33,9 @@ public class PCFuelingPaymentMethod: APIModel {
             case unacceptable = "unacceptable"
         }
 
+        /** Customer chosen alias for the payment method */
+        public var alias: String?
+
         public var identificationString: String?
 
         /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
@@ -96,7 +99,8 @@ public class PCFuelingPaymentMethod: APIModel {
             }
         }
 
-        public init(identificationString: String? = nil, kind: String? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, status: PCFuelingStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+        public init(alias: String? = nil, identificationString: String? = nil, kind: String? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, status: PCFuelingStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+            self.alias = alias
             self.identificationString = identificationString
             self.kind = kind
             self.mandatoryAuthorisationAttributes = mandatoryAuthorisationAttributes
@@ -108,6 +112,7 @@ public class PCFuelingPaymentMethod: APIModel {
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
+            alias = try container.decodeIfPresent("alias")
             identificationString = try container.decodeIfPresent("identificationString")
             kind = try container.decodeIfPresent("kind")
             mandatoryAuthorisationAttributes = try container.decodeArrayIfPresent("mandatoryAuthorisationAttributes")
@@ -119,6 +124,7 @@ public class PCFuelingPaymentMethod: APIModel {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
+            try container.encodeIfPresent(alias, forKey: "alias")
             try container.encodeIfPresent(identificationString, forKey: "identificationString")
             try container.encodeIfPresent(kind, forKey: "kind")
             try container.encodeIfPresent(mandatoryAuthorisationAttributes, forKey: "mandatoryAuthorisationAttributes")
@@ -129,6 +135,7 @@ public class PCFuelingPaymentMethod: APIModel {
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
+          guard self.alias == object.alias else { return false }
           guard self.identificationString == object.identificationString else { return false }
           guard self.kind == object.kind else { return false }
           guard self.mandatoryAuthorisationAttributes == object.mandatoryAuthorisationAttributes else { return false }

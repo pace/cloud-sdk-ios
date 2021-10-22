@@ -25,6 +25,9 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         /** Currency as specified in ISO-4217. */
         public var currency: String?
 
+        /** Amount that was discounted. Only if any discounts were applied earlier. */
+        public var discountAmount: Decimal?
+
         public var gasStationId: ID?
 
         /** Mileage in meters */
@@ -32,9 +35,9 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
         public var paymentToken: String?
 
-        public var priceIncludingVAT: Double?
+        public var priceIncludingVAT: Decimal?
 
-        public var priceWithoutVAT: Double?
+        public var priceWithoutVAT: Decimal?
 
         public var pumpId: ID?
 
@@ -43,11 +46,11 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
         public class VAT: APIModel {
 
-            public var amount: Double?
+            public var amount: Decimal?
 
-            public var rate: Double?
+            public var rate: Decimal?
 
-            public init(amount: Double? = nil, rate: Double? = nil) {
+            public init(amount: Decimal? = nil, rate: Decimal? = nil) {
                 self.amount = amount
                 self.rate = rate
             }
@@ -78,9 +81,10 @@ public class PCFuelingProcessPaymentResponse: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, currency: String? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, priceWithoutVAT: Double? = nil, pumpId: ID? = nil, vin: String? = nil) {
+        public init(vat: VAT? = nil, currency: String? = nil, discountAmount: Decimal? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, pumpId: ID? = nil, vin: String? = nil) {
             self.vat = vat
             self.currency = currency
+            self.discountAmount = discountAmount
             self.gasStationId = gasStationId
             self.mileage = mileage
             self.paymentToken = paymentToken
@@ -95,6 +99,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
             vat = try container.decodeIfPresent("VAT")
             currency = try container.decodeIfPresent("currency")
+            discountAmount = try container.decodeIfPresent("discountAmount")
             gasStationId = try container.decodeIfPresent("gasStationId")
             mileage = try container.decodeIfPresent("mileage")
             paymentToken = try container.decodeIfPresent("paymentToken")
@@ -109,6 +114,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
             try container.encodeIfPresent(vat, forKey: "VAT")
             try container.encodeIfPresent(currency, forKey: "currency")
+            try container.encodeIfPresent(discountAmount, forKey: "discountAmount")
             try container.encodeIfPresent(gasStationId, forKey: "gasStationId")
             try container.encodeIfPresent(mileage, forKey: "mileage")
             try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
@@ -122,6 +128,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
           guard let object = object as? Attributes else { return false }
           guard self.vat == object.vat else { return false }
           guard self.currency == object.currency else { return false }
+          guard self.discountAmount == object.discountAmount else { return false }
           guard self.gasStationId == object.gasStationId else { return false }
           guard self.mileage == object.mileage else { return false }
           guard self.paymentToken == object.paymentToken else { return false }
