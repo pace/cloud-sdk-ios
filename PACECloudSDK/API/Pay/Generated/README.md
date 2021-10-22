@@ -163,6 +163,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentMethodKinds**
 - **PCPayPaymentMethodPayDirektCreate**
 - **PCPayPaymentMethodPayPalCreate**
+- **PCPayPaymentMethodRMCCreate**
 - **PCPayPaymentMethodRelationship**
 - **PCPayPaymentMethodRoadrunnerCreate**
 - **PCPayPaymentMethodSepaCreate**
@@ -191,6 +192,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **CreatePaymentMethodHoyer**: POST `/payment-methods/hoyer`
 	- **CreatePaymentMethodPayDirekt**: POST `/payment-methods/paydirekt`
 	- **CreatePaymentMethodPayPal**: POST `/payment-methods/paypal`
+	- **CreatePaymentMethodRMC**: POST `/payment-methods/rmc`
 	- **CreatePaymentMethodRoadrunner**: POST `/payment-methods/roadrunner`
 	- **CreatePaymentMethodSEPA**: POST `/payment-methods/sepa-direct-debit`
 	- **CreatePaymentMethodZGM**: POST `/payment-methods/zgm`

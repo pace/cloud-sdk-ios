@@ -31,6 +31,9 @@ public class PCPayTransaction: APIModel {
         /** Currency as specified in ISO-4217. */
         public var currency: String?
 
+        /** Amount that was discounted. Only if any discounts were applied earlier. */
+        public var discountAmount: Decimal?
+
         public var fuel: PCPayFuel?
 
         /** PACE resource name */
@@ -50,9 +53,9 @@ public class PCPayTransaction: APIModel {
         /** Payment token value */
         public var paymentToken: String?
 
-        public var priceIncludingVAT: Double?
+        public var priceIncludingVAT: Decimal?
 
-        public var priceWithoutVAT: Double?
+        public var priceWithoutVAT: Decimal?
 
         /** PACE resource name - referring to the transaction purpose with provider details. */
         public var providerPRN: String?
@@ -71,11 +74,11 @@ public class PCPayTransaction: APIModel {
 
         public class VAT: APIModel {
 
-            public var amount: Double?
+            public var amount: Decimal?
 
-            public var rate: Double?
+            public var rate: Decimal?
 
-            public init(amount: Double? = nil, rate: Double? = nil) {
+            public init(amount: Decimal? = nil, rate: Decimal? = nil) {
                 self.amount = amount
                 self.rate = rate
             }
@@ -106,10 +109,11 @@ public class PCPayTransaction: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, createdAt: DateTime? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, priceWithoutVAT: Double? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+        public init(vat: VAT? = nil, createdAt: DateTime? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
             self.vat = vat
             self.createdAt = createdAt
             self.currency = currency
+            self.discountAmount = discountAmount
             self.fuel = fuel
             self.issuerPRN = issuerPRN
             self.location = location
@@ -132,6 +136,7 @@ public class PCPayTransaction: APIModel {
             vat = try container.decodeIfPresent("VAT")
             createdAt = try container.decodeIfPresent("createdAt")
             currency = try container.decodeIfPresent("currency")
+            discountAmount = try container.decodeIfPresent("discountAmount")
             fuel = try container.decodeIfPresent("fuel")
             issuerPRN = try container.decodeIfPresent("issuerPRN")
             location = try container.decodeIfPresent("location")
@@ -154,6 +159,7 @@ public class PCPayTransaction: APIModel {
             try container.encodeIfPresent(vat, forKey: "VAT")
             try container.encodeIfPresent(createdAt, forKey: "createdAt")
             try container.encodeIfPresent(currency, forKey: "currency")
+            try container.encodeIfPresent(discountAmount, forKey: "discountAmount")
             try container.encodeIfPresent(fuel, forKey: "fuel")
             try container.encodeIfPresent(issuerPRN, forKey: "issuerPRN")
             try container.encodeIfPresent(location, forKey: "location")
@@ -175,6 +181,7 @@ public class PCPayTransaction: APIModel {
           guard self.vat == object.vat else { return false }
           guard self.createdAt == object.createdAt else { return false }
           guard self.currency == object.currency else { return false }
+          guard self.discountAmount == object.discountAmount else { return false }
           guard self.fuel == object.fuel else { return false }
           guard self.issuerPRN == object.issuerPRN else { return false }
           guard self.location == object.location else { return false }

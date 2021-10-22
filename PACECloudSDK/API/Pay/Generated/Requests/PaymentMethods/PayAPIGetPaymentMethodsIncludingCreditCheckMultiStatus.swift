@@ -93,7 +93,19 @@ If the list is empty, you can ask the user to add a payment method to use PACE f
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    included = try container.decodeArrayIfPresent("included")
+                    guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
+                    let decoder = JSONDecoder()
+
+                    let includedPCPayPaymentMethodVendors = included.filter { $0["type"] as? String == PCPayPaymentMethodVendor.PCPayType.allCases.first?.rawValue }
+                    let includedPCPayPaymentMethodKindMinimals = included.filter { $0["type"] as? String == PCPayPaymentMethodKindMinimal.PCPayType.allCases.first?.rawValue }
+
+                    let decodedPCPayPaymentMethodVendors: [PCPayPaymentMethodVendor] = try decoder.decodeJSONObject(includedPCPayPaymentMethodVendors)
+                    let decodedPCPayPaymentMethodKindMinimals: [PCPayPaymentMethodKindMinimal] = try decoder.decodeJSONObject(includedPCPayPaymentMethodKindMinimals)
+
+                    self.included =
+                        decodedPCPayPaymentMethodVendors.map(Poly2<PCPayPaymentMethodVendor,PCPayPaymentMethodKindMinimal>.init)
+                        + decodedPCPayPaymentMethodKindMinimals.map(Poly2<PCPayPaymentMethodVendor,PCPayPaymentMethodKindMinimal>.init)
+
                 }
 
                 public func encode(to encoder: Encoder) throws {

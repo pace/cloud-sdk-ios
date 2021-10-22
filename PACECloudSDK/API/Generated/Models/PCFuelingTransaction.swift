@@ -22,22 +22,22 @@ public class PCFuelingTransaction: APIModel {
 
         public var vat: VAT?
 
-        public var authorizedAmount: Double?
+        public var authorizedAmount: Decimal?
 
         /** Currency as specified in ISO-4217. */
         public var currency: String?
 
-        public var fuelAmount: Double?
+        public var fuelAmount: Decimal?
 
         public var fuelType: String?
 
         public var paymentToken: String?
 
-        public var priceIncludingVAT: Double?
+        public var priceIncludingVAT: Decimal?
 
-        public var pricePerUnit: Double?
+        public var pricePerUnit: Decimal?
 
-        public var priceWithoutVAT: Double?
+        public var priceWithoutVAT: Decimal?
 
         public var productName: String?
 
@@ -45,11 +45,11 @@ public class PCFuelingTransaction: APIModel {
 
         public class VAT: APIModel {
 
-            public var amount: Double?
+            public var amount: Decimal?
 
-            public var rate: Double?
+            public var rate: Decimal?
 
-            public init(amount: Double? = nil, rate: Double? = nil) {
+            public init(amount: Decimal? = nil, rate: Decimal? = nil) {
                 self.amount = amount
                 self.rate = rate
             }
@@ -80,7 +80,7 @@ public class PCFuelingTransaction: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, authorizedAmount: Double? = nil, currency: String? = nil, fuelAmount: Double? = nil, fuelType: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Double? = nil, pricePerUnit: Double? = nil, priceWithoutVAT: Double? = nil, productName: String? = nil, status: String? = nil) {
+        public init(vat: VAT? = nil, authorizedAmount: Decimal? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, status: String? = nil) {
             self.vat = vat
             self.authorizedAmount = authorizedAmount
             self.currency = currency

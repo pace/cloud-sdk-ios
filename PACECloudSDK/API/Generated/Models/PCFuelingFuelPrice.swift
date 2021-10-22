@@ -55,11 +55,11 @@ public class PCFuelingFuelPrice: APIModel {
         public var fuelType: PCFuelingFuelType?
 
         /** Price in liters */
-        public var price: Double?
+        public var price: Decimal?
 
         public var productName: String?
 
-        public init(currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Double? = nil, productName: String? = nil) {
+        public init(currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Decimal? = nil, productName: String? = nil) {
             self.currency = currency
             self.fuelType = fuelType
             self.price = price

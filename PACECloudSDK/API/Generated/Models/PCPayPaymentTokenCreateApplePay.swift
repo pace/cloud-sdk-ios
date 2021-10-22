@@ -23,7 +23,7 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
         /** Currency as specified in ISO-4217. */
         public var currency: String
 
-        public var amount: Double
+        public var amount: Decimal
 
         /** PACE resource name(s) of one or multiple resources, for which the payment should be authorized. */
         public var purposePRNs: [String]
@@ -253,7 +253,7 @@ public class PCPayPaymentTokenCreateApplePay: APIModel {
             }
         }
 
-        public init(currency: String, amount: Double, purposePRNs: [String], applePay: ApplePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Decimal, purposePRNs: [String], applePay: ApplePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs

@@ -65,12 +65,12 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Current mileage in meters */
             public var mileage: Int?
 
-            public var priceIncludingVAT: Double?
+            public var priceIncludingVAT: Decimal?
 
             /** Vehicle identification number */
             public var vin: String?
 
-            public init(paymentToken: String, pumpId: ID, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, mileage: Int? = nil, priceIncludingVAT: Double? = nil, vin: String? = nil) {
+            public init(paymentToken: String, pumpId: ID, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, mileage: Int? = nil, priceIncludingVAT: Decimal? = nil, vin: String? = nil) {
                 self.paymentToken = paymentToken
                 self.pumpId = pumpId
                 self.carFuelType = carFuelType

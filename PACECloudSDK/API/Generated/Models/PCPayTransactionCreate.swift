@@ -37,7 +37,7 @@ public class PCPayTransactionCreate: APIModel {
         public var fuel: PCPayFuel?
 
         /** Fuel amount */
-        public var fuelAmount: Double?
+        public var fuelAmount: Decimal?
 
         /** Product name */
         public var fuelProductName: String?
@@ -51,20 +51,20 @@ public class PCPayTransactionCreate: APIModel {
         /** Current mileage in meters */
         public var mileage: Int?
 
-        public var priceExcludingVAT: Double?
+        public var priceExcludingVAT: Decimal?
 
-        public var priceIncludingVAT: Double?
+        public var priceIncludingVAT: Decimal?
 
         /** Vehicle identification number */
         public var vin: String?
 
         public class VAT: APIModel {
 
-            public var amount: Double?
+            public var amount: Decimal?
 
-            public var rate: Double?
+            public var rate: Decimal?
 
-            public init(amount: Double? = nil, rate: Double? = nil) {
+            public init(amount: Decimal? = nil, rate: Decimal? = nil) {
                 self.amount = amount
                 self.rate = rate
             }
@@ -95,7 +95,7 @@ public class PCPayTransactionCreate: APIModel {
             }
         }
 
-        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Double? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, mileage: Int? = nil, priceExcludingVAT: Double? = nil, priceIncludingVAT: Double? = nil, vin: String? = nil) {
+        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, mileage: Int? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, vin: String? = nil) {
             self.paymentToken = paymentToken
             self.purposePRN = purposePRN
             self.providerPRN = providerPRN
