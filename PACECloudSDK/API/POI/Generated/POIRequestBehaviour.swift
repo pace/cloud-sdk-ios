@@ -20,7 +20,7 @@ public protocol POIAPIRequestBehaviour {
     func onSuccess(request: AnyPOIAPIRequest, result: Any)
 
     /// called when request fails with an error. This will not be called if the request returns a known response even if the a status code is out of the 200 range
-    func onFailure(request: AnyPOIAPIRequest, error: APIClientError)
+    func onFailure(request: AnyPOIAPIRequest, response: HTTPURLResponse, error: APIClientError)
 
     /// called if the request recieves a network response. This is not called if request fails validation or encoding
     func onResponse(request: AnyPOIAPIRequest, response: AnyPOIAPIResponse)
@@ -34,8 +34,18 @@ public extension POIAPIRequestBehaviour {
     }
     func beforeSend(request: AnyPOIAPIRequest) {}
     func onSuccess(request: AnyPOIAPIRequest, result: Any) {}
-    func onFailure(request: AnyPOIAPIRequest, error: APIClientError) {}
+    func onFailure(request: AnyPOIAPIRequest, response: HTTPURLResponse, error: APIClientError) {}
     func onResponse(request: AnyPOIAPIRequest, response: AnyPOIAPIResponse) {}
+}
+
+struct POIAPIRequestBehaviourImplementation: POIAPIRequestBehaviour {
+    func onFailure(request: AnyPOIAPIRequest, response: HTTPURLResponse, error: APIClientError) {
+        if #available(iOS 13.0, *) {
+            SDKLogger.e("[POIAPI] Request with request-id: \(response.value(forHTTPHeaderField: "request-id") ?? "unknown") failed with error: \(error.description)")
+        } else {
+            SDKLogger.e("[POIAPI] Request with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
+        }
+    }
 }
 
 // Group different RequestBehaviours together
@@ -89,9 +99,9 @@ struct POIAPIRequestBehaviourGroup {
         }
     }
 
-    func onFailure(error: APIClientError) {
+    func onFailure(response: HTTPURLResponse, error: APIClientError) {
         behaviours.forEach {
-            $0.onFailure(request: request, error: error)
+            $0.onFailure(request: request, response: response, error: error)
         }
     }
 

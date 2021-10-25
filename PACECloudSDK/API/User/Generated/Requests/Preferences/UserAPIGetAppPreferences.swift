@@ -953,7 +953,7 @@ In case no preferences were ever set an empty object `{}` is returned.
             }
             public typealias SuccessType = [String: Any]
 
-            /** Deletion process started */
+            /** Retrieves the persisted preferences */
             case status200([String: Any])
 
             /** OAuth token missing or invalid */

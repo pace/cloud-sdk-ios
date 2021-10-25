@@ -11,7 +11,7 @@ public class POIAPIClient {
     public static var `default` = POIAPIClient(baseURL: "https://api.pace.cloud/poi")
 
     /// A list of RequestBehaviours that can be used to monitor and alter all requests
-    public var behaviours: [POIAPIRequestBehaviour] = []
+    public var behaviours: [POIAPIRequestBehaviour] = [POIAPIRequestBehaviourImplementation()]
 
     /// The base url prepended before every request path
     public var baseURL: String
@@ -31,7 +31,7 @@ public class POIAPIClient {
 
     public init(baseURL: String, configuration: URLSessionConfiguration = .default, defaultHeaders: [String: String] = [:], behaviours: [POIAPIRequestBehaviour] = []) {
         self.baseURL = baseURL
-        self.behaviours = behaviours
+        self.behaviours = self.behaviours + behaviours
         self.defaultHeaders = defaultHeaders
         jsonDecoder.dateDecodingStrategy = .custom(dateDecoder)
         jsonEncoder.dateEncodingStrategy = .formatted(POIAPI.dateEncodingFormatter)
@@ -57,7 +57,7 @@ public class POIAPIClient {
             urlRequest = try request.createURLRequest(baseURL: baseURL, encoder: jsonEncoder)
         } catch {
             let error = APIClientError.requestEncodingError(error)
-            requestBehaviour.onFailure(error: error)
+            requestBehaviour.onFailure(response: HTTPURLResponse(), error: error)
             let response = POIAPIResponse<T>(request: request, result: .failure(error))
             complete(response)
             return nil
@@ -82,7 +82,7 @@ public class POIAPIClient {
             case .failure(let error):
                 let error = APIClientError.validationError(error)
                 let response = POIAPIResponse<T>(request: request, result: .failure(error), urlRequest: urlRequest)
-                requestBehaviour.onFailure(error: error)
+                requestBehaviour.onFailure(response: HTTPURLResponse(), error: error)
                 complete(response)
             }
         }
@@ -154,7 +154,7 @@ public class POIAPIClient {
                             apiError = APIClientError.networkError(URLRequestError.responseInvalid)
                         }
                         let result: APIResult<T> = .failure(apiError)
-                        requestBehaviour.onFailure(error: apiError)
+                        requestBehaviour.onFailure(response: HTTPURLResponse(), error: apiError)
 
                         let response = POIAPIResponse<T>(request: request, result: result, urlRequest: urlRequest)
                         requestBehaviour.onResponse(response: response.asAny())
@@ -200,7 +200,7 @@ public class POIAPIClient {
         if let error = error {
             let apiError = APIClientError.networkError(error)
             result = .failure(apiError)
-            requestBehaviour.onFailure(error: apiError)
+            requestBehaviour.onFailure(response: response, error: apiError)
             let response = POIAPIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: data)
             requestBehaviour.onResponse(response: response.asAny())
 
@@ -250,7 +250,7 @@ public class POIAPIClient {
         guard let data = data else {
             let error = APIClientError.invalidDataError
             result = .failure(error)
-            requestBehaviour.onFailure(error: error)
+            requestBehaviour.onFailure(response: response, error: error)
             let response = POIAPIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: nil)
             requestBehaviour.onResponse(response: response.asAny())
 
@@ -266,6 +266,8 @@ public class POIAPIClient {
             result = .success(decoded)
             if decoded.successful {
                 requestBehaviour.onSuccess(result: decoded.response as Any)
+            } else {
+                requestBehaviour.onFailure(response: response, error: .unexpectedStatusCode(statusCode: statusCode, data: data))
             }
         } catch let error {
             let apiError: APIClientError
@@ -278,7 +280,7 @@ public class POIAPIClient {
             }
 
             result = .failure(apiError)
-            requestBehaviour.onFailure(error: apiError)
+            requestBehaviour.onFailure(response: response, error: apiError)
         }
 
         let response = POIAPIResponse<T>(request: request, result: result, urlRequest: urlRequest, urlResponse: response, data: data)
