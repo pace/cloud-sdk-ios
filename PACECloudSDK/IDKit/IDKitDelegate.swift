@@ -9,7 +9,16 @@ import Foundation
 
 public protocol IDKitDelegate: AnyObject {
     /**
-     Will be invoked if an automatic session renewal triggered by the SDK itself fails.
+     Will be invoked right before the session is about to be reset.
+
+     Implement this method to handle an incoming session reset. The default implementation does nothing.
+
+     - parameter error: The error that caused the session renewal to fail if available.
+     */
+    func willResetSession()
+
+    /**
+     Will be invoked if an automatic session renewal triggered by the SDK itself has failed and the session has been reset.
 
      Implement this method to specify a custom behaviour for the token retrieval.
      If not implemented an authorization will be performed automatically which will result in showing a sign in mask for the user.
@@ -30,6 +39,8 @@ public protocol IDKitDelegate: AnyObject {
 }
 
 public extension IDKitDelegate {
+    func willResetSession() {}
+
     func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void) {
         IDKit.appInducedAuthorization(completion)
     }

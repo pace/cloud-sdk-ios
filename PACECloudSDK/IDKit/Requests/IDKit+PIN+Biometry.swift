@@ -277,7 +277,7 @@ private extension IDKit {
         let secretKey = BiometryPolicy.retrieveMasterKey()
 
         guard let newValue = newValue else {
-            keychain.delete(secretKey)
+            keychain.deleteAllTOTPData()
             return
         }
 

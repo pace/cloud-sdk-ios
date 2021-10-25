@@ -84,3 +84,29 @@ public extension PACECloudSDK {
         }
     }
 }
+
+extension PACECloudSDK.Keychain {
+    func deleteAllTOTPData() {
+        lock.lock()
+        defer { lock.unlock() }
+
+        var query: [CFString: Any] = [kSecClass: kSecClassGenericPassword, kSecMatchLimit: kSecMatchLimitAll]
+        query[kSecReturnData] = kCFBooleanTrue
+        query[kSecReturnAttributes] = kCFBooleanTrue
+
+        var result: AnyObject?
+        let resultCode = withUnsafeMutablePointer(to: &result) {
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+        }
+
+        if resultCode != noErr && resultCode != errSecItemNotFound {
+            SDKLogger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
+        }
+
+        let matchingKeys = (result as? [[CFString: Any]])?
+            .compactMap { $0[kSecAttrAccount] as? String }
+            .filter { $0.hasSuffix("payment-authorize") }
+
+        matchingKeys?.forEach(deleteWithoutLock)
+    }
+}
