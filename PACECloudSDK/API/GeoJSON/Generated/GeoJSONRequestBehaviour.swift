@@ -20,7 +20,7 @@ public protocol GeoJSONAPIRequestBehaviour {
     func onSuccess(request: AnyGeoJSONAPIRequest, result: Any)
 
     /// called when request fails with an error. This will not be called if the request returns a known response even if the a status code is out of the 200 range
-    func onFailure(request: AnyGeoJSONAPIRequest, error: APIClientError)
+    func onFailure(request: AnyGeoJSONAPIRequest, response: HTTPURLResponse, error: APIClientError)
 
     /// called if the request recieves a network response. This is not called if request fails validation or encoding
     func onResponse(request: AnyGeoJSONAPIRequest, response: AnyGeoJSONAPIResponse)
@@ -34,8 +34,18 @@ public extension GeoJSONAPIRequestBehaviour {
     }
     func beforeSend(request: AnyGeoJSONAPIRequest) {}
     func onSuccess(request: AnyGeoJSONAPIRequest, result: Any) {}
-    func onFailure(request: AnyGeoJSONAPIRequest, error: APIClientError) {}
+    func onFailure(request: AnyGeoJSONAPIRequest, response: HTTPURLResponse, error: APIClientError) {}
     func onResponse(request: AnyGeoJSONAPIRequest, response: AnyGeoJSONAPIResponse) {}
+}
+
+struct GeoJSONAPIRequestBehaviourImplementation: GeoJSONAPIRequestBehaviour {
+    func onFailure(request: AnyGeoJSONAPIRequest, response: HTTPURLResponse, error: APIClientError) {
+        if #available(iOS 13.0, *) {
+            SDKLogger.e("[GeoJSONAPI] Request with request-id: \(response.value(forHTTPHeaderField: "request-id") ?? "unknown") failed with error: \(error.description)")
+        } else {
+            SDKLogger.e("[GeoJSONAPI] Request with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
+        }
+    }
 }
 
 // Group different RequestBehaviours together
@@ -89,9 +99,9 @@ struct GeoJSONAPIRequestBehaviourGroup {
         }
     }
 
-    func onFailure(error: APIClientError) {
+    func onFailure(response: HTTPURLResponse, error: APIClientError) {
         behaviours.forEach {
-            $0.onFailure(request: request, error: error)
+            $0.onFailure(request: request, response: response, error: error)
         }
     }
 
