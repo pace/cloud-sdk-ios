@@ -774,6 +774,10 @@
 		6A8811B626F0F96E00C1B1CA /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7FCE9926F0E9A400384907 /* ShareObject.swift */; };
 		6A8811E826F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */; };
 		6A8811E926F2096200C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */; };
+		6A8EB0D7273432F8005B3D31 /* ShareTextRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB865732733EC9300EB4092 /* ShareTextRequest.swift */; };
+		6A8EB0D827343313005B3D31 /* ShareTextResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB865752733ED4500EB4092 /* ShareTextResult.swift */; };
+		6AB865742733EC9400EB4092 /* ShareTextRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB865732733EC9300EB4092 /* ShareTextRequest.swift */; };
+		6AB865762733ED4500EB4092 /* ShareTextResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB865752733ED4500EB4092 /* ShareTextResult.swift */; };
 		6ACBC03226FDA17000E6AC05 /* Date+Extension+daysAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACBC03126FDA16F00E6AC05 /* Date+Extension+daysAgo.swift */; };
 		6ACBC03326FDA19A00E6AC05 /* Date+Extension+daysAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACBC03126FDA16F00E6AC05 /* Date+Extension+daysAgo.swift */; };
 		6ACBC03426FDA1AC00E6AC05 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A082542D9BA0072F6BA /* Data+Extension.swift */; };
@@ -1615,6 +1619,8 @@
 		6A2F492A27044AE1004497B2 /* SDKLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKLogger.swift; sourceTree = "<group>"; };
 		6A7FCE9926F0E9A400384907 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
 		6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsRemoteConfigAvailableResult.swift; sourceTree = "<group>"; };
+		6AB865732733EC9300EB4092 /* ShareTextRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareTextRequest.swift; sourceTree = "<group>"; };
+		6AB865752733ED4500EB4092 /* ShareTextResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareTextResult.swift; sourceTree = "<group>"; };
 		6ACBC03126FDA16F00E6AC05 /* Date+Extension+daysAgo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension+daysAgo.swift"; sourceTree = "<group>"; };
 		6ACBC03726FDC76300E6AC05 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		6ACBC08226FE0FC300E6AC05 /* Logger+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Notification.swift"; sourceTree = "<group>"; };
@@ -2449,6 +2455,7 @@
 		3B98701E268E06AE00A0458F /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				6AB865752733ED4500EB4092 /* ShareTextResult.swift */,
 				6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */,
 				849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */,
 				3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */,
@@ -2482,6 +2489,7 @@
 		3B987038268E06AE00A0458F /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				6AB865732733EC9300EB4092 /* ShareTextRequest.swift */,
 				3B918049268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift */,
 				3B987041268E06AE00A0458F /* ApplePayRequestRequest.swift */,
 				3B98703A268E06AE00A0458F /* AppRedirectRequest.swift */,
@@ -4367,6 +4375,7 @@
 				3BC9A7F62539DDAD00B933AE /* RegionalPricesResponse.swift in Sources */,
 				3B970A6D2542D9BB0072F6BA /* Dictionary+Extension.swift in Sources */,
 				8447A3A325CAAE740095BEF1 /* UserAPIUpdateAppPreferences.swift in Sources */,
+				6AB865762733ED4500EB4092 /* ShareTextResult.swift in Sources */,
 				84D6C06F258A03270094982D /* PCPayPRN.swift in Sources */,
 				8447A3DB25CAAE750095BEF1 /* AnyUserRequest.swift in Sources */,
 				3B987087268E06AE00A0458F /* DisableRequest.swift in Sources */,
@@ -4398,6 +4407,7 @@
 				84600E9E25C03B0C0087194F /* PayAPINotificationForPaymentMethod.swift in Sources */,
 				84600E8425C03B0C0087194F /* PayAPICreatePaymentMethodSEPA.swift in Sources */,
 				3B970A9C2542D9BB0072F6BA /* URLRequestBuilder.swift in Sources */,
+				6AB865742733EC9400EB4092 /* ShareTextRequest.swift in Sources */,
 				8414A59125CC0D370077E050 /* User.swift in Sources */,
 				84D6C06D258A03270094982D /* PCPOIPriceHistory.swift in Sources */,
 				3B73074725372A40009A7DF7 /* IDKit.swift in Sources */,
@@ -4724,6 +4734,7 @@
 				84600F1125C03B1E0087194F /* POIAPIDeleteSubscription.swift in Sources */,
 				3B98704C268E06AE00A0458F /* CommunicationProtocol.swift in Sources */,
 				92EDDBFC25A7270300E480F4 /* AppData.swift in Sources */,
+				6A8EB0D827343313005B3D31 /* ShareTextResult.swift in Sources */,
 				92EDDD7B25A7399200E480F4 /* POIFiltersResponse.swift in Sources */,
 				3B98707A268E06AE00A0458F /* ApplePayRequestResult.swift in Sources */,
 				843A86D325C2BBF40062B124 /* POIAPIClient+URLProtocol.swift in Sources */,
@@ -4810,6 +4821,7 @@
 				92EDDD6625A7396C00E480F4 /* (null) in Sources */,
 				3BB48767268EF9E900C42B6F /* App+MessageHandling+Location.swift in Sources */,
 				92EDDD3E25A7394E00E480F4 /* (null) in Sources */,
+				6A8EB0D7273432F8005B3D31 /* ShareTextRequest.swift in Sources */,
 				92EDDD5525A7395A00E480F4 /* (null) in Sources */,
 				8418E25225B1B85A00D3722B /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				3B987076268E06AE00A0458F /* GetTOTPResult.swift in Sources */,

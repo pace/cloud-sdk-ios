@@ -198,6 +198,12 @@ extension API.Communication {
                 delegate?.handleIsRemoteConfigAvailable { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation)
                 }
+
+            case .shareText:
+                guard let requestBody: ShareTextRequest = decodeRequestBody(request, response, operation) else { return }
+                delegate?.handleShareText(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation)
+                }
             }
         }
 

@@ -22,6 +22,7 @@ public protocol AppKitDelegate: AnyObject {
     func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void))
     func logout(completion: @escaping ((AppKit.LogoutResponse) -> Void))
     func didReceiveImageData(_ image: UIImage)
+    func didReceiveText(title: String, text: String)
 
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)
     func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)
@@ -57,6 +58,11 @@ public extension AppKitDelegate {
     func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) { isAllowed(true) }
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) { isAvailable(false) }
+    func didReceiveText(title: String, text: String) {
+        let item = ShareObject(shareData: text, customTitle: title)
+        let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+        UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
+    }
 }
 
 extension AppKit {
@@ -166,6 +172,12 @@ extension AppKit {
     func notifyIsRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) {
         notifyClient { [weak self] in
             self?.delegate?.isRemoteConfigAvailable(isAvailable: isAvailable)
+        }
+    }
+
+    func notifyDidReceiveText(title: String, text: String) {
+        notifyClient { [weak self] in
+            self?.delegate?.didReceiveText(title: title, text: text)
         }
     }
 
