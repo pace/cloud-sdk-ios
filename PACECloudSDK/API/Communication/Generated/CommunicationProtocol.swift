@@ -30,5 +30,6 @@ protocol CommunicationProtocol: AnyObject {
     func handleIsBiometricAuthEnabled(completion: @escaping (API.Communication.IsBiometricAuthEnabledResult) -> Void)
     func handleIsSignedIn(completion: @escaping (API.Communication.IsSignedInResult) -> Void)
     func handleIsRemoteConfigAvailable(completion: @escaping (API.Communication.IsRemoteConfigAvailableResult) -> Void)
+    func handleShareText(with request: API.Communication.ShareTextRequest, completion: @escaping (API.Communication.ShareTextResult) -> Void)
     func respond(with response: String)
 }

@@ -10,6 +10,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Add `IDKitDelegate` method `willResetSession()` that is triggered when a session is about to be reset.
+* Introduce share text call `handleShareText`
 
 <!-- ### Fixes - Include, if needed -->
 ### Internal

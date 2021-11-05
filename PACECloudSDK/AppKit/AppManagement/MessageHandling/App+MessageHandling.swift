@@ -117,6 +117,11 @@ extension App {
         completion(.init(.init()))
     }
 
+    func handleShareText(with request: API.Communication.ShareTextRequest, completion: @escaping (API.Communication.ShareTextResult) -> Void) {
+        AppKit.shared.notifyDidReceiveText(title: request.title, text: request.text)
+        completion(.init(.init()))
+    }
+
     func handleBack(completion: @escaping (API.Communication.BackResult) -> Void) {
         if backForwardList.backItem == nil {
             performClose()

@@ -32,5 +32,6 @@ extension API.Communication {
         case isBiometricAuthEnabled
         case isSignedIn
         case isRemoteConfigAvailable
+        case shareText
     }
 }
