@@ -391,8 +391,10 @@ Some of our services (e.g. the onboarding of `PayPal` payment methods) open the 
 **_NOTE:_** In case you're not using deep linking at all you may want to set `isRedirectSchemeCheckEnabled` to `false` in the configuration during the setup (see [Setup](#setup)) to prevent warning messages to be logged.
 
 In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
+
 - Specify the `pace.YOUR_CLIENT_ID` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
 - After successfully having set the scheme, your Info.plist should look as follows:
+
 ```xml
 <key>CFBundleURLTypes</key>
 <array>
@@ -408,7 +410,9 @@ In order to set the redirect URL correctly and to ensure that the client app int
     </dict>
 </array>
 ```
+
 - In case that you're not using native development, you may also set the redirect scheme directly as shown below:
+
 ```swift
 PACECloudSDK.shared.redirectScheme = "pace.YOUR_CLIENT_ID"
 ```
@@ -492,6 +496,7 @@ Each `AppKit.AppData` then contains the information for one connected fueling av
 
 ### AppData
 Properties:
+
 - `appID: String`: App id
 - `appApiUrl: String?`: Base api url
 - `metadata: [AppKit.AppMetadata: AnyHashable]`: Contains metadata like the gas station reference
@@ -506,6 +511,7 @@ let gasstationID = (appData.metadata[AppKit.AppMetadata.references] as! [String]
 
 #### AppManifest
 Properties:
+
 - `name`: App Name
 - `description`: App description
 - `icons`: Gas station icons in different sizes
@@ -546,6 +552,7 @@ POIKit.isPoiInRange(id: poiId) { found in
 
 ### Fetching Connected Fueling Stations
 The following request will fetch cofu gas stations that are included in the specified bounding box, defined by a location and a radius. The response contains detailed information about the gas stations e.g. opening hours, prices, services, etc.
+
 ```swift
 func fetchCofuStations() {
     // Request connected fueling stations with a radius of 'SOME_RADIUS' around 'SOME_LOCATION'
@@ -578,6 +585,7 @@ You can override the following parameters:
 * `moduleTag`: This can be set if you want to implement a custom Logger for a specific module in your app. Will be added as prefix to every log after the `logTag`. Default is `""` (empty String).
 * `maxNumberOfFiles`: Determines the maximum number of files to be persisted. One file is persisted for each day. Default is `7` and maximum is also `7`.
 * `maxFileSize`: Determines the maximum size of each file. Default is `10 * 1000 * 1000` (10MB) and maximum is also `10 * 1000 * 1000` (10MB).
+
 ```swift
 class ExampleLogger: Logger {
     override class var logTag: String {
@@ -602,6 +610,7 @@ Our `Logger` will automatically add the time as prefix to every log with `"yyyy-
 
 #### Logging
 To log a message call one of its static functions.
+
 ```swift
 // Log with log level `verbose`
 ExampleLogger.v("YOUR_LOG_MESSAGE")
@@ -618,6 +627,7 @@ ExampleLogger.e("YOUR_LOG_MESSAGE")
 // Log with custom log level
 ExampleLogger.log(message: "YOUR_LOG_MESSAGE", level: "YOUR_LOG_LEVEL")
 ```
+
 #### Import and export logs
 You can import and export logs.
 
