@@ -3,16 +3,21 @@ x.y.z Release notes (yyyy-MM-dd)
 
 <!-- ### Breaking Changes - Include, if needed -->
 <!-- ### Enhancements - Include, if needed -->
+<!-- ### Fixes - Include, if needed -->
+<!-- ### Internal - Include, if needed -->
+
+9.1.0 Release notes (2021-11-09)
+=============================================================
+
 ### Fixes
 
 * Regenerate Fueling and Pay 2021-2 API which replaces number types with decimal format from Double to Decimal due to floating precision problems of Double when using JSONDecoder and JSONEncoder.
-<!-- ### Internal - Include, if needed -->
 ### Enhancements
 
 * Add `IDKitDelegate` method `willResetSession()` that is triggered when a session is about to be reset.
 * Introduce share text call `handleShareText`
+* Add dashboard url to `PACECloudSDK.URL`
 
-<!-- ### Fixes - Include, if needed -->
 ### Internal
 
 * Adjust TOTP secret handling
@@ -36,7 +41,6 @@ x.y.z Release notes (yyyy-MM-dd)
 * Add bearing to `GetLocation` call
 * Add 'isSignedIn' sdk call
 * Add `isRemoteConfigAvailable` call
-* Add dashboard url to `PACECloudSDK.URL`
 
 ### Fixes
 
