@@ -242,7 +242,10 @@ class GeoAPIManager {
                 return nil
             }
 
-            let newProperties = Dictionary(uniqueKeysWithValues: properties.map { key, value in (key, value.value) })
+            let newProperties: [String: AnyHashable] = .init(uniqueKeysWithValues: properties.compactMap { key, value in
+                guard let hashableValue = value.value as? AnyHashable else { return nil }
+                return (key, hashableValue)
+            })
 
             return POIKit.CofuGasStation(id: id, coordinates: pointValue, polygon: polygonValue, properties: newProperties)
         })
