@@ -2,7 +2,11 @@ x.y.z Release notes (yyyy-MM-dd)
 =============================================================
 
 <!-- ### Breaking Changes - Include, if needed -->
-<!-- ### Enhancements - Include, if needed -->
+
+### Enhancements
+
+* Add `Hashable` conformance to `POIKit.CofuGasStation`
+
 <!-- ### Fixes - Include, if needed -->
 <!-- ### Internal - Include, if needed -->
 
