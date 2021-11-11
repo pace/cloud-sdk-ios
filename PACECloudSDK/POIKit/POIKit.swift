@@ -61,7 +61,9 @@ extension POIKit {
                 switch result {
                 case .success(let poiStations):
                     let cofuStations = poiStations.filter { poiStation in
-                        stations.contains(where: { $0.id == poiStation.id })
+                        guard let station = stations.first(where: { $0.id == poiStation.id }) else { return false }
+                        poiStation.additionalProperties = station.properties
+                        return true
                     }
                     completion(.success(cofuStations))
 

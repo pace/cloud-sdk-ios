@@ -91,6 +91,8 @@ public extension POIKit {
 
         public var priceComparisonOptOut: Bool = false
 
+        public var additionalProperties: [String: AnyHashable]?
+
         public init() {
             super.init(attributes: .init(), relationships: .init(), type: .gasStation)
         }
