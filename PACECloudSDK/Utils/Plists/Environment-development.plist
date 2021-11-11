@@ -10,10 +10,6 @@
 	<string>https://api.pace.cloud/photon/api</string>
 	<key>ReverseGeocodeBaseUrl</key>
 	<string>https://api.pace.cloud/photon/reverse</string>
-	<key>TileBaseUrl</key>
-	<string>https://maps.pacelink.net/tiles/car-mm</string>
-	<key>TilesApiUrl</key>
-	<string>https://api.dev.pace.cloud/poi/v1/tiles</string>
 	<key>AuthorizationEndpoint</key>
 	<string>https://id.dev.pace.cloud/auth/realms/pace/protocol/openid-connect/auth</string>
 	<key>TokenEndpoint</key>

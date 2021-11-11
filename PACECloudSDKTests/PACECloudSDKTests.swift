@@ -19,8 +19,6 @@ class PACECloudSDKTests: XCTestCase {
             XCTAssertNotEqual(Settings.shared.osrmBaseUrl, "")
             XCTAssertNotEqual(Settings.shared.searchBaseUrl, "")
             XCTAssertNotEqual(Settings.shared.reverseGeocodeBaseUrl, "")
-            XCTAssertNotEqual(Settings.shared.tileBaseUrl, "")
-            XCTAssertNotEqual(Settings.shared.tilesApiUrl, "")
         }
     }
 
