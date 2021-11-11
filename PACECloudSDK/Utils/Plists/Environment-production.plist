@@ -5,7 +5,7 @@
 	<key>ApiGateway</key>
 	<string>https://api.pace.cloud</string>
 	<key>OsrmBaseUrl</key>
-	<string>https://maps.pacelink.net/</string>
+	<string>https://api.pace.cloud/routing</string>
 	<key>SearchBaseUrl</key>
 	<string>https://api.pace.cloud/photon/api</string>
 	<key>ReverseGeocodeBaseUrl</key>

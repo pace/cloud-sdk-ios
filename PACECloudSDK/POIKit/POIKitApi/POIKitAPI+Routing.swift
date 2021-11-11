@@ -13,7 +13,7 @@ extension POIKitAPI {
             .map({ "\($0.longitude),\($0.latitude)" })
             .joined(separator: ";")
 
-        guard let url = buildURL(.osrm, path: "osrm5/route/v1/\(request.navigationMode.rawValue)/\(coordinatesString)", urlParams: request.toUrlParams()) else {
+        guard let url = buildURL(.osrm, path: "/\(request.navigationMode.rawValue)/\(coordinatesString)", urlParams: request.toUrlParams()) else {
             handler?(nil, .unknown)
             return
         }
