@@ -6,6 +6,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Add `Hashable` conformance to `POIKit.CofuGasStation`
+* Add `additionalProperties` property to `POIKit.GasStation`
 
 <!-- ### Fixes - Include, if needed -->
 <!-- ### Internal - Include, if needed -->
