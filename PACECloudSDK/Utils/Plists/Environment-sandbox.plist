@@ -5,15 +5,11 @@
 	<key>ApiGateway</key>
 	<string>https://api.sandbox.pace.cloud</string>
 	<key>OsrmBaseUrl</key>
-	<string>https://maps.pacelink.net/</string>
+	<string>https://api.pace.cloud/routing</string>
 	<key>SearchBaseUrl</key>
 	<string>https://api.pace.cloud/photon/api</string>
 	<key>ReverseGeocodeBaseUrl</key>
 	<string>https://api.pace.cloud/photon/reverse</string>
-	<key>TileBaseUrl</key>
-	<string>https://maps.pacelink.net/tiles/car-mm</string>
-	<key>TilesApiUrl</key>
-	<string>https://api.sandbox.pace.cloud/poi/v1/tiles</string>
 	<key>AuthorizationEndpoint</key>
 	<string>https://id.sandbox.pace.cloud/auth/realms/pace/protocol/openid-connect/auth</string>
 	<key>TokenEndpoint</key>

@@ -22,16 +22,12 @@ class Settings {
     private(set) var osrmBaseUrl = ""
     private(set) var searchBaseUrl = ""
     private(set) var reverseGeocodeBaseUrl = ""
-    private(set) var tileBaseUrl = ""
-    private(set) var tilesApiUrl = ""
 
     private let environmentPrefix = "Environment"
     private let apiGatewayKey = "ApiGateway"
     private let osrmBaseUrlKey = "OsrmBaseUrl"
     private let searchBaseUrlKey = "SearchBaseUrl"
     private let reverseGeocodeBaseUrlKey = "ReverseGeocodeBaseUrl"
-    private let tileBaseUrlKey = "TileBaseUrl"
-    private let tilesApiUrlKey = "TilesApiUrl"
 
     // MARK: - OIDConfiguration
     private let oidConfigurationKey = "OIDConfiguration"
@@ -69,8 +65,6 @@ class Settings {
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
-        tileBaseUrl = settings[tileBaseUrlKey]!
-        tilesApiUrl = settings[tilesApiUrlKey]!
     }
 
     private func setupOIDConfiguration(for environment: PACECloudSDK.Environment) {
@@ -115,12 +109,6 @@ class Settings {
 
         case .reverseGeocode:
             return reverseGeocodeBaseUrl
-
-        case .tilesServer:
-            return tileBaseUrl
-
-        case .tilesApi:
-            return tilesApiUrl
         }
     }
 
@@ -128,8 +116,6 @@ class Settings {
         case osrm
         case search
         case reverseGeocode
-        case tilesServer
-        case tilesApi
         case poiApi
         case payApi
         case fuelingApi

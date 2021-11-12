@@ -9,7 +9,9 @@ x.y.z Release notes (yyyy-MM-dd)
 * Add `additionalProperties` property to `POIKit.GasStation`
 
 <!-- ### Fixes - Include, if needed -->
-<!-- ### Internal - Include, if needed -->
+### Internal
+
+* Adjust API URLs
 
 9.1.0 Release notes (2021-11-09)
 =============================================================
