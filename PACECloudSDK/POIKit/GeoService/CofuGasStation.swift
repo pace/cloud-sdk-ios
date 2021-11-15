@@ -9,11 +9,11 @@ import CoreLocation
 import Foundation
 
 public extension POIKit {
-    struct CofuGasStation: Hashable {
+    struct CofuGasStation {
         public let id: String
         public let coordinates: GeoAPICoordinate?
         public let polygon: [GeoAPICoordinates]?
-        public let properties: [String: AnyHashable]
+        public let properties: [String: Any]
         public let cofuStatus: CofuStatus
 
         public var location: CLLocation? {
@@ -25,7 +25,7 @@ public extension POIKit {
 
         private let cofuStatusPropertyKey = "connectedFuelingStatus"
 
-        init(id: String, coordinates: GeoAPICoordinate?, polygon: [GeoAPICoordinates]?, properties: [String: AnyHashable]) {
+        init(id: String, coordinates: GeoAPICoordinate?, polygon: [GeoAPICoordinates]?, properties: [String: Any]) {
             self.id = id
             self.coordinates = coordinates
             self.polygon = polygon
@@ -50,10 +50,6 @@ public extension POIKit {
                 } ?? []
                 return edgeDistances.min()
             }
-        }
-
-        public static func == (lhs: POIKit.CofuGasStation, rhs: POIKit.CofuGasStation) -> Bool {
-            lhs.id == rhs.id
         }
     }
 }
