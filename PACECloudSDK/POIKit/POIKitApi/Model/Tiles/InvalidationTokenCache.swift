@@ -25,6 +25,18 @@ class InvalidationTokenCache {
         }
     }
 
+    func remove(_ token: UInt64, for zoomLevel: Int) {
+        cacheQueue.async { [weak self] in
+            guard let items = self?.cacheItems[zoomLevel] else { return }
+
+            items.forEach { (tileId, tokenItem) in
+                if tokenItem.invalidationToken == token {
+                    self?.cacheItems[zoomLevel]?[tileId] = nil
+                }
+            }
+        }
+    }
+
     func invalidationToken(requestedArea: [TileQueryRequest.AreaQuery], for zoomLevel: Int) -> UInt64? {
         let requestedTileInfos = requestedArea.flatMap { $0.coveredTileInfo(for: zoomLevel) }
         let requestedIDs = Set(requestedTileInfos.map { $0.id })

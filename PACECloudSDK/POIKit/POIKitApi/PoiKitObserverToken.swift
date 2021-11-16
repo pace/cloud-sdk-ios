@@ -38,6 +38,9 @@ public extension POIKit {
         let zoomLevel: Int
         let forceLoad: Bool
 
+        var receivedInvalidationToken: UInt64?
+        var didCallHandler: Bool = false
+
         private (set) public var boundingBox: BoundingBox
         private let maxDistance: (distance: Double, padding: Double)?
 
@@ -96,6 +99,8 @@ public extension POIKit {
             DispatchQueue.main.async {
                 self.handler(isInitial, .success(self.value))
             }
+
+            didCallHandler = true
         }
 
         override public func invalidate() {
@@ -103,6 +108,11 @@ public extension POIKit {
             self.delegate?.invalidateToken()
             self.delegate = nil
             self.downloadTask?.cancel()
+            self.downloadTask = nil
+
+            if !didCallHandler, let receivedInvalidationToken = receivedInvalidationToken {
+                self.api.invalidationTokenCache.remove(receivedInvalidationToken, for: zoomLevel)
+            }
         }
     }
 

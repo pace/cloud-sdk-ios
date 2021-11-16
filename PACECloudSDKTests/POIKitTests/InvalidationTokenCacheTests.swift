@@ -164,4 +164,16 @@ class InvalidationTokenCacheTests: XCTestCase {
             let _ = cache.invalidationToken(requestedArea: [requestedArea], for: zoomLevel)
         }
     }
+
+    func testRemoveToken() {
+        let invalidationToken: UInt64 = 100
+        let northEast = initialBoundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
+        let southWest = initialBoundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
+        let area = TileQueryRequest.AreaQuery(northEast: .init(information: northEast), southWest: .init(information: southWest), invalidationToken: nil)
+        let coveredTiles = area.coveredTileInfo(for: zoomLevel)
+        let tiles = coveredTiles.map { Tile(tileInformation: $0, type: .poi, invalidationToken: invalidationToken, data: .init(), created: Date(timeIntervalSince1970: 1)) }
+        cache.add(tiles: tiles, for: zoomLevel)
+        cache.remove(invalidationToken, for: zoomLevel)
+        XCTAssertNil(cache.invalidationToken(requestedArea: [area], for: zoomLevel))
+    }
 }

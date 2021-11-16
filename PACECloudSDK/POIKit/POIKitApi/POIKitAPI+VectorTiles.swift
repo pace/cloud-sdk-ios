@@ -24,12 +24,15 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest, boundingBox: boundingBox) { result in
+        return loadPois(tileRequest) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
 
-            case .success(let tiles):
+            case .success(let tilesResponse):
+                let tiles = tilesResponse.tiles
+                self.invalidationTokenCache.add(tiles: tiles, for: tilesResponse.zoomLevel)
+
                 let stations = self.extractPOIS(from: tiles)
                 handler(.success(stations))
             }
@@ -44,13 +47,14 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest, boundingBox: nil) { result in
+        return loadPois(tileRequest) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
 
-            case .success(let tiles):
+            case .success(let tilesResponse):
                 // Parse gas stations and save to database
+                let tiles = tilesResponse.tiles
                 self.save(tiles)
                 let stations = self.extractPOIS(from: tiles)
                 handler(.success(stations))
@@ -75,12 +79,16 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest, boundingBox: boundingBox) { result in
+        return loadPois(tileRequest) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
 
-            case .success(let tiles):
+            case .success(let tilesResponse):
+                let tiles = tilesResponse.tiles
+
+                self.invalidationTokenCache.add(tiles: tiles, for: tilesResponse.zoomLevel)
+
                 // Save to database
                 self.save(tiles, for: boundingBox)
 
@@ -100,14 +108,14 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest, boundingBox: nil) { result in
+        return loadPois(tileRequest) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
 
-            case .success(let tiles):
+            case .success(let tilesResponse):
                 // Parse gas stations and save to database
-                self.save(tiles)
+                self.save(tilesResponse.tiles)
                 let gasStations = POIKit.Database.shared.delegate?.get(uuids: uuids) ?? []
                 handler(.success(gasStations))
             }
@@ -117,8 +125,7 @@ extension POIKitAPI {
 
 extension POIKitAPI {
     func loadPois(_ tileRequest: TileQueryRequest, // swiftlint:disable:this cyclomatic_complexity function_body_length
-                  boundingBox: POIKit.BoundingBox?,
-                  completion: @escaping (Swift.Result<[Tile], Error>) -> Void) -> CancellablePOIAPIRequest? {
+                  completion: @escaping (Result<TilesResponse, Error>) -> Void) -> CancellablePOIAPIRequest? {
         guard let data = try? tileRequest.serializedData() else {
             completion(.failure(POIKit.POIKitAPIError.unknown))
             return nil
@@ -139,16 +146,13 @@ extension POIKitAPI {
                 let invalidationToken = tileResponse.invalidationToken
 
                 let tiles = tileResponse.vectorTiles.map {  Tile(tileInformation: TileInformation(zoomLevel: Int(tileResponse.zoom), x: Int($0.geo.x), y: Int($0.geo.y)),
-                                                             type: .poi,
-                                                             invalidationToken: invalidationToken,
-                                                             data: $0.vectorTiles,
-                                                             timeToLive: timeToLive) }
-                if boundingBox != nil {
-                    // Only work with invalidation tokens if there is a bounding box involved
-                    self.invalidationTokenCache.add(tiles: tiles, for: Int(tileResponse.zoom))
-                }
+                                                                 type: .poi,
+                                                                 invalidationToken: invalidationToken,
+                                                                 data: $0.vectorTiles,
+                                                                 timeToLive: timeToLive) }
 
-                completion(.success(tiles))
+                let tilesResponse: TilesResponse = .init(tiles: tiles, zoomLevel: Int(tileResponse.zoom))
+                completion(.success(tilesResponse))
 
             case .failure(let apiError):
                 switch apiError {

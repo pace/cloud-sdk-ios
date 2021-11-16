@@ -14,6 +14,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Internal
 
 * Adjust API URLs
+* Adjust invalidation token handling for `POIKit.BoundingBoxNotitficationToken`
 
 9.1.0 Release notes (2021-11-09)
 =============================================================

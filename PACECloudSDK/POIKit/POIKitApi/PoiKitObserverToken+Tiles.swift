@@ -12,6 +12,7 @@ public extension POIKit.BoundingBoxNotificationToken {
         guard isDiameterValid() && isZoomLevelValid() else { return }
 
         isLoading.value = true
+        didCallHandler = false
 
         // Build request from bounding box
         let zoomLevel = self.zoomLevel
@@ -25,12 +26,17 @@ public extension POIKit.BoundingBoxNotificationToken {
 
         let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
 
-        downloadTask = api.loadPois(tileRequest, boundingBox: boundingBox) { [weak self] result in
+        downloadTask = api.loadPois(tileRequest) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.handler(false, .failure(error))
 
-            case .success(let tiles):
+            case .success(let tilesResponse):
+                let tiles = tilesResponse.tiles
+
+                self?.receivedInvalidationToken = tiles.first?.invalidationToken
+                self?.api.invalidationTokenCache.add(tiles: tiles, for: tilesResponse.zoomLevel)
+
                 // Save to database
                 self?.api.save(tiles, for: self?.boundingBox)
 
@@ -71,12 +77,14 @@ public extension POIKit.UUIDNotificationToken {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        downloadTask = api.loadPois(tileRequest, boundingBox: nil) { [weak self] result in
+        downloadTask = api.loadPois(tileRequest) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.handler(false, .failure(error))
 
-            case .success(let tiles):
+            case .success(let tilesResponse):
+                let tiles = tilesResponse.tiles
+
                 // Save to database
                 self?.api.save(tiles)
 

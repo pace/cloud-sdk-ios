@@ -7,4 +7,6 @@
 
 import Foundation
 
-class InvalidationTokenCache {}
+class InvalidationTokenCache {
+    func remove(_ token: UInt64, for zoomLevel: Int) {}
+}

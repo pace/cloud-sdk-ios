@@ -762,6 +762,8 @@
 		3BC9A82A2539DDAD00B933AE /* CoordinateLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7EA2539DDAD00B933AE /* CoordinateLocation.swift */; };
 		3BC9A82B2539DDAD00B933AE /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7EB2539DDAD00B933AE /* Compass.swift */; };
 		3BCBF7922567CA3800242BDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBF7912567CA3800242BDC /* Database.swift */; };
+		3BD0C825274BABB2003E002D /* TilesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0C824274BABB2003E002D /* TilesResponse.swift */; };
+		3BD0C826274BABDF003E002D /* TilesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0C824274BABB2003E002D /* TilesResponse.swift */; };
 		3BD19ADE2631766400D68580 /* App+MessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD19ADD2631766400D68580 /* App+MessageHandling.swift */; };
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
@@ -1622,6 +1624,7 @@
 		3BC9A7EA2539DDAD00B933AE /* CoordinateLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateLocation.swift; sourceTree = "<group>"; };
 		3BC9A7EB2539DDAD00B933AE /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
 		3BCBF7912567CA3800242BDC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		3BD0C824274BABB2003E002D /* TilesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesResponse.swift; sourceTree = "<group>"; };
 		3BD19ADD2631766400D68580 /* App+MessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling.swift"; sourceTree = "<group>"; };
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
@@ -2707,9 +2710,10 @@
 		3BC9A7B62539DDAC00B933AE /* Tiles */ = {
 			isa = PBXGroup;
 			children = (
-				3BC9A7B72539DDAC00B933AE /* TileQueryRequest.swift */,
-				3BC9A7B82539DDAC00B933AE /* Tile.swift */,
 				3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */,
+				3BC9A7B82539DDAC00B933AE /* Tile.swift */,
+				3BC9A7B72539DDAC00B933AE /* TileQueryRequest.swift */,
+				3BD0C824274BABB2003E002D /* TilesResponse.swift */,
 			);
 			path = Tiles;
 			sourceTree = "<group>";
@@ -4156,6 +4160,7 @@
 				17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
 				3B79FA1026C15B6300C0278F /* POIRequestBehaviour.swift in Sources */,
+				3BD0C826274BABDF003E002D /* TilesResponse.swift in Sources */,
 				3B7C8E5C26FC5CDE0080B2B5 /* PCUserEmail.swift in Sources */,
 				17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */,
 				3B3DF5AA26E24C7200934991 /* TokenValidator.swift in Sources */,
@@ -4704,6 +4709,7 @@
 				3B808AFD26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */,
 				84D6C05F258A03270094982D /* PCPOIAppPOIsRelationships.swift in Sources */,
 				84A43B1925825B6300DE36FA /* POIAPIRequest.swift in Sources */,
+				3BD0C825274BABB2003E002D /* TilesResponse.swift in Sources */,
 				3B970AB32542D9BB0072F6BA /* AppError.swift in Sources */,
 				84E1AC392562800D00C673EF /* Poly+AllTypes.swift in Sources */,
 				3B7C8E6926FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */,
