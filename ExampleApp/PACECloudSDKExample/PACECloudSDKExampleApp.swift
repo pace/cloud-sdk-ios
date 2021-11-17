@@ -28,7 +28,15 @@ struct PACECloudSDKExampleApp: App {
             if idControl.isRefreshing {
                 LoadingSpinner(loadingText: "Logging in...")
             } else if idControl.isSessionValid {
-                MainTabView()
+                MainTabView().onOpenURL { url in
+                    switch url.host {
+                    case "redirect":
+                        AppControl.shared.handleRedirectURL(url)
+
+                    default:
+                        ExampleLogger.w("onOpenURL called with unhandled url (\(url)")
+                    }
+                }
             } else {
                 LoginView()
             }
