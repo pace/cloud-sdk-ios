@@ -47,7 +47,7 @@ public extension AppKitDelegate {
     func didReceiveImageData(_ image: UIImage) {
         let item = ShareObject(shareData: image, customTitle: Bundle.main.bundleName)
         let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
-        UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
+        UIWindow.topMost?.rootViewController?.present(av, animated: true, completion: nil)
     }
     func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) { completion("") }
     func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) { completion(nil) }
@@ -61,7 +61,7 @@ public extension AppKitDelegate {
     func didReceiveText(title: String, text: String) {
         let item = ShareObject(shareData: text, customTitle: title)
         let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
-        UIApplication.shared.windows.last?.rootViewController?.present(av, animated: true, completion: nil)
+        UIWindow.topMost?.rootViewController?.present(av, animated: true, completion: nil)
     }
 }
 

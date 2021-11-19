@@ -494,6 +494,8 @@
 		3B88788925CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */; };
 		3B8A65A62710723D00B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
 		3B8A65A727107C7600B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
+		3B8A869D2747924B001EBE29 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */; };
+		3B8A869E27479250001EBE29 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6412266F6F8F00B2DC27 /* Application.swift */; };
 		3B8B02ED255C1D780020A6FA /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
 		3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02F4255C228E0020A6FA /* JWTTests.swift */; };
 		3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
@@ -4987,6 +4989,7 @@
 				92EDDC9825A7383700E480F4 /* BoundingBox.swift in Sources */,
 				92EDDD0A25A738F200E480F4 /* RegionalPricesResponse.swift in Sources */,
 				8418E28125B1B85A00D3722B /* PCPOIPolicies.swift in Sources */,
+				3B8A869D2747924B001EBE29 /* UIWindow+Extension.swift in Sources */,
 				3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */,
 				3B987058268E06AE00A0458F /* AppRedirectResult.swift in Sources */,
 				051CAA8827227F320090779D /* Decimal+Extension.swift in Sources */,
@@ -5015,6 +5018,7 @@
 				92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */,
 				3B98709C268E06AE00A0458F /* Communication.swift in Sources */,
 				8418E26825B1B85A00D3722B /* PCPOIGasStation.swift in Sources */,
+				3B8A869E27479250001EBE29 /* Application.swift in Sources */,
 				3B987074268E06AE00A0458F /* CloseResult.swift in Sources */,
 				8418E2A225B1B86600D3722B /* POIAPIRequest.swift in Sources */,
 				92EDDC5925A729D300E480F4 /* UIDevice+Extension.swift in Sources */,
