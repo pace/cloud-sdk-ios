@@ -7,7 +7,10 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Add `additionalProperties` property to `POIKit.GasStation`
 
-<!-- ### Fixes - Include, if needed -->
+### Fixes
+
+* Fix default implementation for `didReceiveImageData(UIImage)` and `didReceiveText(String,String)` in `AppKitDelegate` when triggered multiple times
+
 ### Internal
 
 * Adjust API URLs
