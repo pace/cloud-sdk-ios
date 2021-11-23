@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 
 import PackageDescription
 
@@ -38,7 +38,7 @@ let package = Package(
             ],
             resources: [
                 .process("Utils/Plists"),
-                .process("AppKit/Assets/Fonts"),
+                .process("AppKit/Assets/Images"),
                 .process("POIKit/POIKitApi/Model/tile_query_request.proto"),
                 .process("POIKit/POIKitApi/Model/tile_query_response.proto"),
                 .process("POIKit/POISearch/Model/vector_tile.proto")
