@@ -34,7 +34,8 @@ public extension PACECloudSDK {
             let resultCode = SecItemAdd(query as CFDictionary, nil)
 
             if resultCode != noErr && resultCode != errSecItemNotFound {
-                SDKLogger.e("[Keychain] Failed setting keychain data with error code \(resultCode)")
+                let errorMessage = errorMessage(for: resultCode) ?? "No description"
+                SDKLogger.e("[Keychain] Failed setting keychain data with error code \(resultCode) - \(errorMessage)")
             }
 
             lock.unlock()
@@ -61,7 +62,8 @@ public extension PACECloudSDK {
             }
 
             if resultCode != noErr && resultCode != errSecItemNotFound {
-                SDKLogger.e("[Keychain] Failed retrieving data from keychain with error code \(resultCode)")
+                let errorMessage = errorMessage(for: resultCode) ?? "No description"
+                SDKLogger.e("[Keychain] Failed retrieving data from keychain with error code \(resultCode) - \(errorMessage)")
             }
 
             return result as? Data
@@ -79,7 +81,16 @@ public extension PACECloudSDK {
             let resultCode = SecItemDelete(query as CFDictionary)
 
             if resultCode != noErr && resultCode != errSecItemNotFound {
-                SDKLogger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
+                let errorMessage = errorMessage(for: resultCode) ?? "No description"
+                SDKLogger.e("[Keychain] Failed deleting keychain data with error code \(resultCode) - \(errorMessage)")
+            }
+        }
+
+        private func errorMessage(for resultCode: OSStatus) -> String? {
+            if #available(iOS 11.3, *) {
+                return SecCopyErrorMessageString(resultCode, nil) as String?
+            } else {
+                return nil
             }
         }
     }
@@ -100,7 +111,8 @@ extension PACECloudSDK.Keychain {
         }
 
         if resultCode != noErr && resultCode != errSecItemNotFound {
-            SDKLogger.e("[Keychain] Failed deleting keychain data with error code \(resultCode)")
+            let errorMessage = errorMessage(for: resultCode) ?? "No description"
+            SDKLogger.e("[Keychain] Failed deleting keychain data with error code \(resultCode) - \(errorMessage)")
         }
 
         let matchingKeys = (result as? [[CFString: Any]])?
