@@ -688,6 +688,12 @@
 		3BA6A76C260DD06B005D4B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76B260DD06B005D4B5C /* Assets.xcassets */; };
 		3BA6A76F260DD06B005D4B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76D260DD06B005D4B5C /* LaunchScreen.storyboard */; };
 		3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BA6A79B260DDF5A005D4B5C /* AppAuth */; };
+		3BA9E520274B7F5700617EDE /* GeoServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */; };
+		3BA9E523274B825200617EDE /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E522274B825200617EDE /* MockURLProtocol.swift */; };
+		3BA9E525274B82F000617EDE /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E524274B82F000617EDE /* MockObject.swift */; };
+		3BA9E529274B838D00617EDE /* GeoServiceMockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E528274B838D00617EDE /* GeoServiceMockObject.swift */; };
+		3BA9E52B274B982C00617EDE /* CommandLineArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */; };
+		3BA9E52D274B985400617EDE /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E52C274B985400617EDE /* XCTestCase+Extension.swift */; };
 		3BAA8FA625CD5F2A00510FA5 /* InvalidationTokenCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */; };
 		3BB1442725386EA9004E9F63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
 		3BB1442D25386F2C004E9F63 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442C25386F2C004E9F63 /* SessionCache.swift */; };
@@ -1547,6 +1553,12 @@
 		3BA6A76B260DD06B005D4B5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BA6A76E260DD06B005D4B5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BA6A770260DD06B005D4B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoServiceTests.swift; sourceTree = "<group>"; };
+		3BA9E522274B825200617EDE /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		3BA9E524274B82F000617EDE /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
+		3BA9E528274B838D00617EDE /* GeoServiceMockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoServiceMockObject.swift; sourceTree = "<group>"; };
+		3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineArguments.swift; sourceTree = "<group>"; };
+		3BA9E52C274B985400617EDE /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidationTokenCache.swift; sourceTree = "<group>"; };
 		3BB1442625386EA9004E9F63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BB1442C25386F2C004E9F63 /* SessionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCache.swift; sourceTree = "<group>"; };
@@ -2543,6 +2555,30 @@
 			path = UnitTestDummy;
 			sourceTree = "<group>";
 		};
+		3BA9E51E274B7F2D00617EDE /* GeoTests */ = {
+			isa = PBXGroup;
+			children = (
+				3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */,
+			);
+			path = GeoTests;
+			sourceTree = "<group>";
+		};
+		3BA9E526274B82FD00617EDE /* MockData */ = {
+			isa = PBXGroup;
+			children = (
+				3BA9E527274B837E00617EDE /* Geo */,
+			);
+			path = MockData;
+			sourceTree = "<group>";
+		};
+		3BA9E527274B837E00617EDE /* Geo */ = {
+			isa = PBXGroup;
+			children = (
+				3BA9E528274B838D00617EDE /* GeoServiceMockObject.swift */,
+			);
+			path = Geo;
+			sourceTree = "<group>";
+		};
 		3BB1442525386E9C004E9F63 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -3387,8 +3423,13 @@
 		9211951D25ECD64E0066AA5D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */,
+				3BA9E526274B82FD00617EDE /* MockData */,
+				3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */,
 				6ACBC03726FDC76300E6AC05 /* LoggerTests.swift */,
+				3BA9E524274B82F000617EDE /* MockObject.swift */,
+				3BA9E522274B825200617EDE /* MockURLProtocol.swift */,
+				9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */,
+				3BA9E52C274B985400617EDE /* XCTestCase+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3444,6 +3485,7 @@
 				921E683C2534883200438491 /* Info.plist */,
 				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
 				3B9709FD2542D9720072F6BA /* AppKitTests */,
+				3BA9E51E274B7F2D00617EDE /* GeoTests */,
 				3BC9A78F2539DD3200B933AE /* POIKitTests */,
 				3BD870FD26BD547C0098C411 /* IDKitTests */,
 				9211951D25ECD64E0066AA5D /* Utils */,
@@ -4696,11 +4738,17 @@
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
 				3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */,
 				3B970AC32542D9DB0072F6BA /* URLBuilderTests.swift in Sources */,
+				3BA9E52B274B982C00617EDE /* CommandLineArguments.swift in Sources */,
+				3BA9E525274B82F000617EDE /* MockObject.swift in Sources */,
+				3BA9E52D274B985400617EDE /* XCTestCase+Extension.swift in Sources */,
 				6ACBC03826FDC76300E6AC05 /* LoggerTests.swift in Sources */,
 				3B970AC02542D9DB0072F6BA /* ManifestMocks.swift in Sources */,
+				3BA9E523274B825200617EDE /* MockURLProtocol.swift in Sources */,
+				3BA9E529274B838D00617EDE /* GeoServiceMockObject.swift in Sources */,
 				3B970AC52542D9DB0072F6BA /* AppKitTests.swift in Sources */,
 				3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */,
 				3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */,
+				3BA9E520274B7F5700617EDE /* GeoServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

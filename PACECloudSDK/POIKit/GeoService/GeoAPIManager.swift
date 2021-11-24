@@ -248,7 +248,7 @@ class GeoAPIManager {
         })
     }
 
-    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) { // swiftlint:disable:this function_body_length
+    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) {
         let baseUrl = Settings.shared.geoApiHostUrl
         guard let url = URL(string: "\(baseUrl)/\(apiVersion)/apps/\(geoAppsScope).geojson"),
               let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {
@@ -276,7 +276,6 @@ class GeoAPIManager {
                 }
 
                 if let error = error {
-                    print("POI error")
                     if (error as NSError?)?.code == NSURLErrorCancelled {
                         self?.notifyResultHandlers(with: .failure(.requestCancelled))
                         return
