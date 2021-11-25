@@ -1,24 +1,23 @@
 # PACE Cloud SDK – iOS
 
 - [PACE Cloud SDK](#pace-cloud-sdk)
-    * [Source code](#source-code)
-    * [Specifications](#specifications)
-    * [Installation](#installation)
-        + [Carthage](#carthage)
-        + [Cocoapods](#cocoapods)
-        + [Swift Package Manager](#swift-package-manager)
-        + [Binary](#binary)
-    * [Setup](#setup)
-    * [Migration](#migration)
-        + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
-        + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
-        + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
-        + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
-        + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
-        + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
-        + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
+    * [Getting Started](#getting-started)
+        + [Installation](#step-1-installation)
+            * [Carthage](#carthage)
+            * [Cocoapods](#cocoapods)
+            * [Swift Package Manager](#swift-package-manager)
+            * [Binary](#binary)
+        + [Setup SDK](#step-2-setup-sdk)
+        + [Setup IDKit](#step-3-setup-idkit)
+        + [Setup Deeplinking](#step-4-setup-deeplinking)
+    * [Usage](#usage)
+        + [Fetching Connected Fueling Stations](#fetching-connected-fueling-stations)
+        + [Show slider for Connected Fueling Stations](#show-slider-for-connected-fueling-stations)
+        + [Initiating Fueling Process](#initiating-fueling-process)
+        + [Show Payment Methods](#show-payment-methods)
     * [IDKit](#idkit)
         + [Setup](#setup-1)
+        + [Custom OIDC setup](#custom-oidc-setup)
         + [Authorization](#authorization)
         + [Token refresh](#token-refresh)
         + [Session refreshToken](#session-refreshtoken)
@@ -44,29 +43,23 @@
     * [Miscellaneous](#miscellaneous)
         + [Preset Urls](#preset-urls)
         + [Logging](#logging)
+    * [Migration](#migration)
+        + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
+        + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
+        + [4.x.x -> 5.x.x](#from-4xx-to-5xx)
+        + [5.x.x -> 6.x.x](#from-5xx-to-6xx)
+        + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
+        + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
+        + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
+    * [Source code](#source-code)
     * [SDK API docs](#sdk-api-docs)
     * [FAQ](#faq)
 
-## Source code
-The complete source code of the SDK can be found on [GitHub](https://github.com/pace/cloud-sdk-ios).
+## Getting Started
 
-## Specifications
-**PACECloudSDK** currently supports iOS 11 and above.
+You need to perform the following steps in order to use the `PACECloudSDK`.
 
-It has some external dependencies which you will need to inlcude as well:
-
-- [AppAuth](https://github.com/openid/AppAuth-iOS)
-- [Base32](https://github.com/mattrubin/Bases)
-- [OneTimePassword](https://github.com/mattrubin/OneTimePassword)
-- [SwiftProtobuf](https://github.com/apple/swift-protobuf)
-
-## Installation
-### Carthage
-With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
-```
-github "pace/cloud-sdk-ios" ~> 6.0
-```
-The integration of the SDK as `XCFramework` is currently not supported.
+### Step 1 Installation
 
 ### Cocoapods
 With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add the following line to your `Podfile` to use the latest available version:
@@ -74,19 +67,197 @@ With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add t
 pod 'PACECloudSDK'
 ```
 
-### Swift Package Manager (experimental)
+### Swift Package Manager
 With [Swift Package Manager](https://swift.org/package-manager/), add the following dependency to your Package.swift:
 ```swift
 dependencies: [
-    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "6.0.0"))
+    .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "9.1.0"))
 ]
 ```
 
 ### Binary
 Each release has an `XCFramework` attached, which can be added to your application; see [releases](https://github.com/pace/cloud-sdk-ios/releases).
 
-## Setup
-The `PACECloudSDK` needs to be setup before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
+### Carthage
+With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
+```
+github "pace/cloud-sdk-ios" ~> 9.1.0
+```
+The integration of the SDK as `XCFramework` is currently not supported.
+
+### Specifications
+**PACECloudSDK** currently supports iOS 11 and above.
+
+`PACECloudSDK` has some external dependencies which you will need to include as well:
+
+- [AppAuth](https://github.com/openid/AppAuth-iOS)
+- [Base32](https://github.com/mattrubin/Bases)
+- [OneTimePassword](https://github.com/mattrubin/OneTimePassword)
+- [SwiftProtobuf](https://github.com/apple/swift-protobuf)
+
+### Step 2 Setup SDK
+
+The `PACECloudSDK` needs to be set up before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
+`applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
+
+```swift
+let config: PACECloudSDK.Configuration = .init(apiKey: "<YOUR_API_KEY>",
+                                               authenticationMode: .native,
+                                               environment: .production,
+                                               domainACL: ["pace.cloud"])
+
+PACECloudSDK.shared.setup(with: config)
+```
+
+- `apiKey` Is mandatory to be set. Your api key provided by PACE.
+
+- `authenticationMode` The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
+
+- `environment` Default is `.production`. During development this should be set to `.sandbox`.
+
+- `domainACL` Should be set to `["pace.cloud"]`
+
+More information can be found in [Configuration](#configuration)
+
+### Step 3 Setup IDKit
+
+In case of the default configuration the SDK just needs two more values that need to be included in your Info.plist. These are the `OIDConfigurationClientID` and the `OIDConfigurationRedirectURI`. Add them to the Info.plist like so:
+
+```xml
+<key>PACECloudSDKIDKitSetup</key>
+<dict>
+    <key>OIDConfigurationRedirectURI</key>
+    <string>REDIRECT_URI</string>
+    <key>OIDConfigurationClientID</key>
+    <string>CLIENT_ID</string>
+
+    // If you use your own identity provider
+    // you have to add this value as well
+    <key>OIDConfigurationIDPHint</key>
+    <string>OPTIONAL_IDP_HINT</string>
+</dict>
+```
+
+`REDIRECT_URI` and `CLIENT_ID` must be shared with the Pace team to register them.
+
+More information can be found in [IDKit](#idkit)
+
+### Step 4 Setup Deeplinking
+
+Some of our services (e.g. the onboarding of PayPal payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking.
+
+To ensure this works as aspected you have to specify the `pace.YOUR_CLIENT_ID` in the app target’s custom URL scheme (please refer to [Apple’s doc](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app) on how to set up the custom URL scheme).
+
+Catch redirect in `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` and forward it to `AppKit.handleRedirectURL`
+
+```swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    switch url.host {
+    case "redirect":
+    AppKit.handleRedirectURL(url)
+        return true
+
+    default:
+        return false
+    }
+}
+```
+
+More information can be found in [Deep Linking](#deep-linking)
+
+## Usage
+
+### Fetching Connected Fueling Stations
+
+```swift
+func fetchCofuStations() {
+    // Request connected fueling stations with a radius of 'SOME_RADIUS' around 'SOME_LOCATION'
+    POIKit.requestCofuGasStations(center: SOME_LOCATION, radius: SOME_RADIUS) { result in
+        switch result {
+        case .success(let cofuStations):
+            // Handle online cofu stations
+
+        case .failure(let error):
+            // Handle error
+        }
+    }
+}
+```
+
+### Show slider for Connected Fueling Stations
+
+```swift
+class AppControl: AppKitDelegate {
+    private init() {
+        AppKit.delegate = self
+    }
+
+    func didFail(with error: AppKit.AppError) {
+        // Handle error
+    }
+
+    func didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData]) {
+        // Inject inject into AppKit.AppDrawerContainer
+    }
+}
+
+class MyViewController: UIViewController {
+    private lazy var appDrawerContainer: AppKit.AppDrawerContainer = .init()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+    }
+
+    func setup() {
+        appDrawerContainer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(appDrawerContainer)
+
+        appDrawerContainer.setupContainerView()
+        appDrawerContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive = true
+        appDrawerContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+
+    func inject(_ appDrawers: [AppKit.AppDrawer]) {
+        view.bringSubviewToFront(appDrawerContainer)
+        appDrawerContainer.inject(appDrawers, theme: .light)
+    }
+}
+```
+
+### Initiating Fueling Process
+
+```swift
+class MyViewController: UIViewController {
+    func initiateFuelingProcess() {
+        // Request a fueling view controller without having the gas station id
+        let fuelingViewController = AppKit.appViewController(presetUrl: .fueling(id: nil))
+
+        // Request a fueling view controller with a gas station id in hand
+        let fuelingViewController = AppKit.appViewController(presetUrl: .fueling(id: "GAS_STATION_ID"))
+
+        // Request a fueling view controller with a custom app url
+        let fuelingViewController = AppKit.appViewController(appUrl: "CUSTOM_APP_URL")
+
+        present(fuelingViewController, animated: true)
+    }
+}
+```
+
+### Show Payment Methods
+
+```swift
+class MyViewController: UIViewController {
+    func showPaymentMethods() {
+        let paymentViewController = AppKit.appViewController(presetUrl: .payment)
+        present(paymentViewController, animated: true)
+    }
+}
+```
+
+## Configuration
+
+The `PACECloudSDK` needs to be set up before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
 `applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
 
 `PACECloudSDK.Configuration` only has `apiKey` as a mandatory property, all other parameter either have a default value or are optional .
@@ -99,92 +270,29 @@ Available parameters:
 apiKey: String
 authenticationMode: AuthenticationMode // Default: .native
 environment: Environment // Default: .production
+customOIDConfiguration: IDKit.OIDConfiguration? // Default: nil
 isRedirectSchemeCheckEnabled: Bool // Default: true
 domainACL: [String]? // Default: nil
 allowedLowAccuracy: Double? // Default: nil
-speedThreshold: Double? // Default: nil
+speedThresholdInKmPerHour: Double? // Default: nil
 geoAppsScope: String? // Default: nil
+allowedAppDrawerLocationOffset: Double? // Default nil
 enableLogging: Bool // Default: false
 ```
 
+- `apiKey` Is mandatory to be set. Your api key provided by PACE.
+- `authenticationMode` The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
+- `environment` Default is `.production`. During development this should be set to `.sandbox`.
+- `customOIDConfiguration` Set if you want to use your own OID Configuration. (More information in [Custom OIDC setup](#custom-oidc-setup))
+- `isRedirectSchemeCheckEnabled` Per Default this is `true`. If you don't want to allow redirects set to `false`.
+- `domainACL` List of domains which are allowed to access secured data.
+- `allowedLowAccuracy` Accuracy in meters the user location has to have at least to check for Connected Fueling Stations around them.
+- `speedThresholdInKmPerHour` The speed in km/h users have to move to stop checking for Connected Fueling Stations around them.
+- `geoAppsScope` Can be specified if special Connected Fueling requirements are needed.
+- `allowedAppDrawerLocationOffset` Maximum distance of Cofu station to user in meters to still be shown.
+- `enableLogging` Set to `true` if you want to make use of the Logger provided by `PACECloudSDK`
+
 The permission `Photo Library Usage` is needed in order to download and save receipts to the user's Photo Library, thus make sure that `NSPhotoLibraryUsageDescription` is correctly set in your target properties.
-
-## Migration
-### From 2.x.x to 3.x.x
-In `3.0.0` we've introduced a universal setup method: `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)` and removed the setup for `AppKit` and `POIKitManager`.
-
-The `PACECloudSDK.Configuration` almost has the same signature as the previous `AppKit.AppKitConfiguration`, only the `theme` parameter has been removed, which is now defaulted to `.automatic`. In case you want to set a specific theme, you can set it via `AppKit`'s `theme` property: `AppKit.shared.theme`.
-
-### From 3.x.x to 4.x.x
-In `4.0.0` we've simplified the setup even further.
-
-The `PACECloudSDK.Configuration` doesn't take an `initialAccessToken` anymore and will (as before) request the token when needed via the `tokenInvalid` callback (see [Native login](#native-login)).
-
-Furthermore, the handling of the redirect scheme has been updated. The SDK automatically retrieves the URL scheme from your app's `Info.plist` (see [Deep Linking](#deep-linking)), therefore no `clientId` needs to be set within the `PACECloudSDK.shared.setup()` anymore.
-
-The `PoiKitManager` has been removed as `PACECloudSDK`'s instance property. Instead it can be initialized directly via `POIKit.POIKitManager(environment:)`.
-
-### From 4.x.x to 5.x.x
-In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.refreshSession(...)` call (see [Token refresh](#token-refresh)).
-
-### From 5.x.x to 6.x.x
-We've added more information in the `tokenInvalid` callback, thus the client can better react to the callback, i.e. a `reason` and the `oldToken` (if one has been passed before), will be included in the callback. Please refer to  [Native login](#native-login) for more information.
-
-### From 6.x.x to 7.x.x
-In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
-
-- `AppKit`'s `invalidToken` callback has been replaced with a new `getAccessToken` callback. Please refer to [Native login](#native-login) for more information.
-  + If you're **not** using `IDKit` this callback will be invoked and will have the same functionality as `invalidToken` before.
-  + However if you **are** using and having set up `IDKit` the behavior now heavily changes:
-    - `getAccessToken` will not be called anymore.
-    - Instead `IDKit` first starts an attempt to refresh the session automatically.
-    - If the session renewal fails there is a new `func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)` function that you may implement to specify your own behaviour for retrieving a new access token. This can be achieved by specifying an `IDKitDelegate` conformance and setting the `IDKit.delegate` property.
-    -  If either this delegate method is not implemented or you didn't set the delegate property at all the SDK will automatically perform an authorization hence showing a sign in mask for the user
-- The `IDKit` setup has been combined with the general SDK setup. 
-  + `IDKit.setup(...)` is no longer accessible.
-  + By adding the keys `OIDConfigurationClientID` and `OIDConfigurationRedirectURI` with non-empty values to your Info.plist `IDKit` will be initiated with the default PACE OID configuration. Please head over to [IDKit setup](#setup-1) to learn how to set up this functionality.
-  + A custom OID configuration can still be passed to the `PACECloudSDK.Configuration` if desired.
-- `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
-- `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
-- `IDKit.swapPresentingViewController(...)` has been removed. The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`.
-
-#### Noteworthy changes
-- If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
-- A new `logout` callback has been added to `AppKitDelegate`
-- All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
-
-### From 7.x.x to 8.x.x
-- We've set the default `authenticationMode` of the SDK to `.native`.  
-> **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
-
-- IDKit
-    + The data type of the completion parameter of the `authorize(...)` call has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
-    + The data type of the completion parameter of the `refreshToken(...)` call has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
-    + The data type of the completion parameter of the `discoverConfiguration(...)` call has been changed from `(String?, String?, IDKitError?)` to `(Result<OIDConfiguration.Response, IDKitError>)`
-    + The data type of the completion parameter of the `userInfo(...)` call has been changed from `(UserInfo?, IDKitError?)` to `(Result<UserInfo, IDKitError>)`
-
-- AppKit:
-    + The data type of the completion parameter for AppKitDelegate's `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
-    + The data type of the completion parameter for AppKitDelegate's `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
-    + The `isPoiInRange(...)` call is now part of `POIKit`, available under `POIKit.isPoiInRange(...)`
-    + The `requestCofuGasStations(...)` call is now part of `POIKit`, available under `POIKit.requestCofuGasStations(...)`
-    + The model `CofuGasStation` is now part of `POIKit`, available under `POIKit.CofuGasStation`
-    + AppKit's `shared` property is no longer publicly accessible. All methods and properties of type `AppKit.shared.fooBar()` are now accessible via `AppKit.fooBar()`
-    + The data type of the completion parameter of the `fetchListOfApps(...)` call has been changed from `([AppKit.AppData]?, AppKit.AppError?)` to `(Result<[AppKit.AppData], AppKit.AppError>)`
-
-- POIKit:
-    + The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
-    + POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
-
-### From 8.x.x to 9.x.x
-
-+ `TokenValidator` is now part of `IDKit` instead of `AppKit`
-+ The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more. The response may now also include **offline** stations
-+ Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
-+ Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
-+ `PACECloudSDKLoggingDelegate` does not exist any more. 
-+ Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
-+ For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
@@ -207,6 +315,8 @@ All that needs to be done to use `IDKit` is to specify the OID Configuration. If
     <string>OPTIONAL_IDP_HINT</string>
 </dict>
 ```
+
+### Custom OIDC setup
 In case you would like to use your own OID Configuration create it like so and pass it to the `PACECloudSDK.Configuration`:
 ```swift
 let config = IDKit.OIDConfiguration(authorizationEndpoint: AUTH_ENDPOINT,
@@ -223,7 +333,7 @@ let config: PACECloudSDK.Configuration =
         customOIDConfiguration: config
     )
 
-// Keep in mind to setup the 'PACECloudSDK' before setting any 'IDKit' properties
+// Keep in mind to set up the 'PACECloudSDK' before setting any 'IDKit' properties
 PACECloudSDK.shared.setup(with: config)
 
 IDKit.presentingViewController = YOUR_VIEWCONTROLLER
@@ -315,12 +425,13 @@ The `PACECloudSDK` provides the following methods to check and set the PIN:
 * Check if the user password has been set
 
     ```swift
-    IDKit.isPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)   ```
+    IDKit.isPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)   
+    ```
 
 * Check if the user PIN or password has been set
 
     ```swift
-    isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
+    IDKit.isPINOrPasswordSet(completion: @escaping (Result<Bool, IDKitError>) -> Void)
     ```
 
 * Set the user PIN with biometry; only works, if biometry has been setup before
@@ -332,7 +443,7 @@ The `PACECloudSDK` provides the following methods to check and set the PIN:
 * Set the user PIN and authorize with the user password
 
     ```swift
-    IDKit.func setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
+    IDKit.setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void)
     ```
 
 * Set the user PIN and authorize with an OTP previously sent by mail (see [OTP](#mail-otp))
@@ -379,14 +490,14 @@ The `GetAccessTokenReponse` struct:
 struct GetAccessTokenResponse: Codable {
     let accessToken: String
     let isInitialToken: Bool
-        
-    public init(accessToken: String, isInitialToken: Bool = 
+
+    public init(accessToken: String, isInitialToken: Bool =
     public init(from decoder: Decoder) throws
 }
 ```
 
 ### Deep Linking
-Some of our services (e.g. the onboarding of `PayPal` payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking. 
+Some of our services (e.g. the onboarding of `PayPal` payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking.
 
 **_NOTE:_** In case you're not using deep linking at all you may want to set `isRedirectSchemeCheckEnabled` to `false` in the configuration during the setup (see [Setup](#setup)) to prevent warning messages to be logged.
 
@@ -497,10 +608,11 @@ Each `AppKit.AppData` then contains the information for one connected fueling av
 ### AppData
 Properties:
 
-- `appID: String`: App id
-- `appApiUrl: String?`: Base api url
+- `appID: String?`: App id
+- `title: String?`: Title for slider
+- `subtitle: String?`: Subtitle for slider
+- `appBaseUrl: String?`: Base api url
 - `metadata: [AppKit.AppMetadata: AnyHashable]`: Contains metadata like the gas station reference
-- `appManifest: AppManifest?`: Contains name, description and icons of the App
 
 #### AppMetadata
 Retrieve the gas station id:
@@ -537,6 +649,7 @@ Possible errors:
 - `badRequest`: The request does not match the expected format
 - `invalidURNFormat`: The passed POI reference value does not conform to our URN format
 - `customURLSchemeNotSet`: The App tried to open an URL in `SFSafariViewController`, but deep linking has not been correctly configured
+- `other(Error)`: Generic error
 
 ## POIKit
 ### Is POI in range?
@@ -649,12 +762,87 @@ Get URL to all persisted log files
  }
 ```
 
+## Migration
+### From 2.x.x to 3.x.x
+In `3.0.0` we've introduced a universal setup method: `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)` and removed the setup for `AppKit` and `POIKitManager`.
 
-## SDK API Docs
-Here is a complete list of all our SDK API documentations:
+The `PACECloudSDK.Configuration` almost has the same signature as the previous `AppKit.AppKitConfiguration`, only the `theme` parameter has been removed, which is now defaulted to `.automatic`. In case you want to set a specific theme, you can set it via `AppKit`'s `theme` property: `AppKit.shared.theme`.
 
-- [latest](/cloud-sdk-ios/latest/index.html) – the current `master`
-- [3.0.1](/cloud-sdk-ios/3.0.1/index.html)
+### From 3.x.x to 4.x.x
+In `4.0.0` we've simplified the setup even further.
+
+The `PACECloudSDK.Configuration` doesn't take an `initialAccessToken` anymore and will (as before) request the token when needed via the `tokenInvalid` callback (see [Native login](#native-login)).
+
+Furthermore, the handling of the redirect scheme has been updated. The SDK automatically retrieves the URL scheme from your app's `Info.plist` (see [Deep Linking](#deep-linking)), therefore no `clientId` needs to be set within the `PACECloudSDK.shared.setup()` anymore.
+
+The `PoiKitManager` has been removed as `PACECloudSDK`'s instance property. Instead it can be initialized directly via `POIKit.POIKitManager(environment:)`.
+
+### From 4.x.x to 5.x.x
+In `5.0.0` we've removed the option to pass a `force` parameter to the `IDKit.refreshSession(...)` call (see [Token refresh](#token-refresh)).
+
+### From 5.x.x to 6.x.x
+We've added more information in the `tokenInvalid` callback, thus the client can better react to the callback, i.e. a `reason` and the `oldToken` (if one has been passed before), will be included in the callback. Please refer to  [Native login](#native-login) for more information.
+
+### From 6.x.x to 7.x.x
+In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
+
+- `AppKit`'s `invalidToken` callback has been replaced with a new `getAccessToken` callback. Please refer to [Native login](#native-login) for more information.
+  + If you're **not** using `IDKit` this callback will be invoked and will have the same functionality as `invalidToken` before.
+  + However if you **are** using and having set up `IDKit` the behavior now heavily changes:
+    - `getAccessToken` will not be called anymore.
+    - Instead `IDKit` first starts an attempt to refresh the session automatically.
+    - If the session renewal fails there is a new `func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)` function that you may implement to specify your own behaviour for retrieving a new access token. This can be achieved by specifying an `IDKitDelegate` conformance and setting the `IDKit.delegate` property.
+    -  If either this delegate method is not implemented or you didn't set the delegate property at all the SDK will automatically perform an authorization hence showing a sign in mask for the user
+- The `IDKit` setup has been combined with the general SDK setup.
+  + `IDKit.setup(...)` is no longer accessible.
+  + By adding the keys `OIDConfigurationClientID` and `OIDConfigurationRedirectURI` with non-empty values to your Info.plist `IDKit` will be initiated with the default PACE OID configuration. Please head over to [IDKit setup](#setup-1) to learn how to set up this functionality.
+  + A custom OID configuration can still be passed to the `PACECloudSDK.Configuration` if desired.
+- `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
+- `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
+- `IDKit.swapPresentingViewController(...)` has been removed. The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`.
+
+#### Noteworthy changes
+- If using IDKit it is no longer required to set the `Authorization` header for any requests performed by the SDK. It will be included automatically.
+- A new `logout` callback has been added to `AppKitDelegate`
+- All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
+
+### From 7.x.x to 8.x.x
+- We've set the default `authenticationMode` of the SDK to `.native`.  
+> **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
+
+- IDKit
+    + The data type of the completion parameter of the `authorize(...)` call has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+    + The data type of the completion parameter of the `refreshToken(...)` call has been changed from `(String?, IDKitError?)` to `(Result<String?, IDKitError>)`
+    + The data type of the completion parameter of the `discoverConfiguration(...)` call has been changed from `(String?, String?, IDKitError?)` to `(Result<OIDConfiguration.Response, IDKitError>)`
+    + The data type of the completion parameter of the `userInfo(...)` call has been changed from `(UserInfo?, IDKitError?)` to `(Result<UserInfo, IDKitError>)`
+
+- AppKit:
+    + The data type of the completion parameter for AppKitDelegate's `didCreateApplePayPaymentRequest` callback has been changed from `[String: Any]?` to `API.Communication.ApplePayRequestResponse?`
+    + The data type of the completion parameter for AppKitDelegate's `getAccessToken` callback has been changed from `AppKit.GetAccessTokenResponse` to `API.Communication.GetAccessTokenResponse`
+    + The `isPoiInRange(...)` call is now part of `POIKit`, available under `POIKit.isPoiInRange(...)`
+    + The `requestCofuGasStations(...)` call is now part of `POIKit`, available under `POIKit.requestCofuGasStations(...)`
+    + The model `CofuGasStation` is now part of `POIKit`, available under `POIKit.CofuGasStation`
+    + AppKit's `shared` property is no longer publicly accessible. All methods and properties of type `AppKit.shared.fooBar()` are now accessible via `AppKit.fooBar()`
+    + The data type of the completion parameter of the `fetchListOfApps(...)` call has been changed from `([AppKit.AppData]?, AppKit.AppError?)` to `(Result<[AppKit.AppData], AppKit.AppError>)`
+
+- POIKit:
+    + The parameter `poisOfType` has been removed from POIKitManager's methods `fetchPOIs(boundingBox:)` and `loadPOIs(boundingBox:)`
+    + POIKitManager's `loadPOIs(locations:)` has been renamed to `fetchPOIs(locations:)`
+
+### From 8.x.x to 9.x.x
+
++ `TokenValidator` is now part of `IDKit` instead of `AppKit`
++ The response of `POIKit.requestCoFuGasStation(center:, radius:)` does not filter the stations by their online status any more. The response may now also include **offline** stations
++ Implement default receipt image download handling (Requires `NSPhotoLibraryUsageDescription` to be set in target properties)
++ Update all apis to v2021-2 - GeoJSON, Fueling, Pay, POI and User ([Documentation](https://developer.pace.cloud/api))
++ `PACECloudSDKLoggingDelegate` does not exist any more.
++ Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
++ For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
+
+
+## Source code
+The complete source code of the SDK can be found on [GitHub](https://github.com/pace/cloud-sdk-ios).
+
 
 ## FAQ
 
