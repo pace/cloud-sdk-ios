@@ -16,5 +16,8 @@ public extension API.Communication {
         /**
          * The url to be loaded if `url` cannot be opened. */
         public let cancelUrl: String
+        /**
+         * Wheter the tab should be opened in the SDK's web view instead of the system's browser. */
+        public let integrated: Bool?
     }
 }

@@ -11,10 +11,10 @@ import WebKit
 protocol AppActionsDelegate: AnyObject {
     func appRequestedCloseAction()
     func appRequestedDisableAction(for host: String)
-    func appRequestedNewTab(for urlString: String, cancelUrl: String)
+    func appRequestedNewTab(for urlString: String, cancelUrl: String, integrated: Bool)
 }
 
-class AppWebView: WKWebView, App {
+class AppWebView: WebView, App {
     private var userAgent: String {
         return AppKit.Constants.userAgent
     }
@@ -25,22 +25,43 @@ class AppWebView: WKWebView, App {
     private(set) var messageHandler: API.Communication.MessageHandler?
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
-    let appUrl: String?
-    var successfullyLoadedOnce = false
-
-    lazy var loadingView: LoadingView = LoadingView()
-    lazy var placeholder: ErrorPlaceholderView = .init()
-
     required init(with url: String?) {
-        self.appUrl = url
+        super.init(with: url)
+    }
 
-        let config = WKWebViewConfiguration()
-        config.processPool = AppWebView.sharedSessionProcessPool
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-        super.init(frame: CGRect(), configuration: config)
+    override func setup() {
+        addCustomScripts()
 
-        setup()
+        // Attach message handlers
+        ScriptMessageHandler.allCases.forEach {
+            self.configuration.userContentController.add(self, name: $0.rawValue)
+        }
 
+        webViewDelegate = .init(app: self)
+        messageHandler = .init(delegate: self)
+        super.setup()
+    }
+
+    override func setupView() {
+        super.setupView()
+        uiDelegate = webViewDelegate
+        navigationDelegate = webViewDelegate
+        scrollView.delegate = webViewDelegate
+
+        placeholder.action = { [weak self] _ in
+            self?.loadUrl(urlString: self?.appUrl ?? "")
+        }
+
+        placeholder.closeAction = { [weak self] in
+            self?.appActionsDelegate?.appRequestedCloseAction()
+        }
+    }
+
+    override func load(urlString: String?) {
         DispatchQueue.main.async { [weak self] in
             let dispatchGroup = DispatchGroup()
 
@@ -57,27 +78,6 @@ class AppWebView: WKWebView, App {
                 self?.loadUrl(urlString: self?.appUrl, cookies: cookies)
             }
         }
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setup() {
-        self.customUserAgent = userAgent
-
-        addCustomScripts()
-
-        // Attach message handlers
-        ScriptMessageHandler.allCases.forEach {
-            self.configuration.userContentController.add(self, name: $0.rawValue)
-        }
-
-        webViewDelegate = .init(app: self)
-        messageHandler = .init(delegate: self)
-
-        setupDesign()
-        setupView()
     }
 
     private func addCustomScripts() {
@@ -118,44 +118,6 @@ class AppWebView: WKWebView, App {
             let script = WKUserScript(source: $0, injectionTime: .atDocumentStart, forMainFrameOnly: false)
             configuration.userContentController.addUserScript(script)
         }
-    }
-
-    private func setupDesign() {
-        self.isOpaque = false
-        self.backgroundColor = UIColor.clear
-        self.layer.cornerRadius = 10
-        self.layer.masksToBounds = true
-    }
-
-    private func setupView() {
-        self.scrollView.bounces = false
-        self.scrollView.showsVerticalScrollIndicator = false
-        self.scrollView.backgroundColor = UIColor.clear
-        self.scrollView.contentInsetAdjustmentBehavior = .never
-        self.allowsBackForwardNavigationGestures = false
-        self.isMultipleTouchEnabled = true
-
-        uiDelegate = webViewDelegate
-        navigationDelegate = webViewDelegate
-        scrollView.delegate = webViewDelegate
-
-        placeholder.action = { [weak self] _ in
-            self?.loadUrl(urlString: self?.appUrl ?? "")
-        }
-
-        placeholder.closeAction = { [weak self] in
-            self?.appActionsDelegate?.appRequestedCloseAction()
-        }
-
-        addSubview(placeholder)
-        addSubview(loadingView)
-
-        placeholder.fillSuperview()
-
-        loadingView.fillSuperview()
-
-        placeholder.isHidden = true
-        loadingView.isLoading = true
     }
 
     func cleanUp() {

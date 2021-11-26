@@ -16,6 +16,7 @@ protocol AppViewControllerDelegate: AnyObject {
 
 public class AppViewController: UIViewController {
     private var sfSafariViewController: SFSafariViewController?
+    private var integratedWebView: WebViewController?
     private var cancelUrl: String?
 
     private let webView: AppWebView
@@ -112,30 +113,46 @@ public class AppViewController: UIViewController {
 
 extension AppViewController {
     func handleRedirectService(url: String) {
-        sfSafariViewController?.dismiss(animated: true) {
-            self.sfSafariViewController = nil
-            self.webView.loadUrl(urlString: url)
+        if let webVC = integratedWebView {
+            webVC.dismiss(animated: true) {
+                self.integratedWebView = nil
+                self.webView.loadUrl(urlString: url)
+            }
+        } else {
+            sfSafariViewController?.dismiss(animated: true) {
+                self.sfSafariViewController = nil
+                self.webView.loadUrl(urlString: url)
+            }
         }
     }
 }
 
 // MARK: - AppActionsDelegate
 extension AppViewController: AppActionsDelegate {
-    func appRequestedNewTab(for urlString: String, cancelUrl: String) {
+    func appRequestedNewTab(for urlString: String, cancelUrl: String, integrated: Bool) {
         guard let url = URL(string: urlString) else { return }
 
         self.cancelUrl = cancelUrl
 
-        sfSafariViewController = SFSafariViewController(url: url)
-        sfSafariViewController?.delegate = self
+        // Apple pay support in WKWebView came with iOS 13
+        // Reference: https://webkit.org/blog/9674/new-webkit-features-in-safari-13/
+        if #available(iOS 13.0, *), integrated {
+            integratedWebView = WebViewController(appUrl: urlString)
+            integratedWebView?.modalPresentationStyle = .pageSheet
+            integratedWebView?.presentationController?.delegate = self
+            present(integratedWebView!, animated: true) // swiftlint:disable:this force_unwrapping
+        } else {
+            sfSafariViewController = SFSafariViewController(url: url)
+            sfSafariViewController?.delegate = self
 
-        if #available(iOS 13.0, *) {
-            sfSafariViewController?.modalPresentationStyle = .pageSheet
+            if #available(iOS 13.0, *) {
+                sfSafariViewController?.modalPresentationStyle = .pageSheet
+            }
+
+            sfSafariViewController?.presentationController?.delegate = self
+
+            present(sfSafariViewController!, animated: true) // swiftlint:disable:this force_unwrapping
         }
-
-        sfSafariViewController?.presentationController?.delegate = self
-
-        present(sfSafariViewController!, animated: true) // swiftlint:disable:this force_unwrapping
     }
 
     func appRequestedCloseAction() {
