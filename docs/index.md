@@ -103,8 +103,7 @@ The `PACECloudSDK` needs to be set up before any of its `Kits` can be used. Ther
 ```swift
 let config: PACECloudSDK.Configuration = .init(apiKey: "<YOUR_API_KEY>",
                                                authenticationMode: .native,
-                                               environment: .production,
-                                               domainACL: ["pace.cloud"])
+                                               environment: .production)
 
 PACECloudSDK.shared.setup(with: config)
 ```
@@ -114,8 +113,6 @@ PACECloudSDK.shared.setup(with: config)
 - `authenticationMode` The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
 
 - `environment` Default is `.production`. During development this should be set to `.sandbox`.
-
-- `domainACL` Should be set to `["pace.cloud"]`
 
 More information can be found in [Configuration](#configuration)
 
@@ -272,7 +269,7 @@ authenticationMode: AuthenticationMode // Default: .native
 environment: Environment // Default: .production
 customOIDConfiguration: IDKit.OIDConfiguration? // Default: nil
 isRedirectSchemeCheckEnabled: Bool // Default: true
-domainACL: [String]? // Default: nil
+domainACL: [String]? // Default: ["pace.cloud"]
 allowedLowAccuracy: Double? // Default: nil
 speedThresholdInKmPerHour: Double? // Default: nil
 geoAppsScope: String? // Default: nil
@@ -377,7 +374,7 @@ A new authorization will be required afterwards.
 ### 2FA setup
 In numerous cases a second authentication factor is required when using Connected Fueling, e.g. when authorizing a payment. Following are methods that can be used to setup biometric authentication on the user's device or setup an account PIN.
 
-In order to prevent websites from accessing your TOTP secrets (used when biometric authentication is used), a domain access control list has to be passed to the `domainACL` property of the `Configuration` object in the [setup phase](#setup). If you're not using a custom PWA, then setting the `domainACL` to `"pace.cloud"` is enough.
+In order to prevent websites from accessing your TOTP secrets (used when biometric authentication is used), a domain access control list may be passed to the `domainACL` property of the `Configuration` object in the [setup phase](#setup). If you're not using a custom app, you can ignore this property as it is set to `"pace.cloud"` by default.
 
 #### Mail-OTP
 For some of the below mentioned methods an OTP is needed, which can be requested to be sent to the user's email via
