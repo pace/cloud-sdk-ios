@@ -21,7 +21,13 @@ public class PACECloudSDK {
 
     var warningsHandler: SDKWarningsHandler?
 
-    public var additionalQueryParams: Set<URLQueryItem>?
+    public var additionalQueryParams: Set<URLQueryItem>? {
+        didSet {
+            guard let params = additionalQueryParams else { return }
+            IDKit.handleAdditionalQueryParams(params)
+        }
+    }
+
     public var redirectScheme: String?
     public var isLoggingEnabled = false {
         didSet {

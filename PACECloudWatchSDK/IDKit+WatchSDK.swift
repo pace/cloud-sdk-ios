@@ -18,4 +18,6 @@ public class IDKit {
     static func apiInducedRefresh(_ completion: @escaping (Bool) -> Void) {
         completion(false)
     }
+
+    static func handleAdditionalQueryParams(_ params: Set<URLQueryItem>) { }
 }

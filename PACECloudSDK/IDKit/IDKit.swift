@@ -338,3 +338,11 @@ public extension IDKit {
         return PACECloudSDK.Keychain().getData(for: key)
     }
 }
+
+// MARK: - Additional query parameters
+extension IDKit {
+    static func handleAdditionalQueryParams(_ params: Set<URLQueryItem>) {
+        let dict = Dictionary(uniqueKeysWithValues: params.map { ($0.name, $0.value ?? "") })
+        IDKit.OIDConfiguration.appendAdditionalParameters(dict)
+    }
+}
