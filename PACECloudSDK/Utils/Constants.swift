@@ -12,6 +12,8 @@ struct Constants {
 
     static let isPoiInRangeThreshold: Double = 500
 
+    static let applicationURLRedirectHost = "redirect"
+
     struct Configuration {
         static let defaultAllowedLowAccuracy: Double = 250
         static let defaultSpeedThreshold: Double = 13

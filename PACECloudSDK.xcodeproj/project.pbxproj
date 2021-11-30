@@ -502,6 +502,7 @@
 		3B8C5A0E26678A4800D7D5D6 /* App+MessageHandling+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C5A0D26678A4800D7D5D6 /* App+MessageHandling+ApplePay.swift */; };
 		3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
 		3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */; };
+		3B8E42702757648200DEACCB /* AppKit+Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E426F2757648200DEACCB /* AppKit+Watch.swift */; };
 		3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */; };
 		3B918017268EFE7000176ECD /* AppCommunicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B918016268EFE7000176ECD /* AppCommunicationData.swift */; };
 		3B918018268EFE7000176ECD /* AppCommunicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B918016268EFE7000176ECD /* AppCommunicationData.swift */; };
@@ -1419,6 +1420,7 @@
 		3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeLocationProvider.swift; sourceTree = "<group>"; };
 		3B8C5A0D26678A4800D7D5D6 /* App+MessageHandling+ApplePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling+ApplePay.swift"; sourceTree = "<group>"; };
 		3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Extension.swift"; sourceTree = "<group>"; };
+		3B8E426F2757648200DEACCB /* AppKit+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+Watch.swift"; sourceTree = "<group>"; };
 		3B918016268EFE7000176ECD /* AppCommunicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommunicationData.swift; sourceTree = "<group>"; };
 		3B918049268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayAvailabilityCheckRequest.swift; sourceTree = "<group>"; };
 		3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsBiometricAuthEnabledResult.swift; sourceTree = "<group>"; };
@@ -1985,6 +1987,7 @@
 				173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */,
 				3B79FAB626C15D4100C0278F /* BundleUserAgent+Extension.swift */,
 				6ACBC08526FE0FF300E6AC05 /* Logger+Notification.swift */,
+				3B8E426F2757648200DEACCB /* AppKit+Watch.swift */,
 			);
 			path = PACECloudWatchSDK;
 			sourceTree = "<group>";
@@ -3966,6 +3969,7 @@
 				173799CE269D8D6A00ACD3CE /* Bundle+Watch+Resource.swift in Sources */,
 				3B79FA5D26C15BBF00C0278F /* PCPOICommonLatLong.swift in Sources */,
 				3B79FA9C26C15BEE00C0278F /* HttpRequest.swift in Sources */,
+				3B8E42702757648200DEACCB /* AppKit+Watch.swift in Sources */,
 				17BB0CFA268CCF13009D4755 /* PayAPIGetPaymentMethodKinds.swift in Sources */,
 				17BB0D20268CD01A009D4755 /* AnyResponse.swift in Sources */,
 				17B4E54726D39C9700AEAF13 /* UserAPICreateTOTP.swift in Sources */,

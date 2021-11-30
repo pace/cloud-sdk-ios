@@ -29,13 +29,7 @@ struct PACECloudSDKExampleApp: App {
                 LoadingSpinner(loadingText: "Logging in...")
             } else if idControl.isSessionValid {
                 MainTabView().onOpenURL { url in
-                    switch url.host {
-                    case "redirect":
-                        AppControl.shared.handleRedirectURL(url)
-
-                    default:
-                        ExampleLogger.w("onOpenURL called with unhandled url (\(url)")
-                    }
+                    PACECloudSDK.shared.application(open: url)
                 }
             } else {
                 LoginView()
