@@ -145,18 +145,11 @@ Some of our services (e.g. the onboarding of PayPal payment methods) open the UR
 
 To ensure this works as aspected you have to specify the `pace.YOUR_CLIENT_ID` in the app target’s custom URL scheme (please refer to [Apple’s doc](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app) on how to set up the custom URL scheme).
 
-Catch redirect in `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` and forward it to `AppKit.handleRedirectURL`
+Catch redirect in `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` and forward it to `PACECloudSDK.shared.application(open:)`
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-    switch url.host {
-    case "redirect":
-    AppKit.handleRedirectURL(url)
-        return true
-
-    default:
-        return false
-    }
+    PACECloudSDK.shared.application(open: url)
 }
 ```
 

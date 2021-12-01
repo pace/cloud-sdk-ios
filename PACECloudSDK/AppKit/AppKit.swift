@@ -35,6 +35,12 @@ public class AppKit {
         self.theme = theme
         appManager.setConfigValues()
     }
+
+    static func handleRedirectURL(with url: URL) {
+        NotificationCenter.default.post(name: AppKit.Constants.NotificationIdentifier.caughtRedirectService,
+                                        object: nil,
+                                        userInfo: [AppKit.Constants.RedirectServiceParams.url: url])
+    }
 }
 
 // MARK: - Setup
@@ -191,10 +197,9 @@ public extension AppKit {
      Handles the specified redirect URL within an `AppViewController`.
      - parameter url: The redirect URL.
      */
+    @available(*, deprecated, message: "Please use 'PACECloudSDK.shared.application(open:) instead.'")
     static func handleRedirectURL(_ url: URL) {
-        NotificationCenter.default.post(name: AppKit.Constants.NotificationIdentifier.caughtRedirectService,
-                                        object: nil,
-                                        userInfo: [AppKit.Constants.RedirectServiceParams.url: url])
+        handleRedirectURL(with: url)
     }
 
     static func sendEvent(_ event: AppEvent) {

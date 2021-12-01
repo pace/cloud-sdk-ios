@@ -53,8 +53,28 @@ public class PACECloudSDK {
         setupAPI()
     }
 
+    /**
+     Extends the user agent by the specified values.
+     - parameter extensions: The values the user agent should be extended with.
+     */
     public func extendUserAgent(with extensions: [String]) {
         userAgentExtensions = extensions
+    }
+
+    /**
+     Handles the specified redirect URL within an `AppViewController`.
+     - parameter url: The redirect URL.
+     */
+    @discardableResult
+    public func application(open url: Foundation.URL) -> Bool {
+        switch url.host {
+        case Constants.applicationURLRedirectHost:
+            AppKit.handleRedirectURL(with: url)
+            return true
+
+        default:
+            return false
+        }
     }
 }
 
