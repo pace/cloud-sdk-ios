@@ -6,6 +6,7 @@ x.y.z Release notes (yyyy-MM-dd)
 ### Enhancements
 
 * Add `additionalProperties` property to `POIKit.GasStation`
+* The `domainACL` will now be set to `pace.cloud` by default
 
 ### Fixes
 

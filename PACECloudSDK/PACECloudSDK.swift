@@ -118,7 +118,7 @@ public extension PACECloudSDK {
 
             self.isRedirectSchemeCheckEnabled = isRedirectSchemeCheckEnabled
 
-            self.domainACL = domainACL ?? []
+            self.domainACL = domainACL ?? Constants.Configuration.defaultDomainACL
 
             self.allowedLowAccuracy = allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
 
