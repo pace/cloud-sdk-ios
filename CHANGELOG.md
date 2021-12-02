@@ -18,7 +18,9 @@ x.y.z Release notes (yyyy-MM-dd)
 
 * Adjust API URLs
 * Adjust invalidation token handling for `POIKit.BoundingBoxNotitficationToken`
-* Forward `PACECloudSDK.shared.additionalQueryParams` to `IDKit.OIDConfiguration.additionalParameters` 
+* Forward `PACECloudSDK.shared.additionalQueryParams` to `IDKit.OIDConfiguration.additionalParameters`
+* Adjust `Bundle.main.bundleName` to now return bundle name with whitespaces.
+* Add `Bundle.main.bundleNameWIthOutWhitespaces` which returns bundle name without whitespaces.
 
 9.1.0 Release notes (2021-11-09)
 =============================================================
