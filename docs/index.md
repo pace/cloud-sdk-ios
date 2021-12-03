@@ -2,14 +2,15 @@
 
 - [PACE Cloud SDK](#pace-cloud-sdk)
     * [Getting Started](#getting-started)
-        + [Installation](#step-1:-installation)
-            * [Carthage](#carthage)
-            * [Cocoapods](#cocoapods)
+        + [Installation](#step-1-installation)
             * [Swift Package Manager](#swift-package-manager)
+            * [CocoaPods](#cocoapods)
+            * [Carthage](#carthage)
             * [Binary](#binary)
-        + [Setup SDK](#step-2:-setup-sdk)
-        + [Setup IDKit](#step-3:-setup-idkit)
-        + [Setup Deep linking](#step-4:-setup-deep-linking)
+        + [Initialize SDK](#step-2-initialize-sdk)
+        + [Configure authentication](#step-3-configure-authentication)
+        + [Setup deep linking](#step-4-setup-deep-linking)
+        + [Add permissions](#step-5-add-permissions)
     * [Usage](#usage)
         + [Fetching Connected Fueling Stations](#fetching-connected-fueling-stations)
         + [Show slider for Connected Fueling Stations](#show-slider-for-connected-fueling-stations)
@@ -52,7 +53,6 @@
         + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
         + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
     * [Source code](#source-code)
-    * [SDK API docs](#sdk-api-docs)
     * [FAQ](#faq)
 
 ## Getting Started
@@ -61,29 +61,33 @@ You need to perform the following steps in order to use the `PACECloudSDK`.
 
 ### Step 1: Installation
 
-### Cocoapods
-With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add the following line to your `Podfile` to use the latest available version:
-```
-pod 'PACECloudSDK'
-```
-
 ### Swift Package Manager
-With [Swift Package Manager](https://swift.org/package-manager/), add the following dependency to your Package.swift:
+With [Swift Package Manager](https://swift.org/package-manager/), add the following dependency to your `Package.swift`:
+
 ```swift
 dependencies: [
     .package(name: "PACECloudSDK", url: "https://github.com/pace/cloud-sdk-ios", .from(from: "9.1.0"))
 ]
 ```
 
-### Binary
-Each release has an `XCFramework` attached, which can be added to your application; see [releases](https://github.com/pace/cloud-sdk-ios/releases).
+### CocoaPods
+With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add the following line to your `Podfile` to use the latest available version:
+
+```
+pod 'PACECloudSDK'
+```
 
 ### Carthage
-With [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile and run `carthage update --platform iOS`:
+With [Carthage](https://github.com/Carthage/Carthage), add the following line to your `Cartfile` and run `carthage update --platform iOS`:
+
 ```
 github "pace/cloud-sdk-ios" ~> 9.1.0
 ```
-The integration of the SDK as `XCFramework` is currently not supported.
+
+Building `XCFramework` via the `--use-xcframeworks` parameter is currently not supported.
+
+### Binary
+Each release has an `XCFramework` attached, which can be added to your application; see [releases](https://github.com/pace/cloud-sdk-ios/releases).
 
 ### Specifications
 **PACECloudSDK** currently supports iOS 11 and above.
@@ -95,10 +99,9 @@ The integration of the SDK as `XCFramework` is currently not supported.
 - [OneTimePassword](https://github.com/mattrubin/OneTimePassword)
 - [SwiftProtobuf](https://github.com/apple/swift-protobuf)
 
-### Step 2: Setup SDK
+### Step 2: Initialize SDK
 
-The `PACECloudSDK` needs to be set up before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
-`applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
+The `PACECloudSDK` needs to be initialized before _any_ of its functionalities can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside `applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided API key.
 
 ```swift
 let config: PACECloudSDK.Configuration = .init(apiKey: "<YOUR_API_KEY>",
@@ -108,17 +111,20 @@ let config: PACECloudSDK.Configuration = .init(apiKey: "<YOUR_API_KEY>",
 PACECloudSDK.shared.setup(with: config)
 ```
 
-- `apiKey` Is mandatory to be set. Your api key provided by PACE.
-
-- `authenticationMode` The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
-
-- `environment` Default is `.production`. During development this should be set to `.sandbox`.
+<dl>
+  <dt>apiKey</dt>
+  <dd>Contact PACE to retrieve an API key.</dd>
+  <dt>authenticationMode</dt>
+  <dd>The default authentication mode is .native. If you're not using native authentication set this value to .web</dd>
+  <dt>environment</dt>
+  <dd>Default is .production. During development this should be set to .sandbox</dd>
+</dl>
 
 More information can be found in [Configuration](#configuration)
 
-### Step 3: Setup IDKit
+### Step 3: Configure authentication
 
-In case of the default configuration the SDK just needs two more values that need to be included in your Info.plist. These are the `OIDConfigurationClientID` and the `OIDConfigurationRedirectURI`. Add them to the Info.plist like so:
+Add the `OIDConfigurationClientID` and the `OIDConfigurationRedirectURI` to your `Info.plist`:
 
 ```xml
 <key>PACECloudSDKIDKitSetup</key>
@@ -135,15 +141,15 @@ In case of the default configuration the SDK just needs two more values that nee
 </dict>
 ```
 
-`REDIRECT_URI` and `CLIENT_ID` must be shared with the Pace team to register them.
+Contact PACE to setup `REDIRECT_URI` and `CLIENT_ID`.
 
-More information can be found in [IDKit](#idkit)
+Please refer to [IDKit](#idkit) for more information, e.g. if you want to use custom OIDC configurations.
 
-### Step 4: Setup Deep linking
+### Step 4: Setup deep linking
 
-Some of our services (e.g. the onboarding of PayPal payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking.
+Some of our services (e.g. the onboarding of PayPal payment methods) open the URL in the `SFSafariViewController`, due to security reasons. After completion of the process the user is redirected back to the app's web view via deep linking.
 
-To ensure this works as aspected you have to specify the `pace.YOUR_CLIENT_ID` in the app target’s custom URL scheme (please refer to [Apple’s doc](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app) on how to set up the custom URL scheme).
+To ensure this works as expected you have to specify the `pace.YOUR_CLIENT_ID` in the app target’s custom URL scheme (please refer to [Apple’s doc](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app) on how to set up the custom URL scheme).
 
 Catch redirect in `AppDelegate`'s `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool` and forward it to `PACECloudSDK.shared.application(open:)`
 
@@ -155,7 +161,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 
 More information can be found in [Deep Linking](#deep-linking)
 
-### Step 5: Setup permissions
+### Step 5: Add permissions
 
 The SDK needs the `Privacy - Face ID Usage Description` (`NSFaceIDUsageDescription`) and the `Photo Library Usage` (`NSPhotoLibraryUsageDescription`) permissions to be set in the `Info.plist`.
 
@@ -254,7 +260,7 @@ class MyViewController: UIViewController {
 ## Configuration
 
 The `PACECloudSDK` needs to be set up before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
-`applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
+`applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided API key.
 
 `PACECloudSDK.Configuration` only has `apiKey` as a mandatory property, all other parameter either have a default value or are optional .
 
@@ -276,7 +282,7 @@ allowedAppDrawerLocationOffset: Double? // Default nil
 enableLogging: Bool // Default: false
 ```
 
-- `apiKey` Is mandatory to be set. Your api key provided by PACE.
+- `apiKey` Is mandatory to be set. Your API key provided by PACE.
 - `authenticationMode` The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
 - `environment` Default is `.production`. During development this should be set to `.sandbox`.
 - `customOIDConfiguration` Set if you want to use your own OID Configuration. (More information in [Custom OIDC setup](#custom-oidc-setup))
@@ -293,6 +299,7 @@ enableLogging: Bool // Default: false
 
 ### Setup
 All that needs to be done to use `IDKit` is to specify the OID Configuration. If you want to use the PACE default configuration you'll at least have to add `OIDConfigurationRedirectURI` and `OIDConfigurationClientID` with non-empty values to your `Info.plist`. `OIDConfigurationIDPHint` is only needed if required in your specific situation.
+
 ```xml
 <key>PACECloudSDKOIDConfigurationClientID</key>
 <string>YOUR_CLIENT_ID</string>
@@ -312,6 +319,7 @@ All that needs to be done to use `IDKit` is to specify the OID Configuration. If
 
 ### Custom OIDC setup
 In case you would like to use your own OID Configuration create it like so and pass it to the `PACECloudSDK.Configuration`:
+
 ```swift
 let config = IDKit.OIDConfiguration(authorizationEndpoint: AUTH_ENDPOINT,
                                     tokenEndpoint: TOKEN_ENDPOINT,
@@ -339,6 +347,7 @@ IDKit.OIDConfiguration.appendAdditionalParameters([String: String])
 
 ### Authorization
 To start the authorization process and to retrieve your access token simply call:
+
 ```swift
 IDKit.authorize { result in
     switch result {
@@ -347,11 +356,13 @@ IDKit.authorize { result in
     }
 }
 ```
+
 *IDKit* will automatically try to refresh the previous session.
 For all devices on iOS 12 and below a native permission prompt for the internally requested `ASWebAuthenticationSession` will be displayed to the user.
 
 ### Token refresh
 If you prefer to refresh the access token of your current session manually call:
+
 ```swift
 IDKit.refreshToken { result in
     switch result {
@@ -363,9 +374,11 @@ IDKit.refreshToken { result in
 
 ### Session reset
 Resetting the current session works as follows:
+
 ```swift
 IDKit.resetSession()
 ```
+
 A new authorization will be required afterwards.
 
 ### 2FA setup
@@ -495,7 +508,7 @@ Some of our services (e.g. the onboarding of `PayPal` payment methods) open the 
 In order to set the redirect URL correctly and to ensure that the client app intercepts the deep link, the following requirements must be met:
 
 - Specify the `pace.YOUR_CLIENT_ID` in the app target's custom URL scheme (please refer to [Apple's doc](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) on how to set up the custom URL scheme).
-- After successfully having set the scheme, your Info.plist should look as follows:
+- After successfully having set the scheme, your `Info.plist` should look as follows:
 
 ```xml
 <key>CFBundleURLTypes</key>
@@ -554,6 +567,7 @@ will stay up to date. If a request does not contain a currently presented App / 
 
 ### AppWebView / AppViewController
 *AppKit* provides a default WKWebView or UIViewController that contains the requested App. There are several methods to obtain this WebView or ViewController. You may either pass a `appUrl`, a `appUrl` with some `reference` (e.g. a gas station reference) or a `presetUrl` (see [Preset Urls](#preset-urls)).
+
 ```swift
 let webView = AppKit.appWebView(appUrl: "App_URL")
 let viewController = AppKit.appViewController(appUrl: "App_URL")
@@ -631,6 +645,7 @@ AppData.appApiUrl + "/" + AppIcon.source
 This enum will provide several error messages during App requests and overall processing to give you a better understanding on what went wrong.
 
 Possible errors:
+
 - `noLocationFound`: GPS is unavailable or inaccurate
 - `locationNotAuthorized`: Missing location permission
 - `couldNotFetchApp`: *AppKit* was unable to retrieve the App
@@ -747,6 +762,7 @@ ExampleLogger.exportLogs { logs in
 
 #### Debug bundle
 Get URL to all persisted log files
+
 ```swift
  ExampleLogger.debugBundleDirectory { url in
    // use url here
@@ -786,7 +802,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
     -  If either this delegate method is not implemented or you didn't set the delegate property at all the SDK will automatically perform an authorization hence showing a sign in mask for the user
 - The `IDKit` setup has been combined with the general SDK setup.
   + `IDKit.setup(...)` is no longer accessible.
-  + By adding the keys `OIDConfigurationClientID` and `OIDConfigurationRedirectURI` with non-empty values to your Info.plist `IDKit` will be initiated with the default PACE OID configuration. Please head over to [IDKit setup](#setup-1) to learn how to set up this functionality.
+  + By adding the keys `OIDConfigurationClientID` and `OIDConfigurationRedirectURI` with non-empty values to your `Info.plist` `IDKit` will be initiated with the default PACE OID configuration. Please head over to [IDKit setup](#setup-1) to learn how to set up this functionality.
   + A custom OID configuration can still be passed to the `PACECloudSDK.Configuration` if desired.
 - `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
 - `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
