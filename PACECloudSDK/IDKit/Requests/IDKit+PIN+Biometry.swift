@@ -108,6 +108,30 @@ extension IDKit {
         return isSet
     }
 
+    func evaluateBiometryPolicy(completion: @escaping (Result<Bool, IDKitError>) -> Void) {
+        let biometryPolicy = BiometryPolicy()
+        let reasonText = L10n.idkitBiometryAuthenticationConfirmation
+
+        guard biometryPolicy.canEvaluatePolicy else {
+            completion(.failure(.biometryNotSupported))
+            return
+        }
+
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
+            if let error = error {
+                completion(.failure(.other(error)))
+                return
+            }
+
+            guard success else {
+                completion(.failure(.failedAuthenticatingBiometry))
+                return
+            }
+
+            completion(.success(success))
+        }
+    }
+
     func enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?) {
         logBiometryWarningsIfNeeded()
 
@@ -128,26 +152,24 @@ extension IDKit {
                     return
                 }
 
-                let biometryPolicy = BiometryPolicy()
-                let reasonText = L10n.idkitBiometryAuthenticationConfirmation
+                self?.evaluateBiometryPolicy { result in
+                    switch result {
+                    case .success(let isSuccessful):
+                        guard isSuccessful else {
+                            completion?(.failure(.failedAuthenticatingBiometry))
+                            return
+                        }
 
-                guard biometryPolicy.canEvaluatePolicy else {
-                    completion?(.failure(.biometryNotSupported))
-                    return
-                }
+                        do {
+                            let data = try JSONEncoder().encode(totpData)
+                            self?.setMasterTOTPData(to: data)
+                            completion?(.success(true))
+                        } catch {
+                            completion?(.failure(.internalError))
+                        }
 
-                biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
-                    guard error == nil, success else {
+                    case .failure:
                         completion?(.failure(.failedAuthenticatingBiometry))
-                        return
-                    }
-
-                    do {
-                        let data = try JSONEncoder().encode(totpData)
-                        self?.setMasterTOTPData(to: data)
-                        completion?(.success(true))
-                    } catch {
-                        completion?(.failure(.internalError))
                     }
                 }
 

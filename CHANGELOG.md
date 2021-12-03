@@ -8,6 +8,7 @@ x.y.z Release notes (yyyy-MM-dd)
 * Add `additionalProperties` property to `POIKit.GasStation`
 * The `domainACL` will now be set to `pace.cloud` by default
 * Introduce `PACECloudSDK.shared.application(open:)` to handle deep links. Please use this method to handle incoming redirect URLs as `AppKit.handleRedirectURL(url:)` is now deprecated and will be removed in a future version.
+* Add option to evaluate the biometry policy without handling a totp
 
 ### Fixes
 
