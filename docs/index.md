@@ -2,14 +2,14 @@
 
 - [PACE Cloud SDK](#pace-cloud-sdk)
     * [Getting Started](#getting-started)
-        + [Installation](#step-1-installation)
+        + [Installation](#step-1:-installation)
             * [Carthage](#carthage)
             * [Cocoapods](#cocoapods)
             * [Swift Package Manager](#swift-package-manager)
             * [Binary](#binary)
-        + [Setup SDK](#step-2-setup-sdk)
-        + [Setup IDKit](#step-3-setup-idkit)
-        + [Setup Deeplinking](#step-4-setup-deeplinking)
+        + [Setup SDK](#step-2:-setup-sdk)
+        + [Setup IDKit](#step-3:-setup-idkit)
+        + [Setup Deep linking](#step-4:-setup-deep-linking)
     * [Usage](#usage)
         + [Fetching Connected Fueling Stations](#fetching-connected-fueling-stations)
         + [Show slider for Connected Fueling Stations](#show-slider-for-connected-fueling-stations)
@@ -59,7 +59,7 @@
 
 You need to perform the following steps in order to use the `PACECloudSDK`.
 
-### Step 1 Installation
+### Step 1: Installation
 
 ### Cocoapods
 With [CocoaPods](https://guides.cocoapods.org/using/getting-started.html), add the following line to your `Podfile` to use the latest available version:
@@ -95,7 +95,7 @@ The integration of the SDK as `XCFramework` is currently not supported.
 - [OneTimePassword](https://github.com/mattrubin/OneTimePassword)
 - [SwiftProtobuf](https://github.com/apple/swift-protobuf)
 
-### Step 2 Setup SDK
+### Step 2: Setup SDK
 
 The `PACECloudSDK` needs to be set up before any of its `Kits` can be used. Therefore you *must* call `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)`. The best way to do this is inside
 `applicationDidFinishLaunching` in your `AppDelegate`. It will automatically authorize your application with the provided api key.
@@ -116,7 +116,7 @@ PACECloudSDK.shared.setup(with: config)
 
 More information can be found in [Configuration](#configuration)
 
-### Step 3 Setup IDKit
+### Step 3: Setup IDKit
 
 In case of the default configuration the SDK just needs two more values that need to be included in your Info.plist. These are the `OIDConfigurationClientID` and the `OIDConfigurationRedirectURI`. Add them to the Info.plist like so:
 
@@ -139,7 +139,7 @@ In case of the default configuration the SDK just needs two more values that nee
 
 More information can be found in [IDKit](#idkit)
 
-### Step 4 Setup Deeplinking
+### Step 4: Setup Deep linking
 
 Some of our services (e.g. the onboarding of PayPal payment methods) open the URL in the `SFSafariViewController` due to security reasons. After completion of the process the user is redirected back to the App web view via deep linking.
 
@@ -154,6 +154,12 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 ```
 
 More information can be found in [Deep Linking](#deep-linking)
+
+### Step 5: Setup permissions
+
+The SDK needs the `Privacy - Face ID Usage Description` (`NSFaceIDUsageDescription`) and the `Photo Library Usage` (`NSPhotoLibraryUsageDescription`) permissions to be set in the `Info.plist`.
+
+`NSFaceIDUsageDescription` is needed to be able to authorize the payments with `FaceID` or `TouchID`. `NSPhotoLibraryUsageDescription` is needed in order to download and save receipts to the user's photo library. Your app _**will**_ crash, when the SDK tries to use those functionalities, but the properties have not been granted.
 
 ## Usage
 
@@ -281,8 +287,6 @@ enableLogging: Bool // Default: false
 - `geoAppsScope` Can be specified if special Connected Fueling requirements are needed.
 - `allowedAppDrawerLocationOffset` Maximum distance of Cofu station to user in meters to still be shown.
 - `enableLogging` Set to `true` if you want to make use of the Logger provided by `PACECloudSDK`
-
-The permission `Photo Library Usage` is needed in order to download and save receipts to the user's Photo Library, thus make sure that `NSPhotoLibraryUsageDescription` is correctly set in your target properties.
 
 ## IDKit
 **IDKit** manages the OpenID (OID) authorization and the general session flow with its token handling via **PACE ID**.
@@ -448,9 +452,6 @@ The `PACECloudSDK` provides the following methods to check and set the PIN:
 - Retrieve an App as UIViewController or WKWebView
 - Retrieve an App as Drawer/Slider
 - Payment Authentication
-
-### Setup
-Biometry is needed for 2FA during the payment process, thus make sure that `NSFaceIDUsageDescription` is correctly set in your target properties.
 
 ### Native login
 By default *AppKit* is used with your native login (given that your token has the necessary scopes) as well.
