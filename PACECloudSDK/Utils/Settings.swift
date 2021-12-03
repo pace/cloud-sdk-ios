@@ -78,7 +78,7 @@ class Settings {
         userEndpointUrl = settings[userEndpoint]!
     }
 
-    func baseUrl(_ type: POIKitBaseUrl) -> String { // swiftlint:disable:this cyclomatic_complexity
+    func baseUrl(_ type: POIKitBaseUrl) -> String {
         switch type {
         case .poiApi:
             return poiApiHostUrl

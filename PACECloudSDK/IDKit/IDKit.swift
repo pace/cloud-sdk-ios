@@ -272,6 +272,19 @@ public extension IDKit {
     }
 
     /**
+     Evaluates the use of biometric authentication.
+
+     This method asynchronously evaluates the biometric authentication policy. It may involve prompting the user for interaction.
+
+     - parameter completion:
+     The block to be called when the evaluation is completed
+     including either the information if the biometry policy has been evaluated `successfully` or an `error`.
+     */
+    static func evaluateBiometryPolicy(completion: @escaping (Result<Bool, IDKitError>) -> Void) {
+        shared?.evaluateBiometryPolicy(completion: completion)
+    }
+
+    /**
      Enables biometric authentication for the current user using the PIN.
      - parameter pin: The PIN of the current user.
      - parameter completion:
