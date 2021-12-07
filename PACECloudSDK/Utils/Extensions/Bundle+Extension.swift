@@ -26,7 +26,7 @@ extension Bundle {
         return self.infoDictionary?["CFBundleName"] as? String ?? ""
     }
 
-    var bundleNameWithOutWhitespaces: String {
+    var bundleNameWithoutWhitespaces: String {
         return bundleName.components(separatedBy: .whitespaces).joined()
     }
 
