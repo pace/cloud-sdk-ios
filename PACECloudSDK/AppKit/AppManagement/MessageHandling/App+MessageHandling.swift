@@ -96,7 +96,7 @@ extension App {
         }
 
         if UIApplication.shared.canOpenURL(customUrl) {
-            appActionsDelegate.appRequestedNewTab(for: request.url, cancelUrl: cancelUrl.absoluteString)
+            appActionsDelegate.appRequestedNewTab(for: request.url, cancelUrl: cancelUrl.absoluteString, integrated: request.integrated ?? false)
             completion(.init(.init()))
         } else {
             completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "The scheme cannot be opened by the client app."))))

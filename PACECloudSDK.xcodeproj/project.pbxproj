@@ -1025,6 +1025,10 @@
 		84600F5525C03B340087194F /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */; };
 		84600F5725C03B340087194F /* FuelingAPICancelPreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */; };
 		8482BAD425D5342000A7CD16 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482BAD325D5342000A7CD16 /* HttpRequest.swift */; };
+		8492C7F027510682001A4D7B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492C7EE27510681001A4D7B /* WebView.swift */; };
+		8492C7F127510682001A4D7B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492C7EF27510682001A4D7B /* WebViewController.swift */; };
+		8492C7F227510687001A4D7B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492C7EF27510682001A4D7B /* WebViewController.swift */; };
+		8492C7F32751068B001A4D7B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492C7EE27510681001A4D7B /* WebView.swift */; };
 		84961AB7264E578E0070CB0B /* AppKit+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A5C2542D9BB0072F6BA /* AppKit+Delegate.swift */; };
 		84961ABD264E5A270070CB0B /* AppKit+Delegate+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84961ABC264E5A270070CB0B /* AppKit+Delegate+Logout.swift */; };
 		84961AC3264E5A810070CB0B /* AppKit+Delegate+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84961AC2264E5A810070CB0B /* AppKit+Delegate+Slim.swift */; };
@@ -1776,6 +1780,8 @@
 		84600F4925C03B330087194F /* FuelingAPIWaitOnPumpStatusChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPIWaitOnPumpStatusChange.swift; sourceTree = "<group>"; };
 		84600F4A25C03B330087194F /* FuelingAPICancelPreAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuelingAPICancelPreAuth.swift; sourceTree = "<group>"; };
 		8482BAD325D5342000A7CD16 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		8492C7EE27510681001A4D7B /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		8492C7EF27510682001A4D7B /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		84961ABC264E5A270070CB0B /* AppKit+Delegate+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+Delegate+Logout.swift"; sourceTree = "<group>"; };
 		84961AC2264E5A810070CB0B /* AppKit+Delegate+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+Delegate+Slim.swift"; sourceTree = "<group>"; };
 		849C3FFB25CAB6DC0074BCDA /* PCUserTerms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserTerms.swift; sourceTree = "<group>"; };
@@ -2296,6 +2302,8 @@
 		3B970A162542D9BA0072F6BA /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				8492C7EE27510681001A4D7B /* WebView.swift */,
+				8492C7EF27510682001A4D7B /* WebViewController.swift */,
 				3B970A172542D9BA0072F6BA /* AppContainer */,
 				3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */,
 				3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */,
@@ -4296,6 +4304,7 @@
 				3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */,
 				3B970A842542D9BB0072F6BA /* AppKit.swift in Sources */,
 				3BC9A8022539DDAD00B933AE /* Route.swift in Sources */,
+				8492C7F127510682001A4D7B /* WebViewController.swift in Sources */,
 				3B88786625CBECC2008D1551 /* AnyGeoJSONRequest.swift in Sources */,
 				3B970A762542D9BB0072F6BA /* AppDrawer.swift in Sources */,
 				3B970AAD2542D9BB0072F6BA /* AppStyle.swift in Sources */,
@@ -4324,6 +4333,7 @@
 				6ACBC08326FE0FC300E6AC05 /* Logger+Notification.swift in Sources */,
 				3B987073268E06AE00A0458F /* CloseResult.swift in Sources */,
 				8447A3B325CAAE740095BEF1 /* UserAPIGetUser.swift in Sources */,
+				8492C7F027510682001A4D7B /* WebView.swift in Sources */,
 				8447A3C325CAAE740095BEF1 /* UserAPIVerifyOTP.swift in Sources */,
 				84600F2025C03B1E0087194F /* POIAPIGetSources.swift in Sources */,
 				3BC9A7FB2539DDAD00B933AE /* NavigationRequest.swift in Sources */,
@@ -5037,6 +5047,7 @@
 				3B987066268E06AE00A0458F /* IntrospectResult.swift in Sources */,
 				8418E27B25B1B85A00D3722B /* PCPOIFuelPrice.swift in Sources */,
 				3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */,
+				8492C7F227510687001A4D7B /* WebViewController.swift in Sources */,
 				84600F3925C03B1F0087194F /* POIAPIGetAppRedirect.swift in Sources */,
 				92EDDC0F25A7270300E480F4 /* CookieStorage.swift in Sources */,
 				3B9655F126B2A01700921766 /* AppKit+AppManagerDelegate.swift in Sources */,
@@ -5065,6 +5076,7 @@
 				3B987092268E06AE00A0458F /* ImageDataRequest.swift in Sources */,
 				8418E28F25B1B85A00D3722B /* PCPOIFieldData.swift in Sources */,
 				3B98707E268E06AE00A0458F /* Request.swift in Sources */,
+				8492C7F32751068B001A4D7B /* WebView.swift in Sources */,
 				92EDDC2025A7270300E480F4 /* AppActivityIndicatorView.swift in Sources */,
 				92EDDCFE25A738DD00E480F4 /* POIKitAPI+Search.swift in Sources */,
 				92EDDCF225A738C900E480F4 /* POIKitAPI.swift in Sources */,

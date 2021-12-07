@@ -20,7 +20,8 @@ x.y.z Release notes (yyyy-MM-dd)
 * Adjust invalidation token handling for `POIKit.BoundingBoxNotitficationToken`
 * Forward `PACECloudSDK.shared.additionalQueryParams` to `IDKit.OIDConfiguration.additionalParameters`
 * Adjust `Bundle.main.bundleName` to now return bundle name with whitespaces.
-* Add `Bundle.main.bundleNameWIthOutWhitespaces` which returns bundle name without whitespaces.
+* Add `Bundle.main.bundleNameWithoutWhitespaces` which returns bundle name without whitespaces.
+* Add `integrated` parameter to `openURLInNewTab` communication request
 
 9.1.0 Release notes (2021-11-09)
 =============================================================

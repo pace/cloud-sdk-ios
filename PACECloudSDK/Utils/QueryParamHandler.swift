@@ -26,7 +26,7 @@ class QueryParamHandler {
         // If there is no value for utm_source yet
         // use the main bundle's name if not empty
         let utmSource = "utm_source"
-        let mainBundleName = Bundle.main.bundleNameWithOutWhitespaces
+        let mainBundleName = Bundle.main.bundleNameWithoutWhitespaces
 
         if !mainBundleName.isEmpty,
            !queryItems.contains(where: { $0.name == utmSource }) {
