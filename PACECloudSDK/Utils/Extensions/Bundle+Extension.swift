@@ -23,8 +23,11 @@ extension Bundle {
     }
 
     var bundleName: String {
-        guard let name = self.infoDictionary?["CFBundleName"] as? String else { return bundleIdentifier ?? "" }
-        return name.components(separatedBy: .whitespaces).joined()
+        return self.infoDictionary?["CFBundleName"] as? String ?? ""
+    }
+
+    var bundleNameWithOutWhitespaces: String {
+        return bundleName.components(separatedBy: .whitespaces).joined()
     }
 
     var fallbackReleaseVersion: String {

@@ -28,7 +28,7 @@ extension AppKit.Constants {
         let extensions = PACECloudSDK.shared.userAgentExtensions.joined(separator: " ")
 
         return [
-            "\(Bundle.main.bundleName)/\(Bundle.main.releaseVersionNumber)",
+            "\(Bundle.main.bundleNameWithOutWhitespaces)/\(Bundle.main.releaseVersionNumber)",
             "(\(UIDevice.current.systemName) \(UIDevice.current.systemVersion))",
             "PWA-SDK/\(Bundle.paceCloudSDK.releaseVersionNumber)",
             "IdentityManagement/\(authenticationMode)",

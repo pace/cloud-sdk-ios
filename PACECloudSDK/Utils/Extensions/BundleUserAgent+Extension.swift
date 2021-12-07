@@ -10,7 +10,7 @@ import UIKit
 extension Bundle {
     var poiKitUserAgent: String {
         return [
-            "\(Bundle.main.bundleName)/\(Bundle.main.releaseVersionNumber)",
+            "\(Bundle.main.bundleNameWithOutWhitespaces)/\(Bundle.main.releaseVersionNumber)",
             "(\(UIDevice.current.systemName) \(UIDevice.current.systemVersion))",
             "POIKit-iOS/\(releaseVersionNumber)_\(buildVersionNumber)"
         ].filter { !$0.isEmpty }.joined(separator: " ")
