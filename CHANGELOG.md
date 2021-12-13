@@ -1,11 +1,3 @@
-x.y.z Release notes (yyyy-MM-dd)
-=============================================================
-
-<!-- ### Breaking Changes - Include, if needed -->
-<!-- ### Enhancements - Include, if needed -->
-<!-- ### Fixes - Include, if needed -->
-<!-- ### Internal - Include, if needed -->
-
 9.2.0 Release notes (2021-12-07)
 =============================================================
 
