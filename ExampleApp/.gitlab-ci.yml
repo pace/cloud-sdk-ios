@@ -17,18 +17,18 @@
     <<: *dependent_changes
 
 pacecloudsdkexample_plists:
- extends: .plist
- variables:
-   PROJECT_PATH: "ExampleApp/PACECloudSDKExample"
- only:
-   <<: *dependent_changes
+  extends: .plist
+  variables:
+    PROJECT_PATH: "ExampleApp/PACECloudSDKExample"
+  only:
+    <<: *dependent_changes
 
 ## Tests
 pacecloudsdkexample_code_style:
- extends: .code_style
- variables:
-   PROJECT_PATH: "ExampleApp"
- only:
+  extends: .code_style
+  variables:
+    PROJECT_PATH: "ExampleApp"
+  only:
    <<: *dependent_changes
 
 ## Build
