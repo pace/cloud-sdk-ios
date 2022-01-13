@@ -846,6 +846,11 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 + Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
 + For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
 
+### From 9.x.x to 10.x.x
+
+- IDKit
+    +  The `IDKitError` `failedTokenRefresh` has been removed. 
+    + The token refresh behavior for API requests that have failed with `401` has changed. If the SDK can't refresh the session, it won't return the `401` straight away anymore, but attempt a new authorization which will show the login screen to the user. Implement the `IDKitDelegate` method `didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)`, if you want to overwrite this default authorization behavior.
 
 ## Source code
 The complete source code of the SDK can be found on [GitHub](https://github.com/pace/cloud-sdk-ios).

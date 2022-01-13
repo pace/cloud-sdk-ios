@@ -42,7 +42,7 @@ public extension IDKitDelegate {
     func willResetSession() {}
 
     func didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void) {
-        IDKit.appInducedAuthorization(completion)
+        IDKit.sdkInducedAuthorization(completion)
     }
 
     func didPerformAuthorization(_ result: Result<String, IDKit.IDKitError>) {}
