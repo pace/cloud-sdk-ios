@@ -132,7 +132,7 @@ extension IDKit {
                 // e.g network error
                 completion(.failure(.other(error)))
             } else {
-                self?.performReset { completion(.failure(.failedTokenRefresh(error))) }
+                self?.performReset { completion(.failure(.invalidSession)) }
             }
         })
     }
@@ -159,5 +159,31 @@ extension IDKit {
         }
 
         completion?()
+    }
+}
+
+// MARK: - SDK induced token handling
+extension IDKit {
+    func performSDKInducedAuthorization(_ completion: @escaping (String?) -> Void) {
+        performAuthorization(showSignInMask: true) { [weak self] result in
+            switch result {
+            case .success(let accessToken):
+                if let accessToken = accessToken {
+                    self?.delegate?.didPerformAuthorization(.success(accessToken))
+                }
+                completion(accessToken)
+
+            case .failure(let error):
+                self?.delegate?.didPerformAuthorization(.failure(error))
+                IDKitLogger.e("App induced authorization failed with error \(error).")
+                completion(nil)
+            }
+        }
+    }
+
+    func performSDKInducedSessionReset(with error: IDKitError?, _ completion: @escaping (String?) -> Void) {
+        performReset { [weak self] in
+            self?.delegate?.didFailSessionRenewal(with: error, completion) ?? self?.performSDKInducedAuthorization(completion)
+        }
     }
 }
