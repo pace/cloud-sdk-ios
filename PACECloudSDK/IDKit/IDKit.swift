@@ -55,16 +55,16 @@ public class IDKit {
         }
     }
 
-    static func sdkInducedAuthorization(_ completion: @escaping (String?) -> Void) {
-        shared?.performSDKInducedAuthorization(completion)
-    }
-
-    static func sdkInducedSessionReset(with error: IDKitError? = nil, _ completion: @escaping (String?) -> Void) {
-        shared?.performSDKInducedSessionReset(with: error, completion)
+    static func appInducedAuthorization(_ completion: @escaping (String?) -> Void) {
+        shared?.performAppInducedAuthorization(completion)
     }
 
     static func appInducedRefresh(_ completion: @escaping (String?) -> Void) {
         shared?.performAppInducedRefresh(completion)
+    }
+
+    static func appInducedSessionReset(with error: IDKitError? = nil, _ completion: @escaping (String?) -> Void) {
+        shared?.performAppInducedSessionReset(with: error, completion)
     }
 
     static func apiInducedRefresh(_ completion: @escaping (Bool) -> Void) {
