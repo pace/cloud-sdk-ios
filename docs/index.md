@@ -21,7 +21,7 @@
         + [Custom OIDC setup](#custom-oidc-setup)
         + [Authorization](#authorization)
         + [Token refresh](#token-refresh)
-        + [Session refreshToken](#session-refreshtoken)
+        + [Session reset](#session-reset)
         + [2FA setup](#2fa-setup)
             * [Mail-OTP](#mail-otp)
             * [Biometry](#biometry)
@@ -44,6 +44,7 @@
     * [Miscellaneous](#miscellaneous)
         + [Preset Urls](#preset-urls)
         + [Logging](#logging)
+        + [Handling `401` API responses](#handling-401-api-responses)
     * [Migration](#migration)
         + [2.x.x -> 3.x.x](#from-2xx-to-3xx)
         + [3.x.x -> 4.x.x](#from-3xx-to-4xx)
@@ -769,6 +770,11 @@ Get URL to all persisted log files
  }
 ```
 
+### Handling `401` API responses
+> **_NOTE:_** The following only applies if you're making use of `IDKit` to handle your session.
+
+When receiving a status code of `401` during API requests the SDK will first try to refresh your access token before returning the `401`. If the token refresh fails this indicates that your session isn't valid anymore. At this point the SDK resets all of the available session variables, then returns the `401`. Asking the user to authorize again is highly recommended in this sitation. Go to [Authorization](#authorization) for further information on how to authorize your user.
+
 ## Migration
 ### From 2.x.x to 3.x.x
 In `3.0.0` we've introduced a universal setup method: `PACECloudSDK.shared.setup(with: PACECloudSDK.Configuration)` and removed the setup for `AppKit` and `POIKitManager`.
@@ -846,11 +852,6 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 + Change default geo apps scope - When not specifying a custom `geoAppsScope` in the SDK configuration the `POIKit.CofuGasStation` property `polygon` will from now on be `nil`.
 + For all `AppViewController` instances the property `isModalInPresentation` is now `true` by default. Setting it to `false` can be done via the initializer or afterwards by directly accessing the property.
 
-### From 9.x.x to 10.x.x
-
-- IDKit
-    +  The `IDKitError` `failedTokenRefresh` has been removed. 
-    + The token refresh behavior for API requests that have failed with `401` has changed. If the SDK can't refresh the session, it won't return the `401` straight away anymore, but attempt a new authorization which will show the login screen to the user. Implement the `IDKitDelegate` method `didFailSessionRenewal(with error: IDKit.IDKitError?, _ completion: @escaping (String?) -> Void)`, if you want to overwrite this default authorization behavior.
 
 ## Source code
 The complete source code of the SDK can be found on [GitHub](https://github.com/pace/cloud-sdk-ios).

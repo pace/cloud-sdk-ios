@@ -22,6 +22,7 @@ public extension IDKit {
         case statusCode(Int)
         case invalidHTTPURLResponse(URL)
         case invalidData(URL)
+        case failedTokenRefresh(Error)
         case other(Error)
 
         // Biometry
@@ -71,6 +72,9 @@ public extension IDKit {
 
             case .invalidData(let url):
                 return "The retrieved data is invalid for \(url.absoluteString)"
+
+            case .failedTokenRefresh(let error):
+                return "The token refresh failed because the session has expired - (\(error))."
 
             case .other(let error):
                 return error.localizedDescription
