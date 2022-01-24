@@ -1,3 +1,16 @@
+9.2.1 Release notes (2022-01-21)
+=============================================================
+
+### Fixes
+
+* Fix Swift variable shadowing problems
+
+### Internal
+
+* Add job to validate commit messages
+* Remove changelog template
+* Add script for auto semantic versioning
+
 9.2.0 Release notes (2021-12-07)
 =============================================================
 
