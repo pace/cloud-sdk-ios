@@ -51,9 +51,15 @@ public class PCPayTransactionCreate: APIModel {
         /** Current mileage in meters */
         public var mileage: Int?
 
+        /** Number plate of the car */
+        public var numberPlate: String?
+
         public var priceExcludingVAT: Decimal?
 
         public var priceIncludingVAT: Decimal?
+
+        /** The given productFlow (e.g. preAuth, postPay) */
+        public var productFlow: String?
 
         /** Vehicle identification number */
         public var vin: String?
@@ -72,8 +78,8 @@ public class PCPayTransactionCreate: APIModel {
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                amount = try container.decodeIfPresent("amount")
-                rate = try container.decodeIfPresent("rate")
+                amount = try container.decodeLosslessDecimal("amount")
+                rate = try container.decodeLosslessDecimal("rate")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -95,7 +101,7 @@ public class PCPayTransactionCreate: APIModel {
             }
         }
 
-        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, mileage: Int? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, vin: String? = nil) {
+        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, vin: String? = nil) {
             self.paymentToken = paymentToken
             self.purposePRN = purposePRN
             self.providerPRN = providerPRN
@@ -107,8 +113,10 @@ public class PCPayTransactionCreate: APIModel {
             self.issuerPRN = issuerPRN
             self.merchantPRN = merchantPRN
             self.mileage = mileage
+            self.numberPlate = numberPlate
             self.priceExcludingVAT = priceExcludingVAT
             self.priceIncludingVAT = priceIncludingVAT
+            self.productFlow = productFlow
             self.vin = vin
         }
 
@@ -121,13 +129,15 @@ public class PCPayTransactionCreate: APIModel {
             vat = try container.decodeIfPresent("VAT")
             currency = try container.decodeIfPresent("currency")
             fuel = try container.decodeIfPresent("fuel")
-            fuelAmount = try container.decodeIfPresent("fuelAmount")
+            fuelAmount = try container.decodeLosslessDecimal("fuelAmount")
             fuelProductName = try container.decodeIfPresent("fuelProductName")
             issuerPRN = try container.decodeIfPresent("issuerPRN")
             merchantPRN = try container.decodeIfPresent("merchantPRN")
             mileage = try container.decodeIfPresent("mileage")
-            priceExcludingVAT = try container.decodeIfPresent("priceExcludingVAT")
-            priceIncludingVAT = try container.decodeIfPresent("priceIncludingVAT")
+            numberPlate = try container.decodeIfPresent("numberPlate")
+            priceExcludingVAT = try container.decodeLosslessDecimal("priceExcludingVAT")
+            priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
+            productFlow = try container.decodeIfPresent("productFlow")
             vin = try container.decodeIfPresent("vin")
         }
 
@@ -145,8 +155,10 @@ public class PCPayTransactionCreate: APIModel {
             try container.encodeIfPresent(issuerPRN, forKey: "issuerPRN")
             try container.encodeIfPresent(merchantPRN, forKey: "merchantPRN")
             try container.encodeIfPresent(mileage, forKey: "mileage")
+            try container.encodeIfPresent(numberPlate, forKey: "numberPlate")
             try container.encodeIfPresent(priceExcludingVAT, forKey: "priceExcludingVAT")
             try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
+            try container.encodeIfPresent(productFlow, forKey: "productFlow")
             try container.encodeIfPresent(vin, forKey: "vin")
         }
 
@@ -163,8 +175,10 @@ public class PCPayTransactionCreate: APIModel {
           guard self.issuerPRN == object.issuerPRN else { return false }
           guard self.merchantPRN == object.merchantPRN else { return false }
           guard self.mileage == object.mileage else { return false }
+          guard self.numberPlate == object.numberPlate else { return false }
           guard self.priceExcludingVAT == object.priceExcludingVAT else { return false }
           guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
+          guard self.productFlow == object.productFlow else { return false }
           guard self.vin == object.vin else { return false }
           return true
         }
