@@ -319,7 +319,7 @@ private extension Logger {
     static func fileName(for date: Date) -> String {
         let dateString: String = fileDateFormatter.string(from: date)
 
-        return "\(dateString)_pace_\(currentEnvironmentKey())_logs"
+        return "\(dateString)_pace_\(PACECloudSDK.shared.environment.rawValue)_logs"
     }
 
     static var logsDirectory: URL? = {
@@ -328,18 +328,6 @@ private extension Logger {
 
         return logsDirectory
     }()
-
-    static func currentEnvironmentKey() -> String {
-        #if PRODUCTION
-        return "production"
-        #elseif STAGE
-        return "stage"
-        #elseif SANDBOX
-        return "sandbox"
-        #else
-        return "development"
-        #endif
-    }
 
     static func createExportLogs(completion: @escaping ((URL?) -> Void)) {
         mergeAndSortLogFiles {
