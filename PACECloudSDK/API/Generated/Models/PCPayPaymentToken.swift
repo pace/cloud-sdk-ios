@@ -48,7 +48,7 @@ public class PCPayPaymentToken: APIModel {
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            amount = try container.decodeIfPresent("amount")
+            amount = try container.decodeLosslessDecimal("amount")
             currency = try container.decodeIfPresent("currency")
             purposePRNs = try container.decodeArrayIfPresent("purposePRNs")
             validUntil = try container.decodeIfPresent("validUntil")

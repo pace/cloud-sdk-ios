@@ -88,7 +88,7 @@ public class PCFuelingTransactionRequest: APIModel {
                 carFuelType = try container.decodeIfPresent("carFuelType")
                 currency = try container.decodeIfPresent("currency")
                 mileage = try container.decodeIfPresent("mileage")
-                priceIncludingVAT = try container.decodeIfPresent("priceIncludingVAT")
+                priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
                 vin = try container.decodeIfPresent("vin")
             }
 

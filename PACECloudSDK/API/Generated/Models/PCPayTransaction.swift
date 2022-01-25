@@ -44,6 +44,9 @@ public class PCPayTransaction: APIModel {
         /** Current mileage in meters */
         public var mileage: Int?
 
+        /** Number plate of the car */
+        public var numberPlate: String?
+
         /** ID of the paymentMethod */
         public var paymentMethodId: ID?
 
@@ -56,6 +59,9 @@ public class PCPayTransaction: APIModel {
         public var priceIncludingVAT: Decimal?
 
         public var priceWithoutVAT: Decimal?
+
+        /** The given productFlow (e.g. preAuth, postPay) */
+        public var productFlow: String?
 
         /** PACE resource name - referring to the transaction purpose with provider details. */
         public var providerPRN: String?
@@ -86,8 +92,8 @@ public class PCPayTransaction: APIModel {
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                amount = try container.decodeIfPresent("amount")
-                rate = try container.decodeIfPresent("rate")
+                amount = try container.decodeLosslessDecimal("amount")
+                rate = try container.decodeLosslessDecimal("rate")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -109,7 +115,7 @@ public class PCPayTransaction: APIModel {
             }
         }
 
-        public init(vat: VAT? = nil, createdAt: DateTime? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+        public init(vat: VAT? = nil, createdAt: DateTime? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
             self.vat = vat
             self.createdAt = createdAt
             self.currency = currency
@@ -118,11 +124,13 @@ public class PCPayTransaction: APIModel {
             self.issuerPRN = issuerPRN
             self.location = location
             self.mileage = mileage
+            self.numberPlate = numberPlate
             self.paymentMethodId = paymentMethodId
             self.paymentMethodKind = paymentMethodKind
             self.paymentToken = paymentToken
             self.priceIncludingVAT = priceIncludingVAT
             self.priceWithoutVAT = priceWithoutVAT
+            self.productFlow = productFlow
             self.providerPRN = providerPRN
             self.purposePRN = purposePRN
             self.references = references
@@ -136,16 +144,18 @@ public class PCPayTransaction: APIModel {
             vat = try container.decodeIfPresent("VAT")
             createdAt = try container.decodeIfPresent("createdAt")
             currency = try container.decodeIfPresent("currency")
-            discountAmount = try container.decodeIfPresent("discountAmount")
+            discountAmount = try container.decodeLosslessDecimal("discountAmount")
             fuel = try container.decodeIfPresent("fuel")
             issuerPRN = try container.decodeIfPresent("issuerPRN")
             location = try container.decodeIfPresent("location")
             mileage = try container.decodeIfPresent("mileage")
+            numberPlate = try container.decodeIfPresent("numberPlate")
             paymentMethodId = try container.decodeIfPresent("paymentMethodId")
             paymentMethodKind = try container.decodeIfPresent("paymentMethodKind")
             paymentToken = try container.decodeIfPresent("paymentToken")
-            priceIncludingVAT = try container.decodeIfPresent("priceIncludingVAT")
-            priceWithoutVAT = try container.decodeIfPresent("priceWithoutVAT")
+            priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
+            priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
+            productFlow = try container.decodeIfPresent("productFlow")
             providerPRN = try container.decodeIfPresent("providerPRN")
             purposePRN = try container.decodeIfPresent("purposePRN")
             references = try container.decodeArrayIfPresent("references")
@@ -164,11 +174,13 @@ public class PCPayTransaction: APIModel {
             try container.encodeIfPresent(issuerPRN, forKey: "issuerPRN")
             try container.encodeIfPresent(location, forKey: "location")
             try container.encodeIfPresent(mileage, forKey: "mileage")
+            try container.encodeIfPresent(numberPlate, forKey: "numberPlate")
             try container.encodeIfPresent(paymentMethodId, forKey: "paymentMethodId")
             try container.encodeIfPresent(paymentMethodKind, forKey: "paymentMethodKind")
             try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
             try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
             try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
+            try container.encodeIfPresent(productFlow, forKey: "productFlow")
             try container.encodeIfPresent(providerPRN, forKey: "providerPRN")
             try container.encodeIfPresent(purposePRN, forKey: "purposePRN")
             try container.encodeIfPresent(references, forKey: "references")
@@ -186,11 +198,13 @@ public class PCPayTransaction: APIModel {
           guard self.issuerPRN == object.issuerPRN else { return false }
           guard self.location == object.location else { return false }
           guard self.mileage == object.mileage else { return false }
+          guard self.numberPlate == object.numberPlate else { return false }
           guard self.paymentMethodId == object.paymentMethodId else { return false }
           guard self.paymentMethodKind == object.paymentMethodKind else { return false }
           guard self.paymentToken == object.paymentToken else { return false }
           guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
           guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
+          guard self.productFlow == object.productFlow else { return false }
           guard self.providerPRN == object.providerPRN else { return false }
           guard self.purposePRN == object.purposePRN else { return false }
           guard self.references == object.references else { return false }

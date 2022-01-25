@@ -123,6 +123,12 @@ extension KeyedDecodingContainer {
         }
     }
 
+    func decodeLosslessDecimal(_ key: KeyedDecodingContainer.Key) throws -> Decimal? {
+        return try decodeOptional {
+            try decode(Double.self, forKey: key).decimal
+        }
+    }
+
     func decodeAny<T>(_ key: K) throws -> T {
         return try decodeAny(T.self, forKey: key)
     }
@@ -363,4 +369,12 @@ extension Data {
     func encode() -> Any {
         return self
     }
+}
+
+extension LosslessStringConvertible {
+    var string: String { .init(self) }
+}
+
+extension FloatingPoint where Self: LosslessStringConvertible {
+    var decimal: Decimal? { Decimal(string: string) }
 }

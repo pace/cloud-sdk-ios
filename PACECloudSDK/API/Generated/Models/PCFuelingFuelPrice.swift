@@ -71,7 +71,7 @@ public class PCFuelingFuelPrice: APIModel {
 
             currency = try container.decodeIfPresent("currency")
             fuelType = try container.decodeIfPresent("fuelType")
-            price = try container.decodeIfPresent("price")
+            price = try container.decodeLosslessDecimal("price")
             productName = try container.decodeIfPresent("productName")
         }
 

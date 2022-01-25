@@ -70,8 +70,8 @@ public class PCPayFuel: APIModel {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        amount = try container.decodeIfPresent("amount")
-        pricePerUnit = try container.decodeIfPresent("pricePerUnit")
+        amount = try container.decodeLosslessDecimal("amount")
+        pricePerUnit = try container.decodeLosslessDecimal("pricePerUnit")
         productName = try container.decodeIfPresent("productName")
         pumpNumber = try container.decodeIfPresent("pumpNumber")
         type = try container.decodeIfPresent("type")

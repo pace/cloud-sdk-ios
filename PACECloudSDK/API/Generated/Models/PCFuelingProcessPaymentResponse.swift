@@ -58,8 +58,8 @@ public class PCFuelingProcessPaymentResponse: APIModel {
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                amount = try container.decodeIfPresent("amount")
-                rate = try container.decodeIfPresent("rate")
+                amount = try container.decodeLosslessDecimal("amount")
+                rate = try container.decodeLosslessDecimal("rate")
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -99,12 +99,12 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
             vat = try container.decodeIfPresent("VAT")
             currency = try container.decodeIfPresent("currency")
-            discountAmount = try container.decodeIfPresent("discountAmount")
+            discountAmount = try container.decodeLosslessDecimal("discountAmount")
             gasStationId = try container.decodeIfPresent("gasStationId")
             mileage = try container.decodeIfPresent("mileage")
             paymentToken = try container.decodeIfPresent("paymentToken")
-            priceIncludingVAT = try container.decodeIfPresent("priceIncludingVAT")
-            priceWithoutVAT = try container.decodeIfPresent("priceWithoutVAT")
+            priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
+            priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
             pumpId = try container.decodeIfPresent("pumpId")
             vin = try container.decodeIfPresent("vin")
         }
