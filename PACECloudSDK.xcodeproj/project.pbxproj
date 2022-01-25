@@ -477,6 +477,7 @@
 		3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */; };
 		3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C74F25DD67E500039296 /* GeoAPIManager.swift */; };
 		3B86C78A25DD6AA500039296 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
+		3B86D88D279FDEF8001F4F9B /* DecimalDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */; };
 		3B879A99268210FF00D400B4 /* IDKit+API+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */; };
 		3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06925DACE6400D635F0 /* SwiftProtobuf */; };
 		3B88785825CBECC2008D1551 /* GeoJSONAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */; };
@@ -1412,6 +1413,7 @@
 		3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeTests.swift; sourceTree = "<group>"; };
 		3B86C74F25DD67E500039296 /* GeoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIManager.swift; sourceTree = "<group>"; };
 		3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIResponse.swift; sourceTree = "<group>"; };
+		3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalDecodingTests.swift; sourceTree = "<group>"; };
 		3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+API+TokenHandling.swift"; sourceTree = "<group>"; };
 		3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIRequest.swift; sourceTree = "<group>"; };
 		3B88784F25CBECC2008D1551 /* GeoJSONAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIClient.swift; sourceTree = "<group>"; };
@@ -3456,6 +3458,7 @@
 			children = (
 				3BA9E526274B82FD00617EDE /* MockData */,
 				3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */,
+				3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */,
 				6ACBC03726FDC76300E6AC05 /* LoggerTests.swift */,
 				3BA9E524274B82F000617EDE /* MockObject.swift */,
 				3BA9E522274B825200617EDE /* MockURLProtocol.swift */,
@@ -4786,6 +4789,7 @@
 				3BA9E525274B82F000617EDE /* MockObject.swift in Sources */,
 				3BA9E52D274B985400617EDE /* XCTestCase+Extension.swift in Sources */,
 				6ACBC03826FDC76300E6AC05 /* LoggerTests.swift in Sources */,
+				3B86D88D279FDEF8001F4F9B /* DecimalDecodingTests.swift in Sources */,
 				3B970AC02542D9DB0072F6BA /* ManifestMocks.swift in Sources */,
 				3BA9E523274B825200617EDE /* MockURLProtocol.swift in Sources */,
 				3BA9E529274B838D00617EDE /* GeoServiceMockObject.swift in Sources */,

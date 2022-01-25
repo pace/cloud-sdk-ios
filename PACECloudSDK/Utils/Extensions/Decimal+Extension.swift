@@ -16,3 +16,11 @@ public extension Decimal {
         NSDecimalNumber(decimal: self).doubleValue
     }
 }
+
+extension Decimal {
+    /// Returns the number of decimal places
+    /// https://stackoverflow.com/questions/41744278/count-number-of-decimal-places-in-a-float-or-decimal-in-swift
+    var significantFractionalDecimalDigits: Int {
+        return max(-exponent, 0)
+    }
+}
