@@ -67,21 +67,4 @@ extension AppControl: AppKitDelegate {
     func didEscapeForecourt(_ appDatas: [AppKit.AppData]) {
         currentlyVisibleDrawers.removeAll(where: { appDatas.contains($0) })
     }
-
-    func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) {
-        completion("merchantIdentifier")
-    }
-
-    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) {
-        completion(.init(paymentMethod: .init(displayName: "DisplayName",
-                                              network: "Network",
-                                              type: .credit),
-                         paymentData: .init(version: "123",
-                                            data: "data",
-                                            signature: "signature",
-                                            header: .init(ephemeralPublicKey: "publicKey",
-                                                          publicKeyHash: "hash",
-                                                          transactionId: "transactionId")),
-                         transactionIdentifier: "transactionIdentifier"))
-    }
 }

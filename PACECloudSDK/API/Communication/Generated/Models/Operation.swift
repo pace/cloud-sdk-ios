@@ -20,7 +20,6 @@ extension API.Communication {
         case getAccessToken
         case imageData
         case applePayAvailabilityCheck
-        case applePayRequest
         case back
         case appInterceptableLink
         case setUserProperty

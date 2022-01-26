@@ -134,12 +134,6 @@ extension API.Communication {
                     self?.handleResult(with: result, response: response, operation: operation)
                 }
 
-            case .applePayRequest:
-                guard let requestBody: ApplePayRequestRequest = decodeRequestBody(request, response, operation) else { return }
-                delegate?.handleApplePayRequest(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
-                }
-
             case .back:
                 delegate?.handleBack { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation)

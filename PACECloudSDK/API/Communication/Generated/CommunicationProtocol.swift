@@ -18,7 +18,6 @@ protocol CommunicationProtocol: AnyObject {
     func handleGetAccessToken(with request: API.Communication.GetAccessTokenRequest, completion: @escaping (API.Communication.GetAccessTokenResult) -> Void)
     func handleImageData(with request: API.Communication.ImageDataRequest, completion: @escaping (API.Communication.ImageDataResult) -> Void)
     func handleApplePayAvailabilityCheck(with request: API.Communication.ApplePayAvailabilityCheckRequest, completion: @escaping (API.Communication.ApplePayAvailabilityCheckResult) -> Void)
-    func handleApplePayRequest(with request: API.Communication.ApplePayRequestRequest, completion: @escaping (API.Communication.ApplePayRequestResult) -> Void)
     func handleBack(completion: @escaping (API.Communication.BackResult) -> Void)
     func handleAppInterceptableLink(completion: @escaping (API.Communication.AppInterceptableLinkResult) -> Void)
     func handleSetUserProperty(with request: API.Communication.SetUserPropertyRequest, completion: @escaping (API.Communication.SetUserPropertyResult) -> Void)
