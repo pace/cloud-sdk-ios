@@ -164,6 +164,26 @@ framework_release_build:
       - ./build/
     expire_in: 1 week
 
+## Build slim xcframework
+framework_slim_release_build:
+  extends: .xcode_version
+  variables:
+    PROJECT_NAME: "PACECloudSlimSDK"
+  stage: build
+  <<: *xcframework
+  only:
+    refs:
+      - merge_requests
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /WIP/
+  artifacts:
+    name: "PACECloudSlimSDK"
+    paths:
+      - ./build/
+    expire_in: 1 week
+  when: manual
+
 ## Build watch xcframework
 framework_watch_release_build:
   extends: .xcode_version

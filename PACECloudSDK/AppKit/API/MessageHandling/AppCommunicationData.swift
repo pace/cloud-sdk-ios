@@ -26,33 +26,3 @@ public extension AppKit {
         }
     }
 }
-
-public extension API.Communication.PaymentMethod {
-    init(displayName: String?, network: String?, type: PKPaymentMethodType) {
-        let displayName = displayName
-        let network = network
-        let type: String = {
-            switch type {
-            case .credit:
-                return "credit"
-
-            case .debit:
-                return "debit"
-
-            case .prepaid:
-                return "prepaid"
-
-            case .store:
-                return "store"
-
-            case .unknown:
-                return "unknown"
-
-            @unknown default:
-                return "undefined"
-            }
-        }()
-
-        self.init(displayName: displayName, network: network, type: type)
-    }
-}

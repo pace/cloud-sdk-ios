@@ -24,9 +24,6 @@ public protocol AppKitDelegate: AnyObject {
     func didReceiveImageData(_ image: UIImage)
     func didReceiveText(title: String, text: String)
 
-    func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)
-    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)
-
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void))
     func currentLocation(completion: @escaping (CLLocation?) -> Void)
 
@@ -49,8 +46,6 @@ public extension AppKitDelegate {
         let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         UIWindow.topMost?.rootViewController?.present(av, animated: true, completion: nil)
     }
-    func paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void) { completion("") }
-    func didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) { completion(nil) }
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) { completion(false) }
     func currentLocation(completion: @escaping (CLLocation?) -> Void) { completion(nil) }
     func setUserProperty(key: String, value: String, update: Bool) {}
@@ -118,18 +113,6 @@ extension AppKit {
     func notifyImageData(with image: UIImage) {
         notifyClient { [weak self] in
             self?.delegate?.didReceiveImageData(image)
-        }
-    }
-
-    func notifyMerchantIdentifier(callback: @escaping (String) -> Void) {
-        notifyClient { [weak self] in
-            self?.delegate?.paymentRequestMerchantIdentifier(completion: callback)
-        }
-    }
-
-    func notifyApplePayRequest(with request: PKPaymentRequest, callback: @escaping (API.Communication.ApplePayRequestResponse?) -> Void) {
-        notifyClient { [weak self] in
-            self?.delegate?.didCreateApplePayPaymentRequest(request, completion: callback)
         }
     }
 
