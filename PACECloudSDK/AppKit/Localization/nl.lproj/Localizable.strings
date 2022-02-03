@@ -1,0 +1,8 @@
+"error_generic" = "Sorry, er ging iets mis. Probeer het later nog eens.";
+"common_retry" = "Probeer het nog eens.";
+"loading_text" = "Gegevens laden";
+"common_action_close" = "Sluiten";
+"error_connection_problem_network_headline" = "Ontoereikende netwerkverbinding";
+"error_connection_problem_network" = "PACE heeft een stabiele en voldoende snelle netwerkverbinding nodig om door te kunnen gaan.\ Zorg ervoor dat uw app toegang heeft tot de mobiele gegevens van uw telefoon. U kunt ook Wi-Fi gebruiken.";
+"appkit_secureData_authentication_confirmation" = "Machtigen voor toegang tot beveiligde gegevens";
+"idkit_biometryAuthentication_confirmation" = "Bevestiging van het gebruik van biometrische authentificatie";
