@@ -53,6 +53,7 @@
         + [6.x.x -> 7.x.x](#from-6xx-to-7xx)
         + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
         + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
+    * [Contribute](#contribute)
     * [Source code](#source-code)
     * [FAQ](#faq)
 
@@ -855,6 +856,12 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 9.x.x to 10.x.x
 
 + `API.Communication.ApplePayRequestRequest`, `API.Communication.ApplePayRequestResponse` and the two callbacks in `AppKitDelegate` `paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)` + `didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)` have been removed.
+
+## Contribute
+### Localizable Strings Generation
+To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).  
+Path to `Strings` file: `PACECloudSDK/Generated/Strings.swift`  
+Path to `Localizable` files: `PACECloudSDK/AppKit/Localization`
 
 ## Source code
 The complete source code of the SDK can be found on [GitHub](https://github.com/pace/cloud-sdk-ios).
