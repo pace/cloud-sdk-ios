@@ -2280,6 +2280,7 @@
 				3B970ABA2542D9DB0072F6BA /* AssetTests.swift */,
 				3B970ABE2542D9DB0072F6BA /* AppKitTests.swift */,
 				3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */,
+				3B8B02F4255C228E0020A6FA /* JWTTests.swift */,
 				3B970ABC2542D9DB0072F6BA /* URLBuilderTests.swift */,
 				3B970ABD2542D9DB0072F6BA /* URLDecomposerTests.swift */,
 			);
@@ -2834,7 +2835,6 @@
 		3BD870FD26BD547C0098C411 /* IDKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				3B8B02F4255C228E0020A6FA /* JWTTests.swift */,
 				3BD870FE26BD548E0098C411 /* PINValidityTests.swift */,
 			);
 			path = IDKitTests;
