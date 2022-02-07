@@ -53,46 +53,5 @@ public extension IDKit {
                 return nil
             }
         }
-
-        /**
-         Returns a set of payment method kinds that are currently allowed to be onboarded for the passed `token`.
-         - parameter token: The access token the payment method kinds should be retrieved for.
-         - returns: `nil` if no payment method kinds are available.
-         If all of the payment methods kinds are allowed to be onboarded, an empty set will be returned, otherwise only the ones allowed.
-         */
-        public static func paymentMethodKinds(for token: String) -> Set<String>? {
-            guard let scope = jwtValue(for: "scope", of: token) as? String else {
-                return nil
-            }
-
-            let scopes = scope.components(separatedBy: " ")
-            let paymentMethodScope = Constants.JWT.paymentMethodCreateScope
-            let individualScopePrefix = "\(paymentMethodScope):"
-
-            let generalScope = scopes.first(where: { $0 == paymentMethodScope })
-            let individualScopes = scopes.filter { $0.hasPrefix(individualScopePrefix) }
-            let isApplePayScopeAvailable = scopes.contains(where: { $0 == Constants.JWT.applePaySessionCreateScope })
-
-            guard generalScope == nil else {
-                // General scope is available
-                return .init()
-            }
-
-            guard !individualScopes.isEmpty || isApplePayScopeAvailable else {
-                // There is no general scope, no individual scopes and no apple pay scope either
-                return nil
-            }
-
-            var paymentMethodKinds = individualScopes.reduce(into: Set<String>()) { result, scope in
-                let paymentMethodKind = String(scope.dropFirst(individualScopePrefix.count))
-                result.insert(paymentMethodKind)
-            }
-
-            if isApplePayScopeAvailable {
-                paymentMethodKinds.insert(Constants.applePay)
-            }
-
-            return paymentMethodKinds
-        }
     }
 }
