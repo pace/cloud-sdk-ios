@@ -66,33 +66,22 @@ public extension IDKit {
             }
 
             let scopes = scope.components(separatedBy: " ")
-            let paymentMethodScope = Constants.JWT.paymentMethodCreateScope
+            let paymentMethodScope = "pay:payment-methods:create"
             let individualScopePrefix = "\(paymentMethodScope):"
 
             let generalScope = scopes.first(where: { $0 == paymentMethodScope })
             let individualScopes = scopes.filter { $0.hasPrefix(individualScopePrefix) }
-            let isApplePayScopeAvailable = scopes.contains(where: { $0 == Constants.JWT.applePaySessionCreateScope })
 
-            guard generalScope == nil else {
-                // General scope is available
+            if generalScope != nil {
                 return .init()
-            }
-
-            guard !individualScopes.isEmpty || isApplePayScopeAvailable else {
-                // There is no general scope, no individual scopes and no apple pay scope either
+            } else if !individualScopes.isEmpty {
+                return individualScopes.reduce(into: Set<String>()) { result, scope in
+                    let paymentMethodKind = String(scope.dropFirst(individualScopePrefix.count))
+                    result.insert(paymentMethodKind)
+                }
+            } else {
                 return nil
             }
-
-            var paymentMethodKinds = individualScopes.reduce(into: Set<String>()) { result, scope in
-                let paymentMethodKind = String(scope.dropFirst(individualScopePrefix.count))
-                result.insert(paymentMethodKind)
-            }
-
-            if isApplePayScopeAvailable {
-                paymentMethodKinds.insert(Constants.applePay)
-            }
-
-            return paymentMethodKinds
         }
     }
 }

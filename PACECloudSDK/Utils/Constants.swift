@@ -9,9 +9,10 @@ import Foundation
 
 struct Constants {
     static let logTag = "[PACECloudSDK]"
+
     static let isPoiInRangeThreshold: Double = 500
+
     static let applicationURLRedirectHost = "redirect"
-    static let applePay = "applepay"
 
     struct Configuration {
         static let defaultAllowedLowAccuracy: Double = 250
@@ -32,10 +33,5 @@ struct Constants {
         static var identifier: String {
             return "\(PACECloudSDK.shared.traceId ?? ""):\(spanId):\(parentSpanId):\(flags)"
         }
-    }
-
-    struct JWT {
-        static let paymentMethodCreateScope = "pay:payment-methods:create"
-        static let applePaySessionCreateScope = "pay:applepay-sessions:create"
     }
 }
