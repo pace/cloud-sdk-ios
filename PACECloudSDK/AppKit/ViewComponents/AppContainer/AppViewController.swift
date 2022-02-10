@@ -111,18 +111,66 @@ public class AppViewController: UIViewController {
     }
 }
 
-extension AppViewController {
+private extension AppViewController {
     func handleRedirectService(url: String) {
         if let webVC = integratedWebView {
-            webVC.dismiss(animated: true) {
-                self.integratedWebView = nil
-                self.webView.loadUrl(urlString: url)
+            webVC.dismiss(animated: true) { [weak self] in
+                self?.integratedWebView = nil
+                self?.webView.loadUrl(urlString: url)
             }
         } else {
-            sfSafariViewController?.dismiss(animated: true) {
-                self.sfSafariViewController = nil
-                self.webView.loadUrl(urlString: url)
+            sfSafariViewController?.dismiss(animated: true) { [weak self] in
+                self?.sfSafariViewController = nil
+                self?.webView.loadUrl(urlString: url)
             }
+        }
+    }
+
+    func presentIntegratedWebView(with urlString: String) {
+        let presentationBlock: (String) -> Void = { [weak self] urlString in
+            guard let self = self else { return }
+            let integratedWebView = WebViewController(appUrl: urlString)
+            integratedWebView.delegate = self
+            integratedWebView.modalPresentationStyle = .pageSheet
+            integratedWebView.presentationController?.delegate = self
+            self.integratedWebView = integratedWebView
+            self.present(integratedWebView, animated: true) // swiftlint:disable:this force_unwrapping
+        }
+
+        guard let webVC = integratedWebView else {
+            presentationBlock(urlString)
+            return
+        }
+
+        webVC.dismiss(animated: false) { [weak self] in
+            self?.integratedWebView = nil
+            presentationBlock(urlString)
+        }
+    }
+
+    func presentSFSafariViewController(with url: URL) {
+        let presentationBlock: (URL) -> Void = { [weak self] url in
+            guard let self = self else { return }
+            let sfSafariViewController = SFSafariViewController(url: url)
+            sfSafariViewController.delegate = self
+
+            if #available(iOS 13.0, *) {
+                sfSafariViewController.modalPresentationStyle = .pageSheet
+            }
+
+            sfSafariViewController.presentationController?.delegate = self
+            self.sfSafariViewController = sfSafariViewController
+            self.present(sfSafariViewController, animated: true) // swiftlint:disable:this force_unwrapping
+        }
+
+        guard let sfSafariViewController = sfSafariViewController else {
+            presentationBlock(url)
+            return
+        }
+
+        sfSafariViewController.dismiss(animated: false) { [weak self] in
+            self?.sfSafariViewController = nil
+            presentationBlock(url)
         }
     }
 }
@@ -130,28 +178,19 @@ extension AppViewController {
 // MARK: - AppActionsDelegate
 extension AppViewController: AppActionsDelegate {
     func appRequestedNewTab(for urlString: String, cancelUrl: String, integrated: Bool) {
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            AppKitLogger.e("[AppViewController] appRequestedNewTab failed due to invalid url - \(urlString)")
+            return
+        }
 
         self.cancelUrl = cancelUrl
 
         // Apple pay support in WKWebView came with iOS 13
         // Reference: https://webkit.org/blog/9674/new-webkit-features-in-safari-13/
         if #available(iOS 13.0, *), integrated {
-            integratedWebView = WebViewController(appUrl: urlString)
-            integratedWebView?.modalPresentationStyle = .pageSheet
-            integratedWebView?.presentationController?.delegate = self
-            present(integratedWebView!, animated: true) // swiftlint:disable:this force_unwrapping
+            presentIntegratedWebView(with: urlString)
         } else {
-            sfSafariViewController = SFSafariViewController(url: url)
-            sfSafariViewController?.delegate = self
-
-            if #available(iOS 13.0, *) {
-                sfSafariViewController?.modalPresentationStyle = .pageSheet
-            }
-
-            sfSafariViewController?.presentationController?.delegate = self
-
-            present(sfSafariViewController!, animated: true) // swiftlint:disable:this force_unwrapping
+            presentSFSafariViewController(with: url)
         }
     }
 
@@ -191,5 +230,13 @@ extension AppViewController: UIAdaptivePresentationControllerDelegate {
         // `SFSafariViewController` was dismissed by pulling down
         webView.loadUrl(urlString: cancelUrl)
         cancelUrl = nil
+    }
+}
+
+extension AppViewController: WebViewControllerDelegate {
+    func dismiss(webViewController: WebViewController) {
+        webViewController.dismiss(animated: true) { [weak self] in
+            self?.integratedWebView = nil
+        }
     }
 }
