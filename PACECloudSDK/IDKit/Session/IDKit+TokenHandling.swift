@@ -95,7 +95,13 @@ extension IDKit {
         }
 
         var userAgent: OIDExternalUserAgent?
-        if #available(iOS 13.0, *) {
+
+        switch userAgentType {
+        case .integrated:
+            userAgent = IDKitWebViewUserAgent(with: presentingViewController)
+
+        case .external:
+            guard #available(iOS 13.0, *) else { break }
             userAgent = IDKitUserAgent(with: presentingViewController) // Hide ASWebAuthenticationSession popup
         }
 
