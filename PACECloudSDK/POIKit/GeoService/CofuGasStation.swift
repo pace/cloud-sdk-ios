@@ -14,7 +14,7 @@ public extension POIKit {
         public let coordinates: GeoAPICoordinate?
         public let polygon: [GeoAPICoordinates]?
         public let properties: [String: Any]
-        public let cofuStatus: CofuStatus
+        private(set) public var cofuStatus: CofuStatus?
 
         public var location: CLLocation? {
             guard let coordinates = coordinates,
@@ -34,8 +34,6 @@ public extension POIKit {
             if let statusString = properties[cofuStatusPropertyKey] as? String,
                let status = CofuStatus(rawValue: statusString) {
                 self.cofuStatus = status
-            } else {
-                self.cofuStatus = .offline
             }
         }
 
