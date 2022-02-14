@@ -7,15 +7,24 @@
 
 import UIKit
 
+protocol WebViewControllerDelegate: AnyObject {
+    func dismiss(webViewController: WebViewController)
+}
+
 public class WebViewController: UIViewController {
     private let webView: WebView
+
+    weak var delegate: WebViewControllerDelegate?
 
     init(appUrl: String?,
          hasNavigationBar: Bool = false,
          isModalInPresentation: Bool = true) {
 
         webView = WebView(with: appUrl)
+
         super.init(nibName: nil, bundle: nil)
+
+        webView.delegate = self
 
         navigationController?.setNavigationBarHidden(!hasNavigationBar, animated: false)
 
@@ -39,5 +48,11 @@ public class WebViewController: UIViewController {
         view.backgroundColor = AppStyle.backgroundColor1
         navigationController?.navigationBar.tintColor = AppStyle.whiteColor
         webView.fillSuperview()
+    }
+}
+
+extension WebViewController: WebViewDelegate {
+    func dismissWebView() {
+        delegate?.dismiss(webViewController: self)
     }
 }

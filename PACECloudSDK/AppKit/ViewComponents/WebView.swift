@@ -8,10 +8,16 @@
 import UIKit
 import WebKit
 
+protocol WebViewDelegate: AnyObject {
+    func dismissWebView()
+}
+
 class WebView: WKWebView {
     private var userAgent: String {
         return AppKit.Constants.userAgent
     }
+
+    weak var delegate: WebViewDelegate?
 
     let appUrl: String?
     var successfullyLoadedOnce = false
@@ -64,7 +70,7 @@ class WebView: WKWebView {
         }
 
         placeholder.closeAction = { [weak self] in
-            
+            self?.delegate?.dismissWebView()
         }
 
         self.scrollView.bounces = false

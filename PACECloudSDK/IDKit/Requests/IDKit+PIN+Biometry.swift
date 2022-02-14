@@ -117,7 +117,7 @@ extension IDKit {
             return
         }
 
-        biometryPolicy.evaluatePolicy(reasonText: reasonText) { [weak self] success, error in
+        biometryPolicy.evaluatePolicy(reasonText: reasonText) { success, error in
             if let error = error {
                 completion(.failure(.other(error)))
                 return
