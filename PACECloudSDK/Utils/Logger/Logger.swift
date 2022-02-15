@@ -49,19 +49,19 @@ open class Logger {
         }
     }
 
-    public static func v(_ message: String) {
+    open class func v(_ message: String) {
         log(message: message, level: Level.verbose.description)
     }
 
-    public static func i(_ message: String) {
+    open class func i(_ message: String) {
         log(message: message, level: Level.info.description)
     }
 
-    public static func w(_ message: String) {
+    open class func w(_ message: String) {
         log(message: message, level: Level.warning.description)
     }
 
-    public static func e(_ message: String) {
+    open class func e(_ message: String) {
         log(message: message, level: Level.error.description)
     }
 
