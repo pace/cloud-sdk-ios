@@ -28,30 +28,32 @@ public class IDKit {
     var session: OIDAuthState?
     var authorizationFlow: OIDExternalUserAgentSession?
     var configuration: OIDConfiguration
+    let userAgentType: UserAgentType
 
     var clientPresentingViewController: UIViewController?
     var paceIDSignInWindow: PaceIDSignInWindow?
 
-    private init(with configuration: OIDConfiguration) {
+    private init(with configuration: OIDConfiguration, userAgentType: UserAgentType) {
         self.configuration = configuration
+        self.userAgentType = userAgentType
 
         guard let session = SessionCache.loadSession() else { return }
         self.session = session
     }
 
-    private static func setup(with configuration: OIDConfiguration) {
-        sharedInstance = IDKit(with: configuration)
+    private static func setup(with configuration: OIDConfiguration, userAgentType: UserAgentType) {
+        sharedInstance = IDKit(with: configuration, userAgentType: userAgentType)
     }
 
-    static func determineOIDConfiguration(with customOIDConfig: OIDConfiguration?) {
+    static func determineOIDConfiguration(with customOIDConfig: OIDConfiguration?, userAgentType: UserAgentType) {
         if let customOIDConfig = customOIDConfig {
-            setup(with: customOIDConfig)
+            setup(with: customOIDConfig, userAgentType: userAgentType)
         } else if let oidConfigClientId = Bundle.main.oidConfigClientId,
                   let oidConfigRedirectUri = Bundle.main.oidConfigRedirectUri {
             let defaultOIDConfiguration = OIDConfiguration.defaultOIDConfiguration(clientId: oidConfigClientId,
                                                                                    redirectUri: oidConfigRedirectUri,
                                                                                    idpHint: Bundle.main.oidConfigIdpHint)
-            setup(with: defaultOIDConfiguration)
+            setup(with: defaultOIDConfiguration, userAgentType: userAgentType)
         }
     }
 

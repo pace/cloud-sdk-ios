@@ -15,23 +15,11 @@ protocol AppActionsDelegate: AnyObject {
 }
 
 class AppWebView: WebView, App {
-    private var userAgent: String {
-        return AppKit.Constants.userAgent
-    }
-
     weak var appActionsDelegate: AppActionsDelegate?
 
     private(set) var webViewDelegate: AppWebViewDelegate? // swiftlint:disable:this weak_delegate
     private(set) var messageHandler: API.Communication.MessageHandler?
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
-
-    required init(with url: String?) {
-        super.init(with: url)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     override func setup() {
         addCustomScripts()
@@ -125,10 +113,6 @@ class AppWebView: WebView, App {
             self.configuration.userContentController.removeScriptMessageHandler(forName: $0.rawValue)
         }
     }
-}
-
-extension AppWebView {
-    static let sharedSessionProcessPool = WKProcessPool()
 }
 
 // MARK: - WKScriptMessageHandler

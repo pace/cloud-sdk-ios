@@ -12,19 +12,16 @@ protocol WebViewControllerDelegate: AnyObject {
 }
 
 public class WebViewController: UIViewController {
-    private let webView: WebView
+    let webView: WebView
 
     weak var delegate: WebViewControllerDelegate?
 
-    init(appUrl: String?,
-         hasNavigationBar: Bool = false,
-         isModalInPresentation: Bool = true) {
-
-        webView = WebView(with: appUrl)
+    init(appUrl: String?, hasNavigationBar: Bool = false, isModalInPresentation: Bool = true, webView: WebView? = nil) {
+        self.webView = webView ?? WebView(with: appUrl)
 
         super.init(nibName: nil, bundle: nil)
 
-        webView.delegate = self
+        self.webView.delegate = self
 
         navigationController?.setNavigationBarHidden(!hasNavigationBar, animated: false)
 
@@ -39,7 +36,6 @@ public class WebViewController: UIViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-
         setupView()
     }
 

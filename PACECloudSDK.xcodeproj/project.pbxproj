@@ -228,6 +228,13 @@
 		3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F62539E6BE00C291F1 /* Vector2.swift */; };
 		3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
 		3B5FBC0525F282C500AE93BF /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
+		3B68269527BA5EAD00933C95 /* IDKitWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269427BA5EAD00933C95 /* IDKitWebView.swift */; };
+		3B68269727BA5ECA00933C95 /* IDKitWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269627BA5ECA00933C95 /* IDKitWebViewController.swift */; };
+		3B68269C27BA886C00933C95 /* IDKitUserAgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */; };
+		3B68269F27BA93EB00933C95 /* IDKitUserAgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */; };
+		3B6826A027BA949B00933C95 /* IDKitUserAgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */; };
+		3B6826A327BA955300933C95 /* Constants+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6826A227BA955300933C95 /* Constants+UserAgent.swift */; };
+		3B6826A427BA958500933C95 /* Constants+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6826A227BA955300933C95 /* Constants+UserAgent.swift */; };
 		3B6B37F726298CF3001961B6 /* Cms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B37F626298CF3001961B6 /* Cms.swift */; };
 		3B6B380C26298DD4001961B6 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
 		3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
@@ -681,6 +688,7 @@
 		3B9B2A6227B65A380099EA37 /* GeoAPIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManagerError.swift */; };
 		3B9B2A6327B65AD10099EA37 /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655E526B286A700921766 /* CofuGasStation.swift */; };
 		3B9B2A6427B65AD40099EA37 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
+		3B9B2A6F27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B2A6E27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift */; };
 		3B9B6403266F6EAB00B2DC27 /* PaceIDSignInWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6402266F6EAB00B2DC27 /* PaceIDSignInWindow.swift */; };
 		3B9B640D266F6F2D00B2DC27 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */; };
 		3B9B6413266F6F8F00B2DC27 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6412266F6F8F00B2DC27 /* Application.swift */; };
@@ -698,6 +706,9 @@
 		3BA6A76C260DD06B005D4B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76B260DD06B005D4B5C /* Assets.xcassets */; };
 		3BA6A76F260DD06B005D4B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6A76D260DD06B005D4B5C /* LaunchScreen.storyboard */; };
 		3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BA6A79B260DDF5A005D4B5C /* AppAuth */; };
+		3BA8220927BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8220827BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift */; };
+		3BA8220A27BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8220827BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift */; };
+		3BA8220B27BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8220827BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift */; };
 		3BA9E520274B7F5700617EDE /* GeoServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */; };
 		3BA9E523274B825200617EDE /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E522274B825200617EDE /* MockURLProtocol.swift */; };
 		3BA9E525274B82F000617EDE /* MockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E524274B82F000617EDE /* MockObject.swift */; };
@@ -1212,6 +1223,10 @@
 		3B5503F62539E6BE00C291F1 /* Vector2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2.swift; sourceTree = "<group>"; };
 		3B5504122539E81F00C291F1 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryTOTPData.swift; sourceTree = "<group>"; };
+		3B68269427BA5EAD00933C95 /* IDKitWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitWebView.swift; sourceTree = "<group>"; };
+		3B68269627BA5ECA00933C95 /* IDKitWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitWebViewController.swift; sourceTree = "<group>"; };
+		3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitUserAgentType.swift; sourceTree = "<group>"; };
+		3B6826A227BA955300933C95 /* Constants+UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+UserAgent.swift"; sourceTree = "<group>"; };
 		3B6B37F626298CF3001961B6 /* Cms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cms.swift; sourceTree = "<group>"; };
 		3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmsAPIClient.swift; sourceTree = "<group>"; };
 		3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CmsAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
@@ -1409,6 +1424,7 @@
 		3B987046268E06AE00A0458F /* LogEventRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEventRequest.swift; sourceTree = "<group>"; };
 		3B987047268E06AE00A0458F /* Communication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communication.swift; sourceTree = "<group>"; };
 		3B987048268E06AE00A0458F /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		3B9B2A6E27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitWebViewUserAgent.swift; sourceTree = "<group>"; };
 		3B9B6402266F6EAB00B2DC27 /* PaceIDSignInWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceIDSignInWindow.swift; sourceTree = "<group>"; };
 		3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		3B9B6412266F6F8F00B2DC27 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -1426,6 +1442,7 @@
 		3BA6A76B260DD06B005D4B5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BA6A76E260DD06B005D4B5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BA6A770260DD06B005D4B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BA8220827BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+Configuration.swift"; sourceTree = "<group>"; };
 		3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoServiceTests.swift; sourceTree = "<group>"; };
 		3BA9E522274B825200617EDE /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		3BA9E524274B82F000617EDE /* MockObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockObject.swift; sourceTree = "<group>"; };
@@ -1931,6 +1948,48 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3B68269227BA5E3800933C95 /* UserAgents */ = {
+			isa = PBXGroup;
+			children = (
+				3B68269327BA5E9800933C95 /* WebView */,
+				3BA4807D2565492600187D0A /* IDKitUserAgent.swift */,
+				3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */,
+			);
+			path = UserAgents;
+			sourceTree = "<group>";
+		};
+		3B68269327BA5E9800933C95 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				3B9B2A6E27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift */,
+				3B68269427BA5EAD00933C95 /* IDKitWebView.swift */,
+				3B68269627BA5ECA00933C95 /* IDKitWebViewController.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		3B68269827BA604700933C95 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */,
+				3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */,
+				3B970A1D2542D9BA0072F6BA /* ErrorPlaceholderView.swift */,
+				3B970A202542D9BA0072F6BA /* LoadingView.swift */,
+				8492C7EE27510681001A4D7B /* WebView.swift */,
+				8492C7EF27510682001A4D7B /* WebViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3B6826A127BA951600933C95 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				3BB1442625386EA9004E9F63 /* Constants.swift */,
+				3B6826A227BA955300933C95 /* Constants+UserAgent.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		3B6B37F526298CB9001961B6 /* Cms */ = {
 			isa = PBXGroup;
 			children = (
@@ -2171,25 +2230,11 @@
 		3B970A162542D9BA0072F6BA /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
-				8492C7EE27510681001A4D7B /* WebView.swift */,
-				8492C7EF27510682001A4D7B /* WebViewController.swift */,
-				3B970A172542D9BA0072F6BA /* AppContainer */,
-				3B970A1F2542D9BA0072F6BA /* AppActivityIndicatorView.swift */,
-				3B970A1E2542D9BA0072F6BA /* ButtonRectangular.swift */,
-				3B970A202542D9BA0072F6BA /* LoadingView.swift */,
-				3B970A1D2542D9BA0072F6BA /* ErrorPlaceholderView.swift */,
-			);
-			path = ViewComponents;
-			sourceTree = "<group>";
-		};
-		3B970A172542D9BA0072F6BA /* AppContainer */ = {
-			isa = PBXGroup;
-			children = (
 				3B970A182542D9BA0072F6BA /* AppViewController.swift */,
 				3B970A192542D9BA0072F6BA /* AppWebView.swift */,
 				3B970A1A2542D9BA0072F6BA /* AppWindow.swift */,
 			);
-			path = AppContainer;
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 		3B970A242542D9BA0072F6BA /* Localization */ = {
@@ -2417,8 +2462,8 @@
 		3BA5833B256BCDF20099629B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3B68269227BA5E3800933C95 /* UserAgents */,
 				3BB208842538338A008DDE45 /* IDKitError.swift */,
-				3BA4807D2565492600187D0A /* IDKitUserAgent.swift */,
 				3B24095A256BF43A003DA32B /* OIDConfiguration.swift */,
 				3BA5833C256BCDF90099629B /* UserInfo.swift */,
 			);
@@ -2463,8 +2508,8 @@
 		3BB1442525386E9C004E9F63 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3B6826A127BA951600933C95 /* Constants */,
 				3B9B6412266F6F8F00B2DC27 /* Application.swift */,
-				3BB1442625386EA9004E9F63 /* Constants.swift */,
 				3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */,
 				927111512573B295001D6DDA /* HttpHeaderFields.swift */,
 				927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */,
@@ -2479,6 +2524,7 @@
 				3B855311253D6BF3001F7B66 /* Extensions */,
 				6ACBC08126FE0FA500E6AC05 /* Logger */,
 				3B970A282542D9BA0072F6BA /* Plists */,
+				3B68269827BA604700933C95 /* Views */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3360,6 +3406,7 @@
 				921E68302534883200438491 /* Info.plist */,
 				92EFB206258B5C00001768F0 /* PACECloudSDK.swift */,
 				923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */,
+				3BA8220827BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift */,
 				3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */,
 				1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */,
 			);
@@ -4064,6 +4111,7 @@
 				3B79FA4626C15BBF00C0278F /* PCPOICommonOpeningHours.swift in Sources */,
 				3BC3C6DC279EB37300E39956 /* PCPayPaymentMethodRMCCreate.swift in Sources */,
 				17B4E53E26D39C9100AEAF13 /* UserAPICheckUserPinOrPassword.swift in Sources */,
+				3B6826A027BA949B00933C95 /* IDKitUserAgentType.swift in Sources */,
 				17B4E54026D39C9100AEAF13 /* UserAPICreateUserPassword.swift in Sources */,
 				3B79FA2426C15B9100C0278F /* POIAPIGetGasStations.swift in Sources */,
 				3B79FA3B26C15BBF00C0278F /* PCPOILocationBasedAppWithRefs.swift in Sources */,
@@ -4079,6 +4127,7 @@
 				3B7C8E3C26FC59CA0080B2B5 /* PCPayPaymentMethodVendor.swift in Sources */,
 				17B4E4F026CFE47700AEAF13 /* UserAPIResponse.swift in Sources */,
 				17B4E54626D39C9700AEAF13 /* UserAPICreateOTP.swift in Sources */,
+				3BA8220B27BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4147,6 +4196,7 @@
 				3B9EC3D6253746390040DE22 /* IDKit+OIDConfiguration.swift in Sources */,
 				84D6C072258A03270094982D /* PCPOICommonGeoJSONPoint.swift in Sources */,
 				84600EB825C03B0C0087194F /* PayAPICancelPreAuthPayment.swift in Sources */,
+				3B68269727BA5ECA00933C95 /* IDKitWebViewController.swift in Sources */,
 				3BC9A8262539DDAD00B933AE /* GeometryCommand.swift in Sources */,
 				927110DA2573AA43001D6DDA /* CookieStorage.swift in Sources */,
 				3B970AB42542D9BB0072F6BA /* AppEvent.swift in Sources */,
@@ -4169,6 +4219,7 @@
 				84A43AD72580E35A00DE36FA /* APIResult.swift in Sources */,
 				841A3EC025B9C8D40065284A /* AnyFuelingRequest.swift in Sources */,
 				84D6C08D258A03280094982D /* PCPayPaymentMethodPayPalCreate.swift in Sources */,
+				3B68269527BA5EAD00933C95 /* IDKitWebView.swift in Sources */,
 				3B970A752542D9BB0072F6BA /* AppWebViewDelegate.swift in Sources */,
 				3BA6030425ECDF2900E9320F /* IDKit+PIN+Biometry.swift in Sources */,
 				84600E9825C03B0C0087194F /* PayAPIAuthorizePaymentToken.swift in Sources */,
@@ -4250,6 +4301,7 @@
 				3B98706D268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				3BC9A7F42539DDAD00B933AE /* POIFiltersResponse.swift in Sources */,
 				84A43B0C2580EA3700DE36FA /* AnyResponse.swift in Sources */,
+				3B6826A327BA955300933C95 /* Constants+UserAgent.swift in Sources */,
 				3B88785A25CBECC2008D1551 /* GeoJSONAPIClient.swift in Sources */,
 				3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */,
 				3B987069268E06AE00A0458F /* GetTraceIdResult.swift in Sources */,
@@ -4312,6 +4364,7 @@
 				841A3EBC25B9C8D40065284A /* FuelingAPIService.swift in Sources */,
 				3B987063268E06AE00A0458F /* GetBiometricStatusResult.swift in Sources */,
 				3B98706B268E06AE00A0458F /* SetSecureDataResult.swift in Sources */,
+				3B68269C27BA886C00933C95 /* IDKitUserAgentType.swift in Sources */,
 				3B987059268E06AE00A0458F /* SetTOTPResult.swift in Sources */,
 				841A3EF625B9C96A0065284A /* PCFuelingPump.swift in Sources */,
 				3B98705F268E06AE00A0458F /* GetLocationResult.swift in Sources */,
@@ -4529,6 +4582,8 @@
 				3B98708D268E06AE00A0458F /* SetSecureDataRequest.swift in Sources */,
 				3BC9A8142539DDAD00B933AE /* POISearchError.swift in Sources */,
 				3B7C8E7126FC5ED80080B2B5 /* PCFuelingTransaction.swift in Sources */,
+				3B9B2A6F27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift in Sources */,
+				3BA8220927BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */,
 				8447A3B525CAAE740095BEF1 /* UserAPIUpdateUser.swift in Sources */,
 				3B970A6E2542D9BB0072F6BA /* Data+Extension.swift in Sources */,
 				8431E1A6258B89F0009401BF /* APIResponseUtils.swift in Sources */,
@@ -4744,6 +4799,7 @@
 				92EDDD0525A738E800E480F4 /* NSURLErrors.swift in Sources */,
 				3B98706A268E06AE00A0458F /* GetTraceIdResult.swift in Sources */,
 				84961AB7264E578E0070CB0B /* AppKit+Delegate.swift in Sources */,
+				3BA8220A27BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */,
 				6A2F49B82704835B004497B2 /* SDKLogger.swift in Sources */,
 				3B3DF5DC26E2512500934991 /* IDKitLogger.swift in Sources */,
 				3B98704E268E06AE00A0458F /* GetConfigResult.swift in Sources */,
@@ -4792,6 +4848,7 @@
 				3B98706C268E06AE00A0458F /* SetSecureDataResult.swift in Sources */,
 				92EDDC0D25A7270300E480F4 /* UIImage+Extension.swift in Sources */,
 				3B987054268E06AE00A0458F /* BackResult.swift in Sources */,
+				3B68269F27BA93EB00933C95 /* IDKitUserAgentType.swift in Sources */,
 				92EDDBE725A726AD00E480F4 /* AppKit+Configuration.swift in Sources */,
 				3BB48765268EF9DB00C42B6F /* App+MessageHandling.swift in Sources */,
 				3B40F83325D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift in Sources */,
@@ -4837,6 +4894,7 @@
 				92EDDC4C25A729CC00E480F4 /* DeviceInformation.swift in Sources */,
 				92EDDC0025A7270300E480F4 /* AppMetadata.swift in Sources */,
 				92EDDC0925A7270300E480F4 /* JWTToken.swift in Sources */,
+				3B6826A427BA958500933C95 /* Constants+UserAgent.swift in Sources */,
 				92EDDC0C25A7270300E480F4 /* AppWebView.swift in Sources */,
 				92EDDC5225A729D000E480F4 /* HttpStatusCode.swift in Sources */,
 				92EDDC2925A7270300E480F4 /* IconSelector.swift in Sources */,

@@ -12,26 +12,43 @@ protocol WebViewDelegate: AnyObject {
     func dismissWebView()
 }
 
+enum WebViewConfigurationType {
+    case persistCookies
+    case ephemeral
+
+    var configuration: WKWebViewConfiguration {
+        let config = WKWebViewConfiguration()
+
+        switch self {
+        case .persistCookies:
+            config.processPool = WebView.sharedSessionProcessPool
+
+        case .ephemeral:
+            config.websiteDataStore = .nonPersistent()
+        }
+
+        return config
+    }
+}
+
 class WebView: WKWebView {
     private var userAgent: String {
-        return AppKit.Constants.userAgent
+        return Constants.userAgent
     }
 
     weak var delegate: WebViewDelegate?
 
     let appUrl: String?
+
     var successfullyLoadedOnce = false
 
     lazy var loadingView: LoadingView = LoadingView()
     lazy var placeholder: ErrorPlaceholderView = .init()
 
-    required init(with url: String?) {
+    init(with url: String?, configurationType: WebViewConfigurationType = .persistCookies) {
         self.appUrl = url
 
-        let config = WKWebViewConfiguration()
-        config.processPool = AppWebView.sharedSessionProcessPool
-
-        super.init(frame: CGRect(), configuration: config)
+        super.init(frame: CGRect(), configuration: configurationType.configuration)
 
         setup()
         load(urlString: url)
@@ -50,21 +67,12 @@ class WebView: WKWebView {
     func setup() {
         self.customUserAgent = userAgent
 
+        setupPlaceholderActions()
         setupDesign()
         setupView()
     }
 
-    private func setupDesign() {
-        self.isOpaque = false
-        self.backgroundColor = UIColor.clear
-        self.layer.cornerRadius = 10
-        self.layer.masksToBounds = true
-    }
-
-    func setupView() {
-
-        navigationDelegate = self
-
+    func setupPlaceholderActions() {
         placeholder.action = { [weak self] _ in
             self?.load(urlString: self?.appUrl ?? "")
         }
@@ -72,6 +80,17 @@ class WebView: WKWebView {
         placeholder.closeAction = { [weak self] in
             self?.delegate?.dismissWebView()
         }
+    }
+
+    func setupDesign() {
+        self.isOpaque = false
+        self.backgroundColor = UIColor.clear
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
+    }
+
+    func setupView() {
+        navigationDelegate = self
 
         self.scrollView.bounces = false
         self.scrollView.showsVerticalScrollIndicator = false
@@ -90,6 +109,10 @@ class WebView: WKWebView {
         placeholder.isHidden = true
         loadingView.isLoading = true
     }
+}
+
+extension WebView {
+    static let sharedSessionProcessPool = WKProcessPool()
 }
 
 extension WebView: WKNavigationDelegate {
@@ -121,7 +144,7 @@ extension WebView: WKNavigationDelegate {
         if !webView.successfullyLoadedOnce, response.statusCode == HttpStatusCode.notFound.rawValue {
             decisionHandler(.cancel)
 
-            AppKitLogger.e("Site couldn't be loaded. Showing placeholder instead.")
+            SDKLogger.e("Site couldn't be loaded. Showing placeholder instead.")
 
             webView.placeholder.isHidden = false
 
