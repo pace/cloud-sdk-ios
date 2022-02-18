@@ -127,12 +127,20 @@ extension WebView: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url, let scheme = url.scheme?.lowercased() {
-            if scheme != "https" && scheme != "http" {
-                if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url)
-                }
-            }
+        guard let url = navigationAction.request.url, let scheme = url.scheme?.lowercased() else {
+            decisionHandler(.cancel)
+            return
+        }
+
+        guard scheme != "https" && scheme != "http" else {
+            decisionHandler(.allow)
+            return
+        }
+
+        if scheme == Constants.fallbackRedirectScheme {
+            PACECloudSDK.shared.application(open: url)
+        } else if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
 
         decisionHandler(.allow)
