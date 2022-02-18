@@ -86,12 +86,18 @@ extension App {
             return
         }
 
+        // If integrated is true, do not check if PACE redirect scheme is set but always load the URL in the webview
+        if let integrated = request.integrated, integrated {
+            appActionsDelegate.appRequestedNewTab(for: request.url, cancelUrl: cancelUrl.absoluteString, integrated: integrated)
+            completion(.init(.init()))
+            return
+        }
+
         guard let customScheme = Bundle.main.clientRedirectScheme, let customUrl = URL(string: "\(customScheme)://") else {
             AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
             completion(.init(.init(statusCode: .internalServerError,
                                    response: .init(message: "Either the client's redirect scheme couldn't be retrieved or the scheme is not a valid url."))))
             load(URLRequest(url: cancelUrl))
-
             return
         }
 
@@ -135,7 +141,6 @@ extension App {
     func handleAppInterceptableLink(completion: @escaping (API.Communication.AppInterceptableLinkResult) -> Void) {
         guard let customScheme = Bundle.main.clientRedirectScheme else {
             completion(.init(.init(statusCode: .notFound, response: .init(message: "The client's redirect scheme couldn't be retrieved."))))
-            AppKit.shared.notifyDidFail(with: .customURLSchemeNotSet)
             return
         }
 
