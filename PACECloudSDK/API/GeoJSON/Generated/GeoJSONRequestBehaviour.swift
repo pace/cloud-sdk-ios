@@ -40,11 +40,7 @@ public extension GeoJSONAPIRequestBehaviour {
 
 struct GeoJSONAPIRequestBehaviourImplementation: GeoJSONAPIRequestBehaviour {
     func onFailure(request: AnyGeoJSONAPIRequest, response: HTTPURLResponse, error: APIClientError) {
-        if #available(iOS 13.0, *) {
-            SDKLogger.e("[GeoJSONAPI] Request with request-id: \(response.value(forHTTPHeaderField: "request-id") ?? "unknown") failed with error: \(error.description)")
-        } else {
-            SDKLogger.e("[GeoJSONAPI] Request with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
-        }
+        SDKLogger.e("[GeoJSONAPI] Request (\(response.url?.absoluteString ?? "invalid url")) with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
     }
 }
 

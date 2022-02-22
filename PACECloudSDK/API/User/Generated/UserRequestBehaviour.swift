@@ -40,11 +40,7 @@ public extension UserAPIRequestBehaviour {
 
 struct UserAPIRequestBehaviourImplementation: UserAPIRequestBehaviour {
     func onFailure(request: AnyUserAPIRequest, response: HTTPURLResponse, error: APIClientError) {
-        if #available(iOS 13.0, *) {
-            SDKLogger.e("[UserAPI] Request with request-id: \(response.value(forHTTPHeaderField: "request-id") ?? "unknown") failed with error: \(error.description)")
-        } else {
-            SDKLogger.e("[UserAPI] Request with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
-        }
+        SDKLogger.e("[UserAPI] Request (\(response.url?.absoluteString ?? "invalid url")) with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
     }
 }
 

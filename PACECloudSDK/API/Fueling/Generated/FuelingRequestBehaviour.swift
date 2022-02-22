@@ -40,11 +40,7 @@ public extension FuelingAPIRequestBehaviour {
 
 struct FuelingAPIRequestBehaviourImplementation: FuelingAPIRequestBehaviour {
     func onFailure(request: AnyFuelingAPIRequest, response: HTTPURLResponse, error: APIClientError) {
-        if #available(iOS 13.0, *) {
-            SDKLogger.e("[FuelingAPI] Request with request-id: \(response.value(forHTTPHeaderField: "request-id") ?? "unknown") failed with error: \(error.description)")
-        } else {
-            SDKLogger.e("[FuelingAPI] Request with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
-        }
+        SDKLogger.e("[FuelingAPI] Request (\(response.url?.absoluteString ?? "invalid url")) with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
     }
 }
 

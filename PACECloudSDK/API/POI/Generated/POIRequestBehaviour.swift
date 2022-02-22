@@ -40,11 +40,7 @@ public extension POIAPIRequestBehaviour {
 
 struct POIAPIRequestBehaviourImplementation: POIAPIRequestBehaviour {
     func onFailure(request: AnyPOIAPIRequest, response: HTTPURLResponse, error: APIClientError) {
-        if #available(iOS 13.0, *) {
-            SDKLogger.e("[POIAPI] Request with request-id: \(response.value(forHTTPHeaderField: "request-id") ?? "unknown") failed with error: \(error.description)")
-        } else {
-            SDKLogger.e("[POIAPI] Request with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
-        }
+        SDKLogger.e("[POIAPI] Request (\(response.url?.absoluteString ?? "invalid url")) with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
     }
 }
 
