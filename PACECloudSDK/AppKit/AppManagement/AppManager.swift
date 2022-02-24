@@ -20,7 +20,6 @@ class AppManager {
     weak var delegate: AppManagerDelegate?
 
     private var locationProvider: AppDrawerLocationProvider
-    private var isLocationFetchRunning = false
     private var isGeneralFetchRunning = false
 
     private var currentlyDisplayedApps: (apps: [AppKit.AppData], location: CLLocation)?
@@ -46,74 +45,17 @@ extension AppManager {
             switch result {
             case .failure(let error):
                 switch error {
-                case .requestCancelled:
-                    completion(nil)
-
                 case .invalidSpeed:
                     self?.removeDisplayedAppsIfNeeded(with: location)
-                    completion(nil)
+                    fallthrough // swiftlint:disable:this fallthrough
 
                 default:
-                    self?.fetchAppsByLocation(with: location, completion: completion)
+                    completion(nil)
                 }
 
             case .success(let stations):
                 let appDatas = self?.retrieveAppData(from: stations)
                 completion(appDatas)
-            }
-        }
-    }
-
-    private func fetchAppsByLocation(with location: CLLocation, completion: @escaping (([AppKit.AppData]?) -> Void)) {
-        guard !isLocationFetchRunning else {
-            completion(nil)
-            delegate?.passErrorToClient(.fetchAlreadyRunning)
-            return
-        }
-
-        let lat: Float = Float(location.coordinate.latitude)
-        let lon: Float = Float(location.coordinate.longitude)
-
-        AppKitLogger.i("[AppManager] Fetching Apps for location: \(lat), \(lon)")
-
-        isLocationFetchRunning = true
-
-        let apiRequest = POIAPI.Apps.CheckForPaceApp.Request(filterlatitude: lat, filterlongitude: lon)
-        API.POI.client.makeRequest(apiRequest) { [weak self] apiResult in
-            defer {
-                self?.isLocationFetchRunning = false
-                self?.locationProvider.locationManager.stopUpdatingLocation()
-            }
-
-            switch apiResult.result {
-            case .success(let response):
-                guard let appsResponse = response.success?.data else {
-                    AppKitLogger.e("[AppManager] Response doesn't contain any data")
-                    completion(nil)
-                    return
-                }
-
-                let appDatas: [AppKit.AppData] = appsResponse.reduce(into: []) { result, app in
-                    guard let id = app.id, let attributes = app.attributes, let gasStationReferences = attributes.references else {
-                        return
-                    }
-
-                    // In case if the identical app contains multiple gas station references
-                    let appDatas: [AppKit.AppData] = gasStationReferences.map {
-                        let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id, AppKit.AppMetadata.references: [$0]]
-                        let appData = AppKit.AppData(appID: id, appUrl: attributes.pwaUrl, metadata: metadata)
-                        return appData
-                    }
-
-                    result.append(contentsOf: appDatas)
-                }
-
-                completion(appDatas)
-
-            case .failure(let error):
-                AppKitLogger.e("[AppManager] failed fetching local apps with error \(error)")
-                completion(nil)
-                self?.delegate?.passErrorToClient(.couldNotFetchApp)
             }
         }
     }
