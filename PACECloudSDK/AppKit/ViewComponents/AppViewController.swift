@@ -134,7 +134,7 @@ private extension AppViewController {
             integratedWebView.modalPresentationStyle = .pageSheet
             integratedWebView.presentationController?.delegate = self
             self.integratedWebView = integratedWebView
-            self.present(integratedWebView, animated: true) // swiftlint:disable:this force_unwrapping
+            self.present(integratedWebView, animated: true)
         }
 
         guard let webVC = integratedWebView else {
@@ -160,7 +160,7 @@ private extension AppViewController {
 
             sfSafariViewController.presentationController?.delegate = self
             self.sfSafariViewController = sfSafariViewController
-            self.present(sfSafariViewController, animated: true) // swiftlint:disable:this force_unwrapping
+            self.present(sfSafariViewController, animated: true)
         }
 
         guard let sfSafariViewController = sfSafariViewController else {

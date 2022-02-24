@@ -102,6 +102,17 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 + `API.Communication.ApplePayRequestRequest`, `API.Communication.ApplePayRequestResponse` and the two callbacks in `AppKitDelegate` `paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)` + `didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)` have been removed.
 + The `cofuStatus` property of `CofuGasStation` is now optional. This way it correctly reflects the connected fueling status in case the original value is missing in the API response
++ The type of the `included` property and accessing its values of the following API requests has been changed.
+  + `FuelingAPI`
+    + `ApproachingAtTheForecourt`
+  + `PayAPI`
+    + `GetPaymentMethod`
+    + `GetPaymentMethods`
+    + `GetPaymentMethodsIncludingCreditCheck` 
+    + `GetPaymentMethodsIncludingCreditCheckMultiStatus`
+  + `POIAPI`
+    + `GetGasStation`
+    + `GetGasStations`
 
 ## Contribute
 ### Localizable Strings Generation

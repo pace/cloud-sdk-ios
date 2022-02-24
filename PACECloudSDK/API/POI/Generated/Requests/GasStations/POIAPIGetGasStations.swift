@@ -150,12 +150,80 @@ To search inside a bounding box provide the following query parameter:
             * boundingBox
              */
             public class Status200: APIModel {
+                public enum IncludedPolyType: Equatable, Codable {
+                    case fuelPrice(PCPOIFuelPrice)
+                    case locationBasedApp(PCPOILocationBasedApp)
+                    case referenceStatus(PCPOIReferenceStatus)
+
+                    public var fuelPrice: PCPOIFuelPrice? {
+                        guard case let .fuelPrice(fuelPrice) = self else { return nil }
+                        return fuelPrice
+                    }
+
+                    public init(_ fuelPrice: PCPOIFuelPrice) {
+                        self = .fuelPrice(fuelPrice)
+                    }
+
+                    public var locationBasedApp: PCPOILocationBasedApp? {
+                        guard case let .locationBasedApp(locationBasedApp) = self else { return nil }
+                        return locationBasedApp
+                    }
+
+                    public init(_ locationBasedApp: PCPOILocationBasedApp) {
+                        self = .locationBasedApp(locationBasedApp)
+                    }
+
+                    public var referenceStatus: PCPOIReferenceStatus? {
+                        guard case let .referenceStatus(referenceStatus) = self else { return nil }
+                        return referenceStatus
+                    }
+
+                    public init(_ referenceStatus: PCPOIReferenceStatus) {
+                        self = .referenceStatus(referenceStatus)
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.singleValueContainer()
+
+                        switch self {
+                        case .fuelPrice(let fuelPrice):
+                            try container.encode(fuelPrice)
+                        case .locationBasedApp(let locationBasedApp):
+                            try container.encode(locationBasedApp)
+                        case .referenceStatus(let referenceStatus):
+                            try container.encode(referenceStatus)
+                        }
+                    }
+
+                    public init(from decoder: Decoder) throws {
+                        let container = try decoder.singleValueContainer()
+
+                        let attempts = [
+                            try decode(PCPOIFuelPrice.self, from: container).map { IncludedPolyType.fuelPrice($0) },
+                            try decode(PCPOILocationBasedApp.self, from: container).map { IncludedPolyType.locationBasedApp($0) },
+                            try decode(PCPOIReferenceStatus.self, from: container).map { IncludedPolyType.referenceStatus($0) }
+                        ]
+
+                        let maybeVal: IncludedPolyType? = attempts
+                            .lazy
+                            .compactMap { $0.value }
+                            .first
+
+                        guard let val = maybeVal else {
+                            let individualFailures = attempts.map { $0.error }.compactMap { $0 }
+                            throw PolyDecodeNoTypesMatchedError(codingPath: decoder.codingPath,
+                                                                individualTypeFailures: individualFailures)
+                        }
+
+                        self = val
+                    }
+                }
 
                 public var data: PCPOIGasStations?
 
-                public var included: [Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>]?
+                public var included: [IncludedPolyType]?
 
-                public init(data: PCPOIGasStations? = nil, included: [Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>]? = nil) {
+                public init(data: PCPOIGasStations? = nil, included: [IncludedPolyType]? = nil) {
                     self.data = data
                     self.included = included
                 }
@@ -176,9 +244,9 @@ To search inside a bounding box provide the following query parameter:
                     let decodedPCPOIReferenceStatuss: [PCPOIReferenceStatus] = try decoder.decodeJSONObject(includedPCPOIReferenceStatuss)
 
                     self.included =
-                        decodedPCPOIFuelPrices.map(Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>.init)
-                        + decodedPCPOILocationBasedApps.map(Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>.init)
-                        + decodedPCPOIReferenceStatuss.map(Poly3<PCPOIFuelPrice,PCPOILocationBasedApp,PCPOIReferenceStatus>.init)
+                        decodedPCPOIFuelPrices.map(IncludedPolyType.init)
+                        + decodedPCPOILocationBasedApps.map(IncludedPolyType.init)
+                        + decodedPCPOIReferenceStatuss.map(IncludedPolyType.init)
 
                 }
 
