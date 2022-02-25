@@ -21,7 +21,8 @@ public extension PACECloudSDK {
         /// Set if you want to use your own OID Configuration.
         let customOIDConfiguration: IDKit.OIDConfiguration?
 
-        /// Determines whether a `SFSafariViewController/SFAuthenticationSession` or a `WKWebView` is used to handle the OID authorization flow. Defaults to `.external` that uses the former.
+        /// Determines whether a `SFSafariViewController/SFAuthenticationSession` or a `WKWebView` is used to handle the OID authorization flow.
+        /// Defaults to `.external` that uses the former.
         let oidUserAgentType: IDKit.UserAgentType
 
         /// By Default this is `true`. If you don't use redirects in your client and want to suppress the corresponding log messages,  set this to `false`.

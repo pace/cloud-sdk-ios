@@ -41,7 +41,7 @@ extension POIKitAPI {
 
                 case POIKitHTTPReturnCode.STATUS_OK:
                     guard let gasStation = response.success?.data,
-                          let prices = response.success?.included?[PCPOIFuelPrice.self] else {
+                          let prices = response.success?.included?.compactMap({ $0.fuelPrice }) else {
                         result(.failure(APIClientError.unknownError(POIKit.POIKitAPIError.unknown)))
                         return
                     }

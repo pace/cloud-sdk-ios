@@ -10,13 +10,10 @@
 		051CAA8727227F320090779D /* Decimal+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051CAA8627227F320090779D /* Decimal+Extension.swift */; };
 		051CAA8827227F320090779D /* Decimal+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051CAA8627227F320090779D /* Decimal+Extension.swift */; };
 		051CAA8927227F320090779D /* Decimal+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051CAA8627227F320090779D /* Decimal+Extension.swift */; };
-		053456B926965275007D482D /* Poly+AllTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC332562800D00C673EF /* Poly+AllTypes.swift */; };
 		053456BA269657D0007D482D /* BundleUserAgent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */; };
 		05521B0E26490F3E00AA4DBB /* GeoAPIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManagerError.swift */; };
 		05AEBABB2696C9A2000B75F5 /* Poly+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC352562800D00C673EF /* Poly+Codable.swift */; };
-		05AEBABC2696CA6C000B75F5 /* Poly+CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */; };
 		05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
-		05AEBABE2696CAE1000B75F5 /* Collection+Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC342562800D00C673EF /* Collection+Poly.swift */; };
 		05F57A31266635B5008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		05F57A36266635B7008F2272 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		1718B16626B02F040044146C /* PACECloudSDK+Kits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */; };
@@ -174,7 +171,6 @@
 		17BB0D3E268CD1D7009D4755 /* PCPayPaymentMethodSepaCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C014258A03270094982D /* PCPayPaymentMethodSepaCreate.swift */; };
 		17BB0D3F268CD1DF009D4755 /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43A922580E35A00DE36FA /* AnyCodable.swift */; };
 		17BB0D40268CD1E8009D4755 /* PCFuelingPumpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDE25B9C9690065284A /* PCFuelingPumpResponse.swift */; };
-		17BB0D41268CD1F7009D4755 /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
 		17BB0D42268CD22C009D4755 /* PCFuelingProcessPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EE725B9C96A0065284A /* PCFuelingProcessPaymentResponse.swift */; };
 		17BB0D43268CD234009D4755 /* PCPayPaymentTokenCreateApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03E258A03270094982D /* PCPayPaymentTokenCreateApplePay.swift */; };
 		17BB0D44268CD23C009D4755 /* PCPayTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C011258A03270094982D /* PCPayTransactions.swift */; };
@@ -1079,12 +1075,8 @@
 		84D6C094258A03280094982D /* PCPOILocationBasedAppWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */; };
 		84D6C095258A03280094982D /* PCPOICommonGeoJSONPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04F258A03270094982D /* PCPOICommonGeoJSONPolygon.swift */; };
 		84D6F88625BAC1F3002824F9 /* Fueling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6F88525BAC1F3002824F9 /* Fueling.swift */; };
-		84E1AC382562800D00C673EF /* Poly+CustomStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */; };
-		84E1AC392562800D00C673EF /* Poly+AllTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC332562800D00C673EF /* Poly+AllTypes.swift */; };
-		84E1AC3A2562800D00C673EF /* Collection+Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC342562800D00C673EF /* Collection+Poly.swift */; };
 		84E1AC3B2562800D00C673EF /* Poly+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC352562800D00C673EF /* Poly+Codable.swift */; };
 		84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
-		84E1AC3D2562800D00C673EF /* Poly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC372562800D00C673EF /* Poly.swift */; };
 		9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */; };
 		921E68362534883200438491 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921E682C2534883100438491 /* PACECloudSDK.framework */; };
 		923ED19025D7A959001444C3 /* PACECloudSDK+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ED18F25D7A959001444C3 /* PACECloudSDK+API.swift */; };
@@ -1773,12 +1765,8 @@
 		84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppWithRefs.swift; sourceTree = "<group>"; };
 		84D6C04F258A03270094982D /* PCPOICommonGeoJSONPolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonGeoJSONPolygon.swift; sourceTree = "<group>"; };
 		84D6F88525BAC1F3002824F9 /* Fueling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fueling.swift; sourceTree = "<group>"; };
-		84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+CustomStringConvertible.swift"; sourceTree = "<group>"; };
-		84E1AC332562800D00C673EF /* Poly+AllTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+AllTypes.swift"; sourceTree = "<group>"; };
-		84E1AC342562800D00C673EF /* Collection+Poly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Poly.swift"; sourceTree = "<group>"; };
 		84E1AC352562800D00C673EF /* Poly+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+Codable.swift"; sourceTree = "<group>"; };
 		84E1AC362562800D00C673EF /* Result+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Value.swift"; sourceTree = "<group>"; };
-		84E1AC372562800D00C673EF /* Poly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poly.swift; sourceTree = "<group>"; };
 		9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParamHandlerTests.swift; sourceTree = "<group>"; };
 		921E682C2534883100438491 /* PACECloudSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PACECloudSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		921E682F2534883200438491 /* PACECloudSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PACECloudSDK.h; sourceTree = "<group>"; };
@@ -3342,12 +3330,8 @@
 		84E1AC312562800D00C673EF /* Poly */ = {
 			isa = PBXGroup;
 			children = (
-				84E1AC322562800D00C673EF /* Poly+CustomStringConvertible.swift */,
-				84E1AC332562800D00C673EF /* Poly+AllTypes.swift */,
-				84E1AC342562800D00C673EF /* Collection+Poly.swift */,
 				84E1AC352562800D00C673EF /* Poly+Codable.swift */,
 				84E1AC362562800D00C673EF /* Result+Value.swift */,
-				84E1AC372562800D00C673EF /* Poly.swift */,
 			);
 			path = Poly;
 			sourceTree = "<group>";
@@ -3739,7 +3723,6 @@
 				3B79FA2026C15B8900C0278F /* POIAPIGetPoisDump.swift in Sources */,
 				3B79FA7126C15BD700C0278F /* POIKit+GeoService.swift in Sources */,
 				3B79FA8326C15BE700C0278F /* InvalidationTokenCache.swift in Sources */,
-				05AEBABE2696CAE1000B75F5 /* Collection+Poly.swift in Sources */,
 				6ACBC03426FDA1AC00E6AC05 /* Data+Extension.swift in Sources */,
 				6ACBC08626FE0FF300E6AC05 /* Logger+Notification.swift in Sources */,
 				17BB0D01268CCF13009D4755 /* PayAPIGetReceiptByFormat.swift in Sources */,
@@ -3775,7 +3758,6 @@
 				3B79FAB426C15CCE00C0278F /* OneTimeLocationProvider.swift in Sources */,
 				3B7C8E3026FC597E0080B2B5 /* PayAPIDeletePaymentMethods.swift in Sources */,
 				17B4E55026D39CA400AEAF13 /* UserAPIUpdateUser.swift in Sources */,
-				05AEBABC2696CA6C000B75F5 /* Poly+CustomStringConvertible.swift in Sources */,
 				3B79FA9A26C15BEE00C0278F /* POIKitAPI.swift in Sources */,
 				3B79FAA226C15BF300C0278F /* vector_tile.pb.swift in Sources */,
 				3B79FA5226C15BBF00C0278F /* PCPOIFuelAmountUnit.swift in Sources */,
@@ -3807,7 +3789,6 @@
 				3B79FAA626C15BF300C0278F /* Address.swift in Sources */,
 				17B4E54126D39C9100AEAF13 /* UserAPICheckUserPassword.swift in Sources */,
 				3B79FA3A26C15BBF00C0278F /* PCPOIRegionalPrices.swift in Sources */,
-				053456B926965275007D482D /* Poly+AllTypes.swift in Sources */,
 				17BB0D4D268CD4CD009D4755 /* PCPayPaymentMethodPayPalCreate.swift in Sources */,
 				17BB0CED268CCF13009D4755 /* PayAPICreatePaymentMethodCreditCard.swift in Sources */,
 				17B4E4ED26CFE47700AEAF13 /* UserAPIService.swift in Sources */,
@@ -4093,7 +4074,6 @@
 				17BB0D12268CCF88009D4755 /* AnyFuelingRequest.swift in Sources */,
 				3B79FA4426C15BBF00C0278F /* PCPOIStats.swift in Sources */,
 				17B4E54B26D39C9C00AEAF13 /* UserAPICheckUserPhone.swift in Sources */,
-				17BB0D41268CD1F7009D4755 /* Poly.swift in Sources */,
 				17BB0D30268CD10A009D4755 /* PCPayPaymentMethodKind.swift in Sources */,
 				3B79FA7C26C15BDB00C0278F /* Doubles+Angles.swift in Sources */,
 				17B4E55626D39CAC00AEAF13 /* UserAPIGetAppPreferences.swift in Sources */,
@@ -4248,7 +4228,6 @@
 				3BC9A8232539DDAD00B933AE /* NSURLErrors.swift in Sources */,
 				84D6C07F258A03280094982D /* PCPOISources.swift in Sources */,
 				84600F2C25C03B1F0087194F /* POIAPICreateApp.swift in Sources */,
-				84E1AC382562800D00C673EF /* Poly+CustomStringConvertible.swift in Sources */,
 				6A2F492B27044AE1004497B2 /* SDKLogger.swift in Sources */,
 				841A3EFE25B9C96A0065284A /* PCFuelingPaymentMethod.swift in Sources */,
 				3B9655E626B286A700921766 /* CofuGasStation.swift in Sources */,
@@ -4329,7 +4308,6 @@
 				84600F5325C03B340087194F /* FuelingAPIProcessPayment.swift in Sources */,
 				841A3EFA25B9C96A0065284A /* PCFuelingPaymentMethodKind.swift in Sources */,
 				3B819C52268EF8F900441917 /* App+MessageHandling+Location.swift in Sources */,
-				84E1AC3A2562800D00C673EF /* Collection+Poly.swift in Sources */,
 				841A3EE825B9C96A0065284A /* PCFuelingGetPumpsResponse.swift in Sources */,
 				3B970A7B2542D9BB0072F6BA /* AppWebView.swift in Sources */,
 				84A43A422580E34D00DE36FA /* PayRequestBehaviour.swift in Sources */,
@@ -4631,7 +4609,6 @@
 				84D6C088258A03280094982D /* PCPayTransaction.swift in Sources */,
 				843A86D825C2BC040062B124 /* FuelingAPIClient+URLProtocol.swift in Sources */,
 				84D6C078258A03280094982D /* PCPayPaymentTokens.swift in Sources */,
-				84E1AC3D2562800D00C673EF /* Poly.swift in Sources */,
 				84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */,
 				84600EFC25C03B1E0087194F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */,
 				84D6C069258A03270094982D /* PCPayErrors.swift in Sources */,
@@ -4667,7 +4644,6 @@
 				84A43B1925825B6300DE36FA /* POIAPIRequest.swift in Sources */,
 				3BD0C825274BABB2003E002D /* TilesResponse.swift in Sources */,
 				3B970AB32542D9BB0072F6BA /* AppError.swift in Sources */,
-				84E1AC392562800D00C673EF /* Poly+AllTypes.swift in Sources */,
 				3B7C8E6926FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */,
 				3BB1443325388108004E9F63 /* Logger.swift in Sources */,
 				84D6C074258A03280094982D /* PCPOICategories.swift in Sources */,

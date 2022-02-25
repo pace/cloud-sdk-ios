@@ -1444,7 +1444,7 @@ extension POIAPI.Tiles {
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(data)
+                case 200: self = .status200(data)
                 case 400: self = try .status400(decoder.decode(Status400.self, from: data))
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 406: self = try .status406(decoder.decode(Status406.self, from: data))

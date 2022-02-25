@@ -95,12 +95,132 @@ Other than authorization, the most common error states encountered should be:
               * 503, if ConnectedFueling is available, but the site is offline
              */
             public class Status201: APIModel {
+                public enum IncludedPolyType: Equatable, Codable {
+                    case gasStation(PCFuelingGasStation)
+                    case gasStationNote(PCFuelingGasStationNote)
+                    case fuelPrice(PCFuelingFuelPrice)
+                    case pump(PCFuelingPump)
+                    case paymentMethod(PCFuelingPaymentMethod)
+                    case paymentMethodKind(PCFuelingPaymentMethodKind)
+                    case transaction(PCFuelingTransaction)
+
+                    public var gasStation: PCFuelingGasStation? {
+                        guard case let .gasStation(gasStation) = self else { return nil }
+                        return gasStation
+                    }
+
+                    public init(_ gasStation: PCFuelingGasStation) {
+                        self = .gasStation(gasStation)
+                    }
+
+                    public var gasStationNote: PCFuelingGasStationNote? {
+                        guard case let .gasStationNote(gasStationNote) = self else { return nil }
+                        return gasStationNote
+                    }
+
+                    public init(_ gasStationNote: PCFuelingGasStationNote) {
+                        self = .gasStationNote(gasStationNote)
+                    }
+
+                    public var fuelPrice: PCFuelingFuelPrice? {
+                        guard case let .fuelPrice(fuelPrice) = self else { return nil }
+                        return fuelPrice
+                    }
+
+                    public init(_ fuelPrice: PCFuelingFuelPrice) {
+                        self = .fuelPrice(fuelPrice)
+                    }
+
+                    public var pump: PCFuelingPump? {
+                        guard case let .pump(pump) = self else { return nil }
+                        return pump
+                    }
+
+                    public init(_ pump: PCFuelingPump) {
+                        self = .pump(pump)
+                    }
+
+                    public var paymentMethod: PCFuelingPaymentMethod? {
+                        guard case let .paymentMethod(paymentMethod) = self else { return nil }
+                        return paymentMethod
+                    }
+
+                    public init(_ paymentMethod: PCFuelingPaymentMethod) {
+                        self = .paymentMethod(paymentMethod)
+                    }
+
+                    public var paymentMethodKind: PCFuelingPaymentMethodKind? {
+                        guard case let .paymentMethodKind(paymentMethodKind) = self else { return nil }
+                        return paymentMethodKind
+                    }
+
+                    public init(_ paymentMethodKind: PCFuelingPaymentMethodKind) {
+                        self = .paymentMethodKind(paymentMethodKind)
+                    }
+
+                    public var transaction: PCFuelingTransaction? {
+                        guard case let .transaction(transaction) = self else { return nil }
+                        return transaction
+                    }
+
+                    public init(_ transaction: PCFuelingTransaction) {
+                        self = .transaction(transaction)
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.singleValueContainer()
+
+                        switch self {
+                        case .gasStation(let gasStation):
+                            try container.encode(gasStation)
+                        case .gasStationNote(let gasStationNote):
+                            try container.encode(gasStationNote)
+                        case .fuelPrice(let fuelPrice):
+                            try container.encode(fuelPrice)
+                        case .pump(let pump):
+                            try container.encode(pump)
+                        case .paymentMethod(let paymentMethod):
+                            try container.encode(paymentMethod)
+                        case .paymentMethodKind(let paymentMethodKind):
+                            try container.encode(paymentMethodKind)
+                        case .transaction(let transaction):
+                            try container.encode(transaction)
+                        }
+                    }
+
+                    public init(from decoder: Decoder) throws {
+                        let container = try decoder.singleValueContainer()
+
+                        let attempts = [
+                            try decode(PCFuelingGasStation.self, from: container).map { IncludedPolyType.gasStation($0) },
+                            try decode(PCFuelingGasStationNote.self, from: container).map { IncludedPolyType.gasStationNote($0) },
+                            try decode(PCFuelingFuelPrice.self, from: container).map { IncludedPolyType.fuelPrice($0) },
+                            try decode(PCFuelingPump.self, from: container).map { IncludedPolyType.pump($0) },
+                            try decode(PCFuelingPaymentMethod.self, from: container).map { IncludedPolyType.paymentMethod($0) },
+                            try decode(PCFuelingPaymentMethodKind.self, from: container).map { IncludedPolyType.paymentMethodKind($0) },
+                            try decode(PCFuelingTransaction.self, from: container).map { IncludedPolyType.transaction($0) }
+                        ]
+
+                        let maybeVal: IncludedPolyType? = attempts
+                            .lazy
+                            .compactMap { $0.value }
+                            .first
+
+                        guard let val = maybeVal else {
+                            let individualFailures = attempts.map { $0.error }.compactMap { $0 }
+                            throw PolyDecodeNoTypesMatchedError(codingPath: decoder.codingPath,
+                                                                individualTypeFailures: individualFailures)
+                        }
+
+                        self = val
+                    }
+                }
 
                 public var data: PCFuelingApproachingResponse?
 
-                public var included: [Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>]?
+                public var included: [IncludedPolyType]?
 
-                public init(data: PCFuelingApproachingResponse? = nil, included: [Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>]? = nil) {
+                public init(data: PCFuelingApproachingResponse? = nil, included: [IncludedPolyType]? = nil) {
                     self.data = data
                     self.included = included
                 }
@@ -129,13 +249,13 @@ Other than authorization, the most common error states encountered should be:
                     let decodedPCFuelingTransactions: [PCFuelingTransaction] = try decoder.decodeJSONObject(includedPCFuelingTransactions)
 
                     self.included =
-                        decodedPCFuelingGasStations.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
-                        + decodedPCFuelingGasStationNotes.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
-                        + decodedPCFuelingFuelPrices.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
-                        + decodedPCFuelingPumps.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
-                        + decodedPCFuelingPaymentMethods.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
-                        + decodedPCFuelingPaymentMethodKinds.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
-                        + decodedPCFuelingTransactions.map(Poly7<PCFuelingGasStation,PCFuelingGasStationNote,PCFuelingFuelPrice,PCFuelingPump,PCFuelingPaymentMethod,PCFuelingPaymentMethodKind,PCFuelingTransaction>.init)
+                        decodedPCFuelingGasStations.map(IncludedPolyType.init)
+                        + decodedPCFuelingGasStationNotes.map(IncludedPolyType.init)
+                        + decodedPCFuelingFuelPrices.map(IncludedPolyType.init)
+                        + decodedPCFuelingPumps.map(IncludedPolyType.init)
+                        + decodedPCFuelingPaymentMethods.map(IncludedPolyType.init)
+                        + decodedPCFuelingPaymentMethodKinds.map(IncludedPolyType.init)
+                        + decodedPCFuelingTransactions.map(IncludedPolyType.init)
 
                 }
 

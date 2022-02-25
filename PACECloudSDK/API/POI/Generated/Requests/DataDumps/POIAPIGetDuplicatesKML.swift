@@ -774,7 +774,7 @@ extension POIAPI.DataDumps {
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(data)
+                case 200: self = .status200(data)
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
                 case 500: self = try .status500(decoder.decode(Status500.self, from: data))
