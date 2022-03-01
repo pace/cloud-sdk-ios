@@ -9,7 +9,7 @@ import Foundation
 
 extension PACECloudSDK {
     func setupKits(with config: Configuration) {
-        IDKit.determineOIDConfiguration(with: config.customOIDConfiguration)
+        IDKit.determineOIDConfiguration(with: config.customOIDConfiguration, userAgentType: config.oidUserAgentType)
         AppKit.shared.setup()
         // POIKit setup not needed
     }

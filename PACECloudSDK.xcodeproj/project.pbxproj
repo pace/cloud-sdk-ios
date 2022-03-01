@@ -712,6 +712,21 @@
 		3BA9E52B274B982C00617EDE /* CommandLineArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */; };
 		3BA9E52D274B985400617EDE /* XCTestCase+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA9E52C274B985400617EDE /* XCTestCase+Extension.swift */; };
 		3BAA8FA625CD5F2A00510FA5 /* InvalidationTokenCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */; };
+		3BABEFEE27C8E856002256CB /* IDKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73074625372A40009A7DF7 /* IDKit.swift */; };
+		3BABEFEF27C8E859002256CB /* IDKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6437266F8EB900B2DC27 /* IDKitDelegate.swift */; };
+		3BABEFF027C8E86F002256CB /* PaceIDSignInWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6402266F6EAB00B2DC27 /* PaceIDSignInWindow.swift */; };
+		3BABEFF127C8E878002256CB /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442C25386F2C004E9F63 /* SessionCache.swift */; };
+		3BABEFF227C8E893002256CB /* IDKit+App+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6421266F768F00B2DC27 /* IDKit+App+TokenHandling.swift */; };
+		3BABEFF327C8E897002256CB /* IDKit+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */; };
+		3BABEFF427C8E8AA002256CB /* OIDConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B24095A256BF43A003DA32B /* OIDConfiguration.swift */; };
+		3BABEFF527C8E8AD002256CB /* IDKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB208842538338A008DDE45 /* IDKitError.swift */; };
+		3BABEFF627C8E8B3002256CB /* IDKitUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA4807D2565492600187D0A /* IDKitUserAgent.swift */; };
+		3BABEFF727C8E8C8002256CB /* IDKitWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269627BA5ECA00933C95 /* IDKitWebViewController.swift */; };
+		3BABEFF827C8E8CA002256CB /* IDKitWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269427BA5EAD00933C95 /* IDKitWebView.swift */; };
+		3BABEFF927C8E8CC002256CB /* IDKitWebViewUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B2A6E27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift */; };
+		3BABEFFB27C8E8FD002256CB /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3BABEFFA27C8E8FD002256CB /* AppAuth */; };
+		3BABEFFD27C8EB4F002256CB /* Keychain+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BABEFFC27C8EB4F002256CB /* Keychain+Slim.swift */; };
+		3BABF00827C929F9002256CB /* App+MessageHandling+AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B6445266F9A2800B2DC27 /* App+MessageHandling+AccessToken.swift */; };
 		3BB1442725386EA9004E9F63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442625386EA9004E9F63 /* Constants.swift */; };
 		3BB1442D25386F2C004E9F63 /* SessionCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1442C25386F2C004E9F63 /* SessionCache.swift */; };
 		3BB1443325388108004E9F63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1443225388108004E9F63 /* Logger.swift */; };
@@ -1442,6 +1457,7 @@
 		3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandLineArguments.swift; sourceTree = "<group>"; };
 		3BA9E52C274B985400617EDE /* XCTestCase+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extension.swift"; sourceTree = "<group>"; };
 		3BAA8FA525CD5F2A00510FA5 /* InvalidationTokenCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidationTokenCache.swift; sourceTree = "<group>"; };
+		3BABEFFC27C8EB4F002256CB /* Keychain+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+Slim.swift"; sourceTree = "<group>"; };
 		3BB1442625386EA9004E9F63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BB1442C25386F2C004E9F63 /* SessionCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCache.swift; sourceTree = "<group>"; };
 		3BB1443225388108004E9F63 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -1835,6 +1851,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BABEFFB27C8E8FD002256CB /* AppAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3430,6 +3447,7 @@
 				3B96928E25E3C19C00E42703 /* GeoAPIManager+Slim.swift */,
 				3B2B7BD8268071B100ECFDE2 /* IDKit+Slim.swift */,
 				3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */,
+				3BABEFFC27C8EB4F002256CB /* Keychain+Slim.swift */,
 				923ED19425D7A991001444C3 /* PACECloudSlimSDK+API.swift */,
 				1718B16726B02F690044146C /* PACECloudSlimSDK+Kits.swift */,
 				92EDDDD825A7460D00E480F4 /* POIKit+Slim.swift */,
@@ -3563,6 +3581,9 @@
 			dependencies = (
 			);
 			name = PACECloudSlimSDK;
+			packageProductDependencies = (
+				3BABEFFA27C8E8FD002256CB /* AppAuth */,
+			);
 			productName = PACECloudSlimSDK;
 			productReference = 92EDDBCD25A71EEB00E480F4 /* PACECloudSlimSDK.framework */;
 			productType = "com.apple.product-type.framework";
@@ -4768,11 +4789,14 @@
 				3B98709E268E06AE00A0458F /* Operation.swift in Sources */,
 				3B9B2A5B27B657BB0099EA37 /* NSMutableData+Extension.swift in Sources */,
 				84961AC3264E5A810070CB0B /* AppKit+Delegate+Slim.swift in Sources */,
+				3BABEFF627C8E8B3002256CB /* IDKitUserAgent.swift in Sources */,
 				8418E29825B1B85E00D3722B /* URLEncoding.swift in Sources */,
 				3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */,
 				92EDDBF325A7270300E480F4 /* NavigationTitleView.swift in Sources */,
+				3BABEFEF27C8E859002256CB /* IDKitDelegate.swift in Sources */,
 				92EDDC1625A7270300E480F4 /* AppDrawerContainer.swift in Sources */,
 				92EDDD0525A738E800E480F4 /* NSURLErrors.swift in Sources */,
+				3BABEFF227C8E893002256CB /* IDKit+App+TokenHandling.swift in Sources */,
 				3B98706A268E06AE00A0458F /* GetTraceIdResult.swift in Sources */,
 				84961AB7264E578E0070CB0B /* AppKit+Delegate.swift in Sources */,
 				3BA8220A27BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */,
@@ -4782,11 +4806,14 @@
 				3B9B2A5D27B658070099EA37 /* POIAPICheckForPaceApp.swift in Sources */,
 				8418E29625B1B85E00D3722B /* APIClientError.swift in Sources */,
 				3B9B2A1927B652290099EA37 /* POIAPIResponse.swift in Sources */,
+				3BABF00827C929F9002256CB /* App+MessageHandling+AccessToken.swift in Sources */,
+				3BABEFF427C8E8AA002256CB /* OIDConfiguration.swift in Sources */,
 				3B987068268E06AE00A0458F /* DisableResult.swift in Sources */,
 				3B987088268E06AE00A0458F /* DisableRequest.swift in Sources */,
 				3B987062268E06AE00A0458F /* GetAccessTokenResult.swift in Sources */,
 				3BB48766268EF9E000C42B6F /* App+MessageHandling+ApplePay.swift in Sources */,
 				3B9B2A1727B651FB0099EA37 /* POIAPI.swift in Sources */,
+				3BABEFF327C8E897002256CB /* IDKit+TokenHandling.swift in Sources */,
 				92EDDC1525A7270300E480F4 /* UIView+Extension.swift in Sources */,
 				92EDDC2225A7270300E480F4 /* URLDataRequest.swift in Sources */,
 				3B98708C268E06AE00A0458F /* VerifyLocationRequest.swift in Sources */,
@@ -4798,7 +4825,9 @@
 				92EDDC1025A7270300E480F4 /* LoadingView.swift in Sources */,
 				3B987094268E06AE00A0458F /* SetTOTPRequest.swift in Sources */,
 				3B91804E268F435300176ECD /* IsBiometricAuthEnabledResult.swift in Sources */,
+				3BABEFF827C8E8CA002256CB /* IDKitWebView.swift in Sources */,
 				8418E29B25B1B85E00D3722B /* AnyResponse.swift in Sources */,
+				3BABEFF027C8E86F002256CB /* PaceIDSignInWindow.swift in Sources */,
 				6ACBC08926FE127300E6AC05 /* Logger.swift in Sources */,
 				8418E24025B1B83800D3722B /* POI.swift in Sources */,
 				3B9B2A6227B65A380099EA37 /* GeoAPIManagerError.swift in Sources */,
@@ -4818,6 +4847,7 @@
 				92EDDC0825A7270300E480F4 /* URLRequestBuilder.swift in Sources */,
 				8418E29725B1B85E00D3722B /* Coding.swift in Sources */,
 				6ACBC08B26FE128F00E6AC05 /* Logger+Notification.swift in Sources */,
+				3BABEFF127C8E878002256CB /* SessionCache.swift in Sources */,
 				3B9B2A6327B65AD10099EA37 /* CofuGasStation.swift in Sources */,
 				92EDDC1F25A7270300E480F4 /* AppViewController.swift in Sources */,
 				92EDDC1D25A7270300E480F4 /* AppStyle+Colors.swift in Sources */,
@@ -4839,9 +4869,12 @@
 				3B9655F126B2A01700921766 /* AppKit+AppManagerDelegate.swift in Sources */,
 				92EDDC5725A729D300E480F4 /* Data+Extension.swift in Sources */,
 				92EDDBED25A7270300E480F4 /* URLParam.swift in Sources */,
+				3BABEFFD27C8EB4F002256CB /* Keychain+Slim.swift in Sources */,
 				3B9B2A5F27B6582C0099EA37 /* PCPOILocationBasedApps.swift in Sources */,
 				6ACBC08C26FE12B500E6AC05 /* Date+Extension+daysAgo.swift in Sources */,
+				3BABEFF727C8E8C8002256CB /* IDKitWebViewController.swift in Sources */,
 				3B98708A268E06AE00A0458F /* GetSecureDataRequest.swift in Sources */,
+				3BABEFEE27C8E856002256CB /* IDKit.swift in Sources */,
 				3B8A869D2747924B001EBE29 /* UIWindow+Extension.swift in Sources */,
 				3B96928F25E3C19C00E42703 /* GeoAPIManager+Slim.swift in Sources */,
 				3B987058268E06AE00A0458F /* AppRedirectResult.swift in Sources */,
@@ -4850,6 +4883,7 @@
 				8418E29525B1B85E00D3722B /* AnyCodable.swift in Sources */,
 				3B98707C268E06AE00A0458F /* Response.swift in Sources */,
 				8418E29925B1B85E00D3722B /* APIResult.swift in Sources */,
+				3BABEFF527C8E8AD002256CB /* IDKitError.swift in Sources */,
 				3B98708E268E06AE00A0458F /* SetSecureDataRequest.swift in Sources */,
 				92EDDC2425A7270300E480F4 /* App.swift in Sources */,
 				923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */,
@@ -4862,6 +4896,7 @@
 				92EDDBEB25A7270300E480F4 /* AppDrawer+App.swift in Sources */,
 				17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */,
 				92EDDBF625A7270300E480F4 /* AppManifest.swift in Sources */,
+				3BABEFF927C8E8CC002256CB /* IDKitWebViewUserAgent.swift in Sources */,
 				92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */,
 				3B98709C268E06AE00A0458F /* Communication.swift in Sources */,
 				3B8A869E27479250001EBE29 /* Application.swift in Sources */,
@@ -6456,6 +6491,11 @@
 			productName = SwiftProtobuf;
 		};
 		3BA6A79B260DDF5A005D4B5C /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		3BABEFFA27C8E8FD002256CB /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
