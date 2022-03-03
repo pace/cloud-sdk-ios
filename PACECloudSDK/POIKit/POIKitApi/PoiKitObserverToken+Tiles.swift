@@ -31,20 +31,21 @@ public extension POIKit.BoundingBoxNotificationToken {
             case .failure(let error):
                 self?.handler(false, .failure(error))
 
-            case .success(let tilesResponse):
+            case .success(let poiResponse):
+                let tilesResponse = poiResponse.tilesResponse
                 let tiles = tilesResponse.tiles
+                let pois = poiResponse.pois
 
                 self?.receivedInvalidationToken = tiles.first?.invalidationToken
                 self?.api.invalidationTokenCache.add(tiles: tiles, for: tilesResponse.zoomLevel)
 
                 // Save to database
-                self?.api.save(tiles, for: self?.boundingBox)
+                self?.api.save(pois)
 
                 // If no delegate has been specified
                 // send live response to client
                 if self?.delegate == nil {
-                    let stations = self?.api.extractPOIS(from: tiles) ?? []
-                    self?.updateStations(isInitial: false, stations: stations)
+                    self?.updateStations(isInitial: false, stations: pois)
                 }
             }
 
@@ -82,17 +83,16 @@ public extension POIKit.UUIDNotificationToken {
             case .failure(let error):
                 self?.handler(false, .failure(error))
 
-            case .success(let tilesResponse):
-                let tiles = tilesResponse.tiles
+            case .success(let poiResponse):
+                let pois = poiResponse.pois
 
                 // Save to database
-                self?.api.save(tiles)
+                self?.api.save(pois)
 
                 // If no delegate has been specified
                 // send live response to client
                 if self?.delegate == nil {
-                    let stations = self?.api.extractPOIS(from: tiles) ?? []
-                    self?.updateStations(stations: stations)
+                    self?.updateStations(stations: pois)
                 }
             }
         }
