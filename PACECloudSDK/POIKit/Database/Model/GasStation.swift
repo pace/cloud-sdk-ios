@@ -86,6 +86,10 @@ public extension POIKit {
 
         public var isConnectedFuelingAvailable = false
 
+        /// Specifies if this gas station instance is a `POIKit.CoFuGasStation`
+        /// and thus part of the .geojson file that includes all available connected fueling stations
+        public var isCoFuGasStation: Bool = false
+
         public var lastUpdated: Date?
         public var lastFetched: Date = Date()
 
