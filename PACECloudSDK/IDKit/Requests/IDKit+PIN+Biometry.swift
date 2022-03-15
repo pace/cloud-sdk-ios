@@ -110,7 +110,7 @@ extension IDKit {
 
     func evaluateBiometryPolicy(completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         let biometryPolicy = BiometryPolicy()
-        let reasonText = L10n.idkitBiometryAuthenticationConfirmation
+        let reasonText = PACECloudSDK.shared.localizable.idkitBiometryAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             completion(.failure(.biometryNotSupported))
@@ -228,7 +228,7 @@ extension IDKit {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = L10n.idkitBiometryAuthenticationConfirmation
+        let reasonText = PACECloudSDK.shared.localizable.idkitBiometryAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             completion(.failure(.biometryNotSupported))

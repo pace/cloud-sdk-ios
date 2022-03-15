@@ -2,7 +2,5 @@
 "common_retry" = "Inténtalo de nuevo";
 "loading_text" = "Carga de datos";
 "common_action_close" = "Cerrar";
-"error_connection_problem_network_headline" = "Conexión de red insuficiente";
-"error_connection_problem_network" = "PACE necesita una conexión de red estable y lo suficientemente rápida para continuar.\N- Asegúrate de que tu aplicación tiene permiso para acceder a los datos móviles de tu teléfono. También puedes utilizar el Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Autorizar el acceso a los datos protegidos";
 "idkit_biometryAuthentication_confirmation" = "Confirmar el uso de la autenticación biométrica";
