@@ -1,9 +1,9 @@
 import Foundation
 
 public struct AnyCodable {
-    let value: Any
+    public let value: Any
 
-    init<T>(_ value: T?) {
+    public init<T>(_ value: T?) {
         self.value = value ?? ()
     }
 }
