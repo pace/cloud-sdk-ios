@@ -41,6 +41,12 @@ public class PACECloudSDK {
 
     public var customURLProtocol: URLProtocol?
 
+    /// Holds the localizations of the strings used in the SDK.
+    ///
+    /// To customize localizations either subclass `PACECloudSDK.Localizable` or
+    /// implement the `PACELocalizable` protocol and set this property accordingly.
+    public var localizable: PACELocalizable = PACECloudSDK.Localizable()
+
     private init() {}
 
     public func setup(with config: Configuration) {

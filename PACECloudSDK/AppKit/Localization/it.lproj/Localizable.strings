@@ -2,7 +2,5 @@
 "common_retry" = "Prova di nuovo";
 "loading_text" = "Caricamento dei dati";
 "common_action_close" = "Chiudere";
-"error_connection_problem_network_headline" = "Connessione di rete insufficiente";
-"error_connection_problem_network" = "PACE ha bisogno di una connessione di rete stabile e sufficientemente veloce per continuare. Puoi anche usare il Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Autorizzare l'accesso ai dati protetti";
 "idkit_biometryAuthentication_confirmation" = "Confermare l'uso dell'autenticazione biometrica";

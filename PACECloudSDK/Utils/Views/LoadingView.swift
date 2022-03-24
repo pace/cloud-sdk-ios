@@ -12,7 +12,7 @@ class LoadingView: UIView {
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = L10n.loadingText
+        label.text = PACECloudSDK.shared.localizable.loadingText
         label.font = AppStyle.regularFont(ofSize: 17)
         label.numberOfLines = 0
         label.textAlignment = .center

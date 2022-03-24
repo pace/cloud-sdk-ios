@@ -42,7 +42,7 @@ class ErrorPlaceholderView: UIView {
 
     private lazy var closeButton: UIButton = {
         let button = UIButton()
-        button.setTitle(L10n.commonActionClose, for: .normal)
+        button.setTitle(PACECloudSDK.shared.localizable.commonClose, for: .normal)
         button.setTitleColor(AppStyle.textColor1, for: .normal)
         button.addTarget(self, action: #selector(handleCloseTapped), for: .touchUpInside)
         return button
@@ -57,9 +57,9 @@ class ErrorPlaceholderView: UIView {
         }
     }
 
-    init(titleText: String = L10n.errorGeneric,
+    init(titleText: String = PACECloudSDK.shared.localizable.errorGeneric,
          placeholderText: String = "",
-         buttonText: String = L10n.commonRetry,
+         buttonText: String = PACECloudSDK.shared.localizable.commonRetry,
          image: UIImage = AppStyle.iconNotificationError,
          hideCloseButton: Bool = false) {
         super.init(frame: .zero)

@@ -2,7 +2,5 @@
 "common_retry" = "Încearcă din nou";
 "loading_text" = "Încărcarea datelor";
 "common_action_close" = "Închideți";
-"error_connection_problem_network_headline" = "Conexiune de rețea insuficientă";
-"error_connection_problem_network" = "PACE are nevoie de o conexiune de rețea stabilă și suficient de rapidă pentru a continua.\n\nVă rugăm să vă asigurați că aplicația dvs. are permisiunea de a accesa datele mobile ale telefonului dvs. De asemenea, puteți utiliza Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Autorizarea accesului la date securizate";
 "idkit_biometryAuthentication_confirmation" = "Confirmarea utilizării autentificării biometrice";

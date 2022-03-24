@@ -33,7 +33,7 @@ extension App {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
+        let reasonText = PACECloudSDK.shared.localizable.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Couldn't evaluate the client's biometry policy."))))
@@ -74,7 +74,7 @@ extension App {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
+        let reasonText = PACECloudSDK.shared.localizable.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Couldn't evaluate the client's biometry policy."))))
@@ -138,7 +138,7 @@ extension App {
         }
 
         let biometryPolicy = BiometryPolicy()
-        let reasonText = L10n.appkitSecureDataAuthenticationConfirmation
+        let reasonText = PACECloudSDK.shared.localizable.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
             completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Couldn't evaluate the client's biometry policy."))))
