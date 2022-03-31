@@ -69,7 +69,7 @@ public class IDKit {
         shared?.performAppInducedSessionReset(with: error, completion)
     }
 
-    static func apiInducedRefresh(_ completion: @escaping (Bool) -> Void) {
+    static func apiInducedRefresh(_ completion: @escaping (IDKitError?) -> Void) {
         shared?.performApiInducedRefresh(completion)
     }
 

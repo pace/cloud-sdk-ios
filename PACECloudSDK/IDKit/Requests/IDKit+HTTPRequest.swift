@@ -35,12 +35,17 @@ extension IDKit {
                 if statusCode == HttpStatusCode.unauthorized.rawValue
                     && currentNumberOfRetries < 1
                     && IDKit.isSessionAvailable {
-                    IDKit.apiInducedRefresh { [weak self] isSuccessful in
-                        guard isSuccessful else {
-                            completion(.failure(.statusCode(response.statusCode)))
+                    IDKit.apiInducedRefresh { [weak self] error in
+                        guard let error = error else {
+                            self?.performHTTPRequest(for: url, type: type, currentNumberOfRetries: currentNumberOfRetries + 1, completion: completion)
                             return
                         }
-                        self?.performHTTPRequest(for: url, type: type, currentNumberOfRetries: currentNumberOfRetries + 1, completion: completion)
+
+                        if case .internalError = error {
+                            completion(.failure(error))
+                        } else {
+                            completion(.failure(.statusCode(response.statusCode)))
+                        }
                     }
                 } else {
                     completion(.failure(.statusCode(response.statusCode)))

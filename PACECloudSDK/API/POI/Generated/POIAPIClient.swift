@@ -213,18 +213,31 @@ public class POIAPIClient {
         if response.statusCode == HttpStatusCode.unauthorized.rawValue
             && currentNumberOfRetries < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
-            IDKit.apiInducedRefresh { [weak self] isSuccessful in
-                guard isSuccessful else {
-                    self?.handleResponseData(request: request,
-                                             requestBehaviour: requestBehaviour,
-                                             data: data,
-                                             response: response,
-                                             urlRequest: urlRequest,
-                                             completionQueue: completionQueue,
-                                             complete: complete)
+            IDKit.apiInducedRefresh { [weak self] error in
+                guard let error = error else {
+                    self?.makeRequest(request, behaviours: requestBehaviour.behaviours, currentNumberOfRetries: currentNumberOfRetries + 1, completionQueue: completionQueue, complete: complete)
                     return
                 }
-                self?.makeRequest(request, behaviours: requestBehaviour.behaviours, currentNumberOfRetries: currentNumberOfRetries + 1, completionQueue: completionQueue, complete: complete)
+
+                let returnedResponse: HTTPURLResponse
+                if case .internalError = error,
+                   let url = response.url,
+                   let customResponse: HTTPURLResponse = .init(url: url,
+                                                               statusCode: HttpStatusCode.internalError.rawValue,
+                                                               httpVersion: nil,
+                                                               headerFields: response.allHeaderFields as? [String: String]) {
+                    returnedResponse = customResponse
+                } else {
+                    returnedResponse = response
+                }
+
+                self?.handleResponseData(request: request,
+                                         requestBehaviour: requestBehaviour,
+                                         data: data,
+                                         response: returnedResponse,
+                                         urlRequest: urlRequest,
+                                         completionQueue: completionQueue,
+                                         complete: complete)
             }
             return
         }

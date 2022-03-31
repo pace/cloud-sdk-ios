@@ -15,8 +15,8 @@ public class IDKit {
         false
     }
 
-    static func apiInducedRefresh(_ completion: @escaping (Bool) -> Void) {
-        completion(false)
+    static func apiInducedRefresh(_ completion: @escaping (IDKitError?) -> Void) {
+        completion(nil)
     }
 
     static func handleAdditionalQueryParams(_ params: Set<URLQueryItem>) { }
