@@ -35,6 +35,8 @@ public protocol AppKitDelegate: AnyObject {
 }
 
 public extension AppKitDelegate {
+    func didFail(with error: AppKit.AppError) {}
+    func didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData]) {}
     func didReceiveAppData(_ appData: [AppKit.AppData]) {}
     func didEscapeForecourt(_ appDatas: [AppKit.AppData]) {}
     func didEnterGeofence(with id: String) {}
