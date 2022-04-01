@@ -135,8 +135,12 @@ extension IDKit {
             }
 
             if session.isAuthorized {
-                // e.g network error
-                completion(.failure(.other(error)))
+                if (error as NSError).code == OIDErrorCode.serverError.rawValue {
+                    completion(.failure(.internalError))
+                } else {
+                    // e.g network error
+                    completion(.failure(.other(error)))
+                }
             } else {
                 self?.performReset { completion(.failure(.failedTokenRefresh(error))) }
             }

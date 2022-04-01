@@ -5,136 +5,62 @@
 
 import Foundation
 
-extension POIAPI.GasStations {
+extension PayAPI.NewPaymentMethods {
 
     /**
-    Query for gas stations
+    Register a Logpay Card as a payment method
 
-    There are two ways to search for gas stations in a geo location. You can use either one, or none, but not both ways.
-To search inside a specific radius around a given longitude and latitude provide the following query parameters:
-* latitude
-* longitude
-* radius
-To search inside a bounding box provide the following query parameter:
-* boundingBox
+    By registering you allow the user to use a Logpay Card as a payment method.
+The payment method ID is optional when posting data.
     */
-    public enum GetGasStations {
+    public enum CreatePaymentMethodLogpay {
 
-        public static var service = POIAPIService<Response>(id: "GetGasStations", tag: "Gas Stations", method: "GET", path: "/gas-stations", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"])])
+        public static var service = PayAPIService<Response>(id: "CreatePaymentMethodLogpay", tag: "New Payment Methods", method: "POST", path: "/payment-methods/logpay", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:create"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:create"])])
 
-        /** POI type you are searching for (in this case gas stations) */
-        public enum PCPOIFilterpoiType: String, Codable, Equatable, CaseIterable {
-            case gasStation = "gasStation"
-        }
+        public final class Request: PayAPIRequest<Response> {
 
-        /** Search only gas stations with fueling app available */
-        public enum PCPOIFilterappType: String, Codable, Equatable, CaseIterable {
-            case fueling = "fueling"
-        }
+            /** By registering you allow the user to use a Logpay Card as a payment method.
+            The payment method ID is optional when posting data.
+             */
+            public class Body: APIModel {
 
-        public final class Request: POIAPIRequest<Response> {
+                public var data: PCPayPaymentMethodLogpayCreate?
 
-            public struct Options {
+                public init(data: PCPayPaymentMethodLogpayCreate? = nil) {
+                    self.data = data
+                }
 
-                /** page number */
-                public var pagenumber: Int?
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                /** items per page */
-                public var pagesize: Int?
+                    data = try container.decodeIfPresent("data")
+                }
 
-                /** POI type you are searching for (in this case gas stations) */
-                public var filterpoiType: PCPOIFilterpoiType?
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
 
-                /** Search only gas stations with fueling app available */
-                public var filterappType: [PCPOIFilterappType]?
+                    try container.encodeIfPresent(data, forKey: "data")
+                }
 
-                /** Latitude in degrees */
-                public var filterlatitude: Float?
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Body else { return false }
+                  guard self.data == object.data else { return false }
+                  return true
+                }
 
-                /** Longitude in degrees */
-                public var filterlongitude: Float?
-
-                /** Radius in meters */
-                public var filterradius: Float?
-
-                /** Bounding box representing left, bottom, right, top in degrees. The query parameters need to be passed 4 times in exactly the order left, bottom, right, top.
-<table> <tr><th>#</th><th>Value</th><th>Lat/Long</th><th>Range</th></tr> <tr><td>0</td><td>left</td><td>Lat</td><td>[-180..180]</td></tr> <tr><td>1</td><td>bottom</td><td>Long</td><td>[-90..90]</td></tr> <tr><td>2</td><td>right</td><td>Lat</td><td>[-180..180]</td></tr> <tr><td>3</td><td>top</td><td>Long</td><td>[-90..90]</td></tr> </table>
- */
-                public var filterboundingBox: [Float]?
-
-                /** Reduces the opening hours rules. After compilation only rules with the action open will remain in the response. */
-                public var compileopeningHours: Bool?
-
-                /** Filter by source ID */
-                public var filtersource: ID?
-
-                /** Comma separated strings that filter stations according to supported payment methods. */
-                public var filterpaymentMethod: String?
-
-                public init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCPOIFilterpoiType? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil, filterpaymentMethod: String? = nil) {
-                    self.pagenumber = pagenumber
-                    self.pagesize = pagesize
-                    self.filterpoiType = filterpoiType
-                    self.filterappType = filterappType
-                    self.filterlatitude = filterlatitude
-                    self.filterlongitude = filterlongitude
-                    self.filterradius = filterradius
-                    self.filterboundingBox = filterboundingBox
-                    self.compileopeningHours = compileopeningHours
-                    self.filtersource = filtersource
-                    self.filterpaymentMethod = filterpaymentMethod
+                public static func == (lhs: Body, rhs: Body) -> Bool {
+                    return lhs.isEqual(to: rhs)
                 }
             }
 
-            public var options: Options
+            public var body: Body
 
-            public init(options: Options) {
-                self.options = options
-                super.init(service: GetGasStations.service)
-            }
-
-            /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCPOIFilterpoiType? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil, filterpaymentMethod: String? = nil) {
-                let options = Options(pagenumber: pagenumber, pagesize: pagesize, filterpoiType: filterpoiType, filterappType: filterappType, filterlatitude: filterlatitude, filterlongitude: filterlongitude, filterradius: filterradius, filterboundingBox: filterboundingBox, compileopeningHours: compileopeningHours, filtersource: filtersource, filterpaymentMethod: filterpaymentMethod)
-                self.init(options: options)
-            }
-
-            public override var queryParameters: [String: Any] {
-                var params: [String: Any] = [:]
-                if let pagenumber = options.pagenumber {
-                  params["page[number]"] = pagenumber
+            public init(body: Body, encoder: RequestEncoder? = nil) {
+                self.body = body
+                super.init(service: CreatePaymentMethodLogpay.service) { defaultEncoder in
+                    return try (encoder ?? defaultEncoder).encode(body)
                 }
-                if let pagesize = options.pagesize {
-                  params["page[size]"] = pagesize
-                }
-                if let filterpoiType = options.filterpoiType?.encode() {
-                  params["filter[poiType]"] = filterpoiType
-                }
-                if let filterappType = options.filterappType?.encode().map({ String(describing: $0) }).joined(separator: ",") {
-                  params["filter[appType]"] = filterappType
-                }
-                if let filterlatitude = options.filterlatitude {
-                  params["filter[latitude]"] = filterlatitude
-                }
-                if let filterlongitude = options.filterlongitude {
-                  params["filter[longitude]"] = filterlongitude
-                }
-                if let filterradius = options.filterradius {
-                  params["filter[radius]"] = filterradius
-                }
-                if let filterboundingBox = options.filterboundingBox?.map({ String(describing: $0) }).joined(separator: ",") {
-                  params["filter[boundingBox]"] = filterboundingBox
-                }
-                if let compileopeningHours = options.compileopeningHours {
-                  params["compile[openingHours]"] = compileopeningHours
-                }
-                if let filtersource = options.filtersource?.encode() {
-                  params["filter[source]"] = filtersource
-                }
-                if let filterpaymentMethod = options.filterpaymentMethod {
-                  params["filter[paymentMethod]"] = filterpaymentMethod
-                }
-                return params
+                self.contentType = "application/vnd.api+json"
             }
 
             override var headerParameters: [String: String] {
@@ -148,130 +74,36 @@ To search inside a bounding box provide the following query parameter:
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** There are two ways to search for gas stations in a geo location. You can use either one, or none, but not both ways.
-            To search inside a specific radius around a given longitude and latitude provide the following query parameters:
-            * latitude
-            * longitude
-            * radius
-            To search inside a bounding box provide the following query parameter:
-            * boundingBox
+            /** By registering you allow the user to use a Logpay Card as a payment method.
+            The payment method ID is optional when posting data.
              */
-            public class Status200: APIModel {
-                public enum IncludedPolyType: Equatable, Codable {
-                    case fuelPrice(PCPOIFuelPrice)
-                    case locationBasedApp(PCPOILocationBasedApp)
-                    case referenceStatus(PCPOIReferenceStatus)
+            public class Status201: APIModel {
 
-                    public var fuelPrice: PCPOIFuelPrice? {
-                        guard case let .fuelPrice(fuelPrice) = self else { return nil }
-                        return fuelPrice
-                    }
+                public var data: PCPayPaymentMethod?
 
-                    public init(_ fuelPrice: PCPOIFuelPrice) {
-                        self = .fuelPrice(fuelPrice)
-                    }
-
-                    public var locationBasedApp: PCPOILocationBasedApp? {
-                        guard case let .locationBasedApp(locationBasedApp) = self else { return nil }
-                        return locationBasedApp
-                    }
-
-                    public init(_ locationBasedApp: PCPOILocationBasedApp) {
-                        self = .locationBasedApp(locationBasedApp)
-                    }
-
-                    public var referenceStatus: PCPOIReferenceStatus? {
-                        guard case let .referenceStatus(referenceStatus) = self else { return nil }
-                        return referenceStatus
-                    }
-
-                    public init(_ referenceStatus: PCPOIReferenceStatus) {
-                        self = .referenceStatus(referenceStatus)
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.singleValueContainer()
-
-                        switch self {
-                        case .fuelPrice(let fuelPrice):
-                            try container.encode(fuelPrice)
-                        case .locationBasedApp(let locationBasedApp):
-                            try container.encode(locationBasedApp)
-                        case .referenceStatus(let referenceStatus):
-                            try container.encode(referenceStatus)
-                        }
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let container = try decoder.singleValueContainer()
-
-                        let attempts = [
-                            try decode(PCPOIFuelPrice.self, from: container).map { IncludedPolyType.fuelPrice($0) },
-                            try decode(PCPOILocationBasedApp.self, from: container).map { IncludedPolyType.locationBasedApp($0) },
-                            try decode(PCPOIReferenceStatus.self, from: container).map { IncludedPolyType.referenceStatus($0) }
-                        ]
-
-                        let maybeVal: IncludedPolyType? = attempts
-                            .lazy
-                            .compactMap { $0.value }
-                            .first
-
-                        guard let val = maybeVal else {
-                            let individualFailures = attempts.map { $0.error }.compactMap { $0 }
-                            throw PolyDecodeNoTypesMatchedError(codingPath: decoder.codingPath,
-                                                                individualTypeFailures: individualFailures)
-                        }
-
-                        self = val
-                    }
-                }
-
-                public var data: PCPOIGasStations?
-
-                public var included: [IncludedPolyType]?
-
-                public init(data: PCPOIGasStations? = nil, included: [IncludedPolyType]? = nil) {
+                public init(data: PCPayPaymentMethod? = nil) {
                     self.data = data
-                    self.included = included
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
-                    let decoder = JSONDecoder()
-
-                    let includedPCPOIFuelPrices = included.filter { $0["type"] as? String == PCPOIFuelPrice.PCPOIType.allCases.first?.rawValue }
-                    let includedPCPOILocationBasedApps = included.filter { $0["type"] as? String == PCPOILocationBasedApp.PCPOIType.allCases.first?.rawValue }
-                    let includedPCPOIReferenceStatuss = included.filter { $0["type"] as? String == PCPOIReferenceStatus.PCPOIType.allCases.first?.rawValue }
-
-                    let decodedPCPOIFuelPrices: [PCPOIFuelPrice] = try decoder.decodeJSONObject(includedPCPOIFuelPrices)
-                    let decodedPCPOILocationBasedApps: [PCPOILocationBasedApp] = try decoder.decodeJSONObject(includedPCPOILocationBasedApps)
-                    let decodedPCPOIReferenceStatuss: [PCPOIReferenceStatus] = try decoder.decodeJSONObject(includedPCPOIReferenceStatuss)
-
-                    self.included =
-                        decodedPCPOIFuelPrices.map(IncludedPolyType.init)
-                        + decodedPCPOILocationBasedApps.map(IncludedPolyType.init)
-                        + decodedPCPOIReferenceStatuss.map(IncludedPolyType.init)
-
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(included, forKey: "included")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status200 else { return false }
+                  guard let object = object as? Status201 else { return false }
                   guard self.data == object.data else { return false }
-                  guard self.included == object.included else { return false }
                   return true
                 }
 
-                public static func == (lhs: Status200, rhs: Status200) -> Bool {
+                public static func == (lhs: Status201, rhs: Status201) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
@@ -955,6 +787,452 @@ To search inside a bounding box provide the following query parameter:
                 * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
                 * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
+            public class Status409: APIModel {
+
+                public var errors: [Errors]?
+
+                /** Error objects provide additional information about problems encountered while performing an operation.
+                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                 */
+                public class Errors: APIModel {
+
+                    /** an application-specific error code, expressed as a string value.
+                 */
+                    public var code: String?
+
+                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                 */
+                    public var detail: String?
+
+                    /** A unique identifier for this particular occurrence of the problem. */
+                    public var id: String?
+
+                    public var links: Links?
+
+                    /** a meta object containing non-standard meta-information about the error.
+                 */
+                    public var meta: [String: Any]?
+
+                    /** An object containing references to the source of the error.
+                 */
+                    public var source: Source?
+
+                    /** the HTTP status code applicable to this problem, expressed as a string value.
+                 */
+                    public var status: String?
+
+                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                 */
+                    public var title: String?
+
+                    /** Error objects provide additional information about problems encountered while performing an operation.
+                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                     */
+                    public class Links: APIModel {
+
+                        /** A link that leads to further details about this particular occurrence of the problem.
+                     */
+                        public var about: String?
+
+                        public init(about: String? = nil) {
+                            self.about = about
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            about = try container.decodeIfPresent("about")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(about, forKey: "about")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Links else { return false }
+                          guard self.about == object.about else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Links, rhs: Links) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    /** An object containing references to the source of the error.
+                     */
+                    public class Source: APIModel {
+
+                        /** A string indicating which URI query parameter caused the error.
+                     */
+                        public var parameter: String?
+
+                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+                     */
+                        public var pointer: String?
+
+                        public init(parameter: String? = nil, pointer: String? = nil) {
+                            self.parameter = parameter
+                            self.pointer = pointer
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            parameter = try container.decodeIfPresent("parameter")
+                            pointer = try container.decodeIfPresent("pointer")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(parameter, forKey: "parameter")
+                            try container.encodeIfPresent(pointer, forKey: "pointer")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Source else { return false }
+                          guard self.parameter == object.parameter else { return false }
+                          guard self.pointer == object.pointer else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Source, rhs: Source) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
+                        self.code = code
+                        self.detail = detail
+                        self.id = id
+                        self.links = links
+                        self.meta = meta
+                        self.source = source
+                        self.status = status
+                        self.title = title
+                    }
+
+                    public required init(from decoder: Decoder) throws {
+                        let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                        code = try container.decodeIfPresent("code")
+                        detail = try container.decodeIfPresent("detail")
+                        id = try container.decodeIfPresent("id")
+                        links = try container.decodeIfPresent("links")
+                        meta = try container.decodeAnyIfPresent("meta")
+                        source = try container.decodeIfPresent("source")
+                        status = try container.decodeIfPresent("status")
+                        title = try container.decodeIfPresent("title")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                        try container.encodeIfPresent(code, forKey: "code")
+                        try container.encodeIfPresent(detail, forKey: "detail")
+                        try container.encodeIfPresent(id, forKey: "id")
+                        try container.encodeIfPresent(links, forKey: "links")
+                        try container.encodeAnyIfPresent(meta, forKey: "meta")
+                        try container.encodeIfPresent(source, forKey: "source")
+                        try container.encodeIfPresent(status, forKey: "status")
+                        try container.encodeIfPresent(title, forKey: "title")
+                    }
+
+                    public func isEqual(to object: Any?) -> Bool {
+                      guard let object = object as? Errors else { return false }
+                      guard self.code == object.code else { return false }
+                      guard self.detail == object.detail else { return false }
+                      guard self.id == object.id else { return false }
+                      guard self.links == object.links else { return false }
+                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
+                      guard self.source == object.source else { return false }
+                      guard self.status == object.status else { return false }
+                      guard self.title == object.title else { return false }
+                      return true
+                    }
+
+                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
+                        return lhs.isEqual(to: rhs)
+                    }
+                }
+
+                public init(errors: [Errors]? = nil) {
+                    self.errors = errors
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    errors = try container.decodeArrayIfPresent("errors")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(errors, forKey: "errors")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Status409 else { return false }
+                  guard self.errors == object.errors else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Status409, rhs: Status409) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            /** Error objects provide additional information about problems encountered while performing an operation.
+            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+             */
+            public class Status415: APIModel {
+
+                public var errors: [Errors]?
+
+                /** Error objects provide additional information about problems encountered while performing an operation.
+                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                    * `1000`:  generic error
+                    * `1001`:  payment processing temporarily unavailable
+                    * `1002`:  requested amount exceeds the authorized amount of the provided token
+                    * `1003`:  implicit payment methods cannot be modified
+                    * `1004`:  payment method rejected by provider
+                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                 */
+                public class Errors: APIModel {
+
+                    /** an application-specific error code, expressed as a string value.
+                 */
+                    public var code: String?
+
+                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                 */
+                    public var detail: String?
+
+                    /** A unique identifier for this particular occurrence of the problem. */
+                    public var id: String?
+
+                    public var links: Links?
+
+                    /** a meta object containing non-standard meta-information about the error.
+                 */
+                    public var meta: [String: Any]?
+
+                    /** An object containing references to the source of the error.
+                 */
+                    public var source: Source?
+
+                    /** the HTTP status code applicable to this problem, expressed as a string value.
+                 */
+                    public var status: String?
+
+                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                 */
+                    public var title: String?
+
+                    /** Error objects provide additional information about problems encountered while performing an operation.
+                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                        * `1000`:  generic error
+                        * `1001`:  payment processing temporarily unavailable
+                        * `1002`:  requested amount exceeds the authorized amount of the provided token
+                        * `1003`:  implicit payment methods cannot be modified
+                        * `1004`:  payment method rejected by provider
+                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+                     */
+                    public class Links: APIModel {
+
+                        /** A link that leads to further details about this particular occurrence of the problem.
+                     */
+                        public var about: String?
+
+                        public init(about: String? = nil) {
+                            self.about = about
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            about = try container.decodeIfPresent("about")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(about, forKey: "about")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Links else { return false }
+                          guard self.about == object.about else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Links, rhs: Links) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    /** An object containing references to the source of the error.
+                     */
+                    public class Source: APIModel {
+
+                        /** A string indicating which URI query parameter caused the error.
+                     */
+                        public var parameter: String?
+
+                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
+                     */
+                        public var pointer: String?
+
+                        public init(parameter: String? = nil, pointer: String? = nil) {
+                            self.parameter = parameter
+                            self.pointer = pointer
+                        }
+
+                        public required init(from decoder: Decoder) throws {
+                            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                            parameter = try container.decodeIfPresent("parameter")
+                            pointer = try container.decodeIfPresent("pointer")
+                        }
+
+                        public func encode(to encoder: Encoder) throws {
+                            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                            try container.encodeIfPresent(parameter, forKey: "parameter")
+                            try container.encodeIfPresent(pointer, forKey: "pointer")
+                        }
+
+                        public func isEqual(to object: Any?) -> Bool {
+                          guard let object = object as? Source else { return false }
+                          guard self.parameter == object.parameter else { return false }
+                          guard self.pointer == object.pointer else { return false }
+                          return true
+                        }
+
+                        public static func == (lhs: Source, rhs: Source) -> Bool {
+                            return lhs.isEqual(to: rhs)
+                        }
+                    }
+
+                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
+                        self.code = code
+                        self.detail = detail
+                        self.id = id
+                        self.links = links
+                        self.meta = meta
+                        self.source = source
+                        self.status = status
+                        self.title = title
+                    }
+
+                    public required init(from decoder: Decoder) throws {
+                        let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                        code = try container.decodeIfPresent("code")
+                        detail = try container.decodeIfPresent("detail")
+                        id = try container.decodeIfPresent("id")
+                        links = try container.decodeIfPresent("links")
+                        meta = try container.decodeAnyIfPresent("meta")
+                        source = try container.decodeIfPresent("source")
+                        status = try container.decodeIfPresent("status")
+                        title = try container.decodeIfPresent("title")
+                    }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                        try container.encodeIfPresent(code, forKey: "code")
+                        try container.encodeIfPresent(detail, forKey: "detail")
+                        try container.encodeIfPresent(id, forKey: "id")
+                        try container.encodeIfPresent(links, forKey: "links")
+                        try container.encodeAnyIfPresent(meta, forKey: "meta")
+                        try container.encodeIfPresent(source, forKey: "source")
+                        try container.encodeIfPresent(status, forKey: "status")
+                        try container.encodeIfPresent(title, forKey: "title")
+                    }
+
+                    public func isEqual(to object: Any?) -> Bool {
+                      guard let object = object as? Errors else { return false }
+                      guard self.code == object.code else { return false }
+                      guard self.detail == object.detail else { return false }
+                      guard self.id == object.id else { return false }
+                      guard self.links == object.links else { return false }
+                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
+                      guard self.source == object.source else { return false }
+                      guard self.status == object.status else { return false }
+                      guard self.title == object.title else { return false }
+                      return true
+                    }
+
+                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
+                        return lhs.isEqual(to: rhs)
+                    }
+                }
+
+                public init(errors: [Errors]? = nil) {
+                    self.errors = errors
+                }
+
+                public required init(from decoder: Decoder) throws {
+                    let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                    errors = try container.decodeArrayIfPresent("errors")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                    try container.encodeIfPresent(errors, forKey: "errors")
+                }
+
+                public func isEqual(to object: Any?) -> Bool {
+                  guard let object = object as? Status415 else { return false }
+                  guard self.errors == object.errors else { return false }
+                  return true
+                }
+
+                public static func == (lhs: Status415, rhs: Status415) -> Bool {
+                    return lhs.isEqual(to: rhs)
+                }
+            }
+
+            /** Error objects provide additional information about problems encountered while performing an operation.
+            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
+                * `1000`:  generic error
+                * `1001`:  payment processing temporarily unavailable
+                * `1002`:  requested amount exceeds the authorized amount of the provided token
+                * `1003`:  implicit payment methods cannot be modified
+                * `1004`:  payment method rejected by provider
+                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
+                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
+             */
             public class Status500: APIModel {
 
                 public var errors: [Errors]?
@@ -1167,10 +1445,13 @@ To search inside a bounding box provide the following query parameter:
                     return lhs.isEqual(to: rhs)
                 }
             }
-            public typealias SuccessType = Status200
+            public typealias SuccessType = Status201
 
-            /** OK */
-            case status200(Status200)
+            /** Created */
+            case status201(Status201)
+
+            /** Already exists */
+            case status303
 
             /** Bad request */
             case status400(Status400)
@@ -1181,52 +1462,82 @@ To search inside a bounding box provide the following query parameter:
             /** The specified accept header is invalid */
             case status406(Status406)
 
+            /** Resource conflicts */
+            case status409(Status409)
+
+            /** The specified content type header is invalid */
+            case status415(Status415)
+
+            /** The request was well-formed but was unable to be followed due to semantic errors. The following codes may be seen:
+* `provider:card-not-usable`: The card is rejected by the payment provider, e.g., fuelcard deactivated
+* `provider:invalid-content`: One or more fields of the payment method is not accepted by the payment provider.
+* `invalid-charset`: The fields charset is not latin
+* `too-long`: The fields content is too long
+ */
+            case status422(PCPayErrors)
+
             /** Internal server error */
             case status500(Status500)
 
-            public var success: Status200? {
+            public var success: Status201? {
                 switch self {
-                case .status200(let response): return response
+                case .status201(let response): return response
                 default: return nil
                 }
             }
 
             public var response: Any {
                 switch self {
-                case .status200(let response): return response
+                case .status201(let response): return response
                 case .status400(let response): return response
                 case .status401(let response): return response
                 case .status406(let response): return response
+                case .status409(let response): return response
+                case .status415(let response): return response
+                case .status422(let response): return response
                 case .status500(let response): return response
+                default: return ()
                 }
             }
 
             public var statusCode: Int {
                 switch self {
-                case .status200: return 200
+                case .status201: return 201
+                case .status303: return 303
                 case .status400: return 400
                 case .status401: return 401
                 case .status406: return 406
+                case .status409: return 409
+                case .status415: return 415
+                case .status422: return 422
                 case .status500: return 500
                 }
             }
 
             public var successful: Bool {
                 switch self {
-                case .status200: return true
+                case .status201: return true
+                case .status303: return false
                 case .status400: return false
                 case .status401: return false
                 case .status406: return false
+                case .status409: return false
+                case .status415: return false
+                case .status422: return false
                 case .status500: return false
                 }
             }
 
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
-                case 200: self = try .status200(decoder.decode(Status200.self, from: data))
+                case 201: self = try .status201(decoder.decode(Status201.self, from: data))
+                case 303: self = .status303
                 case 400: self = try .status400(decoder.decode(Status400.self, from: data))
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 406: self = try .status406(decoder.decode(Status406.self, from: data))
+                case 409: self = try .status409(decoder.decode(Status409.self, from: data))
+                case 415: self = try .status415(decoder.decode(Status415.self, from: data))
+                case 422: self = try .status422(decoder.decode(PCPayErrors.self, from: data))
                 case 500: self = try .status500(decoder.decode(Status500.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }
