@@ -74,7 +74,8 @@ extension IDKit {
             }
 
             if let error = error {
-                self?.performReset { completion(.failure(.other(error))) }
+                let error: IDKitError = (error as NSError).code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue ? .authorizationCanceled : .other(error)
+                self?.performReset { completion(.failure(error)) }
                 return
             }
 

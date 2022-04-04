@@ -23,6 +23,7 @@ public extension IDKit {
         case invalidHTTPURLResponse(URL)
         case invalidData(URL)
         case failedTokenRefresh(Error)
+        case authorizationCanceled
         case other(Error)
 
         // Biometry
@@ -75,6 +76,9 @@ public extension IDKit {
 
             case .failedTokenRefresh(let error):
                 return "The token refresh failed because the session has expired - (\(error))."
+
+            case .authorizationCanceled:
+                return "The authorization flow was canceled by the user."
 
             case .other(let error):
                 return error.localizedDescription
