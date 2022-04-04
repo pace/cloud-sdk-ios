@@ -5,6 +5,8 @@
 //  Created by PACE Telematics GmbH.
 //
 
+public typealias PaymentMethodVendors = [PaymentMethodVendor]
+
 public struct PaymentMethodVendor: Decodable {
     public let id: String?
     public let slug: String?

@@ -40,36 +40,53 @@ public class CmsAPIClient {
 
     public func paymentMethodVendorIcons(for paymentMethodKinds: PCPayPaymentMethodKinds,
                                          completion: @escaping (PaymentMethodVendorIcons) -> Void) {
+        let apiVendors = paymentMethodKinds.compactMap { $0.attributes?.vendors }.flatMap { $0 }
+        let paymentMethodVendors: PaymentMethodVendors = apiVendors.map {
+            .init(id: $0.id,
+                  slug: $0.slug,
+                  name: $0.name,
+                  logo: .init(href: $0.logo?.href, variants: .init(dark: .init(href: $0.logo?.variants?.first?.href))),
+                  paymentMethodKindId: $0.paymentMethodKindId)
+        }
+
+        paymentMethodVendorIcons(for: paymentMethodVendors, completion: completion)
+    }
+
+    public func paymentMethodVendorIcons(for paymentMethodVendors: PaymentMethodVendors,
+                                         completion: @escaping (PaymentMethodVendorIcons) -> Void) {
         cmsDispatchQueue.async {
-            let vendors = paymentMethodKinds.compactMap { $0.attributes?.vendors }.flatMap { $0 }
             var icons: PaymentMethodVendorIcons = []
 
             let vendorDispatchGroup = DispatchGroup()
-            for vendor in vendors {
+            for vendor in paymentMethodVendors {
                 vendorDispatchGroup.enter()
 
                 guard let vendorId = vendor.id,
                       let paymentMethodKindId = vendor.paymentMethodKindId,
                       let slug = vendor.slug else {
-                    vendorDispatchGroup.leave()
-                    continue
-                }
+                          vendorDispatchGroup.leave()
+                          continue
+                      }
 
                 var iconLightData: Data?
                 var iconDarkData: Data?
                 let iconDispatchGroup = DispatchGroup()
+                let modifiedBaseUrl = String(self.baseURL.dropLast("/cms".count))
+
+                iconDispatchGroup.enter()
+                iconDispatchGroup.enter()
 
                 if let iconLightUrl = vendor.logo?.href {
-                    iconDispatchGroup.enter()
-                    self.performIconRequest(urlString: iconLightUrl) { iconData in
+                    let urlString = modifiedBaseUrl + iconLightUrl
+                    self.performIconRequest(urlString: urlString) { iconData in
                         iconLightData = iconData
                         iconDispatchGroup.leave()
                     }
                 }
 
-                if let iconDarkUrl = vendor.logo?.variants?.first?.href {
-                    iconDispatchGroup.enter()
-                    self.performIconRequest(urlString: iconDarkUrl) { iconData in
+                if let iconDarkUrl = vendor.logo?.variants?.dark?.href {
+                    let urlString = modifiedBaseUrl + iconDarkUrl
+                    self.performIconRequest(urlString: urlString) { iconData in
                         iconDarkData = iconData
                         iconDispatchGroup.leave()
                     }
@@ -98,7 +115,7 @@ public class CmsAPIClient {
     }
 
     private func performIconRequest(urlString: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: baseURL.dropLast("/cms".count) + urlString) else {
+        guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
