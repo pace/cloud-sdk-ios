@@ -9,7 +9,7 @@ public struct PaymentMethodVendor: Decodable {
     public let id: String?
     public let slug: String?
     public let name: String?
-    public let logo: PCPayPaymentMethod?
+    public let logo: PaymentMethodVendorLogo?
     public let paymentMethodKindId: String?
 
     private enum CodingKeys: String, CodingKey {
