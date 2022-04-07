@@ -109,6 +109,16 @@ class WebView: WKWebView {
         placeholder.isHidden = true
         loadingView.isLoading = true
     }
+
+    private func reportBreadcrumbs(_ message: String, parameters: [String: AnyHashable]?) {
+        PACECloudSDK.shared.delegate?.reportBreadcrumbs(message, parameters: parameters)
+        SDKLogger.i("\(message) - parameters: \(String(describing: parameters))")
+    }
+
+    private func reportError(_ message: String, parameters: [String: AnyHashable]?) {
+        PACECloudSDK.shared.delegate?.reportError(message, parameters: parameters)
+        SDKLogger.e("\(message) - parameters: \(String(describing: parameters))")
+    }
 }
 
 extension WebView {
@@ -127,7 +137,11 @@ extension WebView: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard let url = navigationAction.request.url, let scheme = url.scheme?.lowercased() else {
+        let navigationUrl = navigationAction.request.url
+        let navigationScheme = navigationUrl?.scheme?.lowercased()
+
+        guard let url = navigationUrl, let scheme = navigationScheme else {
+            reportError("[WebView] Canceled navigation action", parameters: ["url": navigationUrl, "scheme": navigationScheme])
             decisionHandler(.cancel)
             return
         }
@@ -137,10 +151,15 @@ extension WebView: WKNavigationDelegate {
             return
         }
 
+        reportBreadcrumbs("[WebView] Received custom scheme to handle", parameters: ["url": url, "scheme": scheme])
+
         if scheme == Constants.fallbackRedirectScheme {
+            reportBreadcrumbs("[WebView] Handling fallback redirect scheme", parameters: ["url": url, "scheme": scheme])
             PACECloudSDK.shared.application(open: url)
         } else if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
+        } else {
+            reportError("[WebView] Received unhandled url and scheme", parameters: ["url": url, "scheme": scheme])
         }
 
         decisionHandler(.allow)
@@ -160,5 +179,14 @@ extension WebView: WKNavigationDelegate {
         }
 
         decisionHandler(.allow)
+    }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation, withError error: Error) {
+        guard let webView = webView as? WebView, !webView.successfullyLoadedOnce else { return }
+        reportError("[WebView] Failed provisional navigation with error \(error)", parameters: nil)
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { // swiftlint:disable:this implicitly_unwrapped_optional
+        reportError("[WebView] Failed provisional navigation with error \(error)", parameters: nil)
     }
 }

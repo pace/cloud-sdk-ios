@@ -70,7 +70,7 @@ extension POIKit {
                 case .failure(let error as POIKit.POIKitAPIError):
                     completion(.failure(error))
 
-                case .failure(_):
+                case .failure:
                     completion(.failure(.unknown))
                 }
             }
