@@ -100,14 +100,24 @@ public class AppViewController: UIViewController {
 
     @objc
     private func handleRedirectURL(_ notification: NSNotification) {
-        guard let url = notification.userInfo?[AppKit.Constants.RedirectServiceParams.url] as? URL,
-            let urlQuery = url.query,
-            let redirectUrlString = RedirectServiceData(from: urlQuery).to
-        else {
+        let url = notification.userInfo?[AppKit.Constants.RedirectServiceParams.url] as? URL
+
+        guard let url = url, let urlQuery = url.query else {
+            reportError("[AppViewController] Couldn't get url or query to handle redirect", parameters: ["url": url, "query": url?.query])
+            return
+        }
+
+        guard let redirectUrlString = RedirectServiceData(from: urlQuery).to else {
+            reportError("[AppViewController] Couldn't extract redirect url", parameters: ["url": url, "query": urlQuery])
             return
         }
 
         handleRedirectService(url: redirectUrlString)
+    }
+
+    private func reportError(_ message: String, parameters: [String: AnyHashable]?) {
+        PACECloudSDK.shared.delegate?.reportError(message, parameters: parameters)
+        SDKLogger.e("\(message) - parameters: \(String(describing: parameters))")
     }
 }
 

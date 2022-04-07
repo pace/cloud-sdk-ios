@@ -40,6 +40,7 @@ public class PACECloudSDK {
     }
 
     public var customURLProtocol: URLProtocol?
+    public weak var delegate: PACECloudSDKDelegate?
 
     /// Holds the localizations of the strings used in the SDK.
     ///
