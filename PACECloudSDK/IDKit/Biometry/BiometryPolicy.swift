@@ -39,7 +39,7 @@ struct BiometryPolicy {
 
 extension BiometryPolicy {
     static func generateTOTP(with totpData: Data, timeIntervalSince1970: TimeInterval) -> String? {
-        guard let biometryTOTPData = try? JSONDecoder().decode(BiometryTOTPData.self, from: totpData),
+        guard let biometryTOTPData = try? JSONDecoder().decode(IDKit.BiometryTOTPData.self, from: totpData),
               let secretData = MF_Base32Codec.data(fromBase32String: biometryTOTPData.secret), !secretData.isEmpty else { return nil }
 
         let algorithm: Generator.Algorithm

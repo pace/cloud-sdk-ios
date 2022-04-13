@@ -223,6 +223,7 @@
 		3B3FC8F427FED6F4008B3F7F /* PACECloudSDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */; };
 		3B3FC8F527FED6F5008B3F7F /* PACECloudSDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */; };
 		3B40F83325D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */; };
+		3B4666292805C24A00268713 /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
 		3B5503F12539E61C00C291F1 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F02539E61C00C291F1 /* LiveData.swift */; };
 		3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F62539E6BE00C291F1 /* Vector2.swift */; };
 		3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
@@ -4099,6 +4100,7 @@
 				1785C95E269432CF0041A20E /* HttpHeaderFields.swift in Sources */,
 				3B79FAAE26C15C0300C0278F /* Notification+Extension.swift in Sources */,
 				17BB0D44268CD23C009D4755 /* PCPayTransactions.swift in Sources */,
+				3B4666292805C24A00268713 /* BiometryTOTPData.swift in Sources */,
 				3B79FA1F26C15B8900C0278F /* POIAPIGetDuplicatesKML.swift in Sources */,
 				3B79FA9626C15BEE00C0278F /* POIKitAPI+Prices.swift in Sources */,
 				3B79FA6626C15BCC00C0278F /* POIKitManager.swift in Sources */,
