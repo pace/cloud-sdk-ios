@@ -425,8 +425,6 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
         let oneDay: Double = 24 * 60 * 60
         // dates for each given weekday (`days`)
         let dates = [date.addingTimeInterval(-oneDay*2), date.addingTimeInterval(-oneDay), date, date.addingTimeInterval(oneDay), date.addingTimeInterval(oneDay*2)]
-        let daylightSavingTimeOffset = TimeZone.current.daylightSavingTimeOffset()
-        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: Date())) / 60
 
         var openingValues = [(Double, Double)]()
         var closedValues = [(Double, Double)]()
@@ -436,19 +434,18 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
             if let dayRules = rules[days[i]] {
                 dayRules.forEach {
                     let array = $0.0.map { Double($0) }
-                    guard var start = array.first,
-                        var end = array.last else { return }
-
-                    // Convert start/end to unix timestamps
-                    start = (start - timeZoneOffset) * 60 + dates[i].today.timeIntervalSince1970 + daylightSavingTimeOffset
-                    end = (end - timeZoneOffset) * 60 + dates[i].today.timeIntervalSince1970 + daylightSavingTimeOffset
+                    guard let start = array.first,
+                          let end = array.last,
+                          let startTime = dates[i].timeIntervalSince1970(atMinutes: Int(start)),
+                          let endTime = dates[i].timeIntervalSince1970(atMinutes: Int(end))
+                    else { return }
 
                     switch $0.1 {
                     case .open:
-                        openingValues.append((start, end))
+                        openingValues.append((startTime, endTime))
 
                     case .close:
-                        closedValues.append((start, end))
+                        closedValues.append((startTime, endTime))
                     }
                 }
             }
@@ -475,23 +472,20 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
         Inverts `OpeningHours` of a day and returns closed values.
      */
     private func invert(_ openingValues: [(Double, Double)], startDate: Date, endDate: Date) -> [(Double, Double)] {
-        let isDaylightSaving = TimeZone.current.isDaylightSavingTime()
-        let secondsOffset = Double(TimeZone.current.secondsFromGMT(for: Date()) + (!isDaylightSaving ? 3600 : 0))
-
         var convertedValues = [(Double, Double)]()
         var lastEndValue = 0.0
 
         openingValues.forEach {
             // add first closed area from startDate to beginning of opening hours
             if convertedValues.isEmpty {
-                convertedValues.append((startDate.timeIntervalSince1970 - secondsOffset , $0.0))
+                convertedValues.append((startDate.timeIntervalSince1970, $0.0))
             } else {
                 convertedValues.append((lastEndValue, $0.0))
             }
 
             // add last closed area
-            if let last = openingValues.last, $0 == last && endDate.timeIntervalSince1970 - secondsOffset > $0.1 {
-                convertedValues.append(($0.1, endDate.timeIntervalSince1970 - secondsOffset))
+            if let last = openingValues.last, $0 == last && endDate.timeIntervalSince1970 > $0.1 {
+                convertedValues.append(($0.1, endDate.timeIntervalSince1970))
             }
 
             lastEndValue = $0.1
