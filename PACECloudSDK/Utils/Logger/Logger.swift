@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// swiftlint:disable file_length
 open class Logger {
     open class var logTag: String { "[Logger]" }
     open class var moduleTag: String { "" }
@@ -20,8 +21,12 @@ open class Logger {
     private static var todaysLogs: [String] = []
 
     private static let loggingQueue = DispatchQueue(label: "pacecloudsdklogger", qos: .background)
+
     private static let dateFormatter: DateFormatter = .init(formatString: "yyyy-MM-dd HH:mm:ss.SSS")
+    private static let dateRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}"
+
     private static let fileDateFormatter: DateFormatter = .init(formatString: "yyyy-MM-dd")
+    private static let fileDateRegex = "\\d{4}-\\d{2}-\\d{2}"
 
     private static let fileManager: FileManager = FileManager.default
     private static let logsDirectoryName: String = "PaceLogs"
@@ -91,7 +96,8 @@ open class Logger {
 
     public static func exportLogs(completion: @escaping (([String]) -> Void)) {
         loggingQueue.async {
-            completion((persistedLogs() + todaysLogs).filter { !$0.isEmpty })
+            let sortedLogs = sortedLogs(persistedLogs() + todaysLogs)
+            completion(sortedLogs.filter { !$0.isEmpty })
         }
     }
 
@@ -113,7 +119,7 @@ open class Logger {
     }
 }
 
-internal extension Logger {
+extension Logger {
     static func optIn() {
         if PACECloudSDK.shared.isLoggingEnabled {
             createLogsDirectory()
@@ -141,59 +147,81 @@ private extension Logger {
         }
     }
 
+    /// Persists the logs of today
     static func syncFiles() {
         loggingQueue.async {
+            guard !todaysLogs.isEmpty else { return }
+
             guard let todaysFileUrl = fileUrl(for: Date()) else {
                 w("[Logger] Couldn't sync files. Invalid file.")
                 return
             }
 
-            let logs = todaysLogs.reduce(into: "", { $0 += $1 + "\n" }) // Append a linebreak
-            let todaysLogsData = Data(logs.utf8)
-            let todaysLogsSize = todaysLogsData.bytes.count
-            let fileSizeLimit: Int = min(maxFileSize, maxFileSizeUpperLimit)
-            let bytesExcess = todaysLogsSize - fileSizeLimit
-            let dataToAppend: Data
+            guard append(logs: todaysLogs, to: todaysFileUrl) else { return }
 
-            if !fileManager.fileExists(atPath: todaysFileUrl.path) {
-                // Create file with today's data
-                // Delete oldest file if number of files exceeds the limit
-                deleteOldestFileIfNeeded()
-                fileManager.createFile(atPath: todaysFileUrl.path, contents: nil, attributes: nil)
-
-                // Truncate the current data to be appended if necessary
-                let truncatedData = truncateData(todaysLogsData, for: bytesExcess)
-                dataToAppend = truncatedData
-            } else {
-                // Files available for truncating
-                let isTruncatingSuccessful = truncateFilesIfNeeded(for: todaysLogsSize)
-
-                if isTruncatingSuccessful {
-                    // File already exists + no errors
-                    // append data to file
-                    dataToAppend = todaysLogsData
-                } else {
-                    // All files got deleted and currentLogData may exceed fileSize
-                    // Truncate the current data to be appended if necessary
-                    let truncatedData = truncateData(todaysLogsData, for: bytesExcess)
-                    fileManager.createFile(atPath: todaysFileUrl.path, contents: nil, attributes: nil)
-                    dataToAppend = truncatedData
-                }
-            }
-
-            guard let fileHandle = FileHandle(forWritingAtPath: todaysFileUrl.path) else {
-                w("[Logger] Couldn't sync files, couldn't create fileHandle.")
-                return
-            }
-
-            fileHandle.seekToEndOfFile() // Go to the end of the file to append the data
-            fileHandle.write(dataToAppend)
-            fileHandle.closeFile()
-
+            deleteOldestFileIfNeeded()
             todaysLogs = [] // Reset logs
         }
     }
 
+    /// Appends logs to a file with the specified url.
+    /// Creates the file if if does not exist yet
+    @discardableResult
+    static func append(logs: [String], to fileUrl: URL) -> Bool {
+        let logString = logs.reduce(into: "", { $0 += $1 + "\n" }) // Append a linebreak
+        let logsData = Data(logString.utf8)
+        let logsSize = logsData.bytes.count
+        let fileSizeLimit: Int = min(maxFileSize, maxFileSizeUpperLimit)
+        let bytesExcess = logsSize - fileSizeLimit
+        let dataToAppend: Data
+
+        if !fileManager.fileExists(atPath: fileUrl.path) {
+            // Create file with data
+            // Delete oldest file if number of files exceeds the limit
+            fileManager.createFile(atPath: fileUrl.path, contents: nil, attributes: nil)
+
+            // Truncate the current data to be appended if necessary
+            let truncatedData = truncateData(logsData, for: bytesExcess)
+            dataToAppend = truncatedData
+        } else {
+            // Files available for truncating
+            let isTruncatingSuccessful = truncateFilesIfNeeded(for: logsSize)
+
+            if isTruncatingSuccessful {
+                // File already exists + no errors
+                // append data to file
+                dataToAppend = logsData
+            } else {
+                // All files got deleted and currentLogData may exceed fileSize
+                // Truncate the current data to be appended if necessary
+                let truncatedData = truncateData(logsData, for: bytesExcess)
+                fileManager.createFile(atPath: fileUrl.path, contents: nil, attributes: nil)
+                dataToAppend = truncatedData
+            }
+        }
+
+        return write(data: dataToAppend, to: fileUrl, replacesContent: false)
+    }
+
+    @discardableResult
+    static func write(data: Data, to fileUrl: URL, replacesContent: Bool) -> Bool {
+        guard let fileHandle = FileHandle(forWritingAtPath: fileUrl.path) else {
+            e("[Logger] Couldn't merge logs, couldn't create fileHandle.")
+            return false
+        }
+
+        if replacesContent {
+            fileHandle.truncateFile(atOffset: 0)
+        } else {
+            fileHandle.seekToEndOfFile()
+        }
+
+        fileHandle.write(data)
+        fileHandle.closeFile()
+        return true
+    }
+
+    /// Removes data from the persisted files if the size of the debug bundle exceeds the max limit
     static func truncateFilesIfNeeded(for bytesToAppend: Int) -> Bool {
         let currentFiles = currentLogFiles() // Already sorted by creation date
         let logsSize = currentFiles.map { fileSize(for: $0) }.reduce(0, +)
@@ -225,6 +253,7 @@ private extension Logger {
         return false
     }
 
+    /// Returns the file size of the specified file name
     static func fileSize(for fileName: String) -> Int {
         guard let logsDirectory = self.logsDirectory else { return 0 }
         let fileUrl = logsDirectory.appendingPathComponent(fileName)
@@ -239,6 +268,7 @@ private extension Logger {
         }
     }
 
+    /// Removes a specified number of bytes from a persisted log file
     static func truncateFile(_ fileName: String, for numberOfBytes: Int) -> Bool {
         guard let logsDirectory = self.logsDirectory else { return false }
 
@@ -258,6 +288,7 @@ private extension Logger {
         }
     }
 
+    /// Removes a specified number of bytes from the given logs as data
     static func truncateData(_ data: Data, for numberOfBytes: Int) -> Data {
         guard data.bytes.count >= numberOfBytes, numberOfBytes >= 0 else { return data }
 
@@ -266,14 +297,16 @@ private extension Logger {
         return truncatedData
     }
 
+    /// Deletes files recursively if the number of files exceeds the max number
     static func deleteOldestFileIfNeeded() {
-        let currentLogFiles = self.currentLogFiles().sorted()
+        let currentLogFiles = self.currentLogFiles()
         let numberOfFiles: Int = min(maxNumberOfFiles, maxNumberOfFilesUpperLimit)
         guard currentLogFiles.count > numberOfFiles, let fileNameToDelete = currentLogFiles.first else { return }
         deleteFile(with: fileNameToDelete)
         deleteOldestFileIfNeeded()
     }
 
+    /// Deletes a persisted log file
     static func deleteFile(with name: String) {
         guard let debugBundleDirectory = logsDirectory else { return }
 
@@ -285,20 +318,19 @@ private extension Logger {
         }
     }
 
-    // Returns the currently peristed log files sorted by creation date
+    /// Returns the names of the currently peristed log files sorted by date
     static func currentLogFiles() -> [String] {
         guard let debugBundleDirectory = logsDirectory else { return [] }
 
         do {
             let currentLogFiles = try fileManager.contentsOfDirectory(atPath: debugBundleDirectory.path)
             let sortedLogFiles = currentLogFiles.sorted { lhs, rhs -> Bool in
-                let lhsPath = debugBundleDirectory.appendingPathComponent(lhs).path
-                let rhsPath = debugBundleDirectory.appendingPathComponent(rhs).path
+                guard let lhsDateTimestamp = lhs.matches(for: fileDateRegex)?.first,
+                      let lhsDate = fileDateFormatter.date(from: lhsDateTimestamp),
+                      let rhsDateTimestamp = rhs.matches(for: fileDateRegex)?.first,
+                      let rhsDate = fileDateFormatter.date(from: rhsDateTimestamp) else { return false }
 
-                guard let lhsCreatedAt = try? self.fileManager.attributesOfItem(atPath: lhsPath)[FileAttributeKey.creationDate] as? Date,
-                      let rhsCreatedAt = try? self.fileManager.attributesOfItem(atPath: rhsPath)[FileAttributeKey.creationDate] as? Date else { return false }
-
-                return lhsCreatedAt < rhsCreatedAt
+                return lhsDate < rhsDate
             }
 
             return sortedLogFiles
@@ -308,6 +340,7 @@ private extension Logger {
         }
     }
 
+    /// Returns the file url of a log file for a specific date
     static func fileUrl(for date: Date) -> URL? {
         let todaysFileName = fileName(for: date)
         guard let debugBundleDirectory = logsDirectory else { return nil }
@@ -316,12 +349,14 @@ private extension Logger {
         return fileURL
     }
 
+    /// Returns the file name of logs for a specific date
     static func fileName(for date: Date) -> String {
         let dateString: String = fileDateFormatter.string(from: date)
 
         return "\(dateString)_pace_\(PACECloudSDK.shared.environment.rawValue)_logs"
     }
 
+    /// The logs directory url
     static var logsDirectory: URL? = {
         guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).last else { return nil }
         let logsDirectory = documentsDirectory.appendingPathComponent(logsDirectoryName, isDirectory: true)
@@ -329,75 +364,82 @@ private extension Logger {
         return logsDirectory
     }()
 
+    /// Sorts the persisted logs and returns the log directory url
     static func createExportLogs(completion: @escaping ((URL?) -> Void)) {
         mergeAndSortLogFiles {
             completion(logsDirectory)
         }
     }
 
+    /// Merges new logs with the persisted logs and sorts them
     static func mergeAndSortLogFiles(withNewLogs newLogs: [String] = [], completion: (() -> Void)? = nil) {
         loggingQueue.async {
-            guard let logsDir: URL = logsDirectory else {
-                completion?()
+            guard !newLogs.isEmpty else {
+                sortPersistedLogs(completion: completion)
                 return
             }
 
-            let numberOfFiles: Int = min(maxNumberOfFiles, maxNumberOfFilesUpperLimit)
+            // [DateString: [LogEntries]]
+            var newLogsItems: [String: [String]] = [:]
 
-            do {
-                let items: [String] = try fileManager.contentsOfDirectory(atPath: logsDir.path)
+            // Extract date from every new log string (only use first occurence)
+            newLogs.forEach { newLogString in
+                guard let dateTimestamp = newLogString.matches(for: dateRegex)?.first,
+                      let dateString = dateTimestamp.components(separatedBy: " ").first else { return }
 
-                let lastMaximumDays: [Date] = (0..<numberOfFiles).map { Date().daysAgo($0) }
+                if let logEntries = newLogsItems[dateString] {
+                    newLogsItems[dateString] = logEntries + [newLogString]
+                } else {
+                    newLogsItems[dateString] = [newLogString]
+                }
+            }
 
-                lastMaximumDays.forEach { day in
-                    var logs: [String] = []
-                    let prefix: String = fileDateFormatter.string(from: day)
-                    logs.append(contentsOf: newLogs.filter { $0.hasPrefix(prefix) })
-                    let sameDayItems: [String] = items.filter { $0.hasPrefix(prefix) }
-
-                    sameDayItems.forEach {
-                        logs.append(contentsOf: persistedLogs(from: day))
-                        do {
-                            let path = logsDir.appendingPathComponent($0, isDirectory: false).path
-                            try fileManager.removeItem(atPath: path)
-                        } catch {
-                            w("[Logger] Couldn't delete file \(logsDir.appendingPathComponent($0, isDirectory: false).path)")
-                        }
-                    }
-
-                    if !logs.isEmpty {
-                        logs.sort()
-
-                        guard let path: String = fileUrl(for: day)?.path else { return }
-
-                        if !fileManager.createFile(atPath: path, contents: nil, attributes: nil) {
-                            w("[Logger] Couldn't create file \(path)")
-                        }
-
-                        guard let fileHandle: FileHandle = FileHandle(forWritingAtPath: path) else { return }
-
-                        let logsString: String = logs.reduce(into: "", { $0 += $1 + "\n" }) // Append a linebreak
-                        let data: Data = Data(logsString.utf8)
-                        let logsSize = data.bytes.count
-                        let fileSizeLimit: Int = min(maxFileSize, maxFileSizeUpperLimit)
-                        let bytesExcess = logsSize - fileSizeLimit
-                        let truncatedData = truncateData(data, for: bytesExcess)
-
-                        fileHandle.seekToEndOfFile() // Go to the end of the file to append the data
-                        fileHandle.write(truncatedData)
-                        fileHandle.closeFile()
-                    }
+            // Append new logs to files or create new files
+            newLogsItems.forEach { dateString, logEntries in
+                guard let date = fileDateFormatter.date(from: dateString),
+                      let fileUrl = fileUrl(for: date) else {
+                    e("[Logger] Couldn't get file url.")
+                    return
                 }
 
-                deleteOldestFileIfNeeded()
-                completion?()
-            } catch {
-                deleteOldestFileIfNeeded()
-                completion?()
+                append(logs: logEntries, to: fileUrl)
             }
+
+            deleteOldestFileIfNeeded()
+            sortPersistedLogs(completion: completion)
         }
     }
 
+    /// Sorts the persisted logs in all log files
+    static func sortPersistedLogs(completion: (() -> Void)? = nil) {
+        let logFileDates: [Date] = currentLogFilesDates()
+
+        logFileDates.forEach {
+            guard let fileUrl = fileUrl(for: $0) else { return }
+
+            let logs = persistedLogs(from: $0)
+            let sortedLogs = sortedLogs(logs)
+
+            let logString = sortedLogs.reduce(into: "", { $0 += $1 + "\n" }) // Append a linebreak
+            let logsData = Data(logString.utf8)
+
+            write(data: logsData, to: fileUrl, replacesContent: true)
+        }
+
+        completion?()
+    }
+
+    static func sortedLogs(_ logs: [String]) -> [String] {
+        return logs.sorted(by: { lhs, rhs in
+            guard let lhsDateTimestamp = lhs.matches(for: dateRegex)?.first,
+                  let lhsDate = dateFormatter.date(from: lhsDateTimestamp),
+                  let rhsDateTimestamp = rhs.matches(for: dateRegex)?.first,
+                  let rhsDate = dateFormatter.date(from: rhsDateTimestamp) else { return false }
+            return lhsDate < rhsDate
+        })
+    }
+
+    /// Returns the persisted logs of a specific date
     static func persistedLogs(from date: Date) -> [String] {
         guard let path: String = fileUrl(for: date)?.path,
               fileManager.fileExists(atPath: path) else { return [] }
@@ -413,20 +455,29 @@ private extension Logger {
         }
     }
 
+    /// Returns the persisted logs of all log files combined into a single string array
     static func persistedLogs() -> [String] {
         var logs: [String] = .init()
-        let numberOfFiles: Int = min(maxNumberOfFiles, maxNumberOfFilesUpperLimit)
-        let last7Days: [Date] = (0...numberOfFiles).map { Date().daysAgo($0) }
+        let logFileDates: [Date] = currentLogFilesDates()
 
-        last7Days.forEach {
+        logFileDates.forEach {
             logs.append(contentsOf: persistedLogs(from: $0))
         }
 
         return logs
     }
+
+    /// Returns the dates of all log files
+    static func currentLogFilesDates() -> [Date] {
+        currentLogFiles().compactMap {
+            guard let dateString = $0.matches(for: fileDateRegex)?.first,
+                  let date = fileDateFormatter.date(from: dateString) else { return nil }
+            return date
+        }
+    }
 }
 
-internal extension Logger {
+extension Logger {
     @objc
     static func handleDidEnterBackground() {
         syncFiles()
