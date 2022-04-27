@@ -9,9 +9,10 @@ import XCTest
 @testable import PACECloudSDK
 
 class QueryParamHandlerTests: XCTestCase {
-    override func tearDown() {
-        super.tearDown()
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", authenticationMode: .web, environment: .development))
+    override class func setUp() {
+        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
+                                              environment: .development,
+                                              isRedirectSchemeCheckEnabled: false))
     }
 
     func testWithoutAdditionalQueryParams() {

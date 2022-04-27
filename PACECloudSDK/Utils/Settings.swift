@@ -22,12 +22,14 @@ class Settings {
     private(set) var osrmBaseUrl = ""
     private(set) var searchBaseUrl = ""
     private(set) var reverseGeocodeBaseUrl = ""
+    private(set) var cdnBaseUrl = ""
 
     private let environmentPrefix = "Environment"
     private let apiGatewayKey = "ApiGateway"
     private let osrmBaseUrlKey = "OsrmBaseUrl"
     private let searchBaseUrlKey = "SearchBaseUrl"
     private let reverseGeocodeBaseUrlKey = "ReverseGeocodeBaseUrl"
+    private let cdnBaseUrlKey = "CDNBaseUrl"
 
     // MARK: - OIDConfiguration
     private let oidConfigurationKey = "OIDConfiguration"
@@ -65,6 +67,7 @@ class Settings {
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
+        cdnBaseUrl = settings[cdnBaseUrlKey]!
     }
 
     private func setupOIDConfiguration(for environment: PACECloudSDK.Environment) {
@@ -78,7 +81,7 @@ class Settings {
         userEndpointUrl = settings[userEndpoint]!
     }
 
-    func baseUrl(_ type: POIKitBaseUrl) -> String {
+    func baseUrl(_ type: POIKitBaseUrl) -> String { // swiftlint:disable:this cyclomatic_complexity
         switch type {
         case .poiApi:
             return poiApiHostUrl
@@ -109,6 +112,9 @@ class Settings {
 
         case .reverseGeocode:
             return reverseGeocodeBaseUrl
+
+        case .cdn:
+            return cdnBaseUrl
         }
     }
 
@@ -123,5 +129,6 @@ class Settings {
         case geo
         case cms
         case priceService
+        case cdn
     }
 }

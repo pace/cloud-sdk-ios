@@ -13,7 +13,7 @@ class GeoServiceTests: XCTestCase {
     private let location: CLLocation = .init(latitude: 49.012591, longitude: 8.427429)
     private var geoAPIManager: GeoAPIManager!
 
-    override func setUpWithError() throws {
+    override func setUp() {
         PACECloudSDK.shared.customURLProtocol = MockURLProtocol()
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
                                               environment: .development,

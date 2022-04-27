@@ -9,13 +9,6 @@ import XCTest
 @testable import PACECloudSDK
 
 class URLBuilderTests: XCTestCase {
-    override func tearDown() {
-        super.tearDown()
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
-                                              authenticationMode: .web,
-                                              environment: .development))
-    }
-
     func testBuildManifestUrl() {
         let rootUrl = URLBuilder.buildAppManifestUrl(with: "https://pace.com")!
         XCTAssertEqual(rootUrl, "https://pace.com/manifest.json")
