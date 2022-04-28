@@ -18,6 +18,19 @@ extension String {
         return self.range(of: regex, options: options, range: nil, locale: nil) != nil
     }
 
+    func matches(for regex: String) -> [String]? {
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
+            return results.compactMap {
+                guard let range = Range($0.range, in: self) else { return nil }
+                return String(self[range])
+            }
+        } catch {
+            return nil
+        }
+    }
+
     static func randomHex(length: Int) -> String? {
         guard length > 0 else { return nil }
 
