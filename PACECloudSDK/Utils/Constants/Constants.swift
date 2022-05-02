@@ -16,6 +16,8 @@ struct Constants {
 
     static let fallbackRedirectScheme = "cloudsdk"
 
+    static let cdnPaymentMethodVendorIconsURLPrefix = "/cms/images"
+
     struct Configuration {
         static let defaultAllowedLowAccuracy: Double = 250
         static let defaultSpeedThreshold: Double = 13
