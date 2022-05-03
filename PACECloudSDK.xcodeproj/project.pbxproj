@@ -205,6 +205,9 @@
 		3B1D40CA25FA45C2007CF531 /* BiometryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */; };
 		3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E917F253D92A800DC4BB1 /* POIKit.swift */; };
 		3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */; };
+		3B2406AF2821263F00114EB8 /* DateTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */; };
+		3B2406B02821264800114EB8 /* DateTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */; };
+		3B2406B12821264900114EB8 /* DateTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */; };
 		3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B24095A256BF43A003DA32B /* OIDConfiguration.swift */; };
 		3B29884F260DE39100708B6C /* OneTimePassword in Frameworks */ = {isa = PBXBuildFile; productRef = 3B29884E260DE39100708B6C /* OneTimePassword */; };
 		3B2B7BD9268071B100ECFDE2 /* IDKit+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B7BD8268071B100ECFDE2 /* IDKit+Slim.swift */; };
@@ -1244,6 +1247,7 @@
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
 		3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitAPIError.swift; sourceTree = "<group>"; };
+		3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeProvider.swift; sourceTree = "<group>"; };
 		3B24095A256BF43A003DA32B /* OIDConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OIDConfiguration.swift; sourceTree = "<group>"; };
 		3B2B7BD8268071B100ECFDE2 /* IDKit+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+Slim.swift"; sourceTree = "<group>"; };
 		3B2D1DEC2629929D00C629C8 /* PaymentMethodVendor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodVendor.swift; sourceTree = "<group>"; };
@@ -2579,6 +2583,7 @@
 			children = (
 				3B6826A127BA951600933C95 /* Constants */,
 				3B9B6412266F6F8F00B2DC27 /* Application.swift */,
+				3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */,
 				3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */,
 				927111512573B295001D6DDA /* HttpHeaderFields.swift */,
 				927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */,
@@ -3883,6 +3888,7 @@
 				17BB0D1F268CD007009D4755 /* PCPayPaymentMethod.swift in Sources */,
 				3B7C8E6E26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */,
 				3B79FA8D26C15BEB00C0278F /* Waypoint.swift in Sources */,
+				3B2406B12821264900114EB8 /* DateTimeProvider.swift in Sources */,
 				3B79FAA126C15BF300C0278F /* GasStation+OpeningHours.swift in Sources */,
 				3B3DF5AB26E24C8E00934991 /* JWTToken.swift in Sources */,
 				3B79FA1D26C15B8500C0278F /* POIAPIGetApp.swift in Sources */,
@@ -4647,6 +4653,7 @@
 				84D6C059258A03270094982D /* PCPOIPolicyRulePriority.swift in Sources */,
 				84D6C060258A03270094982D /* PCPayPaymentTokenCreate.swift in Sources */,
 				84D6C090258A03280094982D /* PCPOICategory.swift in Sources */,
+				3B2406AF2821263F00114EB8 /* DateTimeProvider.swift in Sources */,
 				84600F3A25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
 				84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */,
 				84A43B1425825B5700DE36FA /* AnyPayRequest.swift in Sources */,
@@ -4894,6 +4901,7 @@
 				3B3FC8F427FED6F4008B3F7F /* PACECloudSDKDelegate.swift in Sources */,
 				3BABEFF627C8E8B3002256CB /* IDKitUserAgent.swift in Sources */,
 				8418E29825B1B85E00D3722B /* URLEncoding.swift in Sources */,
+				3B2406B02821264800114EB8 /* DateTimeProvider.swift in Sources */,
 				3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */,
 				92EDDBF325A7270300E480F4 /* NavigationTitleView.swift in Sources */,
 				3BABEFEF27C8E859002256CB /* IDKitDelegate.swift in Sources */,

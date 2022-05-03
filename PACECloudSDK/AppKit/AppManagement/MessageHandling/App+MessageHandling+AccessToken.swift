@@ -23,13 +23,16 @@ extension App {
             return
         }
 
-        if reason == .unauthorized,
-           let oldToken = oldToken,
-           IDKit.TokenValidator.isTokenValid(oldToken) {
-            IDKit.appInducedSessionReset { [weak self] accessToken in
-                self?.respond(accessToken: accessToken, completion)
+        if let oldToken = oldToken {
+            let tokenValidator = IDKit.TokenValidator(accessToken: oldToken)
+
+            if reason == .unauthorized,
+               tokenValidator.isTokenValid() {
+                IDKit.appInducedSessionReset { [weak self] accessToken in
+                    self?.respond(accessToken: accessToken, completion)
+                }
+                return
             }
-            return
         }
 
         IDKit.appInducedRefresh { [weak self] accessToken in
