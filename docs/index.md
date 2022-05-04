@@ -113,6 +113,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + `POIAPI`
     + `GetGasStation`
     + `GetGasStations`
++ The methods of `IDKit.TokenValidator` are no longer `static`. Instead create an instance and pass your access token in the initializer.
 
 ## Contribute
 ### Localizable Strings Generation
