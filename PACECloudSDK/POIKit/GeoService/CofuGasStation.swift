@@ -15,6 +15,7 @@ public extension POIKit {
         public let polygon: [GeoAPICoordinates]?
         public let properties: [String: Any]
         private(set) public var cofuStatus: CofuStatus?
+        private(set) public var fuelingURLs: [String] = []
 
         public var location: CLLocation? {
             guard let coordinates = coordinates,
@@ -24,6 +25,8 @@ public extension POIKit {
         }
 
         private let cofuStatusPropertyKey = "connectedFuelingStatus"
+        private let appsPropertyKey = "apps"
+        private let fuelingURLPropertyKey = "url"
 
         init(id: String, coordinates: GeoAPICoordinate?, polygon: [GeoAPICoordinates]?, properties: [String: Any]) {
             self.id = id
@@ -34,6 +37,10 @@ public extension POIKit {
             if let statusString = properties[cofuStatusPropertyKey] as? String,
                let status = CofuStatus(rawValue: statusString) {
                 self.cofuStatus = status
+            }
+
+            if let apps = properties[appsPropertyKey] as? [[String: Any]] {
+                fuelingURLs = apps.compactMap { $0[fuelingURLPropertyKey] as? String }
             }
         }
 

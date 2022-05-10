@@ -213,6 +213,25 @@ class GeoServiceTests: XCTestCase {
         waitForExpectations(timeout: 0.3, handler: nil)
     }
 
+    func testFuelingURLsProperty() {
+        let expectation = expectation(description: "FuelingURLsProperty")
+
+        geoAPIManager.locationBasedCofuStations(for: location) { result in
+            switch result {
+            case .failure:
+                XCTFail()
+
+            case .success(let stations):
+                stations.forEach {
+                    XCTAssertEqual("https://dev.fuel.site", $0.fuelingURLs.first!)
+                }
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 0.3, handler: nil)
+    }
+
     func testPacePayProperty() {
         let expectation = expectation(description: "PacePayProperty")
 
