@@ -13,6 +13,10 @@ public extension Array where Element == POIKit.CofuGasStation {
         filter { $0.cofuStatus == .online }
     }
 
+    var toDictionary: [String: POIKit.CofuGasStation] {
+        reduce(into: [:], { $0[$1.id] = $1 })
+    }
+
     func sortedByDistance(from location: CLLocation) -> [POIKit.CofuGasStation] {
         sorted { lhs, rhs -> Bool in
             guard let lhsDistance = lhs.distance(from: location),
