@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Japx",
+        "repositoryURL": "https://github.com/pace/Japx",
+        "state": {
+          "branch": null,
+          "revision": "06fe392a1ecc05d0158d505d06899f0a9133030f",
+          "version": "5.0.0"
+        }
+      },
+      {
         "package": "OneTimePassword",
         "repositoryURL": "https://github.com/pace/OneTimePassword",
         "state": {

@@ -213,6 +213,9 @@
 		3B2B7BD9268071B100ECFDE2 /* IDKit+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2B7BD8268071B100ECFDE2 /* IDKit+Slim.swift */; };
 		3B2D1DED2629929D00C629C8 /* PaymentMethodVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D1DEC2629929D00C629C8 /* PaymentMethodVendor.swift */; };
 		3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E46F225D2C0E00015E79A /* InvalidationTokenCacheTests.swift */; };
+		3B2ECC5F283295E900A2E721 /* Japx in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2ECC5E283295E900A2E721 /* Japx */; };
+		3B2ECC612832963A00A2E721 /* Japx in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2ECC602832963A00A2E721 /* Japx */; };
+		3B2ECC632832964100A2E721 /* Japx in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2ECC622832964100A2E721 /* Japx */; };
 		3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */; };
 		3B387F8F256C0D0100DD6F52 /* GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F8E256C0D0100DD6F52 /* GasStation.swift */; };
 		3B3DF5A926E24C7100934991 /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
@@ -1859,6 +1862,7 @@
 			files = (
 				1785C95C26935EEE0041A20E /* AppAuth in Frameworks */,
 				3B79FA0A26C15B3B00C0278F /* SwiftProtobuf in Frameworks */,
+				3B2ECC632832964100A2E721 /* Japx in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1876,6 +1880,7 @@
 				3B29884F260DE39100708B6C /* OneTimePassword in Frameworks */,
 				3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */,
 				3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */,
+				3B2ECC5F283295E900A2E721 /* Japx in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1892,6 +1897,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BABEFFB27C8E8FD002256CB /* AppAuth in Frameworks */,
+				3B2ECC612832963A00A2E721 /* Japx in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3586,6 +3592,7 @@
 			packageProductDependencies = (
 				1785C95B26935EEE0041A20E /* AppAuth */,
 				3B79FA0926C15B3B00C0278F /* SwiftProtobuf */,
+				3B2ECC622832964100A2E721 /* Japx */,
 			);
 			productName = PACECloudWatchSDK;
 			productReference = 17BB0CD7268CCED6009D4755 /* PACECloudWatchSDK.framework */;
@@ -3627,6 +3634,7 @@
 				3B87D06925DACE6400D635F0 /* SwiftProtobuf */,
 				3BA6A79B260DDF5A005D4B5C /* AppAuth */,
 				3B29884E260DE39100708B6C /* OneTimePassword */,
+				3B2ECC5E283295E900A2E721 /* Japx */,
 			);
 			productName = PACECloudSDK;
 			productReference = 921E682C2534883100438491 /* PACECloudSDK.framework */;
@@ -3667,6 +3675,7 @@
 			name = PACECloudSlimSDK;
 			packageProductDependencies = (
 				3BABEFFA27C8E8FD002256CB /* AppAuth */,
+				3B2ECC602832963A00A2E721 /* Japx */,
 			);
 			productName = PACECloudSlimSDK;
 			productReference = 92EDDBCD25A71EEB00E480F4 /* PACECloudSlimSDK.framework */;
@@ -3724,6 +3733,7 @@
 				3B87D06825DACE6400D635F0 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				3B29884D260DE39100708B6C /* XCRemoteSwiftPackageReference "OneTimePassword" */,
+				3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */,
 			);
 			productRefGroup = 921E682D2534883100438491 /* Products */;
 			projectDirPath = "";
@@ -6563,6 +6573,14 @@
 				version = 3.3.1;
 			};
 		};
+		3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pace/Japx";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.0;
+			};
+		};
 		3B87D06825DACE6400D635F0 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -6591,6 +6609,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B29884D260DE39100708B6C /* XCRemoteSwiftPackageReference "OneTimePassword" */;
 			productName = OneTimePassword;
+		};
+		3B2ECC5E283295E900A2E721 /* Japx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */;
+			productName = Japx;
+		};
+		3B2ECC602832963A00A2E721 /* Japx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */;
+			productName = Japx;
+		};
+		3B2ECC622832964100A2E721 /* Japx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */;
+			productName = Japx;
 		};
 		3B79FA0926C15B3B00C0278F /* SwiftProtobuf */ = {
 			isa = XCSwiftPackageProductDependency;
