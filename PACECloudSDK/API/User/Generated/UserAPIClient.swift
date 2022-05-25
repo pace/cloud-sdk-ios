@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Japx
 
 /// Manages and sends APIRequests
 public class UserAPIClient {
@@ -22,7 +23,7 @@ public class UserAPIClient {
     /// These headers will get added to every request
     public var defaultHeaders: [String: String]
 
-    public var jsonDecoder = JSONDecoder()
+    public var jsonDecoder = JapxDecoder()
     public var jsonEncoder = JSONEncoder()
 
     public var decodingQueue = DispatchQueue(label: "UserAPIClient", qos: .utility, attributes: .concurrent)
@@ -33,7 +34,7 @@ public class UserAPIClient {
         self.baseURL = baseURL
         self.behaviours = self.behaviours + behaviours
         self.defaultHeaders = defaultHeaders
-        jsonDecoder.dateDecodingStrategy = .custom(dateDecoder)
+        jsonDecoder.jsonDecoder.dateDecodingStrategy = .custom(dateDecoder)
         jsonEncoder.dateEncodingStrategy = .formatted(UserAPI.dateEncodingFormatter)
         self.session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue())
     }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserVerifyUserPhone: APIModel {
+public class PCUserVerifyUserPhoneRequest: APIModel {
 
     /** the code that was send to the user via SMS */
     public var code: String?
@@ -27,12 +27,12 @@ public class PCUserVerifyUserPhone: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserVerifyUserPhone else { return false }
+      guard let object = object as? PCUserVerifyUserPhoneRequest else { return false }
       guard self.code == object.code else { return false }
       return true
     }
 
-    public static func == (lhs: PCUserVerifyUserPhone, rhs: PCUserVerifyUserPhone) -> Bool {
+    public static func == (lhs: PCUserVerifyUserPhoneRequest, rhs: PCUserVerifyUserPhoneRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

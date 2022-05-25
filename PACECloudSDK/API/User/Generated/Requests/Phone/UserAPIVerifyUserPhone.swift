@@ -18,9 +18,9 @@ extension UserAPI.Phone {
 
         public final class Request: UserAPIRequest<Response> {
 
-            public var body: PCUserVerifyUserPhone
+            public var body: PCUserVerifyUserPhoneRequest
 
-            public init(body: PCUserVerifyUserPhone, encoder: RequestEncoder? = nil) {
+            public init(body: PCUserVerifyUserPhoneRequest, encoder: RequestEncoder? = nil) {
                 self.body = body
                 super.init(service: VerifyUserPhone.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)

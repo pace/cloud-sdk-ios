@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserPlainOTP: APIModel {
+public class PCUserPlainOTPRequest: APIModel {
 
     /** one time password */
     public var otp: String?
@@ -27,12 +27,12 @@ public class PCUserPlainOTP: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserPlainOTP else { return false }
+      guard let object = object as? PCUserPlainOTPRequest else { return false }
       guard self.otp == object.otp else { return false }
       return true
     }
 
-    public static func == (lhs: PCUserPlainOTP, rhs: PCUserPlainOTP) -> Bool {
+    public static func == (lhs: PCUserPlainOTPRequest, rhs: PCUserPlainOTPRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

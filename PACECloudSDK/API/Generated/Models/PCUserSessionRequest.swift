@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserSession: APIModel {
+public class PCUserSessionRequest: APIModel {
 
     /** sets the login otp to true (passed) or false (not passed) */
     public var passedLoginOTP: Bool?
@@ -33,13 +33,13 @@ public class PCUserSession: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserSession else { return false }
+      guard let object = object as? PCUserSessionRequest else { return false }
       guard self.passedLoginOTP == object.passedLoginOTP else { return false }
       guard self.userId == object.userId else { return false }
       return true
     }
 
-    public static func == (lhs: PCUserSession, rhs: PCUserSession) -> Bool {
+    public static func == (lhs: PCUserSessionRequest, rhs: PCUserSessionRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

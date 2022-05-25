@@ -18,9 +18,9 @@ extension UserAPI.TOTP {
 
         public final class Request: UserAPIRequest<Response> {
 
-            public var body: PCUserOTP
+            public var body: PCUserOTPRequest
 
-            public init(body: PCUserOTP, encoder: RequestEncoder? = nil) {
+            public init(body: PCUserOTPRequest, encoder: RequestEncoder? = nil) {
                 self.body = body
                 super.init(service: VerifyOTP.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)

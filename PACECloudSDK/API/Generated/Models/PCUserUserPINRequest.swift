@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserUserPIN: APIModel {
+public class PCUserUserPINRequest: APIModel {
 
     public enum PCUserType: String, Codable, Equatable, CaseIterable {
         case pin = "pin"
@@ -79,14 +79,14 @@ public class PCUserUserPIN: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserUserPIN else { return false }
+      guard let object = object as? PCUserUserPINRequest else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
       return true
     }
 
-    public static func == (lhs: PCUserUserPIN, rhs: PCUserUserPIN) -> Bool {
+    public static func == (lhs: PCUserUserPINRequest, rhs: PCUserUserPINRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

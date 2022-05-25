@@ -46,9 +46,9 @@ user is deleted in order to prevent theft.
              */
             public class Body: APIModel {
 
-                public var data: PCUserUserPIN?
+                public var data: PCUserUserPINRequest?
 
-                public init(data: PCUserUserPIN? = nil) {
+                public init(data: PCUserUserPINRequest? = nil) {
                     self.data = data
                 }
 

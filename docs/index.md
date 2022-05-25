@@ -105,44 +105,44 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + The `cofuStatus` property of `CofuGasStation` is now optional. This way it correctly reflects the connected fueling status in case the original value is missing in the API response
   + The methods of `IDKit.TokenValidator` are no longer `static`. Instead create an instance and pass your access token in the initializer.
 - API
+  + The suffix `Request` has been added to all API models that are used as request body
   + The structure of _all_ API response models has changed (the models have been flattened).
-  + Enclosing types like `Attributes`, `Relationships`, `Included` and inner `DataType` have been removed from the response models.
-  + The corresponding properties have been added on the same hierarchy level as their respective former enclosing type.
-  + Example: `FuelingAPI.Fueling.ApproachingAtTheForecourt`
-      ```swift
-        let request = FuelingAPI.Fueling.ApproachingAtTheForecourt.Request(gasStationId: "SOME_ID")
+    + Enclosing types like `Attributes`, `Relationships`, `Included` and inner `DataType` have been removed from the response models.
+    + The corresponding properties have been added on the same hierarchy level as their respective former enclosing type.
+    + Example: `FuelingAPI.Fueling.ApproachingAtTheForecourt`
+        ```swift
+          let request = FuelingAPI.Fueling.ApproachingAtTheForecourt.Request(gasStationId: "SOME_ID")
         
-        // Old respone model structure until SDK version 9.x.x
-        API.Fueling.client.makeRequest(request) { [weak self] response in
-            switch response.result {
-            case .success(let result):
-                let gasStation = result.success?.included?.compactMap { $0.gasStation }.first
-                let gasStationAddress = gasStation?.attributes?.address
+          // Old respone model structure until SDK version 9.x.x
+          API.Fueling.client.makeRequest(request) { [weak self] response in
+              switch response.result {
+              case .success(let result):
+                  let gasStation = result.success?.included?.compactMap { $0.gasStation }.first
+                  let gasStationAddress = gasStation?.attributes?.address
                 
-                let unsupportedPaymentMethods = result.success?.data?.relationships?.unsupportedPaymentMethods
+                  let unsupportedPaymentMethods = result.success?.data?.relationships?.unsupportedPaymentMethods
             
-            case .failure(let error):
-                // Some error handling
-            }
-        }
+              case .failure(let error):
+                  // Some error handling
+              }
+          }
         
-        // New response model structure from SDK version 10.x.x
-        API.Fueling.client.makeRequest(request) { [weak self] response in
-            switch response.result {
-            case .success(let result):
-                let responseData = result.success?.data
+          // New response model structure from SDK version 10.x.x
+          API.Fueling.client.makeRequest(request) { [weak self] response in
+              switch response.result {
+              case .success(let result):
+                  let responseData = result.success?.data
         
-                let gasStation = responseData?.gasStation
-                let gasStationAddress = gasStation?.address
+                  let gasStation = responseData?.gasStation
+                  let gasStationAddress = gasStation?.address
                 
-                let unsupportedPaymentMethods = responseData?.unsupportedPaymentMethods
+                  let unsupportedPaymentMethods = responseData?.unsupportedPaymentMethods
             
-            case .failure(let error):
-                // Some error handling
-            }
-        }
-      ```
-
+              case .failure(let error):
+                  // Some error handling
+              }
+          }
+        ```
 
 ## Contribute
 ### Localizable Strings Generation

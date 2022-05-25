@@ -37,9 +37,9 @@ RFCs for reference:
 
         public final class Request: UserAPIRequest<Response> {
 
-            public var body: PCUserOAuth2TokenExchange
+            public var body: PCUserOAuth2TokenExchangeRequest
 
-            public init(body: PCUserOAuth2TokenExchange, encoder: RequestEncoder? = nil) {
+            public init(body: PCUserOAuth2TokenExchangeRequest, encoder: RequestEncoder? = nil) {
                 self.body = body
                 super.init(service: TokenExchange.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)

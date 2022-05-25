@@ -14,11 +14,11 @@ public extension IDKit {
         public let digits: Int
         public let algorithm: String
 
-        public init?(from attributes: PCUserDeviceTOTP.Attributes) {
-            guard let secret = attributes.secret,
-                  let period = attributes.period,
-                  let digits = attributes.digits,
-                  let algorithm = attributes.algorithm?.rawValue else { return nil }
+        public init?(from data: PCUserDeviceTOTP) {
+            guard let secret = data.secret,
+                  let period = data.period,
+                  let digits = data.digits,
+                  let algorithm = data.algorithm?.rawValue else { return nil }
 
             self.secret = secret
             self.period = Double(period)

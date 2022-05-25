@@ -22,9 +22,9 @@ extension UserAPI.TOTP {
              */
             public class Body: APIModel {
 
-                public var data: PCUserDeviceTOTP?
+                public var data: PCUserDeviceTOTPRequest?
 
-                public init(data: PCUserDeviceTOTP? = nil) {
+                public init(data: PCUserDeviceTOTPRequest? = nil) {
                     self.data = data
                 }
 

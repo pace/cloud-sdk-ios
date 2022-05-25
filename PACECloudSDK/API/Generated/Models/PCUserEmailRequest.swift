@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserEmail: APIModel {
+public class PCUserEmailRequest: APIModel {
 
     /** The email the user wants to use. */
     public var email: String?
@@ -27,12 +27,12 @@ public class PCUserEmail: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserEmail else { return false }
+      guard let object = object as? PCUserEmailRequest else { return false }
       guard self.email == object.email else { return false }
       return true
     }
 
-    public static func == (lhs: PCUserEmail, rhs: PCUserEmail) -> Bool {
+    public static func == (lhs: PCUserEmailRequest, rhs: PCUserEmailRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserOTP: APIModel {
+public class PCUserOTPRequest: APIModel {
 
     /** the one time password type to validate against. If none provided all default types are checked.
     * `login` login otp ([created and send via email](#operation/SendUsersLoginOTP))
@@ -51,13 +51,13 @@ public class PCUserOTP: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserOTP else { return false }
+      guard let object = object as? PCUserOTPRequest else { return false }
       guard self.otp == object.otp else { return false }
       guard self.types == object.types else { return false }
       return true
     }
 
-    public static func == (lhs: PCUserOTP, rhs: PCUserOTP) -> Bool {
+    public static func == (lhs: PCUserOTPRequest, rhs: PCUserOTPRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

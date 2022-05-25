@@ -45,13 +45,13 @@ extension BiometryPolicy {
         let algorithm: Generator.Algorithm
 
         switch biometryTOTPData.algorithm {
-        case PCUserDeviceTOTP.Attributes.PCUserAlgorithm.sha1.rawValue:
+        case PCUserDeviceTOTP.PCUserAlgorithm.sha1.rawValue:
             algorithm = .sha1
 
-        case PCUserDeviceTOTP.Attributes.PCUserAlgorithm.sha256.rawValue:
+        case PCUserDeviceTOTP.PCUserAlgorithm.sha256.rawValue:
             algorithm = .sha256
 
-        case PCUserDeviceTOTP.Attributes.PCUserAlgorithm.sha512.rawValue:
+        case PCUserDeviceTOTP.PCUserAlgorithm.sha512.rawValue:
             algorithm = .sha512
 
         default:

@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCUserOAuth2TokenExchange: APIModel {
+public class PCUserOAuth2TokenExchangeRequest: APIModel {
 
     /** The value of the parameter must be `urn:ietf:params:oauth:grant-type:token-exchange`.
      */
@@ -96,7 +96,7 @@ are part of it. More scopes may be returned.
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCUserOAuth2TokenExchange else { return false }
+      guard let object = object as? PCUserOAuth2TokenExchangeRequest else { return false }
       guard self.clientId == object.clientId else { return false }
       guard self.clientSecret == object.clientSecret else { return false }
       guard self.grantType == object.grantType else { return false }
@@ -108,7 +108,7 @@ are part of it. More scopes may be returned.
       return true
     }
 
-    public static func == (lhs: PCUserOAuth2TokenExchange, rhs: PCUserOAuth2TokenExchange) -> Bool {
+    public static func == (lhs: PCUserOAuth2TokenExchangeRequest, rhs: PCUserOAuth2TokenExchangeRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

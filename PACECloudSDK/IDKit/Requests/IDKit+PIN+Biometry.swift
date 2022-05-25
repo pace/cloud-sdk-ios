@@ -78,7 +78,7 @@ extension IDKit {
     func setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         logBiometryWarningsIfNeeded()
 
-        let pinData = PCUserUserPIN(attributes: .init(pin: pin, otp: otp), type: .pin)
+        let pinData = PCUserUserPINRequest(attributes: .init(pin: pin, otp: otp), type: .pin)
         let request = UserAPI.Credentials.UpdateUserPIN.Request(body: .init(data: pinData))
 
         API.User.client.makeRequest(request) { [weak self] response in
@@ -135,7 +135,7 @@ extension IDKit {
     func enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?) {
         logBiometryWarningsIfNeeded()
 
-        let totpData = PCUserDeviceTOTP(attributes: .init(otp: otp, password: password, pin: pin), id: UUID().uuidString.lowercased(), type: .deviceTOTP)
+        let totpData = PCUserDeviceTOTPRequest(attributes: .init(otp: otp, password: password, pin: pin), id: UUID().uuidString.lowercased(), type: .deviceTOTP)
         let request = UserAPI.TOTP.CreateTOTP.Request(body: .init(data: totpData))
 
         API.User.client.makeRequest(request) { [weak self] response in
@@ -146,8 +146,8 @@ extension IDKit {
                     return
                 }
 
-                guard let attributes = result.success?.data?.attributes,
-                      let totpData = BiometryTOTPData(from: attributes) else {
+                guard let data = result.success?.data,
+                      let totpData = BiometryTOTPData(from: data) else {
                     completion?(.failure(.internalError))
                     return
                 }
@@ -186,7 +186,7 @@ extension IDKit {
     // MARK: - OTP
 
     func otp(for password: String, completion: @escaping (Result<String, IDKitError>) -> Void) {
-        let totpData = PCUserCreateOTP(password: password)
+        let totpData = PCUserCreateOTPRequest(password: password)
         let request = UserAPI.TOTP.CreateOTP.Request(body: totpData)
 
         API.User.client.makeRequest(request) { response in
