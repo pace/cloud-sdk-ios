@@ -7,317 +7,109 @@ import Foundation
 
 public class PCPOIPOI: APIModel {
 
-    public var attributes: Attributes?
-
     /** POI ID */
     public var id: ID?
 
-    public var relationships: Relationships?
-
     public var type: PCPOIPOIType?
 
-    public class Attributes: APIModel {
+    public var referenceStatuses: [PCPOIReferenceStatus]?
 
-        public var active: Bool?
+    public var sucessorOf: [PCPOIGasStation]?
 
-        public var boundary: PCPOICommonGeoJSONPolygon?
+    public var active: Bool?
 
-        public var countryId: PCPOICommonCountryId?
+    public var boundary: PCPOICommonGeoJSONPolygon?
 
-        public var createdAt: DateTime?
+    public var countryId: PCPOICommonCountryId?
 
-        /** a JSON field containing POI specific data */
-        public var data: [PCPOIFieldData]?
+    public var createdAt: DateTime?
 
-        public var lastSeenAt: DateTime?
+    /** a JSON field containing POI specific data */
+    public var data: [PCPOIFieldData]?
 
-        /** a JSON field containing information about data field origin and update time */
-        public var metadata: [PCPOIFieldMetaData]?
+    public var lastSeenAt: DateTime?
 
-        public var position: PCPOICommonGeoJSONPoint?
+    /** a JSON field containing information about data field origin and update time */
+    public var metadata: [PCPOIFieldMetaData]?
 
-        /** References are PRNs to external and internal resources that are represented by this poi */
-        public var references: [String]?
+    public var position: PCPOICommonGeoJSONPoint?
 
-        public var updatedAt: DateTime?
+    /** References are PRNs to external and internal resources that are represented by this poi */
+    public var references: [String]?
 
-        public init(active: Bool? = nil, boundary: PCPOICommonGeoJSONPolygon? = nil, countryId: PCPOICommonCountryId? = nil, createdAt: DateTime? = nil, data: [PCPOIFieldData]? = nil, lastSeenAt: DateTime? = nil, metadata: [PCPOIFieldMetaData]? = nil, position: PCPOICommonGeoJSONPoint? = nil, references: [String]? = nil, updatedAt: DateTime? = nil) {
-            self.active = active
-            self.boundary = boundary
-            self.countryId = countryId
-            self.createdAt = createdAt
-            self.data = data
-            self.lastSeenAt = lastSeenAt
-            self.metadata = metadata
-            self.position = position
-            self.references = references
-            self.updatedAt = updatedAt
-        }
+    public var updatedAt: DateTime?
 
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            active = try container.decodeIfPresent("active")
-            boundary = try container.decodeIfPresent("boundary")
-            countryId = try container.decodeIfPresent("countryId")
-            createdAt = try container.decodeIfPresent("createdAt")
-            data = try container.decodeArrayIfPresent("data")
-            lastSeenAt = try container.decodeIfPresent("lastSeenAt")
-            metadata = try container.decodeArrayIfPresent("metadata")
-            position = try container.decodeIfPresent("position")
-            references = try container.decodeArrayIfPresent("references")
-            updatedAt = try container.decodeIfPresent("updatedAt")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(active, forKey: "active")
-            try container.encodeIfPresent(boundary, forKey: "boundary")
-            try container.encodeIfPresent(countryId, forKey: "countryId")
-            try container.encodeIfPresent(createdAt, forKey: "createdAt")
-            try container.encodeIfPresent(data, forKey: "data")
-            try container.encodeIfPresent(lastSeenAt, forKey: "lastSeenAt")
-            try container.encodeIfPresent(metadata, forKey: "metadata")
-            try container.encodeIfPresent(position, forKey: "position")
-            try container.encodeIfPresent(references, forKey: "references")
-            try container.encodeIfPresent(updatedAt, forKey: "updatedAt")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.active == object.active else { return false }
-          guard self.boundary == object.boundary else { return false }
-          guard self.countryId == object.countryId else { return false }
-          guard self.createdAt == object.createdAt else { return false }
-          guard self.data == object.data else { return false }
-          guard self.lastSeenAt == object.lastSeenAt else { return false }
-          guard self.metadata == object.metadata else { return false }
-          guard self.position == object.position else { return false }
-          guard self.references == object.references else { return false }
-          guard self.updatedAt == object.updatedAt else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public class Relationships: APIModel {
-
-        public var referenceStatuses: ReferenceStatuses?
-
-        public var sucessorOf: SucessorOf?
-
-        public class ReferenceStatuses: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCPOIType: String, Codable, Equatable, CaseIterable {
-                    case referenceStatus = "referenceStatus"
-                }
-
-                /** Service Provider resource PRN */
-                public var id: ID?
-
-                public var type: PCPOIType?
-
-                public init(id: ID? = nil, type: PCPOIType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? ReferenceStatuses else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: ReferenceStatuses, rhs: ReferenceStatuses) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class SucessorOf: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCPOIType: String, Codable, Equatable, CaseIterable {
-                    case gasStation = "gasStation"
-                }
-
-                /** GasStation ID which was superseded by this gas station */
-                public var id: ID?
-
-                public var type: PCPOIType?
-
-                public init(id: ID? = nil, type: PCPOIType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? SucessorOf else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: SucessorOf, rhs: SucessorOf) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(referenceStatuses: ReferenceStatuses? = nil, sucessorOf: SucessorOf? = nil) {
-            self.referenceStatuses = referenceStatuses
-            self.sucessorOf = sucessorOf
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            referenceStatuses = try container.decodeIfPresent("referenceStatuses")
-            sucessorOf = try container.decodeIfPresent("sucessorOf")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(referenceStatuses, forKey: "referenceStatuses")
-            try container.encodeIfPresent(sucessorOf, forKey: "sucessorOf")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Relationships else { return false }
-          guard self.referenceStatuses == object.referenceStatuses else { return false }
-          guard self.sucessorOf == object.sucessorOf else { return false }
-          return true
-        }
-
-        public static func == (lhs: Relationships, rhs: Relationships) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(attributes: Attributes? = nil, id: ID? = nil, relationships: Relationships? = nil, type: PCPOIPOIType? = nil) {
-        self.attributes = attributes
+    public init(id: ID? = nil, type: PCPOIPOIType? = nil, referenceStatuses: [PCPOIReferenceStatus]? = nil, sucessorOf: [PCPOIGasStation]? = nil, active: Bool? = nil, boundary: PCPOICommonGeoJSONPolygon? = nil, countryId: PCPOICommonCountryId? = nil, createdAt: DateTime? = nil, data: [PCPOIFieldData]? = nil, lastSeenAt: DateTime? = nil, metadata: [PCPOIFieldMetaData]? = nil, position: PCPOICommonGeoJSONPoint? = nil, references: [String]? = nil, updatedAt: DateTime? = nil) {
         self.id = id
-        self.relationships = relationships
         self.type = type
+        self.referenceStatuses = referenceStatuses
+        self.sucessorOf = sucessorOf
+        self.active = active
+        self.boundary = boundary
+        self.countryId = countryId
+        self.createdAt = createdAt
+        self.data = data
+        self.lastSeenAt = lastSeenAt
+        self.metadata = metadata
+        self.position = position
+        self.references = references
+        self.updatedAt = updatedAt
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
-        relationships = try container.decodeIfPresent("relationships")
         type = try container.decodeIfPresent("type")
+        referenceStatuses = try container.decodeIfPresent("referenceStatuses")
+        sucessorOf = try container.decodeIfPresent("sucessorOf")
+        active = try container.decodeIfPresent("active")
+        boundary = try container.decodeIfPresent("boundary")
+        countryId = try container.decodeIfPresent("countryId")
+        createdAt = try container.decodeIfPresent("createdAt")
+        data = try container.decodeArrayIfPresent("data")
+        lastSeenAt = try container.decodeIfPresent("lastSeenAt")
+        metadata = try container.decodeArrayIfPresent("metadata")
+        position = try container.decodeIfPresent("position")
+        references = try container.decodeArrayIfPresent("references")
+        updatedAt = try container.decodeIfPresent("updatedAt")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
-        try container.encodeIfPresent(relationships, forKey: "relationships")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(referenceStatuses, forKey: "referenceStatuses")
+        try container.encodeIfPresent(sucessorOf, forKey: "sucessorOf")
+        try container.encodeIfPresent(active, forKey: "active")
+        try container.encodeIfPresent(boundary, forKey: "boundary")
+        try container.encodeIfPresent(countryId, forKey: "countryId")
+        try container.encodeIfPresent(createdAt, forKey: "createdAt")
+        try container.encodeIfPresent(data, forKey: "data")
+        try container.encodeIfPresent(lastSeenAt, forKey: "lastSeenAt")
+        try container.encodeIfPresent(metadata, forKey: "metadata")
+        try container.encodeIfPresent(position, forKey: "position")
+        try container.encodeIfPresent(references, forKey: "references")
+        try container.encodeIfPresent(updatedAt, forKey: "updatedAt")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPOIPOI else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
-      guard self.relationships == object.relationships else { return false }
       guard self.type == object.type else { return false }
+      guard self.referenceStatuses == object.referenceStatuses else { return false }
+      guard self.sucessorOf == object.sucessorOf else { return false }
+      guard self.active == object.active else { return false }
+      guard self.boundary == object.boundary else { return false }
+      guard self.countryId == object.countryId else { return false }
+      guard self.createdAt == object.createdAt else { return false }
+      guard self.data == object.data else { return false }
+      guard self.lastSeenAt == object.lastSeenAt else { return false }
+      guard self.metadata == object.metadata else { return false }
+      guard self.position == object.position else { return false }
+      guard self.references == object.references else { return false }
+      guard self.updatedAt == object.updatedAt else { return false }
       return true
     }
 

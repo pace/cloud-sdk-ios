@@ -17,9 +17,9 @@ extension POIAPI.Apps {
             /** Updates App with specified id */
             public class Body: APIModel {
 
-                public var data: PCPOILocationBasedApp?
+                public var data: PCPOILocationBasedAppRequest?
 
-                public init(data: PCPOILocationBasedApp? = nil) {
+                public init(data: PCPOILocationBasedAppRequest? = nil) {
                     self.data = data
                 }
 

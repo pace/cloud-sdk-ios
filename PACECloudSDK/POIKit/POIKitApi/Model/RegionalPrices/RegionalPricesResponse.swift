@@ -24,7 +24,7 @@ public extension POIKit {
         init(_ data: PCPOIRegionalPrices.DataType) {
             self.id = data.id ?? ""
             self.type = data.type?.rawValue ?? ""
-            attributes = PriceLevels(data.attributes)
+            attributes = PriceLevels(data)
         }
     }
 
@@ -32,11 +32,11 @@ public extension POIKit {
         public let average, lower, upper: Double
         public let currency: String
 
-        init(_ attributes: PCPOIRegionalPrices.DataType.Attributes?) {
-            self.average = attributes?.average ?? 0.0
-            self.lower = attributes?.lower ?? 0.0
-            self.upper = attributes?.upper ?? 0.0
-            self.currency = attributes?.currency ?? ""
+        init(_ data: PCPOIRegionalPrices.DataType?) {
+            self.average = data?.average ?? 0.0
+            self.lower = data?.lower ?? 0.0
+            self.upper = data?.upper ?? 0.0
+            self.currency = data?.currency ?? ""
         }
     }
 }

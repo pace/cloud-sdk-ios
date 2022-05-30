@@ -41,7 +41,7 @@ extension POIKitAPI {
 
                 case POIKitHTTPReturnCode.STATUS_OK:
                     guard let gasStation = response.success?.data,
-                          let prices = response.success?.included?.compactMap({ $0.fuelPrice }) else {
+                          let prices = gasStation.fuelPrices else {
                         result(.failure(APIClientError.unknownError(POIKit.POIKitAPIError.unknown)))
                         return
                     }
@@ -94,8 +94,8 @@ extension POIKitAPI {
                                    prices: [PCPOIFuelPrice],
                                    result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void) {
         guard let id = gasStation.id,
-              let latitudeFloat = gasStation.attributes?.latitude,
-              let longitudeFloat = gasStation.attributes?.longitude else {
+              let latitudeFloat = gasStation.latitude,
+              let longitudeFloat = gasStation.longitude else {
             result(.failure(APIClientError.unknownError(POIKit.POIKitAPIError.unknown)))
             return
         }

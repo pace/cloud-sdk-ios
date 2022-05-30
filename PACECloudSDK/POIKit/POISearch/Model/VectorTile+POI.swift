@@ -42,8 +42,8 @@ extension VectorTile_Tile {
         let gasStation = POIKit.GasStation()
 
         if let id = values["id"] { gasStation.id = id }
-        if let name = values["n"] { gasStation.attributes?.stationName = name }
-        if let brand = values["b"] { gasStation.attributes?.brand = brand }
+        if let name = values["n"] { gasStation.stationName = name }
+        if let brand = values["b"] { gasStation.brand = brand }
 
         if let openingHoursValue = values["oh"] {
             loadOpeningHourRules(for: gasStation, from: openingHoursValue)
@@ -54,18 +54,18 @@ extension VectorTile_Tile {
         }
 
         if let currency = values["pc"] { gasStation.currency = currency }
-        if let priceFormat = values["pf"] { gasStation.attributes?.priceFormat = priceFormat }
+        if let priceFormat = values["pf"] { gasStation.priceFormat = priceFormat }
 
         if let paymentMethods = values["pm"] {
             let splittedResponse = splitResponse(for: paymentMethods)
             let wrapped = splittedResponse.compactMap { $0 }
             let cofuPaymentMethods = splittedResponse.filter { $0.hasPrefix("cofu:") }
-            gasStation.attributes?.paymentMethods = wrapped
+            gasStation.paymentMethods = wrapped
             gasStation.cofuPaymentMethods = cofuPaymentMethods
         }
 
         if let addressString = values["a"] {
-            gasStation.attributes?.address = loadAddress(from: addressString)
+            gasStation.address = loadAddress(from: addressString)
         }
 
         if let validFrom = values["vf"], let lastUpdatedTimestamp = Int(validFrom) {
@@ -75,37 +75,37 @@ extension VectorTile_Tile {
         if let amenities = values["am"] {
             let splittedResponse = splitResponse(for: amenities)
             let wrapped = splittedResponse.compactMap { $0 }
-            gasStation.attributes?.amenities = wrapped
+            gasStation.amenities = wrapped
         }
 
         if let foods = values["fd"] {
             let splittedResponse = splitResponse(for: foods)
             let wrapped = splittedResponse.compactMap { $0 }
-            gasStation.attributes?.food = wrapped
+            gasStation.food = wrapped
         }
 
         if let loyalityPrograms = values["lp"] {
             let splittedResponse = splitResponse(for: loyalityPrograms)
             let wrapped = splittedResponse.compactMap { $0 }
-            gasStation.attributes?.loyaltyPrograms = wrapped
+            gasStation.loyaltyPrograms = wrapped
         }
 
         if let postService = values["ps"] {
             let splittedResponse = splitResponse(for: postService)
             let wrapped = splittedResponse.compactMap { $0 }
-            gasStation.attributes?.postalServices = wrapped
+            gasStation.postalServices = wrapped
         }
 
         if let services = values["sv"] {
             let splittedResponse = splitResponse(for: services)
             let wrapped = splittedResponse.compactMap { $0 }
-            gasStation.attributes?.services = wrapped
+            gasStation.services = wrapped
         }
 
         if let shop = values["sg"] {
             let splittedResponse = splitResponse(for: shop)
             let wrapped = splittedResponse.compactMap { $0 }
-            gasStation.attributes?.shopGoods =  wrapped
+            gasStation.shopGoods =  wrapped
         }
         
         if let connectedFueling = values["cf"], connectedFueling == "y" { gasStation.isConnectedFuelingAvailable = true }
@@ -135,7 +135,7 @@ extension VectorTile_Tile {
             return String(value[start..<end])
         }
 
-        gasStation.attributes?.openingHours = loadOpeningHours(from: values)
+        gasStation.openingHours = loadOpeningHours(from: values)
     }
 
     private func loadOpeningHours(from values: [String]) -> PCPOICommonOpeningHours {
@@ -184,7 +184,7 @@ extension VectorTile_Tile {
                 price = Double(unwrapped)
             }
 
-            let fuelPrice = PCPOIFuelPrice(attributes: .init(fuelType: productType, price: price, productName: name), type: .fuelPrice)
+            let fuelPrice = PCPOIFuelPrice(type: .fuelPrice, fuelType: productType, price: price, productName: name)
             return fuelPrice
         }
     }
@@ -200,12 +200,12 @@ extension VectorTile_Tile {
         return dictionary
     }
 
-    private func loadAddress(from string: String) -> PCPOIGasStation.Attributes.Address {
+    private func loadAddress(from string: String) -> PCPOIGasStation.Address {
         let addressEntries = dictionary(from: string)
-        return PCPOIGasStation.Attributes.Address(city: addressEntries["l"],
-                                             countryCode: addressEntries["c"],
-                                             houseNo: addressEntries["hn"],
-                                             postalCode: addressEntries["pc"],
-                                             street: addressEntries["s"])
+        return PCPOIGasStation.Address(city: addressEntries["l"],
+                                       countryCode: addressEntries["c"],
+                                       houseNo: addressEntries["hn"],
+                                       postalCode: addressEntries["pc"],
+                                       street: addressEntries["s"])
     }
 }

@@ -82,9 +82,9 @@ struct ListGasStation {
         guard let id = poiStation.id else { return nil }
 
         self.id = id
-        self.name = poiStation.attributes?.stationName ?? "No Name"
+        self.name = poiStation.stationName ?? "No Name"
 
-        let address = poiStation.attributes?.address
+        let address = poiStation.address
 
         self.addressLine1 = "\(address?.street ?? "") \(address?.houseNo ?? "")"
         self.addressLine2 = "\(address?.postalCode ?? "") \(address?.city ?? "")"

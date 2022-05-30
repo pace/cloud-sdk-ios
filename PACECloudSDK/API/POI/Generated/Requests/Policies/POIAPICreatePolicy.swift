@@ -17,9 +17,9 @@ extension POIAPI.Policies {
             /** Creates a new policy */
             public class Body: APIModel {
 
-                public var data: PCPOIPolicy?
+                public var data: PCPOIPolicyRequest?
 
-                public init(data: PCPOIPolicy? = nil) {
+                public init(data: PCPOIPolicyRequest? = nil) {
                     self.data = data
                 }
 

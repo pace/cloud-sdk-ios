@@ -17,9 +17,9 @@ extension POIAPI.Sources {
             /** Updates source with specified id */
             public class Body: APIModel {
 
-                public var data: PCPOISource?
+                public var data: PCPOISourceRequest?
 
-                public init(data: PCPOISource? = nil) {
+                public init(data: PCPOISourceRequest? = nil) {
                     self.data = data
                 }
 

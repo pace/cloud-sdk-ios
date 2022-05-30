@@ -187,7 +187,6 @@
 		17D5495826A9BFC400911D0D /* Environment-stage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B970A2B2542D9BA0072F6BA /* Environment-stage.plist */; };
 		17D5495926A9BFC800911D0D /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		3B1841E72683354600A0F625 /* POIAPIGetStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841E62683354600A0F625 /* POIAPIGetStats.swift */; };
-		3B1841ED2683356400A0F625 /* PCPOIStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841EC2683356400A0F625 /* PCPOIStats.swift */; };
 		3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
 		3B1D40CA25FA45C2007CF531 /* BiometryPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */; };
 		3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E917F253D92A800DC4BB1 /* POIKit.swift */; };
@@ -243,6 +242,56 @@
 		3B2ECC5F283295E900A2E721 /* Japx in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2ECC5E283295E900A2E721 /* Japx */; };
 		3B2ECC612832963A00A2E721 /* Japx in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2ECC602832963A00A2E721 /* Japx */; };
 		3B2ECC632832964100A2E721 /* Japx in Frameworks */ = {isa = PBXBuildFile; productRef = 3B2ECC622832964100A2E721 /* Japx */; };
+		3B2FB21728450BF200E8CD0C /* PCPOIPOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1E628450BEF00E8CD0C /* PCPOIPOI.swift */; };
+		3B2FB21828450BF200E8CD0C /* PCPOIRegionalPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1E728450BEF00E8CD0C /* PCPOIRegionalPrices.swift */; };
+		3B2FB21928450BF200E8CD0C /* PCPOIReferenceStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1E828450BEF00E8CD0C /* PCPOIReferenceStatuses.swift */; };
+		3B2FB21A28450BF200E8CD0C /* PCPOIGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1E928450BEF00E8CD0C /* PCPOIGasStation.swift */; };
+		3B2FB21B28450BF200E8CD0C /* PCPOIErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1EA28450BEF00E8CD0C /* PCPOIErrors.swift */; };
+		3B2FB21C28450BF200E8CD0C /* PCPOIPolicyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1EB28450BF000E8CD0C /* PCPOIPolicyRequest.swift */; };
+		3B2FB21D28450BF200E8CD0C /* PCPOIGasStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1EC28450BF000E8CD0C /* PCPOIGasStations.swift */; };
+		3B2FB21E28450BF200E8CD0C /* PCPOIPolicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1ED28450BF000E8CD0C /* PCPOIPolicies.swift */; };
+		3B2FB21F28450BF200E8CD0C /* PCPOIPOIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1EE28450BF000E8CD0C /* PCPOIPOIRequest.swift */; };
+		3B2FB22028450BF200E8CD0C /* PCPOIFieldMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1EF28450BF000E8CD0C /* PCPOIFieldMetaData.swift */; };
+		3B2FB22128450BF200E8CD0C /* PCPOICommonLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F028450BF000E8CD0C /* PCPOICommonLatLong.swift */; };
+		3B2FB22228450BF200E8CD0C /* PCPOISubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F128450BF000E8CD0C /* PCPOISubscription.swift */; };
+		3B2FB22328450BF200E8CD0C /* PCPOIFieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F228450BF000E8CD0C /* PCPOIFieldName.swift */; };
+		3B2FB22428450BF200E8CD0C /* PCPOIFuelAmountUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F328450BF000E8CD0C /* PCPOIFuelAmountUnit.swift */; };
+		3B2FB22528450BF200E8CD0C /* PCPOIFuelPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F428450BF000E8CD0C /* PCPOIFuelPriceResponse.swift */; };
+		3B2FB22628450BF200E8CD0C /* PCPOIPOIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F528450BF000E8CD0C /* PCPOIPOIType.swift */; };
+		3B2FB22728450BF200E8CD0C /* PCPOIPOIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F628450BF000E8CD0C /* PCPOIPOIs.swift */; };
+		3B2FB22828450BF200E8CD0C /* PCPOIEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F728450BF000E8CD0C /* PCPOIEvent.swift */; };
+		3B2FB22928450BF200E8CD0C /* PCPOIFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F828450BF000E8CD0C /* PCPOIFieldData.swift */; };
+		3B2FB22A28450BF200E8CD0C /* PCPOISources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1F928450BF000E8CD0C /* PCPOISources.swift */; };
+		3B2FB22B28450BF200E8CD0C /* PCPOICommonCountryId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FA28450BF000E8CD0C /* PCPOICommonCountryId.swift */; };
+		3B2FB22C28450BF200E8CD0C /* PCPOIFuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FB28450BF000E8CD0C /* PCPOIFuelPrice.swift */; };
+		3B2FB22D28450BF200E8CD0C /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FC28450BF000E8CD0C /* PCPOILocationBasedApp.swift */; };
+		3B2FB22E28450BF200E8CD0C /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FD28450BF000E8CD0C /* PCPOILocationBasedAppsWithRefs.swift */; };
+		3B2FB22F28450BF200E8CD0C /* PCPOIStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FE28450BF000E8CD0C /* PCPOIStats.swift */; };
+		3B2FB23028450BF200E8CD0C /* PCPOICategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FF28450BF100E8CD0C /* PCPOICategories.swift */; };
+		3B2FB23128450BF200E8CD0C /* PCPOILocationBasedAppWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20028450BF100E8CD0C /* PCPOILocationBasedAppWithRefs.swift */; };
+		3B2FB23228450BF200E8CD0C /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20128450BF100E8CD0C /* PCPOILocationBasedApps.swift */; };
+		3B2FB23328450BF200E8CD0C /* PCPOIAppPOIsRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20228450BF100E8CD0C /* PCPOIAppPOIsRelationships.swift */; };
+		3B2FB23428450BF200E8CD0C /* PCPOIAppPOIsRelationshipsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20328450BF100E8CD0C /* PCPOIAppPOIsRelationshipsRequest.swift */; };
+		3B2FB23528450BF200E8CD0C /* PCPOIPolicyRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20428450BF100E8CD0C /* PCPOIPolicyRule.swift */; };
+		3B2FB23628450BF200E8CD0C /* PCPOIFuelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20528450BF100E8CD0C /* PCPOIFuelType.swift */; };
+		3B2FB23728450BF200E8CD0C /* PCPOICommonGeoJSONPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20628450BF100E8CD0C /* PCPOICommonGeoJSONPoint.swift */; };
+		3B2FB23828450BF200E8CD0C /* PCPOIPriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20728450BF100E8CD0C /* PCPOIPriceHistory.swift */; };
+		3B2FB23928450BF200E8CD0C /* PCPOIFuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20828450BF100E8CD0C /* PCPOIFuel.swift */; };
+		3B2FB23A28450BF200E8CD0C /* PCPOIPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20928450BF100E8CD0C /* PCPOIPolicy.swift */; };
+		3B2FB23B28450BF200E8CD0C /* PCPOIReferenceStatusRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20A28450BF100E8CD0C /* PCPOIReferenceStatusRequest.swift */; };
+		3B2FB23C28450BF200E8CD0C /* PCPOIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20B28450BF100E8CD0C /* PCPOIEvents.swift */; };
+		3B2FB23D28450BF200E8CD0C /* PCPOISource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20C28450BF100E8CD0C /* PCPOISource.swift */; };
+		3B2FB23E28450BF200E8CD0C /* PCPOICommonGeoJSONPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20D28450BF100E8CD0C /* PCPOICommonGeoJSONPolygon.swift */; };
+		3B2FB23F28450BF200E8CD0C /* PCPOIDedupeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20E28450BF100E8CD0C /* PCPOIDedupeRequest.swift */; };
+		3B2FB24028450BF200E8CD0C /* PCPOICurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20F28450BF100E8CD0C /* PCPOICurrency.swift */; };
+		3B2FB24128450BF200E8CD0C /* PCPOISubscriptionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21028450BF100E8CD0C /* PCPOISubscriptionRequest.swift */; };
+		3B2FB24228450BF200E8CD0C /* PCPOICommonOpeningHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21128450BF100E8CD0C /* PCPOICommonOpeningHours.swift */; };
+		3B2FB24328450BF200E8CD0C /* PCPOILocationBasedAppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21228450BF100E8CD0C /* PCPOILocationBasedAppRequest.swift */; };
+		3B2FB24428450BF200E8CD0C /* PCPOIPolicyRulePriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21328450BF100E8CD0C /* PCPOIPolicyRulePriority.swift */; };
+		3B2FB24528450BF200E8CD0C /* PCPOICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21428450BF200E8CD0C /* PCPOICategory.swift */; };
+		3B2FB24628450BF200E8CD0C /* PCPOISourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21528450BF200E8CD0C /* PCPOISourceRequest.swift */; };
+		3B2FB24728450BF200E8CD0C /* PCPOIMoveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21628450BF200E8CD0C /* PCPOIMoveRequest.swift */; };
+		3B2FB2742845151700E8CD0C /* PCPOIReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */; };
 		3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */; };
 		3B387F8F256C0D0100DD6F52 /* GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F8E256C0D0100DD6F52 /* GasStation.swift */; };
 		3B3DF5A926E24C7100934991 /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
@@ -257,6 +306,31 @@
 		3B3FC8F527FED6F5008B3F7F /* PACECloudSDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */; };
 		3B40F83325D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */; };
 		3B4666292805C24A00268713 /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
+		3B53F3762845E65D00E751FE /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20128450BF100E8CD0C /* PCPOILocationBasedApps.swift */; };
+		3B53F3772845E66100E751FE /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FC28450BF000E8CD0C /* PCPOILocationBasedApp.swift */; };
+		3B53F3782845E66B00E751FE /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FD28450BF000E8CD0C /* PCPOILocationBasedAppsWithRefs.swift */; };
+		3B53F3792845E66D00E751FE /* PCPOILocationBasedAppWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20028450BF100E8CD0C /* PCPOILocationBasedAppWithRefs.swift */; };
+		3B53F3812845E7F100E751FE /* PCPOICommonOpeningHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21128450BF100E8CD0C /* PCPOICommonOpeningHours.swift */; };
+		3B53F3822845E82500E751FE /* PCPOIRegionalPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1E728450BEF00E8CD0C /* PCPOIRegionalPrices.swift */; };
+		3B53F3832845E82C00E751FE /* PCPOIGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1E928450BEF00E8CD0C /* PCPOIGasStation.swift */; };
+		3B53F3842845E83300E751FE /* PCPOIFuelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20528450BF100E8CD0C /* PCPOIFuelType.swift */; };
+		3B53F3872845E8A900E751FE /* POIAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1725825B6300DE36FA /* POIAPIRequest.swift */; };
+		3B53F3882845E8A900E751FE /* AnyPOIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1825825B6300DE36FA /* AnyPOIRequest.swift */; };
+		3B53F3892845E8A900E751FE /* POIRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439972580E33A00DE36FA /* POIRequestBehaviour.swift */; };
+		3B53F38A2845E8A900E751FE /* POIAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1D2582645E00DE36FA /* POIAPIResponse.swift */; };
+		3B53F38B2845E8AE00E751FE /* POIAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CD2580E33B00DE36FA /* POIAPIService.swift */; };
+		3B53F38C2845E8B100E751FE /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
+		3B53F38D2845E8B700E751FE /* POIAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CC2580E33B00DE36FA /* POIAPIClient.swift */; };
+		3B53F38E2845E8E000E751FE /* PCPOIFuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FB28450BF000E8CD0C /* PCPOIFuelPrice.swift */; };
+		3B53F38F2845E8E500E751FE /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FC28450BF000E8CD0C /* PCPOILocationBasedApp.swift */; };
+		3B53F3902845E8EB00E751FE /* PCPOIReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */; };
+		3B53F3912845E90100E751FE /* POIAPIGetTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED825C03B1E0087194F /* POIAPIGetTiles.swift */; };
+		3B53F3922845E90F00E751FE /* POIAPIGetMetadataFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC225C03B1E0087194F /* POIAPIGetMetadataFilters.swift */; };
+		3B53F3932845E91400E751FE /* PCPOIFuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20828450BF100E8CD0C /* PCPOIFuel.swift */; };
+		3B53F3942845E91A00E751FE /* POIAPIGetRegionalPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC425C03B1E0087194F /* POIAPIGetRegionalPrices.swift */; };
+		3B53F3952845E92200E751FE /* PCPOICategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FF28450BF100E8CD0C /* PCPOICategories.swift */; };
+		3B53F3962845E92400E751FE /* PCPOICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21428450BF200E8CD0C /* PCPOICategory.swift */; };
+		3B53F3972845E92D00E751FE /* POIAPIGetGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC625C03B1E0087194F /* POIAPIGetGasStation.swift */; };
 		3B5503F12539E61C00C291F1 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F02539E61C00C291F1 /* LiveData.swift */; };
 		3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F62539E6BE00C291F1 /* Vector2.swift */; };
 		3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
@@ -286,94 +360,7 @@
 		3B79F8E626C12D3400C0278F /* GasStation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */; };
 		3B79FA0A26C15B3B00C0278F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B79FA0926C15B3B00C0278F /* SwiftProtobuf */; };
 		3B79FA0B26C15B5E00C0278F /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5E706258A149200E5B20B /* POI.swift */; };
-		3B79FA0C26C15B6300C0278F /* POIAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1725825B6300DE36FA /* POIAPIRequest.swift */; };
-		3B79FA0D26C15B6300C0278F /* POIAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1D2582645E00DE36FA /* POIAPIResponse.swift */; };
-		3B79FA0E26C15B6300C0278F /* POIAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CC2580E33B00DE36FA /* POIAPIClient.swift */; };
-		3B79FA0F26C15B6300C0278F /* AnyPOIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1825825B6300DE36FA /* AnyPOIRequest.swift */; };
-		3B79FA1026C15B6300C0278F /* POIRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439972580E33A00DE36FA /* POIRequestBehaviour.swift */; };
-		3B79FA1126C15B6300C0278F /* POIAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CD2580E33B00DE36FA /* POIAPIService.swift */; };
-		3B79FA1226C15B6300C0278F /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
 		3B79FA1326C15B6500C0278F /* POIAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843A86D125C2BBF30062B124 /* POIAPIClient+URLProtocol.swift */; };
-		3B79FA1426C15B8200C0278F /* POIAPIDeduplicatePoi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ECE25C03B1E0087194F /* POIAPIDeduplicatePoi.swift */; };
-		3B79FA1526C15B8200C0278F /* POIAPIMovePoiAtPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ECD25C03B1E0087194F /* POIAPIMovePoiAtPosition.swift */; };
-		3B79FA1626C15B8500C0278F /* POIAPICheckForPaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EEF25C03B1E0087194F /* POIAPICheckForPaceApp.swift */; };
-		3B79FA1726C15B8500C0278F /* POIAPIDeleteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EED25C03B1E0087194F /* POIAPIDeleteApp.swift */; };
-		3B79FA1826C15B8500C0278F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EF225C03B1E0087194F /* POIAPIUpdateAppPOIsRelationships.swift */; };
-		3B79FA1926C15B8500C0278F /* POIAPIUpdateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EF025C03B1E0087194F /* POIAPIUpdateApp.swift */; };
-		3B79FA1A26C15B8500C0278F /* POIAPICreateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EEB25C03B1E0087194F /* POIAPICreateApp.swift */; };
-		3B79FA1B26C15B8500C0278F /* POIAPIGetAppPOIsRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EEE25C03B1E0087194F /* POIAPIGetAppPOIsRelationships.swift */; };
-		3B79FA1C26C15B8500C0278F /* POIAPIGetAppRedirect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EF125C03B1E0087194F /* POIAPIGetAppRedirect.swift */; };
-		3B79FA1D26C15B8500C0278F /* POIAPIGetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EF325C03B1E0087194F /* POIAPIGetApp.swift */; };
-		3B79FA1E26C15B8500C0278F /* POIAPIGetApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EEC25C03B1E0087194F /* POIAPIGetApps.swift */; };
-		3B79FA1F26C15B8900C0278F /* POIAPIGetDuplicatesKML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ECB25C03B1E0087194F /* POIAPIGetDuplicatesKML.swift */; };
-		3B79FA2026C15B8900C0278F /* POIAPIGetPoisDump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ECA25C03B1E0087194F /* POIAPIGetPoisDump.swift */; };
-		3B79FA2126C15B8C00C0278F /* POIAPIPutGasStationReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE025C03B1E0087194F /* POIAPIPutGasStationReferenceStatus.swift */; };
-		3B79FA2226C15B8C00C0278F /* POIAPIDeleteGasStationReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE125C03B1E0087194F /* POIAPIDeleteGasStationReferenceStatus.swift */; };
-		3B79FA2326C15B8E00C0278F /* POIAPIGetEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE925C03B1E0087194F /* POIAPIGetEvents.swift */; };
-		3B79FA2426C15B9100C0278F /* POIAPIGetGasStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC725C03B1E0087194F /* POIAPIGetGasStations.swift */; };
-		3B79FA2526C15B9100C0278F /* POIAPIGetGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC625C03B1E0087194F /* POIAPIGetGasStation.swift */; };
-		3B79FA2626C15B9100C0278F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC825C03B1E0087194F /* POIAPIGetGasStationFuelTypeNameMapping.swift */; };
-		3B79FA2726C15B9400C0278F /* POIAPIGetMetadataFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC225C03B1E0087194F /* POIAPIGetMetadataFilters.swift */; };
-		3B79FA2826C15B9600C0278F /* POIAPIGetPois.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EDB25C03B1E0087194F /* POIAPIGetPois.swift */; };
-		3B79FA2926C15B9600C0278F /* POIAPIGetPoi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EDC25C03B1E0087194F /* POIAPIGetPoi.swift */; };
-		3B79FA2A26C15B9600C0278F /* POIAPIChangePoi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EDA25C03B1E0087194F /* POIAPIChangePoi.swift */; };
-		3B79FA2B26C15B9900C0278F /* POIAPIGetPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED025C03B1E0087194F /* POIAPIGetPolicy.swift */; };
-		3B79FA2C26C15B9900C0278F /* POIAPIGetPolicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED225C03B1E0087194F /* POIAPIGetPolicies.swift */; };
-		3B79FA2D26C15B9900C0278F /* POIAPICreatePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED125C03B1E0087194F /* POIAPICreatePolicy.swift */; };
-		3B79FA2E26C15B9B00C0278F /* POIAPIGetPriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EDE25C03B1E0087194F /* POIAPIGetPriceHistory.swift */; };
-		3B79FA2F26C15B9C00C0278F /* POIAPIGetRegionalPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EC425C03B1E0087194F /* POIAPIGetRegionalPrices.swift */; };
-		3B79FA3026C15BA000C0278F /* POIAPIGetSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE325C03B1E0087194F /* POIAPIGetSources.swift */; };
-		3B79FA3126C15BA000C0278F /* POIAPIDeleteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE525C03B1E0087194F /* POIAPIDeleteSource.swift */; };
-		3B79FA3226C15BA000C0278F /* POIAPIGetSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE425C03B1E0087194F /* POIAPIGetSource.swift */; };
-		3B79FA3326C15BA000C0278F /* POIAPICreateSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE625C03B1E0087194F /* POIAPICreateSource.swift */; };
-		3B79FA3426C15BA000C0278F /* POIAPIUpdateSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EE725C03B1E0087194F /* POIAPIUpdateSource.swift */; };
-		3B79FA3526C15BA200C0278F /* POIAPIGetStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841E62683354600A0F625 /* POIAPIGetStats.swift */; };
-		3B79FA3626C15BA500C0278F /* POIAPIStoreSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED425C03B1E0087194F /* POIAPIStoreSubscription.swift */; };
-		3B79FA3726C15BA500C0278F /* POIAPIGetSubscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED525C03B1E0087194F /* POIAPIGetSubscriptions.swift */; };
-		3B79FA3826C15BA500C0278F /* POIAPIDeleteSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED625C03B1E0087194F /* POIAPIDeleteSubscription.swift */; };
-		3B79FA3926C15BA700C0278F /* POIAPIGetTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600ED825C03B1E0087194F /* POIAPIGetTiles.swift */; };
-		3B79FA3A26C15BBF00C0278F /* PCPOIRegionalPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C037258A03270094982D /* PCPOIRegionalPrices.swift */; };
-		3B79FA3B26C15BBF00C0278F /* PCPOILocationBasedAppWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */; };
-		3B79FA3C26C15BBF00C0278F /* PCPOICommonCountryId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04D258A03270094982D /* PCPOICommonCountryId.swift */; };
-		3B79FA3D26C15BBF00C0278F /* PCPOIReferenceStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01C258A03270094982D /* PCPOIReferenceStatuses.swift */; };
-		3B79FA3E26C15BBF00C0278F /* PCPOIFuelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C025258A03270094982D /* PCPOIFuelType.swift */; };
-		3B79FA3F26C15BBF00C0278F /* PCPOIDedupeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C033258A03270094982D /* PCPOIDedupeRequest.swift */; };
-		3B79FA4026C15BBF00C0278F /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00D258A03270094982D /* PCPOILocationBasedApp.swift */; };
-		3B79FA4126C15BBF00C0278F /* PCPOIAppPOIsRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C019258A03270094982D /* PCPOIAppPOIsRelationships.swift */; };
-		3B79FA4226C15BBF00C0278F /* PCPOICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04A258A03270094982D /* PCPOICategory.swift */; };
-		3B79FA4326C15BBF00C0278F /* PCPOIPOIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C046258A03270094982D /* PCPOIPOIType.swift */; };
-		3B79FA4426C15BBF00C0278F /* PCPOIStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1841EC2683356400A0F625 /* PCPOIStats.swift */; };
-		3B79FA4526C15BBF00C0278F /* PCPOISubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01E258A03270094982D /* PCPOISubscription.swift */; };
-		3B79FA4626C15BBF00C0278F /* PCPOICommonOpeningHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04B258A03270094982D /* PCPOICommonOpeningHours.swift */; };
-		3B79FA4726C15BBF00C0278F /* PCPOIMoveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00C258A03270094982D /* PCPOIMoveRequest.swift */; };
-		3B79FA4826C15BBF00C0278F /* PCPOIFuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C035258A03270094982D /* PCPOIFuel.swift */; };
-		3B79FA4926C15BBF00C0278F /* PCPOIPOIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C031258A03270094982D /* PCPOIPOIs.swift */; };
-		3B79FA4A26C15BBF00C0278F /* PCPOICommonGeoJSONPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02C258A03270094982D /* PCPOICommonGeoJSONPoint.swift */; };
-		3B79FA4B26C15BBF00C0278F /* PCPOIFieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C022258A03270094982D /* PCPOIFieldName.swift */; };
-		3B79FA4C26C15BBF00C0278F /* PCPOIFuelPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C021258A03270094982D /* PCPOIFuelPriceResponse.swift */; };
-		3B79FA4D26C15BBF00C0278F /* PCPOIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C036258A03270094982D /* PCPOIEvents.swift */; };
-		3B79FA4E26C15BBF00C0278F /* PCPOIPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C010258A03270094982D /* PCPOIPolicy.swift */; };
-		3B79FA4F26C15BBF00C0278F /* PCPOICommonGeoJSONPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04F258A03270094982D /* PCPOICommonGeoJSONPolygon.swift */; };
-		3B79FA5026C15BBF00C0278F /* PCPOIFieldMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C028258A03270094982D /* PCPOIFieldMetaData.swift */; };
-		3B79FA5126C15BBF00C0278F /* PCPOIPolicyRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C015258A03270094982D /* PCPOIPolicyRule.swift */; };
-		3B79FA5226C15BBF00C0278F /* PCPOIFuelAmountUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03F258A03270094982D /* PCPOIFuelAmountUnit.swift */; };
-		3B79FA5326C15BBF00C0278F /* PCPOIGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00A258A03270094982D /* PCPOIGasStation.swift */; };
-		3B79FA5426C15BBF00C0278F /* PCPOIReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C040258A03270094982D /* PCPOIReferenceStatus.swift */; };
-		3B79FA5526C15BBF00C0278F /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */; };
-		3B79FA5626C15BBF00C0278F /* PCPOIEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C038258A03270094982D /* PCPOIEvent.swift */; };
-		3B79FA5726C15BBF00C0278F /* PCPOIErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02D258A03270094982D /* PCPOIErrors.swift */; };
-		3B79FA5826C15BBF00C0278F /* PCPOIPolicyRulePriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C013258A03270094982D /* PCPOIPolicyRulePriority.swift */; };
-		3B79FA5926C15BBF00C0278F /* PCPOIPriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C027258A03270094982D /* PCPOIPriceHistory.swift */; };
-		3B79FA5A26C15BBF00C0278F /* PCPOISource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01D258A03270094982D /* PCPOISource.swift */; };
-		3B79FA5B26C15BBF00C0278F /* PCPOICategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02E258A03270094982D /* PCPOICategories.swift */; };
-		3B79FA5C26C15BBF00C0278F /* PCPOIGasStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C048258A03270094982D /* PCPOIGasStations.swift */; };
-		3B79FA5D26C15BBF00C0278F /* PCPOICommonLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02F258A03270094982D /* PCPOICommonLatLong.swift */; };
-		3B79FA5E26C15BBF00C0278F /* PCPOIFuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C020258A03270094982D /* PCPOIFuelPrice.swift */; };
-		3B79FA5F26C15BBF00C0278F /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C030258A03270094982D /* PCPOILocationBasedApps.swift */; };
-		3B79FA6026C15BBF00C0278F /* PCPOISources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C039258A03270094982D /* PCPOISources.swift */; };
-		3B79FA6126C15BBF00C0278F /* PCPOIPOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C016258A03270094982D /* PCPOIPOI.swift */; };
-		3B79FA6226C15BBF00C0278F /* PCPOIFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03D258A03270094982D /* PCPOIFieldData.swift */; };
-		3B79FA6326C15BBF00C0278F /* PCPOIPolicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03B258A03270094982D /* PCPOIPolicies.swift */; };
 		3B79FA6426C15BCC00C0278F /* POIKitConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7D02539DDAD00B933AE /* POIKitConfig.swift */; };
 		3B79FA6526C15BCC00C0278F /* POIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E917F253D92A800DC4BB1 /* POIKit.swift */; };
 		3B79FA6626C15BCC00C0278F /* POIKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C22539DDAC00B933AE /* POIKitManager.swift */; };
@@ -483,8 +470,6 @@
 		3B7C8E4826FC59CA0080B2B5 /* PCPayCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E3926FC59CA0080B2B5 /* PCPayCurrency.swift */; };
 		3B7C8E4926FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E3A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift */; };
 		3B7C8E4A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E3A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift */; };
-		3B7C8E4C26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */; };
-		3B7C8E4D26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */; };
 		3B7C8E5E26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */; };
 		3B7C8E5F26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */; };
 		3B7C8E6126FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6026FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift */; };
@@ -713,10 +698,6 @@
 		3B9B2A5B27B657BB0099EA37 /* NSMutableData+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */; };
 		3B9B2A5C27B657F50099EA37 /* POIAPIGetApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EEC25C03B1E0087194F /* POIAPIGetApps.swift */; };
 		3B9B2A5D27B658070099EA37 /* POIAPICheckForPaceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84600EEF25C03B1E0087194F /* POIAPICheckForPaceApp.swift */; };
-		3B9B2A5E27B658270099EA37 /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */; };
-		3B9B2A5F27B6582C0099EA37 /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C030258A03270094982D /* PCPOILocationBasedApps.swift */; };
-		3B9B2A6027B658C40099EA37 /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00D258A03270094982D /* PCPOILocationBasedApp.swift */; };
-		3B9B2A6127B658D00099EA37 /* PCPOILocationBasedAppWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */; };
 		3B9B2A6227B65A380099EA37 /* GeoAPIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05521B0D26490F3E00AA4DBB /* GeoAPIManagerError.swift */; };
 		3B9B2A6327B65AD10099EA37 /* CofuGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9655E526B286A700921766 /* CofuGasStation.swift */; };
 		3B9B2A6427B65AD40099EA37 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
@@ -1050,74 +1031,33 @@
 		84A43B1E2582645E00DE36FA /* POIAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1D2582645E00DE36FA /* POIAPIResponse.swift */; };
 		84A43B222582646700DE36FA /* PayAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B212582646600DE36FA /* PayAPIResponse.swift */; };
 		84C5E707258A149200E5B20B /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5E706258A149200E5B20B /* POI.swift */; };
-		84D6C050258A03270094982D /* PCPOIGasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00A258A03270094982D /* PCPOIGasStation.swift */; };
 		84D6C051258A03270094982D /* PCPayPaymentMethodKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00B258A03270094982D /* PCPayPaymentMethodKinds.swift */; };
-		84D6C052258A03270094982D /* PCPOIMoveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00C258A03270094982D /* PCPOIMoveRequest.swift */; };
-		84D6C053258A03270094982D /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00D258A03270094982D /* PCPOILocationBasedApp.swift */; };
 		84D6C055258A03270094982D /* PCPayApplePaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C00F258A03270094982D /* PCPayApplePaySession.swift */; };
-		84D6C056258A03270094982D /* PCPOIPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C010258A03270094982D /* PCPOIPolicy.swift */; };
 		84D6C057258A03270094982D /* PCPayTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C011258A03270094982D /* PCPayTransactions.swift */; };
 		84D6C058258A03270094982D /* PCPayPaymentMethodDKVCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C012258A03270094982D /* PCPayPaymentMethodDKVCreate.swift */; };
-		84D6C059258A03270094982D /* PCPOIPolicyRulePriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C013258A03270094982D /* PCPOIPolicyRulePriority.swift */; };
 		84D6C05A258A03270094982D /* PCPayPaymentMethodSepaCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C014258A03270094982D /* PCPayPaymentMethodSepaCreate.swift */; };
-		84D6C05B258A03270094982D /* PCPOIPolicyRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C015258A03270094982D /* PCPOIPolicyRule.swift */; };
-		84D6C05C258A03270094982D /* PCPOIPOI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C016258A03270094982D /* PCPOIPOI.swift */; };
 		84D6C05D258A03270094982D /* PCPayPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C017258A03270094982D /* PCPayPaymentMethod.swift */; };
 		84D6C05E258A03270094982D /* PCPayPaymentMethodKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C018258A03270094982D /* PCPayPaymentMethodKind.swift */; };
-		84D6C05F258A03270094982D /* PCPOIAppPOIsRelationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C019258A03270094982D /* PCPOIAppPOIsRelationships.swift */; };
 		84D6C060258A03270094982D /* PCPayPaymentTokenCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01A258A03270094982D /* PCPayPaymentTokenCreate.swift */; };
 		84D6C061258A03270094982D /* PCPayPagingMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01B258A03270094982D /* PCPayPagingMeta.swift */; };
-		84D6C062258A03270094982D /* PCPOIReferenceStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01C258A03270094982D /* PCPOIReferenceStatuses.swift */; };
-		84D6C063258A03270094982D /* PCPOISource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01D258A03270094982D /* PCPOISource.swift */; };
-		84D6C064258A03270094982D /* PCPOISubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01E258A03270094982D /* PCPOISubscription.swift */; };
 		84D6C065258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C01F258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift */; };
-		84D6C066258A03270094982D /* PCPOIFuelPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C020258A03270094982D /* PCPOIFuelPrice.swift */; };
-		84D6C067258A03270094982D /* PCPOIFuelPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C021258A03270094982D /* PCPOIFuelPriceResponse.swift */; };
-		84D6C068258A03270094982D /* PCPOIFieldName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C022258A03270094982D /* PCPOIFieldName.swift */; };
 		84D6C069258A03270094982D /* PCPayErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C023258A03270094982D /* PCPayErrors.swift */; };
 		84D6C06A258A03270094982D /* PCPayPaymentTokensRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C024258A03270094982D /* PCPayPaymentTokensRelationship.swift */; };
-		84D6C06B258A03270094982D /* PCPOIFuelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C025258A03270094982D /* PCPOIFuelType.swift */; };
 		84D6C06C258A03270094982D /* PCPayPaymentMethodCreditCardCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C026258A03270094982D /* PCPayPaymentMethodCreditCardCreate.swift */; };
-		84D6C06D258A03270094982D /* PCPOIPriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C027258A03270094982D /* PCPOIPriceHistory.swift */; };
-		84D6C06E258A03270094982D /* PCPOIFieldMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C028258A03270094982D /* PCPOIFieldMetaData.swift */; };
 		84D6C06F258A03270094982D /* PCPayPRN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C029258A03270094982D /* PCPayPRN.swift */; };
 		84D6C070258A03270094982D /* PCPayTransactionLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02A258A03270094982D /* PCPayTransactionLinks.swift */; };
 		84D6C071258A03270094982D /* PCPayPaymentMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02B258A03270094982D /* PCPayPaymentMethods.swift */; };
-		84D6C072258A03270094982D /* PCPOICommonGeoJSONPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02C258A03270094982D /* PCPOICommonGeoJSONPoint.swift */; };
-		84D6C073258A03280094982D /* PCPOIErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02D258A03270094982D /* PCPOIErrors.swift */; };
-		84D6C074258A03280094982D /* PCPOICategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02E258A03270094982D /* PCPOICategories.swift */; };
-		84D6C075258A03280094982D /* PCPOICommonLatLong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C02F258A03270094982D /* PCPOICommonLatLong.swift */; };
-		84D6C076258A03280094982D /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C030258A03270094982D /* PCPOILocationBasedApps.swift */; };
-		84D6C077258A03280094982D /* PCPOIPOIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C031258A03270094982D /* PCPOIPOIs.swift */; };
 		84D6C078258A03280094982D /* PCPayPaymentTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C032258A03270094982D /* PCPayPaymentTokens.swift */; };
-		84D6C079258A03280094982D /* PCPOIDedupeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C033258A03270094982D /* PCPOIDedupeRequest.swift */; };
 		84D6C07A258A03280094982D /* PCPayFuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C034258A03270094982D /* PCPayFuel.swift */; };
-		84D6C07B258A03280094982D /* PCPOIFuel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C035258A03270094982D /* PCPOIFuel.swift */; };
-		84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C036258A03270094982D /* PCPOIEvents.swift */; };
-		84D6C07D258A03280094982D /* PCPOIRegionalPrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C037258A03270094982D /* PCPOIRegionalPrices.swift */; };
-		84D6C07E258A03280094982D /* PCPOIEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C038258A03270094982D /* PCPOIEvent.swift */; };
-		84D6C07F258A03280094982D /* PCPOISources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C039258A03270094982D /* PCPOISources.swift */; };
-		84D6C080258A03280094982D /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */; };
-		84D6C081258A03280094982D /* PCPOIPolicies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03B258A03270094982D /* PCPOIPolicies.swift */; };
-		84D6C083258A03280094982D /* PCPOIFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03D258A03270094982D /* PCPOIFieldData.swift */; };
 		84D6C084258A03280094982D /* PCPayPaymentTokenCreateApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03E258A03270094982D /* PCPayPaymentTokenCreateApplePay.swift */; };
-		84D6C085258A03280094982D /* PCPOIFuelAmountUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C03F258A03270094982D /* PCPOIFuelAmountUnit.swift */; };
-		84D6C086258A03280094982D /* PCPOIReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C040258A03270094982D /* PCPOIReferenceStatus.swift */; };
 		84D6C087258A03280094982D /* PCPayPaymentToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C041258A03270094982D /* PCPayPaymentToken.swift */; };
 		84D6C088258A03280094982D /* PCPayTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C042258A03270094982D /* PCPayTransaction.swift */; };
 		84D6C089258A03280094982D /* PCPayTransactionCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C043258A03270094982D /* PCPayTransactionCreate.swift */; };
 		84D6C08A258A03280094982D /* PCPayReadOnlyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C044258A03270094982D /* PCPayReadOnlyLocation.swift */; };
 		84D6C08B258A03280094982D /* PCPayPaymentMethodRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C045258A03270094982D /* PCPayPaymentMethodRelationship.swift */; };
-		84D6C08C258A03280094982D /* PCPOIPOIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C046258A03270094982D /* PCPOIPOIType.swift */; };
 		84D6C08D258A03280094982D /* PCPayPaymentMethodPayPalCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C047258A03270094982D /* PCPayPaymentMethodPayPalCreate.swift */; };
-		84D6C08E258A03280094982D /* PCPOIGasStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C048258A03270094982D /* PCPOIGasStations.swift */; };
 		84D6C08F258A03280094982D /* PCPayRequestApplePaySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C049258A03270094982D /* PCPayRequestApplePaySession.swift */; };
-		84D6C090258A03280094982D /* PCPOICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04A258A03270094982D /* PCPOICategory.swift */; };
-		84D6C091258A03280094982D /* PCPOICommonOpeningHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04B258A03270094982D /* PCPOICommonOpeningHours.swift */; };
 		84D6C092258A03280094982D /* PCPayPaymentMethodPayDirektCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04C258A03270094982D /* PCPayPaymentMethodPayDirektCreate.swift */; };
-		84D6C093258A03280094982D /* PCPOICommonCountryId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04D258A03270094982D /* PCPOICommonCountryId.swift */; };
-		84D6C094258A03280094982D /* PCPOILocationBasedAppWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */; };
-		84D6C095258A03280094982D /* PCPOICommonGeoJSONPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6C04F258A03270094982D /* PCPOICommonGeoJSONPolygon.swift */; };
 		84D6F88625BAC1F3002824F9 /* Fueling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6F88525BAC1F3002824F9 /* Fueling.swift */; };
 		84E1AC3B2562800D00C673EF /* Poly+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC352562800D00C673EF /* Poly+Codable.swift */; };
 		84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E1AC362562800D00C673EF /* Result+Value.swift */; };
@@ -1249,7 +1189,6 @@
 		17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudWatchSDK+API.swift"; sourceTree = "<group>"; };
 		17BB0DFB268DF9C2009D4755 /* BundleUserAgent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BundleUserAgent+Extension.swift"; sourceTree = "<group>"; };
 		3B1841E62683354600A0F625 /* POIAPIGetStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIGetStats.swift; sourceTree = "<group>"; };
-		3B1841EC2683356400A0F625 /* PCPOIStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIStats.swift; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
@@ -1279,6 +1218,56 @@
 		3B2FB1B62844EB2700E8CD0C /* PCUserTerms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserTerms.swift; sourceTree = "<group>"; };
 		3B2FB1B72844EB2700E8CD0C /* PCUserCreateOTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserCreateOTP.swift; sourceTree = "<group>"; };
 		3B2FB1B82844EB2700E8CD0C /* PCUserAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCUserAccessToken.swift; sourceTree = "<group>"; };
+		3B2FB1E628450BEF00E8CD0C /* PCPOIPOI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOI.swift; sourceTree = "<group>"; };
+		3B2FB1E728450BEF00E8CD0C /* PCPOIRegionalPrices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIRegionalPrices.swift; sourceTree = "<group>"; };
+		3B2FB1E828450BEF00E8CD0C /* PCPOIReferenceStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatuses.swift; sourceTree = "<group>"; };
+		3B2FB1E928450BEF00E8CD0C /* PCPOIGasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIGasStation.swift; sourceTree = "<group>"; };
+		3B2FB1EA28450BEF00E8CD0C /* PCPOIErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIErrors.swift; sourceTree = "<group>"; };
+		3B2FB1EB28450BF000E8CD0C /* PCPOIPolicyRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicyRequest.swift; sourceTree = "<group>"; };
+		3B2FB1EC28450BF000E8CD0C /* PCPOIGasStations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIGasStations.swift; sourceTree = "<group>"; };
+		3B2FB1ED28450BF000E8CD0C /* PCPOIPolicies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicies.swift; sourceTree = "<group>"; };
+		3B2FB1EE28450BF000E8CD0C /* PCPOIPOIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOIRequest.swift; sourceTree = "<group>"; };
+		3B2FB1EF28450BF000E8CD0C /* PCPOIFieldMetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldMetaData.swift; sourceTree = "<group>"; };
+		3B2FB1F028450BF000E8CD0C /* PCPOICommonLatLong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonLatLong.swift; sourceTree = "<group>"; };
+		3B2FB1F128450BF000E8CD0C /* PCPOISubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISubscription.swift; sourceTree = "<group>"; };
+		3B2FB1F228450BF000E8CD0C /* PCPOIFieldName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldName.swift; sourceTree = "<group>"; };
+		3B2FB1F328450BF000E8CD0C /* PCPOIFuelAmountUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelAmountUnit.swift; sourceTree = "<group>"; };
+		3B2FB1F428450BF000E8CD0C /* PCPOIFuelPriceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelPriceResponse.swift; sourceTree = "<group>"; };
+		3B2FB1F528450BF000E8CD0C /* PCPOIPOIType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOIType.swift; sourceTree = "<group>"; };
+		3B2FB1F628450BF000E8CD0C /* PCPOIPOIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOIs.swift; sourceTree = "<group>"; };
+		3B2FB1F728450BF000E8CD0C /* PCPOIEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIEvent.swift; sourceTree = "<group>"; };
+		3B2FB1F828450BF000E8CD0C /* PCPOIFieldData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldData.swift; sourceTree = "<group>"; };
+		3B2FB1F928450BF000E8CD0C /* PCPOISources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISources.swift; sourceTree = "<group>"; };
+		3B2FB1FA28450BF000E8CD0C /* PCPOICommonCountryId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonCountryId.swift; sourceTree = "<group>"; };
+		3B2FB1FB28450BF000E8CD0C /* PCPOIFuelPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelPrice.swift; sourceTree = "<group>"; };
+		3B2FB1FC28450BF000E8CD0C /* PCPOILocationBasedApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedApp.swift; sourceTree = "<group>"; };
+		3B2FB1FD28450BF000E8CD0C /* PCPOILocationBasedAppsWithRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppsWithRefs.swift; sourceTree = "<group>"; };
+		3B2FB1FE28450BF000E8CD0C /* PCPOIStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIStats.swift; sourceTree = "<group>"; };
+		3B2FB1FF28450BF100E8CD0C /* PCPOICategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICategories.swift; sourceTree = "<group>"; };
+		3B2FB20028450BF100E8CD0C /* PCPOILocationBasedAppWithRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppWithRefs.swift; sourceTree = "<group>"; };
+		3B2FB20128450BF100E8CD0C /* PCPOILocationBasedApps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedApps.swift; sourceTree = "<group>"; };
+		3B2FB20228450BF100E8CD0C /* PCPOIAppPOIsRelationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIAppPOIsRelationships.swift; sourceTree = "<group>"; };
+		3B2FB20328450BF100E8CD0C /* PCPOIAppPOIsRelationshipsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIAppPOIsRelationshipsRequest.swift; sourceTree = "<group>"; };
+		3B2FB20428450BF100E8CD0C /* PCPOIPolicyRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicyRule.swift; sourceTree = "<group>"; };
+		3B2FB20528450BF100E8CD0C /* PCPOIFuelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelType.swift; sourceTree = "<group>"; };
+		3B2FB20628450BF100E8CD0C /* PCPOICommonGeoJSONPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonGeoJSONPoint.swift; sourceTree = "<group>"; };
+		3B2FB20728450BF100E8CD0C /* PCPOIPriceHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPriceHistory.swift; sourceTree = "<group>"; };
+		3B2FB20828450BF100E8CD0C /* PCPOIFuel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuel.swift; sourceTree = "<group>"; };
+		3B2FB20928450BF100E8CD0C /* PCPOIPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicy.swift; sourceTree = "<group>"; };
+		3B2FB20A28450BF100E8CD0C /* PCPOIReferenceStatusRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatusRequest.swift; sourceTree = "<group>"; };
+		3B2FB20B28450BF100E8CD0C /* PCPOIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIEvents.swift; sourceTree = "<group>"; };
+		3B2FB20C28450BF100E8CD0C /* PCPOISource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISource.swift; sourceTree = "<group>"; };
+		3B2FB20D28450BF100E8CD0C /* PCPOICommonGeoJSONPolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonGeoJSONPolygon.swift; sourceTree = "<group>"; };
+		3B2FB20E28450BF100E8CD0C /* PCPOIDedupeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIDedupeRequest.swift; sourceTree = "<group>"; };
+		3B2FB20F28450BF100E8CD0C /* PCPOICurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICurrency.swift; sourceTree = "<group>"; };
+		3B2FB21028450BF100E8CD0C /* PCPOISubscriptionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISubscriptionRequest.swift; sourceTree = "<group>"; };
+		3B2FB21128450BF100E8CD0C /* PCPOICommonOpeningHours.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonOpeningHours.swift; sourceTree = "<group>"; };
+		3B2FB21228450BF100E8CD0C /* PCPOILocationBasedAppRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppRequest.swift; sourceTree = "<group>"; };
+		3B2FB21328450BF100E8CD0C /* PCPOIPolicyRulePriority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicyRulePriority.swift; sourceTree = "<group>"; };
+		3B2FB21428450BF200E8CD0C /* PCPOICategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICategory.swift; sourceTree = "<group>"; };
+		3B2FB21528450BF200E8CD0C /* PCPOISourceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISourceRequest.swift; sourceTree = "<group>"; };
+		3B2FB21628450BF200E8CD0C /* PCPOIMoveRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIMoveRequest.swift; sourceTree = "<group>"; };
+		3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatus.swift; sourceTree = "<group>"; };
 		3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+HTTPRequest.swift"; sourceTree = "<group>"; };
 		3B387F8E256C0D0100DD6F52 /* GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GasStation.swift; sourceTree = "<group>"; };
 		3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKDelegate.swift; sourceTree = "<group>"; };
@@ -1320,7 +1309,6 @@
 		3B7C8E3826FC59CA0080B2B5 /* PCPayPaymentMethodGiropayCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodGiropayCreate.swift; sourceTree = "<group>"; };
 		3B7C8E3926FC59CA0080B2B5 /* PCPayCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayCurrency.swift; sourceTree = "<group>"; };
 		3B7C8E3A26FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodKindMinimal.swift; sourceTree = "<group>"; };
-		3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICurrency.swift; sourceTree = "<group>"; };
 		3B7C8E5D26FC5D1A0080B2B5 /* UserAPIResetPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIResetPassword.swift; sourceTree = "<group>"; };
 		3B7C8E6026FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPIVerifyEmail.swift; sourceTree = "<group>"; };
 		3B7C8E6426FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPICallbackPasswordReset.swift; sourceTree = "<group>"; };
@@ -1758,74 +1746,33 @@
 		84A43B1D2582645E00DE36FA /* POIAPIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIResponse.swift; sourceTree = "<group>"; };
 		84A43B212582646600DE36FA /* PayAPIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAPIResponse.swift; sourceTree = "<group>"; };
 		84C5E706258A149200E5B20B /* POI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
-		84D6C00A258A03270094982D /* PCPOIGasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIGasStation.swift; sourceTree = "<group>"; };
 		84D6C00B258A03270094982D /* PCPayPaymentMethodKinds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodKinds.swift; sourceTree = "<group>"; };
-		84D6C00C258A03270094982D /* PCPOIMoveRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIMoveRequest.swift; sourceTree = "<group>"; };
-		84D6C00D258A03270094982D /* PCPOILocationBasedApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedApp.swift; sourceTree = "<group>"; };
 		84D6C00F258A03270094982D /* PCPayApplePaySession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayApplePaySession.swift; sourceTree = "<group>"; };
-		84D6C010258A03270094982D /* PCPOIPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicy.swift; sourceTree = "<group>"; };
 		84D6C011258A03270094982D /* PCPayTransactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayTransactions.swift; sourceTree = "<group>"; };
 		84D6C012258A03270094982D /* PCPayPaymentMethodDKVCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodDKVCreate.swift; sourceTree = "<group>"; };
-		84D6C013258A03270094982D /* PCPOIPolicyRulePriority.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicyRulePriority.swift; sourceTree = "<group>"; };
 		84D6C014258A03270094982D /* PCPayPaymentMethodSepaCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodSepaCreate.swift; sourceTree = "<group>"; };
-		84D6C015258A03270094982D /* PCPOIPolicyRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicyRule.swift; sourceTree = "<group>"; };
-		84D6C016258A03270094982D /* PCPOIPOI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOI.swift; sourceTree = "<group>"; };
 		84D6C017258A03270094982D /* PCPayPaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethod.swift; sourceTree = "<group>"; };
 		84D6C018258A03270094982D /* PCPayPaymentMethodKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodKind.swift; sourceTree = "<group>"; };
-		84D6C019258A03270094982D /* PCPOIAppPOIsRelationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIAppPOIsRelationships.swift; sourceTree = "<group>"; };
 		84D6C01A258A03270094982D /* PCPayPaymentTokenCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentTokenCreate.swift; sourceTree = "<group>"; };
 		84D6C01B258A03270094982D /* PCPayPagingMeta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPagingMeta.swift; sourceTree = "<group>"; };
-		84D6C01C258A03270094982D /* PCPOIReferenceStatuses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatuses.swift; sourceTree = "<group>"; };
-		84D6C01D258A03270094982D /* PCPOISource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISource.swift; sourceTree = "<group>"; };
-		84D6C01E258A03270094982D /* PCPOISubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISubscription.swift; sourceTree = "<group>"; };
 		84D6C01F258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodHoyerCreate.swift; sourceTree = "<group>"; };
-		84D6C020258A03270094982D /* PCPOIFuelPrice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelPrice.swift; sourceTree = "<group>"; };
-		84D6C021258A03270094982D /* PCPOIFuelPriceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelPriceResponse.swift; sourceTree = "<group>"; };
-		84D6C022258A03270094982D /* PCPOIFieldName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldName.swift; sourceTree = "<group>"; };
 		84D6C023258A03270094982D /* PCPayErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayErrors.swift; sourceTree = "<group>"; };
 		84D6C024258A03270094982D /* PCPayPaymentTokensRelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentTokensRelationship.swift; sourceTree = "<group>"; };
-		84D6C025258A03270094982D /* PCPOIFuelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelType.swift; sourceTree = "<group>"; };
 		84D6C026258A03270094982D /* PCPayPaymentMethodCreditCardCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodCreditCardCreate.swift; sourceTree = "<group>"; };
-		84D6C027258A03270094982D /* PCPOIPriceHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPriceHistory.swift; sourceTree = "<group>"; };
-		84D6C028258A03270094982D /* PCPOIFieldMetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldMetaData.swift; sourceTree = "<group>"; };
 		84D6C029258A03270094982D /* PCPayPRN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPRN.swift; sourceTree = "<group>"; };
 		84D6C02A258A03270094982D /* PCPayTransactionLinks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayTransactionLinks.swift; sourceTree = "<group>"; };
 		84D6C02B258A03270094982D /* PCPayPaymentMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethods.swift; sourceTree = "<group>"; };
-		84D6C02C258A03270094982D /* PCPOICommonGeoJSONPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonGeoJSONPoint.swift; sourceTree = "<group>"; };
-		84D6C02D258A03270094982D /* PCPOIErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIErrors.swift; sourceTree = "<group>"; };
-		84D6C02E258A03270094982D /* PCPOICategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICategories.swift; sourceTree = "<group>"; };
-		84D6C02F258A03270094982D /* PCPOICommonLatLong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonLatLong.swift; sourceTree = "<group>"; };
-		84D6C030258A03270094982D /* PCPOILocationBasedApps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedApps.swift; sourceTree = "<group>"; };
-		84D6C031258A03270094982D /* PCPOIPOIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOIs.swift; sourceTree = "<group>"; };
 		84D6C032258A03270094982D /* PCPayPaymentTokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentTokens.swift; sourceTree = "<group>"; };
-		84D6C033258A03270094982D /* PCPOIDedupeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIDedupeRequest.swift; sourceTree = "<group>"; };
 		84D6C034258A03270094982D /* PCPayFuel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayFuel.swift; sourceTree = "<group>"; };
-		84D6C035258A03270094982D /* PCPOIFuel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuel.swift; sourceTree = "<group>"; };
-		84D6C036258A03270094982D /* PCPOIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIEvents.swift; sourceTree = "<group>"; };
-		84D6C037258A03270094982D /* PCPOIRegionalPrices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIRegionalPrices.swift; sourceTree = "<group>"; };
-		84D6C038258A03270094982D /* PCPOIEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIEvent.swift; sourceTree = "<group>"; };
-		84D6C039258A03270094982D /* PCPOISources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISources.swift; sourceTree = "<group>"; };
-		84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppsWithRefs.swift; sourceTree = "<group>"; };
-		84D6C03B258A03270094982D /* PCPOIPolicies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPolicies.swift; sourceTree = "<group>"; };
-		84D6C03D258A03270094982D /* PCPOIFieldData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFieldData.swift; sourceTree = "<group>"; };
 		84D6C03E258A03270094982D /* PCPayPaymentTokenCreateApplePay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentTokenCreateApplePay.swift; sourceTree = "<group>"; };
-		84D6C03F258A03270094982D /* PCPOIFuelAmountUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIFuelAmountUnit.swift; sourceTree = "<group>"; };
-		84D6C040258A03270094982D /* PCPOIReferenceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatus.swift; sourceTree = "<group>"; };
 		84D6C041258A03270094982D /* PCPayPaymentToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentToken.swift; sourceTree = "<group>"; };
 		84D6C042258A03270094982D /* PCPayTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayTransaction.swift; sourceTree = "<group>"; };
 		84D6C043258A03270094982D /* PCPayTransactionCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayTransactionCreate.swift; sourceTree = "<group>"; };
 		84D6C044258A03270094982D /* PCPayReadOnlyLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayReadOnlyLocation.swift; sourceTree = "<group>"; };
 		84D6C045258A03270094982D /* PCPayPaymentMethodRelationship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodRelationship.swift; sourceTree = "<group>"; };
-		84D6C046258A03270094982D /* PCPOIPOIType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIPOIType.swift; sourceTree = "<group>"; };
 		84D6C047258A03270094982D /* PCPayPaymentMethodPayPalCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodPayPalCreate.swift; sourceTree = "<group>"; };
-		84D6C048258A03270094982D /* PCPOIGasStations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIGasStations.swift; sourceTree = "<group>"; };
 		84D6C049258A03270094982D /* PCPayRequestApplePaySession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayRequestApplePaySession.swift; sourceTree = "<group>"; };
-		84D6C04A258A03270094982D /* PCPOICategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICategory.swift; sourceTree = "<group>"; };
-		84D6C04B258A03270094982D /* PCPOICommonOpeningHours.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonOpeningHours.swift; sourceTree = "<group>"; };
 		84D6C04C258A03270094982D /* PCPayPaymentMethodPayDirektCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodPayDirektCreate.swift; sourceTree = "<group>"; };
-		84D6C04D258A03270094982D /* PCPOICommonCountryId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonCountryId.swift; sourceTree = "<group>"; };
-		84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOILocationBasedAppWithRefs.swift; sourceTree = "<group>"; };
-		84D6C04F258A03270094982D /* PCPOICommonGeoJSONPolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOICommonGeoJSONPolygon.swift; sourceTree = "<group>"; };
 		84D6F88525BAC1F3002824F9 /* Fueling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fueling.swift; sourceTree = "<group>"; };
 		84E1AC352562800D00C673EF /* Poly+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Poly+Codable.swift"; sourceTree = "<group>"; };
 		84E1AC362562800D00C673EF /* Result+Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Result+Value.swift"; sourceTree = "<group>"; };
@@ -3372,49 +3319,56 @@
 				84D6C043258A03270094982D /* PCPayTransactionCreate.swift */,
 				84D6C02A258A03270094982D /* PCPayTransactionLinks.swift */,
 				84D6C011258A03270094982D /* PCPayTransactions.swift */,
-				84D6C019258A03270094982D /* PCPOIAppPOIsRelationships.swift */,
-				84D6C02E258A03270094982D /* PCPOICategories.swift */,
-				84D6C04A258A03270094982D /* PCPOICategory.swift */,
-				84D6C04D258A03270094982D /* PCPOICommonCountryId.swift */,
-				84D6C02C258A03270094982D /* PCPOICommonGeoJSONPoint.swift */,
-				84D6C04F258A03270094982D /* PCPOICommonGeoJSONPolygon.swift */,
-				84D6C02F258A03270094982D /* PCPOICommonLatLong.swift */,
-				84D6C04B258A03270094982D /* PCPOICommonOpeningHours.swift */,
-				3B7C8E4B26FC5BC50080B2B5 /* PCPOICurrency.swift */,
-				84D6C033258A03270094982D /* PCPOIDedupeRequest.swift */,
-				84D6C02D258A03270094982D /* PCPOIErrors.swift */,
-				84D6C038258A03270094982D /* PCPOIEvent.swift */,
-				84D6C036258A03270094982D /* PCPOIEvents.swift */,
-				84D6C03D258A03270094982D /* PCPOIFieldData.swift */,
-				84D6C028258A03270094982D /* PCPOIFieldMetaData.swift */,
-				84D6C022258A03270094982D /* PCPOIFieldName.swift */,
-				84D6C035258A03270094982D /* PCPOIFuel.swift */,
-				84D6C03F258A03270094982D /* PCPOIFuelAmountUnit.swift */,
-				84D6C020258A03270094982D /* PCPOIFuelPrice.swift */,
-				84D6C021258A03270094982D /* PCPOIFuelPriceResponse.swift */,
-				84D6C025258A03270094982D /* PCPOIFuelType.swift */,
-				84D6C00A258A03270094982D /* PCPOIGasStation.swift */,
-				84D6C048258A03270094982D /* PCPOIGasStations.swift */,
-				84D6C00D258A03270094982D /* PCPOILocationBasedApp.swift */,
-				84D6C030258A03270094982D /* PCPOILocationBasedApps.swift */,
-				84D6C03A258A03270094982D /* PCPOILocationBasedAppsWithRefs.swift */,
-				84D6C04E258A03270094982D /* PCPOILocationBasedAppWithRefs.swift */,
-				84D6C00C258A03270094982D /* PCPOIMoveRequest.swift */,
-				84D6C016258A03270094982D /* PCPOIPOI.swift */,
-				84D6C031258A03270094982D /* PCPOIPOIs.swift */,
-				84D6C046258A03270094982D /* PCPOIPOIType.swift */,
-				84D6C03B258A03270094982D /* PCPOIPolicies.swift */,
-				84D6C010258A03270094982D /* PCPOIPolicy.swift */,
-				84D6C015258A03270094982D /* PCPOIPolicyRule.swift */,
-				84D6C013258A03270094982D /* PCPOIPolicyRulePriority.swift */,
-				84D6C027258A03270094982D /* PCPOIPriceHistory.swift */,
-				84D6C040258A03270094982D /* PCPOIReferenceStatus.swift */,
-				84D6C01C258A03270094982D /* PCPOIReferenceStatuses.swift */,
-				84D6C037258A03270094982D /* PCPOIRegionalPrices.swift */,
-				84D6C01D258A03270094982D /* PCPOISource.swift */,
-				84D6C039258A03270094982D /* PCPOISources.swift */,
-				3B1841EC2683356400A0F625 /* PCPOIStats.swift */,
-				84D6C01E258A03270094982D /* PCPOISubscription.swift */,
+				3B2FB20228450BF100E8CD0C /* PCPOIAppPOIsRelationships.swift */,
+				3B2FB20328450BF100E8CD0C /* PCPOIAppPOIsRelationshipsRequest.swift */,
+				3B2FB1FF28450BF100E8CD0C /* PCPOICategories.swift */,
+				3B2FB21428450BF200E8CD0C /* PCPOICategory.swift */,
+				3B2FB1FA28450BF000E8CD0C /* PCPOICommonCountryId.swift */,
+				3B2FB20628450BF100E8CD0C /* PCPOICommonGeoJSONPoint.swift */,
+				3B2FB20D28450BF100E8CD0C /* PCPOICommonGeoJSONPolygon.swift */,
+				3B2FB1F028450BF000E8CD0C /* PCPOICommonLatLong.swift */,
+				3B2FB21128450BF100E8CD0C /* PCPOICommonOpeningHours.swift */,
+				3B2FB20F28450BF100E8CD0C /* PCPOICurrency.swift */,
+				3B2FB20E28450BF100E8CD0C /* PCPOIDedupeRequest.swift */,
+				3B2FB1EA28450BEF00E8CD0C /* PCPOIErrors.swift */,
+				3B2FB1F728450BF000E8CD0C /* PCPOIEvent.swift */,
+				3B2FB20B28450BF100E8CD0C /* PCPOIEvents.swift */,
+				3B2FB1F828450BF000E8CD0C /* PCPOIFieldData.swift */,
+				3B2FB1EF28450BF000E8CD0C /* PCPOIFieldMetaData.swift */,
+				3B2FB1F228450BF000E8CD0C /* PCPOIFieldName.swift */,
+				3B2FB20828450BF100E8CD0C /* PCPOIFuel.swift */,
+				3B2FB1F328450BF000E8CD0C /* PCPOIFuelAmountUnit.swift */,
+				3B2FB1FB28450BF000E8CD0C /* PCPOIFuelPrice.swift */,
+				3B2FB1F428450BF000E8CD0C /* PCPOIFuelPriceResponse.swift */,
+				3B2FB20528450BF100E8CD0C /* PCPOIFuelType.swift */,
+				3B2FB1E928450BEF00E8CD0C /* PCPOIGasStation.swift */,
+				3B2FB1EC28450BF000E8CD0C /* PCPOIGasStations.swift */,
+				3B2FB1FC28450BF000E8CD0C /* PCPOILocationBasedApp.swift */,
+				3B2FB21228450BF100E8CD0C /* PCPOILocationBasedAppRequest.swift */,
+				3B2FB20128450BF100E8CD0C /* PCPOILocationBasedApps.swift */,
+				3B2FB1FD28450BF000E8CD0C /* PCPOILocationBasedAppsWithRefs.swift */,
+				3B2FB20028450BF100E8CD0C /* PCPOILocationBasedAppWithRefs.swift */,
+				3B2FB21628450BF200E8CD0C /* PCPOIMoveRequest.swift */,
+				3B2FB1E628450BEF00E8CD0C /* PCPOIPOI.swift */,
+				3B2FB1EE28450BF000E8CD0C /* PCPOIPOIRequest.swift */,
+				3B2FB1F628450BF000E8CD0C /* PCPOIPOIs.swift */,
+				3B2FB1F528450BF000E8CD0C /* PCPOIPOIType.swift */,
+				3B2FB1ED28450BF000E8CD0C /* PCPOIPolicies.swift */,
+				3B2FB20928450BF100E8CD0C /* PCPOIPolicy.swift */,
+				3B2FB1EB28450BF000E8CD0C /* PCPOIPolicyRequest.swift */,
+				3B2FB20428450BF100E8CD0C /* PCPOIPolicyRule.swift */,
+				3B2FB21328450BF100E8CD0C /* PCPOIPolicyRulePriority.swift */,
+				3B2FB20728450BF100E8CD0C /* PCPOIPriceHistory.swift */,
+				3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */,
+				3B2FB1E828450BEF00E8CD0C /* PCPOIReferenceStatuses.swift */,
+				3B2FB20A28450BF100E8CD0C /* PCPOIReferenceStatusRequest.swift */,
+				3B2FB1E728450BEF00E8CD0C /* PCPOIRegionalPrices.swift */,
+				3B2FB20C28450BF100E8CD0C /* PCPOISource.swift */,
+				3B2FB21528450BF200E8CD0C /* PCPOISourceRequest.swift */,
+				3B2FB1F928450BF000E8CD0C /* PCPOISources.swift */,
+				3B2FB1FE28450BF000E8CD0C /* PCPOIStats.swift */,
+				3B2FB1F128450BF000E8CD0C /* PCPOISubscription.swift */,
+				3B2FB21028450BF100E8CD0C /* PCPOISubscriptionRequest.swift */,
 				3B2FB1B82844EB2700E8CD0C /* PCUserAccessToken.swift */,
 				3B2FB1AE2844EB2700E8CD0C /* PCUserAuditLogRecord.swift */,
 				3B2FB1B72844EB2700E8CD0C /* PCUserCreateOTP.swift */,
@@ -3843,7 +3797,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				17BB0D53268CD52A009D4755 /* PCFuelingCommonOpeningHours.swift in Sources */,
-				3B79FA2026C15B8900C0278F /* POIAPIGetPoisDump.swift in Sources */,
 				3B79FA7126C15BD700C0278F /* POIKit+GeoService.swift in Sources */,
 				3B9036AA27D0B9390011E063 /* POIResponse.swift in Sources */,
 				3B79FA8326C15BE700C0278F /* InvalidationTokenCache.swift in Sources */,
@@ -3852,56 +3805,47 @@
 				17BB0D01268CCF13009D4755 /* PayAPIGetReceiptByFormat.swift in Sources */,
 				3B79FA8126C15BE400C0278F /* RegionalPricesResponse.swift in Sources */,
 				17B4E54A26D39C9C00AEAF13 /* UserAPIUpdateUserPhone.swift in Sources */,
-				3B79FA6226C15BBF00C0278F /* PCPOIFieldData.swift in Sources */,
 				17BB0D1B268CCFA9009D4755 /* API.swift in Sources */,
 				3B79FA8C26C15BEB00C0278F /* LayerType.swift in Sources */,
+				3B53F3932845E91400E751FE /* PCPOIFuel.swift in Sources */,
 				17B4E55826D39CB000AEAF13 /* UserAPISetFederatedIdentity.swift in Sources */,
-				3B79FA6326C15BBF00C0278F /* PCPOIPolicies.swift in Sources */,
-				3B79FA4826C15BBF00C0278F /* PCPOIFuel.swift in Sources */,
+				3B53F38A2845E8A900E751FE /* POIAPIResponse.swift in Sources */,
 				17BB0D35268CD149009D4755 /* URLRequestError.swift in Sources */,
 				3B2FB1BC2844EB2800E8CD0C /* PCUserEmailRequest.swift in Sources */,
-				3B79FA5726C15BBF00C0278F /* PCPOIErrors.swift in Sources */,
 				17BB0CEC268CCF13009D4755 /* PayAPIListTransactions.swift in Sources */,
 				3B79FAA726C15BF500C0278F /* POISearchError.swift in Sources */,
 				3B79FA8726C15BEB00C0278F /* PriceHistoryRequest.swift in Sources */,
 				3B79FA7B26C15BDB00C0278F /* BoundingBox.swift in Sources */,
+				3B53F3922845E90F00E751FE /* POIAPIGetMetadataFilters.swift in Sources */,
 				3B79FA8526C15BE700C0278F /* TileQueryRequest.swift in Sources */,
-				3B79FA2526C15B9100C0278F /* POIAPIGetGasStation.swift in Sources */,
 				17BB0D1D268CCFEF009D4755 /* APIRequestUtils.swift in Sources */,
-				3B79FA1726C15B8500C0278F /* POIAPIDeleteApp.swift in Sources */,
 				17BB0DFE268E040C009D4755 /* PCFuelingPaymentMethod.swift in Sources */,
 				17B4E3FB26CE883600AEAF13 /* PaymentMethodVendor.swift in Sources */,
 				17BB0CF2268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */,
 				3B2FB1CE2844EB2800E8CD0C /* PCUserOAuth2Token.swift in Sources */,
 				3B79FA9526C15BEE00C0278F /* POIKitAPI+Routing.swift in Sources */,
-				3B79FA1C26C15B8500C0278F /* POIAPIGetAppRedirect.swift in Sources */,
 				17BB0D04268CCF13009D4755 /* PayAPIGetTransaction.swift in Sources */,
 				17B4E55426D39CA900AEAF13 /* UserAPIAcceptTerms.swift in Sources */,
 				3B2FB1BE2844EB2800E8CD0C /* PCUserVerifyUserPhoneRequest.swift in Sources */,
 				3B79FAB026C15C4700C0278F /* Array+Extension.swift in Sources */,
-				3B79FA1826C15B8500C0278F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
 				3B79FAB426C15CCE00C0278F /* OneTimeLocationProvider.swift in Sources */,
 				3B7C8E3026FC597E0080B2B5 /* PayAPIDeletePaymentMethods.swift in Sources */,
 				17B4E55026D39CA400AEAF13 /* UserAPIUpdateUser.swift in Sources */,
+				3B53F3822845E82500E751FE /* PCPOIRegionalPrices.swift in Sources */,
 				3B79FA9A26C15BEE00C0278F /* POIKitAPI.swift in Sources */,
 				3B79FAA226C15BF300C0278F /* vector_tile.pb.swift in Sources */,
-				3B79FA5226C15BBF00C0278F /* PCPOIFuelAmountUnit.swift in Sources */,
 				17BB0D17268CCF92009D4755 /* FuelingAPICreateNotification.swift in Sources */,
 				3B79FA9226C15BEE00C0278F /* POIKitAPIError.swift in Sources */,
 				3B8A65A727107C7600B87FB1 /* PaymentMethodVendorIcon.swift in Sources */,
 				3B7C8E7226FC5ED80080B2B5 /* PCFuelingTransaction.swift in Sources */,
-				3B79FA0D26C15B6300C0278F /* POIAPIResponse.swift in Sources */,
+				3B53F3972845E92D00E751FE /* POIAPIGetGasStation.swift in Sources */,
 				17BB0D43268CD234009D4755 /* PCPayPaymentTokenCreateApplePay.swift in Sources */,
 				3BA0354627F5F502001C5DBB /* PayAPICreatePaymentMethodLogpay.swift in Sources */,
 				3B79FA8626C15BEB00C0278F /* tile_query_request.proto in Sources */,
 				17BB0CE4268CCEFB009D4755 /* PayAPIClient.swift in Sources */,
 				3B7C8E2826FC59600080B2B5 /* PayAPICreatePaymentMethodRoadrunner.swift in Sources */,
 				17BB0CF4268CCF13009D4755 /* PayAPIListTransactionsCSV.swift in Sources */,
-				3B79FA3226C15BA000C0278F /* POIAPIGetSource.swift in Sources */,
 				17BB0CF1268CCF13009D4755 /* PayAPIDeletePaymentToken.swift in Sources */,
-				3B79FA2F26C15B9C00C0278F /* POIAPIGetRegionalPrices.swift in Sources */,
-				3B79FA5E26C15BBF00C0278F /* PCPOIFuelPrice.swift in Sources */,
-				3B79FA6026C15BBF00C0278F /* PCPOISources.swift in Sources */,
 				17BB0D1F268CD007009D4755 /* PCPayPaymentMethod.swift in Sources */,
 				3B7C8E6E26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */,
 				3B79FA8D26C15BEB00C0278F /* Waypoint.swift in Sources */,
@@ -3909,11 +3853,9 @@
 				3B2406B12821264900114EB8 /* DateTimeProvider.swift in Sources */,
 				3B79FAA126C15BF300C0278F /* GasStation+OpeningHours.swift in Sources */,
 				3B3DF5AB26E24C8E00934991 /* JWTToken.swift in Sources */,
-				3B79FA1D26C15B8500C0278F /* POIAPIGetApp.swift in Sources */,
 				3B79FA9826C15BEE00C0278F /* POIKitAPI+Observer.swift in Sources */,
 				3B79FAA626C15BF300C0278F /* Address.swift in Sources */,
 				17B4E54126D39C9100AEAF13 /* UserAPICheckUserPassword.swift in Sources */,
-				3B79FA3A26C15BBF00C0278F /* PCPOIRegionalPrices.swift in Sources */,
 				3B6379A0281AC14100CD436A /* CDNAPIClient+URLProtocol.swift in Sources */,
 				17BB0D4D268CD4CD009D4755 /* PCPayPaymentMethodPayPalCreate.swift in Sources */,
 				17BB0CED268CCF13009D4755 /* PayAPICreatePaymentMethodCreditCard.swift in Sources */,
@@ -3923,19 +3865,16 @@
 				3B7C8E3226FC597E0080B2B5 /* PayAPIGetPaymentMethodsIncludingCreditCheckMultiStatus.swift in Sources */,
 				17BB0CFB268CCF13009D4755 /* PayAPICreatePaymentMethodHoyer.swift in Sources */,
 				17BB0CFE268CCF13009D4755 /* PayAPIGetReceipt.swift in Sources */,
-				3B79FA4B26C15BBF00C0278F /* PCPOIFieldName.swift in Sources */,
-				3B79FA4A26C15BBF00C0278F /* PCPOICommonGeoJSONPoint.swift in Sources */,
 				17BB0D3D268CD1CE009D4755 /* PCPayTransaction.swift in Sources */,
 				3B79FA9926C15BEE00C0278F /* POIKitAPIProtocol.swift in Sources */,
 				17BB0CE2268CCEFB009D4755 /* PayAPIResponse.swift in Sources */,
 				3B79FA7826C15BDB00C0278F /* TileInformation.swift in Sources */,
-				3B79FA3426C15BA000C0278F /* POIAPIUpdateSource.swift in Sources */,
 				17BB0D11268CCF88009D4755 /* FuelingAPIClient.swift in Sources */,
-				3B79FA0C26C15B6300C0278F /* POIAPIRequest.swift in Sources */,
 				17B4E55926D39CB000AEAF13 /* UserAPIGrantFederatedToken.swift in Sources */,
-				3B79FA2326C15B8E00C0278F /* POIAPIGetEvents.swift in Sources */,
 				3B79FAAF26C15C0800C0278F /* NSURLErrors.swift in Sources */,
 				17BB0D16268CCF92009D4755 /* FuelingAPIGetPumps.swift in Sources */,
+				3B53F38D2845E8B700E751FE /* POIAPIClient.swift in Sources */,
+				3B53F3872845E8A900E751FE /* POIAPIRequest.swift in Sources */,
 				17B4E54826D39C9700AEAF13 /* UserAPISendmailOTP.swift in Sources */,
 				17B4E3F326CE52F600AEAF13 /* Cms.swift in Sources */,
 				1718B16A26B02FA20044146C /* PACECloudWatchSDK+Kits.swift in Sources */,
@@ -3946,9 +3885,7 @@
 				17BB0D4B268CD29F009D4755 /* PCPayPaymentTokensRelationship.swift in Sources */,
 				3B79FA6A26C15BD200C0278F /* Location.swift in Sources */,
 				3B79FA6D26C15BD400C0278F /* CofuGasStation+Extension.swift in Sources */,
-				3B79FA6126C15BBF00C0278F /* PCPOIPOI.swift in Sources */,
 				17BB0D3B268CD188009D4755 /* URLEncoding.swift in Sources */,
-				3B79FA5826C15BBF00C0278F /* PCPOIPolicyRulePriority.swift in Sources */,
 				3BA0354327F5F4E4001C5DBB /* PCPayPaymentMethodLogpayCreate.swift in Sources */,
 				17BB0D10268CCF88009D4755 /* FuelingAPIRequest.swift in Sources */,
 				17BB0D19268CCF92009D4755 /* FuelingAPIGetPump.swift in Sources */,
@@ -3958,38 +3895,29 @@
 				17BB0D31268CD112009D4755 /* PCPayPRN.swift in Sources */,
 				17BB0D03268CCF13009D4755 /* PayAPIAuthorizePaymentToken.swift in Sources */,
 				3B79FA7D26C15BDE00C0278F /* POIFiltersRequest.swift in Sources */,
-				3B79FA2126C15B8C00C0278F /* POIAPIPutGasStationReferenceStatus.swift in Sources */,
 				17BB0D13268CCF8B009D4755 /* FuelingAPIClient+URLProtocol.swift in Sources */,
 				3B79FA7726C15BDB00C0278F /* CoordinateLocation.swift in Sources */,
 				17B4E55326D39CA800AEAF13 /* UserAPILatestTerms.swift in Sources */,
 				17BB0D24268CD04F009D4755 /* Constants.swift in Sources */,
-				3B79FA2926C15B9600C0278F /* POIAPIGetPoi.swift in Sources */,
-				3B79FA0E26C15B6300C0278F /* POIAPIClient.swift in Sources */,
-				3B79FA4026C15BBF00C0278F /* PCPOILocationBasedApp.swift in Sources */,
 				3B808AFF26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */,
-				3B79FA1A26C15B8500C0278F /* POIAPICreateApp.swift in Sources */,
 				17BB0CEA268CCF13009D4755 /* PayAPIGetPaymentToken.swift in Sources */,
-				3B79FA4F26C15BBF00C0278F /* PCPOICommonGeoJSONPolygon.swift in Sources */,
+				3B53F3892845E8A900E751FE /* POIRequestBehaviour.swift in Sources */,
 				3BC3C6E0279EB3A600E39956 /* PayAPICreatePaymentMethodRMC.swift in Sources */,
 				17BB0CF7268CCF13009D4755 /* PayAPICreatePaymentMethodDKV.swift in Sources */,
-				3B79FA1426C15B8200C0278F /* POIAPIDeduplicatePoi.swift in Sources */,
 				3B79FAA426C15BF300C0278F /* VectorTiles+Feature.swift in Sources */,
 				17BB0D2A268CD0C3009D4755 /* APIResult.swift in Sources */,
 				3B7C8E2C26FC59600080B2B5 /* PayAPICreatePaymentMethodZGM.swift in Sources */,
 				17BB0CE6268CCEFB009D4755 /* AnyPayRequest.swift in Sources */,
-				3B79FA4C26C15BBF00C0278F /* PCPOIFuelPriceResponse.swift in Sources */,
 				3B79FA7926C15BDB00C0278F /* GeometryCommand.swift in Sources */,
 				17BB0D02268CCF13009D4755 /* PayAPICancelPreAuthPayment.swift in Sources */,
 				3B7C8E6C26FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift in Sources */,
-				3B79FA3926C15BA700C0278F /* POIAPIGetTiles.swift in Sources */,
+				3B53F3942845E91A00E751FE /* POIAPIGetRegionalPrices.swift in Sources */,
+				3B53F38F2845E8E500E751FE /* PCPOILocationBasedApp.swift in Sources */,
 				3B79FA9F26C15BF300C0278F /* Feature+Geometry.swift in Sources */,
 				17BB0D4A268CD295009D4755 /* PCPayPaymentMethodDKVCreate.swift in Sources */,
-				3B79FA2626C15B9100C0278F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */,
-				3B79FA4526C15BBF00C0278F /* PCPOISubscription.swift in Sources */,
 				3B7C8E5F26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */,
-				3B79FA3726C15BA500C0278F /* POIAPIGetSubscriptions.swift in Sources */,
+				3B53F38C2845E8B100E751FE /* POIAPI.swift in Sources */,
 				17B4E4EC26CFE47100AEAF13 /* UserAPI.swift in Sources */,
-				3B79FA3626C15BA500C0278F /* POIAPIStoreSubscription.swift in Sources */,
 				17BB0CE3268CCEFB009D4755 /* PayAPI.swift in Sources */,
 				3B7C8E4026FC59CA0080B2B5 /* PCPayPaymentMethodZGMCreate.swift in Sources */,
 				17BB0D09268CCF53009D4755 /* PACECloudWatchSDK+API.swift in Sources */,
@@ -3999,17 +3927,12 @@
 				17BB0D51268CD503009D4755 /* PCPayPaymentMethodCreditCardCreate.swift in Sources */,
 				3B2FB1CC2844EB2800E8CD0C /* PCUserAuditLogRecord.swift in Sources */,
 				17BB0D54268CD533009D4755 /* PCFuelingFuelPrice.swift in Sources */,
-				3B79FA0F26C15B6300C0278F /* AnyPOIRequest.swift in Sources */,
 				3B7C8E4426FC59CA0080B2B5 /* PCPayPaymentMethodRoadrunnerCreate.swift in Sources */,
 				17BB0D1A268CCF92009D4755 /* FuelingAPIProcessPayment.swift in Sources */,
 				3B79FA6726C15BCC00C0278F /* POIKitManager+Tiles.swift in Sources */,
-				3B7C8E4D26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */,
 				17BB0D27268CD08B009D4755 /* PCPayRequestApplePaySession.swift in Sources */,
-				3B79FA3C26C15BBF00C0278F /* PCPOICommonCountryId.swift in Sources */,
 				17B4E4E926CFE46600AEAF13 /* User.swift in Sources */,
-				3B79FA2226C15B8C00C0278F /* POIAPIDeleteGasStationReferenceStatus.swift in Sources */,
 				173799CE269D8D6A00ACD3CE /* Bundle+Watch+Resource.swift in Sources */,
-				3B79FA5D26C15BBF00C0278F /* PCPOICommonLatLong.swift in Sources */,
 				3B79FA9C26C15BEE00C0278F /* HttpRequest.swift in Sources */,
 				3B8E42702757648200DEACCB /* AppKit+Watch.swift in Sources */,
 				17BB0CFA268CCF13009D4755 /* PayAPIGetPaymentMethodKinds.swift in Sources */,
@@ -4017,6 +3940,7 @@
 				17B4E54726D39C9700AEAF13 /* UserAPICreateTOTP.swift in Sources */,
 				17BB0CFF268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
 				3B7C8E4226FC59CA0080B2B5 /* PCPayPaymentMethodVendorRelationship.swift in Sources */,
+				3B53F3832845E82C00E751FE /* PCPOIGasStation.swift in Sources */,
 				3B79FA9126C15BEE00C0278F /* POIKitAPI+ReverseGeocode.swift in Sources */,
 				3B2FB1C62844EB2800E8CD0C /* PCUserUserPINRequest.swift in Sources */,
 				3B79FA6526C15BCC00C0278F /* POIKit.swift in Sources */,
@@ -4025,34 +3949,26 @@
 				3B79FA8A26C15BEB00C0278F /* PriceHistoryResponse.swift in Sources */,
 				3B7C8E6226FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */,
 				17B4E54D26D39CA400AEAF13 /* UserAPIDeleteUser.swift in Sources */,
-				3B79FA3D26C15BBF00C0278F /* PCPOIReferenceStatuses.swift in Sources */,
-				3B79FA5426C15BBF00C0278F /* PCPOIReferenceStatus.swift in Sources */,
-				3B79FA1B26C15B8500C0278F /* POIAPIGetAppPOIsRelationships.swift in Sources */,
 				3B79FA8226C15BE400C0278F /* RegionalPriceRequest.swift in Sources */,
 				17B4E4EB26CFE47100AEAF13 /* UserAPIRequest.swift in Sources */,
 				17BB0D49268CD28D009D4755 /* PCPayPaymentTokenCreate.swift in Sources */,
 				3B79FA9E26C15BEE00C0278F /* POIKitAPI+POIFilters.swift in Sources */,
-				3B79FA2C26C15B9900C0278F /* POIAPIGetPolicies.swift in Sources */,
 				3B79FA9026C15BEB00C0278F /* tile_query_response.pb.swift in Sources */,
 				3BA0354827F5F87E001C5DBB /* IDKitError.swift in Sources */,
 				3B79FAB126C15C4B00C0278F /* URLRequest+Extension.swift in Sources */,
-				3B79FA5326C15BBF00C0278F /* PCPOIGasStation.swift in Sources */,
 				3B2FB1C02844EB2800E8CD0C /* PCUserDeviceTOTPRequest.swift in Sources */,
 				3B63799F281AC13F00CD436A /* CDNAPIClient.swift in Sources */,
-				3B79FA5626C15BBF00C0278F /* PCPOIEvent.swift in Sources */,
-				3B79FA3526C15BA200C0278F /* POIAPIGetStats.swift in Sources */,
 				17BB0D2E268CD0F5009D4755 /* PCFuelingErrors.swift in Sources */,
 				3B7C8E4826FC59CA0080B2B5 /* PCPayCurrency.swift in Sources */,
 				3B79FA6E26C15BD400C0278F /* Date+Extension.swift in Sources */,
-				3B79FA5026C15BBF00C0278F /* PCPOIFieldMetaData.swift in Sources */,
 				17BB0D2F268CD104009D4755 /* PCPayPaymentMethodKinds.swift in Sources */,
 				17B4E4EF26CFE47700AEAF13 /* UserAPIClient+URLProtocol.swift in Sources */,
 				17BB0D21268CD024009D4755 /* APIClientError.swift in Sources */,
 				051CAA8927227F320090779D /* Decimal+Extension.swift in Sources */,
 				3BC3C6DA279EB37300E39956 /* PCPayPaymentMethodRadiusCreate.swift in Sources */,
-				3B79FA4D26C15BBF00C0278F /* PCPOIEvents.swift in Sources */,
 				05AEBABB2696C9A2000B75F5 /* Poly+Codable.swift in Sources */,
 				3B79FA7F26C15BE100C0278F /* NavigationResponse.swift in Sources */,
+				3B53F38E2845E8E000E751FE /* PCPOIFuelPrice.swift in Sources */,
 				17BB0D15268CCF92009D4755 /* FuelingAPICancelPreAuth.swift in Sources */,
 				17B4E54F26D39CA400AEAF13 /* UserAPIDeleteCurrentUser.swift in Sources */,
 				3B79FA6926C15BCF00C0278F /* Database.swift in Sources */,
@@ -4061,25 +3977,20 @@
 				3B79FA8F26C15BEB00C0278F /* tile_query_response.proto in Sources */,
 				17BB0D05268CCF13009D4755 /* PayAPICreatePaymentMethodSEPA.swift in Sources */,
 				3B7C8E2A26FC59600080B2B5 /* PayAPICreatePaymentMethodGiropay.swift in Sources */,
-				3B79FA5126C15BBF00C0278F /* PCPOIPolicyRule.swift in Sources */,
-				3B79FA5926C15BBF00C0278F /* PCPOIPriceHistory.swift in Sources */,
 				17BB0D1C268CCFD2009D4755 /* Coding.swift in Sources */,
-				3B79FA3326C15BA000C0278F /* POIAPICreateSource.swift in Sources */,
 				17BB0CE1268CCEFB009D4755 /* PayAPIService.swift in Sources */,
 				17BB0D18268CCF92009D4755 /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */,
 				3B79FA8426C15BE700C0278F /* Tile.swift in Sources */,
 				17B4E4F126CFE47700AEAF13 /* UserRequestBehaviour.swift in Sources */,
-				3B79FA4126C15BBF00C0278F /* PCPOIAppPOIsRelationships.swift in Sources */,
 				17BB0D0A268CCF7A009D4755 /* PACECloudSDK+URL.swift in Sources */,
 				17BB0D14268CCF92009D4755 /* FuelingAPIApproachingAtTheForecourt.swift in Sources */,
 				17BB0D50268CD4FA009D4755 /* PCFuelingGasStation.swift in Sources */,
 				3B7C8E6A26FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */,
 				17B4E54926D39C9C00AEAF13 /* UserAPIVerifyUserPhone.swift in Sources */,
 				3B2FB1DC2844EB2800E8CD0C /* PCUserTerms.swift in Sources */,
-				3B79FA4326C15BBF00C0278F /* PCPOIPOIType.swift in Sources */,
 				17B4E52326D38B7500AEAF13 /* UserAPICheckUserPIN.swift in Sources */,
-				3B79FA5F26C15BBF00C0278F /* PCPOILocationBasedApps.swift in Sources */,
 				3B79FA7026C15BD700C0278F /* CofuGasStation.swift in Sources */,
+				3B53F3952845E92200E751FE /* PCPOICategories.swift in Sources */,
 				17BB0CFD268CCF13009D4755 /* PayAPIProcessPayment.swift in Sources */,
 				17BB0D4E268CD4D5009D4755 /* PCFuelingApproachingResponse.swift in Sources */,
 				3B7C8E4626FC59CA0080B2B5 /* PCPayPaymentMethodGiropayCreate.swift in Sources */,
@@ -4093,10 +4004,8 @@
 				3B2FB1E02844EB2800E8CD0C /* PCUserAccessToken.swift in Sources */,
 				17B4E55726D39CAC00AEAF13 /* UserAPIUpdateAppPreferences.swift in Sources */,
 				17BB0D2B268CD0CF009D4755 /* PCPayPaymentMethodRelationship.swift in Sources */,
-				3B79FA2E26C15B9B00C0278F /* POIAPIGetPriceHistory.swift in Sources */,
 				05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */,
 				17BB0D0C268CCF88009D4755 /* FuelingRequestBehaviour.swift in Sources */,
-				3B79FA3826C15BA500C0278F /* POIAPIDeleteSubscription.swift in Sources */,
 				17BB0D48268CD284009D4755 /* PCPayPaymentMethodPayDirektCreate.swift in Sources */,
 				3B79FA9D26C15BEE00C0278F /* POIKitAPI+Search.swift in Sources */,
 				17B4E3FA26CE81A900AEAF13 /* CmsAPIClient.swift in Sources */,
@@ -4107,24 +4016,18 @@
 				17BB0CE8268CCEFB009D4755 /* Pay.swift in Sources */,
 				17BB0D47268CD263009D4755 /* PCPayTransactionLinks.swift in Sources */,
 				3B79FA8826C15BEB00C0278F /* GasStationApiResponse.swift in Sources */,
-				3B79FA1E26C15B8500C0278F /* POIAPIGetApps.swift in Sources */,
-				3B79FA4726C15BBF00C0278F /* PCPOIMoveRequest.swift in Sources */,
 				17BB0CF9268CCF13009D4755 /* PayAPIAuthorizeApplePayPaymentToken.swift in Sources */,
 				17BB0CF8268CCF13009D4755 /* PayAPICreatePaymentMethodPayDirekt.swift in Sources */,
 				3B79FA6B26C15BD200C0278F /* POILayer.swift in Sources */,
 				3B79FA6426C15BCC00C0278F /* POIKitConfig.swift in Sources */,
 				3B79FAAC26C15BF900C0278F /* MimeTypes.swift in Sources */,
-				3B79FA3126C15BA000C0278F /* POIAPIDeleteSource.swift in Sources */,
 				17BB0D52268CD50B009D4755 /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
 				17BB0CF6268CCF13009D4755 /* PayAPIPatchPaymentMethod.swift in Sources */,
 				17B4E54526D39C9700AEAF13 /* UserAPIVerifyOTP.swift in Sources */,
 				17B4E55226D39CA800AEAF13 /* UserAPICheckTerms.swift in Sources */,
 				17BB0D4F268CD4F3009D4755 /* PCPayPagingMeta.swift in Sources */,
-				3B79FA1626C15B8500C0278F /* POIAPICheckForPaceApp.swift in Sources */,
-				3B79FA1126C15B6300C0278F /* POIAPIService.swift in Sources */,
 				17BB0CEE268CCF13009D4755 /* PayAPICreatePaymentMethodPayPal.swift in Sources */,
 				17BB0D45268CD248009D4755 /* PCPayFuel.swift in Sources */,
-				3B79FA2726C15B9400C0278F /* POIAPIGetMetadataFilters.swift in Sources */,
 				3B79FA9426C15BEE00C0278F /* PoiKitObserverToken+Tiles.swift in Sources */,
 				3B79FA9326C15BEE00C0278F /* PoiKitObserverToken.swift in Sources */,
 				3B3FC8F527FED6F5008B3F7F /* PACECloudSDKDelegate.swift in Sources */,
@@ -4139,17 +4042,12 @@
 				17BB0D46268CD252009D4755 /* PCPayReadOnlyLocation.swift in Sources */,
 				3B79FA6C26C15BD200C0278F /* GasStation.swift in Sources */,
 				3B79FAAD26C15BFD00C0278F /* Polyline.swift in Sources */,
-				3B79FA4926C15BBF00C0278F /* PCPOIPOIs.swift in Sources */,
 				3B2FB1C42844EB2800E8CD0C /* PCUserOTPRequest.swift in Sources */,
-				3B79FA2A26C15B9600C0278F /* POIAPIChangePoi.swift in Sources */,
 				3B2FB1C22844EB2800E8CD0C /* PCUserOAuth2TokenExchangeRequest.swift in Sources */,
-				3B79FA1226C15B6300C0278F /* POIAPI.swift in Sources */,
-				3B79FA4226C15BBF00C0278F /* PCPOICategory.swift in Sources */,
 				3B79FA1326C15B6500C0278F /* POIAPIClient+URLProtocol.swift in Sources */,
 				17BB0D37268CD15A009D4755 /* PCFuelingPump.swift in Sources */,
 				3B7C8E3E26FC59CA0080B2B5 /* PCPayPaymentMethodKindRelationship.swift in Sources */,
 				3B2FB1CA2844EB2800E8CD0C /* PCUserUser.swift in Sources */,
-				3B79FA3026C15BA000C0278F /* POIAPIGetSources.swift in Sources */,
 				3BB51B7327E9F4FA00FE0014 /* Localizable.swift in Sources */,
 				17B4E4EE26CFE47700AEAF13 /* AnyUserRequest.swift in Sources */,
 				3B63799A281AC12A00CD436A /* CDN.swift in Sources */,
@@ -4169,35 +4067,29 @@
 				3B79FAAE26C15C0300C0278F /* Notification+Extension.swift in Sources */,
 				17BB0D44268CD23C009D4755 /* PCPayTransactions.swift in Sources */,
 				3B4666292805C24A00268713 /* BiometryTOTPData.swift in Sources */,
-				3B79FA1F26C15B8900C0278F /* POIAPIGetDuplicatesKML.swift in Sources */,
 				3B2FB1BA2844EB2800E8CD0C /* PCUserDeviceTOTP.swift in Sources */,
 				3B79FA9626C15BEE00C0278F /* POIKitAPI+Prices.swift in Sources */,
 				3B2FB1D42844EB2800E8CD0C /* PCUserCreateOTPRequest.swift in Sources */,
 				3B79FA6626C15BCC00C0278F /* POIKitManager.swift in Sources */,
-				3B79FA1526C15B8200C0278F /* POIAPIMovePoiAtPosition.swift in Sources */,
 				3B79FA8B26C15BEB00C0278F /* Route.swift in Sources */,
 				3B79FA7E26C15BDE00C0278F /* POIFiltersResponse.swift in Sources */,
-				3B79FA2B26C15B9900C0278F /* POIAPIGetPolicy.swift in Sources */,
-				3B79FA5B26C15BBF00C0278F /* PCPOICategories.swift in Sources */,
 				17BB0D34268CD140009D4755 /* HttpStatusCode.swift in Sources */,
 				17BB0D2C268CD0D8009D4755 /* PCPayPaymentMethods.swift in Sources */,
+				3B53F38B2845E8AE00E751FE /* POIAPIService.swift in Sources */,
 				9AD092B72817DA72000A3CB3 /* DateComponents+Extension.swift in Sources */,
 				17BB0D22268CD031009D4755 /* QueryParamHandler.swift in Sources */,
 				17BB0DFF268E0468009D4755 /* PCFuelingPaymentMethodKind.swift in Sources */,
 				17BB0D32268CD11E009D4755 /* NSMutableData+Extension.swift in Sources */,
 				17B4E55126D39CA400AEAF13 /* UserAPISetUser.swift in Sources */,
-				3B79FA3E26C15BBF00C0278F /* PCPOIFuelType.swift in Sources */,
 				17BB0D55268CD553009D4755 /* Bundle+Extension.swift in Sources */,
 				3B79FA7626C15BDB00C0278F /* Compass.swift in Sources */,
+				3B53F3902845E8EB00E751FE /* PCPOIReferenceStatus.swift in Sources */,
 				3B79FA8926C15BEB00C0278F /* tile_query_request.pb.swift in Sources */,
 				3B2FB1DE2844EB2800E8CD0C /* PCUserCreateOTP.swift in Sources */,
-				3B79FA5526C15BBF00C0278F /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				17BB0D40268CD1E8009D4755 /* PCFuelingPumpResponse.swift in Sources */,
-				3B79FA1926C15B8500C0278F /* POIAPIUpdateApp.swift in Sources */,
 				3BC3C6E2279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift in Sources */,
 				17BB0CE7268CCEFB009D4755 /* PayRequestBehaviour.swift in Sources */,
 				17BB0CF3268CCF13009D4755 /* PayAPINotificationForPaymentMethod.swift in Sources */,
-				3B79FA3F26C15BBF00C0278F /* PCPOIDedupeRequest.swift in Sources */,
 				17BB0D29268CD0B2009D4755 /* PCPayErrors.swift in Sources */,
 				3B3DF5DD26E2512500934991 /* IDKitLogger.swift in Sources */,
 				17B4E54C26D39C9F00AEAF13 /* UserAPIUpdateSession.swift in Sources */,
@@ -4208,41 +4100,36 @@
 				17B4E55526D39CA900AEAF13 /* UserAPIGetTerms.swift in Sources */,
 				17BB0CFC268CCF13009D4755 /* PayAPIGetPaymentMethod.swift in Sources */,
 				17BB0D12268CCF88009D4755 /* AnyFuelingRequest.swift in Sources */,
-				3B79FA4426C15BBF00C0278F /* PCPOIStats.swift in Sources */,
 				17B4E54B26D39C9C00AEAF13 /* UserAPICheckUserPhone.swift in Sources */,
 				17BB0D30268CD10A009D4755 /* PCPayPaymentMethodKind.swift in Sources */,
+				3B53F3812845E7F100E751FE /* PCPOICommonOpeningHours.swift in Sources */,
 				3B79FA7C26C15BDB00C0278F /* Doubles+Angles.swift in Sources */,
 				3B2FB1D02844EB2800E8CD0C /* PCUserPinOrPassword.swift in Sources */,
 				17B4E55626D39CAC00AEAF13 /* UserAPIGetAppPreferences.swift in Sources */,
 				17BB0D0E268CCF88009D4755 /* FuelingAPIResponse.swift in Sources */,
 				3B79FA8026C15BE100C0278F /* NavigationRequest.swift in Sources */,
+				3B53F3962845E92400E751FE /* PCPOICategory.swift in Sources */,
 				3B79FAA926C15BF900C0278F /* POIKitLogger.swift in Sources */,
+				3B53F3912845E90100E751FE /* POIAPIGetTiles.swift in Sources */,
 				17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
 				3B2FB1D62844EB2800E8CD0C /* PCUserErrors.swift in Sources */,
-				3B79FA1026C15B6300C0278F /* POIRequestBehaviour.swift in Sources */,
 				3BD0C826274BABDF003E002D /* TilesResponse.swift in Sources */,
 				17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */,
 				3B3DF5AA26E24C7200934991 /* TokenValidator.swift in Sources */,
 				3B79FA8E26C15BEB00C0278F /* GasStationRequest.swift in Sources */,
-				3B79FA4626C15BBF00C0278F /* PCPOICommonOpeningHours.swift in Sources */,
 				3BC3C6DC279EB37300E39956 /* PCPayPaymentMethodRMCCreate.swift in Sources */,
 				17B4E53E26D39C9100AEAF13 /* UserAPICheckUserPinOrPassword.swift in Sources */,
 				3B6826A027BA949B00933C95 /* IDKitUserAgentType.swift in Sources */,
 				17B4E54026D39C9100AEAF13 /* UserAPICreateUserPassword.swift in Sources */,
-				3B79FA2426C15B9100C0278F /* POIAPIGetGasStations.swift in Sources */,
-				3B79FA3B26C15BBF00C0278F /* PCPOILocationBasedAppWithRefs.swift in Sources */,
-				3B79FA5A26C15BBF00C0278F /* PCPOISource.swift in Sources */,
-				3B79FA5C26C15BBF00C0278F /* PCPOIGasStations.swift in Sources */,
 				6A2F49B927048360004497B2 /* SDKLogger.swift in Sources */,
 				3B79FAA026C15BF300C0278F /* VectorTile+POI.swift in Sources */,
-				3B79FA2826C15B9600C0278F /* POIAPIGetPois.swift in Sources */,
-				3B79FA2D26C15B9900C0278F /* POIAPICreatePolicy.swift in Sources */,
 				3B7C8E7426FC5ED80080B2B5 /* PCFuelingGasStationNote.swift in Sources */,
 				3B79FA6826C15BCC00C0278F /* POIKitDelegate.swift in Sources */,
-				3B79FA4E26C15BBF00C0278F /* PCPOIPolicy.swift in Sources */,
 				3B7C8E3C26FC59CA0080B2B5 /* PCPayPaymentMethodVendor.swift in Sources */,
 				17B4E4F026CFE47700AEAF13 /* UserAPIResponse.swift in Sources */,
+				3B53F3842845E83300E751FE /* PCPOIFuelType.swift in Sources */,
+				3B53F3882845E8A900E751FE /* AnyPOIRequest.swift in Sources */,
 				17B4E54626D39C9700AEAF13 /* UserAPICreateOTP.swift in Sources */,
 				3BA8220B27BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift in Sources */,
 			);
@@ -4286,16 +4173,16 @@
 				3B970AAB2542D9BB0072F6BA /* AppStyle+Colors.swift in Sources */,
 				3BC9A8092539DDAD00B933AE /* POIKitAPI+Search.swift in Sources */,
 				3B63799C281AC13400CD436A /* CDNAPIClient.swift in Sources */,
-				84D6C066258A03270094982D /* PCPOIFuelPrice.swift in Sources */,
 				84600F1E25C03B1E0087194F /* POIAPIDeleteGasStationReferenceStatus.swift in Sources */,
 				3B987061268E06AE00A0458F /* GetAccessTokenResult.swift in Sources */,
 				3B7C8E3B26FC59CA0080B2B5 /* PCPayPaymentMethodVendor.swift in Sources */,
+				3B2FB22328450BF200E8CD0C /* PCPOIFieldName.swift in Sources */,
+				3B2FB24128450BF200E8CD0C /* PCPOISubscriptionRequest.swift in Sources */,
+				3B2FB22728450BF200E8CD0C /* PCPOIPOIs.swift in Sources */,
 				3B970A6B2542D9BB0072F6BA /* String+Extension.swift in Sources */,
-				84D6C077258A03280094982D /* PCPOIPOIs.swift in Sources */,
 				3BCBF7922567CA3800242BDC /* Database.swift in Sources */,
 				3B970A812542D9BB0072F6BA /* LoadingView.swift in Sources */,
 				3B970AB62542D9BB0072F6BA /* AppDrawerTheme.swift in Sources */,
-				84D6C075258A03280094982D /* PCPOICommonLatLong.swift in Sources */,
 				84600EA825C03B0C0087194F /* PayAPIDeletePaymentMethod.swift in Sources */,
 				84600F2225C03B1E0087194F /* POIAPIGetSource.swift in Sources */,
 				3B2FB1D92844EB2800E8CD0C /* PCUserPlainOTPRequest.swift in Sources */,
@@ -4311,24 +4198,22 @@
 				84600F0225C03B1E0087194F /* POIAPIMovePoiAtPosition.swift in Sources */,
 				92843A0A25B1A2DF004CF9D6 /* QueryParamHandler.swift in Sources */,
 				92EDDED525AC7E0000E480F4 /* Bundle+Resource.swift in Sources */,
+				3B2FB23A28450BF200E8CD0C /* PCPOIPolicy.swift in Sources */,
 				3B9EC3D6253746390040DE22 /* IDKit+OIDConfiguration.swift in Sources */,
-				84D6C072258A03270094982D /* PCPOICommonGeoJSONPoint.swift in Sources */,
+				3B2FB24628450BF200E8CD0C /* PCPOISourceRequest.swift in Sources */,
 				84600EB825C03B0C0087194F /* PayAPICancelPreAuthPayment.swift in Sources */,
 				3B68269727BA5ECA00933C95 /* IDKitWebViewController.swift in Sources */,
 				3BC9A8262539DDAD00B933AE /* GeometryCommand.swift in Sources */,
 				927110DA2573AA43001D6DDA /* CookieStorage.swift in Sources */,
+				3B2FB22128450BF200E8CD0C /* PCPOICommonLatLong.swift in Sources */,
 				3B970AB42542D9BB0072F6BA /* AppEvent.swift in Sources */,
-				84D6C06E258A03270094982D /* PCPOIFieldMetaData.swift in Sources */,
 				84600EA225C03B0C0087194F /* PayAPIConfirmPaymentMethod.swift in Sources */,
 				3B76F7572576468F008D8F9A /* API.swift in Sources */,
 				84A43ADB2580E35A00DE36FA /* URLEncoding.swift in Sources */,
 				3B2FB1B92844EB2800E8CD0C /* PCUserDeviceTOTP.swift in Sources */,
 				3B7C8E4726FC59CA0080B2B5 /* PCPayCurrency.swift in Sources */,
-				84D6C080258A03280094982D /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				3B7C8E4526FC59CA0080B2B5 /* PCPayPaymentMethodGiropayCreate.swift in Sources */,
 				841A3EF025B9C96A0065284A /* PCFuelingFuelPriceResponse.swift in Sources */,
-				3B7C8E4C26FC5BC50080B2B5 /* PCPOICurrency.swift in Sources */,
-				84D6C091258A03280094982D /* PCPOICommonOpeningHours.swift in Sources */,
 				3B98706F268E06AE00A0458F /* OpenURLInNewTabResult.swift in Sources */,
 				3BC9A7EE2539DDAD00B933AE /* POIKitAPI+GasStation.swift in Sources */,
 				3B970A722542D9BB0072F6BA /* AppManager.swift in Sources */,
@@ -4341,6 +4226,7 @@
 				3B970A752542D9BB0072F6BA /* AppWebViewDelegate.swift in Sources */,
 				3BA6030425ECDF2900E9320F /* IDKit+PIN+Biometry.swift in Sources */,
 				84600E9825C03B0C0087194F /* PayAPIAuthorizePaymentToken.swift in Sources */,
+				3B2FB22A28450BF200E8CD0C /* PCPOISources.swift in Sources */,
 				3BC9A80A2539DDAD00B933AE /* POIKitAPI+POIFilters.swift in Sources */,
 				3B91804D268F435300176ECD /* IsBiometricAuthEnabledResult.swift in Sources */,
 				3B970A742542D9BB0072F6BA /* App+MessageHandling+2FA.swift in Sources */,
@@ -4354,8 +4240,10 @@
 				3BC9A8032539DDAD00B933AE /* PriceHistoryRequest.swift in Sources */,
 				3B1841E72683354600A0F625 /* POIAPIGetStats.swift in Sources */,
 				84600F1225C03B1E0087194F /* POIAPIGetTiles.swift in Sources */,
+				3B2FB24028450BF200E8CD0C /* PCPOICurrency.swift in Sources */,
 				3B970AB02542D9BB0072F6BA /* AppMetadata.swift in Sources */,
 				3B970A792542D9BB0072F6BA /* AppDrawer+App.swift in Sources */,
+				3B2FB22028450BF200E8CD0C /* PCPOIFieldMetaData.swift in Sources */,
 				3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */,
 				3B970A842542D9BB0072F6BA /* AppKit.swift in Sources */,
 				3BC9A8022539DDAD00B933AE /* Route.swift in Sources */,
@@ -4364,9 +4252,9 @@
 				3B970A762542D9BB0072F6BA /* AppDrawer.swift in Sources */,
 				3B970AAD2542D9BB0072F6BA /* AppStyle.swift in Sources */,
 				3BC9A8232539DDAD00B933AE /* NSURLErrors.swift in Sources */,
-				84D6C07F258A03280094982D /* PCPOISources.swift in Sources */,
 				84600F2C25C03B1F0087194F /* POIAPICreateApp.swift in Sources */,
 				6A2F492B27044AE1004497B2 /* SDKLogger.swift in Sources */,
+				3B2FB22528450BF200E8CD0C /* PCPOIFuelPriceResponse.swift in Sources */,
 				841A3EFE25B9C96A0065284A /* PCFuelingPaymentMethod.swift in Sources */,
 				3B9655E626B286A700921766 /* CofuGasStation.swift in Sources */,
 				3BC9A7F12539DDAD00B933AE /* GasStationRequest.swift in Sources */,
@@ -4376,10 +4264,8 @@
 				3B970A7C2542D9BB0072F6BA /* AppWindow.swift in Sources */,
 				84600F0625C03B1E0087194F /* POIAPIGetPolicy.swift in Sources */,
 				84600EB025C03B0C0087194F /* PayAPIProcessPayment.swift in Sources */,
-				3B1841ED2683356400A0F625 /* PCPOIStats.swift in Sources */,
 				84600F3625C03B1F0087194F /* POIAPIUpdateApp.swift in Sources */,
-				84D6C08C258A03280094982D /* PCPOIPOIType.swift in Sources */,
-				84D6C07B258A03280094982D /* PCPOIFuel.swift in Sources */,
+				3B2FB21928450BF200E8CD0C /* PCPOIReferenceStatuses.swift in Sources */,
 				84600F1825C03B1E0087194F /* POIAPIGetPoi.swift in Sources */,
 				3B2FB1CB2844EB2800E8CD0C /* PCUserAuditLogRecord.swift in Sources */,
 				3B85531D253D6FD8001F7B66 /* DeviceInformation.swift in Sources */,
@@ -4397,6 +4283,7 @@
 				05F57A31266635B5008F2272 /* Strings.swift in Sources */,
 				84A439CF2580E33B00DE36FA /* POIRequestBehaviour.swift in Sources */,
 				3BC9A7FE2539DDAD00B933AE /* tile_query_request.proto in Sources */,
+				3B2FB23928450BF200E8CD0C /* PCPOIFuel.swift in Sources */,
 				84600F4F25C03B340087194F /* FuelingAPIGetPumps.swift in Sources */,
 				3B7C8E4326FC59CA0080B2B5 /* PCPayPaymentMethodRoadrunnerCreate.swift in Sources */,
 				3BC9A7F22539DDAD00B933AE /* LayerType.swift in Sources */,
@@ -4404,6 +4291,7 @@
 				3BA0354527F5F4F8001C5DBB /* PayAPICreatePaymentMethodLogpay.swift in Sources */,
 				3B98708B268E06AE00A0458F /* VerifyLocationRequest.swift in Sources */,
 				8447A3B925CAAE740095BEF1 /* UserAPICheckUserPhone.swift in Sources */,
+				3B2FB24228450BF200E8CD0C /* PCPOICommonOpeningHours.swift in Sources */,
 				3B987097268E06AE00A0458F /* GetTOTPRequest.swift in Sources */,
 				3BEECBCB26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */,
 				3B637997281AC11400CD436A /* CDN.swift in Sources */,
@@ -4412,6 +4300,7 @@
 				3B2FB1D52844EB2800E8CD0C /* PCUserErrors.swift in Sources */,
 				3B2FB1D32844EB2800E8CD0C /* PCUserCreateOTPRequest.swift in Sources */,
 				8447A3C125CAAE740095BEF1 /* UserAPICreateOTP.swift in Sources */,
+				3B2FB21C28450BF200E8CD0C /* PCPOIPolicyRequest.swift in Sources */,
 				3B987093268E06AE00A0458F /* SetTOTPRequest.swift in Sources */,
 				84D6C084258A03280094982D /* PCPayPaymentTokenCreateApplePay.swift in Sources */,
 				84600EB225C03B0C0087194F /* PayAPIGetReceipt.swift in Sources */,
@@ -4420,6 +4309,7 @@
 				3B970AAF2542D9BB0072F6BA /* AppKit+Delegate.swift in Sources */,
 				84D6C092258A03280094982D /* PCPayPaymentMethodPayDirektCreate.swift in Sources */,
 				84D6C05E258A03270094982D /* PCPayPaymentMethodKind.swift in Sources */,
+				3B2FB23628450BF200E8CD0C /* PCPOIFuelType.swift in Sources */,
 				3B98706D268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				3BC9A7F42539DDAD00B933AE /* POIFiltersResponse.swift in Sources */,
 				84A43B0C2580EA3700DE36FA /* AnyResponse.swift in Sources */,
@@ -4428,6 +4318,7 @@
 				3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */,
 				3B987069268E06AE00A0458F /* GetTraceIdResult.swift in Sources */,
 				3B987081268E06AE00A0458F /* AppRedirectRequest.swift in Sources */,
+				3B2FB23128450BF200E8CD0C /* PCPOILocationBasedAppWithRefs.swift in Sources */,
 				3BBCB2F32567D2C6000EA905 /* POILayer.swift in Sources */,
 				3BC9A80E2539DDAD00B933AE /* VectorTile+POI.swift in Sources */,
 				3B7C8E2726FC59600080B2B5 /* PayAPICreatePaymentMethodRoadrunner.swift in Sources */,
@@ -4442,8 +4333,9 @@
 				8447A3AD25CAAE740095BEF1 /* UserAPIDeleteCurrentUser.swift in Sources */,
 				3BC9A81E2539DDAD00B933AE /* POIKitDelegate.swift in Sources */,
 				3BA0354227F5F4D5001C5DBB /* PCPayPaymentMethodLogpayCreate.swift in Sources */,
+				3B2FB23D28450BF200E8CD0C /* PCPOISource.swift in Sources */,
+				3B2FB23528450BF200E8CD0C /* PCPOIPolicyRule.swift in Sources */,
 				9AD092B628170D88000A3CB3 /* DateComponents+Extension.swift in Sources */,
-				84D6C068258A03270094982D /* PCPOIFieldName.swift in Sources */,
 				3B7C8E2F26FC597E0080B2B5 /* PayAPIDeletePaymentMethods.swift in Sources */,
 				6A8811E826F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */,
 				84600F2825C03B1F0087194F /* POIAPIUpdateSource.swift in Sources */,
@@ -4460,20 +4352,18 @@
 				3B970A952542D9BB0072F6BA /* TokenValidator.swift in Sources */,
 				3B98705D268E06AE00A0458F /* ApplePayAvailabilityCheckResult.swift in Sources */,
 				3B2D1DED2629929D00C629C8 /* PaymentMethodVendor.swift in Sources */,
-				84D6C053258A03270094982D /* PCPOILocationBasedApp.swift in Sources */,
 				3BC9A8042539DDAD00B933AE /* POIKitAPI+Prices.swift in Sources */,
 				3B98704F268E06AE00A0458F /* GetSecureDataResult.swift in Sources */,
 				3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */,
 				84600EAC25C03B0C0087194F /* PayAPIGetTransaction.swift in Sources */,
-				84D6C085258A03280094982D /* PCPOIFuelAmountUnit.swift in Sources */,
 				84600E9225C03B0C0087194F /* PayAPIDeletePaymentToken.swift in Sources */,
 				3BC9A80B2539DDAD00B933AE /* POIKitManager.swift in Sources */,
 				3BC9A8162539DDAD00B933AE /* POIKitConfig.swift in Sources */,
 				3BC9A7FA2539DDAD00B933AE /* NavigationResponse.swift in Sources */,
+				3B2FB21A28450BF200E8CD0C /* PCPOIGasStation.swift in Sources */,
 				84D6C055258A03270094982D /* PCPayApplePaySession.swift in Sources */,
 				8447A3CD25CAAE750095BEF1 /* UserAPICheckUserPassword.swift in Sources */,
 				3B987099268E06AE00A0458F /* LogEventRequest.swift in Sources */,
-				84D6C073258A03280094982D /* PCPOIErrors.swift in Sources */,
 				3B987089268E06AE00A0458F /* GetSecureDataRequest.swift in Sources */,
 				3B70FCB02636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */,
 				84600F5525C03B340087194F /* FuelingAPIWaitOnPumpStatusChange.swift in Sources */,
@@ -4485,13 +4375,13 @@
 				3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */,
 				3BF303D32625A7E90079ED64 /* RequestTimeoutHandler.swift in Sources */,
 				84D6C08B258A03280094982D /* PCPayPaymentMethodRelationship.swift in Sources */,
-				84D6C052258A03270094982D /* PCPOIMoveRequest.swift in Sources */,
 				841A3EBC25B9C8D40065284A /* FuelingAPIService.swift in Sources */,
 				3B987063268E06AE00A0458F /* GetBiometricStatusResult.swift in Sources */,
 				3B98706B268E06AE00A0458F /* SetSecureDataResult.swift in Sources */,
 				3B68269C27BA886C00933C95 /* IDKitUserAgentType.swift in Sources */,
 				3B987059268E06AE00A0458F /* SetTOTPResult.swift in Sources */,
 				841A3EF625B9C96A0065284A /* PCFuelingPump.swift in Sources */,
+				3B2FB23228450BF200E8CD0C /* PCPOILocationBasedApps.swift in Sources */,
 				3B98705F268E06AE00A0458F /* GetLocationResult.swift in Sources */,
 				3B970AAA2542D9BB0072F6BA /* RedirectServiceData.swift in Sources */,
 				3B7C8E4926FC59CA0080B2B5 /* PCPayPaymentMethodKindMinimal.swift in Sources */,
@@ -4506,7 +4396,9 @@
 				8447A3A325CAAE740095BEF1 /* UserAPIUpdateAppPreferences.swift in Sources */,
 				6AB865762733ED4500EB4092 /* ShareTextResult.swift in Sources */,
 				84D6C06F258A03270094982D /* PCPayPRN.swift in Sources */,
+				3B2FB22E28450BF200E8CD0C /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				8447A3DB25CAAE750095BEF1 /* AnyUserRequest.swift in Sources */,
+				3B2FB22228450BF200E8CD0C /* PCPOISubscription.swift in Sources */,
 				3B987087268E06AE00A0458F /* DisableRequest.swift in Sources */,
 				3B7C8E7326FC5ED80080B2B5 /* PCFuelingGasStationNote.swift in Sources */,
 				3BC9A80F2539DDAD00B933AE /* vector_tile.proto in Sources */,
@@ -4524,7 +4416,9 @@
 				3B1E918C253D9CEB00DC4BB1 /* POIKitAPIError.swift in Sources */,
 				3B8E3D572654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */,
 				92EDDDD125A745C400E480F4 /* POIKitAPIProtocol.swift in Sources */,
+				3B2FB24528450BF200E8CD0C /* PCPOICategory.swift in Sources */,
 				17BB0DFC268DF9C2009D4755 /* BundleUserAgent+Extension.swift in Sources */,
+				3B2FB24428450BF200E8CD0C /* PCPOIPolicyRulePriority.swift in Sources */,
 				84961ABD264E5A270070CB0B /* AppKit+Delegate+Logout.swift in Sources */,
 				3B987049268E06AE00A0458F /* MessageHandler.swift in Sources */,
 				3B98709D268E06AE00A0458F /* Operation.swift in Sources */,
@@ -4532,16 +4426,17 @@
 				3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */,
 				84600EF425C03B1E0087194F /* POIAPIGetMetadataFilters.swift in Sources */,
 				841A3EEA25B9C96A0065284A /* PCFuelingApproachingResponse.swift in Sources */,
-				84D6C086258A03280094982D /* PCPOIReferenceStatus.swift in Sources */,
 				927110E02573AA9F001D6DDA /* HttpStatusCode.swift in Sources */,
 				3B9B640D266F6F2D00B2DC27 /* UIWindow+Extension.swift in Sources */,
 				84600E9E25C03B0C0087194F /* PayAPINotificationForPaymentMethod.swift in Sources */,
 				84600E8425C03B0C0087194F /* PayAPICreatePaymentMethodSEPA.swift in Sources */,
+				3B2FB23F28450BF200E8CD0C /* PCPOIDedupeRequest.swift in Sources */,
 				3B970A9C2542D9BB0072F6BA /* URLRequestBuilder.swift in Sources */,
 				6AB865742733EC9400EB4092 /* ShareTextRequest.swift in Sources */,
 				8414A59125CC0D370077E050 /* User.swift in Sources */,
-				84D6C06D258A03270094982D /* PCPOIPriceHistory.swift in Sources */,
+				3B2FB2742845151700E8CD0C /* PCPOIReferenceStatus.swift in Sources */,
 				3B73074725372A40009A7DF7 /* IDKit.swift in Sources */,
+				3B2FB24328450BF200E8CD0C /* PCPOILocationBasedAppRequest.swift in Sources */,
 				3BC9A8272539DDAD00B933AE /* Vector2+Extension.swift in Sources */,
 				84A43ADC2580E35A00DE36FA /* AnyCodable.swift in Sources */,
 				84D6C070258A03270094982D /* PCPayTransactionLinks.swift in Sources */,
@@ -4564,8 +4459,10 @@
 				843A86D225C2BBF40062B124 /* POIAPIClient+URLProtocol.swift in Sources */,
 				3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */,
 				3B9B6438266F8EB900B2DC27 /* IDKitDelegate.swift in Sources */,
+				3B2FB23728450BF200E8CD0C /* PCPOICommonGeoJSONPoint.swift in Sources */,
 				84600F0A25C03B1E0087194F /* POIAPIGetPolicies.swift in Sources */,
 				3B6B37F726298CF3001961B6 /* Cms.swift in Sources */,
+				3B2FB23028450BF200E8CD0C /* PCPOICategories.swift in Sources */,
 				84600F2E25C03B1F0087194F /* POIAPIGetApps.swift in Sources */,
 				3B987071268E06AE00A0458F /* ImageDataResult.swift in Sources */,
 				3B90B68227E097CE00A582EC /* Localizable.swift in Sources */,
@@ -4575,7 +4472,6 @@
 				84600EA025C03B0C0087194F /* PayAPIGetPaymentMethods.swift in Sources */,
 				3B970A672542D9BB0072F6BA /* UIView+Extension.swift in Sources */,
 				3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */,
-				84D6C081258A03280094982D /* PCPOIPolicies.swift in Sources */,
 				3B98707F268E06AE00A0458F /* GetConfigRequest.swift in Sources */,
 				3B970A682542D9BB0072F6BA /* UIImage+Extension.swift in Sources */,
 				3B987095268E06AE00A0458F /* OpenURLInNewTabRequest.swift in Sources */,
@@ -4586,19 +4482,18 @@
 				84600EFE25C03B1E0087194F /* POIAPIGetPoisDump.swift in Sources */,
 				3B987053268E06AE00A0458F /* BackResult.swift in Sources */,
 				84600E8C25C03B0C0087194F /* PayAPICreatePaymentMethodCreditCard.swift in Sources */,
+				3B2FB22F28450BF200E8CD0C /* PCPOIStats.swift in Sources */,
 				84D6C058258A03270094982D /* PCPayPaymentMethodDKVCreate.swift in Sources */,
 				84600E8825C03B0C0087194F /* PayAPICreatePaymentMethodPayDirekt.swift in Sources */,
-				84D6C083258A03280094982D /* PCPOIFieldData.swift in Sources */,
 				3B970A9D2542D9BB0072F6BA /* URLRequestError.swift in Sources */,
 				3B7C8E6126FC5D2D0080B2B5 /* UserAPIVerifyEmail.swift in Sources */,
+				3B2FB23828450BF200E8CD0C /* PCPOIPriceHistory.swift in Sources */,
 				84600F4B25C03B340087194F /* FuelingAPICreateNotification.swift in Sources */,
 				3BC9A7F52539DDAD00B933AE /* RegionalPriceRequest.swift in Sources */,
 				84D6C07A258A03280094982D /* PCPayFuel.swift in Sources */,
 				84600E9625C03B0C0087194F /* PayAPIRequestApplePaySession.swift in Sources */,
-				84D6C079258A03280094982D /* PCPOIDedupeRequest.swift in Sources */,
 				8447A39D25CAAE740095BEF1 /* UserAPIClient.swift in Sources */,
 				3B970A7F2542D9BB0072F6BA /* ButtonRectangular.swift in Sources */,
-				84D6C093258A03280094982D /* PCPOICommonCountryId.swift in Sources */,
 				84600F1A25C03B1E0087194F /* POIAPIGetPriceHistory.swift in Sources */,
 				3B987065268E06AE00A0458F /* IntrospectResult.swift in Sources */,
 				8447A3AB25CAAE740095BEF1 /* UserAPIGetTerms.swift in Sources */,
@@ -4609,10 +4504,11 @@
 				927111522573B295001D6DDA /* HttpHeaderFields.swift in Sources */,
 				84600F1625C03B1E0087194F /* POIAPIGetPois.swift in Sources */,
 				84600E9C25C03B0C0087194F /* PayAPIPatchPaymentMethod.swift in Sources */,
+				3B2FB22B28450BF200E8CD0C /* PCPOICommonCountryId.swift in Sources */,
 				8447A3BB25CAAE740095BEF1 /* UserAPIVerifyUserPhone.swift in Sources */,
+				3B2FB21828450BF200E8CD0C /* PCPOIRegionalPrices.swift in Sources */,
 				3B8C48E92593765900AAC040 /* OneTimeLocationProvider.swift in Sources */,
 				8431E1A5258B89F0009401BF /* APIRequestUtils.swift in Sources */,
-				84D6C062258A03270094982D /* PCPOIReferenceStatuses.swift in Sources */,
 				8447A39B25CAAE740095BEF1 /* UserAPI.swift in Sources */,
 				3B970A9B2542D9BB0072F6BA /* URLDecomposer.swift in Sources */,
 				3BC9A8122539DDAD00B933AE /* vector_tile.pb.swift in Sources */,
@@ -4627,7 +4523,7 @@
 				3B970AE02542DEBD0072F6BA /* IDKitLogger.swift in Sources */,
 				841A3EFC25B9C96A0065284A /* PCFuelingCommonOpeningHours.swift in Sources */,
 				8447A3AF25CAAE740095BEF1 /* UserAPISetUser.swift in Sources */,
-				84D6C06B258A03270094982D /* PCPOIFuelType.swift in Sources */,
+				3B2FB21E28450BF200E8CD0C /* PCPOIPolicies.swift in Sources */,
 				3B88785E25CBECC2008D1551 /* GeoJSONAPIGetBetaGeojsonPois.swift in Sources */,
 				3B88786425CBECC2008D1551 /* GeoJSONAPIResponse.swift in Sources */,
 				9AD092B42816D340000A3CB3 /* ISO8601DateFormatter+Extension.swift in Sources */,
@@ -4635,10 +4531,10 @@
 				3B63799E281AC13D00CD436A /* CDNAPIClient+URLProtocol.swift in Sources */,
 				3BB1442725386EA9004E9F63 /* Constants.swift in Sources */,
 				841A3EEC25B9C96A0065284A /* PCFuelingTransactionRequest.swift in Sources */,
-				84D6C050258A03270094982D /* PCPOIGasStation.swift in Sources */,
-				84D6C094258A03280094982D /* PCPOILocationBasedAppWithRefs.swift in Sources */,
 				84D6C057258A03270094982D /* PCPayTransactions.swift in Sources */,
+				3B2FB23C28450BF200E8CD0C /* PCPOIEvents.swift in Sources */,
 				3BC9A7F82539DDAD00B933AE /* tile_query_request.pb.swift in Sources */,
+				3B2FB24728450BF200E8CD0C /* PCPOIMoveRequest.swift in Sources */,
 				3B88785825CBECC2008D1551 /* GeoJSONAPIRequest.swift in Sources */,
 				3B970A9F2542D9BB0072F6BA /* URLBuilder.swift in Sources */,
 				3B970AAE2542D9BB0072F6BA /* AppStyle+Fonts.swift in Sources */,
@@ -4646,6 +4542,7 @@
 				8447A3D925CAAE750095BEF1 /* UserAPIClient+URLProtocol.swift in Sources */,
 				3B970A802542D9BB0072F6BA /* AppActivityIndicatorView.swift in Sources */,
 				8447A3C925CAAE750095BEF1 /* UserAPIUpdateUserPIN.swift in Sources */,
+				3B2FB22928450BF200E8CD0C /* PCPOIFieldData.swift in Sources */,
 				3B79F8E626C12D3400C0278F /* GasStation+Extension.swift in Sources */,
 				3B2FB1BD2844EB2800E8CD0C /* PCUserVerifyUserPhoneRequest.swift in Sources */,
 				8447A3A525CAAE740095BEF1 /* UserAPICheckTerms.swift in Sources */,
@@ -4653,7 +4550,6 @@
 				84D6C061258A03270094982D /* PCPayPagingMeta.swift in Sources */,
 				3BC1AD7D25C2F13000725CB9 /* PACECloudSDK+URL.swift in Sources */,
 				3BC9A7FD2539DDAD00B933AE /* tile_query_response.pb.swift in Sources */,
-				84D6C064258A03270094982D /* PCPOISubscription.swift in Sources */,
 				8447A3BD25CAAE740095BEF1 /* UserAPIUpdateUserPhone.swift in Sources */,
 				3BC9A7F32539DDAD00B933AE /* POIFiltersRequest.swift in Sources */,
 				3B7C8E6D26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */,
@@ -4670,34 +4566,29 @@
 				84600EA625C03B0C0087194F /* PayAPIGetPaymentMethod.swift in Sources */,
 				3B970A822542D9BB0072F6BA /* AppKit+Configuration.swift in Sources */,
 				84600EA425C03B0C0087194F /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
-				84D6C095258A03280094982D /* PCPOICommonGeoJSONPolygon.swift in Sources */,
 				3B987067268E06AE00A0458F /* DisableResult.swift in Sources */,
 				3B98704B268E06AE00A0458F /* CommunicationProtocol.swift in Sources */,
 				3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */,
-				84D6C059258A03270094982D /* PCPOIPolicyRulePriority.swift in Sources */,
 				84D6C060258A03270094982D /* PCPayPaymentTokenCreate.swift in Sources */,
-				84D6C090258A03280094982D /* PCPOICategory.swift in Sources */,
 				3B2406AF2821263F00114EB8 /* DateTimeProvider.swift in Sources */,
+				3B2FB23328450BF200E8CD0C /* PCPOIAppPOIsRelationships.swift in Sources */,
 				84600F3A25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
-				84D6C07C258A03280094982D /* PCPOIEvents.swift in Sources */,
 				84A43B1425825B5700DE36FA /* AnyPayRequest.swift in Sources */,
+				3B2FB21B28450BF200E8CD0C /* PCPOIErrors.swift in Sources */,
 				3B970A652542D9BB0072F6BA /* UIImageView+Extension.swift in Sources */,
-				84D6C07E258A03280094982D /* PCPOIEvent.swift in Sources */,
 				84A43B1325825B5700DE36FA /* PayAPIRequest.swift in Sources */,
 				3B987075268E06AE00A0458F /* GetTOTPResult.swift in Sources */,
 				841A3EEE25B9C96A0065284A /* PCFuelingPumpResponse.swift in Sources */,
 				84600F1C25C03B1E0087194F /* POIAPIPutGasStationReferenceStatus.swift in Sources */,
 				3B98707D268E06AE00A0458F /* Request.swift in Sources */,
-				84D6C05C258A03270094982D /* PCPOIPOI.swift in Sources */,
+				3B2FB23E28450BF200E8CD0C /* PCPOICommonGeoJSONPolygon.swift in Sources */,
+				3B2FB22828450BF200E8CD0C /* PCPOIEvent.swift in Sources */,
 				3B9B6422266F768F00B2DC27 /* IDKit+App+TokenHandling.swift in Sources */,
 				84600F1025C03B1E0087194F /* POIAPIDeleteSubscription.swift in Sources */,
-				84D6C067258A03270094982D /* PCPOIFuelPriceResponse.swift in Sources */,
 				3BF7B42726306B010047CA34 /* ScriptMessageHandler.swift in Sources */,
 				3B9B6413266F6F8F00B2DC27 /* Application.swift in Sources */,
 				8447A3D325CAAE750095BEF1 /* UserAPIResponse.swift in Sources */,
-				84D6C063258A03270094982D /* PCPOISource.swift in Sources */,
 				3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */,
-				84D6C07D258A03280094982D /* PCPOIRegionalPrices.swift in Sources */,
 				05521B0E26490F3E00AA4DBB /* GeoAPIManagerError.swift in Sources */,
 				3B987057268E06AE00A0458F /* AppRedirectResult.swift in Sources */,
 				84600E8A25C03B0C0087194F /* PayAPICreatePaymentMethodPayPal.swift in Sources */,
@@ -4715,12 +4606,14 @@
 				8447A3B525CAAE740095BEF1 /* UserAPIUpdateUser.swift in Sources */,
 				3B970A6E2542D9BB0072F6BA /* Data+Extension.swift in Sources */,
 				8431E1A6258B89F0009401BF /* APIResponseUtils.swift in Sources */,
+				3B2FB22428450BF200E8CD0C /* PCPOIFuelAmountUnit.swift in Sources */,
 				3B1E9180253D92A800DC4BB1 /* POIKit.swift in Sources */,
 				3B7C8E2B26FC59600080B2B5 /* PayAPICreatePaymentMethodZGM.swift in Sources */,
 				841A3EF825B9C96A0065284A /* PCFuelingErrors.swift in Sources */,
 				3BBCFF3C25EF96BE0035683F /* Array+Extension.swift in Sources */,
 				3B7C0C07266A594400346FCC /* UserAPIGrantFederatedToken.swift in Sources */,
 				84A43B222582646700DE36FA /* PayAPIResponse.swift in Sources */,
+				3B2FB23B28450BF200E8CD0C /* PCPOIReferenceStatusRequest.swift in Sources */,
 				8447A3A925CAAE740095BEF1 /* UserAPIAcceptTerms.swift in Sources */,
 				3B24095B256BF43A003DA32B /* OIDConfiguration.swift in Sources */,
 				3BC9A80C2539DDAD00B933AE /* Address.swift in Sources */,
@@ -4730,7 +4623,9 @@
 				84600F0025C03B1E0087194F /* POIAPIGetDuplicatesKML.swift in Sources */,
 				1718B16626B02F040044146C /* PACECloudSDK+Kits.swift in Sources */,
 				84D6C06A258A03270094982D /* PCPayPaymentTokensRelationship.swift in Sources */,
+				3B2FB22D28450BF200E8CD0C /* PCPOILocationBasedApp.swift in Sources */,
 				84A439F62580E33B00DE36FA /* POIAPIService.swift in Sources */,
+				3B2FB22C28450BF200E8CD0C /* PCPOIFuelPrice.swift in Sources */,
 				3B7C8E3D26FC59CA0080B2B5 /* PCPayPaymentMethodKindRelationship.swift in Sources */,
 				84A43B1A25825B6300DE36FA /* AnyPOIRequest.swift in Sources */,
 				3B9655EC26B2981700921766 /* POIKit+GeoService.swift in Sources */,
@@ -4738,6 +4633,7 @@
 				84600EAE25C03B0C0087194F /* PayAPIGetReceiptByFormat.swift in Sources */,
 				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
 				3BC9A7FF2539DDAD00B933AE /* PriceHistoryResponse.swift in Sources */,
+				3B2FB21F28450BF200E8CD0C /* PCPOIPOIRequest.swift in Sources */,
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
 				84D6C08A258A03280094982D /* PCPayReadOnlyLocation.swift in Sources */,
 				3B970AB52542D9BB0072F6BA /* AppManifest.swift in Sources */,
@@ -4768,14 +4664,13 @@
 				84600F0C25C03B1E0087194F /* POIAPIStoreSubscription.swift in Sources */,
 				3B88788925CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift in Sources */,
 				84600F2425C03B1E0087194F /* POIAPIDeleteSource.swift in Sources */,
-				84D6C076258A03280094982D /* PCPOILocationBasedApps.swift in Sources */,
 				3BB1442D25386F2C004E9F63 /* SessionCache.swift in Sources */,
 				84600F3825C03B1F0087194F /* POIAPIGetAppRedirect.swift in Sources */,
 				8447A3C525CAAE750095BEF1 /* UserAPISendmailOTP.swift in Sources */,
 				3B970A7E2542D9BB0072F6BA /* ErrorPlaceholderView.swift in Sources */,
 				3BD19ADE2631766400D68580 /* App+MessageHandling.swift in Sources */,
+				3B2FB21D28450BF200E8CD0C /* PCPOIGasStations.swift in Sources */,
 				3B987091268E06AE00A0458F /* ImageDataRequest.swift in Sources */,
-				84D6C05B258A03270094982D /* PCPOIPolicyRule.swift in Sources */,
 				3B7C8E4126FC59CA0080B2B5 /* PCPayPaymentMethodVendorRelationship.swift in Sources */,
 				84D6C06C258A03270094982D /* PCPayPaymentMethodCreditCardCreate.swift in Sources */,
 				84D6C071258A03270094982D /* PCPayPaymentMethods.swift in Sources */,
@@ -4787,24 +4682,23 @@
 				84D6C065258A03270094982D /* PCPayPaymentMethodHoyerCreate.swift in Sources */,
 				3B970AAC2542D9BB0072F6BA /* AppStyle+Images.swift in Sources */,
 				3B808AFD26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */,
-				84D6C05F258A03270094982D /* PCPOIAppPOIsRelationships.swift in Sources */,
 				3B2FB1C12844EB2800E8CD0C /* PCUserOAuth2TokenExchangeRequest.swift in Sources */,
 				84A43B1925825B6300DE36FA /* POIAPIRequest.swift in Sources */,
 				3BD0C825274BABB2003E002D /* TilesResponse.swift in Sources */,
 				3B970AB32542D9BB0072F6BA /* AppError.swift in Sources */,
+				3B2FB23428450BF200E8CD0C /* PCPOIAppPOIsRelationshipsRequest.swift in Sources */,
+				3B2FB22628450BF200E8CD0C /* PCPOIPOIType.swift in Sources */,
 				3B7C8E6926FC5D8E0080B2B5 /* UserAPICallbackPasswordReset.swift in Sources */,
 				3BB1443325388108004E9F63 /* Logger.swift in Sources */,
-				84D6C074258A03280094982D /* PCPOICategories.swift in Sources */,
 				3B2FB1DD2844EB2800E8CD0C /* PCUserCreateOTP.swift in Sources */,
 				6A7FCE9A26F0E9A400384907 /* ShareObject.swift in Sources */,
 				3BA5833D256BCDF90099629B /* UserInfo.swift in Sources */,
 				8447A3D725CAAE750095BEF1 /* UserAPIService.swift in Sources */,
-				84D6C08E258A03280094982D /* PCPOIGasStations.swift in Sources */,
 				3B9655EA26B28E2800921766 /* CofuGasStation+Extension.swift in Sources */,
 				3B970A942542D9BB0072F6BA /* IconSelector.swift in Sources */,
 				84600F3425C03B1F0087194F /* POIAPICheckForPaceApp.swift in Sources */,
-				84D6C056258A03270094982D /* PCPOIPolicy.swift in Sources */,
 				3B7C8E5E26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */,
+				3B2FB21728450BF200E8CD0C /* PCPOIPOI.swift in Sources */,
 				3B88786025CBECC2008D1551 /* GeoJSONAPI.swift in Sources */,
 				84D6C05D258A03270094982D /* PCPayPaymentMethod.swift in Sources */,
 				84600EFA25C03B1E0087194F /* POIAPIGetGasStations.swift in Sources */,
@@ -4850,7 +4744,6 @@
 				92EDDBE125A7252300E480F4 /* AppKit.swift in Sources */,
 				92EDDC1E25A7270300E480F4 /* AppWebViewDelegate.swift in Sources */,
 				3B987080268E06AE00A0458F /* GetConfigRequest.swift in Sources */,
-				3B9B2A6127B658D00099EA37 /* PCPOILocationBasedAppWithRefs.swift in Sources */,
 				3B9B2A5A27B6571C0099EA37 /* POIKitAPIError.swift in Sources */,
 				92EDDC2325A7270300E480F4 /* ErrorPlaceholderView.swift in Sources */,
 				3B9B2A1B27B652290099EA37 /* POIRequestBehaviour.swift in Sources */,
@@ -4893,6 +4786,7 @@
 				92EDDBFB25A7270300E480F4 /* Encodable+Extension.swift in Sources */,
 				92EDDEDA25AC7E1F00E480F4 /* Bundle+Resource.swift in Sources */,
 				92EDDC5825A729D300E480F4 /* Notification+Extension.swift in Sources */,
+				3B53F3792845E66D00E751FE /* PCPOILocationBasedAppWithRefs.swift in Sources */,
 				3B987056268E06AE00A0458F /* SetUserPropertyResult.swift in Sources */,
 				6A8811B626F0F96E00C1B1CA /* ShareObject.swift in Sources */,
 				3B987050268E06AE00A0458F /* GetSecureDataResult.swift in Sources */,
@@ -4927,6 +4821,7 @@
 				3B8FA0462680B0D1004EA512 /* Array+Extension.swift in Sources */,
 				92EDDBF325A7270300E480F4 /* NavigationTitleView.swift in Sources */,
 				3BABEFEF27C8E859002256CB /* IDKitDelegate.swift in Sources */,
+				3B53F3782845E66B00E751FE /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				92EDDC1625A7270300E480F4 /* AppDrawerContainer.swift in Sources */,
 				9AD092BB28181FDE000A3CB3 /* Date+Extension.swift in Sources */,
 				92EDDD0525A738E800E480F4 /* NSURLErrors.swift in Sources */,
@@ -4997,15 +4892,15 @@
 				3B987066268E06AE00A0458F /* IntrospectResult.swift in Sources */,
 				3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */,
 				3B9B2A5C27B657F50099EA37 /* POIAPIGetApps.swift in Sources */,
+				3B53F3772845E66100E751FE /* PCPOILocationBasedApp.swift in Sources */,
 				9AD092BC2818227B000A3CB3 /* DateComponents+Extension.swift in Sources */,
-				3B9B2A5E27B658270099EA37 /* PCPOILocationBasedAppsWithRefs.swift in Sources */,
 				8492C7F227510687001A4D7B /* WebViewController.swift in Sources */,
+				3B53F3762845E65D00E751FE /* PCPOILocationBasedApps.swift in Sources */,
 				92EDDC0F25A7270300E480F4 /* CookieStorage.swift in Sources */,
 				3B9655F126B2A01700921766 /* AppKit+AppManagerDelegate.swift in Sources */,
 				92EDDC5725A729D300E480F4 /* Data+Extension.swift in Sources */,
 				92EDDBED25A7270300E480F4 /* URLParam.swift in Sources */,
 				3BABEFFD27C8EB4F002256CB /* Keychain+Slim.swift in Sources */,
-				3B9B2A5F27B6582C0099EA37 /* PCPOILocationBasedApps.swift in Sources */,
 				3BABEFF727C8E8C8002256CB /* IDKitWebViewController.swift in Sources */,
 				3B98708A268E06AE00A0458F /* GetSecureDataRequest.swift in Sources */,
 				3BABEFEE27C8E856002256CB /* IDKit.swift in Sources */,
@@ -5025,7 +4920,6 @@
 				3B98707E268E06AE00A0458F /* Request.swift in Sources */,
 				8492C7F32751068B001A4D7B /* WebView.swift in Sources */,
 				3B9B2A1A27B652290099EA37 /* AnyPOIRequest.swift in Sources */,
-				3B9B2A6027B658C40099EA37 /* PCPOILocationBasedApp.swift in Sources */,
 				92EDDC2025A7270300E480F4 /* AppActivityIndicatorView.swift in Sources */,
 				92EDDBEB25A7270300E480F4 /* AppDrawer+App.swift in Sources */,
 				17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */,

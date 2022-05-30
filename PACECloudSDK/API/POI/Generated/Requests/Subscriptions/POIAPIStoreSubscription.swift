@@ -48,9 +48,9 @@ extension POIAPI.Subscriptions {
              */
             public class Body: APIModel {
 
-                public var data: PCPOISubscription?
+                public var data: PCPOISubscriptionRequest?
 
-                public init(data: PCPOISubscription? = nil) {
+                public init(data: PCPOISubscriptionRequest? = nil) {
                     self.data = data
                 }
 
