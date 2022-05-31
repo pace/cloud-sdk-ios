@@ -497,19 +497,6 @@
 		3B86D88D279FDEF8001F4F9B /* DecimalDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */; };
 		3B879A99268210FF00D400B4 /* IDKit+API+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */; };
 		3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06925DACE6400D635F0 /* SwiftProtobuf */; };
-		3B88785825CBECC2008D1551 /* GeoJSONAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */; };
-		3B88785A25CBECC2008D1551 /* GeoJSONAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88784F25CBECC2008D1551 /* GeoJSONAPIClient.swift */; };
-		3B88785C25CBECC2008D1551 /* GeoJSONRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785025CBECC2008D1551 /* GeoJSONRequestBehaviour.swift */; };
-		3B88785E25CBECC2008D1551 /* GeoJSONAPIGetBetaGeojsonPois.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785225CBECC2008D1551 /* GeoJSONAPIGetBetaGeojsonPois.swift */; };
-		3B88786025CBECC2008D1551 /* GeoJSONAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785325CBECC2008D1551 /* GeoJSONAPI.swift */; };
-		3B88786425CBECC2008D1551 /* GeoJSONAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785525CBECC2008D1551 /* GeoJSONAPIResponse.swift */; };
-		3B88786625CBECC2008D1551 /* AnyGeoJSONRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785625CBECC2008D1551 /* AnyGeoJSONRequest.swift */; };
-		3B88786825CBECC2008D1551 /* GeoJSONAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88785725CBECC2008D1551 /* GeoJSONAPIService.swift */; };
-		3B88787425CBECF8008D1551 /* GeoJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88787325CBECF8008D1551 /* GeoJSON.swift */; };
-		3B88787A25CBED21008D1551 /* GeoJSONAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88787925CBED21008D1551 /* GeoJSONAPIClient+URLProtocol.swift */; };
-		3B88788525CBEE2E008D1551 /* PCGeoJSONGeoJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788225CBEE2E008D1551 /* PCGeoJSONGeoJson.swift */; };
-		3B88788725CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */; };
-		3B88788925CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */; };
 		3B8A65A62710723D00B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
 		3B8A65A727107C7600B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
 		3B8A869D2747924B001EBE29 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */; };
@@ -1327,19 +1314,6 @@
 		3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIResponse.swift; sourceTree = "<group>"; };
 		3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalDecodingTests.swift; sourceTree = "<group>"; };
 		3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+API+TokenHandling.swift"; sourceTree = "<group>"; };
-		3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIRequest.swift; sourceTree = "<group>"; };
-		3B88784F25CBECC2008D1551 /* GeoJSONAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIClient.swift; sourceTree = "<group>"; };
-		3B88785025CBECC2008D1551 /* GeoJSONRequestBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONRequestBehaviour.swift; sourceTree = "<group>"; };
-		3B88785225CBECC2008D1551 /* GeoJSONAPIGetBetaGeojsonPois.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIGetBetaGeojsonPois.swift; sourceTree = "<group>"; };
-		3B88785325CBECC2008D1551 /* GeoJSONAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPI.swift; sourceTree = "<group>"; };
-		3B88785525CBECC2008D1551 /* GeoJSONAPIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIResponse.swift; sourceTree = "<group>"; };
-		3B88785625CBECC2008D1551 /* AnyGeoJSONRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyGeoJSONRequest.swift; sourceTree = "<group>"; };
-		3B88785725CBECC2008D1551 /* GeoJSONAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoJSONAPIService.swift; sourceTree = "<group>"; };
-		3B88787325CBECF8008D1551 /* GeoJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSON.swift; sourceTree = "<group>"; };
-		3B88787925CBED21008D1551 /* GeoJSONAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoJSONAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
-		3B88788225CBEE2E008D1551 /* PCGeoJSONGeoJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCGeoJSONGeoJson.swift; sourceTree = "<group>"; };
-		3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCGeoJSONGeoJsonFeature.swift; sourceTree = "<group>"; };
-		3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCGeoJSONGeoJsonGeometry.swift; sourceTree = "<group>"; };
 		3B889CAE27ABC82E009BE1E1 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B889CB027ABC842009BE1E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B889CB327ABC8A3009BE1E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1917,7 +1891,6 @@
 				84CE69562563F6BE006A3912 /* POI */,
 				841A3D2125B99A9C0065284A /* Fueling */,
 				8447A37025CAAE740095BEF1 /* User */,
-				3B88784C25CBECC2008D1551 /* GeoJSON */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -2136,39 +2109,6 @@
 				3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		3B88784C25CBECC2008D1551 /* GeoJSON */ = {
-			isa = PBXGroup;
-			children = (
-				3B88784D25CBECC2008D1551 /* Generated */,
-				3B88787325CBECF8008D1551 /* GeoJSON.swift */,
-			);
-			path = GeoJSON;
-			sourceTree = "<group>";
-		};
-		3B88784D25CBECC2008D1551 /* Generated */ = {
-			isa = PBXGroup;
-			children = (
-				3B88784E25CBECC2008D1551 /* GeoJSONAPIRequest.swift */,
-				3B88784F25CBECC2008D1551 /* GeoJSONAPIClient.swift */,
-				3B88785025CBECC2008D1551 /* GeoJSONRequestBehaviour.swift */,
-				3B88785125CBECC2008D1551 /* Requests */,
-				3B88785325CBECC2008D1551 /* GeoJSONAPI.swift */,
-				3B88785525CBECC2008D1551 /* GeoJSONAPIResponse.swift */,
-				3B88785625CBECC2008D1551 /* AnyGeoJSONRequest.swift */,
-				3B88785725CBECC2008D1551 /* GeoJSONAPIService.swift */,
-				3B88787925CBED21008D1551 /* GeoJSONAPIClient+URLProtocol.swift */,
-			);
-			path = Generated;
-			sourceTree = "<group>";
-		};
-		3B88785125CBECC2008D1551 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				3B88785225CBECC2008D1551 /* GeoJSONAPIGetBetaGeojsonPois.swift */,
-			);
-			path = Requests;
 			sourceTree = "<group>";
 		};
 		3B9655E426B2868700921766 /* GeoService */ = {
@@ -3278,9 +3218,6 @@
 				841A3EDE25B9C9690065284A /* PCFuelingPumpResponse.swift */,
 				3B7C8E6F26FC5ED70080B2B5 /* PCFuelingTransaction.swift */,
 				841A3EDD25B9C9690065284A /* PCFuelingTransactionRequest.swift */,
-				3B88788225CBEE2E008D1551 /* PCGeoJSONGeoJson.swift */,
-				3B88788325CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift */,
-				3B88788425CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift */,
 				84D6C00F258A03270094982D /* PCPayApplePaySession.swift */,
 				3B7C8E3926FC59CA0080B2B5 /* PCPayCurrency.swift */,
 				84D6C023258A03270094982D /* PCPayErrors.swift */,
@@ -4188,7 +4125,6 @@
 				3B2FB1D92844EB2800E8CD0C /* PCUserPlainOTPRequest.swift in Sources */,
 				3B987085268E06AE00A0458F /* GetAccessTokenRequest.swift in Sources */,
 				3BC9A8112539DDAD00B933AE /* GasStation+OpeningHours.swift in Sources */,
-				3B88785C25CBECC2008D1551 /* GeoJSONRequestBehaviour.swift in Sources */,
 				3B970A6C2542D9BB0072F6BA /* Notification+Extension.swift in Sources */,
 				8447A3B125CAAE740095BEF1 /* UserAPIDeleteUser.swift in Sources */,
 				3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */,
@@ -4248,7 +4184,6 @@
 				3B970A842542D9BB0072F6BA /* AppKit.swift in Sources */,
 				3BC9A8022539DDAD00B933AE /* Route.swift in Sources */,
 				8492C7F127510682001A4D7B /* WebViewController.swift in Sources */,
-				3B88786625CBECC2008D1551 /* AnyGeoJSONRequest.swift in Sources */,
 				3B970A762542D9BB0072F6BA /* AppDrawer.swift in Sources */,
 				3B970AAD2542D9BB0072F6BA /* AppStyle.swift in Sources */,
 				3BC9A8232539DDAD00B933AE /* NSURLErrors.swift in Sources */,
@@ -4314,7 +4249,6 @@
 				3BC9A7F42539DDAD00B933AE /* POIFiltersResponse.swift in Sources */,
 				84A43B0C2580EA3700DE36FA /* AnyResponse.swift in Sources */,
 				3B6826A327BA955300933C95 /* Constants+UserAgent.swift in Sources */,
-				3B88785A25CBECC2008D1551 /* GeoJSONAPIClient.swift in Sources */,
 				3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */,
 				3B987069268E06AE00A0458F /* GetTraceIdResult.swift in Sources */,
 				3B987081268E06AE00A0458F /* AppRedirectRequest.swift in Sources */,
@@ -4324,7 +4258,6 @@
 				3B7C8E2726FC59600080B2B5 /* PayAPICreatePaymentMethodRoadrunner.swift in Sources */,
 				3BC3C6DB279EB37300E39956 /* PCPayPaymentMethodRMCCreate.swift in Sources */,
 				92EDDDB925A73EDD00E480F4 /* POIKitManager+Tiles.swift in Sources */,
-				3B88786825CBECC2008D1551 /* GeoJSONAPIService.swift in Sources */,
 				841A3ED225B9C8D40065284A /* FuelingAPIRequest.swift in Sources */,
 				84600F3025C03B1F0087194F /* POIAPIDeleteApp.swift in Sources */,
 				3B86C78A25DD6AA500039296 /* GeoAPIResponse.swift in Sources */,
@@ -4452,9 +4385,6 @@
 				3BC9A7F92539DDAD00B933AE /* tile_query_response.proto in Sources */,
 				3BA58336256BCDCC0099629B /* IDKit+User.swift in Sources */,
 				3B970A692542D9BB0072F6BA /* Encodable+Extension.swift in Sources */,
-				3B88788525CBEE2E008D1551 /* PCGeoJSONGeoJson.swift in Sources */,
-				3B88788725CBEE2E008D1551 /* PCGeoJSONGeoJsonFeature.swift in Sources */,
-				3B88787425CBECF8008D1551 /* GeoJSON.swift in Sources */,
 				3B970AA12542D9BB0072F6BA /* BaseQueryParams.swift in Sources */,
 				843A86D225C2BBF40062B124 /* POIAPIClient+URLProtocol.swift in Sources */,
 				3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */,
@@ -4524,8 +4454,6 @@
 				841A3EFC25B9C96A0065284A /* PCFuelingCommonOpeningHours.swift in Sources */,
 				8447A3AF25CAAE740095BEF1 /* UserAPISetUser.swift in Sources */,
 				3B2FB21E28450BF200E8CD0C /* PCPOIPolicies.swift in Sources */,
-				3B88785E25CBECC2008D1551 /* GeoJSONAPIGetBetaGeojsonPois.swift in Sources */,
-				3B88786425CBECC2008D1551 /* GeoJSONAPIResponse.swift in Sources */,
 				9AD092B42816D340000A3CB3 /* ISO8601DateFormatter+Extension.swift in Sources */,
 				843A86CC25C2BBE70062B124 /* PayAPIClient+URLProtocol.swift in Sources */,
 				3B63799E281AC13D00CD436A /* CDNAPIClient+URLProtocol.swift in Sources */,
@@ -4535,7 +4463,6 @@
 				3B2FB23C28450BF200E8CD0C /* PCPOIEvents.swift in Sources */,
 				3BC9A7F82539DDAD00B933AE /* tile_query_request.pb.swift in Sources */,
 				3B2FB24728450BF200E8CD0C /* PCPOIMoveRequest.swift in Sources */,
-				3B88785825CBECC2008D1551 /* GeoJSONAPIRequest.swift in Sources */,
 				3B970A9F2542D9BB0072F6BA /* URLBuilder.swift in Sources */,
 				3B970AAE2542D9BB0072F6BA /* AppStyle+Fonts.swift in Sources */,
 				3B970A662542D9BB0072F6BA /* UIColor+Extension.swift in Sources */,
@@ -4561,7 +4488,6 @@
 				3B9B6403266F6EAB00B2DC27 /* PaceIDSignInWindow.swift in Sources */,
 				84D6C089258A03280094982D /* PCPayTransactionCreate.swift in Sources */,
 				3B5FBC0525F282C500AE93BF /* BiometryTOTPData.swift in Sources */,
-				3B88787A25CBED21008D1551 /* GeoJSONAPIClient+URLProtocol.swift in Sources */,
 				84600E8225C03B0C0087194F /* PayAPICreatePaymentMethodDKV.swift in Sources */,
 				84600EA625C03B0C0087194F /* PayAPIGetPaymentMethod.swift in Sources */,
 				3B970A822542D9BB0072F6BA /* AppKit+Configuration.swift in Sources */,
@@ -4662,7 +4588,6 @@
 				3B98709B268E06AE00A0458F /* Communication.swift in Sources */,
 				3B7C8E3126FC597E0080B2B5 /* PayAPIGetPaymentMethodsIncludingCreditCheckMultiStatus.swift in Sources */,
 				84600F0C25C03B1E0087194F /* POIAPIStoreSubscription.swift in Sources */,
-				3B88788925CBEE2E008D1551 /* PCGeoJSONGeoJsonGeometry.swift in Sources */,
 				84600F2425C03B1E0087194F /* POIAPIDeleteSource.swift in Sources */,
 				3BB1442D25386F2C004E9F63 /* SessionCache.swift in Sources */,
 				84600F3825C03B1F0087194F /* POIAPIGetAppRedirect.swift in Sources */,
@@ -4699,7 +4624,6 @@
 				84600F3425C03B1F0087194F /* POIAPICheckForPaceApp.swift in Sources */,
 				3B7C8E5E26FC5D1A0080B2B5 /* UserAPIResetPassword.swift in Sources */,
 				3B2FB21728450BF200E8CD0C /* PCPOIPOI.swift in Sources */,
-				3B88786025CBECC2008D1551 /* GeoJSONAPI.swift in Sources */,
 				84D6C05D258A03270094982D /* PCPayPaymentMethod.swift in Sources */,
 				84600EFA25C03B1E0087194F /* POIAPIGetGasStations.swift in Sources */,
 			);

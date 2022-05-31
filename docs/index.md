@@ -105,7 +105,8 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + The `cofuStatus` property of `CofuGasStation` is now optional. This way it correctly reflects the connected fueling status in case the original value is missing in the API response
   + The methods of `IDKit.TokenValidator` are no longer `static`. Instead create an instance and pass your access token in the initializer.
 - API
-  + The suffix `Request` has been added to all API models that are used as request body
+  + The `GeoJSON` API has been completely removed from the SDK. In case you still need this API, please open up an issue at https://github.com/pace/cloud-sdk-ios/issues and tell us about your use case.
+  + The suffix `Request` has been added to all API models that are used as request body.
   + The structure of _all_ API response models has changed (the models have been flattened).
     + Enclosing types like `Attributes`, `Relationships`, `Included` and inner `DataType` have been removed from the response models.
     + The corresponding properties have been added on the same hierarchy level as their respective former enclosing type.
