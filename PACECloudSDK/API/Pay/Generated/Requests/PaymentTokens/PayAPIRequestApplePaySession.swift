@@ -26,9 +26,9 @@ This endpoint is pre-requisite for calling `/payment-method-kinds/applepay/autho
              */
             public class Body: APIModel {
 
-                public var data: PCPayRequestApplePaySession?
+                public var data: PCPayRequestApplePaySessionRequest?
 
-                public init(data: PCPayRequestApplePaySession? = nil) {
+                public init(data: PCPayRequestApplePaySessionRequest? = nil) {
                     self.data = data
                 }
 

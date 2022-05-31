@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentTokenCreate: APIModel {
+public class PCPayPaymentTokenCreateRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentToken = "paymentToken"
@@ -146,14 +146,14 @@ public class PCPayPaymentTokenCreate: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentTokenCreate else { return false }
+      guard let object = object as? PCPayPaymentTokenCreateRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentTokenCreate, rhs: PCPayPaymentTokenCreate) -> Bool {
+    public static func == (lhs: PCPayPaymentTokenCreateRequest, rhs: PCPayPaymentTokenCreateRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

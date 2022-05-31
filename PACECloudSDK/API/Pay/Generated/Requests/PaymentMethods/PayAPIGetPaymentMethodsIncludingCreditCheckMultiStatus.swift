@@ -79,101 +79,28 @@ If the list is empty, you can ask the user to add a payment method to use PACE f
             You should trigger this when the user is approaching on a gas station with fueling support to get a list of available payment methods.</br></br>
             If the list is empty, you can ask the user to add a payment method to use PACE fueling. */
             public class Status200: APIModel {
-                public enum IncludedPolyType: Equatable, Codable {
-                    case paymentMethodVendor(PCPayPaymentMethodVendor)
-                    case paymentMethodKindMinimal(PCPayPaymentMethodKindMinimal)
-
-                    public var paymentMethodVendor: PCPayPaymentMethodVendor? {
-                        guard case let .paymentMethodVendor(paymentMethodVendor) = self else { return nil }
-                        return paymentMethodVendor
-                    }
-
-                    public init(_ paymentMethodVendor: PCPayPaymentMethodVendor) {
-                        self = .paymentMethodVendor(paymentMethodVendor)
-                    }
-
-                    public var paymentMethodKindMinimal: PCPayPaymentMethodKindMinimal? {
-                        guard case let .paymentMethodKindMinimal(paymentMethodKindMinimal) = self else { return nil }
-                        return paymentMethodKindMinimal
-                    }
-
-                    public init(_ paymentMethodKindMinimal: PCPayPaymentMethodKindMinimal) {
-                        self = .paymentMethodKindMinimal(paymentMethodKindMinimal)
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.singleValueContainer()
-
-                        switch self {
-                        case .paymentMethodVendor(let paymentMethodVendor):
-                            try container.encode(paymentMethodVendor)
-                        case .paymentMethodKindMinimal(let paymentMethodKindMinimal):
-                            try container.encode(paymentMethodKindMinimal)
-                        }
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let container = try decoder.singleValueContainer()
-
-                        let attempts = [
-                            try decode(PCPayPaymentMethodVendor.self, from: container).map { IncludedPolyType.paymentMethodVendor($0) },
-                            try decode(PCPayPaymentMethodKindMinimal.self, from: container).map { IncludedPolyType.paymentMethodKindMinimal($0) }
-                        ]
-
-                        let maybeVal: IncludedPolyType? = attempts
-                            .lazy
-                            .compactMap { $0.value }
-                            .first
-
-                        guard let val = maybeVal else {
-                            let individualFailures = attempts.map { $0.error }.compactMap { $0 }
-                            throw PolyDecodeNoTypesMatchedError(codingPath: decoder.codingPath,
-                                                                individualTypeFailures: individualFailures)
-                        }
-
-                        self = val
-                    }
-                }
 
                 public var data: PCPayPaymentMethods?
 
-                public var included: [IncludedPolyType]?
-
-                public init(data: PCPayPaymentMethods? = nil, included: [IncludedPolyType]? = nil) {
+                public init(data: PCPayPaymentMethods? = nil) {
                     self.data = data
-                    self.included = included
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
-                    let decoder = JSONDecoder()
-
-                    let includedPCPayPaymentMethodVendors = included.filter { $0["type"] as? String == PCPayPaymentMethodVendor.PCPayType.allCases.first?.rawValue }
-                    let includedPCPayPaymentMethodKindMinimals = included.filter { $0["type"] as? String == PCPayPaymentMethodKindMinimal.PCPayType.allCases.first?.rawValue }
-
-                    let decodedPCPayPaymentMethodVendors: [PCPayPaymentMethodVendor] = try decoder.decodeJSONObject(includedPCPayPaymentMethodVendors)
-                    let decodedPCPayPaymentMethodKindMinimals: [PCPayPaymentMethodKindMinimal] = try decoder.decodeJSONObject(includedPCPayPaymentMethodKindMinimals)
-
-                    self.included =
-                        decodedPCPayPaymentMethodVendors.map(IncludedPolyType.init)
-                        + decodedPCPayPaymentMethodKindMinimals.map(IncludedPolyType.init)
-
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(included, forKey: "included")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
                   guard let object = object as? Status200 else { return false }
                   guard self.data == object.data else { return false }
-                  guard self.included == object.included else { return false }
                   return true
                 }
 

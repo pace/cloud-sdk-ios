@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentMethodDKVCreate: APIModel {
+public class PCPayPaymentMethodLogpayCreateRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentMethod = "paymentMethod"
@@ -21,12 +21,12 @@ public class PCPayPaymentMethodDKVCreate: APIModel {
     public class Attributes: APIModel {
 
         public enum PCPayKind: String, Codable, Equatable, CaseIterable {
-            case dkv = "dkv"
+            case logpay = "logpay"
         }
 
         public var kind: PCPayKind
 
-        /** Identifier or PAN (Primary Account Number) representing the DKV Card. The identifier is payment provider specific and provided by the payment provider.
+        /** Identifier or PAN (Primary Account Number) representing the Logpay Card. The identifier is payment provider specific and provided by the payment provider.
      */
         public var pan: String?
 
@@ -36,15 +36,15 @@ public class PCPayPaymentMethodDKVCreate: APIModel {
         /** Indicates whether this payment method should be managed by the creating client, i.e., no other client can modify or delete this method. */
         public var managed: Bool?
 
-        /** Track 2 data of payment card. */
-        public var track2: String?
+        /** Personal identification number is a security code for verifying the user's identity. */
+        public var pin: String?
 
-        public init(kind: PCPayKind, pan: String? = nil, expiry: DateTime? = nil, managed: Bool? = nil, track2: String? = nil) {
+        public init(kind: PCPayKind, pan: String? = nil, expiry: DateTime? = nil, managed: Bool? = nil, pin: String? = nil) {
             self.kind = kind
             self.pan = pan
             self.expiry = expiry
             self.managed = managed
-            self.track2 = track2
+            self.pin = pin
         }
 
         public required init(from decoder: Decoder) throws {
@@ -54,7 +54,7 @@ public class PCPayPaymentMethodDKVCreate: APIModel {
             pan = try container.decodeIfPresent("PAN")
             expiry = try container.decodeIfPresent("expiry")
             managed = try container.decodeIfPresent("managed")
-            track2 = try container.decodeIfPresent("track2")
+            pin = try container.decodeIfPresent("pin")
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -64,7 +64,7 @@ public class PCPayPaymentMethodDKVCreate: APIModel {
             try container.encodeIfPresent(pan, forKey: "PAN")
             try container.encodeIfPresent(expiry, forKey: "expiry")
             try container.encodeIfPresent(managed, forKey: "managed")
-            try container.encodeIfPresent(track2, forKey: "track2")
+            try container.encodeIfPresent(pin, forKey: "pin")
         }
 
         public func isEqual(to object: Any?) -> Bool {
@@ -73,7 +73,7 @@ public class PCPayPaymentMethodDKVCreate: APIModel {
           guard self.pan == object.pan else { return false }
           guard self.expiry == object.expiry else { return false }
           guard self.managed == object.managed else { return false }
-          guard self.track2 == object.track2 else { return false }
+          guard self.pin == object.pin else { return false }
           return true
         }
 
@@ -105,14 +105,14 @@ public class PCPayPaymentMethodDKVCreate: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentMethodDKVCreate else { return false }
+      guard let object = object as? PCPayPaymentMethodLogpayCreateRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentMethodDKVCreate, rhs: PCPayPaymentMethodDKVCreate) -> Bool {
+    public static func == (lhs: PCPayPaymentMethodLogpayCreateRequest, rhs: PCPayPaymentMethodLogpayCreateRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

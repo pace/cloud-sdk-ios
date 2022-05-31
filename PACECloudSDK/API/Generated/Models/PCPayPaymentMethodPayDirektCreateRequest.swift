@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentMethodHoyerCreate: APIModel {
+public class PCPayPaymentMethodPayDirektCreateRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentMethod = "paymentMethod"
@@ -21,52 +21,51 @@ public class PCPayPaymentMethodHoyerCreate: APIModel {
     public class Attributes: APIModel {
 
         public enum PCPayKind: String, Codable, Equatable, CaseIterable {
-            case hoyer = "hoyer"
+            case paydirekt = "paydirekt"
         }
 
         public var kind: PCPayKind
 
-        /** Identifier representing the Hoyer Card number. The identifier is payment provider specific and provided by the payment provider.
-     */
-        public var cardNumber: String?
+        /** URL that the user is redirected to after successfully creating the payment method in the backend. */
+        public var successURL: String
 
-        /** Indicates whether this payment method should be managed by the creating client, i.e., no other client can modify or delete this method. */
-        public var managed: Bool?
+        /** URL that the user is redirected to after creating the payment method in the backend fails. */
+        public var failureURL: String
 
-        /** Personal identification number is a security code for verifying the user's identity. */
-        public var pin: String?
+        /** URL that the user is redirected to after creating the payment method in the backend was canceled by the user. */
+        public var canceledURL: String
 
-        public init(kind: PCPayKind, cardNumber: String? = nil, managed: Bool? = nil, pin: String? = nil) {
+        public init(kind: PCPayKind, successURL: String, failureURL: String, canceledURL: String) {
             self.kind = kind
-            self.cardNumber = cardNumber
-            self.managed = managed
-            self.pin = pin
+            self.successURL = successURL
+            self.failureURL = failureURL
+            self.canceledURL = canceledURL
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             kind = try container.decode("kind")
-            cardNumber = try container.decodeIfPresent("cardNumber")
-            managed = try container.decodeIfPresent("managed")
-            pin = try container.decodeIfPresent("pin")
+            successURL = try container.decode("successURL")
+            failureURL = try container.decode("failureURL")
+            canceledURL = try container.decode("canceledURL")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encode(kind, forKey: "kind")
-            try container.encodeIfPresent(cardNumber, forKey: "cardNumber")
-            try container.encodeIfPresent(managed, forKey: "managed")
-            try container.encodeIfPresent(pin, forKey: "pin")
+            try container.encode(successURL, forKey: "successURL")
+            try container.encode(failureURL, forKey: "failureURL")
+            try container.encode(canceledURL, forKey: "canceledURL")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
           guard self.kind == object.kind else { return false }
-          guard self.cardNumber == object.cardNumber else { return false }
-          guard self.managed == object.managed else { return false }
-          guard self.pin == object.pin else { return false }
+          guard self.successURL == object.successURL else { return false }
+          guard self.failureURL == object.failureURL else { return false }
+          guard self.canceledURL == object.canceledURL else { return false }
           return true
         }
 
@@ -98,14 +97,14 @@ public class PCPayPaymentMethodHoyerCreate: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentMethodHoyerCreate else { return false }
+      guard let object = object as? PCPayPaymentMethodPayDirektCreateRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentMethodHoyerCreate, rhs: PCPayPaymentMethodHoyerCreate) -> Bool {
+    public static func == (lhs: PCPayPaymentMethodPayDirektCreateRequest, rhs: PCPayPaymentMethodPayDirektCreateRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

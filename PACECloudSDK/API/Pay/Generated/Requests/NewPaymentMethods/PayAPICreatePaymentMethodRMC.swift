@@ -24,9 +24,9 @@ The payment method ID is optional when posting data.
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodRMCCreate?
+                public var data: PCPayPaymentMethodRMCCreateRequest?
 
-                public init(data: PCPayPaymentMethodRMCCreate? = nil) {
+                public init(data: PCPayPaymentMethodRMCCreateRequest? = nil) {
                     self.data = data
                 }
 

@@ -13,125 +13,94 @@ public class PCPayApplePaySession: APIModel {
 
     public var type: PCPayType
 
-    public var attributes: Attributes
-
     /** Unique ID of the new apple pay session. */
     public var id: ID?
 
-    public class Attributes: APIModel {
+    /** Merchant identifier */
+    public var merchantIdentifier: String
 
-        /** Merchant identifier */
-        public var merchantIdentifier: String
+    /** Display name of the shop/merchant. */
+    public var displayName: String?
 
-        /** Display name of the shop/merchant. */
-        public var displayName: String?
+    /** Shop associated domain. */
+    public var domainName: String?
 
-        /** Shop associated domain. */
-        public var domainName: String?
+    /** UNIX timestamp */
+    public var epochTimestamp: Int?
 
-        /** UNIX timestamp */
-        public var epochTimestamp: Int?
+    /** UNIX timestamp */
+    public var expiresAt: Int?
 
-        /** UNIX timestamp */
-        public var expiresAt: Int?
+    /** Session identification. */
+    public var merchantSessionIdentifier: String?
 
-        /** Session identification. */
-        public var merchantSessionIdentifier: String?
+    /** Nonce */
+    public var nonce: String?
 
-        /** Nonce */
-        public var nonce: String?
+    public var operationalAnalyticsIdentifier: String?
 
-        public var operationalAnalyticsIdentifier: String?
+    /** Session signature */
+    public var signature: String?
 
-        /** Session signature */
-        public var signature: String?
-
-        public init(merchantIdentifier: String, displayName: String? = nil, domainName: String? = nil, epochTimestamp: Int? = nil, expiresAt: Int? = nil, merchantSessionIdentifier: String? = nil, nonce: String? = nil, operationalAnalyticsIdentifier: String? = nil, signature: String? = nil) {
-            self.merchantIdentifier = merchantIdentifier
-            self.displayName = displayName
-            self.domainName = domainName
-            self.epochTimestamp = epochTimestamp
-            self.expiresAt = expiresAt
-            self.merchantSessionIdentifier = merchantSessionIdentifier
-            self.nonce = nonce
-            self.operationalAnalyticsIdentifier = operationalAnalyticsIdentifier
-            self.signature = signature
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            merchantIdentifier = try container.decode("merchantIdentifier")
-            displayName = try container.decodeIfPresent("displayName")
-            domainName = try container.decodeIfPresent("domainName")
-            epochTimestamp = try container.decodeIfPresent("epochTimestamp")
-            expiresAt = try container.decodeIfPresent("expiresAt")
-            merchantSessionIdentifier = try container.decodeIfPresent("merchantSessionIdentifier")
-            nonce = try container.decodeIfPresent("nonce")
-            operationalAnalyticsIdentifier = try container.decodeIfPresent("operationalAnalyticsIdentifier")
-            signature = try container.decodeIfPresent("signature")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encode(merchantIdentifier, forKey: "merchantIdentifier")
-            try container.encodeIfPresent(displayName, forKey: "displayName")
-            try container.encodeIfPresent(domainName, forKey: "domainName")
-            try container.encodeIfPresent(epochTimestamp, forKey: "epochTimestamp")
-            try container.encodeIfPresent(expiresAt, forKey: "expiresAt")
-            try container.encodeIfPresent(merchantSessionIdentifier, forKey: "merchantSessionIdentifier")
-            try container.encodeIfPresent(nonce, forKey: "nonce")
-            try container.encodeIfPresent(operationalAnalyticsIdentifier, forKey: "operationalAnalyticsIdentifier")
-            try container.encodeIfPresent(signature, forKey: "signature")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.merchantIdentifier == object.merchantIdentifier else { return false }
-          guard self.displayName == object.displayName else { return false }
-          guard self.domainName == object.domainName else { return false }
-          guard self.epochTimestamp == object.epochTimestamp else { return false }
-          guard self.expiresAt == object.expiresAt else { return false }
-          guard self.merchantSessionIdentifier == object.merchantSessionIdentifier else { return false }
-          guard self.nonce == object.nonce else { return false }
-          guard self.operationalAnalyticsIdentifier == object.operationalAnalyticsIdentifier else { return false }
-          guard self.signature == object.signature else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(type: PCPayType, attributes: Attributes, id: ID? = nil) {
+    public init(type: PCPayType, id: ID? = nil, merchantIdentifier: String, displayName: String? = nil, domainName: String? = nil, epochTimestamp: Int? = nil, expiresAt: Int? = nil, merchantSessionIdentifier: String? = nil, nonce: String? = nil, operationalAnalyticsIdentifier: String? = nil, signature: String? = nil) {
         self.type = type
-        self.attributes = attributes
         self.id = id
+        self.merchantIdentifier = merchantIdentifier
+        self.displayName = displayName
+        self.domainName = domainName
+        self.epochTimestamp = epochTimestamp
+        self.expiresAt = expiresAt
+        self.merchantSessionIdentifier = merchantSessionIdentifier
+        self.nonce = nonce
+        self.operationalAnalyticsIdentifier = operationalAnalyticsIdentifier
+        self.signature = signature
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
         type = try container.decode("type")
-        attributes = try container.decode("attributes")
         id = try container.decodeIfPresent("id")
+        merchantIdentifier = try container.decode("merchantIdentifier")
+        displayName = try container.decodeIfPresent("displayName")
+        domainName = try container.decodeIfPresent("domainName")
+        epochTimestamp = try container.decodeIfPresent("epochTimestamp")
+        expiresAt = try container.decodeIfPresent("expiresAt")
+        merchantSessionIdentifier = try container.decodeIfPresent("merchantSessionIdentifier")
+        nonce = try container.decodeIfPresent("nonce")
+        operationalAnalyticsIdentifier = try container.decodeIfPresent("operationalAnalyticsIdentifier")
+        signature = try container.decodeIfPresent("signature")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
         try container.encode(type, forKey: "type")
-        try container.encode(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
+        try container.encode(merchantIdentifier, forKey: "merchantIdentifier")
+        try container.encodeIfPresent(displayName, forKey: "displayName")
+        try container.encodeIfPresent(domainName, forKey: "domainName")
+        try container.encodeIfPresent(epochTimestamp, forKey: "epochTimestamp")
+        try container.encodeIfPresent(expiresAt, forKey: "expiresAt")
+        try container.encodeIfPresent(merchantSessionIdentifier, forKey: "merchantSessionIdentifier")
+        try container.encodeIfPresent(nonce, forKey: "nonce")
+        try container.encodeIfPresent(operationalAnalyticsIdentifier, forKey: "operationalAnalyticsIdentifier")
+        try container.encodeIfPresent(signature, forKey: "signature")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPayApplePaySession else { return false }
       guard self.type == object.type else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
+      guard self.merchantIdentifier == object.merchantIdentifier else { return false }
+      guard self.displayName == object.displayName else { return false }
+      guard self.domainName == object.domainName else { return false }
+      guard self.epochTimestamp == object.epochTimestamp else { return false }
+      guard self.expiresAt == object.expiresAt else { return false }
+      guard self.merchantSessionIdentifier == object.merchantSessionIdentifier else { return false }
+      guard self.nonce == object.nonce else { return false }
+      guard self.operationalAnalyticsIdentifier == object.operationalAnalyticsIdentifier else { return false }
+      guard self.signature == object.signature else { return false }
       return true
     }
 

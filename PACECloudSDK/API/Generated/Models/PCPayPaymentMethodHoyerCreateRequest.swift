@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentMethodRMCCreate: APIModel {
+public class PCPayPaymentMethodHoyerCreateRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentMethod = "paymentMethod"
@@ -21,12 +21,12 @@ public class PCPayPaymentMethodRMCCreate: APIModel {
     public class Attributes: APIModel {
 
         public enum PCPayKind: String, Codable, Equatable, CaseIterable {
-            case rmc = "rmc"
+            case hoyer = "hoyer"
         }
 
         public var kind: PCPayKind
 
-        /** Identifier representing the RMC Card number. The identifier is payment provider specific and provided by the payment provider.
+        /** Identifier representing the Hoyer Card number. The identifier is payment provider specific and provided by the payment provider.
      */
         public var cardNumber: String?
 
@@ -98,14 +98,14 @@ public class PCPayPaymentMethodRMCCreate: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentMethodRMCCreate else { return false }
+      guard let object = object as? PCPayPaymentMethodHoyerCreateRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentMethodRMCCreate, rhs: PCPayPaymentMethodRMCCreate) -> Bool {
+    public static func == (lhs: PCPayPaymentMethodHoyerCreateRequest, rhs: PCPayPaymentMethodHoyerCreateRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

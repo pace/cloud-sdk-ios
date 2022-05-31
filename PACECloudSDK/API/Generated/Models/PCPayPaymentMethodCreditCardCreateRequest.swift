@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentMethodRoadrunnerCreate: APIModel {
+public class PCPayPaymentMethodCreditCardCreateRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentMethod = "paymentMethod"
@@ -21,52 +21,40 @@ public class PCPayPaymentMethodRoadrunnerCreate: APIModel {
     public class Attributes: APIModel {
 
         public enum PCPayKind: String, Codable, Equatable, CaseIterable {
-            case roadrunner = "roadrunner"
+            case creditcard = "creditcard"
         }
 
         public var kind: PCPayKind
 
-        /** Identifier representing the Roadrunner Card number. The identifier is payment provider specific and provided by the payment provider.
+        /** Token representing the credit card information. The token is payment provider specific and provided by the payment provider.
+    Example: In-Browser, the Payment Provider Credit Card Widget will return a token after adding a credit card. This token should be
+    used here.
      */
-        public var cardNumber: String?
+        public var cardToken: String
 
-        /** Indicates whether this payment method should be managed by the creating client, i.e., no other client can modify or delete this method. */
-        public var managed: Bool?
-
-        /** Personal identification number is a security code for verifying the user's identity. */
-        public var pin: String?
-
-        public init(kind: PCPayKind, cardNumber: String? = nil, managed: Bool? = nil, pin: String? = nil) {
+        public init(kind: PCPayKind, cardToken: String) {
             self.kind = kind
-            self.cardNumber = cardNumber
-            self.managed = managed
-            self.pin = pin
+            self.cardToken = cardToken
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             kind = try container.decode("kind")
-            cardNumber = try container.decodeIfPresent("cardNumber")
-            managed = try container.decodeIfPresent("managed")
-            pin = try container.decodeIfPresent("pin")
+            cardToken = try container.decode("cardToken")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encode(kind, forKey: "kind")
-            try container.encodeIfPresent(cardNumber, forKey: "cardNumber")
-            try container.encodeIfPresent(managed, forKey: "managed")
-            try container.encodeIfPresent(pin, forKey: "pin")
+            try container.encode(cardToken, forKey: "cardToken")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
           guard self.kind == object.kind else { return false }
-          guard self.cardNumber == object.cardNumber else { return false }
-          guard self.managed == object.managed else { return false }
-          guard self.pin == object.pin else { return false }
+          guard self.cardToken == object.cardToken else { return false }
           return true
         }
 
@@ -98,14 +86,14 @@ public class PCPayPaymentMethodRoadrunnerCreate: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentMethodRoadrunnerCreate else { return false }
+      guard let object = object as? PCPayPaymentMethodCreditCardCreateRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentMethodRoadrunnerCreate, rhs: PCPayPaymentMethodRoadrunnerCreate) -> Bool {
+    public static func == (lhs: PCPayPaymentMethodCreditCardCreateRequest, rhs: PCPayPaymentMethodCreditCardCreateRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

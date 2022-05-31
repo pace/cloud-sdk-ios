@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentMethodCreditCardCreate: APIModel {
+public class PCPayPaymentMethodGiropayCreateRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentMethod = "paymentMethod"
@@ -21,40 +21,51 @@ public class PCPayPaymentMethodCreditCardCreate: APIModel {
     public class Attributes: APIModel {
 
         public enum PCPayKind: String, Codable, Equatable, CaseIterable {
-            case creditcard = "creditcard"
+            case giropay = "giropay"
         }
 
         public var kind: PCPayKind
 
-        /** Token representing the credit card information. The token is payment provider specific and provided by the payment provider.
-    Example: In-Browser, the Payment Provider Credit Card Widget will return a token after adding a credit card. This token should be
-    used here.
-     */
-        public var cardToken: String
+        /** URL that the user is redirected to after successfully creating the payment method in the backend. */
+        public var successURL: String
 
-        public init(kind: PCPayKind, cardToken: String) {
+        /** URL that the user is redirected to after creating the payment method in the backend fails. */
+        public var failureURL: String
+
+        /** URL that the user is redirected to after creating the payment method in the backend was canceled by the user. */
+        public var canceledURL: String
+
+        public init(kind: PCPayKind, successURL: String, failureURL: String, canceledURL: String) {
             self.kind = kind
-            self.cardToken = cardToken
+            self.successURL = successURL
+            self.failureURL = failureURL
+            self.canceledURL = canceledURL
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             kind = try container.decode("kind")
-            cardToken = try container.decode("cardToken")
+            successURL = try container.decode("successURL")
+            failureURL = try container.decode("failureURL")
+            canceledURL = try container.decode("canceledURL")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encode(kind, forKey: "kind")
-            try container.encode(cardToken, forKey: "cardToken")
+            try container.encode(successURL, forKey: "successURL")
+            try container.encode(failureURL, forKey: "failureURL")
+            try container.encode(canceledURL, forKey: "canceledURL")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? Attributes else { return false }
           guard self.kind == object.kind else { return false }
-          guard self.cardToken == object.cardToken else { return false }
+          guard self.successURL == object.successURL else { return false }
+          guard self.failureURL == object.failureURL else { return false }
+          guard self.canceledURL == object.canceledURL else { return false }
           return true
         }
 
@@ -86,14 +97,14 @@ public class PCPayPaymentMethodCreditCardCreate: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentMethodCreditCardCreate else { return false }
+      guard let object = object as? PCPayPaymentMethodGiropayCreateRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentMethodCreditCardCreate, rhs: PCPayPaymentMethodCreditCardCreate) -> Bool {
+    public static func == (lhs: PCPayPaymentMethodGiropayCreateRequest, rhs: PCPayPaymentMethodGiropayCreateRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

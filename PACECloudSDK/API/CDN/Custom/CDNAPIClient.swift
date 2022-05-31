@@ -49,7 +49,7 @@ public class CDNAPIClient {
 
     public func paymentMethodVendorIcons(for paymentMethodKinds: PCPayPaymentMethodKinds,
                                          completion: @escaping (PaymentMethodVendorIcons) -> Void) {
-        let apiVendors = paymentMethodKinds.compactMap { $0.attributes?.vendors }.flatMap { $0 }
+        let apiVendors = paymentMethodKinds.compactMap { $0.vendors }.flatMap { $0 }
         let paymentMethodVendors: PaymentMethodVendors = apiVendors.map {
             PaymentMethodVendorResponse(id: $0.id,
                                         slug: $0.slug,

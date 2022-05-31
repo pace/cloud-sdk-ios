@@ -26,9 +26,9 @@ Registering PayDirekt as payment method is a 2-step process, thus the payment me
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodPayDirektCreate?
+                public var data: PCPayPaymentMethodPayDirektCreateRequest?
 
-                public init(data: PCPayPaymentMethodPayDirektCreate? = nil) {
+                public init(data: PCPayPaymentMethodPayDirektCreateRequest? = nil) {
                     self.data = data
                 }
 

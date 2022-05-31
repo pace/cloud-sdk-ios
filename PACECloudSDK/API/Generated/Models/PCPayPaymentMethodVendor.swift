@@ -11,183 +11,152 @@ public class PCPayPaymentMethodVendor: APIModel {
         case paymentMethodVendor = "paymentMethodVendor"
     }
 
-    public var attributes: Attributes?
-
     public var id: ID?
 
     public var type: PCPayType?
 
-    public class Attributes: APIModel {
+    public var logo: Logo?
 
-        public var logo: Logo?
+    /** Human-readable version of the vendor name. Should be used for display. */
+    public var name: String?
 
-        /** Human-readable version of the vendor name. Should be used for display. */
-        public var name: String?
+    /** Short and lowercased version. Should NOT be used for display. */
+    public var slug: String?
 
-        /** Short and lowercased version. Should NOT be used for display. */
-        public var slug: String?
+    public class Logo: APIModel {
 
-        public class Logo: APIModel {
+        public var href: String?
 
-            public var href: String?
+        public var variants: [Variants]?
 
-            public var variants: [Variants]?
+        public class Variants: APIModel {
 
-            public class Variants: APIModel {
+            public var dark: Dark?
 
-                public var dark: Dark?
+            public class Dark: APIModel {
 
-                public class Dark: APIModel {
+                public var href: String?
 
-                    public var href: String?
-
-                    public init(href: String? = nil) {
-                        self.href = href
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        href = try container.decodeIfPresent("href")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(href, forKey: "href")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Dark else { return false }
-                      guard self.href == object.href else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: Dark, rhs: Dark) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(dark: Dark? = nil) {
-                    self.dark = dark
+                public init(href: String? = nil) {
+                    self.href = href
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                    dark = try container.decodeIfPresent("dark")
+                    href = try container.decodeIfPresent("href")
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
-                    try container.encodeIfPresent(dark, forKey: "dark")
+                    try container.encodeIfPresent(href, forKey: "href")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Variants else { return false }
-                  guard self.dark == object.dark else { return false }
+                  guard let object = object as? Dark else { return false }
+                  guard self.href == object.href else { return false }
                   return true
                 }
 
-                public static func == (lhs: Variants, rhs: Variants) -> Bool {
+                public static func == (lhs: Dark, rhs: Dark) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
 
-            public init(href: String? = nil, variants: [Variants]? = nil) {
-                self.href = href
-                self.variants = variants
+            public init(dark: Dark? = nil) {
+                self.dark = dark
             }
 
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                href = try container.decodeIfPresent("href")
-                variants = try container.decodeArrayIfPresent("variants")
+                dark = try container.decodeIfPresent("dark")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.container(keyedBy: StringCodingKey.self)
 
-                try container.encodeIfPresent(href, forKey: "href")
-                try container.encodeIfPresent(variants, forKey: "variants")
+                try container.encodeIfPresent(dark, forKey: "dark")
             }
 
             public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Logo else { return false }
-              guard self.href == object.href else { return false }
-              guard self.variants == object.variants else { return false }
+              guard let object = object as? Variants else { return false }
+              guard self.dark == object.dark else { return false }
               return true
             }
 
-            public static func == (lhs: Logo, rhs: Logo) -> Bool {
+            public static func == (lhs: Variants, rhs: Variants) -> Bool {
                 return lhs.isEqual(to: rhs)
             }
         }
 
-        public init(logo: Logo? = nil, name: String? = nil, slug: String? = nil) {
-            self.logo = logo
-            self.name = name
-            self.slug = slug
+        public init(href: String? = nil, variants: [Variants]? = nil) {
+            self.href = href
+            self.variants = variants
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            logo = try container.decodeIfPresent("logo")
-            name = try container.decodeIfPresent("name")
-            slug = try container.decodeIfPresent("slug")
+            href = try container.decodeIfPresent("href")
+            variants = try container.decodeArrayIfPresent("variants")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
-            try container.encodeIfPresent(logo, forKey: "logo")
-            try container.encodeIfPresent(name, forKey: "name")
-            try container.encodeIfPresent(slug, forKey: "slug")
+            try container.encodeIfPresent(href, forKey: "href")
+            try container.encodeIfPresent(variants, forKey: "variants")
         }
 
         public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.logo == object.logo else { return false }
-          guard self.name == object.name else { return false }
-          guard self.slug == object.slug else { return false }
+          guard let object = object as? Logo else { return false }
+          guard self.href == object.href else { return false }
+          guard self.variants == object.variants else { return false }
           return true
         }
 
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
+        public static func == (lhs: Logo, rhs: Logo) -> Bool {
             return lhs.isEqual(to: rhs)
         }
     }
 
-    public init(attributes: Attributes? = nil, id: ID? = nil, type: PCPayType? = nil) {
-        self.attributes = attributes
+    public init(id: ID? = nil, type: PCPayType? = nil, logo: Logo? = nil, name: String? = nil, slug: String? = nil) {
         self.id = id
         self.type = type
+        self.logo = logo
+        self.name = name
+        self.slug = slug
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        logo = try container.decodeIfPresent("logo")
+        name = try container.decodeIfPresent("name")
+        slug = try container.decodeIfPresent("slug")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(logo, forKey: "logo")
+        try container.encodeIfPresent(name, forKey: "name")
+        try container.encodeIfPresent(slug, forKey: "slug")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPayPaymentMethodVendor else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.logo == object.logo else { return false }
+      guard self.name == object.name else { return false }
+      guard self.slug == object.slug else { return false }
       return true
     }
 
