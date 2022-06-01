@@ -18,6 +18,7 @@ public extension IDKit {
         case invalidSession
         case failedRetrievingSessionWhileAuthorizing
         case failedRetrievingConfigurationWhileDiscovering
+        case failedEndSession(String)
         case internalError
         case statusCode(Int)
         case invalidHTTPURLResponse(URL)
@@ -61,6 +62,9 @@ public extension IDKit {
 
             case .failedRetrievingConfigurationWhileDiscovering:
                 return "The discovery failed because the configuration couldn't be retrieved."
+
+            case .failedEndSession(let errorString):
+                return "End session failed - \(errorString)"
 
             case .internalError:
                 return "An internal error occured."

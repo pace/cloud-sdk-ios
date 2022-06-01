@@ -36,10 +36,12 @@ class Settings {
     private let authorizationEndpoint = "AuthorizationEndpoint"
     private let tokenEndpoint = "TokenEndpoint"
     private let userEndpoint = "UserEndpoint"
+    private let endSessionEndpoint = "EndSessionEndpoint"
 
     private(set) var authorizationEndpointUrl = ""
     private(set) var tokenEndpointUrl = ""
     private(set) var userEndpointUrl = ""
+    private(set) var endSessionEndpointUrl = ""
 
     struct SettingsBundleKeys {
         static let AppVersionKey = "AppVersionAndBuild"
@@ -79,6 +81,7 @@ class Settings {
         authorizationEndpointUrl = settings[authorizationEndpoint]!
         tokenEndpointUrl = settings[tokenEndpoint]!
         userEndpointUrl = settings[userEndpoint]!
+        endSessionEndpointUrl = settings[endSessionEndpoint]!
     }
 
     func baseUrl(_ type: POIKitBaseUrl) -> String { // swiftlint:disable:this cyclomatic_complexity

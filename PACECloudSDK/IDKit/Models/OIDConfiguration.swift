@@ -13,6 +13,7 @@ public extension IDKit {
         let authorizationEndpoint: String
         let tokenEndpoint: String
         let userEndpoint: String?
+        let endSessionEndpoint: String?
 
         let clientId: String
         let clientSecret: String?
@@ -24,6 +25,7 @@ public extension IDKit {
         public init(authorizationEndpoint: String,
                     tokenEndpoint: String,
                     userEndpoint: String? = nil,
+                    endSessionEndpoint: String? = nil,
                     clientId: String,
                     clientSecret: String? = nil,
                     scopes: [String]? = nil,
@@ -33,6 +35,7 @@ public extension IDKit {
             self.authorizationEndpoint = authorizationEndpoint
             self.tokenEndpoint = tokenEndpoint
             self.userEndpoint = userEndpoint
+            self.endSessionEndpoint = endSessionEndpoint
             self.clientId = clientId
             self.clientSecret = clientSecret
             self.scopes = scopes
@@ -59,6 +62,7 @@ public extension IDKit {
             return .init(authorizationEndpoint: Settings.shared.authorizationEndpointUrl,
                          tokenEndpoint: Settings.shared.tokenEndpointUrl,
                          userEndpoint: Settings.shared.userEndpointUrl,
+                         endSessionEndpoint: Settings.shared.endSessionEndpointUrl,
                          clientId: clientId,
                          redirectUri: redirectUri,
                          additionalParameters: additionalParameters)
