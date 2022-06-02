@@ -26,9 +26,9 @@ Registering giropay as payment method is a 2-step process, thus the payment meth
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodGiropayCreate?
+                public var data: PCPayPaymentMethodGiropayCreateRequest?
 
-                public init(data: PCPayPaymentMethodGiropayCreate? = nil) {
+                public init(data: PCPayPaymentMethodGiropayCreateRequest? = nil) {
                     self.data = data
                 }
 

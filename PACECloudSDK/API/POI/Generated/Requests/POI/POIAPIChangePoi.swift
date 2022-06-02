@@ -21,9 +21,9 @@ extension POIAPI.POI {
             /** Returns POI with specified id (only passed attributes will be updated) */
             public class Body: APIModel {
 
-                public var data: PCPOIPOI?
+                public var data: PCPOIPOIRequest?
 
-                public init(data: PCPOIPOI? = nil) {
+                public init(data: PCPOIPOIRequest? = nil) {
                     self.data = data
                 }
 

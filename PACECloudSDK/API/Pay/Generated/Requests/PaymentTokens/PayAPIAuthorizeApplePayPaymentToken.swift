@@ -28,9 +28,9 @@ PaymentSession that can be used to obtain the applePay payload.
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentTokenCreateApplePay?
+                public var data: PCPayPaymentTokenCreateApplePayRequest?
 
-                public init(data: PCPayPaymentTokenCreateApplePay? = nil) {
+                public init(data: PCPayPaymentTokenCreateApplePayRequest? = nil) {
                     self.data = data
                 }
 

@@ -24,9 +24,9 @@ The payment method ID is optional when posting data.
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodRoadrunnerCreate?
+                public var data: PCPayPaymentMethodRoadrunnerCreateRequest?
 
-                public init(data: PCPayPaymentMethodRoadrunnerCreate? = nil) {
+                public init(data: PCPayPaymentMethodRoadrunnerCreateRequest? = nil) {
                     self.data = data
                 }
 

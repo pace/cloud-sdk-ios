@@ -26,9 +26,9 @@ If you provide a valid Billing Agreement ID, the payment method is created direc
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodPayPalCreate?
+                public var data: PCPayPaymentMethodPayPalCreateRequest?
 
-                public init(data: PCPayPaymentMethodPayPalCreate? = nil) {
+                public init(data: PCPayPaymentMethodPayPalCreateRequest? = nil) {
                     self.data = data
                 }
 

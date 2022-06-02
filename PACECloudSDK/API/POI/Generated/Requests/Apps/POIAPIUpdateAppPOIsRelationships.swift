@@ -26,9 +26,9 @@ extension POIAPI.Apps {
 
             public var options: Options
 
-            public var body: PCPOIAppPOIsRelationships
+            public var body: PCPOIAppPOIsRelationshipsRequest
 
-            public init(body: PCPOIAppPOIsRelationships, options: Options, encoder: RequestEncoder? = nil) {
+            public init(body: PCPOIAppPOIsRelationshipsRequest, options: Options, encoder: RequestEncoder? = nil) {
                 self.body = body
                 self.options = options
                 super.init(service: UpdateAppPOIsRelationships.service) { defaultEncoder in
@@ -38,7 +38,7 @@ extension POIAPI.Apps {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(appID: ID? = nil, body: PCPOIAppPOIsRelationships) {
+            public convenience init(appID: ID? = nil, body: PCPOIAppPOIsRelationshipsRequest) {
                 let options = Options(appID: appID)
                 self.init(body: body, options: options)
             }

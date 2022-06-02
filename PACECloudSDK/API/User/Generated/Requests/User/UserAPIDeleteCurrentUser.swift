@@ -19,9 +19,9 @@ An account OTP is required to perform the action.
 
         public final class Request: UserAPIRequest<Response> {
 
-            public var body: PCUserPlainOTP
+            public var body: PCUserPlainOTPRequest
 
-            public init(body: PCUserPlainOTP, encoder: RequestEncoder? = nil) {
+            public init(body: PCUserPlainOTPRequest, encoder: RequestEncoder? = nil) {
                 self.body = body
                 super.init(service: DeleteCurrentUser.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)

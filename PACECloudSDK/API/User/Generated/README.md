@@ -148,22 +148,24 @@ To add support for a specific asynchronous library, just add an extension on `Us
 
 - **PCUserAccessToken**
 - **PCUserAuditLogRecord**
+- **PCUserCreateOTPRequest**
 - **PCUserCreateOTP**
+- **PCUserDeviceTOTPRequest**
 - **PCUserDeviceTOTP**
-- **PCUserEmail**
+- **PCUserEmailRequest**
 - **PCUserErrors**
 - **PCUserOAuth2Error**
 - **PCUserOAuth2Token**
-- **PCUserOAuth2TokenExchange**
-- **PCUserOTP**
+- **PCUserOAuth2TokenExchangeRequest**
+- **PCUserOTPRequest**
 - **PCUserPinOrPassword**
-- **PCUserPlainOTP**
-- **PCUserSession**
+- **PCUserPlainOTPRequest**
+- **PCUserSessionRequest**
 - **PCUserTerms**
-- **PCUserUpdateUserPhone**
+- **PCUserUpdateUserPhoneRequest**
 - **PCUserUser**
-- **PCUserUserPIN**
-- **PCUserVerifyUserPhone**
+- **PCUserUserPINRequest**
+- **PCUserVerifyUserPhoneRequest**
 
 ## Requests
 

@@ -26,9 +26,9 @@ If the process is not completed within 24h the process is canceled.
              */
             public class Body: APIModel {
 
-                public var data: PCUserUpdateUserPhone?
+                public var data: PCUserUpdateUserPhoneRequest?
 
-                public init(data: PCUserUpdateUserPhone? = nil) {
+                public init(data: PCUserUpdateUserPhoneRequest? = nil) {
                     self.data = data
                 }
 

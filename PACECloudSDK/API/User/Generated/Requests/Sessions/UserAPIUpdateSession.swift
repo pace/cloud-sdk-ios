@@ -30,9 +30,9 @@ In case the session is created an OTP for the user is created and send via email
 
             public var options: Options
 
-            public var body: PCUserSession
+            public var body: PCUserSessionRequest
 
-            public init(body: PCUserSession, options: Options, encoder: RequestEncoder? = nil) {
+            public init(body: PCUserSessionRequest, options: Options, encoder: RequestEncoder? = nil) {
                 self.body = body
                 self.options = options
                 super.init(service: UpdateSession.service) { defaultEncoder in
@@ -42,7 +42,7 @@ In case the session is created an OTP for the user is created and send via email
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(sessionId: ID? = nil, body: PCUserSession) {
+            public convenience init(sessionId: ID? = nil, body: PCUserSessionRequest) {
                 let options = Options(sessionId: sessionId)
                 self.init(body: body, options: options)
             }

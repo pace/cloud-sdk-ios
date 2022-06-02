@@ -24,9 +24,9 @@ The payment method ID is optional when posting data.
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodDKVCreate?
+                public var data: PCPayPaymentMethodDKVCreateRequest?
 
-                public init(data: PCPayPaymentMethodDKVCreate? = nil) {
+                public init(data: PCPayPaymentMethodDKVCreateRequest? = nil) {
                     self.data = data
                 }
 

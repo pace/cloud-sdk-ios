@@ -11,200 +11,169 @@ public class PCPOIStats: APIModel {
         case stats = "stats"
     }
 
-    public var attributes: Attributes?
-
     public var id: String?
 
     public var type: PCPOIType?
 
-    public class Attributes: APIModel {
+    /** Number of available CoFu stations */
+    public var connectedFueling: Int?
 
-        /** Number of available CoFu stations */
-        public var connectedFueling: Int?
+    public var connectedStationsStats: ConnectedStationsStats?
 
-        public var connectedStationsStats: ConnectedStationsStats?
+    public class ConnectedStationsStats: APIModel {
 
-        public class ConnectedStationsStats: APIModel {
+        public var brands: [Brands]?
 
-            public var brands: [Brands]?
+        public var countries: [Countries]?
 
-            public var countries: [Countries]?
+        public class Brands: APIModel {
 
-            public class Brands: APIModel {
+            public var brand: String?
 
-                public var brand: String?
+            public var connectedFueling: Int?
 
-                public var connectedFueling: Int?
+            public var total: Int?
 
-                public var total: Int?
-
-                public init(brand: String? = nil, connectedFueling: Int? = nil, total: Int? = nil) {
-                    self.brand = brand
-                    self.connectedFueling = connectedFueling
-                    self.total = total
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    brand = try container.decodeIfPresent("brand")
-                    connectedFueling = try container.decodeIfPresent("connectedFueling")
-                    total = try container.decodeIfPresent("total")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(brand, forKey: "brand")
-                    try container.encodeIfPresent(connectedFueling, forKey: "connectedFueling")
-                    try container.encodeIfPresent(total, forKey: "total")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Brands else { return false }
-                  guard self.brand == object.brand else { return false }
-                  guard self.connectedFueling == object.connectedFueling else { return false }
-                  guard self.total == object.total else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Brands, rhs: Brands) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public class Countries: APIModel {
-
-                public var connectedFueling: Int?
-
-                public var countryCode: String?
-
-                public var total: Int?
-
-                public init(connectedFueling: Int? = nil, countryCode: String? = nil, total: Int? = nil) {
-                    self.connectedFueling = connectedFueling
-                    self.countryCode = countryCode
-                    self.total = total
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    connectedFueling = try container.decodeIfPresent("connectedFueling")
-                    countryCode = try container.decodeIfPresent("countryCode")
-                    total = try container.decodeIfPresent("total")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(connectedFueling, forKey: "connectedFueling")
-                    try container.encodeIfPresent(countryCode, forKey: "countryCode")
-                    try container.encodeIfPresent(total, forKey: "total")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Countries else { return false }
-                  guard self.connectedFueling == object.connectedFueling else { return false }
-                  guard self.countryCode == object.countryCode else { return false }
-                  guard self.total == object.total else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Countries, rhs: Countries) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(brands: [Brands]? = nil, countries: [Countries]? = nil) {
-                self.brands = brands
-                self.countries = countries
+            public init(brand: String? = nil, connectedFueling: Int? = nil, total: Int? = nil) {
+                self.brand = brand
+                self.connectedFueling = connectedFueling
+                self.total = total
             }
 
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                brands = try container.decodeArrayIfPresent("brands")
-                countries = try container.decodeArrayIfPresent("countries")
+                brand = try container.decodeIfPresent("brand")
+                connectedFueling = try container.decodeIfPresent("connectedFueling")
+                total = try container.decodeIfPresent("total")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.container(keyedBy: StringCodingKey.self)
 
-                try container.encodeIfPresent(brands, forKey: "brands")
-                try container.encodeIfPresent(countries, forKey: "countries")
+                try container.encodeIfPresent(brand, forKey: "brand")
+                try container.encodeIfPresent(connectedFueling, forKey: "connectedFueling")
+                try container.encodeIfPresent(total, forKey: "total")
             }
 
             public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? ConnectedStationsStats else { return false }
-              guard self.brands == object.brands else { return false }
-              guard self.countries == object.countries else { return false }
+              guard let object = object as? Brands else { return false }
+              guard self.brand == object.brand else { return false }
+              guard self.connectedFueling == object.connectedFueling else { return false }
+              guard self.total == object.total else { return false }
               return true
             }
 
-            public static func == (lhs: ConnectedStationsStats, rhs: ConnectedStationsStats) -> Bool {
+            public static func == (lhs: Brands, rhs: Brands) -> Bool {
                 return lhs.isEqual(to: rhs)
             }
         }
 
-        public init(connectedFueling: Int? = nil, connectedStationsStats: ConnectedStationsStats? = nil) {
-            self.connectedFueling = connectedFueling
-            self.connectedStationsStats = connectedStationsStats
+        public class Countries: APIModel {
+
+            public var connectedFueling: Int?
+
+            public var countryCode: String?
+
+            public var total: Int?
+
+            public init(connectedFueling: Int? = nil, countryCode: String? = nil, total: Int? = nil) {
+                self.connectedFueling = connectedFueling
+                self.countryCode = countryCode
+                self.total = total
+            }
+
+            public required init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+                connectedFueling = try container.decodeIfPresent("connectedFueling")
+                countryCode = try container.decodeIfPresent("countryCode")
+                total = try container.decodeIfPresent("total")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: StringCodingKey.self)
+
+                try container.encodeIfPresent(connectedFueling, forKey: "connectedFueling")
+                try container.encodeIfPresent(countryCode, forKey: "countryCode")
+                try container.encodeIfPresent(total, forKey: "total")
+            }
+
+            public func isEqual(to object: Any?) -> Bool {
+              guard let object = object as? Countries else { return false }
+              guard self.connectedFueling == object.connectedFueling else { return false }
+              guard self.countryCode == object.countryCode else { return false }
+              guard self.total == object.total else { return false }
+              return true
+            }
+
+            public static func == (lhs: Countries, rhs: Countries) -> Bool {
+                return lhs.isEqual(to: rhs)
+            }
+        }
+
+        public init(brands: [Brands]? = nil, countries: [Countries]? = nil) {
+            self.brands = brands
+            self.countries = countries
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            connectedFueling = try container.decodeIfPresent("connectedFueling")
-            connectedStationsStats = try container.decodeIfPresent("connectedStationsStats")
+            brands = try container.decodeArrayIfPresent("brands")
+            countries = try container.decodeArrayIfPresent("countries")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
-            try container.encodeIfPresent(connectedFueling, forKey: "connectedFueling")
-            try container.encodeIfPresent(connectedStationsStats, forKey: "connectedStationsStats")
+            try container.encodeIfPresent(brands, forKey: "brands")
+            try container.encodeIfPresent(countries, forKey: "countries")
         }
 
         public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.connectedFueling == object.connectedFueling else { return false }
-          guard self.connectedStationsStats == object.connectedStationsStats else { return false }
+          guard let object = object as? ConnectedStationsStats else { return false }
+          guard self.brands == object.brands else { return false }
+          guard self.countries == object.countries else { return false }
           return true
         }
 
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
+        public static func == (lhs: ConnectedStationsStats, rhs: ConnectedStationsStats) -> Bool {
             return lhs.isEqual(to: rhs)
         }
     }
 
-    public init(attributes: Attributes? = nil, id: String? = nil, type: PCPOIType? = nil) {
-        self.attributes = attributes
+    public init(id: String? = nil, type: PCPOIType? = nil, connectedFueling: Int? = nil, connectedStationsStats: ConnectedStationsStats? = nil) {
         self.id = id
         self.type = type
+        self.connectedFueling = connectedFueling
+        self.connectedStationsStats = connectedStationsStats
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        connectedFueling = try container.decodeIfPresent("connectedFueling")
+        connectedStationsStats = try container.decodeIfPresent("connectedStationsStats")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(connectedFueling, forKey: "connectedFueling")
+        try container.encodeIfPresent(connectedStationsStats, forKey: "connectedStationsStats")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPOIStats else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.connectedFueling == object.connectedFueling else { return false }
+      guard self.connectedStationsStats == object.connectedStationsStats else { return false }
       return true
     }
 

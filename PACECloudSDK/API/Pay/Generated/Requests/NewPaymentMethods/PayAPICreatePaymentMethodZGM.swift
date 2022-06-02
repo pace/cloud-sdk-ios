@@ -24,9 +24,9 @@ The payment method ID is optional when posting data.
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodZGMCreate?
+                public var data: PCPayPaymentMethodZGMCreateRequest?
 
-                public init(data: PCPayPaymentMethodZGMCreate? = nil) {
+                public init(data: PCPayPaymentMethodZGMCreateRequest? = nil) {
                     self.data = data
                 }
 

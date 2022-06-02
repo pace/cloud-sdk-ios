@@ -76,31 +76,25 @@ The list will contain the pre-authorized amount (incl. currency), the purpose PR
 
                 public var data: PCPayPaymentMethods?
 
-                public var included: [PCPayPaymentToken]?
-
-                public init(data: PCPayPaymentMethods? = nil, included: [PCPayPaymentToken]? = nil) {
+                public init(data: PCPayPaymentMethods? = nil) {
                     self.data = data
-                    self.included = included
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    included = try container.decodeArrayIfPresent("included")
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(included, forKey: "included")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
                   guard let object = object as? Status200 else { return false }
                   guard self.data == object.data else { return false }
-                  guard self.included == object.included else { return false }
                   return true
                 }
 

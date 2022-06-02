@@ -17,9 +17,9 @@ extension POIAPI.Delivery {
             /** Creates or updates a reference status of a gas station */
             public class Body: APIModel {
 
-                public var data: PCPOIReferenceStatus?
+                public var data: PCPOIReferenceStatusRequest?
 
-                public init(data: PCPOIReferenceStatus? = nil) {
+                public init(data: PCPOIReferenceStatusRequest? = nil) {
                     self.data = data
                 }
 

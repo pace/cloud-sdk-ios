@@ -146,6 +146,7 @@ To add support for a specific asynchronous library, just add an extension on `PO
 
 ## Models
 
+- **PCPOIAppPOIsRelationshipsRequest**
 - **PCPOIAppPOIsRelationships**
 - **PCPOICategories**
 - **PCPOICategory**
@@ -169,25 +170,31 @@ To add support for a specific asynchronous library, just add an extension on `PO
 - **PCPOIFuelType**
 - **PCPOIGasStation**
 - **PCPOIGasStations**
+- **PCPOILocationBasedAppRequest**
 - **PCPOILocationBasedApp**
 - **PCPOILocationBasedAppWithRefs**
 - **PCPOILocationBasedApps**
 - **PCPOILocationBasedAppsWithRefs**
 - **PCPOIMoveRequest**
+- **PCPOIPOIRequest**
 - **PCPOIPOI**
 - **PCPOIPOIType**
 - **PCPOIPOIs**
 - **PCPOIPolicies**
+- **PCPOIPolicyRequest**
 - **PCPOIPolicy**
 - **PCPOIPolicyRule**
 - **PCPOIPolicyRulePriority**
 - **PCPOIPriceHistory**
+- **PCPOIReferenceStatusRequest**
 - **PCPOIReferenceStatus**
 - **PCPOIReferenceStatuses**
 - **PCPOIRegionalPrices**
+- **PCPOISourceRequest**
 - **PCPOISource**
 - **PCPOISources**
 - **PCPOIStats**
+- **PCPOISubscriptionRequest**
 - **PCPOISubscription**
 
 ## Requests

@@ -71,117 +71,28 @@ extension POIAPI.GasStations {
             /** Returns an individual gas station
              */
             public class Status200: APIModel {
-                public enum IncludedPolyType: Equatable, Codable {
-                    case fuelPrice(PCPOIFuelPrice)
-                    case locationBasedApp(PCPOILocationBasedApp)
-                    case referenceStatus(PCPOIReferenceStatus)
-
-                    public var fuelPrice: PCPOIFuelPrice? {
-                        guard case let .fuelPrice(fuelPrice) = self else { return nil }
-                        return fuelPrice
-                    }
-
-                    public init(_ fuelPrice: PCPOIFuelPrice) {
-                        self = .fuelPrice(fuelPrice)
-                    }
-
-                    public var locationBasedApp: PCPOILocationBasedApp? {
-                        guard case let .locationBasedApp(locationBasedApp) = self else { return nil }
-                        return locationBasedApp
-                    }
-
-                    public init(_ locationBasedApp: PCPOILocationBasedApp) {
-                        self = .locationBasedApp(locationBasedApp)
-                    }
-
-                    public var referenceStatus: PCPOIReferenceStatus? {
-                        guard case let .referenceStatus(referenceStatus) = self else { return nil }
-                        return referenceStatus
-                    }
-
-                    public init(_ referenceStatus: PCPOIReferenceStatus) {
-                        self = .referenceStatus(referenceStatus)
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.singleValueContainer()
-
-                        switch self {
-                        case .fuelPrice(let fuelPrice):
-                            try container.encode(fuelPrice)
-                        case .locationBasedApp(let locationBasedApp):
-                            try container.encode(locationBasedApp)
-                        case .referenceStatus(let referenceStatus):
-                            try container.encode(referenceStatus)
-                        }
-                    }
-
-                    public init(from decoder: Decoder) throws {
-                        let container = try decoder.singleValueContainer()
-
-                        let attempts = [
-                            try decode(PCPOIFuelPrice.self, from: container).map { IncludedPolyType.fuelPrice($0) },
-                            try decode(PCPOILocationBasedApp.self, from: container).map { IncludedPolyType.locationBasedApp($0) },
-                            try decode(PCPOIReferenceStatus.self, from: container).map { IncludedPolyType.referenceStatus($0) }
-                        ]
-
-                        let maybeVal: IncludedPolyType? = attempts
-                            .lazy
-                            .compactMap { $0.value }
-                            .first
-
-                        guard let val = maybeVal else {
-                            let individualFailures = attempts.map { $0.error }.compactMap { $0 }
-                            throw PolyDecodeNoTypesMatchedError(codingPath: decoder.codingPath,
-                                                                individualTypeFailures: individualFailures)
-                        }
-
-                        self = val
-                    }
-                }
 
                 public var data: PCPOIGasStation?
 
-                public var included: [IncludedPolyType]?
-
-                public init(data: PCPOIGasStation? = nil, included: [IncludedPolyType]? = nil) {
+                public init(data: PCPOIGasStation? = nil) {
                     self.data = data
-                    self.included = included
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    guard let included = try container.toDictionary()["included"] as? [[String: Any]] else { return }
-                    let decoder = JSONDecoder()
-
-                    let includedPCPOIFuelPrices = included.filter { $0["type"] as? String == PCPOIFuelPrice.PCPOIType.allCases.first?.rawValue }
-                    let includedPCPOILocationBasedApps = included.filter { $0["type"] as? String == PCPOILocationBasedApp.PCPOIType.allCases.first?.rawValue }
-                    let includedPCPOIReferenceStatuss = included.filter { $0["type"] as? String == PCPOIReferenceStatus.PCPOIType.allCases.first?.rawValue }
-
-                    let decodedPCPOIFuelPrices: [PCPOIFuelPrice] = try decoder.decodeJSONObject(includedPCPOIFuelPrices)
-                    let decodedPCPOILocationBasedApps: [PCPOILocationBasedApp] = try decoder.decodeJSONObject(includedPCPOILocationBasedApps)
-                    let decodedPCPOIReferenceStatuss: [PCPOIReferenceStatus] = try decoder.decodeJSONObject(includedPCPOIReferenceStatuss)
-
-                    self.included =
-                        decodedPCPOIFuelPrices.map(IncludedPolyType.init)
-                        + decodedPCPOILocationBasedApps.map(IncludedPolyType.init)
-                        + decodedPCPOIReferenceStatuss.map(IncludedPolyType.init)
-
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(included, forKey: "included")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
                   guard let object = object as? Status200 else { return false }
                   guard self.data == object.data else { return false }
-                  guard self.included == object.included else { return false }
                   return true
                 }
 

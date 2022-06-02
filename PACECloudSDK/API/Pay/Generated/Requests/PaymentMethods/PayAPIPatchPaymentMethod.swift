@@ -22,9 +22,9 @@ extension PayAPI.PaymentMethods {
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethod?
+                public var data: PCPayPaymentMethodRequest?
 
-                public init(data: PCPayPaymentMethod? = nil) {
+                public init(data: PCPayPaymentMethodRequest? = nil) {
                     self.data = data
                 }
 

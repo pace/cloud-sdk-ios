@@ -18,6 +18,7 @@ let package = Package(
         .package(name: "AppAuth", url: "https://github.com/pace/AppAuth-iOS", .exact("1.5.0")),
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .exact("1.15.0")),
         .package(name: "OneTimePassword", url: "https://github.com/pace/OneTimePassword", .exact("3.3.1")),
+        .package(name: "Japx", url: "https://github.com/pace/Japx", .exact("5.0.0")),
     ],
     targets: [
         .target(
@@ -26,6 +27,7 @@ let package = Package(
                 "AppAuth",
                 "SwiftProtobuf",
                 "OneTimePassword",
+                "Japx"
             ],
             path: "PACECloudSDK",
             exclude: [

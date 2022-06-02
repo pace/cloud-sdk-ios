@@ -83,16 +83,16 @@ extension AppManager {
                 var appDatas: [AppKit.AppData] = []
 
                 for app in apps {
-                    guard let id = app.id, let attributes = app.attributes else {
+                    guard let id = app.id else {
                         continue
                     }
 
                     let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id]
 
                     let appData = AppKit.AppData(appID: id,
-                                          title: attributes.title,
-                                          subtitle: attributes.subtitle,
-                                          appUrl: attributes.pwaUrl,
+                                          title: app.title,
+                                          subtitle: app.subtitle,
+                                          appUrl: app.pwaUrl,
                                           metadata: metadata)
 
                     appDatas.append(appData)

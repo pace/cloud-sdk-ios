@@ -21,9 +21,9 @@ extension PayAPI.PaymentTokens {
             /** When successful, returns a paymentToken value. */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentTokenCreate?
+                public var data: PCPayPaymentTokenCreateRequest?
 
-                public init(data: PCPayPaymentTokenCreate? = nil) {
+                public init(data: PCPayPaymentTokenCreateRequest? = nil) {
                     self.data = data
                 }
 

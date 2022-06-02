@@ -11,102 +11,71 @@ public class PCPayPaymentMethodKindMinimal: APIModel {
         case paymentMethodKind = "paymentMethodKind"
     }
 
-    public var attributes: Attributes?
-
     public var id: ID?
 
     public var type: PCPayType?
 
-    public class Attributes: APIModel {
+    /** Indicates whether the payment method is a fuel card. Fuelcard `no` means no. */
+    public var fuelcard: Bool?
 
-        /** Indicates whether the payment method is a fuel card. Fuelcard `no` means no. */
-        public var fuelcard: Bool?
+    /** Indicates whether the payment method can be onboarded/modified. Implict `true` means no. Otherwise yes.
+Most payment method kinds are no implicit, i.e., `implicit=false`.
+This field is optional and if not present should be assumed to indicate `implicit=false`.
+ */
+    public var implicit: Bool?
 
-        /** Indicates whether the payment method can be onboarded/modified. Implict `true` means no. Otherwise yes.
-    Most payment method kinds are no implicit, i.e., `implicit=false`.
-    This field is optional and if not present should be assumed to indicate `implicit=false`.
-     */
-        public var implicit: Bool?
+    /** localized name */
+    public var name: String?
 
-        /** localized name */
-        public var name: String?
+    /** indicates if the payment method kind requires two factors later on */
+    public var twoFactor: Bool?
 
-        /** indicates if the payment method kind requires two factors later on */
-        public var twoFactor: Bool?
+    /** PACE resource name(s) to payment method vendors */
+    public var vendorPRNs: [String]?
 
-        /** PACE resource name(s) to payment method vendors */
-        public var vendorPRNs: [String]?
-
-        public init(fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
-            self.fuelcard = fuelcard
-            self.implicit = implicit
-            self.name = name
-            self.twoFactor = twoFactor
-            self.vendorPRNs = vendorPRNs
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            fuelcard = try container.decodeIfPresent("fuelcard")
-            implicit = try container.decodeIfPresent("implicit")
-            name = try container.decodeIfPresent("name")
-            twoFactor = try container.decodeIfPresent("twoFactor")
-            vendorPRNs = try container.decodeArrayIfPresent("vendorPRNs")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(fuelcard, forKey: "fuelcard")
-            try container.encodeIfPresent(implicit, forKey: "implicit")
-            try container.encodeIfPresent(name, forKey: "name")
-            try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
-            try container.encodeIfPresent(vendorPRNs, forKey: "vendorPRNs")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.fuelcard == object.fuelcard else { return false }
-          guard self.implicit == object.implicit else { return false }
-          guard self.name == object.name else { return false }
-          guard self.twoFactor == object.twoFactor else { return false }
-          guard self.vendorPRNs == object.vendorPRNs else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(attributes: Attributes? = nil, id: ID? = nil, type: PCPayType? = nil) {
-        self.attributes = attributes
+    public init(id: ID? = nil, type: PCPayType? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
         self.id = id
         self.type = type
+        self.fuelcard = fuelcard
+        self.implicit = implicit
+        self.name = name
+        self.twoFactor = twoFactor
+        self.vendorPRNs = vendorPRNs
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        fuelcard = try container.decodeIfPresent("fuelcard")
+        implicit = try container.decodeIfPresent("implicit")
+        name = try container.decodeIfPresent("name")
+        twoFactor = try container.decodeIfPresent("twoFactor")
+        vendorPRNs = try container.decodeArrayIfPresent("vendorPRNs")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(fuelcard, forKey: "fuelcard")
+        try container.encodeIfPresent(implicit, forKey: "implicit")
+        try container.encodeIfPresent(name, forKey: "name")
+        try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
+        try container.encodeIfPresent(vendorPRNs, forKey: "vendorPRNs")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPayPaymentMethodKindMinimal else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.fuelcard == object.fuelcard else { return false }
+      guard self.implicit == object.implicit else { return false }
+      guard self.name == object.name else { return false }
+      guard self.twoFactor == object.twoFactor else { return false }
+      guard self.vendorPRNs == object.vendorPRNs else { return false }
       return true
     }
 

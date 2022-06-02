@@ -11,88 +11,57 @@ public class PCPOICategory: APIModel {
         case category = "category"
     }
 
-    public var attributes: Attributes?
-
     public var id: String?
 
     public var type: PCPOIType?
 
-    public class Attributes: APIModel {
+    public var available: [String]?
 
-        public var available: [String]?
+    public var field: String?
 
-        public var field: String?
+    public var fieldName: String?
 
-        public var fieldName: String?
+    public var unavailable: [String]?
 
-        public var unavailable: [String]?
-
-        public init(available: [String]? = nil, field: String? = nil, fieldName: String? = nil, unavailable: [String]? = nil) {
-            self.available = available
-            self.field = field
-            self.fieldName = fieldName
-            self.unavailable = unavailable
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            available = try container.decodeArrayIfPresent("available")
-            field = try container.decodeIfPresent("field")
-            fieldName = try container.decodeIfPresent("fieldName")
-            unavailable = try container.decodeArrayIfPresent("unavailable")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(available, forKey: "available")
-            try container.encodeIfPresent(field, forKey: "field")
-            try container.encodeIfPresent(fieldName, forKey: "fieldName")
-            try container.encodeIfPresent(unavailable, forKey: "unavailable")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.available == object.available else { return false }
-          guard self.field == object.field else { return false }
-          guard self.fieldName == object.fieldName else { return false }
-          guard self.unavailable == object.unavailable else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(attributes: Attributes? = nil, id: String? = nil, type: PCPOIType? = nil) {
-        self.attributes = attributes
+    public init(id: String? = nil, type: PCPOIType? = nil, available: [String]? = nil, field: String? = nil, fieldName: String? = nil, unavailable: [String]? = nil) {
         self.id = id
         self.type = type
+        self.available = available
+        self.field = field
+        self.fieldName = fieldName
+        self.unavailable = unavailable
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        available = try container.decodeArrayIfPresent("available")
+        field = try container.decodeIfPresent("field")
+        fieldName = try container.decodeIfPresent("fieldName")
+        unavailable = try container.decodeArrayIfPresent("unavailable")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(available, forKey: "available")
+        try container.encodeIfPresent(field, forKey: "field")
+        try container.encodeIfPresent(fieldName, forKey: "fieldName")
+        try container.encodeIfPresent(unavailable, forKey: "unavailable")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPOICategory else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.available == object.available else { return false }
+      guard self.field == object.field else { return false }
+      guard self.fieldName == object.fieldName else { return false }
+      guard self.unavailable == object.unavailable else { return false }
       return true
     }
 

@@ -14,536 +14,67 @@ public class PCFuelingApproachingResponse: APIModel {
     /** Approaching ID */
     public var id: ID?
 
-    public var relationships: Relationships?
-
     public var type: PCFuelingType?
 
-    public class Relationships: APIModel {
+    public var gasStation: PCFuelingGasStation?
 
-        public var gasStation: GasStation?
+    public var gasStationNote: PCFuelingGasStationNote?
 
-        public var gasStationNote: GasStationNote?
+    public var paymentMethods: [PCFuelingPaymentMethod]?
 
-        public var paymentMethods: PaymentMethods?
+    public var supportedPaymentMethodKinds: [PCFuelingPaymentMethodKind]?
 
-        public var supportedPaymentMethodKinds: SupportedPaymentMethodKinds?
+    public var transactions: [PCFuelingTransaction]?
 
-        public var transactions: Transactions?
+    public var unsupportedPaymentMethods: [PCFuelingPaymentMethod]?
 
-        public var unsupportedPaymentMethods: UnsupportedPaymentMethods?
-
-        public class GasStation: APIModel {
-
-            public var data: DataType?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case gasStation = "gasStation"
-                }
-
-                /** Gas Station ID */
-                public var id: ID?
-
-                public var type: PCFuelingType?
-
-                public init(id: ID? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: DataType? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? GasStation else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: GasStation, rhs: GasStation) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class GasStationNote: APIModel {
-
-            public var data: DataType?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case gasStationNote = "gasStationNote"
-                }
-
-                /** Gas Station Note's ID */
-                public var id: ID?
-
-                public var type: PCFuelingType?
-
-                public init(id: ID? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: DataType? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? GasStationNote else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: GasStationNote, rhs: GasStationNote) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class PaymentMethods: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case paymentMethod = "paymentMethod"
-                }
-
-                /** Payment Method ID */
-                public var id: ID?
-
-                public var type: PCFuelingType?
-
-                public init(id: ID? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? PaymentMethods else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: PaymentMethods, rhs: PaymentMethods) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class SupportedPaymentMethodKinds: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case paymentMethodKind = "paymentMethodKind"
-                }
-
-                /** Payment method kind */
-                public var id: String?
-
-                public var type: PCFuelingType?
-
-                public init(id: String? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? SupportedPaymentMethodKinds else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: SupportedPaymentMethodKinds, rhs: SupportedPaymentMethodKinds) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class Transactions: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case transaction = "transaction"
-                }
-
-                /** transaction ID */
-                public var id: String?
-
-                public var type: PCFuelingType?
-
-                public init(id: String? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Transactions else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: Transactions, rhs: Transactions) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class UnsupportedPaymentMethods: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case paymentMethod = "paymentMethod"
-                }
-
-                /** Payment Method ID */
-                public var id: ID?
-
-                public var type: PCFuelingType?
-
-                public init(id: ID? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? UnsupportedPaymentMethods else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: UnsupportedPaymentMethods, rhs: UnsupportedPaymentMethods) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(gasStation: GasStation? = nil, gasStationNote: GasStationNote? = nil, paymentMethods: PaymentMethods? = nil, supportedPaymentMethodKinds: SupportedPaymentMethodKinds? = nil, transactions: Transactions? = nil, unsupportedPaymentMethods: UnsupportedPaymentMethods? = nil) {
-            self.gasStation = gasStation
-            self.gasStationNote = gasStationNote
-            self.paymentMethods = paymentMethods
-            self.supportedPaymentMethodKinds = supportedPaymentMethodKinds
-            self.transactions = transactions
-            self.unsupportedPaymentMethods = unsupportedPaymentMethods
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            gasStation = try container.decodeIfPresent("gasStation")
-            gasStationNote = try container.decodeIfPresent("gasStationNote")
-            paymentMethods = try container.decodeIfPresent("paymentMethods")
-            supportedPaymentMethodKinds = try container.decodeIfPresent("supportedPaymentMethodKinds")
-            transactions = try container.decodeIfPresent("transactions")
-            unsupportedPaymentMethods = try container.decodeIfPresent("unsupportedPaymentMethods")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(gasStation, forKey: "gasStation")
-            try container.encodeIfPresent(gasStationNote, forKey: "gasStationNote")
-            try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
-            try container.encodeIfPresent(supportedPaymentMethodKinds, forKey: "supportedPaymentMethodKinds")
-            try container.encodeIfPresent(transactions, forKey: "transactions")
-            try container.encodeIfPresent(unsupportedPaymentMethods, forKey: "unsupportedPaymentMethods")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Relationships else { return false }
-          guard self.gasStation == object.gasStation else { return false }
-          guard self.gasStationNote == object.gasStationNote else { return false }
-          guard self.paymentMethods == object.paymentMethods else { return false }
-          guard self.supportedPaymentMethodKinds == object.supportedPaymentMethodKinds else { return false }
-          guard self.transactions == object.transactions else { return false }
-          guard self.unsupportedPaymentMethods == object.unsupportedPaymentMethods else { return false }
-          return true
-        }
-
-        public static func == (lhs: Relationships, rhs: Relationships) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(id: ID? = nil, relationships: Relationships? = nil, type: PCFuelingType? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, gasStation: PCFuelingGasStation? = nil, gasStationNote: PCFuelingGasStationNote? = nil, paymentMethods: [PCFuelingPaymentMethod]? = nil, supportedPaymentMethodKinds: [PCFuelingPaymentMethodKind]? = nil, transactions: [PCFuelingTransaction]? = nil, unsupportedPaymentMethods: [PCFuelingPaymentMethod]? = nil) {
         self.id = id
-        self.relationships = relationships
         self.type = type
+        self.gasStation = gasStation
+        self.gasStationNote = gasStationNote
+        self.paymentMethods = paymentMethods
+        self.supportedPaymentMethodKinds = supportedPaymentMethodKinds
+        self.transactions = transactions
+        self.unsupportedPaymentMethods = unsupportedPaymentMethods
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
         id = try container.decodeIfPresent("id")
-        relationships = try container.decodeIfPresent("relationships")
         type = try container.decodeIfPresent("type")
+        gasStation = try container.decodeIfPresent("gasStation")
+        gasStationNote = try container.decodeIfPresent("gasStationNote")
+        paymentMethods = try container.decodeIfPresent("paymentMethods")
+        supportedPaymentMethodKinds = try container.decodeIfPresent("supportedPaymentMethodKinds")
+        transactions = try container.decodeIfPresent("transactions")
+        unsupportedPaymentMethods = try container.decodeIfPresent("unsupportedPaymentMethods")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
         try container.encodeIfPresent(id, forKey: "id")
-        try container.encodeIfPresent(relationships, forKey: "relationships")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(gasStation, forKey: "gasStation")
+        try container.encodeIfPresent(gasStationNote, forKey: "gasStationNote")
+        try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
+        try container.encodeIfPresent(supportedPaymentMethodKinds, forKey: "supportedPaymentMethodKinds")
+        try container.encodeIfPresent(transactions, forKey: "transactions")
+        try container.encodeIfPresent(unsupportedPaymentMethods, forKey: "unsupportedPaymentMethods")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCFuelingApproachingResponse else { return false }
       guard self.id == object.id else { return false }
-      guard self.relationships == object.relationships else { return false }
       guard self.type == object.type else { return false }
+      guard self.gasStation == object.gasStation else { return false }
+      guard self.gasStationNote == object.gasStationNote else { return false }
+      guard self.paymentMethods == object.paymentMethods else { return false }
+      guard self.supportedPaymentMethodKinds == object.supportedPaymentMethodKinds else { return false }
+      guard self.transactions == object.transactions else { return false }
+      guard self.unsupportedPaymentMethods == object.unsupportedPaymentMethods else { return false }
       return true
     }
 

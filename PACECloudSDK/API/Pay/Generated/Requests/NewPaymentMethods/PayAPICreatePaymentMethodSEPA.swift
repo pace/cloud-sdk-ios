@@ -24,9 +24,9 @@ The payment method ID is optional when posting data.
              */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodSepaCreate?
+                public var data: PCPayPaymentMethodSepaCreateRequest?
 
-                public init(data: PCPayPaymentMethodSepaCreate? = nil) {
+                public init(data: PCPayPaymentMethodSepaCreateRequest? = nil) {
                     self.data = data
                 }
 

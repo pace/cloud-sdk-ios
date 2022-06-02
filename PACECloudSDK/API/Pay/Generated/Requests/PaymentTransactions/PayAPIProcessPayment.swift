@@ -28,9 +28,9 @@ Only use after approaching (fueling api), otherwise returns `403 Forbidden`.
              */
             public class Body: APIModel {
 
-                public var data: PCPayTransactionCreate?
+                public var data: PCPayTransactionCreateRequest?
 
-                public init(data: PCPayTransactionCreate? = nil) {
+                public init(data: PCPayTransactionCreateRequest? = nil) {
                     self.data = data
                 }
 

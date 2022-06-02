@@ -12,98 +12,67 @@ public class PCPOIPolicy: APIModel {
         case policies = "policies"
     }
 
-    public var attributes: Attributes?
-
     /** Policy ID */
     public var id: ID?
 
     /** Type */
     public var type: PCPOIType?
 
-    public class Attributes: APIModel {
+    public var countryId: PCPOICommonCountryId?
 
-        public var countryId: PCPOICommonCountryId?
+    /** Time of POI creation in (iso8601 without zone - expects UTC) */
+    public var createdAt: DateTime?
 
-        /** Time of POI creation in (iso8601 without zone - expects UTC) */
-        public var createdAt: DateTime?
+    public var poiType: PCPOIPOIType?
 
-        public var poiType: PCPOIPOIType?
+    public var rules: [PCPOIPolicyRule]?
 
-        public var rules: [PCPOIPolicyRule]?
+    /** Tracks who did last change */
+    public var userId: ID?
 
-        /** Tracks who did last change */
-        public var userId: ID?
-
-        public init(countryId: PCPOICommonCountryId? = nil, createdAt: DateTime? = nil, poiType: PCPOIPOIType? = nil, rules: [PCPOIPolicyRule]? = nil, userId: ID? = nil) {
-            self.countryId = countryId
-            self.createdAt = createdAt
-            self.poiType = poiType
-            self.rules = rules
-            self.userId = userId
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            countryId = try container.decodeIfPresent("countryId")
-            createdAt = try container.decodeIfPresent("createdAt")
-            poiType = try container.decodeIfPresent("poiType")
-            rules = try container.decodeArrayIfPresent("rules")
-            userId = try container.decodeIfPresent("userId")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(countryId, forKey: "countryId")
-            try container.encodeIfPresent(createdAt, forKey: "createdAt")
-            try container.encodeIfPresent(poiType, forKey: "poiType")
-            try container.encodeIfPresent(rules, forKey: "rules")
-            try container.encodeIfPresent(userId, forKey: "userId")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.countryId == object.countryId else { return false }
-          guard self.createdAt == object.createdAt else { return false }
-          guard self.poiType == object.poiType else { return false }
-          guard self.rules == object.rules else { return false }
-          guard self.userId == object.userId else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(attributes: Attributes? = nil, id: ID? = nil, type: PCPOIType? = nil) {
-        self.attributes = attributes
+    public init(id: ID? = nil, type: PCPOIType? = nil, countryId: PCPOICommonCountryId? = nil, createdAt: DateTime? = nil, poiType: PCPOIPOIType? = nil, rules: [PCPOIPolicyRule]? = nil, userId: ID? = nil) {
         self.id = id
         self.type = type
+        self.countryId = countryId
+        self.createdAt = createdAt
+        self.poiType = poiType
+        self.rules = rules
+        self.userId = userId
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        countryId = try container.decodeIfPresent("countryId")
+        createdAt = try container.decodeIfPresent("createdAt")
+        poiType = try container.decodeIfPresent("poiType")
+        rules = try container.decodeArrayIfPresent("rules")
+        userId = try container.decodeIfPresent("userId")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(countryId, forKey: "countryId")
+        try container.encodeIfPresent(createdAt, forKey: "createdAt")
+        try container.encodeIfPresent(poiType, forKey: "poiType")
+        try container.encodeIfPresent(rules, forKey: "rules")
+        try container.encodeIfPresent(userId, forKey: "userId")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPOIPolicy else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.countryId == object.countryId else { return false }
+      guard self.createdAt == object.createdAt else { return false }
+      guard self.poiType == object.poiType else { return false }
+      guard self.rules == object.rules else { return false }
+      guard self.userId == object.userId else { return false }
       return true
     }
 

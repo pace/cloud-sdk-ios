@@ -37,8 +37,8 @@ public extension POIKit {
 
                 guard let latitude = lat, let longitude = lon, geoCount > 0 else { return }
 
-                attributes?.latitude = Float(latitude) / Float(geoCount)
-                attributes?.longitude = Float(longitude) / Float(geoCount)
+                self.latitude = Float(latitude) / Float(geoCount)
+                self.longitude = Float(longitude) / Float(geoCount)
             }
         }
 
@@ -70,12 +70,12 @@ public extension POIKit {
 
         /// Returns a sorted list of all services
         public var allServices: [String] {
-            let amenities = attributes?.amenities ?? []
-            let foods = attributes?.food ?? []
-            let loyaltyPrograms = attributes?.loyaltyPrograms ?? []
-            let postalServices = attributes?.postalServices ?? []
-            let services = attributes?.services ?? []
-            let shopGoods = attributes?.shopGoods ?? []
+            let amenities = amenities ?? []
+            let foods = food ?? []
+            let loyaltyPrograms = loyaltyPrograms ?? []
+            let postalServices = postalServices ?? []
+            let services = services ?? []
+            let shopGoods = shopGoods ?? []
 
             var result = amenities + foods + loyaltyPrograms + postalServices + services + shopGoods
 
@@ -99,11 +99,11 @@ public extension POIKit {
         public var additionalProperties: [String: Any]?
 
         public init() {
-            super.init(attributes: .init(), relationships: .init(), type: .gasStation)
+            super.init(type: .gasStation)
         }
 
         public init(id: String, coordinate: CLLocationCoordinate2D) {
-            super.init(attributes: .init(), id: id, relationships: .init(), type: .gasStation)
+            super.init(type: .gasStation)
             self.geometry = [GeometryCommand(type: .moveTo, coordinate: coordinate)]
         }
 

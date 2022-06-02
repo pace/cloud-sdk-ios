@@ -11,7 +11,16 @@ public class PCFuelingPaymentMethod: APIModel {
         case paymentMethod = "paymentMethod"
     }
 
-    public var attributes: Attributes?
+    /** The desired status for a payment method is `verified`, this means the method is ready to use.
+    A payment method that has the status `created` has yet to be verified. This is the case for payment methods,
+    which have an asynchronous verification process, e.g., paydirekt (waiting for an email).
+     */
+    public enum PCFuelingStatus: String, Codable, Equatable, CaseIterable {
+        case created = "created"
+        case verified = "verified"
+        case pending = "pending"
+        case unacceptable = "unacceptable"
+    }
 
     /** Payment Method ID */
     public var id: String?
@@ -20,135 +29,27 @@ public class PCFuelingPaymentMethod: APIModel {
 
     public var type: PCFuelingType?
 
-    public class Attributes: APIModel {
+    /** Customer chosen alias for the payment method */
+    public var alias: String?
 
-        /** The desired status for a payment method is `verified`, this means the method is ready to use.
-        A payment method that has the status `created` has yet to be verified. This is the case for payment methods,
-        which have an asynchronous verification process, e.g., paydirekt (waiting for an email).
-         */
-        public enum PCFuelingStatus: String, Codable, Equatable, CaseIterable {
-            case created = "created"
-            case verified = "verified"
-            case pending = "pending"
-            case unacceptable = "unacceptable"
-        }
+    public var identificationString: String?
 
-        /** Customer chosen alias for the payment method */
-        public var alias: String?
+    /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
+    public var kind: String?
 
-        public var identificationString: String?
+    public var mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]?
 
-        /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
-        public var kind: String?
+    /** The desired status for a payment method is `verified`, this means the method is ready to use.
+A payment method that has the status `created` has yet to be verified. This is the case for payment methods,
+which have an asynchronous verification process, e.g., paydirekt (waiting for an email).
+ */
+    public var status: PCFuelingStatus?
 
-        public var mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]?
+    /** indicates if the payment method kind requires two factors later on */
+    public var twoFactor: Bool?
 
-        /** The desired status for a payment method is `verified`, this means the method is ready to use.
-    A payment method that has the status `created` has yet to be verified. This is the case for payment methods,
-    which have an asynchronous verification process, e.g., paydirekt (waiting for an email).
-     */
-        public var status: PCFuelingStatus?
-
-        /** indicates if the payment method kind requires two factors later on */
-        public var twoFactor: Bool?
-
-        /** PACE resource name(s) to payment method vendor */
-        public var vendorPRN: String?
-
-        /** Mandatory transaction attribute validator */
-        public class MandatoryAuthorisationAttributes: APIModel {
-
-            public var maxLength: Int?
-
-            public var name: String?
-
-            public var regex: String?
-
-            public init(maxLength: Int? = nil, name: String? = nil, regex: String? = nil) {
-                self.maxLength = maxLength
-                self.name = name
-                self.regex = regex
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                maxLength = try container.decodeIfPresent("maxLength")
-                name = try container.decodeIfPresent("name")
-                regex = try container.decodeIfPresent("regex")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(maxLength, forKey: "maxLength")
-                try container.encodeIfPresent(name, forKey: "name")
-                try container.encodeIfPresent(regex, forKey: "regex")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? MandatoryAuthorisationAttributes else { return false }
-              guard self.maxLength == object.maxLength else { return false }
-              guard self.name == object.name else { return false }
-              guard self.regex == object.regex else { return false }
-              return true
-            }
-
-            public static func == (lhs: MandatoryAuthorisationAttributes, rhs: MandatoryAuthorisationAttributes) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(alias: String? = nil, identificationString: String? = nil, kind: String? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, status: PCFuelingStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
-            self.alias = alias
-            self.identificationString = identificationString
-            self.kind = kind
-            self.mandatoryAuthorisationAttributes = mandatoryAuthorisationAttributes
-            self.status = status
-            self.twoFactor = twoFactor
-            self.vendorPRN = vendorPRN
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            alias = try container.decodeIfPresent("alias")
-            identificationString = try container.decodeIfPresent("identificationString")
-            kind = try container.decodeIfPresent("kind")
-            mandatoryAuthorisationAttributes = try container.decodeArrayIfPresent("mandatoryAuthorisationAttributes")
-            status = try container.decodeIfPresent("status")
-            twoFactor = try container.decodeIfPresent("twoFactor")
-            vendorPRN = try container.decodeIfPresent("vendorPRN")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(alias, forKey: "alias")
-            try container.encodeIfPresent(identificationString, forKey: "identificationString")
-            try container.encodeIfPresent(kind, forKey: "kind")
-            try container.encodeIfPresent(mandatoryAuthorisationAttributes, forKey: "mandatoryAuthorisationAttributes")
-            try container.encodeIfPresent(status, forKey: "status")
-            try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
-            try container.encodeIfPresent(vendorPRN, forKey: "vendorPRN")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.alias == object.alias else { return false }
-          guard self.identificationString == object.identificationString else { return false }
-          guard self.kind == object.kind else { return false }
-          guard self.mandatoryAuthorisationAttributes == object.mandatoryAuthorisationAttributes else { return false }
-          guard self.status == object.status else { return false }
-          guard self.twoFactor == object.twoFactor else { return false }
-          guard self.vendorPRN == object.vendorPRN else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
+    /** PACE resource name(s) to payment method vendor */
+    public var vendorPRN: String?
 
     public class Meta: APIModel {
 
@@ -182,37 +83,105 @@ public class PCFuelingPaymentMethod: APIModel {
         }
     }
 
-    public init(attributes: Attributes? = nil, id: String? = nil, meta: Meta? = nil, type: PCFuelingType? = nil) {
-        self.attributes = attributes
+    /** Mandatory transaction attribute validator */
+    public class MandatoryAuthorisationAttributes: APIModel {
+
+        public var maxLength: Int?
+
+        public var name: String?
+
+        public var regex: String?
+
+        public init(maxLength: Int? = nil, name: String? = nil, regex: String? = nil) {
+            self.maxLength = maxLength
+            self.name = name
+            self.regex = regex
+        }
+
+        public required init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: StringCodingKey.self)
+
+            maxLength = try container.decodeIfPresent("maxLength")
+            name = try container.decodeIfPresent("name")
+            regex = try container.decodeIfPresent("regex")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: StringCodingKey.self)
+
+            try container.encodeIfPresent(maxLength, forKey: "maxLength")
+            try container.encodeIfPresent(name, forKey: "name")
+            try container.encodeIfPresent(regex, forKey: "regex")
+        }
+
+        public func isEqual(to object: Any?) -> Bool {
+          guard let object = object as? MandatoryAuthorisationAttributes else { return false }
+          guard self.maxLength == object.maxLength else { return false }
+          guard self.name == object.name else { return false }
+          guard self.regex == object.regex else { return false }
+          return true
+        }
+
+        public static func == (lhs: MandatoryAuthorisationAttributes, rhs: MandatoryAuthorisationAttributes) -> Bool {
+            return lhs.isEqual(to: rhs)
+        }
+    }
+
+    public init(id: String? = nil, meta: Meta? = nil, type: PCFuelingType? = nil, alias: String? = nil, identificationString: String? = nil, kind: String? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, status: PCFuelingStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
         self.id = id
         self.meta = meta
         self.type = type
+        self.alias = alias
+        self.identificationString = identificationString
+        self.kind = kind
+        self.mandatoryAuthorisationAttributes = mandatoryAuthorisationAttributes
+        self.status = status
+        self.twoFactor = twoFactor
+        self.vendorPRN = vendorPRN
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         meta = try container.decodeIfPresent("meta")
         type = try container.decodeIfPresent("type")
+        alias = try container.decodeIfPresent("alias")
+        identificationString = try container.decodeIfPresent("identificationString")
+        kind = try container.decodeIfPresent("kind")
+        mandatoryAuthorisationAttributes = try container.decodeArrayIfPresent("mandatoryAuthorisationAttributes")
+        status = try container.decodeIfPresent("status")
+        twoFactor = try container.decodeIfPresent("twoFactor")
+        vendorPRN = try container.decodeIfPresent("vendorPRN")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(meta, forKey: "meta")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(alias, forKey: "alias")
+        try container.encodeIfPresent(identificationString, forKey: "identificationString")
+        try container.encodeIfPresent(kind, forKey: "kind")
+        try container.encodeIfPresent(mandatoryAuthorisationAttributes, forKey: "mandatoryAuthorisationAttributes")
+        try container.encodeIfPresent(status, forKey: "status")
+        try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
+        try container.encodeIfPresent(vendorPRN, forKey: "vendorPRN")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCFuelingPaymentMethod else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.meta == object.meta else { return false }
       guard self.type == object.type else { return false }
+      guard self.alias == object.alias else { return false }
+      guard self.identificationString == object.identificationString else { return false }
+      guard self.kind == object.kind else { return false }
+      guard self.mandatoryAuthorisationAttributes == object.mandatoryAuthorisationAttributes else { return false }
+      guard self.status == object.status else { return false }
+      guard self.twoFactor == object.twoFactor else { return false }
+      guard self.vendorPRN == object.vendorPRN else { return false }
       return true
     }
 

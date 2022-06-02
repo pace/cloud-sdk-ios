@@ -11,208 +11,177 @@ public class PCUserUser: APIModel {
         case user = "User"
     }
 
-    public var attributes: Attributes?
+    /** End-User's gender. Values defined by this specification are `female` and `male`. `other` should be used in all other cases. */
+    public enum PCUserGender: String, Codable, Equatable, CaseIterable {
+        case male = "male"
+        case female = "female"
+        case other = "other"
+    }
 
     /** User ID */
     public var id: ID?
 
     public var type: PCUserType?
 
-    public class Attributes: APIModel {
+    public var address: Address?
 
-        /** End-User's gender. Values defined by this specification are `female` and `male`. `other` should be used in all other cases. */
-        public enum PCUserGender: String, Codable, Equatable, CaseIterable {
-            case male = "male"
-            case female = "female"
-            case other = "other"
-        }
+    /** End-User's birthday, represented as an ISO 8601:2004 [ISO8601‑2004] `YYYY-MM-DD` format. The year MAY be `0000`, indicating that it is omitted. To represent only the year, `YYYY` format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.
+ */
+    public var birthDate: DateDay?
 
-        public var address: Address?
+    public var email: String?
 
-        /** End-User's birthday, represented as an ISO 8601:2004 [ISO8601‑2004] `YYYY-MM-DD` format. The year MAY be `0000`, indicating that it is omitted. To represent only the year, `YYYY` format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.
-     */
-        public var birthDate: DateDay?
+    public var firstName: String?
 
-        public var email: String?
+    /** End-User's gender. Values defined by this specification are `female` and `male`. `other` should be used in all other cases. */
+    public var gender: PCUserGender?
 
-        public var firstName: String?
+    public var lastName: String?
 
-        /** End-User's gender. Values defined by this specification are `female` and `male`. `other` should be used in all other cases. */
-        public var gender: PCUserGender?
+    /** End-User's locale, represented as a BCP47 [RFC5646] language tag. This is typically an ISO 639-1 Alpha-2 [ISO639‑1] language code in lowercase and an ISO 3166-1 Alpha-2 [ISO3166‑1] country code in uppercase, separated by a dash. For example, en-US or fr-CA. As a compatibility note, some implementations have used an underscore as the separator rather than a dash, for example, en_US; Relying Parties MAY choose to accept this locale syntax as well.
+ */
+    public var locale: String?
 
-        public var lastName: String?
+    /** End-User's preferred telephone number. E.164 [E.164] is RECOMMENDED as the format of this Claim, for example, +1 (425) 555-1212 or +56 (2) 687 2400. If the phone number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.
+ */
+    public var phoneNumber: String?
 
-        /** End-User's locale, represented as a BCP47 [RFC5646] language tag. This is typically an ISO 639-1 Alpha-2 [ISO639‑1] language code in lowercase and an ISO 3166-1 Alpha-2 [ISO3166‑1] country code in uppercase, separated by a dash. For example, en-US or fr-CA. As a compatibility note, some implementations have used an underscore as the separator rather than a dash, for example, en_US; Relying Parties MAY choose to accept this locale syntax as well.
-     */
-        public var locale: String?
+    public var pictureUrl: String?
 
-        /** End-User's preferred telephone number. E.164 [E.164] is RECOMMENDED as the format of this Claim, for example, +1 (425) 555-1212 or +56 (2) 687 2400. If the phone number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.
-     */
-        public var phoneNumber: String?
+    /** Timezone as per tz database. */
+    public var zoneInfo: String?
 
-        public var pictureUrl: String?
+    public class Address: APIModel {
 
-        /** Timezone as per tz database. */
-        public var zoneInfo: String?
+        public var additionalAddressLink: String?
 
-        public class Address: APIModel {
+        /** ISO 3166 Codes (Alpha 2) */
+        public var country: String?
 
-            public var additionalAddressLink: String?
+        public var houseNo: String?
 
-            /** ISO 3166 Codes (Alpha 2) */
-            public var country: String?
+        public var locality: String?
 
-            public var houseNo: String?
+        public var postalCode: String?
 
-            public var locality: String?
+        public var region: String?
 
-            public var postalCode: String?
+        public var street: String?
 
-            public var region: String?
-
-            public var street: String?
-
-            public init(additionalAddressLink: String? = nil, country: String? = nil, houseNo: String? = nil, locality: String? = nil, postalCode: String? = nil, region: String? = nil, street: String? = nil) {
-                self.additionalAddressLink = additionalAddressLink
-                self.country = country
-                self.houseNo = houseNo
-                self.locality = locality
-                self.postalCode = postalCode
-                self.region = region
-                self.street = street
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                additionalAddressLink = try container.decodeIfPresent("additionalAddressLink")
-                country = try container.decodeIfPresent("country")
-                houseNo = try container.decodeIfPresent("houseNo")
-                locality = try container.decodeIfPresent("locality")
-                postalCode = try container.decodeIfPresent("postalCode")
-                region = try container.decodeIfPresent("region")
-                street = try container.decodeIfPresent("street")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(additionalAddressLink, forKey: "additionalAddressLink")
-                try container.encodeIfPresent(country, forKey: "country")
-                try container.encodeIfPresent(houseNo, forKey: "houseNo")
-                try container.encodeIfPresent(locality, forKey: "locality")
-                try container.encodeIfPresent(postalCode, forKey: "postalCode")
-                try container.encodeIfPresent(region, forKey: "region")
-                try container.encodeIfPresent(street, forKey: "street")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Address else { return false }
-              guard self.additionalAddressLink == object.additionalAddressLink else { return false }
-              guard self.country == object.country else { return false }
-              guard self.houseNo == object.houseNo else { return false }
-              guard self.locality == object.locality else { return false }
-              guard self.postalCode == object.postalCode else { return false }
-              guard self.region == object.region else { return false }
-              guard self.street == object.street else { return false }
-              return true
-            }
-
-            public static func == (lhs: Address, rhs: Address) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(address: Address? = nil, birthDate: DateDay? = nil, email: String? = nil, firstName: String? = nil, gender: PCUserGender? = nil, lastName: String? = nil, locale: String? = nil, phoneNumber: String? = nil, pictureUrl: String? = nil, zoneInfo: String? = nil) {
-            self.address = address
-            self.birthDate = birthDate
-            self.email = email
-            self.firstName = firstName
-            self.gender = gender
-            self.lastName = lastName
-            self.locale = locale
-            self.phoneNumber = phoneNumber
-            self.pictureUrl = pictureUrl
-            self.zoneInfo = zoneInfo
+        public init(additionalAddressLink: String? = nil, country: String? = nil, houseNo: String? = nil, locality: String? = nil, postalCode: String? = nil, region: String? = nil, street: String? = nil) {
+            self.additionalAddressLink = additionalAddressLink
+            self.country = country
+            self.houseNo = houseNo
+            self.locality = locality
+            self.postalCode = postalCode
+            self.region = region
+            self.street = street
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            address = try container.decodeIfPresent("address")
-            birthDate = try container.decodeIfPresent("birthDate")
-            email = try container.decodeIfPresent("email")
-            firstName = try container.decodeIfPresent("firstName")
-            gender = try container.decodeIfPresent("gender")
-            lastName = try container.decodeIfPresent("lastName")
-            locale = try container.decodeIfPresent("locale")
-            phoneNumber = try container.decodeIfPresent("phoneNumber")
-            pictureUrl = try container.decodeIfPresent("pictureUrl")
-            zoneInfo = try container.decodeIfPresent("zoneInfo")
+            additionalAddressLink = try container.decodeIfPresent("additionalAddressLink")
+            country = try container.decodeIfPresent("country")
+            houseNo = try container.decodeIfPresent("houseNo")
+            locality = try container.decodeIfPresent("locality")
+            postalCode = try container.decodeIfPresent("postalCode")
+            region = try container.decodeIfPresent("region")
+            street = try container.decodeIfPresent("street")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
-            try container.encodeIfPresent(address, forKey: "address")
-            try container.encodeIfPresent(birthDate, forKey: "birthDate")
-            try container.encodeIfPresent(email, forKey: "email")
-            try container.encodeIfPresent(firstName, forKey: "firstName")
-            try container.encodeIfPresent(gender, forKey: "gender")
-            try container.encodeIfPresent(lastName, forKey: "lastName")
-            try container.encodeIfPresent(locale, forKey: "locale")
-            try container.encodeIfPresent(phoneNumber, forKey: "phoneNumber")
-            try container.encodeIfPresent(pictureUrl, forKey: "pictureUrl")
-            try container.encodeIfPresent(zoneInfo, forKey: "zoneInfo")
+            try container.encodeIfPresent(additionalAddressLink, forKey: "additionalAddressLink")
+            try container.encodeIfPresent(country, forKey: "country")
+            try container.encodeIfPresent(houseNo, forKey: "houseNo")
+            try container.encodeIfPresent(locality, forKey: "locality")
+            try container.encodeIfPresent(postalCode, forKey: "postalCode")
+            try container.encodeIfPresent(region, forKey: "region")
+            try container.encodeIfPresent(street, forKey: "street")
         }
 
         public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.address == object.address else { return false }
-          guard self.birthDate == object.birthDate else { return false }
-          guard self.email == object.email else { return false }
-          guard self.firstName == object.firstName else { return false }
-          guard self.gender == object.gender else { return false }
-          guard self.lastName == object.lastName else { return false }
-          guard self.locale == object.locale else { return false }
-          guard self.phoneNumber == object.phoneNumber else { return false }
-          guard self.pictureUrl == object.pictureUrl else { return false }
-          guard self.zoneInfo == object.zoneInfo else { return false }
+          guard let object = object as? Address else { return false }
+          guard self.additionalAddressLink == object.additionalAddressLink else { return false }
+          guard self.country == object.country else { return false }
+          guard self.houseNo == object.houseNo else { return false }
+          guard self.locality == object.locality else { return false }
+          guard self.postalCode == object.postalCode else { return false }
+          guard self.region == object.region else { return false }
+          guard self.street == object.street else { return false }
           return true
         }
 
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
+        public static func == (lhs: Address, rhs: Address) -> Bool {
             return lhs.isEqual(to: rhs)
         }
     }
 
-    public init(attributes: Attributes? = nil, id: ID? = nil, type: PCUserType? = nil) {
-        self.attributes = attributes
+    public init(id: ID? = nil, type: PCUserType? = nil, address: Address? = nil, birthDate: DateDay? = nil, email: String? = nil, firstName: String? = nil, gender: PCUserGender? = nil, lastName: String? = nil, locale: String? = nil, phoneNumber: String? = nil, pictureUrl: String? = nil, zoneInfo: String? = nil) {
         self.id = id
         self.type = type
+        self.address = address
+        self.birthDate = birthDate
+        self.email = email
+        self.firstName = firstName
+        self.gender = gender
+        self.lastName = lastName
+        self.locale = locale
+        self.phoneNumber = phoneNumber
+        self.pictureUrl = pictureUrl
+        self.zoneInfo = zoneInfo
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        address = try container.decodeIfPresent("address")
+        birthDate = try container.decodeIfPresent("birthDate")
+        email = try container.decodeIfPresent("email")
+        firstName = try container.decodeIfPresent("firstName")
+        gender = try container.decodeIfPresent("gender")
+        lastName = try container.decodeIfPresent("lastName")
+        locale = try container.decodeIfPresent("locale")
+        phoneNumber = try container.decodeIfPresent("phoneNumber")
+        pictureUrl = try container.decodeIfPresent("pictureUrl")
+        zoneInfo = try container.decodeIfPresent("zoneInfo")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(address, forKey: "address")
+        try container.encodeIfPresent(birthDate, forKey: "birthDate")
+        try container.encodeIfPresent(email, forKey: "email")
+        try container.encodeIfPresent(firstName, forKey: "firstName")
+        try container.encodeIfPresent(gender, forKey: "gender")
+        try container.encodeIfPresent(lastName, forKey: "lastName")
+        try container.encodeIfPresent(locale, forKey: "locale")
+        try container.encodeIfPresent(phoneNumber, forKey: "phoneNumber")
+        try container.encodeIfPresent(pictureUrl, forKey: "pictureUrl")
+        try container.encodeIfPresent(zoneInfo, forKey: "zoneInfo")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCUserUser else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.address == object.address else { return false }
+      guard self.birthDate == object.birthDate else { return false }
+      guard self.email == object.email else { return false }
+      guard self.firstName == object.firstName else { return false }
+      guard self.gender == object.gender else { return false }
+      guard self.lastName == object.lastName else { return false }
+      guard self.locale == object.locale else { return false }
+      guard self.phoneNumber == object.phoneNumber else { return false }
+      guard self.pictureUrl == object.pictureUrl else { return false }
+      guard self.zoneInfo == object.zoneInfo else { return false }
       return true
     }
 

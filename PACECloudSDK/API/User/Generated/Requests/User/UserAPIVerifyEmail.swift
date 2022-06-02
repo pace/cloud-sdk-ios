@@ -18,9 +18,9 @@ extension UserAPI.User {
 
         public final class Request: UserAPIRequest<Response> {
 
-            public var body: PCUserEmail
+            public var body: PCUserEmailRequest
 
-            public init(body: PCUserEmail, encoder: RequestEncoder? = nil) {
+            public init(body: PCUserEmailRequest, encoder: RequestEncoder? = nil) {
                 self.body = body
                 super.init(service: VerifyEmail.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)

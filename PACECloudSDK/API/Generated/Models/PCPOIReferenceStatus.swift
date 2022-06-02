@@ -12,7 +12,11 @@ public class PCPOIReferenceStatus: APIModel {
         case referenceStatus = "referenceStatus"
     }
 
-    public var attributes: Attributes?
+    /** Availability status of the referenced resource */
+    public enum PCPOIStatus: String, Codable, Equatable, CaseIterable {
+        case online = "online"
+        case offline = "offline"
+    }
 
     /** Service Provider PRN */
     public var id: String?
@@ -20,78 +24,43 @@ public class PCPOIReferenceStatus: APIModel {
     /** Type */
     public var type: PCPOIType?
 
-    public class Attributes: APIModel {
+    /** Availability status of the referenced resource */
+    public var status: PCPOIStatus?
 
-        /** Availability status of the referenced resource */
-        public enum PCPOIStatus: String, Codable, Equatable, CaseIterable {
-            case online = "online"
-            case offline = "offline"
-        }
+    /** Time of status last update (iso8601) */
+    public var updatedAt: DateTime?
 
-        /** Availability status of the referenced resource */
-        public var status: PCPOIStatus?
-
-        /** Time of status last update (iso8601) */
-        public var updatedAt: DateTime?
-
-        public init(status: PCPOIStatus? = nil, updatedAt: DateTime? = nil) {
-            self.status = status
-            self.updatedAt = updatedAt
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            status = try container.decodeIfPresent("status")
-            updatedAt = try container.decodeIfPresent("updatedAt")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(status, forKey: "status")
-            try container.encodeIfPresent(updatedAt, forKey: "updatedAt")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.status == object.status else { return false }
-          guard self.updatedAt == object.updatedAt else { return false }
-          return true
-        }
-
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(attributes: Attributes? = nil, id: String? = nil, type: PCPOIType? = nil) {
-        self.attributes = attributes
+    public init(id: String? = nil, type: PCPOIType? = nil, status: PCPOIStatus? = nil, updatedAt: DateTime? = nil) {
         self.id = id
         self.type = type
+        self.status = status
+        self.updatedAt = updatedAt
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        status = try container.decodeIfPresent("status")
+        updatedAt = try container.decodeIfPresent("updatedAt")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(status, forKey: "status")
+        try container.encodeIfPresent(updatedAt, forKey: "updatedAt")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPOIReferenceStatus else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.status == object.status else { return false }
+      guard self.updatedAt == object.updatedAt else { return false }
       return true
     }
 

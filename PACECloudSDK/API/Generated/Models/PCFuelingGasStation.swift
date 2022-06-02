@@ -11,359 +11,158 @@ public class PCFuelingGasStation: APIModel {
         case gasStation = "gasStation"
     }
 
-    public var attributes: Attributes?
-
     /** Gas Station ID */
     public var id: ID?
 
-    public var relationships: Relationships?
-
     public var type: PCFuelingType?
 
-    public class Attributes: APIModel {
+    public var fuelPrices: [PCFuelingFuelPrice]?
 
-        public var address: Address?
+    public var pumps: [PCFuelingPump]?
 
-        public var amenities: [String]?
+    public var address: Address?
 
-        /** Time of last update of this gas station's fuel prices */
-        public var lastUpdateTime: DateTime?
+    public var amenities: [String]?
 
-        public var latitude: Float?
+    /** Currency as specified in ISO-4217. */
+    public var currency: String?
 
-        public var longitude: Float?
+    /** Time of last update of this gas station's fuel prices */
+    public var lastUpdateTime: DateTime?
 
-        public var openingHours: PCFuelingCommonOpeningHours?
+    public var latitude: Float?
 
-        public var paymentMethods: [String]?
+    public var longitude: Float?
 
-        public var stationName: String?
+    public var openingHours: PCFuelingCommonOpeningHours?
 
-        public class Address: APIModel {
+    public var paymentMethods: [String]?
 
-            public var city: String?
+    public var stationName: String?
 
-            /** Country code in as specified in ISO 3166-1. */
-            public var countryCode: String?
+    public class Address: APIModel {
 
-            public var houseNo: String?
+        public var city: String?
 
-            public var postalCode: String?
+        /** Country code in as specified in ISO 3166-1. */
+        public var countryCode: String?
 
-            public var street: String?
+        public var houseNo: String?
 
-            public init(city: String? = nil, countryCode: String? = nil, houseNo: String? = nil, postalCode: String? = nil, street: String? = nil) {
-                self.city = city
-                self.countryCode = countryCode
-                self.houseNo = houseNo
-                self.postalCode = postalCode
-                self.street = street
-            }
+        public var postalCode: String?
 
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
+        public var street: String?
 
-                city = try container.decodeIfPresent("city")
-                countryCode = try container.decodeIfPresent("countryCode")
-                houseNo = try container.decodeIfPresent("houseNo")
-                postalCode = try container.decodeIfPresent("postalCode")
-                street = try container.decodeIfPresent("street")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(city, forKey: "city")
-                try container.encodeIfPresent(countryCode, forKey: "countryCode")
-                try container.encodeIfPresent(houseNo, forKey: "houseNo")
-                try container.encodeIfPresent(postalCode, forKey: "postalCode")
-                try container.encodeIfPresent(street, forKey: "street")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Address else { return false }
-              guard self.city == object.city else { return false }
-              guard self.countryCode == object.countryCode else { return false }
-              guard self.houseNo == object.houseNo else { return false }
-              guard self.postalCode == object.postalCode else { return false }
-              guard self.street == object.street else { return false }
-              return true
-            }
-
-            public static func == (lhs: Address, rhs: Address) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(address: Address? = nil, amenities: [String]? = nil, lastUpdateTime: DateTime? = nil, latitude: Float? = nil, longitude: Float? = nil, openingHours: PCFuelingCommonOpeningHours? = nil, paymentMethods: [String]? = nil, stationName: String? = nil) {
-            self.address = address
-            self.amenities = amenities
-            self.lastUpdateTime = lastUpdateTime
-            self.latitude = latitude
-            self.longitude = longitude
-            self.openingHours = openingHours
-            self.paymentMethods = paymentMethods
-            self.stationName = stationName
+        public init(city: String? = nil, countryCode: String? = nil, houseNo: String? = nil, postalCode: String? = nil, street: String? = nil) {
+            self.city = city
+            self.countryCode = countryCode
+            self.houseNo = houseNo
+            self.postalCode = postalCode
+            self.street = street
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            address = try container.decodeIfPresent("address")
-            amenities = try container.decodeArrayIfPresent("amenities")
-            lastUpdateTime = try container.decodeIfPresent("lastUpdateTime")
-            latitude = try container.decodeIfPresent("latitude")
-            longitude = try container.decodeIfPresent("longitude")
-            openingHours = try container.decodeIfPresent("openingHours")
-            paymentMethods = try container.decodeArrayIfPresent("paymentMethods")
-            stationName = try container.decodeIfPresent("stationName")
+            city = try container.decodeIfPresent("city")
+            countryCode = try container.decodeIfPresent("countryCode")
+            houseNo = try container.decodeIfPresent("houseNo")
+            postalCode = try container.decodeIfPresent("postalCode")
+            street = try container.decodeIfPresent("street")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
-            try container.encodeIfPresent(address, forKey: "address")
-            try container.encodeIfPresent(amenities, forKey: "amenities")
-            try container.encodeIfPresent(lastUpdateTime, forKey: "lastUpdateTime")
-            try container.encodeIfPresent(latitude, forKey: "latitude")
-            try container.encodeIfPresent(longitude, forKey: "longitude")
-            try container.encodeIfPresent(openingHours, forKey: "openingHours")
-            try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
-            try container.encodeIfPresent(stationName, forKey: "stationName")
+            try container.encodeIfPresent(city, forKey: "city")
+            try container.encodeIfPresent(countryCode, forKey: "countryCode")
+            try container.encodeIfPresent(houseNo, forKey: "houseNo")
+            try container.encodeIfPresent(postalCode, forKey: "postalCode")
+            try container.encodeIfPresent(street, forKey: "street")
         }
 
         public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Attributes else { return false }
-          guard self.address == object.address else { return false }
-          guard self.amenities == object.amenities else { return false }
-          guard self.lastUpdateTime == object.lastUpdateTime else { return false }
-          guard self.latitude == object.latitude else { return false }
-          guard self.longitude == object.longitude else { return false }
-          guard self.openingHours == object.openingHours else { return false }
-          guard self.paymentMethods == object.paymentMethods else { return false }
-          guard self.stationName == object.stationName else { return false }
+          guard let object = object as? Address else { return false }
+          guard self.city == object.city else { return false }
+          guard self.countryCode == object.countryCode else { return false }
+          guard self.houseNo == object.houseNo else { return false }
+          guard self.postalCode == object.postalCode else { return false }
+          guard self.street == object.street else { return false }
           return true
         }
 
-        public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
+        public static func == (lhs: Address, rhs: Address) -> Bool {
             return lhs.isEqual(to: rhs)
         }
     }
 
-    public class Relationships: APIModel {
-
-        public var fuelPrices: FuelPrices?
-
-        public var pumps: Pumps?
-
-        public class FuelPrices: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case fuelPrice = "fuelPrice"
-                }
-
-                /** Fuel Price ID */
-                public var id: ID?
-
-                public var type: PCFuelingType?
-
-                public init(id: ID? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? FuelPrices else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: FuelPrices, rhs: FuelPrices) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public class Pumps: APIModel {
-
-            public var data: [DataType]?
-
-            public class DataType: APIModel {
-
-                public enum PCFuelingType: String, Codable, Equatable, CaseIterable {
-                    case pump = "pump"
-                }
-
-                /** Pump ID */
-                public var id: ID?
-
-                public var type: PCFuelingType?
-
-                public init(id: ID? = nil, type: PCFuelingType? = nil) {
-                    self.id = id
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    id = try container.decodeIfPresent("id")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(id, forKey: "id")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? DataType else { return false }
-                  guard self.id == object.id else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(data: [DataType]? = nil) {
-                self.data = data
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                data = try container.decodeArrayIfPresent("data")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(data, forKey: "data")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Pumps else { return false }
-              guard self.data == object.data else { return false }
-              return true
-            }
-
-            public static func == (lhs: Pumps, rhs: Pumps) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(fuelPrices: FuelPrices? = nil, pumps: Pumps? = nil) {
-            self.fuelPrices = fuelPrices
-            self.pumps = pumps
-        }
-
-        public required init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-            fuelPrices = try container.decodeIfPresent("fuelPrices")
-            pumps = try container.decodeIfPresent("pumps")
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-            try container.encodeIfPresent(fuelPrices, forKey: "fuelPrices")
-            try container.encodeIfPresent(pumps, forKey: "pumps")
-        }
-
-        public func isEqual(to object: Any?) -> Bool {
-          guard let object = object as? Relationships else { return false }
-          guard self.fuelPrices == object.fuelPrices else { return false }
-          guard self.pumps == object.pumps else { return false }
-          return true
-        }
-
-        public static func == (lhs: Relationships, rhs: Relationships) -> Bool {
-            return lhs.isEqual(to: rhs)
-        }
-    }
-
-    public init(attributes: Attributes? = nil, id: ID? = nil, relationships: Relationships? = nil, type: PCFuelingType? = nil) {
-        self.attributes = attributes
+    public init(id: ID? = nil, type: PCFuelingType? = nil, fuelPrices: [PCFuelingFuelPrice]? = nil, pumps: [PCFuelingPump]? = nil, address: Address? = nil, amenities: [String]? = nil, currency: String? = nil, lastUpdateTime: DateTime? = nil, latitude: Float? = nil, longitude: Float? = nil, openingHours: PCFuelingCommonOpeningHours? = nil, paymentMethods: [String]? = nil, stationName: String? = nil) {
         self.id = id
-        self.relationships = relationships
         self.type = type
+        self.fuelPrices = fuelPrices
+        self.pumps = pumps
+        self.address = address
+        self.amenities = amenities
+        self.currency = currency
+        self.lastUpdateTime = lastUpdateTime
+        self.latitude = latitude
+        self.longitude = longitude
+        self.openingHours = openingHours
+        self.paymentMethods = paymentMethods
+        self.stationName = stationName
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-        attributes = try container.decodeIfPresent("attributes")
         id = try container.decodeIfPresent("id")
-        relationships = try container.decodeIfPresent("relationships")
         type = try container.decodeIfPresent("type")
+        fuelPrices = try container.decodeIfPresent("fuelPrices")
+        pumps = try container.decodeIfPresent("pumps")
+        address = try container.decodeIfPresent("address")
+        amenities = try container.decodeArrayIfPresent("amenities")
+        currency = try container.decodeIfPresent("currency")
+        lastUpdateTime = try container.decodeIfPresent("lastUpdateTime")
+        latitude = try container.decodeIfPresent("latitude")
+        longitude = try container.decodeIfPresent("longitude")
+        openingHours = try container.decodeIfPresent("openingHours")
+        paymentMethods = try container.decodeArrayIfPresent("paymentMethods")
+        stationName = try container.decodeIfPresent("stationName")
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: StringCodingKey.self)
 
-        try container.encodeIfPresent(attributes, forKey: "attributes")
         try container.encodeIfPresent(id, forKey: "id")
-        try container.encodeIfPresent(relationships, forKey: "relationships")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(fuelPrices, forKey: "fuelPrices")
+        try container.encodeIfPresent(pumps, forKey: "pumps")
+        try container.encodeIfPresent(address, forKey: "address")
+        try container.encodeIfPresent(amenities, forKey: "amenities")
+        try container.encodeIfPresent(currency, forKey: "currency")
+        try container.encodeIfPresent(lastUpdateTime, forKey: "lastUpdateTime")
+        try container.encodeIfPresent(latitude, forKey: "latitude")
+        try container.encodeIfPresent(longitude, forKey: "longitude")
+        try container.encodeIfPresent(openingHours, forKey: "openingHours")
+        try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
+        try container.encodeIfPresent(stationName, forKey: "stationName")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCFuelingGasStation else { return false }
-      guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
-      guard self.relationships == object.relationships else { return false }
       guard self.type == object.type else { return false }
+      guard self.fuelPrices == object.fuelPrices else { return false }
+      guard self.pumps == object.pumps else { return false }
+      guard self.address == object.address else { return false }
+      guard self.amenities == object.amenities else { return false }
+      guard self.currency == object.currency else { return false }
+      guard self.lastUpdateTime == object.lastUpdateTime else { return false }
+      guard self.latitude == object.latitude else { return false }
+      guard self.longitude == object.longitude else { return false }
+      guard self.openingHours == object.openingHours else { return false }
+      guard self.paymentMethods == object.paymentMethods else { return false }
+      guard self.stationName == object.stationName else { return false }
       return true
     }
 

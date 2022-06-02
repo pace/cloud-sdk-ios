@@ -16,7 +16,31 @@ public class PCFuelingFuelPriceResponse: APIModel {
             case fuelPrice = "fuelPrice"
         }
 
-        public var attributes: Attributes?
+        /** Fuel type for cars, based on the EU fuel marking */
+        public enum PCFuelingFuelType: String, Codable, Equatable, CaseIterable {
+            case ron98 = "ron98"
+            case ron98e5 = "ron98e5"
+            case ron95e10 = "ron95e10"
+            case diesel = "diesel"
+            case e85 = "e85"
+            case ron91 = "ron91"
+            case ron95e5 = "ron95e5"
+            case ron100 = "ron100"
+            case dieselGtl = "dieselGtl"
+            case dieselB7 = "dieselB7"
+            case dieselB15 = "dieselB15"
+            case dieselPremium = "dieselPremium"
+            case lpg = "lpg"
+            case cng = "cng"
+            case lng = "lng"
+            case h2 = "h2"
+            case truckDiesel = "truckDiesel"
+            case adBlue = "adBlue"
+            case truckAdBlue = "truckAdBlue"
+            case truckDieselPremium = "truckDieselPremium"
+            case truckLpg = "truckLpg"
+            case heatingOil = "heatingOil"
+        }
 
         /** Fuel Price ID */
         public var id: String?
@@ -24,111 +48,56 @@ public class PCFuelingFuelPriceResponse: APIModel {
         /** Fuel price */
         public var type: PCFuelingType?
 
-        public class Attributes: APIModel {
+        /** Currency as specified in ISO-4217. */
+        public var currency: String?
 
-            /** Fuel type for cars, based on the EU fuel marking */
-            public enum PCFuelingFuelType: String, Codable, Equatable, CaseIterable {
-                case ron98 = "ron98"
-                case ron98e5 = "ron98e5"
-                case ron95e10 = "ron95e10"
-                case diesel = "diesel"
-                case e85 = "e85"
-                case ron91 = "ron91"
-                case ron95e5 = "ron95e5"
-                case ron100 = "ron100"
-                case dieselGtl = "dieselGtl"
-                case dieselB7 = "dieselB7"
-                case dieselB15 = "dieselB15"
-                case dieselPremium = "dieselPremium"
-                case lpg = "lpg"
-                case cng = "cng"
-                case lng = "lng"
-                case h2 = "h2"
-                case truckDiesel = "truckDiesel"
-                case adBlue = "adBlue"
-                case truckAdBlue = "truckAdBlue"
-                case truckDieselPremium = "truckDieselPremium"
-                case truckLpg = "truckLpg"
-                case heatingOil = "heatingOil"
-            }
+        /** Fuel type for cars, based on the EU fuel marking */
+        public var fuelType: PCFuelingFuelType?
 
-            /** Currency as specified in ISO-4217. */
-            public var currency: String?
+        /** Price in liters */
+        public var price: Decimal?
 
-            /** Fuel type for cars, based on the EU fuel marking */
-            public var fuelType: PCFuelingFuelType?
+        public var productName: String?
 
-            /** Price in liters */
-            public var price: Decimal?
-
-            public var productName: String?
-
-            public init(currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Decimal? = nil, productName: String? = nil) {
-                self.currency = currency
-                self.fuelType = fuelType
-                self.price = price
-                self.productName = productName
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                currency = try container.decodeIfPresent("currency")
-                fuelType = try container.decodeIfPresent("fuelType")
-                price = try container.decodeLosslessDecimal("price")
-                productName = try container.decodeIfPresent("productName")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(currency, forKey: "currency")
-                try container.encodeIfPresent(fuelType, forKey: "fuelType")
-                try container.encodeIfPresent(price, forKey: "price")
-                try container.encodeIfPresent(productName, forKey: "productName")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Attributes else { return false }
-              guard self.currency == object.currency else { return false }
-              guard self.fuelType == object.fuelType else { return false }
-              guard self.price == object.price else { return false }
-              guard self.productName == object.productName else { return false }
-              return true
-            }
-
-            public static func == (lhs: Attributes, rhs: Attributes) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
-
-        public init(attributes: Attributes? = nil, id: String? = nil, type: PCFuelingType? = nil) {
-            self.attributes = attributes
+        public init(id: String? = nil, type: PCFuelingType? = nil, currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Decimal? = nil, productName: String? = nil) {
             self.id = id
             self.type = type
+            self.currency = currency
+            self.fuelType = fuelType
+            self.price = price
+            self.productName = productName
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            attributes = try container.decodeIfPresent("attributes")
             id = try container.decodeIfPresent("id")
             type = try container.decodeIfPresent("type")
+            currency = try container.decodeIfPresent("currency")
+            fuelType = try container.decodeIfPresent("fuelType")
+            price = try container.decodeLosslessDecimal("price")
+            productName = try container.decodeIfPresent("productName")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
-            try container.encodeIfPresent(attributes, forKey: "attributes")
             try container.encodeIfPresent(id, forKey: "id")
             try container.encodeIfPresent(type, forKey: "type")
+            try container.encodeIfPresent(currency, forKey: "currency")
+            try container.encodeIfPresent(fuelType, forKey: "fuelType")
+            try container.encodeIfPresent(price, forKey: "price")
+            try container.encodeIfPresent(productName, forKey: "productName")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? DataType else { return false }
-          guard self.attributes == object.attributes else { return false }
           guard self.id == object.id else { return false }
           guard self.type == object.type else { return false }
+          guard self.currency == object.currency else { return false }
+          guard self.fuelType == object.fuelType else { return false }
+          guard self.price == object.price else { return false }
+          guard self.productName == object.productName else { return false }
           return true
         }
 

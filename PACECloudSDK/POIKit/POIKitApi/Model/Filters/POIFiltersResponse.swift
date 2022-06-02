@@ -33,15 +33,15 @@ public extension POIKit {
             var filterGroups: [String: [String: Bool]] = [:]
             categories.forEach {
                 var filters: [String: Bool] = [:]
-                $0.attributes?.available?.forEach {
+                $0.available?.forEach {
                     filters[$0] = true
                 }
 
-                $0.attributes?.unavailable?.forEach {
+                $0.unavailable?.forEach {
                     filters[$0] = false
                 }
 
-                filterGroups[$0.attributes?.fieldName ?? ""] = filters
+                filterGroups[$0.fieldName ?? ""] = filters
             }
             self.filterGroups = filterGroups
         }
