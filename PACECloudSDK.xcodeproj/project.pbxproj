@@ -6406,7 +6406,7 @@
 			repositoryURL = "https://github.com/pace/OneTimePassword";
 			requirement = {
 				kind = exactVersion;
-				version = 3.3.1;
+				version = 3.3.2;
 			};
 		};
 		3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */ = {

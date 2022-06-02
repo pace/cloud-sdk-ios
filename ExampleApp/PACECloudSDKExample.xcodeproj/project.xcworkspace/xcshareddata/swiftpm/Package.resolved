@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/pace/Base32",
         "state": {
           "branch": null,
-          "revision": "cbc7273cbbd2914deb94c8ef54ed5c6d27dfde6b",
-          "version": "1.2.0"
+          "revision": "610f64d1f5d270e4c9eb71a3c76d645ef0bd9915",
+          "version": "1.2.1"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/pace/OneTimePassword",
         "state": {
           "branch": null,
-          "revision": "f1a9780c267822692da96548291835baa22e1bf2",
-          "version": "3.3.1"
+          "revision": "45dd041c3c71b7946ed70c5f6cdc82560c127606",
+          "version": "3.3.2"
         }
       },
       {
