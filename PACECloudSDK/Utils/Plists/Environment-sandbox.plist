@@ -18,5 +18,7 @@
 	<string>https://id.sandbox.pace.cloud/auth/realms/pace/protocol/openid-connect/token</string>
 	<key>UserEndpoint</key>
 	<string>https://id.sandbox.pace.cloud/auth/realms/pace/protocol/openid-connect/userinfo</string>
+	<key>EndSessionEndpoint</key>
+	<string>https://id.sandbox.pace.cloud/auth/realms/pace/protocol/openid-connect/logout</string>
 </dict>
 </plist>

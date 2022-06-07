@@ -144,6 +144,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
               }
           }
         ```
+  + `IDKit.resetSession` now either provides a success or a `IDKitError` within it's completion block.
 
 ## Contribute
 ### Localizable Strings Generation

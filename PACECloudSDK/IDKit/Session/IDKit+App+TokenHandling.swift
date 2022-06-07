@@ -49,8 +49,15 @@ extension IDKit {
     }
 
     func performAppInducedSessionReset(with error: IDKitError?, _ completion: @escaping (String?) -> Void) {
-        performReset { [weak self] in
-            self?.delegate?.didFailSessionRenewal(with: error, completion) ?? self?.performAppInducedAuthorization(completion)
+        performReset { [weak self] result in
+            switch result {
+            case .success:
+                self?.delegate?.didFailSessionRenewal(with: error, completion) ?? self?.performAppInducedAuthorization(completion)
+
+            case .failure(let error):
+                Logger.w(error.description)
+                completion("")
+            }
         }
     }
 }

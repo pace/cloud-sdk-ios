@@ -138,9 +138,9 @@ public extension IDKit {
 
     /**
      Resets the current session.
-     - parameter completion: The block to be called when the reset is completed.
+     - parameter completion: The block to be called when the reset is completed including either success or an `error`.
      */
-    static func resetSession(_ completion: (() -> Void)? = nil) {
+    static func resetSession(_ completion: ((Result<Void, IDKit.IDKitError>) -> Void)? = nil) {
         shared?.performReset(completion)
     }
 

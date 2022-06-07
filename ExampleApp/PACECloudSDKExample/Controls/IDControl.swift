@@ -18,8 +18,14 @@ class IDControl: ObservableObject {
     private init() {}
 
     func reset() {
-        IDKit.resetSession { [weak self] in
-            self?.updateSessionInformation()
+        IDKit.resetSession { [weak self] result in
+            switch result {
+            case .success():
+                self?.updateSessionInformation()
+
+            case .failure(let error):
+                ExampleLogger.w(error.description)
+            }
         }
     }
 

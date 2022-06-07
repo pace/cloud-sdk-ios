@@ -75,12 +75,12 @@ extension IDKit {
 
             if let error = error {
                 let error: IDKitError = (error as NSError).code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue ? .authorizationCanceled : .other(error)
-                self?.performReset { completion(.failure(error)) }
+                self?.performReset { _ in completion(.failure(error)) }
                 return
             }
 
             guard let session = authState else {
-                self?.performReset { completion(.failure(.failedRetrievingSessionWhileAuthorizing)) }
+                self?.performReset { _ in completion(.failure(.failedRetrievingSessionWhileAuthorizing)) }
                 return
             }
 
@@ -143,7 +143,7 @@ extension IDKit {
                     completion(.failure(.other(error)))
                 }
             } else {
-                self?.performReset { completion(.failure(.failedTokenRefresh(error))) }
+                self?.performReset { _ in completion(.failure(.failedTokenRefresh(error))) }
             }
         })
     }
@@ -151,24 +151,58 @@ extension IDKit {
 
 // MARK: - Reset
 extension IDKit {
-    func performReset(_ completion: (() -> Void)? = nil) {
-        delegate?.willResetSession()
+    func performReset(_ completion: ((Result<Void, IDKitError>) -> Void)? = nil) {
+        endSession { [weak self] result in
+            self?.delegate?.willResetSession()
 
-        disableBiometricAuthentication()
+            self?.disableBiometricAuthentication()
 
-        session = nil
-        SessionCache.reset()
-        API.accessToken = nil
+            self?.session = nil
+            SessionCache.reset()
+            API.accessToken = nil
 
-        guard let authorizationFlow = authorizationFlow else {
-            completion?()
-            return
+            guard let authorizationFlow = self?.authorizationFlow else {
+                completion?(result)
+                return
+            }
+
+            authorizationFlow.cancel { [weak self] in
+                self?.authorizationFlow = nil
+            }
+
+            completion?(result)
         }
+    }
+}
 
-        authorizationFlow.cancel { [weak self] in
-            self?.authorizationFlow = nil
-        }
+// MARK: - End session
+extension IDKit {
+    func endSession(_ completion: ((Result<Void, IDKitError>) -> Void)? = nil) {
+        guard let accessToken = IDKit.latestAccessToken(),
+              let refreshToken = session?.lastTokenResponse?.refreshToken,
+              let sessionEndPoint = configuration.endSessionEndpoint,
+              let url = URL(string: sessionEndPoint) else {
+                  IDKitLogger.w("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")
+                  completion?(.failure(.failedEndSession("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")))
+                  return
+              }
 
-        completion?()
+        let headers = ["Authorization": "Bearer \(accessToken)", "Content-Type": "application/x-www-form-urlencoded"]
+        var components = URLComponents()
+        components.queryItems = [.init(name: "client_id", value: configuration.clientId), .init(name: "refresh_token", value: refreshToken)]
+
+        var request = URLRequest(url: url)
+        headers.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
+        request.httpMethod = "POST"
+        request.httpBody = components.query?.data(using: .utf8)
+
+        URLSession.shared.dataTask(with: request) { _, _, error in
+            if let error = error {
+                IDKitLogger.w("End session failed with error: \(error.localizedDescription)")
+                completion?(.failure(.failedEndSession(error.localizedDescription)))
+            } else {
+                completion?(.success(()))
+            }
+        }.resume()
     }
 }
