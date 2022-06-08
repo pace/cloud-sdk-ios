@@ -104,6 +104,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + `API.Communication.ApplePayRequestRequest`, `API.Communication.ApplePayRequestResponse` and the two callbacks in `AppKitDelegate` `paymentRequestMerchantIdentifier(completion: @escaping (String) -> Void)` + `didCreateApplePayPaymentRequest(_ request: PKPaymentRequest, completion: @escaping (API.Communication.ApplePayRequestResponse?) -> Void)` have been removed.
   + The `cofuStatus` property of `CofuGasStation` is now optional. This way it correctly reflects the connected fueling status in case the original value is missing in the API response
   + The methods of `IDKit.TokenValidator` are no longer `static`. Instead create an instance and pass your access token in the initializer.
+  + `IDKit.resetSession` now either provides a success or a `IDKitError` within it's completion block.
 - API
   + The `GeoJSON` API has been completely removed from the SDK. In case you still need this API, please open up an issue at https://github.com/pace/cloud-sdk-ios/issues and tell us about your use case.
   + The suffix `Request` has been added to all API models that are used as request body.
@@ -144,7 +145,6 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
               }
           }
         ```
-  + `IDKit.resetSession` now either provides a success or a `IDKitError` within it's completion block.
 
 ## Contribute
 ### Localizable Strings Generation

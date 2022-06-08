@@ -133,4 +133,4 @@ echo "Created changelog entry for version $new_version"
 # Commit changes
 git checkout -b "bump-version-$new_version"
 git add -u
-git commit -m "Bump version to $new_version"
+git commit -m "build: Bump version to $new_version"
