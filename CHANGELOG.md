@@ -1,3 +1,71 @@
+10.0.0 Release notes (2022-06-08)
+=============================================================
+
+### Breaking Changes
+
+* Properly remove keycloak session
+* Integrate adapted pay api
+* Remove geojson api
+* Integrate adapted poi api
+* Integrate adapted user api
+* Integrate adapted fueling api
+* Fix token expiry date validation
+* Introduce CDN client to fetch payment method vendors and icons
+* Integrate adjusted poly type generation
+* Check cofustatus of cofugasstation
+* Remove native apple pay handling
+
+### Enhancements
+
+* Add callback to report breadcrumbs and general sdk errors to client
+* Implement interface for customized localization
+* Adjust `isCoFuGasStation` property to also reflect geojson online status
+* Add `isCoFuGasStation` to `POIKit.GasStation` model
+* Implement alternative user agent for authorization flow
+* Add functionality to extract payment method kinds from jwt"
+* Add more localization
+* Add functionality to extract payment method kinds from jwt
+
+### Fixes
+
+* Fix required label name
+* Fix typo in GitLab bot config
+* Fix general logging issues and rework logging tests
+* Return correct unix timestamps of closing times
+* Correct type of `logo` property in `PaymentMethodVendor`
+* Intercept app webview redirect
+* Use pace cloud sdk environment for log files
+
+### Internal
+
+* Upgrade OneTimePassword to 3.3.2
+* Update cocoapods dependency
+* Integrate Japx
+* Add `fuelingURLs` property to `POIKit.CofuGasStation` model and extract its value from geojson file
+* Add label config for PACEBot
+* Remove GitLab issue templates
+* Update GitLab templates
+* Make `BiometryTOTPData` publicly accessible
+* Add function to retrieve a single payment method vendor icon
+* Introduce authorization canceled error
+* Add default implementations for `AppKitDelegate` `didReceiveAppDrawers(...)` and `didFail(...)`
+* Improve error handling of api requests on failed token refreshs
+* Make AnyCodable value accessible
+* Add IDKit to PACECloudSlimSDK
+* Make logger functions overridable
+* Add url to api request failure log message
+* Remove apps query fallback
+* Cleanup documentation in index md
+* Correctly open new tab webview on multiple openInNewTab requests
+* Remove all obsolete POI files from PACECloudSlimSDK
+* Extract apple pay session scope from access token"
+* Lokalise updates
+* Extract apple pay session scope from access token
+* Add job to build a xcframework for the slim sdk
+* Add issue templates
+* Introduce decimal decoding tests
+* Update Fueling and Pay API
+
 9.2.1 Release notes (2022-01-21)
 =============================================================
 
