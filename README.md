@@ -8,7 +8,7 @@ This framework combines multipe functionalities provided by `PACE` i.e. authoriz
 
 ## Documentation
 
-The complete documentation can be found on [pace.github.io/cloud-sdk-ios](https://pace.github.io/cloud-sdk-ios).
+The documentation can be found on [PACE Developer Documentation](https://docs.pace.cloud/en/integrating/mobile-app).
 
 ## License
 
