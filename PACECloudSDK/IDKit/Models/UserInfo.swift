@@ -10,7 +10,7 @@ import Foundation
 public extension IDKit {
     struct UserInfo: Decodable {
         public let id: String?
-        public let createdAt: String?
+        public let createdAt: Double?
         public let firstName: String?
         public let lastName: String?
         public let isEmailVerified: Bool?
