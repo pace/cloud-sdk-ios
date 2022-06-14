@@ -1,5 +1,0 @@
-{
-    "labels": {
-        "required": ["stream::mobile", "Concerns:iOS", "P:PACECloudSDK"]
-    }
-}
