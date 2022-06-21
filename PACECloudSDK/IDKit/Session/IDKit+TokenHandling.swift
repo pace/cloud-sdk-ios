@@ -85,7 +85,7 @@ extension IDKit {
             }
 
             // Persist current session
-            SessionCache.persistSession(session)
+            SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
 
             self?.session = authState
             let accessToken = session.lastTokenResponse?.accessToken
@@ -158,7 +158,7 @@ extension IDKit {
             self?.disableBiometricAuthentication()
 
             self?.session = nil
-            SessionCache.reset()
+            SessionCache.reset(for: PACECloudSDK.shared.environment)
             API.accessToken = nil
 
             guard let authorizationFlow = self?.authorizationFlow else {

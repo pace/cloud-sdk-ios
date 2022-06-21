@@ -8,10 +8,12 @@
 import AppAuth
 
 class SessionCache {
-    static func loadSession() -> OIDAuthState? {
+    static func loadSession(for environment: PACECloudSDK.Environment) -> OIDAuthState? {
         IDKitLogger.i("Attempting to load previous session...")
 
-        guard let data = UserDefaults.standard.object(forKey: IDKitConstants.UserDefaults.sessionCache) as? Data else {
+        // Fallback to old key
+        guard let data = UserDefaults.standard.object(forKey: sessionCacheKey(for: environment)) as? Data
+                ?? UserDefaults.standard.object(forKey: IDKitConstants.UserDefaults.sessionCache) as? Data else {
             return nil
         }
 
@@ -24,7 +26,7 @@ class SessionCache {
         return nil
     }
 
-    static func persistSession(_ session: OIDAuthState?) {
+    static func persistSession(_ session: OIDAuthState?, for environment: PACECloudSDK.Environment) {
         IDKitLogger.i("Persisting session")
 
         var data: Data?
@@ -37,10 +39,17 @@ class SessionCache {
             }
         }
 
-        UserDefaults.standard.setValue(data, forKey: IDKitConstants.UserDefaults.sessionCache)
+        UserDefaults.standard.setValue(data, forKey: sessionCacheKey(for: environment))
     }
 
-    static func reset() {
-        UserDefaults.standard.setValue(nil, forKey: IDKitConstants.UserDefaults.sessionCache)
+    static func reset(for environment: PACECloudSDK.Environment) {
+        // Remove session for old key as well
+        [sessionCacheKey(for: environment), IDKitConstants.UserDefaults.sessionCache].forEach {
+            UserDefaults.standard.setValue(nil, forKey: $0)
+        }
+    }
+
+    private static func sessionCacheKey(for environment: PACECloudSDK.Environment) -> String {
+        "\(IDKitConstants.UserDefaults.sessionCache)_\(environment.rawValue)"
     }
 }
