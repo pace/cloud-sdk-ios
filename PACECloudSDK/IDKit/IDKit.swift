@@ -37,7 +37,7 @@ public class IDKit {
         self.configuration = configuration
         self.userAgentType = userAgentType
 
-        guard let session = SessionCache.loadSession() else { return }
+        guard let session = SessionCache.loadSession(for: PACECloudSDK.shared.environment) else { return }
         self.session = session
     }
 
