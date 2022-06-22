@@ -63,13 +63,13 @@ class Settings {
         payApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("pay").absoluteString
         fuelingApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("fueling").absoluteString
         userApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("user").absoluteString
-        geoApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("geo").absoluteString
         cmsApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("cms").absoluteString
         priceServiceApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("price-service").absoluteString
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
         reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
         cdnBaseUrl = settings[cdnBaseUrlKey]!
+        geoApiHostUrl = URL(string: cdnBaseUrl)!.appendingPathComponent("geo").absoluteString
     }
 
     private func setupOIDConfiguration(for environment: PACECloudSDK.Environment) {
