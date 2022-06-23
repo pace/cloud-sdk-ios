@@ -16,7 +16,9 @@ struct Constants {
 
     static let fallbackRedirectScheme = "cloudsdk"
 
-    static let cdnPaymentMethodVendorIconsURLPrefix = "/cms/images"
+    static let paymentMethodVendorIconsCMSPrefix = "cms/images"
+    static let cdnPayPath = "/pay"
+    static let cdnPaymentMethodVendorsPath = "/payment-method-vendors"
 
     struct Configuration {
         static let defaultAllowedLowAccuracy: Double = 250

@@ -62,6 +62,10 @@
 		3B9FCACF26BA892D0007B324 /* SettingsMailOTPRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */; };
 		3B9FCAD126BA89340007B324 /* SettingsLogoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */; };
 		3B9FCAD326BA979A0007B324 /* ToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FCAD226BA979A0007B324 /* ToggleView.swift */; };
+		3BEF1E2C286491AE00852A18 /* SettingsPaymentMethodIconsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF1E2B286491AE00852A18 /* SettingsPaymentMethodIconsRow.swift */; };
+		3BEF1E2E286491E700852A18 /* PaymentMethodIconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF1E2D286491E700852A18 /* PaymentMethodIconsView.swift */; };
+		3BEF1E302864921900852A18 /* PaymentMethodKindsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF1E2F2864921900852A18 /* PaymentMethodKindsRow.swift */; };
+		3BEF1E322864922400852A18 /* PaymentMethodVendorsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF1E312864922400852A18 /* PaymentMethodVendorsRow.swift */; };
 		6ACBC02A26FA1FB100E6AC05 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 6ACBC02926FA1FB100E6AC05 /* Zip */; };
 		6ACBC03026FB758800E6AC05 /* ExampleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACBC02F26FB758800E6AC05 /* ExampleLogger.swift */; };
 		6ACBC03626FDC17D00E6AC05 /* ShareObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACBC03526FDC17D00E6AC05 /* ShareObject.swift */; };
@@ -183,6 +187,10 @@
 		3B9FCACE26BA892D0007B324 /* SettingsMailOTPRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMailOTPRow.swift; sourceTree = "<group>"; };
 		3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLogoutRow.swift; sourceTree = "<group>"; };
 		3B9FCAD226BA979A0007B324 /* ToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleView.swift; sourceTree = "<group>"; };
+		3BEF1E2B286491AE00852A18 /* SettingsPaymentMethodIconsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPaymentMethodIconsRow.swift; sourceTree = "<group>"; };
+		3BEF1E2D286491E700852A18 /* PaymentMethodIconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodIconsView.swift; sourceTree = "<group>"; };
+		3BEF1E2F2864921900852A18 /* PaymentMethodKindsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodKindsRow.swift; sourceTree = "<group>"; };
+		3BEF1E312864922400852A18 /* PaymentMethodVendorsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodVendorsRow.swift; sourceTree = "<group>"; };
 		6ACBC02F26FB758800E6AC05 /* ExampleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleLogger.swift; sourceTree = "<group>"; };
 		6ACBC03526FDC17D00E6AC05 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -393,11 +401,13 @@
 		3B83CAC126B7EA7B00A604BE /* Rows */ = {
 			isa = PBXGroup;
 			children = (
+				3BEF1E262864919A00852A18 /* PaymentMethodIcons */,
 				3B8C91AC26F0C7E600D60656 /* Security */,
 				3B83CAC226B7EB3800A604BE /* SettingsRow.swift */,
 				3B846EAC26F1FC6700B36E54 /* SettingsAccountView.swift */,
 				3B82EB8E26C2ADCF0086A4BE /* SettingsIsPoiInRangeRow.swift */,
 				3B9FCAD026BA89340007B324 /* SettingsLogoutRow.swift */,
+				3BEF1E2B286491AE00852A18 /* SettingsPaymentMethodIconsRow.swift */,
 				3B82EB8A26C2AC100086A4BE /* SettingsPWASimulatorRow.swift */,
 				3B8C91B326F0C8C700D60656 /* SettingsSecurityRow.swift */,
 			);
@@ -442,6 +452,16 @@
 				3B8C91B126F0C89300D60656 /* SecurityView.swift */,
 			);
 			path = Security;
+			sourceTree = "<group>";
+		};
+		3BEF1E262864919A00852A18 /* PaymentMethodIcons */ = {
+			isa = PBXGroup;
+			children = (
+				3BEF1E2D286491E700852A18 /* PaymentMethodIconsView.swift */,
+				3BEF1E2F2864921900852A18 /* PaymentMethodKindsRow.swift */,
+				3BEF1E312864922400852A18 /* PaymentMethodVendorsRow.swift */,
+			);
+			path = PaymentMethodIcons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -593,6 +613,7 @@
 			files = (
 				3B83CB0D26B82BBB00A604BE /* DrawerViewModelImplementation.swift in Sources */,
 				3B82EB8726C2A1D90086A4BE /* AppView.swift in Sources */,
+				3BEF1E2C286491AE00852A18 /* SettingsPaymentMethodIconsRow.swift in Sources */,
 				3B83CAFC26B81F4600A604BE /* ListView.swift in Sources */,
 				3B83CB0826B8221D00A604BE /* ListViewRow.swift in Sources */,
 				6ACBC03626FDC17D00E6AC05 /* ShareObject.swift in Sources */,
@@ -612,6 +633,7 @@
 				3B8C91B426F0C8C700D60656 /* SettingsSecurityRow.swift in Sources */,
 				3B83CAC026B7E93800A604BE /* SettingsView.swift in Sources */,
 				3B7F4D4E26EB9B9800D84B70 /* TextFieldAlert.swift in Sources */,
+				3BEF1E302864921900852A18 /* PaymentMethodKindsRow.swift in Sources */,
 				3B784C3626B3E5E500B1D859 /* PACECloudSDKExampleApp.swift in Sources */,
 				3B83CAC826B7F73E00A604BE /* SettingsViewModel.swift in Sources */,
 				3B83CB0526B8213C00A604BE /* ListViewModelImplementation.swift in Sources */,
@@ -627,6 +649,7 @@
 				3B83CB0026B81FEA00A604BE /* DashboardView.swift in Sources */,
 				3B83CB0326B8213300A604BE /* ListViewModel.swift in Sources */,
 				3B846EAD26F1FC6700B36E54 /* SettingsAccountView.swift in Sources */,
+				3BEF1E2E286491E700852A18 /* PaymentMethodIconsView.swift in Sources */,
 				3B952FCD26EF6E5200354B62 /* Array+Extension.swift in Sources */,
 				3B83CABA26B7D15400A604BE /* MainTabView.swift in Sources */,
 				3B8C91B226F0C89300D60656 /* SecurityView.swift in Sources */,
@@ -635,6 +658,7 @@
 				3B83CB1026B834B900A604BE /* LocationManager.swift in Sources */,
 				3B82EB8126C2960A0086A4BE /* LoadingSpinner.swift in Sources */,
 				6ACBC03026FB758800E6AC05 /* ExampleLogger.swift in Sources */,
+				3BEF1E322864922400852A18 /* PaymentMethodVendorsRow.swift in Sources */,
 				3B7F4D5226EB9C1400D84B70 /* TextFieldAlertWrapper.swift in Sources */,
 				3B83CAFE26B81FC200A604BE /* DrawerView.swift in Sources */,
 				3B83CA8726B7CB9B00A604BE /* LoginViewModel.swift in Sources */,

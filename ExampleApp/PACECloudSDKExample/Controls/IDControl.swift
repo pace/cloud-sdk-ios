@@ -20,7 +20,7 @@ class IDControl: ObservableObject {
     func reset() {
         IDKit.resetSession { [weak self] result in
             switch result {
-            case .success():
+            case .success:
                 self?.updateSessionInformation()
 
             case .failure(let error):
@@ -31,6 +31,10 @@ class IDControl: ObservableObject {
 
     func isAuthorizationValid() -> Bool {
         IDKit.isAuthorizationValid()
+    }
+
+    func latestAccessToken() -> String? {
+        IDKit.latestAccessToken()
     }
 
     func updateSessionInformation() {
