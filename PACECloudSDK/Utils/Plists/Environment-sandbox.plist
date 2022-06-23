@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CDNBaseUrl</key>
-	<string>https://cdn.pace.cloud</string>
+	<string>https://cdn.sandbox.pace.cloud</string>
 	<key>ApiGateway</key>
 	<string>https://api.sandbox.pace.cloud</string>
 	<key>OsrmBaseUrl</key>

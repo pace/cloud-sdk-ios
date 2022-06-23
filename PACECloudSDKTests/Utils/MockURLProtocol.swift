@@ -61,7 +61,7 @@ class MockURLProtocol: URLProtocol {
 
     private func determineMockObject(for url: String) -> MockObject? {
         switch url {
-        case _ where url.hasPrefix("https://api.dev.pace.cloud/geo/2021-1/apps/pace-drive-ios-min.geojson"):
+        case _ where url.hasPrefix("https://cdn.dev.pace.cloud/geo/2021-1/apps/pace-drive-ios-min.geojson"):
             return MockData.GeoServiceMockObject()
 
         default:

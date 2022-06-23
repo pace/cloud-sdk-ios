@@ -14,7 +14,7 @@ extension MockData {
         private(set) var statusCode: Int
 
         init(mockData: Result<Data, Error>? = nil, statusCode: Int = 200) {
-            self.url = "https://api.dev.pace.cloud/geo/2021-1/apps/pace-drive-ios-min.geojson"
+            self.url = "https://cdn.dev.pace.cloud/geo/2021-1/apps/pace-drive-ios-min.geojson"
             self.mockData = mockData ?? GeoServiceMockObject.defaultMockData
             self.statusCode = statusCode
         }
@@ -78,4 +78,3 @@ extension MockData.GeoServiceMockObject {
         }
         """.data(using: .utf8) ?? Data()
 }
-
