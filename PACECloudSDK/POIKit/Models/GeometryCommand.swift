@@ -25,7 +25,7 @@ public extension POIKit {
         case lineTo = 2
         case closePath = 3
 
-        public var paramCount: Int {
+        public var paramCount: Int? {
             switch self {
             case .moveTo, .lineTo:
                 return 2
@@ -34,7 +34,7 @@ public extension POIKit {
                 return 0
 
             default:
-                fatalError()
+                return nil
             }
         }
     }

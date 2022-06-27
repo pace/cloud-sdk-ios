@@ -146,6 +146,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
           }
         ```
 
+### From 10.x.x to 11.x.x
+
+- The property `paramCount` of `POIKit.CommandType` now returns `Int?` instead of `Int`
+
 ## Contribute
 ### Localizable Strings Generation
 To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).  
