@@ -21,6 +21,8 @@ protocol SettingsViewModel: ObservableObject {
     func isPINSet(completion: @escaping (Bool?) -> Void)
     func setPIN(pin: String, password: String?, otp: String?, completion: @escaping (Bool) -> Void)
     func sendMailOTP(completion: @escaping (Bool?) -> Void)
+    func fetchIconsViaPaymentMethodKinds(completion: @escaping (Bool) -> Void)
+    func fetchIconsViaPaymentMethodVendors(completion: @escaping (Bool) -> Void)
     func logout()
     func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void)
 }

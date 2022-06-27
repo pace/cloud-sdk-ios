@@ -5,6 +5,8 @@
 //  Created by PACE Telematics GmbH.
 //
 
+import Foundation
+
 public typealias PaymentMethodVendors = [PaymentMethodVendor]
 
 public struct PaymentMethodVendor {
@@ -33,11 +35,7 @@ public struct PaymentMethodVendorLogo {
     public let variants: PaymentMethodVendorLogoVariants?
 
     init(from response: PaymentMethodVendorLogoResponse) {
-        if let responseHref = response.href {
-            self.href = String(responseHref.dropFirst(Constants.cdnPaymentMethodVendorIconsURLPrefix.count))
-        } else {
-            self.href = nil
-        }
+        self.href = buildRelativePaymentMethodVendorLogoURL(with: response.href)
 
         if let responseVariants = response.variants {
             self.variants = .init(from: responseVariants)
@@ -63,11 +61,7 @@ public struct PaymentMethodVendorLogoVariant {
     public let href: String?
 
     init(from response: PaymentMethodVendorLogoVariantResponse) {
-        if let responseHref = response.href {
-            self.href = String(responseHref.dropFirst(Constants.cdnPaymentMethodVendorIconsURLPrefix.count))
-        } else {
-            self.href = nil
-        }
+        self.href = buildRelativePaymentMethodVendorLogoURL(with: response.href)
     }
 }
 
@@ -95,4 +89,30 @@ struct PaymentMethodVendorLogoVariantsResponse: Decodable {
 
 struct PaymentMethodVendorLogoVariantResponse: Decodable {
     let href: String?
+}
+
+private func buildRelativePaymentMethodVendorLogoURL(with href: String?) -> String? {
+    guard let href = href,
+          let url = URL(string: href),
+          let cdnBaseURL = URL(string: API.CDN.client.baseURL)
+    else { return nil }
+
+    if url.absoluteString.contains(Constants.paymentMethodVendorIconsCMSPrefix) {
+        // Contains cms prefix
+        return cdnBaseURL
+            .appendingPathComponent(Constants.cdnPayPath)
+            .appendingPathComponent(Constants.cdnPaymentMethodVendorsPath)
+            .appendingPathComponent(url.lastPathComponent)
+            .absoluteString
+    } else if url.host != nil {
+        // Absolute path
+        return url.absoluteString
+    } else if let relativeURL = URL(string: href, relativeTo: cdnBaseURL) {
+        // Relative path
+        return cdnBaseURL
+            .appendingPathComponent(relativeURL.relativeString)
+            .absoluteString
+    } else {
+        return nil
+    }
 }

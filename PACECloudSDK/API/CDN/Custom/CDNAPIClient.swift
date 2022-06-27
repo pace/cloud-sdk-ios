@@ -29,7 +29,7 @@ public class CDNAPIClient {
     }
 
     public func paymentMethodVendors(completion: @escaping (Result<[PaymentMethodVendor], APIClientError>) -> Void) {
-        guard let url = URL(string: "\(baseURL)/pay/payment-method-vendors.json") else {
+        guard let url = URL(string: "\(baseURL)\(Constants.cdnPayPath)/payment-method-vendors.json") else {
             completion(.failure(.requestEncodingError(APIRequestError.encodingURL)))
             return
         }
@@ -80,25 +80,26 @@ public class CDNAPIClient {
                 var iconLightData: Data?
                 var iconDarkData: Data?
                 let iconDispatchGroup = DispatchGroup()
-                let modifiedBaseUrl = "\(self.baseURL)/pay"
 
                 iconDispatchGroup.enter()
                 iconDispatchGroup.enter()
 
                 if let iconLightUrl = vendor.logo?.href {
-                    let urlString = modifiedBaseUrl + iconLightUrl
-                    self.performIconRequest(urlString: urlString) { iconData in
+                    self.performIconRequest(urlString: iconLightUrl) { iconData in
                         iconLightData = iconData
                         iconDispatchGroup.leave()
                     }
+                } else {
+                    iconDispatchGroup.leave()
                 }
 
                 if let iconDarkUrl = vendor.logo?.variants?.dark?.href {
-                    let urlString = modifiedBaseUrl + iconDarkUrl
-                    self.performIconRequest(urlString: urlString) { iconData in
+                    self.performIconRequest(urlString: iconDarkUrl) { iconData in
                         iconDarkData = iconData
                         iconDispatchGroup.leave()
                     }
+                } else {
+                    iconDispatchGroup.leave()
                 }
 
                 iconDispatchGroup.notify(queue: self.cdnDispatchQueue) {

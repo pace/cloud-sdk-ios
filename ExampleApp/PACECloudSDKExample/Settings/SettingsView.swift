@@ -26,6 +26,7 @@ struct SettingsView<T: SettingsViewModel>: View {
                     SettingsSecurityRow()
                     SettingsPWASimulatorRow(viewModel: viewModel)
                     SettingsIsPoiInRangeRow(viewModel: viewModel)
+                    SettingsPaymentMethodIconsRow()
                     SettingsLogoutRow(viewModel: viewModel)
                 }
             }

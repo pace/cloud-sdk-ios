@@ -267,6 +267,7 @@
 		3B2FB2742845151700E8CD0C /* PCPOIReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */; };
 		3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */; };
 		3B387F8F256C0D0100DD6F52 /* GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F8E256C0D0100DD6F52 /* GasStation.swift */; };
+		3B394BF328698C7D005621EC /* CDNAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B394BF228698C7D005621EC /* CDNAPITests.swift */; };
 		3B3DF5A926E24C7100934991 /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
 		3B3DF5AA26E24C7200934991 /* TokenValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B970A3D2542D9BA0072F6BA /* TokenValidator.swift */; };
 		3B3DF5AB26E24C8E00934991 /* JWTToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8B02EC255C1D780020A6FA /* JWTToken.swift */; };
@@ -1259,6 +1260,7 @@
 		3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatus.swift; sourceTree = "<group>"; };
 		3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+HTTPRequest.swift"; sourceTree = "<group>"; };
 		3B387F8E256C0D0100DD6F52 /* GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GasStation.swift; sourceTree = "<group>"; };
+		3B394BF228698C7D005621EC /* CDNAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDNAPITests.swift; sourceTree = "<group>"; };
 		3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKDelegate.swift; sourceTree = "<group>"; };
 		3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InvalidationTokenCache+Slim.swift"; sourceTree = "<group>"; };
 		3B5503F02539E61C00C291F1 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
@@ -1914,6 +1916,14 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3B394BF128698C6A005621EC /* APITests */ = {
+			isa = PBXGroup;
+			children = (
+				3B394BF228698C7D005621EC /* CDNAPITests.swift */,
+			);
+			path = APITests;
 			sourceTree = "<group>";
 		};
 		3B5503ED2539E53100C291F1 /* Extensions */ = {
@@ -3411,6 +3421,7 @@
 			children = (
 				921E683C2534883200438491 /* Info.plist */,
 				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
+				3B394BF128698C6A005621EC /* APITests */,
 				3B9709FD2542D9720072F6BA /* AppKitTests */,
 				3BA9E51E274B7F2D00617EDE /* GeoTests */,
 				3BB51B7427E9F5F700FE0014 /* Localization */,
@@ -4663,6 +4674,7 @@
 				3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */,
 				3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */,
 				3BA9E520274B7F5700617EDE /* GeoServiceTests.swift in Sources */,
+				3B394BF328698C7D005621EC /* CDNAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
