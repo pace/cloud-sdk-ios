@@ -31,7 +31,8 @@ extension VectorTile_Tile.Feature {
                 continue
             }
 
-            guard parameters.count < type.paramCount * cnt else {
+            guard let paramCount = type.paramCount,
+                  parameters.count < paramCount * cnt else {
                 commands.append(contentsOf: convertToCommands(commandType: type, params: parameters))
 
                 let command = extractCommandTypeAndCount(from: value)
