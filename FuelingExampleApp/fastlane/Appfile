@@ -1,0 +1,3 @@
+app_identifier("car.pace.FuelingExampleApp") # The bundle identifier of your app
+apple_id "ios-dev@pace.car" # your Apple ID user
+team_id "97462K4UKP"  # Developer Portal Team ID

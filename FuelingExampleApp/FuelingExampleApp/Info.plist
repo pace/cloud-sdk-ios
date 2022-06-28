@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>FuelingApp</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>pace.FuelingApp</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>PACE uses FaceID to confirm your payments.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>FuelingApp needs location access to show you connected fueling stations nearby</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>FuelingApp needs location access to show you connected fueling stations nearby</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>FuelingApp needs location access to show you connected fueling stations nearby</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to download your receipts, we need to use Photo Library Usage permission</string>
+	<key>PACECloudSDKIDKitSetup</key>
+	<dict>
+		<key>OIDConfigurationClientID</key>
+		<string>cloud-sdk-example-app</string>
+		<key>OIDConfigurationRedirectURI</key>
+		<string>pace://cloud-sdk-example</string>
+	</dict>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UIApplicationSupportsTabbedSceneCollection</key>
+		<string>Location When In Use Usage Description</string>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+</dict>
+</plist>

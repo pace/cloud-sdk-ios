@@ -2,7 +2,7 @@
 //  IDKitUserAgentType.swift
 //  PACECloudSDK
 //
-//  Created by Patrick Niepel on 14.02.22.
+//  Created by PACE Telematics GmbH.
 //
 
 import Foundation
