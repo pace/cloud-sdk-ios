@@ -183,7 +183,9 @@ extension IDKit {
               let sessionEndPoint = configuration.endSessionEndpoint,
               let url = URL(string: sessionEndPoint) else {
                   IDKitLogger.w("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")
-                  completion?(.failure(.failedEndSession("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")))
+                  DispatchQueue.main.async {
+                      completion?(.failure(.failedEndSession("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")))
+                  }
                   return
               }
 
@@ -197,11 +199,13 @@ extension IDKit {
         request.httpBody = components.query?.data(using: .utf8)
 
         URLSession.shared.dataTask(with: request) { _, _, error in
-            if let error = error {
-                IDKitLogger.w("End session failed with error: \(error.localizedDescription)")
-                completion?(.failure(.failedEndSession(error.localizedDescription)))
-            } else {
-                completion?(.success(()))
+            DispatchQueue.main.async {
+                if let error = error {
+                    IDKitLogger.w("End session failed with error: \(error.localizedDescription)")
+                    completion?(.failure(.failedEndSession(error.localizedDescription)))
+                } else {
+                    completion?(.success(()))
+                }
             }
         }.resume()
     }
