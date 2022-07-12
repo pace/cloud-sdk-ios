@@ -37,7 +37,7 @@ extension App {
 
     private func passVerificationToClient(locationToVerify: CLLocation, threshold: Double, completion: @escaping (API.Communication.VerifyLocationResult) -> Void) {
         AppKit.shared.notifyDidRequestLocationVerfication(location: locationToVerify, threshold: threshold) { [weak self] isInRange in
-            self?.respondToVerifyLocation(isInRange: isInRange, accuracy: nil, completion: completion)
+            self?.respondToVerifyLocation(isInRange: isInRange, accuracy: 0, completion: completion)
         }
     }
 
