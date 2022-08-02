@@ -52,7 +52,7 @@ extension IDKit {
     }
 
     func setPIN(pin: String, password: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
-        otp(for: password) { [weak self] result in
+        otp(password: password, pin: nil) { [weak self] result in
             switch result {
             case .success(let otp):
                 self?.setPIN(pin: pin, otp: otp, completion: completion)
@@ -185,8 +185,8 @@ extension IDKit {
 
     // MARK: - OTP
 
-    func otp(for password: String, completion: @escaping (Result<String, IDKitError>) -> Void) {
-        let totpData = PCUserCreateOTPRequest(password: password)
+    func otp(password: String?, pin: String?, completion: @escaping (Result<String, IDKitError>) -> Void) {
+        let totpData = PCUserCreateOTPRequest(password: password, pin: pin)
         let request = UserAPI.TOTP.CreateOTP.Request(body: totpData)
 
         API.User.client.makeRequest(request) { response in
