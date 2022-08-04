@@ -12,6 +12,7 @@
         + [7.x.x -> 8.x.x](#from-7xx-to-8xx)
         + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
         + [9.x.x -> 10.x.x](#from-9xx-to-10xx)
+        + [10.x.x -> 11.x.x](#from-10xx-to-11xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -149,6 +150,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 10.x.x to 11.x.x
 
 - The property `paramCount` of `POIKit.CommandType` now returns `Int?` instead of `Int`
+- We've removed the `Stage` environment completely. Please use `Sandbox` during testing and `Production` for everything else.
 
 ## Contribute
 ### Localizable Strings Generation
