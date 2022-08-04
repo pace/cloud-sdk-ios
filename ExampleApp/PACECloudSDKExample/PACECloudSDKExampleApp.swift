@@ -41,8 +41,6 @@ struct PACECloudSDKExampleApp: App {
 var currentAppEnvironment: PACECloudSDK.Environment {
     #if PRODUCTION
     return .production
-    #elseif STAGE
-    return .stage
     #elseif SANDBOX
     return .sandbox
     #else
