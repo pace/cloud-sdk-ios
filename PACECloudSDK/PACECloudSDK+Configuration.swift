@@ -85,7 +85,6 @@ public extension PACECloudSDK {
     enum Environment: String {
         case development
         case sandbox
-        case stage
         case production
 
         public var short: String {
@@ -95,9 +94,6 @@ public extension PACECloudSDK {
 
             case .sandbox:
                 return "sandbox"
-
-            case .stage:
-                return "stage"
 
             case .production:
                 return "prod"

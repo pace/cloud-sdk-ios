@@ -10,7 +10,7 @@ import XCTest
 
 class PACECloudSDKTests: XCTestCase {
     func testSettings() {
-        let envs: [PACECloudSDK.Environment] = [.development, .sandbox, .stage, .production]
+        let envs: [PACECloudSDK.Environment] = [.development, .sandbox, .production]
 
         envs.forEach { env in
             PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: env))
@@ -32,11 +32,6 @@ class PACECloudSDKTests: XCTestCase {
         XCTAssertEqual(PACECloudSDK.URL.paceID.absoluteString, "https://id.sandbox.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.payment.absoluteString, "https://pay.sandbox.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.transactions.absoluteString, "https://pay.sandbox.pace.cloud/transactions")
-
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: .stage))
-        XCTAssertEqual(PACECloudSDK.URL.paceID.absoluteString, "https://id.stage.pace.cloud")
-        XCTAssertEqual(PACECloudSDK.URL.payment.absoluteString, "https://pay.stage.pace.cloud")
-        XCTAssertEqual(PACECloudSDK.URL.transactions.absoluteString, "https://pay.stage.pace.cloud/transactions")
 
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: .production))
         XCTAssertEqual(PACECloudSDK.URL.paceID.absoluteString, "https://id.pace.cloud")
