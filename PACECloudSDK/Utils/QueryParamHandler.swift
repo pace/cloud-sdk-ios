@@ -21,19 +21,24 @@ class QueryParamHandler {
             return url
         }
 
-        var queryItems: [URLQueryItem] = (urlComponents.queryItems ?? []) + (PACECloudSDK.shared.additionalQueryParams ?? [])
+        let utmSource = "utm_source"
+        let queryItems: [URLQueryItem] = (urlComponents.queryItems ?? [])
+        let filteredCustomQueryParams = (PACECloudSDK.shared.additionalQueryParams ?? []).filter {
+            !($0.name == utmSource && queryItems.contains(where: { $0.name == utmSource }))
+        }
+
+        var newQueryItems: [URLQueryItem] = queryItems + filteredCustomQueryParams
 
         // If there is no value for utm_source yet
         // use the main bundle's name if not empty
-        let utmSource = "utm_source"
         let mainBundleName = Bundle.main.bundleNameWithoutWhitespaces
 
         if !mainBundleName.isEmpty,
-           !queryItems.contains(where: { $0.name == utmSource }) {
-            queryItems.append(.init(name: utmSource, value: mainBundleName))
+           !newQueryItems.contains(where: { $0.name == utmSource }) {
+            newQueryItems.append(.init(name: utmSource, value: mainBundleName))
         }
 
-        urlComponents.queryItems = queryItems
+        urlComponents.queryItems = newQueryItems
 
         return urlComponents.url
     }
