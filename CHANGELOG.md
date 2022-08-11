@@ -1,3 +1,28 @@
+11.0.0 Release notes (2022-08-11)
+=============================================================
+
+### Breaking Changes
+
+* Remove the stage environment
+* Remove unnecessary fatal error calls
+
+### Fixes
+
+* 0 instead of nil accuracy in verifyLocation
+* Fix dispatching the completion block on the main thread when ending a session
+* Fix payment method vendor icons url
+
+### Internal
+
+* Add migration guide for stage removal
+* Retrieve geojson from cdn
+* Scope session object to environment
+* Make createdAt property of Double type
+* Remove bot configs
+* Add createdAt to UserInfo
+* Update documentation link
+* Update gems
+
 10.0.0 Release notes (2022-06-08)
 =============================================================
 
