@@ -42,6 +42,7 @@ pacecloudsdkexample_code_style:
   variables:
     REPO_PROJECT_ID: "pacecloudsdkexample"
     PROJECT_PATH: "ExampleApp"
+  interruptible: true
 
 pacecloudsdkexample_build_development:
   extends: .pacecloudsdkexample_development_template
@@ -75,6 +76,7 @@ pacecloudsdkexample_deploy_development:
   variables:
     REPO_PROJECT_ID: "pacecloudsdkexample"
     PROJECT_PATH: "ExampleApp"
+  interruptible: true
 
 pacecloudsdkexample_build_review:
   extends: .pacecloudsdkexample_review_template
