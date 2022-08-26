@@ -199,7 +199,7 @@ public extension AppKit {
      */
     @available(*, deprecated, message: "Please use 'PACECloudSDK.shared.application(open:) instead.'")
     static func handleRedirectURL(_ url: URL) {
-        handleRedirectURL(with: url)
+        PACECloudSDK.shared.application(open: url)
     }
 
     static func sendEvent(_ event: AppEvent) {
