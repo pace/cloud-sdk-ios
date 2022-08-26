@@ -59,7 +59,7 @@ pacecloudsdkexample_deploy_development:
   extends: .pacecloudsdkexample_development_template
   stage: publish
   script:
-    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F files=@$PROJECT_PATH/artifacts/PACECloudSDKExample.ipa -X POST $REPO_BASE_URL/apps'
+    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F bundleIdentifier=car.pace.PACECloudSDKExample -F bundleVersion=$VERSION_NAME -F files=@$PROJECT_PATH/artifacts/PACECloudSDKExample.ipa -X POST $REPO_BASE_URL/apps'
   dependencies:
     - pacecloudsdkexample_build_development
 
@@ -95,9 +95,10 @@ pacecloudsdkexample_deploy_review:
   extends: .pacecloudsdkexample_review_template
   stage: publish
   script:
-    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version=$CI_COMMIT_REF_NAME -F files=@$PROJECT_PATH/artifacts/PACECloudSDKExample.ipa -X POST $REPO_BASE_URL/apps'
+    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F bundleIdentifier=car.pace.PACECloudSDKExample -F bundleVersion=$VERSION_NAME -F files=@$PROJECT_PATH/artifacts/PACECloudSDKExample.ipa -X POST $REPO_BASE_URL/apps'
   dependencies:
     - pacecloudsdkexample_build_review
+  allow_failure: true
 
 .stop_review:
   extends: .xcode_version
