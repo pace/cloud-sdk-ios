@@ -61,10 +61,14 @@ struct URLBuilder {
         return urlComponent.url?.absoluteString
     }
 
-    static func buildAppIconUrl(baseUrl: String?, iconSrc: String?) -> String? {
-        guard let baseUrl = baseUrl,
-            let iconSrc = iconSrc else { return nil }
+    static func buildAppIconUrl(baseUrl: String?, iconSrc: String?) -> URL? {
+        guard let iconSrc = iconSrc else { return nil }
 
-        return baseUrl + "/" + iconSrc
+        if iconSrc.isAbsoluteURLString {
+            return URL(string: iconSrc)
+        }
+
+        guard let baseUrl = baseUrl else { return nil }
+        return URL(string: baseUrl)?.appendingPathComponent(iconSrc)
     }
 }

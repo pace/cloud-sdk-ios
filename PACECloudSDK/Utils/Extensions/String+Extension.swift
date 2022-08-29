@@ -47,3 +47,10 @@ extension String {
 extension StringProtocol {
     var firstUppercased: String { prefix(1).uppercased() + dropFirst() }
 }
+
+extension String {
+    var isAbsoluteURLString: Bool {
+        guard let url = URL(string: self) else { return false }
+        return url.scheme != nil && url.host != nil
+    }
+}

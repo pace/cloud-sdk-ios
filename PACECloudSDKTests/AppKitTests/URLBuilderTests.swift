@@ -34,8 +34,23 @@ class URLBuilderTests: XCTestCase {
         XCTAssertEqual(result, "https://pace.com?r=f582e5b4-5424-453f-9d7d-8c106b8360d3")
     }
 
-    func testBuildImageUrl() {
-        guard let result = URLBuilder.buildAppIconUrl(baseUrl: "base", iconSrc: "image") else { XCTFail(); return }
-        XCTAssertEqual(result, "base/image")
+    func testBuildImageUrlAbsolutePath() {
+        guard let result = URLBuilder.buildAppIconUrl(baseUrl: "https://pace.fuel.site", iconSrc: "https://cdn.pace.cloud/brands/mybrand/notification_logo.png")?.absoluteString else { XCTFail(); return }
+        XCTAssertEqual(result, "https://cdn.pace.cloud/brands/mybrand/notification_logo.png")
+    }
+
+    func testBuildImageUrlRelativePath() {
+        guard let result = URLBuilder.buildAppIconUrl(baseUrl: "https://pace.fuel.site", iconSrc: "notification_logo.png")?.absoluteString else { XCTFail(); return }
+        XCTAssertEqual(result, "https://pace.fuel.site/notification_logo.png")
+    }
+
+    func testBuildImageUrlInvalidAbsoluteURL() {
+        let result = URLBuilder.buildAppIconUrl(baseUrl: nil, iconSrc: "//brands/mybrand/notification_logo.png")?.absoluteString
+        XCTAssertNil(result)
+    }
+
+    func testBuildImageUrlInvalidRelativeURL() {
+        let result = URLBuilder.buildAppIconUrl(baseUrl: "base", iconSrc: nil)?.absoluteString
+        XCTAssertNil(result)
     }
 }

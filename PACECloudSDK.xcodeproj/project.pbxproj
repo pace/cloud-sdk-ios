@@ -2112,6 +2112,7 @@
 				051CAA8627227F320090779D /* Decimal+Extension.swift */,
 				3BA5149325EE396100CC1FC3 /* Double+Extension.swift */,
 				3B970A062542D9BA0072F6BA /* Notification+Extension.swift */,
+				3B970A052542D9B90072F6BA /* String+Extension.swift */,
 				3B855318253D6C70001F7B66 /* UIDevice+Extension.swift */,
 				3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */,
 				3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */,
@@ -2175,7 +2176,6 @@
 			children = (
 				3B970A072542D9BA0072F6BA /* Dictionary+Extension.swift */,
 				3B970A032542D9B90072F6BA /* Encodable+Extension.swift */,
-				3B970A052542D9B90072F6BA /* String+Extension.swift */,
 				3B970A002542D9B90072F6BA /* UIColor+Extension.swift */,
 				3B970A022542D9B90072F6BA /* UIImage+Extension.swift */,
 				3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */,

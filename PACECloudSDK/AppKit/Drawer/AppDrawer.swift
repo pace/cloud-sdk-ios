@@ -162,7 +162,7 @@ extension AppKit {
                 let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
             else { return }
 
-            appImageView.load(urlString: iconUrlString)
+            appImageView.load(urlString: iconUrlString.absoluteString)
         }
 
         private func setupDesign() {
