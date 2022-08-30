@@ -349,6 +349,43 @@ public extension IDKit {
         shared?.sendMailOTP { completion?($0) }
     }
 
+    /**
+     Generates an OTP by using biometry evaluation.
+     - parameter completion:
+     The block to be called when the request is completed
+     including either the generated `OTP` or an `error`.
+     */
+    static func generateOTPWithBiometry(completion: @escaping (Result<String, IDKitError>) -> Void) {
+        shared?.otpWithBiometry(completion: completion)
+    }
+
+    /**
+     Generates an OTP by using the user's PACE PIN.
+     - parameter pin: The user's PACE PIN.
+     - parameter completion:
+     The block to be called when the request is completed
+     including either the generated `OTP` or an `error`.
+     */
+    static func generateOTP(pin: String, completion: @escaping (Result<String, IDKitError>) -> Void) {
+        shared?.otp(password: nil, pin: pin, completion: completion)
+    }
+
+    /**
+     Generates an OTP by using the user's PACE ID password.
+     - parameter password: The user's PACE ID password.
+     - parameter completion:
+     The block to be called when the request is completed
+     including either the generated `OTP` or an `error`.
+     */
+    static func generateOTP(password: String, completion: @escaping (Result<String, IDKitError>) -> Void) {
+        shared?.otp(password: password, pin: nil, completion: completion)
+    }
+
+    /**
+     Returns data in the keychain stored with the specified key.
+     - parameter key: The key the data was stored with.
+     - returns: The stored keychain data or `nil` if non was found.
+     */
     static func getKeychainSecretData(with key: String) -> Data? {
         return PACECloudSDK.Keychain().getData(for: key)
     }

@@ -24,7 +24,7 @@ extension IDKit {
     func evaluateBiometryPolicy(completion: @escaping (Result<Bool, IDKitError>) -> Void) {}
     func enableBiometricAuthentication(pin: String?, password: String?, otp: String?, completion: ((Result<Bool, IDKitError>) -> Void)?) {}
     func disableBiometricAuthentication() {}
-    func otp(for password: String, completion: @escaping (Result<String, IDKitError>) -> Void) {}
+    func otp(password: String?, pin: String?, completion: @escaping (Result<String, IDKitError>) -> Void) {}
     func otpWithBiometry(completion: @escaping (Result<String, IDKitError>) -> Void) {}
     func sendMailOTP(completion: @escaping (Result<Bool, IDKitError>) -> Void) {}
 }
