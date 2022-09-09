@@ -108,14 +108,15 @@ struct UserAPIRequestBehaviourGroup {
     }
 
     func modifyRequest(_ urlRequest: URLRequest) -> URLRequest {
-        guard let oldUrl = urlRequest.url else { return urlRequest }
-
         var newRequest = urlRequest
         behaviours.forEach {
-            newRequest = $0.modifyRequest(request: request, urlRequest: urlRequest)
+            newRequest = $0.modifyRequest(request: request, urlRequest: newRequest)
         }
 
-        newRequest.url = QueryParamHandler.buildUrl(for: oldUrl)
+        if let newRequestUrl = newRequest.url {
+            newRequest.url = QueryParamHandler.buildUrl(for: newRequestUrl)
+        }
+
         newRequest.setValue(Constants.Tracing.identifier, forHTTPHeaderField: Constants.Tracing.key)
 
         return newRequest
