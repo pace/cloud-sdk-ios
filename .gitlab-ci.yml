@@ -1,5 +1,6 @@
 include:
   - local: "ExampleApp/.gitlab-ci.yml"
+  - local: "FuelingExampleApp/.gitlab-ci.yml"
 
 variables:
   PROJECT_PATH: "PACECloudSDK"

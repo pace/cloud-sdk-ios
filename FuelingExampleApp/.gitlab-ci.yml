@@ -1,0 +1,116 @@
+.dependent_changes: &dependent_changes
+    changes:
+      - .gitlab-ci.yml
+      - "FuelingExampleApp/**/*"
+      - "PACECloudSDK/**/*"
+
+.only_merge_requests: &only_merge_requests
+  only:
+    refs:
+      - merge_requests
+    <<: *dependent_changes
+
+.only_master: &only_master
+  only:
+    refs:
+      - master
+    <<: *dependent_changes
+
+fuelingexampleapp_plists:
+  extends: .plist
+  variables:
+    PROJECT_PATH: "FuelingExampleApp/FuelingExampleApp"
+  only:
+    <<: *dependent_changes
+
+## Tests
+fuelingexampleapp_code_style:
+  extends: .code_style
+  variables:
+    PROJECT_PATH: "FuelingExampleApp"
+  only:
+   <<: *dependent_changes
+
+## Build
+.fuelingexampleapp_development_template:
+  extends: .xcode_version
+  <<: *only_master
+  except:
+    - schedules
+  variables:
+    REPO_PROJECT_ID: "fuelingexampleapp"
+    PROJECT_PATH: "FuelingExampleApp"
+  interruptible: true
+
+fuelingexampleapp_build_development:
+  extends: .fuelingexampleapp_development_template
+  stage: build
+  script:
+    - cd $PROJECT_PATH
+    - bundle exec fastlane build_development
+  artifacts:
+    name: "latest-app"
+    paths:
+      - $PROJECT_PATH/artifacts/FuelingExampleApp.ipa
+    expire_in: 2 days
+
+fuelingexampleapp_deploy_development:
+  extends: .fuelingexampleapp_development_template
+  stage: publish
+  script:
+    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F bundleIdentifier=car.pace.FuelingExampleApp -F bundleVersion=$VERSION_NAME -F files=@$PROJECT_PATH/artifacts/FuelingExampleApp.ipa -X POST $REPO_BASE_URL/apps'
+  dependencies:
+    - fuelingexampleapp_build_development
+
+## Review
+.fuelingexampleapp_review_template:
+  extends: .xcode_version
+  <<: *only_merge_requests
+  except:
+    refs:
+      - tags
+    variables:
+     - $CI_COMMIT_MESSAGE =~ /WIP/
+  variables:
+    REPO_PROJECT_ID: "fuelingexampleapp"
+    PROJECT_PATH: "FuelingExampleApp"
+  interruptible: true
+
+fuelingexampleapp_build_review:
+  extends: .fuelingexampleapp_review_template
+  stage: build
+  script:
+    - cd $PROJECT_PATH
+    - bundle exec fastlane build_development
+  artifacts:
+    name: "review-app"
+    paths:
+      - $PROJECT_PATH/artifacts/FuelingExampleApp.ipa
+    expire_in: 2 days
+
+fuelingexampleapp_deploy_review:
+  extends: .fuelingexampleapp_review_template
+  stage: publish
+  script:
+    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F bundleIdentifier=car.pace.FuelingExampleApp -F bundleVersion=$VERSION_NAME -F files=@$PROJECT_PATH/artifacts/FuelingExampleApp.ipa -X POST $REPO_BASE_URL/apps'
+  dependencies:
+    - fuelingexampleapp_build_review
+  allow_failure: true
+
+.stop_review:
+  extends: .xcode_version
+  stage: build
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - 'curl --fail -H "authorization: $REPO_SERVER_API_SECRET" -X DELETE "$REPO_BASE_URL/apps?id=$REPO_PROJECT_ID&platform=$REPO_PLATFORM&environment=development&version=$CI_COMMIT_REF_NAME"'
+  when: manual
+  except:
+    refs:
+      - tags
+
+fuelingexampleapp_stop_review:
+  extends: .stop_review
+  <<: *only_merge_requests
+  variables:
+    REPO_PROJECT_ID: "fuelingexampleapp"
