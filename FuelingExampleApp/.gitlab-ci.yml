@@ -26,8 +26,6 @@ fuelingexampleapp_plists:
 ## Tests
 fuelingexampleapp_code_style:
   extends: .code_style
-  variables:
-    PROJECT_PATH: "FuelingExampleApp"
   only:
    <<: *dependent_changes
 

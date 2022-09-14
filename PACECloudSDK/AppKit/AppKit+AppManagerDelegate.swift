@@ -28,15 +28,15 @@ extension AppKit: AppManagerDelegate {
     func didReceiveAppDatas(_ appDatas: [AppData]) {
         // Filter out Apps that should not be shown
         let filteredAppData: [AppData] = appDatas.filter {
-            guard let urlHost = URL(string: $0.appBaseUrl ?? "")?.host,
-                  let disableTime: Double = UserDefaults.standard.value(forKey: "disable_time_\(urlHost)") as? Double
-            else {
-                return true
-            }
+            guard let urlHost = URL(string: $0.appBaseUrl ?? "")?.host else { return true }
+
+            let disableTimeDataKey = "disable_time_\(urlHost)"
+            SDKUserDefaults.migrateDataIfNeeded(key: disableTimeDataKey, isUserSensitiveData: false)
+            let disableTime = SDKUserDefaults.double(for: disableTimeDataKey, isUserSensitiveData: false)
 
             if Date().timeIntervalSince1970 >= disableTime {
                 AppKitLogger.i("Disable timer for \(urlHost) has been reached.")
-                UserDefaults.standard.removeObject(forKey: "disable_time_\(urlHost)")
+                SDKUserDefaults.removeObject(for: "disable_time_\(urlHost)", isUserSensitiveData: false)
 
                 return true
             }

@@ -40,4 +40,9 @@ struct Constants {
             return "\(PACECloudSDK.shared.traceId ?? ""):\(spanId):\(parentSpanId):\(flags)"
         }
     }
+
+    static let userDefaultsMigrationVersionKey = "pacecloudsdk_user_defaults_migration_version"
+    static let keychainMigrationVersionKey = "pacecloudsdk_keychain_migration_version"
+
+    static let userDefaultsSuiteNameSuffix = "pacecloudsdk_user_defaults_suite"
 }

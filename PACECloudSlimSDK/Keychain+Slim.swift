@@ -12,3 +12,10 @@ public extension PACECloudSDK {
         public func getData(for key: String) -> Data? { nil }
     }
 }
+
+class SDKKeychain {
+    static func setUserId(_ userId: String) {}
+    static func deleteUserScopedData() {}
+    static func data(for key: String, isUserSensitiveData: Bool) -> Data? { nil }
+    static func migrate() {}
+}

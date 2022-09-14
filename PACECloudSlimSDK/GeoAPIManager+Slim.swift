@@ -24,7 +24,7 @@ class GeoAPIManager {
 
     func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? { nil }
 
-    func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void)  {
+    func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void) {
         completion(false)
     }
 }

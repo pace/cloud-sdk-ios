@@ -89,7 +89,7 @@ extension IDKit {
 
             self?.session = authState
             let accessToken = session.lastTokenResponse?.accessToken
-            API.accessToken = accessToken
+            self?.handleUpdatedAccessToken(with: accessToken)
 
             completion(.success(accessToken))
             IDKitLogger.i("Authorization successful")
@@ -116,6 +116,20 @@ extension IDKit {
 
         self.authorizationFlow = authorizationFlow
     }
+
+    func handleUpdatedAccessToken(with token: String?) {
+        API.accessToken = token
+
+        guard let token = token,
+              let userId = TokenValidator(accessToken: token).jwtValue(for: IDKitConstants.jwtSubjectKey) as? String else {
+            SDKUserDefaults.deleteUserScopedData()
+            SDKKeychain.deleteUserScopedData()
+            return
+        }
+
+        SDKUserDefaults.setUserId(userId)
+        SDKKeychain.setUserId(userId)
+    }
 }
 
 // MARK: - Refresh
@@ -129,7 +143,7 @@ extension IDKit {
         session.setNeedsTokenRefresh()
         session.performAction(freshTokens: { [weak self] accessToken, _, error in
             guard let error = error else {
-                API.accessToken = accessToken
+                self?.handleUpdatedAccessToken(with: accessToken)
                 completion(.success(accessToken))
                 IDKitLogger.i("Refresh successful")
                 return
@@ -157,9 +171,10 @@ extension IDKit {
 
             self?.disableBiometricAuthentication()
 
+            self?.handleUpdatedAccessToken(with: nil)
+
             self?.session = nil
             SessionCache.reset(for: PACECloudSDK.shared.environment)
-            API.accessToken = nil
 
             guard let authorizationFlow = self?.authorizationFlow else {
                 completion?(result)

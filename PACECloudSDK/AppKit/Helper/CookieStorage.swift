@@ -21,11 +21,11 @@ public extension AppKit {
                 cookiesDict[$0.name] = $0.properties
             }
 
-            UserDefaults.standard.set(cookiesDict, forKey: cookiesKey)
+            SDKUserDefaults.set(cookiesDict, for: cookiesKey, isUserSensitiveData: false)
         }
 
         public static func retrieveCookies() -> [HTTPCookie] {
-            guard let cookiesDict = UserDefaults.standard.dictionary(forKey: cookiesKey) else { return [] }
+            guard let cookiesDict = SDKUserDefaults.dictionary(for: cookiesKey, isUserSensitiveData: false) else { return [] }
 
             var cookies: [HTTPCookie] = []
 

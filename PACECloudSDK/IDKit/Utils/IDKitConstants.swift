@@ -8,6 +8,7 @@
 struct IDKitConstants {
     static let logTag = "[IDKit]"
     static let kcIdpHint = "kc_idp_hint"
+    static let jwtSubjectKey = "sub"
 
     struct UserDefaults {
         static let sessionCache = "sessionCache"
