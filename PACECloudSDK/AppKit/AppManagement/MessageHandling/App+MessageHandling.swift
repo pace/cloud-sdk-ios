@@ -54,7 +54,7 @@ extension App {
 
         // Persist disable's until date
         AppKitLogger.i("[App] Set disable timer for \(host): \(untilTime)")
-        UserDefaults.standard.set(untilTime, forKey: "disable_time_\(host)")
+        SDKUserDefaults.set(untilTime, for: "disable_time_\(host)", isUserSensitiveData: false)
 
         // Close App after everything has been set
         guard let appActionsDelegate = appActionsDelegate else {

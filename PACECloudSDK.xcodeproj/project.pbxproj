@@ -264,6 +264,8 @@
 		3B2FB24628450BF200E8CD0C /* PCPOISourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21528450BF200E8CD0C /* PCPOISourceRequest.swift */; };
 		3B2FB24728450BF200E8CD0C /* PCPOIMoveRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB21628450BF200E8CD0C /* PCPOIMoveRequest.swift */; };
 		3B2FB2742845151700E8CD0C /* PCPOIReferenceStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */; };
+		3B36F2A828D21CFE005D4EB0 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D40C425FA271F007CF531 /* Keychain.swift */; };
+		3B36F2AB28D21D08005D4EB0 /* SDKKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B36F2AA28D21D08005D4EB0 /* SDKKeychain.swift */; };
 		3B387F19256BF58800DD6F52 /* IDKit+HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */; };
 		3B387F8F256C0D0100DD6F52 /* GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F8E256C0D0100DD6F52 /* GasStation.swift */; };
 		3B394BF328698C7D005621EC /* CDNAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B394BF228698C7D005621EC /* CDNAPITests.swift */; };
@@ -279,6 +281,8 @@
 		3B3FC8F527FED6F5008B3F7F /* PACECloudSDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */; };
 		3B40F83325D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */; };
 		3B4666292805C24A00268713 /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
+		3B51D6D428D88DA300ECA65D /* SDKUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D6D328D88DA300ECA65D /* SDKUserDefaultsTests.swift */; };
+		3B51D6D628D894A200ECA65D /* SDKKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D6D528D894A200ECA65D /* SDKKeychainTests.swift */; };
 		3B53F3762845E65D00E751FE /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20128450BF100E8CD0C /* PCPOILocationBasedApps.swift */; };
 		3B53F3772845E66100E751FE /* PCPOILocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FC28450BF000E8CD0C /* PCPOILocationBasedApp.swift */; };
 		3B53F3782845E66B00E751FE /* PCPOILocationBasedAppsWithRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB1FD28450BF000E8CD0C /* PCPOILocationBasedAppsWithRefs.swift */; };
@@ -630,6 +634,8 @@
 		3B98709C268E06AE00A0458F /* Communication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B987047268E06AE00A0458F /* Communication.swift */; };
 		3B98709D268E06AE00A0458F /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B987048268E06AE00A0458F /* Operation.swift */; };
 		3B98709E268E06AE00A0458F /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B987048268E06AE00A0458F /* Operation.swift */; };
+		3B99F5D928D1CEA500B2BF0A /* SDKUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99F5D828D1CEA500B2BF0A /* SDKUserDefaults.swift */; };
+		3B99F5DA28D1CF2F00B2BF0A /* SDKUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99F5D828D1CEA500B2BF0A /* SDKUserDefaults.swift */; };
 		3B9B2A1727B651FB0099EA37 /* POIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CE2580E33B00DE36FA /* POIAPI.swift */; };
 		3B9B2A1827B652290099EA37 /* POIAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A439CD2580E33B00DE36FA /* POIAPIService.swift */; };
 		3B9B2A1927B652290099EA37 /* POIAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A43B1D2582645E00DE36FA /* POIAPIResponse.swift */; };
@@ -701,6 +707,8 @@
 		3BB51B7227E9F4F300FE0014 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F57A30266635B5008F2272 /* Strings.swift */; };
 		3BB51B7327E9F4FA00FE0014 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B90B68127E097CE00A582EC /* Localizable.swift */; };
 		3BB51B7627E9F60D00FE0014 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB51B7527E9F60D00FE0014 /* LocalizationTests.swift */; };
+		3BB7D06628D303CA00CB5BDB /* SDKKeychain+Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */; };
+		3BB7D06828D303D300CB5BDB /* SDKUserDefaults+Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */; };
 		3BB918E525B02AF700E83EDD /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
 		3BBCB2F32567D2C6000EA905 /* POILayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F22567D2C6000EA905 /* POILayer.swift */; };
 		3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
@@ -1255,11 +1263,14 @@
 		3B2FB21528450BF200E8CD0C /* PCPOISourceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOISourceRequest.swift; sourceTree = "<group>"; };
 		3B2FB21628450BF200E8CD0C /* PCPOIMoveRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIMoveRequest.swift; sourceTree = "<group>"; };
 		3B2FB2732845151700E8CD0C /* PCPOIReferenceStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPOIReferenceStatus.swift; sourceTree = "<group>"; };
+		3B36F2AA28D21D08005D4EB0 /* SDKKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKKeychain.swift; sourceTree = "<group>"; };
 		3B387F18256BF58800DD6F52 /* IDKit+HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+HTTPRequest.swift"; sourceTree = "<group>"; };
 		3B387F8E256C0D0100DD6F52 /* GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GasStation.swift; sourceTree = "<group>"; };
 		3B394BF228698C7D005621EC /* CDNAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDNAPITests.swift; sourceTree = "<group>"; };
 		3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKDelegate.swift; sourceTree = "<group>"; };
 		3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InvalidationTokenCache+Slim.swift"; sourceTree = "<group>"; };
+		3B51D6D328D88DA300ECA65D /* SDKUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKUserDefaultsTests.swift; sourceTree = "<group>"; };
+		3B51D6D528D894A200ECA65D /* SDKKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKKeychainTests.swift; sourceTree = "<group>"; };
 		3B5503F02539E61C00C291F1 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
 		3B5503F62539E6BE00C291F1 /* Vector2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2.swift; sourceTree = "<group>"; };
 		3B5504122539E81F00C291F1 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -1441,6 +1452,7 @@
 		3B987046268E06AE00A0458F /* LogEventRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEventRequest.swift; sourceTree = "<group>"; };
 		3B987047268E06AE00A0458F /* Communication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communication.swift; sourceTree = "<group>"; };
 		3B987048268E06AE00A0458F /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
+		3B99F5D828D1CEA500B2BF0A /* SDKUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKUserDefaults.swift; sourceTree = "<group>"; };
 		3B9B2A6E27B6A5FE0099EA37 /* IDKitWebViewUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitWebViewUserAgent.swift; sourceTree = "<group>"; };
 		3B9B6402266F6EAB00B2DC27 /* PaceIDSignInWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceIDSignInWindow.swift; sourceTree = "<group>"; };
 		3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
@@ -1475,6 +1487,8 @@
 		3BB208842538338A008DDE45 /* IDKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitError.swift; sourceTree = "<group>"; };
 		3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+TokenHandling.swift"; sourceTree = "<group>"; };
 		3BB51B7527E9F60D00FE0014 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
+		3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDKKeychain+Watch.swift"; sourceTree = "<group>"; };
+		3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDKUserDefaults+Watch.swift"; sourceTree = "<group>"; };
 		3BBCB2F22567D2C6000EA905 /* POILayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILayer.swift; sourceTree = "<group>"; };
 		3BBCB2F62567D2CC000EA905 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -1850,15 +1864,17 @@
 		17BB0CD8268CCED6009D4755 /* PACECloudWatchSDK */ = {
 			isa = PBXGroup;
 			children = (
-				17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */,
-				17BB0CDA268CCED6009D4755 /* Info.plist */,
-				17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */,
-				1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */,
-				1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */,
+				3B8E426F2757648200DEACCB /* AppKit+Watch.swift */,
 				173799CC269D8D4900ACD3CE /* Bundle+Watch+Resource.swift */,
 				3B79FAB626C15D4100C0278F /* BundleUserAgent+Extension.swift */,
+				1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */,
+				17BB0CDA268CCED6009D4755 /* Info.plist */,
 				6ACBC08526FE0FF300E6AC05 /* Logger+Notification.swift */,
-				3B8E426F2757648200DEACCB /* AppKit+Watch.swift */,
+				17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */,
+				17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */,
+				1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */,
+				3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */,
+				3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */,
 			);
 			path = PACECloudWatchSDK;
 			sourceTree = "<group>";
@@ -1912,6 +1928,24 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3B36F2A628D21CED005D4EB0 /* PersistentData */ = {
+			isa = PBXGroup;
+			children = (
+				3B36F2A928D21D00005D4EB0 /* Keychain */,
+				3B99F5D828D1CEA500B2BF0A /* SDKUserDefaults.swift */,
+			);
+			path = PersistentData;
+			sourceTree = "<group>";
+		};
+		3B36F2A928D21D00005D4EB0 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				3B1D40C425FA271F007CF531 /* Keychain.swift */,
+				3B36F2AA28D21D08005D4EB0 /* SDKKeychain.swift */,
+			);
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		3B394BF128698C6A005621EC /* APITests */ = {
@@ -2489,13 +2523,13 @@
 			isa = PBXGroup;
 			children = (
 				3B6826A127BA951600933C95 /* Constants */,
+				3B36F2A628D21CED005D4EB0 /* PersistentData */,
 				3B9B6412266F6F8F00B2DC27 /* Application.swift */,
 				3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */,
 				3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */,
 				927111512573B295001D6DDA /* HttpHeaderFields.swift */,
 				927110DF2573AA9F001D6DDA /* HttpStatusCode.swift */,
 				3B76F75E257648B0008D8F9A /* HttpUrlError.swift */,
-				3B1D40C425FA271F007CF531 /* Keychain.swift */,
 				3B90B68127E097CE00A582EC /* Localizable.swift */,
 				3BC9A7E22539DDAD00B933AE /* NSURLErrors.swift */,
 				3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */,
@@ -3353,13 +3387,15 @@
 			children = (
 				3BA9E526274B82FD00617EDE /* MockData */,
 				3BA9E52A274B982C00617EDE /* CommandLineArguments.swift */,
+				9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */,
 				3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */,
 				6ACBC03726FDC76300E6AC05 /* LoggerTests.swift */,
 				3BA9E524274B82F000617EDE /* MockObject.swift */,
 				3BA9E522274B825200617EDE /* MockURLProtocol.swift */,
 				9211951E25ECD65D0066AA5D /* QueryParamHandlerTests.swift */,
+				3B51D6D328D88DA300ECA65D /* SDKUserDefaultsTests.swift */,
 				3BA9E52C274B985400617EDE /* XCTestCase+Extension.swift */,
-				9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */,
+				3B51D6D528D894A200ECA65D /* SDKKeychainTests.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3839,6 +3875,7 @@
 				17BB0D19268CCF92009D4755 /* FuelingAPIGetPump.swift in Sources */,
 				9A906B9E284637D700463618 /* PCPayPaymentMethodRMCCreateRequest.swift in Sources */,
 				3B79FA7226C15BD700C0278F /* GeoAPIResponse.swift in Sources */,
+				3BB7D06628D303CA00CB5BDB /* SDKKeychain+Watch.swift in Sources */,
 				3BB51B7227E9F4F300FE0014 /* Strings.swift in Sources */,
 				17BB0D03268CCF13009D4755 /* PayAPIAuthorizePaymentToken.swift in Sources */,
 				3B79FA7D26C15BDE00C0278F /* POIFiltersRequest.swift in Sources */,
@@ -3857,6 +3894,7 @@
 				3B79FAA426C15BF300C0278F /* VectorTiles+Feature.swift in Sources */,
 				17BB0D2A268CD0C3009D4755 /* APIResult.swift in Sources */,
 				3B7C8E2C26FC59600080B2B5 /* PayAPICreatePaymentMethodZGM.swift in Sources */,
+				3B36F2A828D21CFE005D4EB0 /* Keychain.swift in Sources */,
 				17BB0CE6268CCEFB009D4755 /* AnyPayRequest.swift in Sources */,
 				3B79FA7926C15BDB00C0278F /* GeometryCommand.swift in Sources */,
 				9A906B92284637D700463618 /* PCPayPaymentMethodPayDirektCreateRequest.swift in Sources */,
@@ -3960,6 +3998,7 @@
 				3B79FA8826C15BEB00C0278F /* GasStationApiResponse.swift in Sources */,
 				17BB0CF9268CCF13009D4755 /* PayAPIAuthorizeApplePayPaymentToken.swift in Sources */,
 				17BB0CF8268CCF13009D4755 /* PayAPICreatePaymentMethodPayDirekt.swift in Sources */,
+				3BB7D06828D303D300CB5BDB /* SDKUserDefaults+Watch.swift in Sources */,
 				9A906BB2284637D700463618 /* PCPayPaymentMethodKinds.swift in Sources */,
 				3B79FA6B26C15BD200C0278F /* POILayer.swift in Sources */,
 				3B79FA6426C15BCC00C0278F /* POIKitConfig.swift in Sources */,
@@ -4194,6 +4233,7 @@
 				3B2FB24028450BF200E8CD0C /* PCPOICurrency.swift in Sources */,
 				3B970AB02542D9BB0072F6BA /* AppMetadata.swift in Sources */,
 				3B970A792542D9BB0072F6BA /* AppDrawer+App.swift in Sources */,
+				3B36F2AB28D21D08005D4EB0 /* SDKKeychain.swift in Sources */,
 				3B2FB22028450BF200E8CD0C /* PCPOIFieldMetaData.swift in Sources */,
 				9A906B83284637D700463618 /* PCPayTransaction.swift in Sources */,
 				9A906B87284637D700463618 /* PCPayTransactionCreateRequest.swift in Sources */,
@@ -4422,6 +4462,7 @@
 				3BC9A8252539DDAD00B933AE /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				84600EF625C03B1E0087194F /* POIAPIGetRegionalPrices.swift in Sources */,
 				3B970A6F2542D9BB0072F6BA /* App.swift in Sources */,
+				3B99F5D928D1CEA500B2BF0A /* SDKUserDefaults.swift in Sources */,
 				84600EA025C03B0C0087194F /* PayAPIGetPaymentMethods.swift in Sources */,
 				3B970A672542D9BB0072F6BA /* UIView+Extension.swift in Sources */,
 				3B1D40C525FA271F007CF531 /* Keychain.swift in Sources */,
@@ -4648,6 +4689,7 @@
 				3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
+				3B51D6D428D88DA300ECA65D /* SDKUserDefaultsTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
 				3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
@@ -4665,6 +4707,7 @@
 				3BA9E529274B838D00617EDE /* GeoServiceMockObject.swift in Sources */,
 				3B970AC52542D9DB0072F6BA /* AppKitTests.swift in Sources */,
 				3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */,
+				3B51D6D628D894A200ECA65D /* SDKKeychainTests.swift in Sources */,
 				3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */,
 				3BA9E520274B7F5700617EDE /* GeoServiceTests.swift in Sources */,
 				3B394BF328698C7D005621EC /* CDNAPITests.swift in Sources */,
@@ -4860,6 +4903,7 @@
 				17691F6325B1C225003844BD /* QueryParamHandler.swift in Sources */,
 				92EDDBF625A7270300E480F4 /* AppManifest.swift in Sources */,
 				3BABEFF927C8E8CC002256CB /* IDKitWebViewUserAgent.swift in Sources */,
+				3B99F5DA28D1CF2F00B2BF0A /* SDKUserDefaults.swift in Sources */,
 				92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */,
 				3B98709C268E06AE00A0458F /* Communication.swift in Sources */,
 				3B8A869E27479250001EBE29 /* Application.swift in Sources */,

@@ -26,8 +26,6 @@ pacecloudsdkexample_plists:
 ## Tests
 pacecloudsdkexample_code_style:
   extends: .code_style
-  variables:
-    PROJECT_PATH: "ExampleApp"
   only:
    <<: *dependent_changes
 

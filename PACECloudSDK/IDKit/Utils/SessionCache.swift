@@ -11,11 +11,13 @@ class SessionCache {
     static func loadSession(for environment: PACECloudSDK.Environment) -> OIDAuthState? {
         IDKitLogger.i("Attempting to load previous session...")
 
-        // Fallback to old key
-        guard let data = UserDefaults.standard.object(forKey: sessionCacheKey(for: environment)) as? Data
-                ?? UserDefaults.standard.object(forKey: IDKitConstants.UserDefaults.sessionCache) as? Data else {
-            return nil
-        }
+        // Migrate old fallback key first
+        SDKUserDefaults.migrateDataIfNeeded(key: IDKitConstants.UserDefaults.sessionCache, isUserSensitiveData: false)
+
+        let sessionCacheKey = sessionCacheKey(for: environment)
+        SDKUserDefaults.migrateDataIfNeeded(key: sessionCacheKey, isUserSensitiveData: false)
+
+        guard let data = SDKUserDefaults.data(for: sessionCacheKey, isUserSensitiveData: false) else { return nil }
 
         do {
             return try NSKeyedUnarchiver.unarchivedObject(ofClass: OIDAuthState.self, from: data)
@@ -39,13 +41,13 @@ class SessionCache {
             }
         }
 
-        UserDefaults.standard.setValue(data, forKey: sessionCacheKey(for: environment))
+        SDKUserDefaults.set(data, for: sessionCacheKey(for: environment), isUserSensitiveData: false)
     }
 
     static func reset(for environment: PACECloudSDK.Environment) {
         // Remove session for old key as well
         [sessionCacheKey(for: environment), IDKitConstants.UserDefaults.sessionCache].forEach {
-            UserDefaults.standard.setValue(nil, forKey: $0)
+            SDKUserDefaults.set(nil, for: $0, isUserSensitiveData: false)
         }
     }
 

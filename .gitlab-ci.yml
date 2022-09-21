@@ -71,7 +71,6 @@ before_script:
   after_script:
     - echo "Ignore global after_script"
   script:
-    - cd $PROJECT_PATH
     - swiftlint
   only:
     refs:
@@ -130,8 +129,6 @@ pacecloudsdk_plists:
 
 pacecloudsdk_code_style:
   extends: .code_style
-  variables:
-    PROJECT_PATH: "."
 
 pacecloudsdk_unit_tests:
   extends: .unit_test

@@ -97,7 +97,7 @@ public extension PACECloudSDK {
 }
 
 extension PACECloudSDK.Keychain {
-    func deleteAllTOTPData() {
+    private func deleteAllData(filterKeysBy condition: (String) -> Bool) {
         lock.lock()
         defer { lock.unlock() }
 
@@ -117,8 +117,16 @@ extension PACECloudSDK.Keychain {
 
         let matchingKeys = (result as? [[CFString: Any]])?
             .compactMap { $0[kSecAttrAccount] as? String }
-            .filter { $0.hasSuffix("payment-authorize") }
+            .filter { condition($0) }
 
         matchingKeys?.forEach(deleteWithoutLock)
+    }
+
+    func deleteAllTOTPData() {
+        deleteAllData(filterKeysBy: { $0.hasSuffix("payment-authorize") })
+    }
+
+    func deleteAllUserScopedData(userId: String) {
+        deleteAllData(filterKeysBy: { $0.hasPrefix(userId) })
     }
 }

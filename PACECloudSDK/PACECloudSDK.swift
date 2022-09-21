@@ -62,6 +62,9 @@ public class PACECloudSDK {
         self.warningsHandler = SDKWarningsHandler(with: config)
         warningsHandler?.preCheckSetup()
 
+        SDKUserDefaults.migrate()
+        SDKKeychain.migrate()
+
         setupKits(with: config)
         setupAPI()
     }

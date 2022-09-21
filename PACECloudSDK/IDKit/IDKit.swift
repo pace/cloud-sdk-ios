@@ -7,6 +7,8 @@
 
 import AppAuth
 
+// swiftlint:disable:this file_length
+
 public class IDKit {
     static var shared: IDKit? {
         PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
@@ -39,6 +41,8 @@ public class IDKit {
 
         guard let session = SessionCache.loadSession(for: PACECloudSDK.shared.environment) else { return }
         self.session = session
+
+        handleUpdatedAccessToken(with: session.lastTokenResponse?.accessToken)
     }
 
     private static func setup(with configuration: OIDConfiguration, userAgentType: UserAgentType) {
@@ -387,7 +391,7 @@ public extension IDKit {
      - returns: The stored keychain data or `nil` if non was found.
      */
     static func getKeychainSecretData(with key: String) -> Data? {
-        return PACECloudSDK.Keychain().getData(for: key)
+        return SDKKeychain.data(for: key, isUserSensitiveData: true)
     }
 }
 

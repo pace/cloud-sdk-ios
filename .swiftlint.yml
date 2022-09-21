@@ -30,6 +30,8 @@ disabled_rules:
 
 included:
     - PACECloudSDK
+    - PACECloudSlimSDK
+    - PACECloudWatchSDK
 
 excluded:
     - PACECloudSDK/API/Generated
@@ -59,3 +61,17 @@ custom_rules:
     message: "Double space between keywords"
     match_kinds: keyword
     severity: warning
+  user_defaults_wrapper:
+    include: "*.swift"
+    name: "UserDefaults Wrapper"
+    message: "Use class 'SDKUserDefaults' to access user defaults"
+    regex: "(?<!struct |class |extension |enum |protocol |[a-zA-Z.])UserDefaults"
+    match_kinds: identifier
+    severity: error
+  keychain_wrapper:
+    include: "*.swift"
+    name: "Keychain Wrapper"
+    message: "Use class 'SDKKeychain' to access keychain data"
+    regex: "(?<!extension |[a-zA-Z.])PACECloudSDK[.]Keychain"
+    match_kinds: identifier
+    severity: error

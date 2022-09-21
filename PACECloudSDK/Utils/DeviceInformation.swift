@@ -8,14 +8,14 @@
 import Foundation
 
 struct DeviceInformation {
+    static let deviceIdKey: String = "PACE-DeviceId"
+
     /**
      A 32 bytes long secure random hex string.
      The device id is not persisted across app installs.
     */
     static var id: String {
-        let deviceIdKey: String = "PACE-DeviceId"
-
-        if let deviceId = UserDefaults.standard.string(forKey: deviceIdKey) {
+        if let deviceId = SDKUserDefaults.string(for: deviceIdKey, isUserSensitiveData: false) {
             return deviceId
         }
 
@@ -27,7 +27,7 @@ struct DeviceInformation {
 
         if result == errSecSuccess {
             let deviceId: String = keyData.hexEncodedString()
-            UserDefaults.standard.set(deviceId, forKey: deviceIdKey)
+            SDKUserDefaults.set(deviceId, for: deviceIdKey, isUserSensitiveData: false)
 
             return deviceId
         } else {

@@ -164,34 +164,36 @@ extension App {
 
 private extension App {
     func secureData(for key: String) -> String? {
-        let userDefaults = UserDefaults.standard
-        let keychain = PACECloudSDK.Keychain()
+        let userDefaults = UserDefaults.standard // swiftlint:disable:this user_defaults_wrapper
+
+        SDKKeychain.migrateUserScopedStringIfNeeded(key: key)
 
         guard let secureDataString = userDefaults.string(forKey: key) else {
-            return keychain.getString(for: key)
+            return SDKKeychain.string(for: key, isUserSensitiveData: true)
         }
 
         // Migrate secureData string from userDefaults to keychain
-        keychain.set(secureDataString, for: key)
+        SDKKeychain.set(secureDataString, for: key, isUserSensitiveData: true)
         userDefaults.set(nil, forKey: key)
 
         return secureDataString
     }
 
     func setSecureData(value: String, for key: String) {
-        PACECloudSDK.Keychain().set(value, for: key)
+        SDKKeychain.set(value, for: key, isUserSensitiveData: true)
     }
 
     func appTOTPData(for key: String) -> Data? {
-        let userDefaults = UserDefaults.standard
-        let keychain = PACECloudSDK.Keychain()
+        let userDefaults = UserDefaults.standard // swiftlint:disable:this user_defaults_wrapper
+
+        SDKKeychain.migrateUserScopedDataIfNeeded(key: key)
 
         guard let userDefaultsTotpData = userDefaults.data(forKey: key) else {
-            return keychain.getData(for: key)
+            return SDKKeychain.data(for: key, isUserSensitiveData: true)
         }
 
         // Migrate totp data from userDefaults to keychain
-        keychain.set(userDefaultsTotpData, for: key)
+        SDKKeychain.set(userDefaultsTotpData, for: key, isUserSensitiveData: true)
         userDefaults.set(nil, forKey: key)
 
         return userDefaultsTotpData
@@ -204,20 +206,19 @@ private extension App {
         }
 
         let secretKey = BiometryPolicy.retrieveMasterKey()
-        let totpData = PACECloudSDK.Keychain().getData(for: secretKey)
+        SDKKeychain.migrateUserScopedDataIfNeeded(key: secretKey)
+        let totpData = SDKKeychain.data(for: secretKey, isUserSensitiveData: true)
         return totpData
     }
 
     func setAppTOTPData(to newValue: Data, for key: String, host: String) {
-        let keychain = PACECloudSDK.Keychain()
-
         // Set App TOTP Data
-        keychain.set(newValue, for: key)
+        SDKKeychain.set(newValue, for: key, isUserSensitiveData: true)
 
         // Set master TOTP Data if not available yet
         guard masterTOTPData(host: host) == nil else { return }
 
         let secretKey = BiometryPolicy.retrieveMasterKey()
-        keychain.set(newValue, for: secretKey)
+        SDKKeychain.set(newValue, for: secretKey, isUserSensitiveData: true)
     }
 }

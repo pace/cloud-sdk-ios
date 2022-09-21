@@ -16,7 +16,7 @@ enum Compass {
     init(bearing: Int) {
         switch (bearing + 360) % 360 {
         case 45...135:
-            self =  .east
+            self = .east
 
         case 136...225:
             self = .south
@@ -25,7 +25,7 @@ enum Compass {
             self = .west
 
         default:
-            self =  .north
+            self = .north
         }
     }
 }

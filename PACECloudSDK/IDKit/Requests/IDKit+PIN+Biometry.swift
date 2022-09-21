@@ -290,20 +290,20 @@ private extension IDKit {
 private extension IDKit {
     func masterTOTPData() -> Data? { // swiftlint:disable:this inclusive_language
         let secretKey = BiometryPolicy.retrieveMasterKey()
-        let totpData = PACECloudSDK.Keychain().getData(for: secretKey)
+        SDKKeychain.migrateUserScopedDataIfNeeded(key: secretKey)
+        let totpData = SDKKeychain.data(for: secretKey, isUserSensitiveData: true)
         return totpData
     }
 
     func setMasterTOTPData(to newValue: Data?) { // swiftlint:disable:this inclusive_language
-        let keychain = PACECloudSDK.Keychain()
         let secretKey = BiometryPolicy.retrieveMasterKey()
 
         guard let newValue = newValue else {
-            keychain.deleteAllTOTPData()
+            SDKKeychain.deleteAllTOTPData()
             return
         }
 
-        keychain.set(newValue, for: secretKey)
+        SDKKeychain.set(newValue, for: secretKey, isUserSensitiveData: true)
     }
 
     func logBiometryWarningsIfNeeded() {

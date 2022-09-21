@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public class IDKit {
     public struct OIDConfiguration {}
 
@@ -20,4 +19,6 @@ public class IDKit {
     }
 
     static func handleAdditionalQueryParams(_ params: Set<URLQueryItem>) { }
+
+    static func latestAccessToken() -> String? { nil }
 }
