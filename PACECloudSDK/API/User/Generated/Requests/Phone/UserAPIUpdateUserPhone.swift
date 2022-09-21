@@ -752,7 +752,26 @@ If the process is not completed within 24h the process is canceled.
             /** Phone number is set but not verified */
             case status201
 
-            /** OAuth token missing or invalid */
+            /** OAuth token missing or invalid or a linked identity is missing.
+Linked identity missing is a special case where you need to make sure that
+the user has additionally logged in / authorized with a third-party.
+This is not relevant for most use-cases.
+The specific error code that identifies a missing linked identity is `missing-linked-identity`
+Example:
+```
+  {
+      "errors": [
+          {
+              "id": "cbgmhslmp1o9or9kh1p0",
+              "title": "Missing linked identity for authorized access",
+              "detail": "Linked identity is needed to access this resource, please check why the user does not have a linked identity",
+              "status": "401",
+              "code": "missing-linked-identity"
+          }
+      ]
+  }
+```
+ */
             case status401(Status401)
 
             /** Resource not found */
