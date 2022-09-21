@@ -24,6 +24,10 @@ public class PCPayTransaction: APIModel {
  */
     public var createdAt: DateTime?
 
+    /** Initial creation date of the transaction (local-time of the gas station/point of interest) (https://tools.ietf.org/html/rfc3339#section-5.6).
+ */
+    public var createdAtLocaltime: String?
+
     /** Currency as specified in ISO-4217. */
     public var currency: String?
 
@@ -111,12 +115,13 @@ public class PCPayTransaction: APIModel {
         }
     }
 
-    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, vat: VAT? = nil, createdAt: DateTime? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, vat: VAT? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
         self.id = id
         self.links = links
         self.type = type
         self.vat = vat
         self.createdAt = createdAt
+        self.createdAtLocaltime = createdAtLocaltime
         self.currency = currency
         self.discountAmount = discountAmount
         self.fuel = fuel
@@ -145,6 +150,7 @@ public class PCPayTransaction: APIModel {
         type = try container.decodeIfPresent("type")
         vat = try container.decodeIfPresent("VAT")
         createdAt = try container.decodeIfPresent("createdAt")
+        createdAtLocaltime = try container.decodeIfPresent("createdAtLocaltime")
         currency = try container.decodeIfPresent("currency")
         discountAmount = try container.decodeLosslessDecimal("discountAmount")
         fuel = try container.decodeIfPresent("fuel")
@@ -173,6 +179,7 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(type, forKey: "type")
         try container.encodeIfPresent(vat, forKey: "VAT")
         try container.encodeIfPresent(createdAt, forKey: "createdAt")
+        try container.encodeIfPresent(createdAtLocaltime, forKey: "createdAtLocaltime")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(discountAmount, forKey: "discountAmount")
         try container.encodeIfPresent(fuel, forKey: "fuel")
@@ -200,6 +207,7 @@ public class PCPayTransaction: APIModel {
       guard self.type == object.type else { return false }
       guard self.vat == object.vat else { return false }
       guard self.createdAt == object.createdAt else { return false }
+      guard self.createdAtLocaltime == object.createdAtLocaltime else { return false }
       guard self.currency == object.currency else { return false }
       guard self.discountAmount == object.discountAmount else { return false }
       guard self.fuel == object.fuel else { return false }

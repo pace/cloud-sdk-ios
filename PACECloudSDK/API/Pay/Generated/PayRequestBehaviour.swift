@@ -20,7 +20,7 @@ public protocol PayAPIRequestBehaviour {
     func onSuccess(request: AnyPayAPIRequest, result: Any)
 
     /// called when request fails with an error. This will not be called if the request returns a known response even if the a status code is out of the 200 range
-    func onFailure(request: AnyPayAPIRequest, response: HTTPURLResponse, error: APIClientError)
+    func onFailure(request: AnyPayAPIRequest, urlRequest: URLRequest?, response: HTTPURLResponse, error: APIClientError)
 
     /// called if the request recieves a network response. This is not called if request fails validation or encoding
     func onResponse(request: AnyPayAPIRequest, response: AnyPayAPIResponse)
@@ -34,13 +34,21 @@ public extension PayAPIRequestBehaviour {
     }
     func beforeSend(request: AnyPayAPIRequest) {}
     func onSuccess(request: AnyPayAPIRequest, result: Any) {}
-    func onFailure(request: AnyPayAPIRequest, response: HTTPURLResponse, error: APIClientError) {}
+    func onFailure(request: AnyPayAPIRequest, urlRequest: URLRequest?, response: HTTPURLResponse, error: APIClientError) {}
     func onResponse(request: AnyPayAPIRequest, response: AnyPayAPIResponse) {}
 }
 
 struct PayAPIRequestBehaviourImplementation: PayAPIRequestBehaviour {
-    func onFailure(request: AnyPayAPIRequest, response: HTTPURLResponse, error: APIClientError) {
-        SDKLogger.e("[PayAPI] Request (\(response.url?.absoluteString ?? "invalid url")) with request-id: \(response.allHeaderFields["request-id"] ?? "unknown") failed with error: \(error.description)")
+    func onFailure(request: AnyPayAPIRequest, urlRequest: URLRequest?, response: HTTPURLResponse, error: APIClientError) {
+        let url = urlRequest?.url?.absoluteString ?? response.url?.absoluteString ?? "invalid url"
+        switch error {
+        case .networkError(let error) where (error as NSError).code == NSURLErrorCancelled:
+            SDKLogger.i("[PayAPI] Request with url (\(url)) was canceled.")
+
+        default:
+            let requestId: String = response.allHeaderFields["request-id"] as? String ?? "unknown"
+            SDKLogger.e("[PayAPI] Request (\(url)) with request-id: \(requestId) failed with error: \(error.description)")
+        }
     }
 }
 
@@ -95,9 +103,9 @@ struct PayAPIRequestBehaviourGroup {
         }
     }
 
-    func onFailure(response: HTTPURLResponse, error: APIClientError) {
+    func onFailure(urlRequest: URLRequest?, response: HTTPURLResponse, error: APIClientError) {
         behaviours.forEach {
-            $0.onFailure(request: request, response: response, error: error)
+            $0.onFailure(request: request, urlRequest: urlRequest, response: response, error: error)
         }
     }
 
