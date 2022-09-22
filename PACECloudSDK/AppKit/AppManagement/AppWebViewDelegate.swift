@@ -97,7 +97,7 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
 
             AppKitLogger.e("App couldn't be loaded. Showing placeholder instead.")
 
-            app.placeholder.isHidden = false
+            app.showErrorState()
 
             return
         }

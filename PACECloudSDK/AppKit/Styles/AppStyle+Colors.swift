@@ -8,6 +8,10 @@
 import UIKit
 
 extension AppStyle {
+    static var blackColor: UIColor {
+        return UIColor.black
+    }
+
     static var whiteColor: UIColor {
         return UIColor.white
     }

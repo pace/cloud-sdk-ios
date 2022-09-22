@@ -247,6 +247,7 @@ extension AppViewController: WebViewControllerDelegate {
     func dismiss(webViewController: WebViewController) {
         webViewController.dismiss(animated: true) { [weak self] in
             self?.integratedWebView = nil
+            self?.close()
         }
     }
 }
