@@ -36,15 +36,11 @@ public class PCPayPaymentMethodLogpayCreateRequest: APIModel {
         /** Indicates whether this payment method should be managed by the creating client, i.e., no other client can modify or delete this method. */
         public var managed: Bool?
 
-        /** Personal identification number is a security code for verifying the user's identity. */
-        public var pin: String?
-
-        public init(kind: PCPayKind, pan: String? = nil, expiry: DateTime? = nil, managed: Bool? = nil, pin: String? = nil) {
+        public init(kind: PCPayKind, pan: String? = nil, expiry: DateTime? = nil, managed: Bool? = nil) {
             self.kind = kind
             self.pan = pan
             self.expiry = expiry
             self.managed = managed
-            self.pin = pin
         }
 
         public required init(from decoder: Decoder) throws {
@@ -54,7 +50,6 @@ public class PCPayPaymentMethodLogpayCreateRequest: APIModel {
             pan = try container.decodeIfPresent("PAN")
             expiry = try container.decodeIfPresent("expiry")
             managed = try container.decodeIfPresent("managed")
-            pin = try container.decodeIfPresent("pin")
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -64,7 +59,6 @@ public class PCPayPaymentMethodLogpayCreateRequest: APIModel {
             try container.encodeIfPresent(pan, forKey: "PAN")
             try container.encodeIfPresent(expiry, forKey: "expiry")
             try container.encodeIfPresent(managed, forKey: "managed")
-            try container.encodeIfPresent(pin, forKey: "pin")
         }
 
         public func isEqual(to object: Any?) -> Bool {
@@ -73,7 +67,6 @@ public class PCPayPaymentMethodLogpayCreateRequest: APIModel {
           guard self.pan == object.pan else { return false }
           guard self.expiry == object.expiry else { return false }
           guard self.managed == object.managed else { return false }
-          guard self.pin == object.pin else { return false }
           return true
         }
 
