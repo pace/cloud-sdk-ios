@@ -110,6 +110,12 @@ class WebView: WKWebView {
         loadingView.isLoading = true
     }
 
+    func showErrorState() {
+        placeholder.isHidden = false
+        loadingView.isLoading = false
+        loadingView.isHidden = true
+    }
+
     private func reportBreadcrumbs(_ message: String, parameters: [String: AnyHashable]?) {
         PACECloudSDK.shared.delegate?.reportBreadcrumbs(message, parameters: parameters)
         SDKLogger.i("\(message) - parameters: \(String(describing: parameters))")
@@ -173,7 +179,7 @@ extension WebView: WKNavigationDelegate {
 
             SDKLogger.e("Site couldn't be loaded. Showing placeholder instead.")
 
-            webView.placeholder.isHidden = false
+            webView.showErrorState()
 
             return
         }
@@ -183,10 +189,13 @@ extension WebView: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation, withError error: Error) {
         guard let webView = webView as? WebView, !webView.successfullyLoadedOnce else { return }
+        webView.showErrorState()
         reportError("[WebView] Failed provisional navigation with error \(error)", parameters: nil)
     }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { // swiftlint:disable:this implicitly_unwrapped_optional
-        reportError("[WebView] Failed provisional navigation with error \(error)", parameters: nil)
+        guard let webView = webView as? WebView, !webView.successfullyLoadedOnce else { return }
+        webView.showErrorState()
+        reportError("[WebView] Failed navigation with error \(error)", parameters: nil)
     }
 }

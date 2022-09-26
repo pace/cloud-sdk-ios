@@ -35,7 +35,7 @@ class ErrorPlaceholderView: UIView {
     private lazy var retryButton: ButtonRectangular = {
         let button = ButtonRectangular()
         button.tintColor = AppStyle.blueColor
-        button.setTitleColor(AppStyle.whiteColor, for: .normal)
+        button.setTitleColor(AppStyle.blackColor, for: .normal)
         button.titleLabel?.font = AppStyle.regularFont(ofSize: 18)
         return button
     }()
