@@ -28,12 +28,12 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
         }
 
         // We only want http & https to be handled by the webview itself
-        guard url.isFileURL || url.scheme == "http" || url.scheme == "https" else {
+        guard url.isFileURL || url.isHttpScheme || url.isHttpsScheme else {
             UIApplication.shared.open(url)
 
             decisionHandler(.cancel)
 
-            AppKitLogger.v("[AppViewController] Canceled navigation and passed handling to system.")
+            AppKitLogger.v("[AppViewController] Canceled navigation and passed handling to system for url \(url.absoluteString).")
 
             return
         }
@@ -47,10 +47,8 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
                  windowFeatures: WKWindowFeatures) -> WKWebView? {
         guard let url = navigationAction.request.url else { return nil }
 
-        if navigationAction.navigationType == .linkActivated && UIApplication.shared.canOpenURL(url) {
-            // Open links in system browser
+        if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
-
             return nil
         }
 
