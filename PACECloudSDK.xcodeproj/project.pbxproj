@@ -281,6 +281,8 @@
 		3B3FC8F527FED6F5008B3F7F /* PACECloudSDKDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */; };
 		3B40F83325D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */; };
 		3B4666292805C24A00268713 /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
+		3B4B8BE328EC755D0062963C /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4B8BE228EC755D0062963C /* URL+Extension.swift */; };
+		3B4B8BE428EC785B0062963C /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4B8BE228EC755D0062963C /* URL+Extension.swift */; };
 		3B51D6D428D88DA300ECA65D /* SDKUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D6D328D88DA300ECA65D /* SDKUserDefaultsTests.swift */; };
 		3B51D6D628D894A200ECA65D /* SDKKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51D6D528D894A200ECA65D /* SDKKeychainTests.swift */; };
 		3B53F3762845E65D00E751FE /* PCPOILocationBasedApps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FB20128450BF100E8CD0C /* PCPOILocationBasedApps.swift */; };
@@ -1269,6 +1271,7 @@
 		3B394BF228698C7D005621EC /* CDNAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDNAPITests.swift; sourceTree = "<group>"; };
 		3B3FC8F227FED6E7008B3F7F /* PACECloudSDKDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDKDelegate.swift; sourceTree = "<group>"; };
 		3B40F83225D2A8C100F892E2 /* InvalidationTokenCache+Slim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InvalidationTokenCache+Slim.swift"; sourceTree = "<group>"; };
+		3B4B8BE228EC755D0062963C /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		3B51D6D328D88DA300ECA65D /* SDKUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKUserDefaultsTests.swift; sourceTree = "<group>"; };
 		3B51D6D528D894A200ECA65D /* SDKKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKKeychainTests.swift; sourceTree = "<group>"; };
 		3B5503F02539E61C00C291F1 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
@@ -2151,6 +2154,7 @@
 				3B9B640C266F6F2D00B2DC27 /* UIWindow+Extension.swift */,
 				3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */,
 				3B8E3D562654EB4500E0A6D1 /* URLSessionConfiguration+Extension.swift */,
+				3B4B8BE228EC755D0062963C /* URL+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4179,6 +4183,7 @@
 				3B970A6C2542D9BB0072F6BA /* Notification+Extension.swift in Sources */,
 				8447A3B125CAAE740095BEF1 /* UserAPIDeleteUser.swift in Sources */,
 				9A906BBD284637D700463618 /* PCPayPaymentMethodZGMCreateRequest.swift in Sources */,
+				3B4B8BE328EC755D0062963C /* URL+Extension.swift in Sources */,
 				3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */,
 				3B855327253D7052001F7B66 /* MimeTypes.swift in Sources */,
 				3B98704D268E06AE00A0458F /* GetConfigResult.swift in Sources */,
@@ -4751,6 +4756,7 @@
 				8418E22C25B1AD2600D3722B /* API.swift in Sources */,
 				3B987096268E06AE00A0458F /* OpenURLInNewTabRequest.swift in Sources */,
 				92EDDDDD25A7461500E480F4 /* POIKit+Slim.swift in Sources */,
+				3B4B8BE428EC785B0062963C /* URL+Extension.swift in Sources */,
 				8418E29A25B1B85E00D3722B /* APIRequestUtils.swift in Sources */,
 				3B987072268E06AE00A0458F /* ImageDataResult.swift in Sources */,
 				3B987086268E06AE00A0458F /* GetAccessTokenRequest.swift in Sources */,
