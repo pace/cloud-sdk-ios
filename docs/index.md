@@ -13,6 +13,7 @@
         + [8.x.x -> 9.x.x](#from-8xx-to-9xx)
         + [9.x.x -> 10.x.x](#from-9xx-to-10xx)
         + [10.x.x -> 11.x.x](#from-10xx-to-11xx)
+        + [11.x.x -> 12.x.x](#from-11xx-to-12xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -57,7 +58,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + `IDKit.setup(...)` is no longer accessible.
   + By adding the keys `OIDConfigurationClientID` and `OIDConfigurationRedirectURI` with non-empty values to your `Info.plist` `IDKit` will be initiated with the default PACE OID configuration.
   + A custom OID configuration can still be passed to the `PACECloudSDK.Configuration` if desired.
-- `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.  
+- `resetAccessToken()` has been removed from the `PACECloudSDK.shared` proprety. This functionality is simply no longer needed.
 - `IDKit.OIDConfiguration`'s property `redirectUrl` has been renamed to `redirectUri`.
 - `IDKit.swapPresentingViewController(...)` has been removed. The presenting view controller for the sign in mask now needs to be set directy via `IDKit.presentingViewController`.
 
@@ -67,7 +68,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 - All APIs used by the SDK have been updated. Previously included enums have been removed. The corresponding properties that were of type of those enums are now directly of type of their former raw representable.
 
 ### From 7.x.x to 8.x.x
-- We've set the default `authenticationMode` of the SDK to `.native`.  
+- We've set the default `authenticationMode` of the SDK to `.native`.
 > **_NOTE:_** If you are not using native authentication make sure to explicitely set the mode to `.web` in the SDK configuration if it isn't already.
 
 - IDKit
@@ -152,8 +153,12 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 - The property `paramCount` of `POIKit.CommandType` now returns `Int?` instead of `Int`
 - We've removed the `Stage` environment completely. Please use `Sandbox` during testing and `Production` for everything else.
 
+### From 11.x.x to 12.x.x
+
+- Xcode 14 is required
+
 ## Contribute
 ### Localizable Strings Generation
-To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).  
-Path to `Strings` file: `PACECloudSDK/Generated/Strings.swift`  
+To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).
+Path to `Strings` file: `PACECloudSDK/Generated/Strings.swift`
 Path to `Localizable` files: `PACECloudSDK/AppKit/Localization`
