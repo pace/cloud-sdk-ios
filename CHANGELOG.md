@@ -1,3 +1,34 @@
+12.0.0 Release notes (2022-10-06)
+=============================================================
+
+### Breaking Changes
+
+* Upgrade to XCode 14
+
+### Enhancements
+
+* Scope user specific data to user id
+* Implement fueling example app
+* Add options to retrieve an OTP via biometry, pin and password
+
+### Fixes
+
+* Fix handling activated links in AppWebViews
+* Fix showing error screen in webviews and enhance error handling
+* Adjust modifying requests via request behaviors
+
+### Internal
+
+* Remove GeoJSON API leftovers
+* Update Fueling API
+* Update Pay API
+* Update User API
+* Update POI API
+* Use Xcode 14 runner
+* Support absolute paths in manifest
+* Make ci jobs interruptible
+* Adjust repo upload params
+
 11.0.0 Release notes (2022-08-11)
 =============================================================
 
