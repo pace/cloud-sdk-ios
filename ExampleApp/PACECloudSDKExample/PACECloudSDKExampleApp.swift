@@ -15,7 +15,7 @@ struct PACECloudSDKExampleApp: App {
     init() {
         let config: PACECloudSDK.Configuration = .init(apiKey: "apikey",
                                                        environment: currentAppEnvironment,
-                                                       domainACL: ["pace.cloud", "pacelink.net"],
+                                                       domainACL: ["pace.cloud", "pacelink.net", "fuel.site"],
                                                        geoAppsScope: "pace-drive-ios-min",
                                                        enableLogging: true)
 
