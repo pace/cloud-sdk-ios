@@ -90,11 +90,21 @@ open class Logger {
     }
 
     public static func debugBundleDirectory(completion: @escaping ((URL?) -> Void)) {
+        guard PACECloudSDK.shared.isLoggingEnabled else {
+            completion(nil)
+            return
+        }
+
         syncFiles()
         createExportLogs(completion: completion)
     }
 
     public static func exportLogs(completion: @escaping (([String]) -> Void)) {
+        guard PACECloudSDK.shared.isLoggingEnabled else {
+            completion([])
+            return
+        }
+
         loggingQueue.async {
             let sortedLogs = sortedLogs(persistedLogs() + todaysLogs)
             completion(sortedLogs.filter { !$0.isEmpty })
@@ -102,6 +112,11 @@ open class Logger {
     }
 
     public static func importLogs(_ logs: [String], completion: (() -> Void)? = nil) {
+        guard PACECloudSDK.shared.isLoggingEnabled else {
+            completion?()
+            return
+        }
+
         mergeAndSortLogFiles(withNewLogs: logs) {
             completion?()
         }
@@ -318,9 +333,9 @@ private extension Logger {
         }
     }
 
-    /// Returns the names of the currently peristed log files sorted by date
+    /// Returns the names of the currently peristed log files sorted by date if available
     static func currentLogFiles() -> [String] {
-        guard let debugBundleDirectory = logsDirectory else { return [] }
+        guard let debugBundleDirectory = logsDirectory, fileManager.fileExists(atPath: debugBundleDirectory.path) else { return [] }
 
         do {
             let currentLogFiles = try fileManager.contentsOfDirectory(atPath: debugBundleDirectory.path)

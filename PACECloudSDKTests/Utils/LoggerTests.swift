@@ -19,15 +19,6 @@ class LoggerTests: XCTestCase {
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false))
 
-        let directoryPath = directoryPath()
-        let fileURL = URL(fileURLWithPath: directoryPath)
-        let fileManager = FileManager.default
-
-        // Deletes previous log directory if existing
-        if fileManager.fileExists(atPath: directoryPath) {
-            try! fileManager.removeItem(at: fileURL)
-        }
-
         // Opt in
         PACECloudSDK.shared.isLoggingEnabled = true
 
@@ -373,15 +364,16 @@ class LoggerTests: XCTestCase {
 
     private func debugBundleFileNumber() -> Int {
         let expectation = self.expectation(description: "DebugBundleExpectation")
-        var directoryPath: String = ""
+        var directoryPath: String?
 
         TestLogger.debugBundleDirectory() { url in
-            guard let url = url else { return }
-            directoryPath = url.path
+            directoryPath = url?.path
             expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 5)
+
+        guard let directoryPath, FileManager.default.fileExists(atPath: directoryPath) else { return 0 }
 
         do {
             let items = try FileManager.default.contentsOfDirectory(atPath: directoryPath)
