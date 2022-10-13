@@ -52,7 +52,7 @@ public extension POIKit.BoundingBoxNotificationToken {
             self?.isLoading.value = false
         }
 
-        POIKitLogger.i("Requesting pois for zoom level \(zoomLevel)")
+        POIKitLogger.v("Requesting pois for zoom level \(zoomLevel)")
 
         super.refresh(notOlderThan: notOlderThan)
     }

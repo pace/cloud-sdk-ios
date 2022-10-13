@@ -9,7 +9,7 @@ import AppAuth
 
 class SessionCache {
     static func loadSession(for environment: PACECloudSDK.Environment) -> OIDAuthState? {
-        IDKitLogger.i("Attempting to load previous session...")
+        IDKitLogger.v("Attempting to load previous session...")
 
         // Migrate old fallback key first
         SDKUserDefaults.migrateDataIfNeeded(key: IDKitConstants.UserDefaults.sessionCache, isUserSensitiveData: false)
@@ -29,7 +29,7 @@ class SessionCache {
     }
 
     static func persistSession(_ session: OIDAuthState?, for environment: PACECloudSDK.Environment) {
-        IDKitLogger.i("Persisting session")
+        IDKitLogger.v("Persisting session")
 
         var data: Data?
 

@@ -43,7 +43,7 @@ struct FuelingAPIRequestBehaviourImplementation: FuelingAPIRequestBehaviour {
         let url = urlRequest?.url?.absoluteString ?? response.url?.absoluteString ?? "invalid url"
         switch error {
         case .networkError(let error) where (error as NSError).code == NSURLErrorCancelled:
-            SDKLogger.i("[FuelingAPI] Request with url (\(url)) was canceled.")
+            SDKLogger.v("[FuelingAPI] Request with url (\(url)) was canceled.")
 
         default:
             let requestId: String = response.allHeaderFields["request-id"] as? String ?? "unknown"

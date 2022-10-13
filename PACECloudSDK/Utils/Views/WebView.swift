@@ -118,7 +118,7 @@ class WebView: WKWebView {
 
     private func reportBreadcrumbs(_ message: String, parameters: [String: AnyHashable]?) {
         PACECloudSDK.shared.delegate?.reportBreadcrumbs(message, parameters: parameters)
-        SDKLogger.i("\(message) - parameters: \(String(describing: parameters))")
+        SDKLogger.v("\(message) - parameters: \(String(describing: parameters))")
     }
 
     private func reportError(_ message: String, parameters: [String: AnyHashable]?) {
