@@ -31,43 +31,32 @@ open class Logger {
     private static let fileManager: FileManager = FileManager.default
     private static let logsDirectoryName: String = "PaceLogs"
 
-    enum Level: CustomStringConvertible {
-        case verbose
-        case info
-        case warning
-        case error
-
-        var description: String {
-            switch self {
-            case .verbose:
-                return "[V]"
-
-            case .info:
-                return "[I]"
-
-            case .warning:
-                return "[W]"
-
-            case .error:
-                return "[E]"
-            }
-        }
+    enum Level: String {
+        case verbose = "[V]"
+        case info = "[I]"
+        case warning = "[W]"
+        case error = "[E]"
     }
 
     open class func v(_ message: String) {
-        log(message: message, level: Level.verbose.description)
+        log(message: message, level: .verbose)
     }
 
     open class func i(_ message: String) {
-        log(message: message, level: Level.info.description)
+        log(message: message, level: .info)
     }
 
     open class func w(_ message: String) {
-        log(message: message, level: Level.warning.description)
+        log(message: message, level: .warning)
     }
 
     open class func e(_ message: String) {
-        log(message: message, level: Level.error.description)
+        log(message: message, level: .error)
+    }
+
+    private static func log(message: String, level: Level) {
+        guard PACECloudSDK.shared.isLoggingEnabled || level != .verbose else { return }
+        log(message: message, level: level.rawValue)
     }
 
     public static func log(message: String, level: String) {
@@ -90,11 +79,21 @@ open class Logger {
     }
 
     public static func debugBundleDirectory(completion: @escaping ((URL?) -> Void)) {
+        guard PACECloudSDK.shared.isLoggingEnabled else {
+            completion(nil)
+            return
+        }
+
         syncFiles()
         createExportLogs(completion: completion)
     }
 
     public static func exportLogs(completion: @escaping (([String]) -> Void)) {
+        guard PACECloudSDK.shared.isLoggingEnabled else {
+            completion([])
+            return
+        }
+
         loggingQueue.async {
             let sortedLogs = sortedLogs(persistedLogs() + todaysLogs)
             completion(sortedLogs.filter { !$0.isEmpty })
@@ -102,6 +101,11 @@ open class Logger {
     }
 
     public static func importLogs(_ logs: [String], completion: (() -> Void)? = nil) {
+        guard PACECloudSDK.shared.isLoggingEnabled else {
+            completion?()
+            return
+        }
+
         mergeAndSortLogFiles(withNewLogs: logs) {
             completion?()
         }
@@ -318,9 +322,9 @@ private extension Logger {
         }
     }
 
-    /// Returns the names of the currently peristed log files sorted by date
+    /// Returns the names of the currently peristed log files sorted by date if available
     static func currentLogFiles() -> [String] {
-        guard let debugBundleDirectory = logsDirectory else { return [] }
+        guard let debugBundleDirectory = logsDirectory, fileManager.fileExists(atPath: debugBundleDirectory.path) else { return [] }
 
         do {
             let currentLogFiles = try fileManager.contentsOfDirectory(atPath: debugBundleDirectory.path)

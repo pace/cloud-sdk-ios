@@ -22,7 +22,7 @@ class RequestTimeoutHandler {
                        completion: @escaping () -> Void) {
         DispatchQueue.main.async { [weak self] in
             let timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] _ in
-                AppKitLogger.i("[RequestTimeoutHandler] Timeout for request with id \(requestId) - \(operation.rawValue)")
+                AppKitLogger.v("[RequestTimeoutHandler] Timeout for request with id \(requestId) - \(operation.rawValue)")
                 self?.removeTimer(for: requestId)
                 self?.delegate?.didReachTimeout(requestId)
             }
@@ -37,7 +37,7 @@ class RequestTimeoutHandler {
             if let timer = self?.requestTimerItems[requestId] {
                 timer.invalidate()
                 self?.removeTimer(for: requestId)
-                AppKitLogger.i("[RequestTimeoutHandler] Stopping timer for request with id \(requestId) - \(operation?.rawValue ?? "no operation available")")
+                AppKitLogger.v("[RequestTimeoutHandler] Stopping timer for request with id \(requestId) - \(operation?.rawValue ?? "no operation available")")
             }
         }
     }
@@ -45,7 +45,7 @@ class RequestTimeoutHandler {
     private func addTimer(_ timer: Timer, for requestId: String, operation: API.Communication.Operation) {
         requestTimeoutQueue.async { [weak self] in
             self?.requestTimerItems[requestId] = timer
-            AppKitLogger.i("[RequestTimeoutHandler] Starting timer for request with id \(requestId) - \(operation.rawValue)")
+            AppKitLogger.v("[RequestTimeoutHandler] Starting timer for request with id \(requestId) - \(operation.rawValue)")
         }
     }
 

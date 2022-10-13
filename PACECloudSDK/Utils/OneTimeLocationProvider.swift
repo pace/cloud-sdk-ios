@@ -43,7 +43,7 @@ class OneTimeLocationProvider: NSObject, CLLocationManagerDelegate {
         }
 
         notifyReceivers(location)
-        SDKLogger.i("[OneTimeLocationProvider] Using the last known location as it's still viable.")
+        SDKLogger.v("[OneTimeLocationProvider] Using the last known location as it's still viable.")
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
