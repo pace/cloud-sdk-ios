@@ -10,7 +10,7 @@ import Foundation
 import PassKit
 import WebKit
 
-protocol App: WKWebView, WKScriptMessageHandler, CommunicationProtocol {
+protocol App: WKWebView, WKScriptMessageHandlerWithReply, WKScriptMessageHandler, CommunicationProtocol {
     var appUrl: String? { get }
     var placeholder: ErrorPlaceholderView { get set }
     var loadingView: LoadingView { get }
@@ -62,12 +62,12 @@ extension App {
         return request
     }
 
-    func handleMessage(message: WKScriptMessage) {
+    func handleMessage(message: WKScriptMessage, with replyHandler: ((Any?, String?) -> Void)? = nil) {
         if message.name == ScriptMessageHandler.logger.rawValue,
            let body = message.body as? String {
             handleLog(with: body)
         } else {
-            messageHandler?.handleAppMessage(message)
+            messageHandler?.handleAppMessage(message, with: replyHandler)
         }
     }
 

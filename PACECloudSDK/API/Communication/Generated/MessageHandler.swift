@@ -17,7 +17,7 @@ extension API.Communication {
             requestTimeoutHandler.delegate = self
         }
 
-        func handleAppMessage(_ message: WKScriptMessage) {
+        func handleAppMessage(_ message: WKScriptMessage, with replyHandler: ((Any?, String?) -> Void)?) {
             guard
                 let messageBody = message.body as? String,
                 let messageBodyData = messageBody.data(using: .utf8),
@@ -25,7 +25,7 @@ extension API.Communication {
                 let id = request.id
             else {
                 let error: Error = .init(message: "The message couldn't be decoded or is malformed.")
-                handleResult(with: .init(status: HttpStatusCode.badRequest.rawValue, body: .init(error)), response: .init(), operation: nil)
+                handleResult(with: .init(status: HttpStatusCode.badRequest.rawValue, body: .init(error)), response: .init(), operation: nil, with: replyHandler)
                 return
             }
 
@@ -34,7 +34,7 @@ extension API.Communication {
                 let operation = Operation(rawValue: String(operationString))
             else {
                 let error: Error = .init(message: "The requested operation doesn't exist.")
-                handleResult(with: .init(status: HttpStatusCode.methodNotAllowed.rawValue, body: .init(error)), response: .init(), operation: nil)
+                handleResult(with: .init(status: HttpStatusCode.methodNotAllowed.rawValue, body: .init(error)), response: .init(), operation: nil, with: replyHandler)
                 return
             }
 
@@ -43,160 +43,166 @@ extension API.Communication {
             let response = Response(id: id, header: header, status: nil, body: nil)
 
             let determineOperationHandler: () -> Void = { [weak self] in
-                self?.determineOperation(operation, request: request, response: response, requestUrl: requestUrl)
+                self?.determineOperation(operation, request: request, response: response, requestUrl: requestUrl, with: replyHandler)
             }
 
             if let timeout: TimeInterval = header?[HttpHeaderFields.keepAlive.rawValue]?.value as? NSNumber as? TimeInterval {
-                requestTimeoutHandler.scheduleTimer(with: id, timeout: timeout, operation: operation, completion: determineOperationHandler)
+                requestTimeoutHandler.scheduleTimer(with: id, timeout: timeout, operation: operation, completion: determineOperationHandler, with: replyHandler)
             } else {
                 determineOperationHandler()
             }
         }
 
-        func determineOperation(_ operation: Operation, request: Request, response: Response, requestUrl: URL?) {
+        func determineOperation(
+            _ operation: Operation,
+            request: Request,
+            response: Response,
+            requestUrl: URL?,
+            with replyHandler: ((Any?, String?) -> Void)?
+        ) {
             switch operation {
             case .introspect:
                 let result = introspectResult()
-                handleResult(with: result, response: response, operation: operation)
+                handleResult(with: result, response: response, operation: operation, with: replyHandler)
 
             case .close:
                 delegate?.handleClose { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .logout:
                 delegate?.handleLogout { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getBiometricStatus:
                 delegate?.handleGetBiometricStatus { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .setTOTP:
-                guard let requestBody: SetTOTPRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: SetTOTPRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleSetTOTP(with: requestBody, requestUrl: requestUrl) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getTOTP:
-                guard let requestBody: GetTOTPRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: GetTOTPRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleGetTOTP(with: requestBody, requestUrl: requestUrl) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .setSecureData:
-                guard let requestBody: SetSecureDataRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: SetSecureDataRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleSetSecureData(with: requestBody, requestUrl: requestUrl) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getSecureData:
-                guard let requestBody: GetSecureDataRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: GetSecureDataRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleGetSecureData(with: requestBody, requestUrl: requestUrl) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .disable:
-                guard let requestBody: DisableRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: DisableRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleDisable(with: requestBody, requestUrl: requestUrl) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .openURLInNewTab:
-                guard let requestBody: OpenURLInNewTabRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: OpenURLInNewTabRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleOpenURLInNewTab(with: requestBody, requestUrl: requestUrl) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .verifyLocation:
-                guard let requestBody: VerifyLocationRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: VerifyLocationRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleVerifyLocation(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getAccessToken:
-                guard let requestBody: GetAccessTokenRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: GetAccessTokenRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleGetAccessToken(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .imageData:
-                guard let requestBody: ImageDataRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: ImageDataRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleImageData(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .applePayAvailabilityCheck:
-                guard let requestBody: ApplePayAvailabilityCheckRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: ApplePayAvailabilityCheckRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleApplePayAvailabilityCheck(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .back:
                 delegate?.handleBack { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .appInterceptableLink:
                 delegate?.handleAppInterceptableLink { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .setUserProperty:
-                guard let requestBody: SetUserPropertyRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: SetUserPropertyRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleSetUserProperty(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .logEvent:
-                guard let requestBody: LogEventRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: LogEventRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleLogEvent(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getConfig:
-                guard let requestBody: GetConfigRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: GetConfigRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleGetConfig(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getTraceId:
                 delegate?.handleGetTraceId { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .getLocation:
                 delegate?.handleGetLocation { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .appRedirect:
-                guard let requestBody: AppRedirectRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: AppRedirectRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleAppRedirect(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .isBiometricAuthEnabled:
                 delegate?.handleIsBiometricAuthEnabled { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .isSignedIn:
                 delegate?.handleIsSignedIn { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .isRemoteConfigAvailable:
                 delegate?.handleIsRemoteConfigAvailable { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
 
             case .shareText:
-                guard let requestBody: ShareTextRequest = decodeRequestBody(request, response, operation) else { return }
+                guard let requestBody: ShareTextRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
                 delegate?.handleShareText(with: requestBody) { [weak self] result in
-                    self?.handleResult(with: result, response: response, operation: operation)
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
             }
         }
@@ -206,35 +212,39 @@ extension API.Communication {
             return .init(.init(response: .init(version: "v1", operations: operations)))
         }
 
-        private func handleResult(with result: Result, response: Response, operation: Operation?) {
+        private func handleResult(with result: Result, response: Response, operation: Operation?, with replyHandler: ((Any?, String?) -> Void)?) {
             response.status = result.status
             response.body = result.body
-            sendResponse(with: response, operation: operation)
+            sendResponse(with: response, operation: operation, with: replyHandler)
         }
 
-        private func decodeRequestBody<T : Decodable>(_ request: Request, _ response: Response, _ operation: Operation) -> T? {
+        private func decodeRequestBody<T : Decodable>(_ request: Request, _ response: Response, _ operation: Operation, with replyHandler: ((Any?, String?) -> Void)?) -> T? {
             guard
                 let body = request.body?.value,
                 let bodyData = try? JSONSerialization.data(withJSONObject: body),
                 let requestBody: T = decode(bodyData)
             else {
                 let error: Error = .init(message: "The request body couldn't be parsed.")
-                handleResult(with: .init(status: HttpStatusCode.internalError.rawValue, body: .init(error)), response: response, operation: operation)
+                handleResult(with: .init(status: HttpStatusCode.internalError.rawValue, body: .init(error)), response: response, operation: operation, with: replyHandler)
                 return nil
             }
             return requestBody
         }
 
-        private func sendResponse(with response: Response, operation: Operation?) {
-            respond(with: response)
+        private func sendResponse(with response: Response, operation: Operation?, with replyHandler: ((Any?, String?) -> Void)?) {
+            respond(with: response, with: replyHandler)
             if let id = response.id {
                 requestTimeoutHandler.stopTimer(with: id, operation: operation)
             }
         }
 
-        private func respond(with response: Response) {
+        private func respond(with response: Response, with replyHandler: ((Any?, String?) -> Void)?) {
             guard let response = encode(response) else { return }
-            delegate?.respond(with: response)
+            if let replyHandler = replyHandler {
+                replyHandler(response, nil)
+            } else {
+                delegate?.respond(with: response)
+            }
         }
 
         private func decode<T : Decodable>(_ data: Data) -> T? {
@@ -260,9 +270,9 @@ extension API.Communication {
 }
 
 extension API.Communication.MessageHandler: RequestTimeoutHandlerDelegate {
-    func didReachTimeout(_ requestId: String) {
+    func didReachTimeout(_ requestId: String, with replyHandler: ((Any?, String?) -> Void)?) {
         let error = API.Communication.Error(message: "The request timed out.")
         let response = API.Communication.Response(id: requestId, header: nil, status: HttpStatusCode.requestTimeout.rawValue, body: .init(error))
-        respond(with: response)
+        respond(with: response, with: replyHandler)
     }
 }
