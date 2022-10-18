@@ -29,7 +29,7 @@ public extension IDKit {
                 jwtToken = try JWTToken.decode(jwt: accessToken)
             } catch {
                 jwtToken = nil
-                IDKitLogger.e("[TokenValidator] Failed to decode token \(accessToken) - Error: \(error)")
+                IDKitLogger.e("[TokenValidator] Failed to decode access token - Error: \(error)")
             }
         }
     }
@@ -52,7 +52,7 @@ public extension IDKit.TokenValidator {
               let expirationDate = jwtToken.expiresAt,
               let validUntilDate = Calendar.current.date(byAdding: .minute, value: minutes, to: dateTimeProvider.currentDate)
         else {
-            IDKitLogger.e("[TokenValidator] Failed to extract expiration date of token \(accessToken)")
+            IDKitLogger.e("[TokenValidator] Failed to extract expiration date of access token.")
             return false
         }
 
