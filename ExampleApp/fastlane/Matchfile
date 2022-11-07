@@ -1,4 +1,4 @@
-git_url("git@lab.jamit.de:pace/mobile/ios/certificates.git")
+git_url("git@git.pace.cloud:pace/mobile/ios/certificates.git")
 git_branch("master")
 storage_mode("git")
 username("ios-dev@pace.car")
