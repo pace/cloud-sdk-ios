@@ -1,5 +1,5 @@
-git_url("git@git.pace.cloud:pace/mobile/ios/certificates.git")
+git_url("git@#{ENV["GIT_BASE_URL"]}:pace/mobile/ios/certificates.git")
 git_branch("master")
 storage_mode("git")
-username("ios-dev@pace.car")
+username(ENV["ASC_APPLE_ID"])
 force_for_new_devices(true)
