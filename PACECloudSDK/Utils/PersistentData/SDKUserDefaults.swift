@@ -143,7 +143,7 @@ extension SDKUserDefaults {
             migrateDataIfNeeded(key: AppKit.CookieStorage.cookiesKey, isUserSensitiveData: false)
 
             // Device Id
-            migrateDataIfNeeded(key: DeviceInformation.deviceIdKey, isUserSensitiveData: false)
+            migrateDataIfNeeded(key: PACECloudSDK.DeviceInformation.deviceIdKey, isUserSensitiveData: false)
         }
 
         self.previousMigrationVersion = currentMigrationVersion
