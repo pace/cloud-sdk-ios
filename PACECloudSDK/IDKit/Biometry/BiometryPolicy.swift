@@ -86,6 +86,6 @@ extension BiometryPolicy {
         // the current app, the device id, which is generated per
         // app install, will be appended to the given key.
 
-        return "\(DeviceInformation.id)_payment-authorize"
+        return "\(PACECloudSDK.DeviceInformation.id)_payment-authorize"
     }
 }

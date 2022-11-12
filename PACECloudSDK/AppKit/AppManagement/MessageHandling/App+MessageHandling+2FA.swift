@@ -17,7 +17,7 @@ extension App {
         // the current app, the device id, which is generated per
         // app install, will be appended to the given key.
 
-        return "\(DeviceInformation.id)_\(host)_\(key)"
+        return "\(PACECloudSDK.DeviceInformation.id)_\(host)_\(key)"
     }
 
     func handleGetBiometricStatus(completion: @escaping (API.Communication.GetBiometricStatusResult) -> Void) {

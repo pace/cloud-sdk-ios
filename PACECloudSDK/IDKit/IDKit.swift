@@ -7,7 +7,7 @@
 
 import AppAuth
 
-// swiftlint:disable:this file_length
+// swiftlint:disable file_length
 
 public class IDKit {
     static var shared: IDKit? {

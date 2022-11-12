@@ -88,10 +88,10 @@ class PACECloudSDKTests: XCTestCase {
     func testKeychainBiometryDeletion() {
         let keychain = PACECloudSDK.Keychain()
 
-        let biometryKey1 = "\(DeviceInformation.id)_payment-authorize"
+        let biometryKey1 = "\(PACECloudSDK.DeviceInformation.id)_payment-authorize"
         let biometryValue1 = "stringValue"
 
-        let biometryKey2 = "\(DeviceInformation.id)_host_payment-authorize"
+        let biometryKey2 = "\(PACECloudSDK.DeviceInformation.id)_host_payment-authorize"
         let biometryValue2 = "data".data(using: .utf8)!
 
         let nonBiometryKey = "some_key"
