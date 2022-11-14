@@ -28,7 +28,11 @@ public class UserAPIClient {
 
     public var decodingQueue = DispatchQueue(label: "UserAPIClient", qos: .utility, attributes: .concurrent)
 
+    /// The maximum number a request will be retried due to `401` responses
     public var maxUnauthorizedRetryCount = 1
+
+    /// The maximum number a request will be retried due to network connection errors and timeouts
+    public var maxRetryCount = 8
 
     public init(baseURL: String, configuration: URLSessionConfiguration = .default, defaultHeaders: [String: String] = [:], behaviours: [UserAPIRequestBehaviour] = []) {
         self.baseURL = baseURL
@@ -44,11 +48,18 @@ public class UserAPIClient {
     /// - Parameters:
     ///   - request: The API request to make
     ///   - behaviours: A list of behaviours that will be run for this request. Merged with APIClient.behaviours
+    ///   - currentUnauthorizedRetryCount: The current number of retries for this request due to `401` responses
+    ///   - currentRetryCount: The current number of retries for this request due to network connection errors and timeouts
     ///   - completionQueue: The queue that complete will be called on
     ///   - complete: A closure that gets passed the UserAPIResponse
     /// - Returns: A cancellable request. Not that cancellation will only work after any validation RequestBehaviours have run
     @discardableResult
-    public func makeRequest<T>(_ request: UserAPIRequest<T>, behaviours: [UserAPIRequestBehaviour] = [], currentNumberOfRetries: Int = 0, completionQueue: DispatchQueue = DispatchQueue.main, complete: @escaping (UserAPIResponse<T>) -> Void) -> CancellableUserAPIRequest? {
+    public func makeRequest<T>(_ request: UserAPIRequest<T>,
+                               behaviours: [UserAPIRequestBehaviour] = [],
+                               currentUnauthorizedRetryCount: Int = 0,
+                               currentRetryCount: Int = 0,
+                               completionQueue: DispatchQueue = DispatchQueue.main,
+                               complete: @escaping (UserAPIResponse<T>) -> Void) -> CancellableUserAPIRequest? {
         // create composite behaviour to make it easy to call functions on array of behaviours
         let requestBehaviour = UserAPIRequestBehaviourGroup(request: request, behaviours: self.behaviours + behaviours)
 
@@ -79,7 +90,13 @@ public class UserAPIClient {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
-                self.makeNetworkRequest(request: request, urlRequest: urlRequest, cancellableRequest: cancellableRequest, requestBehaviour: requestBehaviour, currentNumberOfRetries: currentNumberOfRetries, completionQueue: completionQueue, complete: complete)
+                self.makeNetworkRequest(request: request,
+                                        urlRequest: urlRequest,
+                                        cancellableRequest: cancellableRequest,
+                                        requestBehaviour: requestBehaviour,
+                                        currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                        currentRetryCount: currentRetryCount,
+                                        completionQueue: completionQueue, complete: complete)
             case .failure(let error):
                 let error = APIClientError.validationError(error)
                 let response = UserAPIResponse<T>(request: request, result: .failure(error), urlRequest: urlRequest)
@@ -90,7 +107,14 @@ public class UserAPIClient {
         return cancellableRequest
     }
 
-    private func makeNetworkRequest<T>(request: UserAPIRequest<T>, urlRequest: URLRequest, cancellableRequest: CancellableUserAPIRequest, requestBehaviour: UserAPIRequestBehaviourGroup, currentNumberOfRetries: Int, completionQueue: DispatchQueue, complete: @escaping (UserAPIResponse<T>) -> Void) {
+    private func makeNetworkRequest<T>(request: UserAPIRequest<T>,
+                                       urlRequest: URLRequest,
+                                       cancellableRequest: CancellableUserAPIRequest,
+                                       requestBehaviour: UserAPIRequestBehaviourGroup,
+                                       currentUnauthorizedRetryCount: Int,
+                                       currentRetryCount: Int,
+                                       completionQueue: DispatchQueue,
+                                       complete: @escaping (UserAPIResponse<T>) -> Void) {
         requestBehaviour.beforeSend()
         if request.service.isUpload {
             let body = NSMutableData()
@@ -144,40 +168,14 @@ public class UserAPIClient {
             }
             body.appendString("--\(boundary)--\r\n")
         } else {
-            let task = self.session.dataTask(with: urlRequest, completionHandler: { [weak self] data, response, error -> Void in
-                // Handle response
-                self?.decodingQueue.async {
-                    guard let response = response as? HTTPURLResponse else {
-                        var apiError: APIClientError
-                        if let error = error {
-                            apiError = APIClientError.networkError(error)
-                        } else {
-                            apiError = APIClientError.networkError(URLRequestError.responseInvalid)
-                        }
-                        let result: APIResult<T> = .failure(apiError)
-                        requestBehaviour.onFailure(urlRequest: urlRequest, response: HTTPURLResponse(), error: apiError)
-
-                        let response = UserAPIResponse<T>(request: request, result: result, urlRequest: urlRequest)
-                        requestBehaviour.onResponse(response: response.asAny())
-
-                        completionQueue.async {
-                            complete(response)
-                        }
-
-                        return
-                    }
-
-                    self?.handleResponse(request: request,
-                                         requestBehaviour: requestBehaviour,
-                                         data: data,
-                                         response: response,
-                                         error: error,
-                                         urlRequest: urlRequest,
-                                         currentNumberOfRetries: currentNumberOfRetries,
-                                         completionQueue: completionQueue,
-                                         complete: complete)
-                }
-            })
+            let task = performRequest(request: request,
+                                      urlRequest: urlRequest,
+                                      cancellableRequest: cancellableRequest,
+                                      requestBehaviour: requestBehaviour,
+                                      currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                      currentRetryCount: currentRetryCount,
+                                      completionQueue: completionQueue,
+                                      complete: complete)
 
             self.decodingQueue.async {
                 task.resume()
@@ -187,13 +185,73 @@ public class UserAPIClient {
         }
     }
 
+    private func performRequest<T>(request: UserAPIRequest<T>,
+                                   urlRequest: URLRequest,
+                                   cancellableRequest: CancellableUserAPIRequest,
+                                   requestBehaviour: UserAPIRequestBehaviourGroup,
+                                   currentUnauthorizedRetryCount: Int,
+                                   currentRetryCount: Int,
+                                   completionQueue: DispatchQueue,
+                                   complete: @escaping (UserAPIResponse<T>) -> Void) -> URLSessionDataTask {
+        let maxRetryCount = maxRetryCount
+        return session.dataTask(with: urlRequest, completionHandler: { [weak self] data, response, error -> Void in
+            // Handle response
+            self?.decodingQueue.async {
+                let newRetryCount = currentRetryCount + 1
+                if API.shouldRetryRequest(currentRetryCount: newRetryCount,
+                                          maxRetryCount: maxRetryCount,
+                                          response: response) {
+                    let requestDelay = API.nextExponentialBackoffRequestDelay(currentRetryCount: newRetryCount)
+                    self?.decodingQueue.asyncAfter(deadline: .now() + .seconds(requestDelay)) { [weak self] in
+                        self?.makeNetworkRequest(request: request,
+                                                 urlRequest: urlRequest,
+                                                 cancellableRequest: cancellableRequest,
+                                                 requestBehaviour: requestBehaviour,
+                                                 currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                                 currentRetryCount: newRetryCount,
+                                                 completionQueue: completionQueue,
+                                                 complete: complete)
+                    }
+                } else if let response = response as? HTTPURLResponse {
+                    self?.handleResponse(request: request,
+                                         requestBehaviour: requestBehaviour,
+                                         data: data,
+                                         response: response,
+                                         error: error,
+                                         urlRequest: urlRequest,
+                                         currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                         currentRetryCount: currentRetryCount,
+                                         completionQueue: completionQueue,
+                                         complete: complete)
+                } else {
+                    var apiError: APIClientError
+                    if let error = error {
+                        apiError = APIClientError.networkError(error)
+                    } else {
+                        apiError = APIClientError.networkError(URLRequestError.responseInvalid)
+                    }
+                    let result: APIResult<T> = .failure(apiError)
+                    requestBehaviour.onFailure(urlRequest: urlRequest, response: HTTPURLResponse(), error: apiError)
+
+                    let response = UserAPIResponse<T>(request: request, result: result, urlRequest: urlRequest)
+                    requestBehaviour.onResponse(response: response.asAny())
+
+                    completionQueue.async {
+                        complete(response)
+                    }
+                }
+            }
+        })
+    }
+
     private func handleResponse<T>(request: UserAPIRequest<T>,
                                    requestBehaviour: UserAPIRequestBehaviourGroup,
                                    data: Data?,
                                    response: HTTPURLResponse,
                                    error: Error?,
                                    urlRequest: URLRequest,
-                                   currentNumberOfRetries: Int,
+                                   currentUnauthorizedRetryCount: Int,
+                                   currentRetryCount: Int,
                                    completionQueue: DispatchQueue,
                                    complete: @escaping (UserAPIResponse<T>) -> Void) {
         let result: APIResult<T>
@@ -212,11 +270,16 @@ public class UserAPIClient {
         }
 
         if response.statusCode == HttpStatusCode.unauthorized.rawValue
-            && currentNumberOfRetries < maxUnauthorizedRetryCount
+            && currentUnauthorizedRetryCount < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
             IDKit.apiInducedRefresh { [weak self] error in
                 guard let error = error else {
-                    self?.makeRequest(request, behaviours: requestBehaviour.behaviours, currentNumberOfRetries: currentNumberOfRetries + 1, completionQueue: completionQueue, complete: complete)
+                    self?.makeRequest(request,
+                                      behaviours: requestBehaviour.behaviours,
+                                      currentUnauthorizedRetryCount: currentUnauthorizedRetryCount + 1,
+                                      currentRetryCount: currentRetryCount,
+                                      completionQueue: completionQueue,
+                                      complete: complete)
                     return
                 }
 

@@ -703,6 +703,7 @@
 		3BB1443325388108004E9F63 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1443225388108004E9F63 /* Logger.swift */; };
 		3BB208852538338A008DDE45 /* IDKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB208842538338A008DDE45 /* IDKitError.swift */; };
 		3BB2093D25384A77008DDE45 /* IDKit+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */; };
+		3BB388312923D71C00044F09 /* ExponentialBackoffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB388302923D71C00044F09 /* ExponentialBackoffTests.swift */; };
 		3BB48765268EF9DB00C42B6F /* App+MessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD19ADD2631766400D68580 /* App+MessageHandling.swift */; };
 		3BB48766268EF9E000C42B6F /* App+MessageHandling+ApplePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C5A0D26678A4800D7D5D6 /* App+MessageHandling+ApplePay.swift */; };
 		3BB48767268EF9E900C42B6F /* App+MessageHandling+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */; };
@@ -1489,6 +1490,7 @@
 		3BB1443225388108004E9F63 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3BB208842538338A008DDE45 /* IDKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitError.swift; sourceTree = "<group>"; };
 		3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+TokenHandling.swift"; sourceTree = "<group>"; };
+		3BB388302923D71C00044F09 /* ExponentialBackoffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExponentialBackoffTests.swift; sourceTree = "<group>"; };
 		3BB51B7527E9F60D00FE0014 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
 		3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDKKeychain+Watch.swift"; sourceTree = "<group>"; };
 		3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDKUserDefaults+Watch.swift"; sourceTree = "<group>"; };
@@ -1955,6 +1957,7 @@
 			isa = PBXGroup;
 			children = (
 				3B394BF228698C7D005621EC /* CDNAPITests.swift */,
+				3BB388302923D71C00044F09 /* ExponentialBackoffTests.swift */,
 			);
 			path = APITests;
 			sourceTree = "<group>";
@@ -4699,6 +4702,7 @@
 				3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
+				3BB388312923D71C00044F09 /* ExponentialBackoffTests.swift in Sources */,
 				9AD092BA2817E1C9000A3CB3 /* DateCalculationsTests.swift in Sources */,
 				3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */,
 				3B970AC32542D9DB0072F6BA /* URLBuilderTests.swift in Sources */,
