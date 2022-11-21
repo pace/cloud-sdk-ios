@@ -157,6 +157,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 - Xcode 14 is required
 
+### From 12.x.x to 13.x.x
+
+- The parameter `currentNumberOfRetries` of `makeRequest(...)` of `FuelingAPIClient`, `PayAPIClient`, `POIAPIClient` and `UserAPIClient` has been renamed to `currentUnauthorizedRetryCount`.
+
 ## Contribute
 ### Localizable Strings Generation
 To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).
