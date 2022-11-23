@@ -46,6 +46,8 @@ public extension PACECloudSDK {
         /// Set to `true` if you want to make use of the Logger provided by `PACECloudSDK`.
         let loggingEnabled: Bool
 
+        let isMetaCollectorEnabled: Bool
+
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .native,
                     environment: Environment = .production,
@@ -57,7 +59,8 @@ public extension PACECloudSDK {
                     speedThresholdInKmPerHour: Double? = nil,
                     geoAppsScope: String? = nil,
                     allowedAppDrawerLocationOffset: Double? = nil,
-                    enableLogging: Bool = false) {
+                    enableLogging: Bool = false,
+                    isMetaCollectorEnabled: Bool = true) {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
@@ -79,6 +82,7 @@ public extension PACECloudSDK {
             self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
             self.allowedAppDrawerLocationOffset = allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
             self.loggingEnabled = enableLogging
+            self.isMetaCollectorEnabled = isMetaCollectorEnabled
         }
     }
 

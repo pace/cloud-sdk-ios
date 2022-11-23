@@ -336,6 +336,8 @@
 		3B76F7572576468F008D8F9A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F7562576468F008D8F9A /* API.swift */; };
 		3B76F75F257648B0008D8F9A /* HttpUrlError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F75E257648B0008D8F9A /* HttpUrlError.swift */; };
 		3B76F77025765014008D8F9A /* Pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B76F76F25765014008D8F9A /* Pay.swift */; };
+		3B772BCF292E63C500796CD1 /* MetaCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B772BCE292E63C500796CD1 /* MetaCollector.swift */; };
+		3B772BD3292F55D100796CD1 /* MetaCollectorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B772BD2292F55D100796CD1 /* MetaCollectorData.swift */; };
 		3B79F8E626C12D3400C0278F /* GasStation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */; };
 		3B79FA0A26C15B3B00C0278F /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B79FA0926C15B3B00C0278F /* SwiftProtobuf */; };
 		3B79FA0B26C15B5E00C0278F /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5E706258A149200E5B20B /* POI.swift */; };
@@ -663,6 +665,12 @@
 		3BA0354527F5F4F8001C5DBB /* PayAPICreatePaymentMethodLogpay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0354427F5F4F8001C5DBB /* PayAPICreatePaymentMethodLogpay.swift */; };
 		3BA0354627F5F502001C5DBB /* PayAPICreatePaymentMethodLogpay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0354427F5F4F8001C5DBB /* PayAPICreatePaymentMethodLogpay.swift */; };
 		3BA0354827F5F87E001C5DBB /* IDKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB208842538338A008DDE45 /* IDKitError.swift */; };
+		3BA074CF292F96D5003A389C /* MetaCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B772BCE292E63C500796CD1 /* MetaCollector.swift */; };
+		3BA074D0292F96D5003A389C /* MetaCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B772BCE292E63C500796CD1 /* MetaCollector.swift */; };
+		3BA074D1292F96D8003A389C /* MetaCollectorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B772BD2292F55D100796CD1 /* MetaCollectorData.swift */; };
+		3BA074D2292F96D9003A389C /* MetaCollectorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B772BD2292F55D100796CD1 /* MetaCollectorData.swift */; };
+		3BA074D3292F981F003A389C /* SDKUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99F5D828D1CEA500B2BF0A /* SDKUserDefaults.swift */; };
+		3BA074D4292F9853003A389C /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */; };
 		3BA4807E2565492600187D0A /* IDKitUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA4807D2565492600187D0A /* IDKitUserAgent.swift */; };
 		3BA5149425EE396100CC1FC3 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5149325EE396100CC1FC3 /* Double+Extension.swift */; };
 		3BA5149525EE396100CC1FC3 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5149325EE396100CC1FC3 /* Double+Extension.swift */; };
@@ -711,7 +719,6 @@
 		3BB51B7327E9F4FA00FE0014 /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B90B68127E097CE00A582EC /* Localizable.swift */; };
 		3BB51B7627E9F60D00FE0014 /* LocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB51B7527E9F60D00FE0014 /* LocalizationTests.swift */; };
 		3BB7D06628D303CA00CB5BDB /* SDKKeychain+Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */; };
-		3BB7D06828D303D300CB5BDB /* SDKUserDefaults+Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */; };
 		3BB918E525B02AF700E83EDD /* OneTimeLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C48E82593765900AAC040 /* OneTimeLocationProvider.swift */; };
 		3BBCB2F32567D2C6000EA905 /* POILayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F22567D2C6000EA905 /* POILayer.swift */; };
 		3BBCB2F72567D2CC000EA905 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
@@ -1294,6 +1301,8 @@
 		3B76F7562576468F008D8F9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		3B76F75E257648B0008D8F9A /* HttpUrlError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpUrlError.swift; sourceTree = "<group>"; };
 		3B76F76F25765014008D8F9A /* Pay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pay.swift; sourceTree = "<group>"; };
+		3B772BCE292E63C500796CD1 /* MetaCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCollector.swift; sourceTree = "<group>"; };
+		3B772BD2292F55D100796CD1 /* MetaCollectorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaCollectorData.swift; sourceTree = "<group>"; };
 		3B79F8E526C12D3400C0278F /* GasStation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GasStation+Extension.swift"; sourceTree = "<group>"; };
 		3B79FAB626C15D4100C0278F /* BundleUserAgent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BundleUserAgent+Extension.swift"; sourceTree = "<group>"; };
 		3B7C0B29266A196D00346FCC /* IconSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorTests.swift; sourceTree = "<group>"; };
@@ -1493,7 +1502,6 @@
 		3BB388302923D71C00044F09 /* ExponentialBackoffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExponentialBackoffTests.swift; sourceTree = "<group>"; };
 		3BB51B7527E9F60D00FE0014 /* LocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationTests.swift; sourceTree = "<group>"; };
 		3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDKKeychain+Watch.swift"; sourceTree = "<group>"; };
-		3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SDKUserDefaults+Watch.swift"; sourceTree = "<group>"; };
 		3BBCB2F22567D2C6000EA905 /* POILayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POILayer.swift; sourceTree = "<group>"; };
 		3BBCB2F62567D2CC000EA905 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3BBCFF3B25EF96BE0035683F /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -1879,7 +1887,6 @@
 				17BB0D08268CCF53009D4755 /* PACECloudWatchSDK+API.swift */,
 				1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */,
 				3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */,
-				3BB7D06728D303D300CB5BDB /* SDKUserDefaults+Watch.swift */,
 			);
 			path = PACECloudWatchSDK;
 			sourceTree = "<group>";
@@ -2084,6 +2091,15 @@
 				3B76F76F25765014008D8F9A /* Pay.swift */,
 			);
 			path = Pay;
+			sourceTree = "<group>";
+		};
+		3B772BCD292E638C00796CD1 /* MetaCollector */ = {
+			isa = PBXGroup;
+			children = (
+				3B772BCE292E63C500796CD1 /* MetaCollector.swift */,
+				3B772BD2292F55D100796CD1 /* MetaCollectorData.swift */,
+			);
+			path = MetaCollector;
 			sourceTree = "<group>";
 		};
 		3B7C0C04266A594400346FCC /* FederatedIdentity */ = {
@@ -2530,7 +2546,12 @@
 			isa = PBXGroup;
 			children = (
 				3B6826A127BA951600933C95 /* Constants */,
+				3B855311253D6BF3001F7B66 /* Extensions */,
+				6ACBC08126FE0FA500E6AC05 /* Logger */,
+				3B772BCD292E638C00796CD1 /* MetaCollector */,
 				3B36F2A628D21CED005D4EB0 /* PersistentData */,
+				3B970A282542D9BA0072F6BA /* Plists */,
+				3B68269827BA604700933C95 /* Views */,
 				3B9B6412266F6F8F00B2DC27 /* Application.swift */,
 				3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */,
 				3B85531C253D6FD8001F7B66 /* DeviceInformation.swift */,
@@ -2544,10 +2565,6 @@
 				3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */,
 				3B970A3A2542D9BA0072F6BA /* Settings.swift */,
 				6A7FCE9926F0E9A400384907 /* ShareObject.swift */,
-				3B855311253D6BF3001F7B66 /* Extensions */,
-				6ACBC08126FE0FA500E6AC05 /* Logger */,
-				3B970A282542D9BA0072F6BA /* Plists */,
-				3B68269827BA604700933C95 /* Views */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3813,6 +3830,7 @@
 				17BB0CF2268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */,
 				3B2FB1CE2844EB2800E8CD0C /* PCUserOAuth2Token.swift in Sources */,
 				3B79FA9526C15BEE00C0278F /* POIKitAPI+Routing.swift in Sources */,
+				3BA074D0292F96D5003A389C /* MetaCollector.swift in Sources */,
 				17BB0D04268CCF13009D4755 /* PayAPIGetTransaction.swift in Sources */,
 				17B4E55426D39CA900AEAF13 /* UserAPIAcceptTerms.swift in Sources */,
 				9A906B8E284637D700463618 /* PCPayCurrency.swift in Sources */,
@@ -3845,6 +3863,7 @@
 				3B79FAA126C15BF300C0278F /* GasStation+OpeningHours.swift in Sources */,
 				3B3DF5AB26E24C8E00934991 /* JWTToken.swift in Sources */,
 				3B79FA9826C15BEE00C0278F /* POIKitAPI+Observer.swift in Sources */,
+				3BA074D4292F9853003A389C /* DeviceInformation.swift in Sources */,
 				3B79FAA626C15BF300C0278F /* Address.swift in Sources */,
 				17B4E54126D39C9100AEAF13 /* UserAPICheckUserPassword.swift in Sources */,
 				3B6379A0281AC14100CD436A /* CDNAPIClient+URLProtocol.swift in Sources */,
@@ -3881,6 +3900,7 @@
 				17BB0D10268CCF88009D4755 /* FuelingAPIRequest.swift in Sources */,
 				17BB0D19268CCF92009D4755 /* FuelingAPIGetPump.swift in Sources */,
 				9A906B9E284637D700463618 /* PCPayPaymentMethodRMCCreateRequest.swift in Sources */,
+				3BA074D3292F981F003A389C /* SDKUserDefaults.swift in Sources */,
 				3B79FA7226C15BD700C0278F /* GeoAPIResponse.swift in Sources */,
 				3BB7D06628D303CA00CB5BDB /* SDKKeychain+Watch.swift in Sources */,
 				3BB51B7227E9F4F300FE0014 /* Strings.swift in Sources */,
@@ -4005,7 +4025,6 @@
 				3B79FA8826C15BEB00C0278F /* GasStationApiResponse.swift in Sources */,
 				17BB0CF9268CCF13009D4755 /* PayAPIAuthorizeApplePayPaymentToken.swift in Sources */,
 				17BB0CF8268CCF13009D4755 /* PayAPICreatePaymentMethodPayDirekt.swift in Sources */,
-				3BB7D06828D303D300CB5BDB /* SDKUserDefaults+Watch.swift in Sources */,
 				9A906BB2284637D700463618 /* PCPayPaymentMethodKinds.swift in Sources */,
 				3B79FA6B26C15BD200C0278F /* POILayer.swift in Sources */,
 				3B79FA6426C15BCC00C0278F /* POIKitConfig.swift in Sources */,
@@ -4106,6 +4125,7 @@
 				3B53F3912845E90100E751FE /* POIAPIGetTiles.swift in Sources */,
 				17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
+				3BA074D2292F96D9003A389C /* MetaCollectorData.swift in Sources */,
 				3B2FB1D62844EB2800E8CD0C /* PCUserErrors.swift in Sources */,
 				3BD0C826274BABDF003E002D /* TilesResponse.swift in Sources */,
 				17BB0D36268CD150009D4755 /* PCFuelingGetPumpsResponse.swift in Sources */,
@@ -4306,6 +4326,7 @@
 				841A3F0025B9C96A0065284A /* PCFuelingProcessPaymentResponse.swift in Sources */,
 				3B2FB1D52844EB2800E8CD0C /* PCUserErrors.swift in Sources */,
 				3B2FB1D32844EB2800E8CD0C /* PCUserCreateOTPRequest.swift in Sources */,
+				3B772BCF292E63C500796CD1 /* MetaCollector.swift in Sources */,
 				9A906B91284637D700463618 /* PCPayPaymentMethodPayDirektCreateRequest.swift in Sources */,
 				8447A3C125CAAE740095BEF1 /* UserAPICreateOTP.swift in Sources */,
 				3B2FB21C28450BF200E8CD0C /* PCPOIPolicyRequest.swift in Sources */,
@@ -4627,6 +4648,7 @@
 				84600EAE25C03B0C0087194F /* PayAPIGetReceiptByFormat.swift in Sources */,
 				3B970A732542D9BB0072F6BA /* AppDrawerLocationProvider.swift in Sources */,
 				3BC9A7FF2539DDAD00B933AE /* PriceHistoryResponse.swift in Sources */,
+				3B772BD3292F55D100796CD1 /* MetaCollectorData.swift in Sources */,
 				3B2FB21F28450BF200E8CD0C /* PCPOIPOIRequest.swift in Sources */,
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
 				3B970AB52542D9BB0072F6BA /* AppManifest.swift in Sources */,
@@ -4744,6 +4766,7 @@
 				3B9B2A6427B65AD40099EA37 /* GeoAPIResponse.swift in Sources */,
 				3B98706E268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
+				3BA074CF292F96D5003A389C /* MetaCollector.swift in Sources */,
 				3B98705A268E06AE00A0458F /* SetTOTPResult.swift in Sources */,
 				3B987098268E06AE00A0458F /* GetTOTPRequest.swift in Sources */,
 				92EDDC2125A7270300E480F4 /* AppStyle+Fonts.swift in Sources */,
@@ -4901,6 +4924,7 @@
 				3B98707C268E06AE00A0458F /* Response.swift in Sources */,
 				8418E29925B1B85E00D3722B /* APIResult.swift in Sources */,
 				3BABEFF527C8E8AD002256CB /* IDKitError.swift in Sources */,
+				3BA074D1292F96D8003A389C /* MetaCollectorData.swift in Sources */,
 				3B98708E268E06AE00A0458F /* SetSecureDataRequest.swift in Sources */,
 				92EDDC2425A7270300E480F4 /* App.swift in Sources */,
 				923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */,
@@ -5048,7 +5072,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG PACECloudWatchSDK";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -5124,6 +5148,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG PACECloudWatchSDK";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -5201,6 +5226,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = PACECloudWatchSDK;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
