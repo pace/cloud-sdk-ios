@@ -8,7 +8,6 @@
 import AppAuth
 
 // swiftlint:disable file_length
-
 public class IDKit {
     static var shared: IDKit? {
         PACECloudSDK.shared.warningsHandler?.logSDKWarningsIfNeeded()
