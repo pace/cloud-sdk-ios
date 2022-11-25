@@ -36,7 +36,6 @@ fuelingexampleapp_code_style:
   except:
     - schedules
   variables:
-    REPO_PROJECT_ID: "fuelingexampleapp"
     PROJECT_PATH: "FuelingExampleApp"
   interruptible: true
 
@@ -52,14 +51,6 @@ fuelingexampleapp_build_development:
       - $PROJECT_PATH/artifacts/FuelingExampleApp.ipa
     expire_in: 2 days
 
-fuelingexampleapp_deploy_development:
-  extends: .fuelingexampleapp_development_template
-  stage: publish
-  script:
-    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F bundleIdentifier=car.pace.FuelingExampleApp -F bundleVersion=$VERSION_NAME -F files=@$PROJECT_PATH/artifacts/FuelingExampleApp.ipa -X POST $REPO_BASE_URL/apps'
-  dependencies:
-    - fuelingexampleapp_build_development
-
 ## Review
 .fuelingexampleapp_review_template:
   extends: .xcode_version
@@ -70,7 +61,6 @@ fuelingexampleapp_deploy_development:
     variables:
      - $CI_COMMIT_MESSAGE =~ /WIP/
   variables:
-    REPO_PROJECT_ID: "fuelingexampleapp"
     PROJECT_PATH: "FuelingExampleApp"
   interruptible: true
 
@@ -85,30 +75,3 @@ fuelingexampleapp_build_review:
     paths:
       - $PROJECT_PATH/artifacts/FuelingExampleApp.ipa
     expire_in: 2 days
-
-fuelingexampleapp_deploy_review:
-  extends: .fuelingexampleapp_review_template
-  stage: publish
-  script:
-    - 'curl --fail --http1.1 -H "authorization: $REPO_SERVER_API_SECRET" -F id=$REPO_PROJECT_ID -F platform=$REPO_PLATFORM -F environment=development -F version="latest" -F bundleIdentifier=car.pace.FuelingExampleApp -F bundleVersion=$VERSION_NAME -F files=@$PROJECT_PATH/artifacts/FuelingExampleApp.ipa -X POST $REPO_BASE_URL/apps'
-  dependencies:
-    - fuelingexampleapp_build_review
-  allow_failure: true
-
-.stop_review:
-  extends: .xcode_version
-  stage: build
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - 'curl --fail -H "authorization: $REPO_SERVER_API_SECRET" -X DELETE "$REPO_BASE_URL/apps?id=$REPO_PROJECT_ID&platform=$REPO_PLATFORM&environment=development&version=$CI_COMMIT_REF_NAME"'
-  when: manual
-  except:
-    refs:
-      - tags
-
-fuelingexampleapp_stop_review:
-  extends: .stop_review
-  <<: *only_merge_requests
-  variables:
-    REPO_PROJECT_ID: "fuelingexampleapp"

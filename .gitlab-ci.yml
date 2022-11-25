@@ -7,9 +7,6 @@ variables:
   PROJECT_NAME: "PACECloudSDK"
   SIMULATOR_SDK: "iphonesimulator"
   DEVICE_SDK: "iphoneos"
-  REPO_PLATFORM: "ios"
-  REPO_BASE_URL: "https://repo.dev.k8s.pacelink.net/api"
-  REPO_PROJECT_ID: ""
 
 stages:
   - test
