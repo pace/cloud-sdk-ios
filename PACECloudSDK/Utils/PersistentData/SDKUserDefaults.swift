@@ -139,8 +139,10 @@ extension SDKUserDefaults {
         let previousMigrationVersion = previousMigrationVersion
 
         if previousMigrationVersion < 1 {
+            #if !PACECloudWatchSDK
             // AppWebView CookieStorage
             migrateDataIfNeeded(key: AppKit.CookieStorage.cookiesKey, isUserSensitiveData: false)
+            #endif
 
             // Device Id
             migrateDataIfNeeded(key: PACECloudSDK.DeviceInformation.deviceIdKey, isUserSensitiveData: false)

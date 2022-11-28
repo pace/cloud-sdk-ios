@@ -5,7 +5,11 @@
 //  Created by PACE Telematics GmbH.
 //
 
-import Foundation
+#if PACECloudWatchSDK
+import WatchKit
+#else
+import UIKit
+#endif
 
 public extension PACECloudSDK {
     struct DeviceInformation {
@@ -34,6 +38,22 @@ public extension PACECloudSDK {
             } else {
                 return "Missing device id"
             }
+        }
+
+        public static var deviceVersion: String {
+            #if PACECloudWatchSDK
+            WKInterfaceDevice.current().systemVersion
+            #else
+            UIDevice.current.systemVersion
+            #endif
+        }
+
+        public static var osName: String {
+            #if PACECloudWatchSDK
+            return "watchOS"
+            #else
+            return "iOS"
+            #endif
         }
     }
 }

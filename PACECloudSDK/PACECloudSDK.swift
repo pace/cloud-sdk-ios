@@ -48,6 +48,13 @@ public class PACECloudSDK {
     /// implement the `PACELocalizable` protocol and set this property accordingly.
     public var localizable: PACELocalizable = PACECloudSDK.Localizable()
 
+    public var isMetaCollectorEnabled: Bool {
+        get { metaCollector?.isEnabled ?? false }
+        set { metaCollector?.isEnabled = newValue }
+    }
+
+    private(set) public var metaCollector: MetaCollector?
+
     private init() {}
 
     public func setup(with config: Configuration) {
@@ -67,6 +74,8 @@ public class PACECloudSDK {
 
         setupKits(with: config)
         setupAPI()
+
+        metaCollector = .init(isEnabled: config.isMetaCollectorEnabled)
     }
 
     /**
