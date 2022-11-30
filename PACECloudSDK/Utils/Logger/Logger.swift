@@ -75,6 +75,8 @@ open class Logger {
                 let timestampLog = "\(timestamp) \(singleMessagelog)"
                 todaysLogs.append(timestampLog)
             }
+
+            syncFiles()
         }
     }
 
@@ -84,7 +86,6 @@ open class Logger {
             return
         }
 
-        syncFiles()
         createExportLogs(completion: completion)
     }
 
@@ -95,7 +96,7 @@ open class Logger {
         }
 
         loggingQueue.async {
-            let sortedLogs = sortedLogs(persistedLogs() + todaysLogs)
+            let sortedLogs = sortedLogs(persistedLogs())
             completion(sortedLogs.filter { !$0.isEmpty })
         }
     }
@@ -113,7 +114,6 @@ open class Logger {
 
     public static func deleteLogs(completion: (() -> Void)? = nil) {
         loggingQueue.async {
-            todaysLogs = []
             let currentLogFiles = self.currentLogFiles()
             currentLogFiles.forEach {
                 deleteFile(with: $0)
@@ -127,13 +127,11 @@ extension Logger {
     static func optIn() {
         if PACECloudSDK.shared.isLoggingEnabled {
             createLogsDirectory()
-            addDidEnterBackgroundObserver()
         }
     }
 
     static func optOut() {
         deleteLogs()
-        removeDidEnterBackgroundObserver()
     }
 }
 
@@ -154,7 +152,7 @@ private extension Logger {
     /// Persists the logs of today
     static func syncFiles() {
         loggingQueue.async {
-            guard !todaysLogs.isEmpty else { return }
+            guard !todaysLogs.isEmpty, PACECloudSDK.shared.config != nil else { return }
 
             guard let todaysFileUrl = fileUrl(for: Date()) else {
                 w("[Logger] Couldn't sync files. Invalid file.")
@@ -478,12 +476,5 @@ private extension Logger {
                   let date = fileDateFormatter.date(from: dateString) else { return nil }
             return date
         }
-    }
-}
-
-extension Logger {
-    @objc
-    static func handleDidEnterBackground() {
-        syncFiles()
     }
 }

@@ -105,7 +105,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 13)) [PACECloudSDK_TEST] IMPORT LOG 3"]
 
         importLogs(logs)
-        XCTAssertEqual(debugBundleFileNumber(), 3)
+        XCTAssertEqual(debugBundleFileNumber(), 4)
     }
 
     func testFileCountMultipleDaysOneWeekAgoExceedingMaxNumberOfFiles() {
@@ -354,7 +354,7 @@ class LoggerTests: XCTestCase {
         var exportedLogs: [String] = []
 
         TestLogger.exportLogs { logs in
-            exportedLogs = logs
+            exportedLogs = logs.filter { !($0.contains("❌") || $0.contains("[API key]")) }
             expectation.fulfill()
         }
 
@@ -417,7 +417,7 @@ class LoggerTests: XCTestCase {
 
         do {
             let fileString: String = try String(contentsOfFile: fileURL.path, encoding: .utf8)
-            let logsOfFile: [String] = fileString.components(separatedBy: "\n").filter { !$0.isEmpty }
+            let logsOfFile: [String] = fileString.components(separatedBy: "\n").filter { !($0.isEmpty || ($0.contains("❌") || $0.contains("[API key]"))) }
             return logsOfFile
         } catch {
             XCTFail()
