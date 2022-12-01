@@ -1,3 +1,33 @@
+13.0.0 Release notes (2022-12-01)
+=============================================================
+
+### Breaking Changes
+
+* Implement exponential backoff for request connection errors and timeouts
+
+### Enhancements
+
+* Implement meta collector
+
+### Fixes
+
+* Fix accessing logger functions if logging is disabled
+
+### Internal
+
+* Improve log system
+* Remove upload to repo server
+* Upgrade to Xcode 14.1
+* Make DeviceInformation publicly accessible
+* Cleanup variables
+* Adjust GitLab base URL
+* Strip debug symbols during copy
+* Remove user sensitive data from logs
+* Rework log levels
+* Adjust example app to SDK changes
+* Add fuel.site to list of trusted domains
+* Add migration guide for 11->12
+
 12.0.0 Release notes (2022-10-06)
 =============================================================
 
