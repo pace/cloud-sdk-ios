@@ -126,4 +126,14 @@ public extension AppKit.AppDrawerContainer {
             $0.forceCloseApp()
         }
     }
+
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        var hitDrawer: Bool = false
+        drawerStackView.subviews.forEach { drawer in
+            guard !hitDrawer else { return }
+            hitDrawer = drawer.frame.contains(point)
+        }
+
+        return hitDrawer ? super.hitTest(point, with: event) : nil
+    }
 }
