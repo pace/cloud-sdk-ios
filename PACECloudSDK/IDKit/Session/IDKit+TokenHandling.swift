@@ -146,6 +146,9 @@ extension IDKit {
                 self?.handleUpdatedAccessToken(with: accessToken)
                 completion(.success(accessToken))
                 IDKitLogger.i("Refresh successful")
+
+                // Update persisted session
+                SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
                 return
             }
 
