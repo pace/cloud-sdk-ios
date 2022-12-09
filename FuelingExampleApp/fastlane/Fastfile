@@ -1,8 +1,8 @@
 default_platform(:ios)
 
 PROJECT_PATH = 'FuelingExampleApp.xcodeproj'
-TEAM_ID_ENTERPRISE = '97462K4UKP'
-APP_ID_ENTERPRISE_BETA_PREFIX = 'car.pace.FuelingExampleApp'
+TEAM_ID = ENV['TEAM_ID']
+APP_IDENTIFIER = ENV['APP_IDENTIFIER']
 
 platform :ios do
   minimum_ios_version = '11.0'
@@ -45,21 +45,18 @@ platform :ios do
     )
   end
 
-  desc 'Build development build'
+  desc 'Build development app'
   lane :build_development do
-    build_enterprise_app(config: 'Development')
+    build_fueling_example_app(config: 'Development')
   end
 
-  desc 'Build enterprise app'
-  lane :build_enterprise_app do |options|
-    app_identifier = "#{APP_ID_ENTERPRISE_BETA_PREFIX}"
-    info_plist = 'Info.plist'
-
+  desc 'Build fueling example app'
+  lane :build_fueling_example_app do |options|
     produce(
-      app_identifier: app_identifier,
+      app_identifier: APP_IDENTIFIER,
       app_name: "FuelingExampleApp #{options[:config]}",
       skip_itc: true,
-      team_id: TEAM_ID_ENTERPRISE
+      team_id: TEAM_ID
     )
 
     case options[:config]
@@ -67,52 +64,52 @@ platform :ios do
       add_badge(alpha: true)
     end
 
-    info_plist_path = "FuelingExampleApp/#{info_plist}"
+    info_plist_path = "FuelingExampleApp/Info.plist"
 
     set_info_plist_value(path: info_plist_path, key: 'CFBundleShortVersionString', value: version_number)
     set_info_plist_value(path: info_plist_path, key: 'CFBundleVersion', value: build_number)
 
     disable_automatic_code_signing(
       path: PROJECT_PATH,
-      team_id: TEAM_ID_ENTERPRISE
+      team_id: TEAM_ID
     )
 
     update_app_identifier(
       xcodeproj: PROJECT_PATH,
       plist_path: info_plist_path, # Path to info plist file, relative to xcodeproj
-      app_identifier: app_identifier
+      app_identifier: APP_IDENTIFIER
     )
 
     match(
-      type: 'enterprise',
-      team_id: TEAM_ID_ENTERPRISE,
+      type: 'development',
+      team_id: TEAM_ID,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV['MATCH_KEYCHAIN_PASSWORD'],
-      app_identifier: app_identifier,
+      app_identifier: APP_IDENTIFIER,
       verbose: true
     )
 
     update_project_provisioning(
       xcodeproj: PROJECT_PATH,
       target_filter: 'FuelingExampleApp',
-      profile: ENV["sigh_#{app_identifier}_enterprise_profile-path"],
+      profile: ENV["sigh_#{APP_IDENTIFIER}_development_profile-path"],
       build_configuration: options[:config]
     )
 
     gym(
       clean: true,
-      export_method: 'enterprise',
+      export_method: 'development',
       scheme: 'FuelingExampleApp',
-      export_team_id: TEAM_ID_ENTERPRISE,
+      export_team_id: TEAM_ID,
       configuration: options[:config],
       export_options: {
-        method: 'enterprise',
+        method: 'development',
         compileBitcode: false,
         provisioningProfiles: {
-          app_identifier => ENV["sigh_#{app_identifier}_enterprise_profile-name"]
+          APP_IDENTIFIER => ENV["sigh_#{APP_IDENTIFIER}_development_profile-name"]
         }
       },
-      codesigning_identity: 'iPhone Distribution: PACE Telematics GmbH'
+      codesigning_identity: 'Apple Development'
     )
   end
 end

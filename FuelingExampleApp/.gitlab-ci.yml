@@ -44,7 +44,7 @@ fuelingexampleapp_build_development:
   stage: build
   script:
     - cd $PROJECT_PATH
-    - bundle exec fastlane build_development
+    - bundle exec fastlane build_development --env development
   artifacts:
     name: "latest-app"
     paths:
@@ -69,7 +69,7 @@ fuelingexampleapp_build_review:
   stage: build
   script:
     - cd $PROJECT_PATH
-    - bundle exec fastlane build_development
+    - bundle exec fastlane build_development --env development
   artifacts:
     name: "review-app"
     paths:
