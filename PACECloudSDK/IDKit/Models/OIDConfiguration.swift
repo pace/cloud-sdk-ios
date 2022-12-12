@@ -22,6 +22,7 @@ public extension IDKit {
         let responseType: String
         var additionalParameters: [String: String]?
 
+        /// Creates an instance of `OIDConfiguration` with the specified values
         public init(authorizationEndpoint: String,
                     tokenEndpoint: String,
                     userEndpoint: String? = nil,
@@ -44,6 +45,14 @@ public extension IDKit {
             self.additionalParameters = additionalParameters
         }
 
+        /**
+         Appends additional parameters to the existing OID configuration.
+
+         Make sure the PACECloudSDK has already been set up via `PACECloudSDK.shared.setup()`
+         before calling this method.
+
+         - parameter parameters: The additional parameters.
+         */
         public static func appendAdditionalParameters(_ parameters: [String: String]) {
             let currentParams = shared?.configuration.additionalParameters ?? [:]
 
@@ -52,7 +61,13 @@ public extension IDKit {
             shared?.configuration.additionalParameters = currentParams.merging(parameters, uniquingKeysWith: { $1 })
         }
 
-        static func defaultOIDConfiguration(clientId: String, redirectUri: String, idpHint: String?) -> OIDConfiguration {
+        /**
+         Creates a default OID Configuration with all endpoints pointing to PACE ID.
+         - parameter clientId: The client id of the OID configuration.
+         - parameter redirectUri: The redirect uri of the OID configuration.
+         - parameter idpHint: The IDP hint of the OID configuration. Defaults to `nil`.
+         */
+        public static func defaultOIDConfiguration(clientId: String, redirectUri: String, idpHint: String? = nil) -> OIDConfiguration {
             var additionalParameters: [String: String]?
 
             if let idpHint = idpHint {
