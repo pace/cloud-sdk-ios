@@ -1,3 +1,17 @@
+13.0.1 Release notes (2022-12-13)
+=============================================================
+
+### Fixes
+
+* Area below app drawers is not hittable
+* Fix InfoPlist of FuelingExampleApp
+* Update persisted session in refresh
+
+### Internal
+
+* Make default OID configuration publicly accessible
+* Remove enterprise account
+
 13.0.0 Release notes (2022-12-01)
 =============================================================
 
