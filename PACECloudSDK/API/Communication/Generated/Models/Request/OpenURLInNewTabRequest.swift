@@ -7,7 +7,8 @@ import Foundation
 public extension API.Communication {
     /**
      * Open the given url in a new browser tab.
-     * This specifically is the case when authorizing the payment process via paypal due to security reasons.
+     * This specifically is the case in the payment process.
+     * Only works when a client schema is set and returned via `appInterceptableLink` or if integrated is set to true (assuming client listens to default schema: `cloudsdk`).
      */
     struct OpenURLInNewTabRequest: Codable {
         /**
@@ -17,7 +18,7 @@ public extension API.Communication {
          * The url to be loaded if `url` cannot be opened. */
         public let cancelUrl: String
         /**
-         * Wheter the tab should be opened in the SDK's web view instead of the system's browser. */
+         * Whether the tab should be opened in the SDK's web view instead of the system's browser. */
         public let integrated: Bool?
     }
 }

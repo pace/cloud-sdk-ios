@@ -231,6 +231,7 @@ extension AppViewController: SFSafariViewControllerDelegate {
         // SFSafariViewController was dismissed by selecting 'Finish'
         webView.loadUrl(urlString: cancelUrl)
         cancelUrl = nil
+        sfSafariViewController = nil
     }
 }
 
@@ -240,6 +241,11 @@ extension AppViewController: UIAdaptivePresentationControllerDelegate {
         // `SFSafariViewController` was dismissed by pulling down
         webView.loadUrl(urlString: cancelUrl)
         cancelUrl = nil
+        if presentationController == sfSafariViewController?.presentationController {
+            sfSafariViewController = nil
+        } else {
+            integratedWebView = nil
+        }
     }
 }
 

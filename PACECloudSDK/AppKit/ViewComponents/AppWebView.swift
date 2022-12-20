@@ -22,16 +22,21 @@ class AppWebView: WebView, App {
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     override func setup() {
-        addCustomScripts()
-
-        // Attach message handlers
-        ScriptMessageHandler.allCases.forEach {
-            self.configuration.userContentController.add(self, name: $0.rawValue)
-        }
+        attachMessageHandlers()
 
         webViewDelegate = .init(app: self)
         messageHandler = .init(delegate: self)
         super.setup()
+    }
+
+    private func attachMessageHandlers() {
+        if #available(iOS 14.0, *) {
+            self.configuration.userContentController.addScriptMessageHandler(self, contentWorld: .page, name: ScriptMessageHandler.nativeAPIWithReply.rawValue)
+        } else {
+            self.configuration.userContentController.add(self, name: ScriptMessageHandler.nativeAPI.rawValue)
+        }
+
+        self.configuration.userContentController.add(self, name: ScriptMessageHandler.logger.rawValue)
     }
 
     override func setupView() {
@@ -68,46 +73,6 @@ class AppWebView: WebView, App {
         }
     }
 
-    private func addCustomScripts() {
-        // Needed to intercept the web view's console log messages
-        let loggingSource = """
-            function log(level, args) {
-              window.webkit.messageHandlers.pace_logger.postMessage(
-                `${level} ${Object.values(args)
-                  .map(v => typeof(v) === "undefined" ? "undefined" : typeof(v) === "object" ? JSON.stringify(v) : v.toString())
-                  .map(v => v.substring(0, 3000)) // Limit msg to 3000 chars
-                  .join(", ")}`
-              );
-            }
-
-            var originalLog = console.log;
-            var originalWarn = console.warn;
-            var originalError = console.error;
-            var originalDebug = console.debug;
-
-            console.log = function() { log("[I]", arguments); originalLog.apply(null, arguments); };
-            console.warn = function() { log("[W]", arguments); originalWarn.apply(null, arguments); };
-            console.error = function() { log("[E]", arguments); originalError.apply(null, arguments); };
-            console.debug = function() { log("[D]", arguments); originalDebug.apply(null, arguments); };
-
-            window.addEventListener("error", function(e) {
-               log("[Uncaught]", [`${e.message} at ${e.filename}:${e.lineno}:${e.colno}`]);
-            });
-        """
-
-        // Enable a set of PWA features
-        let featuresSource = """
-        window.features = {
-            messageIds: true
-        }
-        """
-
-        [loggingSource, featuresSource].forEach {
-            let script = WKUserScript(source: $0, injectionTime: .atDocumentStart, forMainFrameOnly: false)
-            configuration.userContentController.addUserScript(script)
-        }
-    }
-
     func cleanUp() {
         ScriptMessageHandler.allCases.forEach {
             self.configuration.userContentController.removeScriptMessageHandler(forName: $0.rawValue)
@@ -120,5 +85,14 @@ extension AppWebView {
     @objc
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         handleMessage(message: message)
+    }
+}
+
+// MARK: - WKScriptMessageHandlerWithRepy
+@available(iOS 14, *)
+extension AppWebView {
+    @objc
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @escaping (Any?, String?) -> Void) {
+        handleMessage(message: message, with: replyHandler)
     }
 }
