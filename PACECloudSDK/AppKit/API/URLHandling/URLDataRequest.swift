@@ -60,7 +60,7 @@ struct URLDataRequest {
             }
 
             let statusCode = response.statusCode
-            AppKitLogger.v("[UrlDataRequest] Received response with status code \(statusCode) for url \(urlString)")
+            AppKitLogger.d("[UrlDataRequest] Received response with status code \(statusCode) for url \(urlString)")
 
             guard statusCode < 400 else {
                 completion(.failure(.httpStatusCodeError))

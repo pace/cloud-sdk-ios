@@ -17,13 +17,14 @@ class LoggerTests: XCTestCase {
         // Setup SDK first and then delete logs
         PACECloudSDK.shared.setup(with: .init(apiKey: "",
                                               environment: .development,
-                                              isRedirectSchemeCheckEnabled: false))
+                                              isRedirectSchemeCheckEnabled: false,
+                                              persistLogs: true))
 
-        // Opt in
-        PACECloudSDK.shared.isLoggingEnabled = true
+        PACECloudSDK.shared.setLogLevel(to: .info)
 
         // Delete temporary logs if existing
-        TestLogger.deleteLogs {
+        TestLogger.clearCurrentLogs()
+        TestLogger.deletePersistedLogs {
             completion(nil)
         }
     }
@@ -39,7 +40,9 @@ class LoggerTests: XCTestCase {
         importLogs(logs)
 
         let expectation = self.expectation(description: "DeletionExpectation")
-        TestLogger.deleteLogs {
+
+        TestLogger.clearCurrentLogs()
+        TestLogger.deletePersistedLogs {
             expectation.fulfill()
         }
 
@@ -333,12 +336,95 @@ class LoggerTests: XCTestCase {
 
         importLogs(logs)
 
-        PACECloudSDK.shared.isLoggingEnabled = false
+        PACECloudSDK.shared.setLogLevel(to: .none)
 
         XCTAssertEqual(exportedLogs(), [])
         XCTAssertEqual(debugBundleFileNumber(), 0)
     }
 
+    func testDebugLog() {
+        PACECloudSDK.shared.setLogLevel(to: .debug)
+
+        let debugMessage = "DEBUG LOG"
+        let infoMessage = "INFO LOG"
+
+        TestLogger.d(debugMessage)
+        TestLogger.i(infoMessage)
+
+        let logs = exportedLogs()
+
+        XCTAssertTrue(logs.contains(where: { $0.contains(debugMessage) }))
+        XCTAssertTrue(logs.contains(where: { $0.contains(infoMessage) }))
+    }
+
+    func testInfoLog() {
+        PACECloudSDK.shared.setLogLevel(to: .info)
+
+        let debugMessage = "DEBUG LOG"
+        let infoMessage = "INFO LOG"
+        let warningMessage = "WARNING LOG"
+
+        TestLogger.d(debugMessage)
+        TestLogger.i(infoMessage)
+        TestLogger.w(warningMessage)
+
+        let logs = exportedLogs()
+
+        XCTAssertFalse(logs.contains(where: { $0.contains(debugMessage) }))
+        XCTAssertTrue(logs.contains(where: { $0.contains(infoMessage) }))
+        XCTAssertTrue(logs.contains(where: { $0.contains(warningMessage) }))
+    }
+
+    func testErrorLog() {
+        PACECloudSDK.shared.setLogLevel(to: .error)
+
+        let debugMessage = "DEBUG LOG"
+        let infoMessage = "INFO LOG"
+        let warningMessage = "WARNING LOG"
+        let errorMessage = "ERROR MESSAGE"
+
+        TestLogger.d(debugMessage)
+        TestLogger.i(infoMessage)
+        TestLogger.w(warningMessage)
+        TestLogger.e(errorMessage)
+
+        let logs = exportedLogs()
+
+        XCTAssertFalse(logs.contains(where: { $0.contains(debugMessage) }))
+        XCTAssertFalse(logs.contains(where: { $0.contains(infoMessage) }))
+        XCTAssertFalse(logs.contains(where: { $0.contains(warningMessage) }))
+        XCTAssertTrue(logs.contains(where: { $0.contains(errorMessage) }))
+    }
+
+    func testDisableLogging() {
+        PACECloudSDK.shared.setLogLevel(to: .none)
+
+        let debugMessage = "DEBUG LOG"
+        let infoMessage = "INFO LOG"
+        let warningMessage = "WARNING LOG"
+        let errorMessage = "ERROR MESSAGE"
+
+        TestLogger.d(debugMessage)
+        TestLogger.i(infoMessage)
+        TestLogger.w(warningMessage)
+        TestLogger.e(errorMessage)
+
+        let logs = exportedLogs()
+
+        XCTAssertFalse(logs.contains(where: { $0.contains(debugMessage) }))
+        XCTAssertFalse(logs.contains(where: { $0.contains(infoMessage) }))
+        XCTAssertFalse(logs.contains(where: { $0.contains(warningMessage) }))
+        XCTAssertFalse(logs.contains(where: { $0.contains(errorMessage) }))
+    }
+
+    func testDisableLogPersistance() {
+        PACECloudSDK.shared.persistLogs = false
+        TestLogger.i("INFO LOG")
+        XCTAssertTrue(debugBundleFileNumber() == 0)
+    }
+}
+
+private extension LoggerTests {
     private func importLogs(_ logs: [String]) {
         let expectation = self.expectation(description: "ImportExpectation")
 
@@ -424,9 +510,7 @@ class LoggerTests: XCTestCase {
             return []
         }
     }
-}
 
-private extension LoggerTests {
     func dateString(daysAgo: Int) -> String {
         dateFormatter.string(from: Date().daysAgo(daysAgo))
     }

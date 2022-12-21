@@ -17,7 +17,8 @@ struct PACECloudSDKExampleApp: App {
                                                        environment: currentAppEnvironment,
                                                        domainACL: ["pace.cloud", "pacelink.net", "fuel.site"],
                                                        geoAppsScope: "pace-drive-ios-min",
-                                                       enableLogging: true)
+                                                       logLevel: .debug,
+                                                       persistLogs: true)
 
         PACECloudSDK.shared.setup(with: config)
         IDControl.shared.refresh()

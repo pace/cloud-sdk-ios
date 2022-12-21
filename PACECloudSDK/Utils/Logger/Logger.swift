@@ -18,7 +18,7 @@ open class Logger {
     private static let maxNumberOfFilesUpperLimit: Int = 7
     private static let maxFileSizeUpperLimit: Int = 10 * 1000 * 1000
 
-    private static var todaysLogs: [String] = []
+    private static var currentLogs: [String] = []
 
     private static let loggingQueue = DispatchQueue(label: "pacecloudsdklogger", qos: .background)
 
@@ -31,15 +31,35 @@ open class Logger {
     private static let fileManager: FileManager = FileManager.default
     private static let logsDirectoryName: String = "PaceLogs"
 
-    enum Level: String {
-        case verbose = "[V]"
-        case info = "[I]"
-        case warning = "[W]"
-        case error = "[E]"
+    public enum LogLevel: Int {
+        case debug
+        case info
+        case warning
+        case error
+        case none
+
+        var tag: String {
+            switch self {
+            case .debug:
+                return "[D]"
+
+            case .info:
+                return "[I]"
+
+            case .warning:
+                return "[W]"
+
+            case .error:
+                return "[E]"
+
+            case .none:
+                return ""
+            }
+        }
     }
 
-    open class func v(_ message: String) {
-        log(message: message, level: .verbose)
+    open class func d(_ message: String) {
+        log(message: message, level: .debug)
     }
 
     open class func i(_ message: String) {
@@ -54,14 +74,11 @@ open class Logger {
         log(message: message, level: .error)
     }
 
-    private static func log(message: String, level: Level) {
-        guard PACECloudSDK.shared.isLoggingEnabled || level != .verbose else { return }
-        log(message: message, level: level.rawValue)
-    }
-
-    public static func log(message: String, level: String) {
+    private static func log(message: String, level: LogLevel) {
         loggingQueue.async {
-            let log = "\(logTag)\(moduleTag)\(level) \(message)"
+            guard level.rawValue >= PACECloudSDK.shared.currentLogLevel.rawValue else { return }
+
+            let log = "\(logTag)\(moduleTag)\(level.tag) \(message)"
 
             NSLog(log)
 
@@ -70,10 +87,10 @@ open class Logger {
             let messageLogs: [String] = message.components(separatedBy: "\n")
 
             messageLogs.forEach {
-                let singleMessagelog = "\(logTag)\(moduleTag)\(level) \($0)"
+                let singleMessageLog = "\(logTag)\(moduleTag)\(level.tag) \($0)"
                 let timestamp = dateFormatter.string(from: Date())
-                let timestampLog = "\(timestamp) \(singleMessagelog)"
-                todaysLogs.append(timestampLog)
+                let timestampLog = "\(timestamp) \(singleMessageLog)"
+                currentLogs.append(timestampLog)
             }
 
             syncFiles()
@@ -96,7 +113,7 @@ open class Logger {
         }
 
         loggingQueue.async {
-            let sortedLogs = sortedLogs(persistedLogs())
+            let sortedLogs = sortedLogs(persistedLogs() + currentLogs)
             completion(sortedLogs.filter { !$0.isEmpty })
         }
     }
@@ -112,14 +129,23 @@ open class Logger {
         }
     }
 
-    public static func deleteLogs(completion: (() -> Void)? = nil) {
+    /// Deletes all currently not persisted Logs.
+    public static func clearCurrentLogs() {
+        currentLogs = []
+    }
+
+    public static func deletePersistedLogs(completion: (() -> Void)? = nil) {
         loggingQueue.async {
-            let currentLogFiles = self.currentLogFiles()
+            let currentLogFiles = self.persistedLogFiles()
             currentLogFiles.forEach {
                 deleteFile(with: $0)
             }
             completion?()
         }
+    }
+
+    public static func didSetLogPersistence(enable: Bool) {
+        if enable { optIn() } else { optOut() }
     }
 }
 
@@ -131,7 +157,7 @@ extension Logger {
     }
 
     static func optOut() {
-        deleteLogs()
+        deletePersistedLogs()
     }
 }
 
@@ -152,17 +178,19 @@ private extension Logger {
     /// Persists the logs of today
     static func syncFiles() {
         loggingQueue.async {
-            guard !todaysLogs.isEmpty, PACECloudSDK.shared.config != nil else { return }
+            guard !currentLogs.isEmpty,
+                  PACECloudSDK.shared.config != nil,
+                  PACECloudSDK.shared.persistLogs else { return }
 
             guard let todaysFileUrl = fileUrl(for: Date()) else {
                 w("[Logger] Couldn't sync files. Invalid file.")
                 return
             }
 
-            guard append(logs: todaysLogs, to: todaysFileUrl) else { return }
+            guard append(logs: currentLogs, to: todaysFileUrl) else { return }
 
             deleteOldestFileIfNeeded()
-            todaysLogs = [] // Reset logs
+            currentLogs = [] // Reset logs
         }
     }
 
@@ -208,7 +236,7 @@ private extension Logger {
     @discardableResult
     static func write(data: Data, to fileUrl: URL, replacesContent: Bool) -> Bool {
         guard let fileHandle = FileHandle(forWritingAtPath: fileUrl.path) else {
-            e("[Logger] Couldn't merge logs, couldn't create fileHandle.")
+            e("[Logger] Couldn't merge logs, couldn't create fileHandle with fileUrl: \(fileUrl).")
             return false
         }
 
@@ -225,7 +253,7 @@ private extension Logger {
 
     /// Removes data from the persisted files if the size of the debug bundle exceeds the max limit
     static func truncateFilesIfNeeded(for bytesToAppend: Int) -> Bool {
-        let currentFiles = currentLogFiles() // Already sorted by creation date
+        let currentFiles = persistedLogFiles() // Already sorted by creation date
         let logsSize = currentFiles.map { fileSize(for: $0) }.reduce(0, +)
         let fileSizeLimit: Int = min(maxFileSize, maxFileSizeUpperLimit)
         var currentBytesExcess = logsSize + bytesToAppend - fileSizeLimit
@@ -301,7 +329,7 @@ private extension Logger {
 
     /// Deletes files recursively if the number of files exceeds the max number
     static func deleteOldestFileIfNeeded() {
-        let currentLogFiles = self.currentLogFiles()
+        let currentLogFiles = self.persistedLogFiles()
         let numberOfFiles: Int = min(maxNumberOfFiles, maxNumberOfFilesUpperLimit)
         guard currentLogFiles.count > numberOfFiles, let fileNameToDelete = currentLogFiles.first else { return }
         deleteFile(with: fileNameToDelete)
@@ -320,8 +348,8 @@ private extension Logger {
         }
     }
 
-    /// Returns the names of the currently peristed log files sorted by date if available
-    static func currentLogFiles() -> [String] {
+    /// Returns the names of the currently persisted log files sorted by date if available
+    static func persistedLogFiles() -> [String] {
         guard let debugBundleDirectory = logsDirectory, fileManager.fileExists(atPath: debugBundleDirectory.path) else { return [] }
 
         do {
@@ -471,7 +499,7 @@ private extension Logger {
 
     /// Returns the dates of all log files
     static func currentLogFilesDates() -> [Date] {
-        currentLogFiles().compactMap {
+        persistedLogFiles().compactMap {
             guard let dateString = $0.matches(for: fileDateRegex)?.first,
                   let date = fileDateFormatter.date(from: dateString) else { return nil }
             return date

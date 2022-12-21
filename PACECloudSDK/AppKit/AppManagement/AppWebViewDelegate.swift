@@ -33,7 +33,7 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
 
             decisionHandler(.cancel)
 
-            AppKitLogger.v("[AppViewController] Canceled navigation and passed handling to system for url \(url.absoluteString).")
+            AppKitLogger.d("[AppViewController] Canceled navigation and passed handling to system for url \(url.absoluteString).")
 
             return
         }

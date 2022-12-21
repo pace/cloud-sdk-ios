@@ -161,6 +161,16 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 - The parameter `currentNumberOfRetries` of `makeRequest(...)` of `FuelingAPIClient`, `PayAPIClient`, `POIAPIClient` and `UserAPIClient` has been renamed to `currentUnauthorizedRetryCount`.
 
+### From 13.x.x to 14.x.x
+
+- Renamed `Logger.LogLevel.verbose` to `Logger.LogLevel.debug`.
+- Removed `enableLogging` from `PACECloudSDK.Configuration`.
+- Introduced `logLevel` and `persistLogs` to `PACECloudSDK.Configuration`.
+  + `logLevel` states the lowest `Logger.LogLevel` that should be logged (`debug` -> `info` -> `warning` -> `error`) or if `none` should be logged. Default is `info`.
+  + `persistLogs` states wether logs should be persisted into the file system. Default is `false`.
+- Introduced `PACECloudSDK.shared.setLogLevel(to: Logger.LogLevel)` to set lowest logged `Logger.LogLevel` after SDK setup.
+- Introduced `PACECloudSDK.shared.persistLogs` to set if logs should be persisted into files after SDK setup.
+
 ## Contribute
 ### Localizable Strings Generation
 To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).
