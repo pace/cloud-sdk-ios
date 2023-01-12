@@ -1,3 +1,15 @@
+13.1.0 Release notes (2023-01-12)
+=============================================================
+
+### Enhancements
+
+* Add new message handling for PWA communication
+
+### Internal
+
+* UserInfo request falls back to use `API.accessToken` if token of IDKit is not available
+* Clean up environment variables
+
 13.0.1 Release notes (2022-12-13)
 =============================================================
 
