@@ -219,7 +219,7 @@ extension AppManager: AppDrawerLocationProviderDelegate {
     }
 
     func setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D]) {
-        AppKitLogger.v("[App Manager] Start setting up geofence regions")
+        AppKitLogger.d("[App Manager] Start setting up geofence regions")
 
         resetGeofences()
         locationProvider.monitorRegionsAt(locations: locations)
@@ -230,7 +230,7 @@ extension AppManager: AppDrawerLocationProviderDelegate {
     }
 
     func didReceiveLocation(_ location: CLLocation) {
-        AppKitLogger.v("[App Manager] Did receive location. Checking for available apps...")
+        AppKitLogger.d("[App Manager] Did receive location. Checking for available apps...")
 
         cofuGasStations(for: location) { [weak self] appDatas in
             guard let appDatas = appDatas else { return }

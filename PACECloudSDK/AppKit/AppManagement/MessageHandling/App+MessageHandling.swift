@@ -11,7 +11,7 @@ import UIKit
 // MARK: - Message handling
 extension App {
     func handleLog(with message: String) {
-        AppKitLogger.v("[PWA] \(message)")
+        AppKitLogger.d("[PWA] \(message)")
     }
 
     func handleClose(completion: @escaping (API.Communication.CloseResult) -> Void) {
@@ -53,7 +53,7 @@ extension App {
         let untilTime = request.until
 
         // Persist disable's until date
-        AppKitLogger.v("[App] Set disable timer for \(host): \(untilTime)")
+        AppKitLogger.d("[App] Set disable timer for \(host): \(untilTime)")
         SDKUserDefaults.set(untilTime, for: "disable_time_\(host)", isUserSensitiveData: false)
 
         // Close App after everything has been set

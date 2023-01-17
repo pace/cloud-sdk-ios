@@ -29,13 +29,13 @@ public class PACECloudSDK {
     }
 
     public var redirectScheme: String?
-    public var isLoggingEnabled = false {
+
+    private var logLevel: Logger.LogLevel?
+
+    /// States whether logs should be persisted.
+    public var persistLogs: Bool = false {
         didSet {
-            if isLoggingEnabled {
-                SDKLogger.optIn()
-            } else {
-                SDKLogger.optOut()
-            }
+            Logger.didSetLogPersistence(enable: persistLogs)
         }
     }
 
@@ -62,7 +62,7 @@ public class PACECloudSDK {
         self.apiKey = config.apiKey
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
-        self.isLoggingEnabled = config.loggingEnabled
+        self.persistLogs = config.persistLogs
 
         setupCustomURLProtocolIfAvailable()
 
@@ -124,5 +124,21 @@ extension PACECloudSDK {
         guard isCustomURLProtocolEnabled, let customURLProtocol = customURLProtocol else { return }
         URLProtocol.registerClass(customURLProtocol.classForCoder)
         URLSession.shared.configuration.setCustomURLProtocolIfAvailable()
+    }
+}
+
+// MARK: - Logging
+extension PACECloudSDK {
+    /// Set to the lowest log level that should be logged (debug -> info -> warning -> error) or to none.
+    public func setLogLevel(to level: Logger.LogLevel) {
+        self.logLevel = level
+    }
+
+    public var currentLogLevel: Logger.LogLevel {
+        logLevel ?? config?.logLevel ?? .info
+    }
+
+    public var isLoggingEnabled: Bool {
+        currentLogLevel.rawValue < Logger.LogLevel.none.rawValue
     }
 }

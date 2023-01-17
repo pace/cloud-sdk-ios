@@ -43,7 +43,7 @@ struct POIAPIRequestBehaviourImplementation: POIAPIRequestBehaviour {
         let url = urlRequest?.url?.absoluteString ?? response.url?.absoluteString ?? "invalid url"
         switch error {
         case .networkError(let error) where (error as NSError).code == NSURLErrorCancelled:
-            SDKLogger.v("[POIAPI] Request with url (\(url)) was canceled.")
+            SDKLogger.d("[POIAPI] Request with url (\(url)) was canceled.")
 
         default:
             let requestId: String = response.allHeaderFields["request-id"] as? String ?? "unknown"

@@ -43,7 +43,7 @@ extension IDKit {
 
         // Try to refresh token from last session cache
         if session != nil {
-            IDKitLogger.v("Trying to refresh session...")
+            IDKitLogger.d("Trying to refresh session...")
             performRefresh(completion)
             return
         }

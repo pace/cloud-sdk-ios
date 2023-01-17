@@ -32,7 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             apiKey: "apikey",
             environment: currentAppEnvironment,
             geoAppsScope: "pace-drive-ios-min",
-            enableLogging: true
+            logLevel: .debug,
+            persistLogs: true
         )
 
         PACECloudSDK.shared.setup(with: config)

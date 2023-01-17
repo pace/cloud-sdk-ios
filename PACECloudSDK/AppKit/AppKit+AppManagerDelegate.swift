@@ -35,13 +35,13 @@ extension AppKit: AppManagerDelegate {
             let disableTime = SDKUserDefaults.double(for: disableTimeDataKey, isUserSensitiveData: false)
 
             if Date().timeIntervalSince1970 >= disableTime {
-                AppKitLogger.v("Disable timer for \(urlHost) has been reached.")
+                AppKitLogger.d("Disable timer for \(urlHost) has been reached.")
                 SDKUserDefaults.removeObject(for: "disable_time_\(urlHost)", isUserSensitiveData: false)
 
                 return true
             }
 
-            AppKitLogger.v("Don't show \(urlHost), because disable timer has not been reached.")
+            AppKitLogger.d("Don't show \(urlHost), because disable timer has not been reached.")
             return false
         }
 

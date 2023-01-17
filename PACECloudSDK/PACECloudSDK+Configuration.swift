@@ -43,10 +43,13 @@ public extension PACECloudSDK {
         /// Maximum distance of Cofu station to user in meters to still be shown.
         let allowedAppDrawerLocationOffset: Double
 
-        /// Set to `true` if you want to make use of the Logger provided by `PACECloudSDK`.
-        let loggingEnabled: Bool
-
         let isMetaCollectorEnabled: Bool
+
+        /// Sets lowest log level which should be logged (debug -> info -> warning -> error) or to none.
+        let logLevel: Logger.LogLevel
+
+        /// Stats whether logs should be persisted into files.
+        let persistLogs: Bool
 
         public init(apiKey: String,
                     authenticationMode: AuthenticationMode = .native,
@@ -59,8 +62,9 @@ public extension PACECloudSDK {
                     speedThresholdInKmPerHour: Double? = nil,
                     geoAppsScope: String? = nil,
                     allowedAppDrawerLocationOffset: Double? = nil,
-                    enableLogging: Bool = false,
-                    isMetaCollectorEnabled: Bool = true) {
+                    isMetaCollectorEnabled: Bool = true,
+                    logLevel: Logger.LogLevel = .info,
+                    persistLogs: Bool = false) {
             self.apiKey = apiKey
             self.authenticationMode = authenticationMode
             self.environment = environment
@@ -81,8 +85,9 @@ public extension PACECloudSDK {
 
             self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
             self.allowedAppDrawerLocationOffset = allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
-            self.loggingEnabled = enableLogging
             self.isMetaCollectorEnabled = isMetaCollectorEnabled
+            self.logLevel = logLevel
+            self.persistLogs = persistLogs
         }
     }
 

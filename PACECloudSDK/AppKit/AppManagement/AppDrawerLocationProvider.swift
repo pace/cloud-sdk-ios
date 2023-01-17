@@ -41,7 +41,7 @@ class AppDrawerLocationProvider: NSObject {
     private var currentLocation: CLLocation? {
         didSet {
             if let location = currentLocation {
-                AppKitLogger.v("[Location Provider] Did receive accurate location: \(location)")
+                AppKitLogger.d("[Location Provider] Did receive accurate location: \(location)")
 
                 delegate?.didReceiveLocation(location)
                 savedLocations.removeAll()
@@ -65,7 +65,7 @@ class AppDrawerLocationProvider: NSObject {
     }()
 
     init(timeout: TimeInterval = 30) {
-        AppKitLogger.v("[AppDrawerLocationProvider] Initializing AppDrawerLocationProvider with timeout \(timeout)")
+        AppKitLogger.d("[AppDrawerLocationProvider] Initializing AppDrawerLocationProvider with timeout \(timeout)")
         self.timeout = timeout
         super.init()
         updateLocationAccuracyThresholds()
@@ -85,7 +85,7 @@ class AppDrawerLocationProvider: NSObject {
 
     func startFetchingLocation() {
         guard !locationFetchRunning else {
-            AppKitLogger.v("[AppDrawerLocationProvider] Fetching location requested but already running")
+            AppKitLogger.d("[AppDrawerLocationProvider] Fetching location requested but already running")
             return
         }
 
@@ -95,7 +95,7 @@ class AppDrawerLocationProvider: NSObject {
             return
         }
 
-        AppKitLogger.v("[AppDrawerLocationProvider] Start fetching location")
+        AppKitLogger.d("[AppDrawerLocationProvider] Start fetching location")
 
         locationStartTime = Date()
         locationManager.startUpdatingLocation()
@@ -104,7 +104,7 @@ class AppDrawerLocationProvider: NSObject {
         for i in 0...thresholds.count - 1 {
             thresholds[i].timeoutWorker?.cancel()
             thresholds[i].timeoutWorker = DispatchWorkItem {
-                AppKitLogger.v("[AppDrawerLocationProvider] Timeout for segment \(i) of \(self.thresholds.count - 1)")
+                AppKitLogger.d("[AppDrawerLocationProvider] Timeout for segment \(i) of \(self.thresholds.count - 1)")
 
                 if i == self.thresholds.count - 1 {
                     self.currentLocation = self.filterLocations(self.savedLocations, basedOn: self.locationStartTime)
@@ -142,7 +142,7 @@ class AppDrawerLocationProvider: NSObject {
     }
 
     private func reset() {
-        AppKitLogger.v("[AppDrawerLocationProvider] Reset")
+        AppKitLogger.d("[AppDrawerLocationProvider] Reset")
 
         thresholds.forEach { $0.timeoutWorker?.cancel() }
         locationManager.stopUpdatingLocation()
@@ -162,7 +162,7 @@ extension AppDrawerLocationProvider: CLLocationManagerDelegate {
         savedLocations.append(contentsOf: locations)
         savedLocations = savedLocations.sorted(by: { $0.timestamp > $1.timestamp }).filter { 0...maximalLocationAge ~= abs($0.timestamp.timeIntervalSinceNow) }
 
-        AppKitLogger.v("[AppDrawerLocationProvider] Filtered locations count \(savedLocations.count)")
+        AppKitLogger.d("[AppDrawerLocationProvider] Filtered locations count \(savedLocations.count)")
 
         currentLocation = filterLocations(savedLocations, basedOn: locationStartTime)
     }
@@ -176,10 +176,10 @@ extension AppDrawerLocationProvider: CLLocationManagerDelegate {
             // If the location service is unable to retrieve a location right away,
             // it reports a CLError.Code.locationUnknown error and keeps trying.
             // In such a situation, you can simply ignore the error and wait for a new event.
-            AppKitLogger.v("[AppDrawerLocationProvider] Location unknown")
+            AppKitLogger.d("[AppDrawerLocationProvider] Location unknown")
 
         default:
-            AppKitLogger.v("[AppDrawerLocationProvider] Location fetch failed with error: \(error)")
+            AppKitLogger.d("[AppDrawerLocationProvider] Location fetch failed with error: \(error)")
 
             thresholds.forEach { $0.timeoutWorker?.cancel() }
             delegate?.didFailWithError(clError)
@@ -190,14 +190,14 @@ extension AppDrawerLocationProvider: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
 
-        AppKitLogger.v("[Geofences] Entered region with id: \(region.identifier)")
+        AppKitLogger.d("[Geofences] Entered region with id: \(region.identifier)")
         delegate?.didEnterGeofence(with: region.identifier)
     }
 
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
 
-        AppKitLogger.v("[Geofences] Exited region with id: \(region.identifier)")
+        AppKitLogger.d("[Geofences] Exited region with id: \(region.identifier)")
         delegate?.didExitGeofence(with: region.identifier)
     }
 
@@ -217,14 +217,14 @@ extension AppDrawerLocationProvider {
                 monitorRegionAtLocation(center: $0.value, identifier: $0.key)
             }
 
-            AppKitLogger.v("[Geofences] Requesting region monitor for \(locations.count) regions")
+            AppKitLogger.d("[Geofences] Requesting region monitor for \(locations.count) regions")
         } else {
             AppKitLogger.e("[Geofences] Region monitoring is not available.")
         }
     }
 
     func resetGeofences() {
-        AppKitLogger.v("[Geofences] Reset all monitored regions")
+        AppKitLogger.d("[Geofences] Reset all monitored regions")
 
         locationManager.monitoredRegions.forEach {
             locationManager.stopMonitoring(for: $0)
