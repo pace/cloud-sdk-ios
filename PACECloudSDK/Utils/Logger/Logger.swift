@@ -23,7 +23,8 @@ open class Logger {
     private static let loggingQueue = DispatchQueue(label: "pacecloudsdklogger", qos: .background)
 
     private static let dateFormatter: DateFormatter = .init(formatString: "yyyy-MM-dd HH:mm:ss.SSS")
-    private static let dateRegex = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}"
+    private static let dateRegexString = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}"
+    private static let dateRegex = try! NSRegularExpression(pattern: dateRegexString) // swiftlint:disable:this force_try
 
     private static let fileDateFormatter: DateFormatter = .init(formatString: "yyyy-MM-dd")
     private static let fileDateRegex = "\\d{4}-\\d{2}-\\d{2}"
@@ -414,7 +415,7 @@ private extension Logger {
 
             // Extract date from every new log string (only use first occurence)
             newLogs.forEach { newLogString in
-                guard let dateTimestamp = newLogString.matches(for: dateRegex)?.first,
+                guard let dateTimestamp = newLogString.matches(for: dateRegex).first,
                       let dateString = dateTimestamp.components(separatedBy: " ").first else { return }
 
                 if let logEntries = newLogsItems[dateString] {
@@ -444,26 +445,40 @@ private extension Logger {
     static func sortPersistedLogs(completion: (() -> Void)? = nil) {
         let logFileDates: [Date] = currentLogFilesDates()
 
-        logFileDates.forEach {
-            guard let fileUrl = fileUrl(for: $0) else { return }
+        let dispatchGroup = DispatchGroup()
 
-            let logs = persistedLogs(from: $0)
-            let sortedLogs = sortedLogs(logs)
-
-            let logString = sortedLogs.reduce(into: "", { $0 += $1 + "\n" }) // Append a linebreak
-            let logsData = Data(logString.utf8)
-
-            write(data: logsData, to: fileUrl, replacesContent: true)
+        logFileDates.forEach { _ in
+            dispatchGroup.enter()
         }
 
-        completion?()
+        logFileDates.forEach { logFileDate in
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let fileUrl = fileUrl(for: logFileDate) else {
+                    dispatchGroup.leave()
+                    return
+                }
+
+                let logs = persistedLogs(from: logFileDate)
+                let sortedLogs = sortedLogs(logs)
+
+                let logString = sortedLogs.reduce(into: "", { $0 += $1 + "\n" }) // Append a linebreak
+                let logsData = Data(logString.utf8)
+
+                write(data: logsData, to: fileUrl, replacesContent: true)
+                dispatchGroup.leave()
+            }
+        }
+
+        dispatchGroup.notify(queue: loggingQueue) {
+            completion?()
+        }
     }
 
     static func sortedLogs(_ logs: [String]) -> [String] {
         return logs.sorted(by: { lhs, rhs in
-            guard let lhsDateTimestamp = lhs.matches(for: dateRegex)?.first,
+            guard let lhsDateTimestamp = lhs.matches(for: dateRegex).first,
                   let lhsDate = dateFormatter.date(from: lhsDateTimestamp),
-                  let rhsDateTimestamp = rhs.matches(for: dateRegex)?.first,
+                  let rhsDateTimestamp = rhs.matches(for: dateRegex).first,
                   let rhsDate = dateFormatter.date(from: rhsDateTimestamp) else { return false }
             return lhsDate < rhsDate
         })

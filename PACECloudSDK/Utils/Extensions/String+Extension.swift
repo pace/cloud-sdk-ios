@@ -21,13 +21,17 @@ extension String {
     func matches(for regex: String) -> [String]? {
         do {
             let regex = try NSRegularExpression(pattern: regex)
-            let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
-            return results.compactMap {
-                guard let range = Range($0.range, in: self) else { return nil }
-                return String(self[range])
-            }
+            return matches(for: regex)
         } catch {
             return nil
+        }
+    }
+
+    func matches(for regex: NSRegularExpression) -> [String] {
+        let results = regex.matches(in: self, range: NSRange(self.startIndex..., in: self))
+        return results.compactMap {
+            guard let range = Range($0.range, in: self) else { return nil }
+            return String(self[range])
         }
     }
 
