@@ -347,7 +347,6 @@
 		3B79FA6626C15BCC00C0278F /* POIKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C22539DDAC00B933AE /* POIKitManager.swift */; };
 		3B79FA6726C15BCC00C0278F /* POIKitManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDB825A73EDD00E480F4 /* POIKitManager+Tiles.swift */; };
 		3B79FA6826C15BCC00C0278F /* POIKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7DA2539DDAD00B933AE /* POIKitDelegate.swift */; };
-		3B79FA6926C15BCF00C0278F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBF7912567CA3800242BDC /* Database.swift */; };
 		3B79FA6A26C15BD200C0278F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F62567D2CC000EA905 /* Location.swift */; };
 		3B79FA6B26C15BD200C0278F /* POILayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBCB2F22567D2C6000EA905 /* POILayer.swift */; };
 		3B79FA6C26C15BD200C0278F /* GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B387F8E256C0D0100DD6F52 /* GasStation.swift */; };
@@ -781,7 +780,6 @@
 		3BC9A8292539DDAD00B933AE /* TileInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7E92539DDAD00B933AE /* TileInformation.swift */; };
 		3BC9A82A2539DDAD00B933AE /* CoordinateLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7EA2539DDAD00B933AE /* CoordinateLocation.swift */; };
 		3BC9A82B2539DDAD00B933AE /* Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7EB2539DDAD00B933AE /* Compass.swift */; };
-		3BCBF7922567CA3800242BDC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCBF7912567CA3800242BDC /* Database.swift */; };
 		3BD0C825274BABB2003E002D /* TilesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0C824274BABB2003E002D /* TilesResponse.swift */; };
 		3BD0C826274BABDF003E002D /* TilesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0C824274BABB2003E002D /* TilesResponse.swift */; };
 		3BD19ADE2631766400D68580 /* App+MessageHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD19ADD2631766400D68580 /* App+MessageHandling.swift */; };
@@ -795,6 +793,8 @@
 		3BF1527625DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
 		3BF303D32625A7E90079ED64 /* RequestTimeoutHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */; };
 		3BF303D42625A7E90079ED64 /* RequestTimeoutHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */; };
+		3BF30D5E2996369D00F254A3 /* POIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF30D5D2996369C00F254A3 /* POIModelConvertible.swift */; };
+		3BF30D5F299636B100F254A3 /* POIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF30D5D2996369C00F254A3 /* POIModelConvertible.swift */; };
 		3BF7B42726306B010047CA34 /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */; };
 		3BF7B42826306B010047CA34 /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */; };
 		6A2F492B27044AE1004497B2 /* SDKLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2F492A27044AE1004497B2 /* SDKLogger.swift */; };
@@ -1557,7 +1557,6 @@
 		3BC9A7E92539DDAD00B933AE /* TileInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileInformation.swift; sourceTree = "<group>"; };
 		3BC9A7EA2539DDAD00B933AE /* CoordinateLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateLocation.swift; sourceTree = "<group>"; };
 		3BC9A7EB2539DDAD00B933AE /* Compass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compass.swift; sourceTree = "<group>"; };
-		3BCBF7912567CA3800242BDC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		3BD0C824274BABB2003E002D /* TilesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesResponse.swift; sourceTree = "<group>"; };
 		3BD19ADD2631766400D68580 /* App+MessageHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling.swift"; sourceTree = "<group>"; };
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
@@ -1566,6 +1565,7 @@
 		3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTimeoutHandler.swift; sourceTree = "<group>"; };
+		3BF30D5D2996369C00F254A3 /* POIModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIModelConvertible.swift; sourceTree = "<group>"; };
 		3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptMessageHandler.swift; sourceTree = "<group>"; };
 		6A2F492A27044AE1004497B2 /* SDKLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKLogger.swift; sourceTree = "<group>"; };
 		6A7FCE9926F0E9A400384907 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
@@ -2578,7 +2578,6 @@
 				3BC9A7DA2539DDAD00B933AE /* POIKitDelegate.swift */,
 				3BC9A7C22539DDAC00B933AE /* POIKitManager.swift */,
 				92EDDDB825A73EDD00E480F4 /* POIKitManager+Tiles.swift */,
-				3BC9A7D12539DDAD00B933AE /* Database */,
 				3B5503ED2539E53100C291F1 /* Extensions */,
 				3B9655E426B2868700921766 /* GeoService */,
 				3BC9A7E42539DDAD00B933AE /* Models */,
@@ -2717,25 +2716,6 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
-		3BC9A7D12539DDAD00B933AE /* Database */ = {
-			isa = PBXGroup;
-			children = (
-				3BCBF7912567CA3800242BDC /* Database.swift */,
-				3BC9A7D42539DDAD00B933AE /* Model */,
-			);
-			path = Database;
-			sourceTree = "<group>";
-		};
-		3BC9A7D42539DDAD00B933AE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3B387F8E256C0D0100DD6F52 /* GasStation.swift */,
-				3BBCB2F62567D2CC000EA905 /* Location.swift */,
-				3BBCB2F22567D2C6000EA905 /* POILayer.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		3BC9A7E02539DDAD00B933AE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2756,7 +2736,11 @@
 				3BC9A7EB2539DDAD00B933AE /* Compass.swift */,
 				3BC9A7EA2539DDAD00B933AE /* CoordinateLocation.swift */,
 				3BC9A7E82539DDAD00B933AE /* Doubles+Angles.swift */,
+				3B387F8E256C0D0100DD6F52 /* GasStation.swift */,
 				3BC9A7E62539DDAD00B933AE /* GeometryCommand.swift */,
+				3BBCB2F62567D2CC000EA905 /* Location.swift */,
+				3BBCB2F22567D2C6000EA905 /* POILayer.swift */,
+				3BF30D5D2996369C00F254A3 /* POIModelConvertible.swift */,
 				3BC9A7E92539DDAD00B933AE /* TileInformation.swift */,
 				3B5503F62539E6BE00C291F1 /* Vector2.swift */,
 			);
@@ -3648,7 +3632,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					17BB0CD6268CCED6009D4755 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -3973,7 +3957,6 @@
 				3B53F38E2845E8E000E751FE /* PCPOIFuelPrice.swift in Sources */,
 				17BB0D15268CCF92009D4755 /* FuelingAPICancelPreAuth.swift in Sources */,
 				17B4E54F26D39CA400AEAF13 /* UserAPIDeleteCurrentUser.swift in Sources */,
-				3B79FA6926C15BCF00C0278F /* Database.swift in Sources */,
 				3B79FAAB26C15BF900C0278F /* PKOperation.swift in Sources */,
 				17BB0D00268CCF13009D4755 /* PayAPIDeletePaymentMethod.swift in Sources */,
 				3B79FA8F26C15BEB00C0278F /* tile_query_response.proto in Sources */,
@@ -4009,6 +3992,7 @@
 				17B4E3FA26CE81A900AEAF13 /* CmsAPIClient.swift in Sources */,
 				17BB0D0D268CCF88009D4755 /* FuelingAPIService.swift in Sources */,
 				17BB0D3A268CD181009D4755 /* Double+Extension.swift in Sources */,
+				3BF30D5F299636B100F254A3 /* POIModelConvertible.swift in Sources */,
 				3B79FA7526C15BDB00C0278F /* Vector2.swift in Sources */,
 				3B2FB1C82844EB2800E8CD0C /* PCUserUpdateUserPhoneRequest.swift in Sources */,
 				17BB0CE8268CCEFB009D4755 /* Pay.swift in Sources */,
@@ -4185,7 +4169,6 @@
 				3B2FB22728450BF200E8CD0C /* PCPOIPOIs.swift in Sources */,
 				3B970A6B2542D9BB0072F6BA /* String+Extension.swift in Sources */,
 				9A906BAB284637D700463618 /* PCPayPaymentMethodRelationship.swift in Sources */,
-				3BCBF7922567CA3800242BDC /* Database.swift in Sources */,
 				3B970A812542D9BB0072F6BA /* LoadingView.swift in Sources */,
 				3B970AB62542D9BB0072F6BA /* AppDrawerTheme.swift in Sources */,
 				84600EA825C03B0C0087194F /* PayAPIDeletePaymentMethod.swift in Sources */,
@@ -4627,6 +4610,7 @@
 				3B970A922542D9BB0072F6BA /* Settings.swift in Sources */,
 				84A43B1E2582645E00DE36FA /* POIAPIResponse.swift in Sources */,
 				84600F0025C03B1E0087194F /* POIAPIGetDuplicatesKML.swift in Sources */,
+				3BF30D5E2996369D00F254A3 /* POIModelConvertible.swift in Sources */,
 				1718B16626B02F040044146C /* PACECloudSDK+Kits.swift in Sources */,
 				3B2FB22D28450BF200E8CD0C /* PCPOILocationBasedApp.swift in Sources */,
 				84A439F62580E33B00DE36FA /* POIAPIService.swift in Sources */,

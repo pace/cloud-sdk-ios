@@ -92,24 +92,16 @@ public extension POIKit {
 
         public func observe(poisOfType: POILayer,
                             boundingBox: BoundingBox,
-                            delegate: POIKitObserverTokenDelegate? = nil,
                             maxDistance: (distance: Double, padding: Double)? = nil,
                             zoomLevel: Int? = nil,
                             forceLoad: Bool = false,
                             handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> BoundingBoxNotificationToken {
             return api.observe(poisOfType: poisOfType,
                                boundingBox: boundingBox,
-                               delegate: delegate,
                                maxDistance: maxDistance,
                                zoomLevel: zoomLevel,
                                forceLoad: forceLoad,
                                handler: handler)
-        }
-
-        public func observe(uuids: [String],
-                            delegate: POIKitObserverTokenDelegate? = nil,
-                            handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> UUIDNotificationToken {
-            return api.observe(uuids: uuids, delegate: delegate, handler: handler)
         }
 
         /**

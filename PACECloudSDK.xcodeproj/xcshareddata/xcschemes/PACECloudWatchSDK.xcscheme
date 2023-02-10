@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "92EDDBCC25A71EEB00E480F4"
-               BuildableName = "PACECloudSlimSDK.framework"
-               BlueprintName = "PACECloudSlimSDK"
+               BlueprintIdentifier = "17BB0CD6268CCED6009D4755"
+               BuildableName = "PACECloudWatchSDK.framework"
+               BlueprintName = "PACECloudWatchSDK"
                ReferencedContainer = "container:PACECloudSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "92EDDBCC25A71EEB00E480F4"
-            BuildableName = "PACECloudSlimSDK.framework"
-            BlueprintName = "PACECloudSlimSDK"
+            BlueprintIdentifier = "17BB0CD6268CCED6009D4755"
+            BuildableName = "PACECloudWatchSDK.framework"
+            BlueprintName = "PACECloudWatchSDK"
             ReferencedContainer = "container:PACECloudSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

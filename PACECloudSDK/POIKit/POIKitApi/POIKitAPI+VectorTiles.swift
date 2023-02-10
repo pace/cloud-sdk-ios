@@ -56,69 +56,7 @@ extension POIKitAPI {
             case .success(let poiResponse):
                 // Parse gas stations and save to database
                 let pois = poiResponse.pois
-                self.save(pois)
                 handler(.success(pois))
-            }
-        }
-    }
-}
-
-// MARK: - Retrieving pois only with a database
-extension POIKitAPI {
-    func loadPOIs(boundingBox: POIKit.BoundingBox,
-                  forceLoad: Bool = false,
-                  handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
-        let northEast = boundingBox.point1.tileInformation(forZoomLevel: zoomLevel)
-        let southWest = boundingBox.point2.tileInformation(forZoomLevel: zoomLevel)
-        var area = TileQueryRequest.AreaQuery(northEast: TileQueryRequest.Coordinate(information: northEast), southWest: TileQueryRequest.Coordinate(information: southWest))
-
-        if !forceLoad, let invalidationToken = invalidationTokenCache.invalidationToken(requestedArea: [area], for: zoomLevel) {
-            area.invalidationToken = invalidationToken
-        }
-
-        let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
-
-        return loadPois(tileRequest) { result in
-            switch result {
-            case .failure(let error):
-                handler(.failure(error))
-
-            case .success(let poiResponse):
-                let tilesResponse = poiResponse.tilesResponse
-                let tiles = tilesResponse.tiles
-
-                self.invalidationTokenCache.add(tiles: tiles, for: tilesResponse.zoomLevel)
-
-                // Save to database
-                self.save(poiResponse.pois)
-
-                let stations = POIKit.Database.shared.delegate?.get(inRect: boundingBox) ?? []
-                handler(.success(stations))
-            }
-        }
-    }
-
-    func loadPOIs(uuids: [String],
-                  handler: @escaping (Swift.Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest? {
-        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
-        let tiles = POIKit.Database.shared.delegate?
-            .get(uuids: uuids)
-            .compactMap { $0.coordinate?.tileCoordinate(withZoom: zoomLevel) }
-            .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) } ?? []
-
-        let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
-
-        return loadPois(tileRequest) { result in
-            switch result {
-            case .failure(let error):
-                handler(.failure(error))
-
-            case .success(let poiResponse):
-                // Parse gas stations and save to database
-                self.save(poiResponse.pois)
-                let gasStations = POIKit.Database.shared.delegate?.get(uuids: uuids) ?? []
-                handler(.success(gasStations))
             }
         }
     }
@@ -247,11 +185,6 @@ extension POIKitAPI {
         }
 
         return pois
-    }
-
-    func save(_ pois: [POIKit.GasStation]) {
-        // Add new POIs to database and update existing ones
-        POIKit.Database.shared.delegate?.add(pois)
     }
 
     private func loadCoFuGasStations(completion: @escaping ([POIKit.CofuGasStation]?) -> Void) {

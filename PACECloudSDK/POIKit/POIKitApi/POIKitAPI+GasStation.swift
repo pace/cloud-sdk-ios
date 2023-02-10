@@ -37,18 +37,20 @@ extension POIKitAPI {
 
                 case POIKitHTTPReturnCode.MOVED_PERMANENTLY:
                     self.handleMovedPOI(response: httpResponse, result: result)
-                    return
 
                 case POIKitHTTPReturnCode.STATUS_OK:
                     guard let gasStation = response.success?.data,
+                          let id = gasStation.id,
                           let prices = gasStation.fuelPrices else {
                         result(.failure(APIClientError.unknownError(POIKit.POIKitAPIError.unknown)))
                         return
                     }
-                    self.handlePOIResponse(gasStation: gasStation,
-                                           prices: prices,
-                                           result: result)
-                    return
+
+                    let response = POIKit.GasStationResponse(id: id,
+                                                             gasStation: gasStation,
+                                                             prices: prices,
+                                                             wasMoved: false)
+                    result(.success(response))
 
                 default:
                     result(.failure(POIKit.POIKitAPIError.unknown))
@@ -88,34 +90,5 @@ extension POIKitAPI {
                 result(.failure(error))
             }
         }
-    }
-
-    private func handlePOIResponse(gasStation: PCPOIGasStation,
-                                   prices: [PCPOIFuelPrice],
-                                   result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void) {
-        guard let id = gasStation.id,
-              let latitudeFloat = gasStation.latitude,
-              let longitudeFloat = gasStation.longitude else {
-            result(.failure(APIClientError.unknownError(POIKit.POIKitAPIError.unknown)))
-            return
-        }
-
-        let latitude = Double(latitudeFloat)
-        let longitude = Double(longitudeFloat)
-
-        // Add gas station to database, if it does not exist yet
-        let delegate = POIKit.Database.shared.delegate
-        if delegate?.get(uuid: id) == nil {
-            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let gasStation = POIKit.GasStation(id: id, coordinate: coordinate)
-            delegate?.add(gasStation)
-        }
-
-        let response = POIKit.GasStationResponse(id: id,
-                                                 gasStation: gasStation,
-                                                 prices: prices,
-                                                 wasMoved: false)
-
-        result(.success(response))
     }
 }

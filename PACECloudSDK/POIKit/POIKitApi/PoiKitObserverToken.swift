@@ -15,7 +15,6 @@ public extension POIKit {
 
         public var isLoading: Observable<Bool> = .init(value: false)
 
-        weak var delegate: POIKitObserverTokenDelegate?
         let handler: (Bool, Swift.Result<[GasStation], Error>) -> Void
 
         @objc
@@ -25,14 +24,12 @@ public extension POIKit {
 
         public func invalidate() {}
 
-        init(delegate: POIKitObserverTokenDelegate?, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
-            self.delegate = delegate
+        init(handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
             self.handler = handler
         }
     }
 
     class BoundingBoxNotificationToken: PoiKitObserverToken {
-        var token: AnyObject?
         var api: POIKitAPI
         var downloadTask: CancellablePOIAPIRequest?
         let zoomLevel: Int
@@ -46,7 +43,6 @@ public extension POIKit {
 
         init(boundingBox: BoundingBox,
              api: POIKitAPI,
-             delegate: POIKitObserverTokenDelegate? = nil,
              maxDistance: (distance: Double, padding: Double)? = nil,
              zoomLevel: Int = POIKitConfig.minZoomLevelFullDetails,
              forceLoad: Bool = false,
@@ -59,11 +55,7 @@ public extension POIKit {
             self.zoomLevel = zoomLevel > maxZoomLevel ? maxZoomLevel : zoomLevel
             self.forceLoad = forceLoad
 
-            super.init(delegate: delegate, handler: handler)
-
-            self.token = self.delegate?.observe { isInitial, stations in
-                self.updateStations(isInitial: isInitial, stations: stations)
-            }
+            super.init(handler: handler)
         }
 
         func isDiameterValid() -> Bool {
@@ -104,48 +96,12 @@ public extension POIKit {
         }
 
         override public func invalidate() {
-            self.token = nil
-            self.delegate?.invalidateToken()
-            self.delegate = nil
             self.downloadTask?.cancel()
             self.downloadTask = nil
 
             if !didCallHandler, let receivedInvalidationToken = receivedInvalidationToken {
                 self.api.invalidationTokenCache.remove(receivedInvalidationToken, for: zoomLevel)
             }
-        }
-    }
-
-    class UUIDNotificationToken: PoiKitObserverToken {
-        var uuids: [String]
-        var token: AnyObject?
-        var api: POIKitAPI
-        var downloadTask: CancellablePOIAPIRequest?
-
-        init(uuids: [String], delegate: POIKitObserverTokenDelegate? = nil, api: POIKitAPI, handler: @escaping (Bool, Swift.Result<[GasStation], Error>) -> Void) {
-            self.uuids = uuids
-            self.api = api
-
-            super.init(delegate: delegate, handler: handler)
-
-            self.token = self.delegate?.observe(uuids: uuids) { change in
-                self.updateStations(stations: change)
-            }
-        }
-
-        func updateStations(stations: [GasStation]) {
-            self.value = stations
-
-            DispatchQueue.main.async {
-                self.handler(false, .success(self.value))
-            }
-        }
-
-        override public func invalidate() {
-            self.token = nil
-            delegate?.invalidateToken()
-            delegate = nil
-            self.downloadTask?.cancel()
         }
     }
 }
