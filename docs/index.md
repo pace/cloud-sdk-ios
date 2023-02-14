@@ -175,7 +175,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + Removed `POIKit.UUIDNotificationToken` and its respective observation functionality from `POIKit.POIKitManager`
   + Removed both `loadPOIs(POIKit.BoundingBox)` and `loadPOIs([String])` from `POIKit.POIKitManager`
   + Passing a `POIKitObserverTokenDelegate` to `POIKit.POIKitManager.observe(POIKit.BoundingBox) -> POIKit.BoundingBoxNotificationToken` is no longer possible
-
+  + The type of `prices` in `POIKit.GasStationResponse` is now optional
 ## Contribute
 ### Localizable Strings Generation
 To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).

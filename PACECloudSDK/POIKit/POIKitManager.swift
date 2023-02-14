@@ -186,6 +186,11 @@ public extension POIKit {
             api.gasStation(request, result: result)
         }
 
+        public func getGasStations(for ids: [String], result: @escaping (Result<[POIKit.GasStation], Error>) -> Void) {
+            let requests = ids.map { GasStationRequest(id: $0) }
+            api.gasStations(requests, result: result)
+        }
+
         // MARK: – CLLocationManagerDelegate
         public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             delegate?.didUpdateLocations(locations)

@@ -34,6 +34,8 @@ protocol POIKitAPIProtocol {
 
     func gasStation(_ request: GasStationRequest, result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void)
 
+    func gasStations(_ requests: [GasStationRequest], result: @escaping (Result<[POIKit.GasStation], Error>) -> Void)
+
     func fetchPOIs(boundingBox: POIKit.BoundingBox,
                    forceLoad: Bool,
                    handler: @escaping (Result<[POIKit.GasStation], Error>) -> Void) -> CancellablePOIAPIRequest?
