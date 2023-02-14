@@ -103,7 +103,7 @@ public extension POIKit {
         }
 
         public init(id: String, coordinate: CLLocationCoordinate2D) {
-            super.init(type: .gasStation)
+            super.init(id: id, type: .gasStation)
             self.geometry = [GeometryCommand(type: .moveTo, coordinate: coordinate)]
         }
 
