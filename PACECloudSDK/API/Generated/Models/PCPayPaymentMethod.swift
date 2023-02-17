@@ -35,7 +35,7 @@ public class PCPayPaymentMethod: APIModel {
 
     public var paymentMethodVendor: PCPayPaymentMethodVendor?
 
-    public var paymentTokens: PCPayPaymentTokens?
+    public var paymentTokens: [PCPayPaymentToken]?
 
     /** Customer chosen alias for the payment method */
     public var alias: String?
@@ -58,6 +58,9 @@ public class PCPayPaymentMethod: APIModel {
     public var managed: Bool?
 
     public var mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]?
+
+    /** Identifies if the payment method is a PACE payment method (`true`) or a broker method (`false`) */
+    public var pacePay: Bool?
 
     /** The desired status for a payment method is `verified`, this means the method is ready to use.
 A payment method that has the status `created` has yet to be verified. This is the case for payment methods,
@@ -251,7 +254,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         }
     }
 
-    public init(id: ID? = nil, links: Links? = nil, meta: Meta? = nil, type: PCPayType? = nil, paymentMethodKind: PCPayPaymentMethodKind? = nil, paymentMethodVendor: PCPayPaymentMethodVendor? = nil, paymentTokens: PCPayPaymentTokens? = nil, alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+    public init(id: ID? = nil, links: Links? = nil, meta: Meta? = nil, type: PCPayType? = nil, paymentMethodKind: PCPayPaymentMethodKind? = nil, paymentMethodVendor: PCPayPaymentMethodVendor? = nil, paymentTokens: [PCPayPaymentToken]? = nil, alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
         self.id = id
         self.links = links
         self.meta = meta
@@ -267,6 +270,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         self.kind = kind
         self.managed = managed
         self.mandatoryAuthorisationAttributes = mandatoryAuthorisationAttributes
+        self.pacePay = pacePay
         self.status = status
         self.twoFactor = twoFactor
         self.vendorPRN = vendorPRN
@@ -290,6 +294,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         kind = try container.decodeIfPresent("kind")
         managed = try container.decodeIfPresent("managed")
         mandatoryAuthorisationAttributes = try container.decodeArrayIfPresent("mandatoryAuthorisationAttributes")
+        pacePay = try container.decodeIfPresent("pacePay")
         status = try container.decodeIfPresent("status")
         twoFactor = try container.decodeIfPresent("twoFactor")
         vendorPRN = try container.decodeIfPresent("vendorPRN")
@@ -313,6 +318,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         try container.encodeIfPresent(kind, forKey: "kind")
         try container.encodeIfPresent(managed, forKey: "managed")
         try container.encodeIfPresent(mandatoryAuthorisationAttributes, forKey: "mandatoryAuthorisationAttributes")
+        try container.encodeIfPresent(pacePay, forKey: "pacePay")
         try container.encodeIfPresent(status, forKey: "status")
         try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         try container.encodeIfPresent(vendorPRN, forKey: "vendorPRN")
@@ -335,6 +341,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
       guard self.kind == object.kind else { return false }
       guard self.managed == object.managed else { return false }
       guard self.mandatoryAuthorisationAttributes == object.mandatoryAuthorisationAttributes else { return false }
+      guard self.pacePay == object.pacePay else { return false }
       guard self.status == object.status else { return false }
       guard self.twoFactor == object.twoFactor else { return false }
       guard self.vendorPRN == object.vendorPRN else { return false }

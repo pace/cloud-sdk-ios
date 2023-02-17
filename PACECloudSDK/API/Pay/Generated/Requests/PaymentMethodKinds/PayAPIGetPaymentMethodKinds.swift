@@ -14,7 +14,7 @@ extension PayAPI.PaymentMethodKinds {
     */
     public enum GetPaymentMethodKinds {
 
-        public static var service = PayAPIService<Response>(id: "GetPaymentMethodKinds", tag: "Payment Method Kinds", method: "GET", path: "/payment-method-kinds", hasBody: false, securityRequirements: [])
+        public static var service = PayAPIService<Response>(id: "GetPaymentMethodKinds", tag: "Payment Method Kinds", method: "GET", path: "/payment-method-kinds", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:read"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:read"])])
 
         public final class Request: PayAPIRequest<Response> {
 
@@ -57,6 +57,9 @@ extension PayAPI.PaymentMethodKinds {
                 var headers: [String: String] = [:]
                 if let acceptLanguage = options.acceptLanguage {
                   headers["Accept-Language"] = acceptLanguage
+                }
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
                 }
 
                 return headers

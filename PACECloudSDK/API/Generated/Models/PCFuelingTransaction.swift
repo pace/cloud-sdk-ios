@@ -16,6 +16,9 @@ public class PCFuelingTransaction: APIModel {
 
     public var type: PCFuelingType?
 
+    /** UUID of the pump this transaction was created on */
+    public var pumpUUID: ID?
+
     public var vat: VAT?
 
     public var authorizedAmount: Decimal?
@@ -29,6 +32,9 @@ public class PCFuelingTransaction: APIModel {
 
     public var paymentToken: String?
 
+    /** PRNs describing the restrictions (station and fuel types) for a token, if a token is provided */
+    public var paymentTokenRestrictions: [String]?
+
     public var priceIncludingVAT: Decimal?
 
     public var pricePerUnit: Decimal?
@@ -38,6 +44,9 @@ public class PCFuelingTransaction: APIModel {
     public var productName: String?
 
     public var status: String?
+
+    /** Fuel measurement unit. Eg: `liter`, `us-gallon`, `uk-gallon`, `kilogram` */
+    public var unit: String?
 
     public class VAT: APIModel {
 
@@ -76,20 +85,23 @@ public class PCFuelingTransaction: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, authorizedAmount: Decimal? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, status: String? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, pumpUUID: ID? = nil, vat: VAT? = nil, authorizedAmount: Decimal? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, paymentToken: String? = nil, paymentTokenRestrictions: [String]? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, status: String? = nil, unit: String? = nil) {
         self.id = id
         self.type = type
+        self.pumpUUID = pumpUUID
         self.vat = vat
         self.authorizedAmount = authorizedAmount
         self.currency = currency
         self.fuelAmount = fuelAmount
         self.fuelType = fuelType
         self.paymentToken = paymentToken
+        self.paymentTokenRestrictions = paymentTokenRestrictions
         self.priceIncludingVAT = priceIncludingVAT
         self.pricePerUnit = pricePerUnit
         self.priceWithoutVAT = priceWithoutVAT
         self.productName = productName
         self.status = status
+        self.unit = unit
     }
 
     public required init(from decoder: Decoder) throws {
@@ -97,17 +109,20 @@ public class PCFuelingTransaction: APIModel {
 
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        pumpUUID = try container.decodeIfPresent("PumpUUID")
         vat = try container.decodeIfPresent("VAT")
         authorizedAmount = try container.decodeLosslessDecimal("authorizedAmount")
         currency = try container.decodeIfPresent("currency")
         fuelAmount = try container.decodeLosslessDecimal("fuelAmount")
         fuelType = try container.decodeIfPresent("fuelType")
         paymentToken = try container.decodeIfPresent("paymentToken")
+        paymentTokenRestrictions = try container.decodeArrayIfPresent("paymentTokenRestrictions")
         priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
         pricePerUnit = try container.decodeLosslessDecimal("pricePerUnit")
         priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
         productName = try container.decodeIfPresent("productName")
         status = try container.decodeIfPresent("status")
+        unit = try container.decodeIfPresent("unit")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -115,34 +130,40 @@ public class PCFuelingTransaction: APIModel {
 
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(pumpUUID, forKey: "PumpUUID")
         try container.encodeIfPresent(vat, forKey: "VAT")
         try container.encodeIfPresent(authorizedAmount, forKey: "authorizedAmount")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(fuelAmount, forKey: "fuelAmount")
         try container.encodeIfPresent(fuelType, forKey: "fuelType")
         try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
+        try container.encodeIfPresent(paymentTokenRestrictions, forKey: "paymentTokenRestrictions")
         try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
         try container.encodeIfPresent(pricePerUnit, forKey: "pricePerUnit")
         try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
         try container.encodeIfPresent(productName, forKey: "productName")
         try container.encodeIfPresent(status, forKey: "status")
+        try container.encodeIfPresent(unit, forKey: "unit")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCFuelingTransaction else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.pumpUUID == object.pumpUUID else { return false }
       guard self.vat == object.vat else { return false }
       guard self.authorizedAmount == object.authorizedAmount else { return false }
       guard self.currency == object.currency else { return false }
       guard self.fuelAmount == object.fuelAmount else { return false }
       guard self.fuelType == object.fuelType else { return false }
       guard self.paymentToken == object.paymentToken else { return false }
+      guard self.paymentTokenRestrictions == object.paymentTokenRestrictions else { return false }
       guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
       guard self.pricePerUnit == object.pricePerUnit else { return false }
       guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
       guard self.productName == object.productName else { return false }
       guard self.status == object.status else { return false }
+      guard self.unit == object.unit else { return false }
       return true
     }
 

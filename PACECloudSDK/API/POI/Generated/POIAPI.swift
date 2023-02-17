@@ -13,7 +13,7 @@ public struct POIAPI {
                                                             locale: Locale(identifier: "de_DE"),
                                                             calendar: Calendar(identifier: .gregorian))
 
-    public static let version = "2021-2"
+    public static let version = "2022-1"
 
     public enum Admin {}
     public enum Apps {}
@@ -32,14 +32,14 @@ public struct POIAPI {
     public enum Tiles {}
 
     public enum POIAPIServer {
-        /** Production server (stable release 2021-2) **/
-        public static let main = "https://api.pace.cloud/poi/2021-2"
         /** Production server (stable release 2020-4) **/
-        public static let server2 = "https://api.pace.cloud/poi/2020-4"
-        /** Production server (deprecated) **/
-        public static let server3 = "https://api.pace.cloud/poi/beta"
-        /** Production server (retired) **/
-        public static let server4 = "https://api.pace.cloud/poi/v1"
+        public static let main = "https://api.pace.cloud/poi/master"
+        /** Production server (stable release 2022-1) **/
+        public static let server2 = "https://api.pace.cloud/poi/2022-1"
+        /** Production server (stable release 2021-2) **/
+        public static let server3 = "https://api.pace.cloud/poi/2021-2"
+        /** Production server (stable release 2020-4) **/
+        public static let server4 = "https://api.pace.cloud/poi/2020-4"
     }
 }
 

@@ -56,6 +56,9 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Pump ID */
             public var pumpId: ID
 
+            /** A callback URL to report the status of the transaction to, once completed. Only relevant if unattendedPayment is true */
+            public var callbackURL: String?
+
             /** Fuel type for cars, based on the EU fuel marking */
             public var carFuelType: PCFuelingCarFuelType?
 
@@ -65,18 +68,27 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Current mileage in meters */
             public var mileage: Int?
 
+            /** Number plate of the Vehicle */
+            public var numberPlate: String?
+
             public var priceIncludingVAT: Decimal?
+
+            /** Set to 'true' if you want the payment to be cleared automatically in the background after fueling */
+            public var unattendedPayment: Bool?
 
             /** Vehicle identification number */
             public var vin: String?
 
-            public init(paymentToken: String, pumpId: ID, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, mileage: Int? = nil, priceIncludingVAT: Decimal? = nil, vin: String? = nil) {
+            public init(paymentToken: String, pumpId: ID, callbackURL: String? = nil, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceIncludingVAT: Decimal? = nil, unattendedPayment: Bool? = nil, vin: String? = nil) {
                 self.paymentToken = paymentToken
                 self.pumpId = pumpId
+                self.callbackURL = callbackURL
                 self.carFuelType = carFuelType
                 self.currency = currency
                 self.mileage = mileage
+                self.numberPlate = numberPlate
                 self.priceIncludingVAT = priceIncludingVAT
+                self.unattendedPayment = unattendedPayment
                 self.vin = vin
             }
 
@@ -85,10 +97,13 @@ public class PCFuelingTransactionRequest: APIModel {
 
                 paymentToken = try container.decode("paymentToken")
                 pumpId = try container.decode("pumpId")
+                callbackURL = try container.decodeIfPresent("callbackURL")
                 carFuelType = try container.decodeIfPresent("carFuelType")
                 currency = try container.decodeIfPresent("currency")
                 mileage = try container.decodeIfPresent("mileage")
+                numberPlate = try container.decodeIfPresent("numberPlate")
                 priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
+                unattendedPayment = try container.decodeIfPresent("unattendedPayment")
                 vin = try container.decodeIfPresent("vin")
             }
 
@@ -97,10 +112,13 @@ public class PCFuelingTransactionRequest: APIModel {
 
                 try container.encode(paymentToken, forKey: "paymentToken")
                 try container.encode(pumpId, forKey: "pumpId")
+                try container.encodeIfPresent(callbackURL, forKey: "callbackURL")
                 try container.encodeIfPresent(carFuelType, forKey: "carFuelType")
                 try container.encodeIfPresent(currency, forKey: "currency")
                 try container.encodeIfPresent(mileage, forKey: "mileage")
+                try container.encodeIfPresent(numberPlate, forKey: "numberPlate")
                 try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
+                try container.encodeIfPresent(unattendedPayment, forKey: "unattendedPayment")
                 try container.encodeIfPresent(vin, forKey: "vin")
             }
 
@@ -108,10 +126,13 @@ public class PCFuelingTransactionRequest: APIModel {
               guard let object = object as? Attributes else { return false }
               guard self.paymentToken == object.paymentToken else { return false }
               guard self.pumpId == object.pumpId else { return false }
+              guard self.callbackURL == object.callbackURL else { return false }
               guard self.carFuelType == object.carFuelType else { return false }
               guard self.currency == object.currency else { return false }
               guard self.mileage == object.mileage else { return false }
+              guard self.numberPlate == object.numberPlate else { return false }
               guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
+              guard self.unattendedPayment == object.unattendedPayment else { return false }
               guard self.vin == object.vin else { return false }
               return true
             }

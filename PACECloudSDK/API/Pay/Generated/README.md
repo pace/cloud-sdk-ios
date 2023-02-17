@@ -148,6 +148,9 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 
 - **PCPayApplePaySession**
 - **PCPayCurrency**
+- **PCPayDiscount**
+- **PCPayDiscountRelationship**
+- **PCPayDiscounts**
 - **PCPayErrors**
 - **PCPayFuel**
 - **PCPayPRN**
@@ -156,6 +159,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentMethod**
 - **PCPayPaymentMethodCreditCardCreateRequest**
 - **PCPayPaymentMethodDKVCreateRequest**
+- **PCPayPaymentMethodEssoCreateRequest**
 - **PCPayPaymentMethodGiropayCreateRequest**
 - **PCPayPaymentMethodHoyerCreateRequest**
 - **PCPayPaymentMethodKind**
@@ -163,6 +167,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentMethodKindRelationship**
 - **PCPayPaymentMethodKinds**
 - **PCPayPaymentMethodLogpayCreateRequest**
+- **PCPayPaymentMethodModel**
 - **PCPayPaymentMethodPayDirektCreateRequest**
 - **PCPayPaymentMethodPayPalCreateRequest**
 - **PCPayPaymentMethodRMCCreateRequest**
@@ -177,12 +182,16 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentToken**
 - **PCPayPaymentTokenCreateRequest**
 - **PCPayPaymentTokenCreateApplePayRequest**
+- **PCPayPaymentTokenCreateGooglePayRequest**
 - **PCPayPaymentTokens**
 - **PCPayPaymentTokensRelationship**
 - **PCPayReadOnlyLocation**
 - **PCPayRequestApplePaySessionRequest**
+- **PCPayRequestPaymentMethodModelRequest**
+- **PCPayTollingMetadata**
 - **PCPayTransaction**
 - **PCPayTransactionCreateRequest**
+- **PCPayTransactionIDListRequest**
 - **PCPayTransactionLinks**
 - **PCPayTransactions**
 
@@ -191,9 +200,11 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PayAPI.NewPaymentMethods**
 	- **CreatePaymentMethodCreditCard**: POST `/payment-methods/creditcard`
 	- **CreatePaymentMethodDKV**: POST `/payment-methods/dkv`
+	- **CreatePaymentMethodEsso**: POST `/payment-methods/esso`
 	- **CreatePaymentMethodGiropay**: POST `/payment-methods/giropay`
 	- **CreatePaymentMethodHoyer**: POST `/payment-methods/hoyer`
 	- **CreatePaymentMethodLogpay**: POST `/payment-methods/logpay`
+	- **CreatePaymentMethodPACECardSandbox**: POST `/payment-methods/pacecardsandbox`
 	- **CreatePaymentMethodPayDirekt**: POST `/payment-methods/paydirekt`
 	- **CreatePaymentMethodPayPal**: POST `/payment-methods/paypal`
 	- **CreatePaymentMethodRMC**: POST `/payment-methods/rmc`
@@ -214,8 +225,10 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **GetPaymentMethodsIncludingPaymentToken**: GET `/payment-methods`
 	- **NotificationForPaymentMethod**: POST `/payment-methods/{paymentmethodid}/notification`
 	- **PatchPaymentMethod**: PATCH `/payment-methods/{paymentmethodid}`
+	- **PaymentMethodModel**: POST `/payment-methods/{paymentmethodid}/model`
 - **PayAPI.PaymentTokens**
 	- **AuthorizeApplePayPaymentToken**: POST `/payment-method-kinds/applepay/authorize`
+	- **AuthorizeGooglePayPaymentToken**: POST `/payment-method-kinds/googlepay/authorize`
 	- **AuthorizePaymentToken**: POST `/payment-methods/{paymentmethodid}/authorize`
 	- **DeletePaymentToken**: DELETE `/payment-tokens/{paymenttokenid}`
 	- **GetPaymentToken**: GET `/payment-tokens/{paymenttokenid}`
@@ -229,3 +242,4 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **ListTransactions**: GET `/transactions`
 	- **ListTransactionsCSV**: GET `/transactions.csv`
 	- **ProcessPayment**: POST `/transactions`
+	- **ResendReceipt**: POST `/receipts/resend`

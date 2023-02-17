@@ -15,6 +15,9 @@ public class PCPayPaymentMethodKindMinimal: APIModel {
 
     public var type: PCPayType?
 
+    /** Currencies supported by payment method kind */
+    public var currencies: [String]?
+
     /** Indicates whether the payment method is a fuel card. Fuelcard `no` means no. */
     public var fuelcard: Bool?
 
@@ -33,9 +36,10 @@ This field is optional and if not present should be assumed to indicate `implici
     /** PACE resource name(s) to payment method vendors */
     public var vendorPRNs: [String]?
 
-    public init(id: ID? = nil, type: PCPayType? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
+    public init(id: ID? = nil, type: PCPayType? = nil, currencies: [String]? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil) {
         self.id = id
         self.type = type
+        self.currencies = currencies
         self.fuelcard = fuelcard
         self.implicit = implicit
         self.name = name
@@ -48,6 +52,7 @@ This field is optional and if not present should be assumed to indicate `implici
 
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        currencies = try container.decodeArrayIfPresent("currencies")
         fuelcard = try container.decodeIfPresent("fuelcard")
         implicit = try container.decodeIfPresent("implicit")
         name = try container.decodeIfPresent("name")
@@ -60,6 +65,7 @@ This field is optional and if not present should be assumed to indicate `implici
 
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(currencies, forKey: "currencies")
         try container.encodeIfPresent(fuelcard, forKey: "fuelcard")
         try container.encodeIfPresent(implicit, forKey: "implicit")
         try container.encodeIfPresent(name, forKey: "name")
@@ -71,6 +77,7 @@ This field is optional and if not present should be assumed to indicate `implici
       guard let object = object as? PCPayPaymentMethodKindMinimal else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.currencies == object.currencies else { return false }
       guard self.fuelcard == object.fuelcard else { return false }
       guard self.implicit == object.implicit else { return false }
       guard self.name == object.name else { return false }

@@ -39,6 +39,9 @@ public class PCFuelingPaymentMethod: APIModel {
 
     public var mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]?
 
+    /** Identifies if the payment method is a PACE payment method (`true`) or a broker method (`false`) */
+    public var pacePay: Bool?
+
     /** The desired status for a payment method is `verified`, this means the method is ready to use.
 A payment method that has the status `created` has yet to be verified. This is the case for payment methods,
 which have an asynchronous verification process, e.g., paydirekt (waiting for an email).
@@ -127,7 +130,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         }
     }
 
-    public init(id: String? = nil, meta: Meta? = nil, type: PCFuelingType? = nil, alias: String? = nil, identificationString: String? = nil, kind: String? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, status: PCFuelingStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+    public init(id: String? = nil, meta: Meta? = nil, type: PCFuelingType? = nil, alias: String? = nil, identificationString: String? = nil, kind: String? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCFuelingStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
         self.id = id
         self.meta = meta
         self.type = type
@@ -135,6 +138,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         self.identificationString = identificationString
         self.kind = kind
         self.mandatoryAuthorisationAttributes = mandatoryAuthorisationAttributes
+        self.pacePay = pacePay
         self.status = status
         self.twoFactor = twoFactor
         self.vendorPRN = vendorPRN
@@ -150,6 +154,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         identificationString = try container.decodeIfPresent("identificationString")
         kind = try container.decodeIfPresent("kind")
         mandatoryAuthorisationAttributes = try container.decodeArrayIfPresent("mandatoryAuthorisationAttributes")
+        pacePay = try container.decodeIfPresent("pacePay")
         status = try container.decodeIfPresent("status")
         twoFactor = try container.decodeIfPresent("twoFactor")
         vendorPRN = try container.decodeIfPresent("vendorPRN")
@@ -165,6 +170,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         try container.encodeIfPresent(identificationString, forKey: "identificationString")
         try container.encodeIfPresent(kind, forKey: "kind")
         try container.encodeIfPresent(mandatoryAuthorisationAttributes, forKey: "mandatoryAuthorisationAttributes")
+        try container.encodeIfPresent(pacePay, forKey: "pacePay")
         try container.encodeIfPresent(status, forKey: "status")
         try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         try container.encodeIfPresent(vendorPRN, forKey: "vendorPRN")
@@ -179,6 +185,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
       guard self.identificationString == object.identificationString else { return false }
       guard self.kind == object.kind else { return false }
       guard self.mandatoryAuthorisationAttributes == object.mandatoryAuthorisationAttributes else { return false }
+      guard self.pacePay == object.pacePay else { return false }
       guard self.status == object.status else { return false }
       guard self.twoFactor == object.twoFactor else { return false }
       guard self.vendorPRN == object.vendorPRN else { return false }

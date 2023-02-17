@@ -14,7 +14,6 @@ public class PCPayFuel: APIModel {
         case ron95e10 = "ron95e10"
         case diesel = "diesel"
         case e85 = "e85"
-        case ron91 = "ron91"
         case ron95e5 = "ron95e5"
         case ron100 = "ron100"
         case dieselGtl = "dieselGtl"
@@ -22,6 +21,8 @@ public class PCPayFuel: APIModel {
         case dieselB7 = "dieselB7"
         case dieselB15 = "dieselB15"
         case dieselPremium = "dieselPremium"
+        case dieselSynthetic = "dieselSynthetic"
+        case syntheticDiesel = "syntheticDiesel"
         case lpg = "lpg"
         case cng = "cng"
         case lng = "lng"
@@ -32,12 +33,9 @@ public class PCPayFuel: APIModel {
         case truckDieselPremium = "truckDieselPremium"
         case truckLpg = "truckLpg"
         case heatingOil = "heatingOil"
-    }
-
-    /** Unit */
-    public enum PCPayUnit: String, Codable, Equatable, CaseIterable {
-        case liter = "liter"
-        case gallon = "gallon"
+        case dieselHvo = "dieselHvo"
+        case dieselBMix = "dieselBMix"
+        case dieselRed = "dieselRed"
     }
 
     /** Fuel amount in provided unit */
@@ -55,10 +53,10 @@ public class PCPayFuel: APIModel {
     /** Fuel type for cars, based on the EU fuel marking */
     public var type: PCPayType?
 
-    /** Unit */
-    public var unit: PCPayUnit?
+    /** Fuel measurement unit. Eg: `liter`, `us-gallon`, `uk-gallon`, `kilogram` */
+    public var unit: String?
 
-    public init(amount: Decimal? = nil, pricePerUnit: Decimal? = nil, productName: String? = nil, pumpNumber: Int? = nil, type: PCPayType? = nil, unit: PCPayUnit? = nil) {
+    public init(amount: Decimal? = nil, pricePerUnit: Decimal? = nil, productName: String? = nil, pumpNumber: Int? = nil, type: PCPayType? = nil, unit: String? = nil) {
         self.amount = amount
         self.pricePerUnit = pricePerUnit
         self.productName = productName
