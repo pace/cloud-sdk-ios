@@ -170,7 +170,12 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + `persistLogs` states wether logs should be persisted into the file system. Default is `false`.
 - Introduced `PACECloudSDK.shared.setLogLevel(to: Logger.LogLevel)` to set lowest logged `Logger.LogLevel` after SDK setup.
 - Introduced `PACECloudSDK.shared.persistLogs` to set if logs should be persisted into files after SDK setup.
-
+- POIKit: Removed the functionality to retrieve and observe gas stations based on a client's database implementation
+  + Removed `POIDatabaseDelegate` and `POIKitObserverTokenDelegate`
+  + Removed `POIKit.UUIDNotificationToken` and its respective observation functionality from `POIKit.POIKitManager`
+  + Removed both `loadPOIs(POIKit.BoundingBox)` and `loadPOIs([String])` from `POIKit.POIKitManager`
+  + Passing a `POIKitObserverTokenDelegate` to `POIKit.POIKitManager.observe(POIKit.BoundingBox) -> POIKit.BoundingBoxNotificationToken` is no longer possible
+  + The type of `prices` in `POIKit.GasStationResponse` is now optional
 ## Contribute
 ### Localizable Strings Generation
 To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).

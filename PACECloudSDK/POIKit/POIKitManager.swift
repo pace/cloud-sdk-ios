@@ -92,24 +92,16 @@ public extension POIKit {
 
         public func observe(poisOfType: POILayer,
                             boundingBox: BoundingBox,
-                            delegate: POIKitObserverTokenDelegate? = nil,
                             maxDistance: (distance: Double, padding: Double)? = nil,
                             zoomLevel: Int? = nil,
                             forceLoad: Bool = false,
                             handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> BoundingBoxNotificationToken {
             return api.observe(poisOfType: poisOfType,
                                boundingBox: boundingBox,
-                               delegate: delegate,
                                maxDistance: maxDistance,
                                zoomLevel: zoomLevel,
                                forceLoad: forceLoad,
                                handler: handler)
-        }
-
-        public func observe(uuids: [String],
-                            delegate: POIKitObserverTokenDelegate? = nil,
-                            handler: @escaping (Bool, Result<[GasStation], Error>) -> Void) -> UUIDNotificationToken {
-            return api.observe(uuids: uuids, delegate: delegate, handler: handler)
         }
 
         /**
@@ -192,6 +184,11 @@ public extension POIKit {
         public func getGasStation(for id: String, result: @escaping (Result<GasStationResponse, Error>) -> Void) {
             let request = GasStationRequest(id: id)
             api.gasStation(request, result: result)
+        }
+
+        public func getGasStations(for ids: [String], result: @escaping (Result<[POIKit.GasStation], Error>) -> Void) {
+            let requests = ids.map { GasStationRequest(id: $0) }
+            api.gasStations(requests, result: result)
         }
 
         // MARK: – CLLocationManagerDelegate

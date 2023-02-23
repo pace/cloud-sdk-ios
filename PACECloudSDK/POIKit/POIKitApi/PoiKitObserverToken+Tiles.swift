@@ -39,14 +39,7 @@ public extension POIKit.BoundingBoxNotificationToken {
                 self?.receivedInvalidationToken = tiles.first?.invalidationToken
                 self?.api.invalidationTokenCache.add(tiles: tiles, for: tilesResponse.zoomLevel)
 
-                // Save to database
-                self?.api.save(pois)
-
-                // If no delegate has been specified
-                // send live response to client
-                if self?.delegate == nil {
-                    self?.updateStations(isInitial: false, stations: pois)
-                }
+                self?.updateStations(isInitial: false, stations: pois)
             }
 
             self?.isLoading.value = false
@@ -55,46 +48,5 @@ public extension POIKit.BoundingBoxNotificationToken {
         POIKitLogger.d("Requesting pois for zoom level \(zoomLevel)")
 
         super.refresh(notOlderThan: notOlderThan)
-    }
-}
-
-public extension POIKit.UUIDNotificationToken {
-    override func refresh(notOlderThan: Date?) {
-        // Build request from bounding box
-        guard let delegate = POIKit.Database.shared.delegate else { return }
-
-        let zoomLevel = POIKitConfig.minZoomLevelFullDetails
-        let tiles = delegate
-            .get(uuids: uuids)
-            .filter {
-                if let lastUpdated = $0.lastUpdated, let notOlderThan = notOlderThan {
-                    return lastUpdated < notOlderThan
-                } else {
-                    return true
-                }
-            }
-            .compactMap { $0.coordinate?.tileCoordinate(withZoom: zoomLevel) }
-            .map { TileQueryRequest.IndividualTileQuery(information: TileInformation(zoomLevel: zoomLevel, x: $0.x, y: $0.y), invalidationToken: nil) }
-
-        let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
-
-        downloadTask = api.loadPois(tileRequest) { [weak self] result in
-            switch result {
-            case .failure(let error):
-                self?.handler(false, .failure(error))
-
-            case .success(let poiResponse):
-                let pois = poiResponse.pois
-
-                // Save to database
-                self?.api.save(pois)
-
-                // If no delegate has been specified
-                // send live response to client
-                if self?.delegate == nil {
-                    self?.updateStations(stations: pois)
-                }
-            }
-        }
     }
 }
