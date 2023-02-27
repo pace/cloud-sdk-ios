@@ -165,6 +165,7 @@ To add support for a specific asynchronous library, just add an extension on `Us
 - **PCUserUpdateUserPhoneRequest**
 - **PCUserUser**
 - **PCUserUserPINRequest**
+- **PCUserUserPINAndOTPRequest**
 - **PCUserVerifyUserPhoneRequest**
 
 ## Requests
@@ -181,6 +182,7 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **ResetPassword**: PUT `/user/password/reset`
 	- **UpdateUserPIN**: PUT `/user/pin`
 - **UserAPI.FederatedIdentity**
+	- **DeleteFederatedIdentity**: DELETE `/federated-identities/{identityprovider}`
 	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
 	- **SetFederatedIdentity**: PUT `/federated-identities/{identityprovider}`
 - **UserAPI.OAuth2**
@@ -211,4 +213,4 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **GetUser**: GET `/users/{userid}`
 	- **SetUser**: PUT `/users/{userid}`
 	- **UpdateUser**: PATCH `/users/{userid}`
-	- **VerifyEmail**: GET `/user/email/verify`
+	- **VerifyEmail**: POST `/user/email/verify`

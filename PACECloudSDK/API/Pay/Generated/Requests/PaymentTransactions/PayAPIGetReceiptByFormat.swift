@@ -50,8 +50,8 @@ in the language that is determined to be spoken in the area that the point of in
             public var options: Options
 
             public enum GetReceiptByFormatAcceptHeader: String {
-                case image_png = "image/png"
                 case application_pdf = "application/pdf"
+                case image_png = "image/png"
             }
 
             public init(options: Options, responseContentType: GetReceiptByFormatAcceptHeader) {

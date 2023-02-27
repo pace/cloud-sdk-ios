@@ -8,9 +8,12 @@ import Foundation
 extension FuelingAPI.Fueling {
 
     /**
-    Cancel a Pre Auth transaction
+    Cancel an authorized transaction
 
-    Cancel a Pre Auth transaction. This action is only permitted in case the user didn't already start the fueling process. Returns `403 Forbidden` in case the fueling already started.
+    ### Pre-Auth
+Cancel a Pre Auth transaction. This action is only permitted in case the user didn't already start the fueling process. Returns `403 Forbidden` in case the fueling already started.
+### Unattended Payments
+Cancel an unattended payment process. This will only work if the payment was not already captured. Returns `404 Not Found` in case the unattended payment already went through.
     */
     public enum CancelPreAuth {
 

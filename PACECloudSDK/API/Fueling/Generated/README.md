@@ -148,6 +148,9 @@ To add support for a specific asynchronous library, just add an extension on `Fu
 
 - **PCFuelingApproachingResponse**
 - **PCFuelingCommonOpeningHours**
+- **PCFuelingDiscount**
+- **PCFuelingDiscountInquiryRequest**
+- **PCFuelingDiscounts**
 - **PCFuelingErrors**
 - **PCFuelingFuelPrice**
 - **PCFuelingFuelPriceResponse**
@@ -164,6 +167,8 @@ To add support for a specific asynchronous library, just add an extension on `Fu
 
 ## Requests
 
+- **FuelingAPI.Discount**
+	- **InquireDiscountsForPump**: POST `/gas-stations/{gasstationid}/pumps/{pumpid}/discounts`
 - **FuelingAPI.Fueling**
 	- **ApproachingAtTheForecourt**: POST `/gas-stations/{gasstationid}/approaching`
 	- **CancelPreAuth**: DELETE `/gas-stations/{gasstationid}/transactions/{transactionid}`

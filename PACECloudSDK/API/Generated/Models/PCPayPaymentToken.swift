@@ -18,6 +18,9 @@ public class PCPayPaymentToken: APIModel {
 
     public var paymentMethod: PCPayPaymentMethod?
 
+    /** PACE resource name of the accountPRN that this is being charged to. */
+    public var accountPRN: String?
+
     /** The amount that this token represents. */
     public var amount: Decimal?
 
@@ -33,10 +36,11 @@ public class PCPayPaymentToken: APIModel {
     /** paymentToken value. Format might change (externally provided - by payment provider) */
     public var value: String?
 
-    public init(id: String? = nil, type: PCPayType? = nil, paymentMethod: PCPayPaymentMethod? = nil, amount: Decimal? = nil, currency: String? = nil, purposePRNs: [String]? = nil, validUntil: DateTime? = nil, value: String? = nil) {
+    public init(id: String? = nil, type: PCPayType? = nil, paymentMethod: PCPayPaymentMethod? = nil, accountPRN: String? = nil, amount: Decimal? = nil, currency: String? = nil, purposePRNs: [String]? = nil, validUntil: DateTime? = nil, value: String? = nil) {
         self.id = id
         self.type = type
         self.paymentMethod = paymentMethod
+        self.accountPRN = accountPRN
         self.amount = amount
         self.currency = currency
         self.purposePRNs = purposePRNs
@@ -50,6 +54,7 @@ public class PCPayPaymentToken: APIModel {
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
         paymentMethod = try container.decodeIfPresent("paymentMethod")
+        accountPRN = try container.decodeIfPresent("accountPRN")
         amount = try container.decodeLosslessDecimal("amount")
         currency = try container.decodeIfPresent("currency")
         purposePRNs = try container.decodeArrayIfPresent("purposePRNs")
@@ -63,6 +68,7 @@ public class PCPayPaymentToken: APIModel {
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
         try container.encodeIfPresent(paymentMethod, forKey: "paymentMethod")
+        try container.encodeIfPresent(accountPRN, forKey: "accountPRN")
         try container.encodeIfPresent(amount, forKey: "amount")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(purposePRNs, forKey: "purposePRNs")
@@ -75,6 +81,7 @@ public class PCPayPaymentToken: APIModel {
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
       guard self.paymentMethod == object.paymentMethod else { return false }
+      guard self.accountPRN == object.accountPRN else { return false }
       guard self.amount == object.amount else { return false }
       guard self.currency == object.currency else { return false }
       guard self.purposePRNs == object.purposePRNs else { return false }

@@ -14,6 +14,8 @@
         + [9.x.x -> 10.x.x](#from-9xx-to-10xx)
         + [10.x.x -> 11.x.x](#from-10xx-to-11xx)
         + [11.x.x -> 12.x.x](#from-11xx-to-12xx)
+        + [From 12.x.x -> 13.x.x](#from-12xx-to-13xx)
+        + [From 13.x.x -> 14.x.x](#from-13xx-to-14xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -176,6 +178,9 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + Removed both `loadPOIs(POIKit.BoundingBox)` and `loadPOIs([String])` from `POIKit.POIKitManager`
   + Passing a `POIKitObserverTokenDelegate` to `POIKit.POIKitManager.observe(POIKit.BoundingBox) -> POIKit.BoundingBoxNotificationToken` is no longer possible
   + The type of `prices` in `POIKit.GasStationResponse` is now optional
+- Introduced the new API version `2022-1`.
+  + `PCPayFuel` does not include `PCPayUnit` anymore. 
+
 ## Contribute
 ### Localizable Strings Generation
 To generate our localized strings that are part of `AppKit` we use [SwiftGen](https://github.com/SwiftGen/SwiftGen).

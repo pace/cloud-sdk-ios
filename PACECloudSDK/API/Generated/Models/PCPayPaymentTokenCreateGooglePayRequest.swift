@@ -5,7 +5,7 @@
 
 import Foundation
 
-public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
+public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
 
     public enum PCPayType: String, Codable, Equatable, CaseIterable {
         case paymentToken = "paymentToken"
@@ -28,14 +28,14 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
         /** PACE resource name(s) of one or multiple resources, for which the payment should be authorized. */
         public var purposePRNs: [String]
 
-        public var applePay: ApplePay
+        public var googlePay: GooglePay
 
         public var discountTokens: [String]?
 
         /** The code and method for two factor authentication, if required by the payment method */
         public var twoFactor: TwoFactor?
 
-        public class ApplePay: APIModel {
+        public class GooglePay: APIModel {
 
             public var paymentData: PaymentData?
 
@@ -45,63 +45,57 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
 
             public class PaymentData: APIModel {
 
-                public var data: String?
-
-                public var familyName: String?
-
-                public var header: Header?
+                public var data: DataType?
 
                 public var signature: String?
 
                 public var version: String?
 
-                public class Header: APIModel {
+                public class DataType: APIModel {
+
+                    public var encryptedMessage: String?
 
                     public var ephemeralPublicKey: String?
 
-                    public var publicKeyHash: String?
+                    public var tag: String?
 
-                    public var transactionId: String?
-
-                    public init(ephemeralPublicKey: String? = nil, publicKeyHash: String? = nil, transactionId: String? = nil) {
+                    public init(encryptedMessage: String? = nil, ephemeralPublicKey: String? = nil, tag: String? = nil) {
+                        self.encryptedMessage = encryptedMessage
                         self.ephemeralPublicKey = ephemeralPublicKey
-                        self.publicKeyHash = publicKeyHash
-                        self.transactionId = transactionId
+                        self.tag = tag
                     }
 
                     public required init(from decoder: Decoder) throws {
                         let container = try decoder.container(keyedBy: StringCodingKey.self)
 
+                        encryptedMessage = try container.decodeIfPresent("encryptedMessage")
                         ephemeralPublicKey = try container.decodeIfPresent("ephemeralPublicKey")
-                        publicKeyHash = try container.decodeIfPresent("publicKeyHash")
-                        transactionId = try container.decodeIfPresent("transactionId")
+                        tag = try container.decodeIfPresent("tag")
                     }
 
                     public func encode(to encoder: Encoder) throws {
                         var container = encoder.container(keyedBy: StringCodingKey.self)
 
+                        try container.encodeIfPresent(encryptedMessage, forKey: "encryptedMessage")
                         try container.encodeIfPresent(ephemeralPublicKey, forKey: "ephemeralPublicKey")
-                        try container.encodeIfPresent(publicKeyHash, forKey: "publicKeyHash")
-                        try container.encodeIfPresent(transactionId, forKey: "transactionId")
+                        try container.encodeIfPresent(tag, forKey: "tag")
                     }
 
                     public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Header else { return false }
+                      guard let object = object as? DataType else { return false }
+                      guard self.encryptedMessage == object.encryptedMessage else { return false }
                       guard self.ephemeralPublicKey == object.ephemeralPublicKey else { return false }
-                      guard self.publicKeyHash == object.publicKeyHash else { return false }
-                      guard self.transactionId == object.transactionId else { return false }
+                      guard self.tag == object.tag else { return false }
                       return true
                     }
 
-                    public static func == (lhs: Header, rhs: Header) -> Bool {
+                    public static func == (lhs: DataType, rhs: DataType) -> Bool {
                         return lhs.isEqual(to: rhs)
                     }
                 }
 
-                public init(data: String? = nil, familyName: String? = nil, header: Header? = nil, signature: String? = nil, version: String? = nil) {
+                public init(data: DataType? = nil, signature: String? = nil, version: String? = nil) {
                     self.data = data
-                    self.familyName = familyName
-                    self.header = header
                     self.signature = signature
                     self.version = version
                 }
@@ -110,8 +104,6 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    familyName = try container.decodeIfPresent("familyName")
-                    header = try container.decodeIfPresent("header")
                     signature = try container.decodeIfPresent("signature")
                     version = try container.decodeIfPresent("version")
                 }
@@ -120,8 +112,6 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(familyName, forKey: "familyName")
-                    try container.encodeIfPresent(header, forKey: "header")
                     try container.encodeIfPresent(signature, forKey: "signature")
                     try container.encodeIfPresent(version, forKey: "version")
                 }
@@ -129,8 +119,6 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
                 public func isEqual(to object: Any?) -> Bool {
                   guard let object = object as? PaymentData else { return false }
                   guard self.data == object.data else { return false }
-                  guard self.familyName == object.familyName else { return false }
-                  guard self.header == object.header else { return false }
                   guard self.signature == object.signature else { return false }
                   guard self.version == object.version else { return false }
                   return true
@@ -207,14 +195,14 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             }
 
             public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? ApplePay else { return false }
+              guard let object = object as? GooglePay else { return false }
               guard self.paymentData == object.paymentData else { return false }
               guard self.paymentMethod == object.paymentMethod else { return false }
               guard self.transactionIdentifier == object.transactionIdentifier else { return false }
               return true
             }
 
-            public static func == (lhs: ApplePay, rhs: ApplePay) -> Bool {
+            public static func == (lhs: GooglePay, rhs: GooglePay) -> Bool {
                 return lhs.isEqual(to: rhs)
             }
         }
@@ -259,11 +247,11 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             }
         }
 
-        public init(currency: String, amount: Decimal, purposePRNs: [String], applePay: ApplePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Decimal, purposePRNs: [String], googlePay: GooglePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs
-            self.applePay = applePay
+            self.googlePay = googlePay
             self.discountTokens = discountTokens
             self.twoFactor = twoFactor
         }
@@ -274,7 +262,7 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             currency = try container.decode("currency")
             amount = try container.decode("amount")
             purposePRNs = try container.decodeArray("purposePRNs")
-            applePay = try container.decode("applePay")
+            googlePay = try container.decode("googlePay")
             discountTokens = try container.decodeArrayIfPresent("discountTokens")
             twoFactor = try container.decodeIfPresent("twoFactor")
         }
@@ -285,7 +273,7 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             try container.encode(currency, forKey: "currency")
             try container.encode(amount, forKey: "amount")
             try container.encode(purposePRNs, forKey: "purposePRNs")
-            try container.encode(applePay, forKey: "applePay")
+            try container.encode(googlePay, forKey: "googlePay")
             try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         }
@@ -295,7 +283,7 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
           guard self.currency == object.currency else { return false }
           guard self.amount == object.amount else { return false }
           guard self.purposePRNs == object.purposePRNs else { return false }
-          guard self.applePay == object.applePay else { return false }
+          guard self.googlePay == object.googlePay else { return false }
           guard self.discountTokens == object.discountTokens else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
           return true
@@ -329,14 +317,14 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
     }
 
     public func isEqual(to object: Any?) -> Bool {
-      guard let object = object as? PCPayPaymentTokenCreateApplePayRequest else { return false }
+      guard let object = object as? PCPayPaymentTokenCreateGooglePayRequest else { return false }
       guard self.type == object.type else { return false }
       guard self.attributes == object.attributes else { return false }
       guard self.id == object.id else { return false }
       return true
     }
 
-    public static func == (lhs: PCPayPaymentTokenCreateApplePayRequest, rhs: PCPayPaymentTokenCreateApplePayRequest) -> Bool {
+    public static func == (lhs: PCPayPaymentTokenCreateGooglePayRequest, rhs: PCPayPaymentTokenCreateGooglePayRequest) -> Bool {
         return lhs.isEqual(to: rhs)
     }
 }

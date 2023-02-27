@@ -51,7 +51,7 @@ public class PCFuelingPump: APIModel {
     /** Currency as specified in ISO-4217. */
     public var currency: String?
 
-    /** Fuel amount in liters */
+    /** Fuel amount in units */
     public var fuelAmount: Decimal?
 
     public var fuelType: String?
@@ -68,12 +68,15 @@ public class PCFuelingPump: APIModel {
 
     public var priceIncludingVAT: Decimal?
 
-    /** Fuel price in CUR/liter */
+    /** Fuel price in currency/unit */
     public var pricePerUnit: Decimal?
 
     public var priceWithoutVAT: Decimal?
 
     public var productName: String?
+
+    /** Only if status is locked or readyToPay: PRNs required for creating a token for payment at this gas station */
+    public var purposePRNs: [String]?
 
     /** Current pump status.
 * `free` the pump is free, fueling possible (nozzle not lifted), possible transitions *inUse*, *locked*, *outOfOrder*. Note: A transition from *free* to *locked* may implies the pump was pre-authorization was canceled.
@@ -89,6 +92,9 @@ public class PCFuelingPump: APIModel {
 
     /** Provided if the user pre-authorized the pump */
     public var transactionId: ID?
+
+    /** Fuel measurement unit. Eg: `liter`, `us-gallon`, `uk-gallon`, `kilogram` */
+    public var unit: String?
 
     public class VAT: APIModel {
 
@@ -127,7 +133,7 @@ public class PCFuelingPump: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, status: PCFuelingStatus? = nil, transaction: PCFuelingTransaction? = nil, transactionId: ID? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, purposePRNs: [String]? = nil, status: PCFuelingStatus? = nil, transaction: PCFuelingTransaction? = nil, transactionId: ID? = nil, unit: String? = nil) {
         self.id = id
         self.type = type
         self.vat = vat
@@ -140,9 +146,11 @@ public class PCFuelingPump: APIModel {
         self.pricePerUnit = pricePerUnit
         self.priceWithoutVAT = priceWithoutVAT
         self.productName = productName
+        self.purposePRNs = purposePRNs
         self.status = status
         self.transaction = transaction
         self.transactionId = transactionId
+        self.unit = unit
     }
 
     public required init(from decoder: Decoder) throws {
@@ -160,9 +168,11 @@ public class PCFuelingPump: APIModel {
         pricePerUnit = try container.decodeLosslessDecimal("pricePerUnit")
         priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
         productName = try container.decodeIfPresent("productName")
+        purposePRNs = try container.decodeArrayIfPresent("purposePRNs")
         status = try container.decodeIfPresent("status")
         transaction = try container.decodeIfPresent("transaction")
         transactionId = try container.decodeIfPresent("transactionId")
+        unit = try container.decodeIfPresent("unit")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -180,9 +190,11 @@ public class PCFuelingPump: APIModel {
         try container.encodeIfPresent(pricePerUnit, forKey: "pricePerUnit")
         try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
         try container.encodeIfPresent(productName, forKey: "productName")
+        try container.encodeIfPresent(purposePRNs, forKey: "purposePRNs")
         try container.encodeIfPresent(status, forKey: "status")
         try container.encodeIfPresent(transaction, forKey: "transaction")
         try container.encodeIfPresent(transactionId, forKey: "transactionId")
+        try container.encodeIfPresent(unit, forKey: "unit")
     }
 
     public func isEqual(to object: Any?) -> Bool {
@@ -199,9 +211,11 @@ public class PCFuelingPump: APIModel {
       guard self.pricePerUnit == object.pricePerUnit else { return false }
       guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
       guard self.productName == object.productName else { return false }
+      guard self.purposePRNs == object.purposePRNs else { return false }
       guard self.status == object.status else { return false }
       guard self.transaction == object.transaction else { return false }
       guard self.transactionId == object.transactionId else { return false }
+      guard self.unit == object.unit else { return false }
       return true
     }
 

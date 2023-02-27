@@ -18,6 +18,8 @@ public class PCPayTransaction: APIModel {
 
     public var type: PCPayType?
 
+    public var discountTokens: [PCPayDiscount]?
+
     public var vat: VAT?
 
     /** Initial creation date of the transaction (https://tools.ietf.org/html/rfc3339#section-5.6).
@@ -56,7 +58,11 @@ public class PCPayTransaction: APIModel {
     /** Payment token value */
     public var paymentToken: String?
 
+    /** If a discount was applied, this is the already fully discounted transaction sum */
     public var priceIncludingVAT: Decimal?
+
+    /** If a discount was applied, this the transaction sum, before applying the discound */
+    public var priceIncludingVATBeforeDiscount: Decimal?
 
     public var priceWithoutVAT: Decimal?
 
@@ -115,10 +121,11 @@ public class PCPayTransaction: APIModel {
         }
     }
 
-    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, vat: VAT? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
         self.id = id
         self.links = links
         self.type = type
+        self.discountTokens = discountTokens
         self.vat = vat
         self.createdAt = createdAt
         self.createdAtLocaltime = createdAtLocaltime
@@ -133,6 +140,7 @@ public class PCPayTransaction: APIModel {
         self.paymentMethodKind = paymentMethodKind
         self.paymentToken = paymentToken
         self.priceIncludingVAT = priceIncludingVAT
+        self.priceIncludingVATBeforeDiscount = priceIncludingVATBeforeDiscount
         self.priceWithoutVAT = priceWithoutVAT
         self.productFlow = productFlow
         self.providerPRN = providerPRN
@@ -148,6 +156,7 @@ public class PCPayTransaction: APIModel {
         id = try container.decodeIfPresent("id")
         links = try container.decodeIfPresent("links")
         type = try container.decodeIfPresent("type")
+        discountTokens = try container.decodeIfPresent("discountTokens")
         vat = try container.decodeIfPresent("VAT")
         createdAt = try container.decodeIfPresent("createdAt")
         createdAtLocaltime = try container.decodeIfPresent("createdAtLocaltime")
@@ -162,6 +171,7 @@ public class PCPayTransaction: APIModel {
         paymentMethodKind = try container.decodeIfPresent("paymentMethodKind")
         paymentToken = try container.decodeIfPresent("paymentToken")
         priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
+        priceIncludingVATBeforeDiscount = try container.decodeLosslessDecimal("priceIncludingVATBeforeDiscount")
         priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
         productFlow = try container.decodeIfPresent("productFlow")
         providerPRN = try container.decodeIfPresent("providerPRN")
@@ -177,6 +187,7 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(links, forKey: "links")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
         try container.encodeIfPresent(vat, forKey: "VAT")
         try container.encodeIfPresent(createdAt, forKey: "createdAt")
         try container.encodeIfPresent(createdAtLocaltime, forKey: "createdAtLocaltime")
@@ -191,6 +202,7 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(paymentMethodKind, forKey: "paymentMethodKind")
         try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
         try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
+        try container.encodeIfPresent(priceIncludingVATBeforeDiscount, forKey: "priceIncludingVATBeforeDiscount")
         try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
         try container.encodeIfPresent(productFlow, forKey: "productFlow")
         try container.encodeIfPresent(providerPRN, forKey: "providerPRN")
@@ -205,6 +217,7 @@ public class PCPayTransaction: APIModel {
       guard self.id == object.id else { return false }
       guard self.links == object.links else { return false }
       guard self.type == object.type else { return false }
+      guard self.discountTokens == object.discountTokens else { return false }
       guard self.vat == object.vat else { return false }
       guard self.createdAt == object.createdAt else { return false }
       guard self.createdAtLocaltime == object.createdAtLocaltime else { return false }
@@ -219,6 +232,7 @@ public class PCPayTransaction: APIModel {
       guard self.paymentMethodKind == object.paymentMethodKind else { return false }
       guard self.paymentToken == object.paymentToken else { return false }
       guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
+      guard self.priceIncludingVATBeforeDiscount == object.priceIncludingVATBeforeDiscount else { return false }
       guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
       guard self.productFlow == object.productFlow else { return false }
       guard self.providerPRN == object.providerPRN else { return false }

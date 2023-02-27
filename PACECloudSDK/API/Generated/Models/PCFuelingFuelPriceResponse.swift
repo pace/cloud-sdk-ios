@@ -54,18 +54,22 @@ public class PCFuelingFuelPriceResponse: APIModel {
         /** Fuel type for cars, based on the EU fuel marking */
         public var fuelType: PCFuelingFuelType?
 
-        /** Price in liters */
+        /** Price in currency/unit */
         public var price: Decimal?
 
         public var productName: String?
 
-        public init(id: String? = nil, type: PCFuelingType? = nil, currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Decimal? = nil, productName: String? = nil) {
+        /** Fuel measurement unit. Eg: `liter`, `us-gallon`, `uk-gallon`, `kilogram` */
+        public var unit: String?
+
+        public init(id: String? = nil, type: PCFuelingType? = nil, currency: String? = nil, fuelType: PCFuelingFuelType? = nil, price: Decimal? = nil, productName: String? = nil, unit: String? = nil) {
             self.id = id
             self.type = type
             self.currency = currency
             self.fuelType = fuelType
             self.price = price
             self.productName = productName
+            self.unit = unit
         }
 
         public required init(from decoder: Decoder) throws {
@@ -77,6 +81,7 @@ public class PCFuelingFuelPriceResponse: APIModel {
             fuelType = try container.decodeIfPresent("fuelType")
             price = try container.decodeLosslessDecimal("price")
             productName = try container.decodeIfPresent("productName")
+            unit = try container.decodeIfPresent("unit")
         }
 
         public func encode(to encoder: Encoder) throws {
@@ -88,6 +93,7 @@ public class PCFuelingFuelPriceResponse: APIModel {
             try container.encodeIfPresent(fuelType, forKey: "fuelType")
             try container.encodeIfPresent(price, forKey: "price")
             try container.encodeIfPresent(productName, forKey: "productName")
+            try container.encodeIfPresent(unit, forKey: "unit")
         }
 
         public func isEqual(to object: Any?) -> Bool {
@@ -98,6 +104,7 @@ public class PCFuelingFuelPriceResponse: APIModel {
           guard self.fuelType == object.fuelType else { return false }
           guard self.price == object.price else { return false }
           guard self.productName == object.productName else { return false }
+          guard self.unit == object.unit else { return false }
           return true
         }
 

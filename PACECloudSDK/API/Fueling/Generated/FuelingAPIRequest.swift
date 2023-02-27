@@ -13,7 +13,7 @@ public class FuelingAPIRequest<ResponseType: APIResponseValue> {
     public let encodeBody: ((RequestEncoder) throws -> Data)?
     private(set) var headerParameters: [String: String]
     public var customHeaders: [String: String] = [:]
-    public var version: String = "2021-2"
+    public var version: String = "2022-1"
     public var contentType: String = "application/json"
 
     public var headers: [String: String] {

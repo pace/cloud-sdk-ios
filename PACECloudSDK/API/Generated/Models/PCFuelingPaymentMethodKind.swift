@@ -16,6 +16,9 @@ public class PCFuelingPaymentMethodKind: APIModel {
 
     public var type: PCFuelingType?
 
+    /** Currencies supported by payment method kind */
+    public var currencies: [String]?
+
     /** data privacy information */
     public var dataPrivacy: DataPrivacy?
 
@@ -270,9 +273,10 @@ This field is optional and if not present should be assumed to indicate `implici
         }
     }
 
-    public init(id: String? = nil, type: PCFuelingType? = nil, dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil, vendors: [Vendors]? = nil) {
+    public init(id: String? = nil, type: PCFuelingType? = nil, currencies: [String]? = nil, dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil, vendors: [Vendors]? = nil) {
         self.id = id
         self.type = type
+        self.currencies = currencies
         self.dataPrivacy = dataPrivacy
         self.fuelcard = fuelcard
         self.implicit = implicit
@@ -287,6 +291,7 @@ This field is optional and if not present should be assumed to indicate `implici
 
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
+        currencies = try container.decodeArrayIfPresent("currencies")
         dataPrivacy = try container.decodeIfPresent("dataPrivacy")
         fuelcard = try container.decodeIfPresent("fuelcard")
         implicit = try container.decodeIfPresent("implicit")
@@ -301,6 +306,7 @@ This field is optional and if not present should be assumed to indicate `implici
 
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
+        try container.encodeIfPresent(currencies, forKey: "currencies")
         try container.encodeIfPresent(dataPrivacy, forKey: "dataPrivacy")
         try container.encodeIfPresent(fuelcard, forKey: "fuelcard")
         try container.encodeIfPresent(implicit, forKey: "implicit")
@@ -314,6 +320,7 @@ This field is optional and if not present should be assumed to indicate `implici
       guard let object = object as? PCFuelingPaymentMethodKind else { return false }
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
+      guard self.currencies == object.currencies else { return false }
       guard self.dataPrivacy == object.dataPrivacy else { return false }
       guard self.fuelcard == object.fuelcard else { return false }
       guard self.implicit == object.implicit else { return false }
