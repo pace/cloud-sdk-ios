@@ -8,34 +8,36 @@
 import Foundation
 import LocalAuthentication
 
-struct BiometryPolicy {
-    let laContext: LAContext
+public extension IDKit {
+    struct BiometryPolicy {
+        let laContext: LAContext
 
-    var isBiometryAvailable: Bool {
-        var authError: NSError?
-        let isBiometryAvailable = laContext.canEvaluatePolicy(laPolicy, error: &authError)
-        return isBiometryAvailable
-    }
+        var isBiometryAvailable: Bool {
+            var authError: NSError?
+            let isBiometryAvailable = laContext.canEvaluatePolicy(laPolicy, error: &authError)
+            return isBiometryAvailable
+        }
 
-    var canEvaluatePolicy: Bool {
-        var authError: NSError?
-        return laContext.canEvaluatePolicy(laPolicy, error: &authError)
-    }
+        var canEvaluatePolicy: Bool {
+            var authError: NSError?
+            return laContext.canEvaluatePolicy(laPolicy, error: &authError)
+        }
 
-    private var laPolicy: LAPolicy {
-        .deviceOwnerAuthentication
-    }
+        private var laPolicy: LAPolicy {
+            .deviceOwnerAuthentication
+        }
 
-    init() {
-        laContext = LAContext()
-    }
+        init() {
+            laContext = LAContext()
+        }
 
-    func evaluatePolicy(reasonText: String, completion: @escaping (Bool, Error?) -> Void) {
-        laContext.evaluatePolicy(laPolicy, localizedReason: reasonText, reply: completion)
+        func evaluatePolicy(reasonText: String, completion: @escaping (Bool, Error?) -> Void) {
+            laContext.evaluatePolicy(laPolicy, localizedReason: reasonText, reply: completion)
+        }
     }
 }
 
-extension BiometryPolicy {
+public extension IDKit.BiometryPolicy {
     static func generateTOTP(with totpData: Data, timeIntervalSince1970: TimeInterval) -> String? {
         guard let biometryTOTPData = try? JSONDecoder().decode(IDKit.BiometryTOTPData.self, from: totpData),
               let secretData = biometryTOTPData.secret.base32DecodedData, !secretData.isEmpty else { return nil }
@@ -74,7 +76,9 @@ extension BiometryPolicy {
             return nil
         }
     }
+}
 
+extension IDKit.BiometryPolicy {
     static func retrieveMasterKey() -> String { // swiftlint:disable:this inclusive_language
         // We are appending a device id, because the Keychain is
         // persisted outside of the app's sandbox, therefore
