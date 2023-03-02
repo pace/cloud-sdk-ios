@@ -5,10 +5,8 @@
 //  Created by PACE Telematics GmbH.
 //
 
-import Base32
 import Foundation
 import LocalAuthentication
-import OneTimePassword
 
 struct BiometryPolicy {
     let laContext: LAContext
@@ -40,9 +38,9 @@ struct BiometryPolicy {
 extension BiometryPolicy {
     static func generateTOTP(with totpData: Data, timeIntervalSince1970: TimeInterval) -> String? {
         guard let biometryTOTPData = try? JSONDecoder().decode(IDKit.BiometryTOTPData.self, from: totpData),
-              let secretData = MF_Base32Codec.data(fromBase32String: biometryTOTPData.secret), !secretData.isEmpty else { return nil }
+              let secretData = biometryTOTPData.secret.base32DecodedData, !secretData.isEmpty else { return nil }
 
-        let algorithm: Generator.Algorithm
+        let algorithm: OneTimePassword.Generator.Algorithm
 
         switch biometryTOTPData.algorithm {
         case PCUserDeviceTOTP.PCUserAlgorithm.sha1.rawValue:
@@ -58,15 +56,15 @@ extension BiometryPolicy {
             algorithm = .sha1
         }
 
-        guard let generator = Generator(factor: .timer(period: biometryTOTPData.period),
-                                        secret: secretData,
-                                        algorithm: algorithm,
-                                        digits: biometryTOTPData.digits)
+        guard let generator = OneTimePassword.Generator(factor: .timer(period: biometryTOTPData.period),
+                                                        secret: secretData,
+                                                        algorithm: algorithm,
+                                                        digits: biometryTOTPData.digits)
         else {
             return nil
         }
 
-        let token = Token(name: "TOTP", issuer: "PACE", generator: generator)
+        let token = OneTimePassword.Token(name: "TOTP", issuer: "PACE", generator: generator)
         let time = Date(timeIntervalSince1970: timeIntervalSince1970)
 
         do {

@@ -528,6 +528,10 @@
 		3B7C8E7226FC5ED80080B2B5 /* PCFuelingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E6F26FC5ED70080B2B5 /* PCFuelingTransaction.swift */; };
 		3B7C8E7326FC5ED80080B2B5 /* PCFuelingGasStationNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E7026FC5ED80080B2B5 /* PCFuelingGasStationNote.swift */; };
 		3B7C8E7426FC5ED80080B2B5 /* PCFuelingGasStationNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C8E7026FC5ED80080B2B5 /* PCFuelingGasStationNote.swift */; };
+		3B7D5CBF29B0BA4E00D4F7FD /* TokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D5CBE29B0BA4E00D4F7FD /* TokenTests.swift */; };
+		3B7D5CC129B0BA5700D4F7FD /* GeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D5CC029B0BA5700D4F7FD /* GeneratorTests.swift */; };
+		3B7D5CC329B0BA6800D4F7FD /* EquatableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D5CC229B0BA6800D4F7FD /* EquatableTests.swift */; };
+		3B7D5CC529B0BA7400D4F7FD /* TokenSerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D5CC429B0BA7400D4F7FD /* TokenSerializationTests.swift */; };
 		3B808AFD26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
 		3B808AFF26CA4196006EDE92 /* POIKitAPI+PriceHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */; };
 		3B819C52268EF8F900441917 /* App+MessageHandling+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */; };
@@ -557,6 +561,13 @@
 		3B9036AA27D0B9390011E063 /* POIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9036A827D0AF510011E063 /* POIResponse.swift */; };
 		3B90B68227E097CE00A582EC /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B90B68127E097CE00A582EC /* Localizable.swift */; };
 		3B90B68327E097DF00A582EC /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B90B68127E097CE00A582EC /* Localizable.swift */; };
+		3B91353329B0A5A0000CAB6C /* OneTimePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91353229B0A5A0000CAB6C /* OneTimePassword.swift */; };
+		3B91353529B0A5E3000CAB6C /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91353429B0A5E3000CAB6C /* Crypto.swift */; };
+		3B91353729B0A67D000CAB6C /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91353629B0A67D000CAB6C /* Generator.swift */; };
+		3B91353B29B0A68B000CAB6C /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91353A29B0A68B000CAB6C /* Token.swift */; };
+		3B91354029B0A7D3000CAB6C /* Base32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91353F29B0A7D3000CAB6C /* Base32.swift */; };
+		3B91354429B0AF78000CAB6C /* Base32+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91354329B0AF78000CAB6C /* Base32+String.swift */; };
+		3B91354929B0B437000CAB6C /* Base32Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91354829B0B437000CAB6C /* Base32Tests.swift */; };
 		3B918017268EFE7000176ECD /* AppCommunicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B918016268EFE7000176ECD /* AppCommunicationData.swift */; };
 		3B918018268EFE7000176ECD /* AppCommunicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B918016268EFE7000176ECD /* AppCommunicationData.swift */; };
 		3B91804A268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B918049268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift */; };
@@ -1417,6 +1428,10 @@
 		3B7C8E6826FC5D8E0080B2B5 /* UserAPITokenExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAPITokenExchange.swift; sourceTree = "<group>"; };
 		3B7C8E6F26FC5ED70080B2B5 /* PCFuelingTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCFuelingTransaction.swift; sourceTree = "<group>"; };
 		3B7C8E7026FC5ED80080B2B5 /* PCFuelingGasStationNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCFuelingGasStationNote.swift; sourceTree = "<group>"; };
+		3B7D5CBE29B0BA4E00D4F7FD /* TokenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenTests.swift; sourceTree = "<group>"; };
+		3B7D5CC029B0BA5700D4F7FD /* GeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorTests.swift; sourceTree = "<group>"; };
+		3B7D5CC229B0BA6800D4F7FD /* EquatableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatableTests.swift; sourceTree = "<group>"; };
+		3B7D5CC429B0BA7400D4F7FD /* TokenSerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSerializationTests.swift; sourceTree = "<group>"; };
 		3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+PriceHistory.swift"; sourceTree = "<group>"; };
 		3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling+Location.swift"; sourceTree = "<group>"; };
 		3B855312253D6C12001F7B66 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
@@ -1446,6 +1461,13 @@
 		3B8E426F2757648200DEACCB /* AppKit+Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKit+Watch.swift"; sourceTree = "<group>"; };
 		3B9036A827D0AF510011E063 /* POIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIResponse.swift; sourceTree = "<group>"; };
 		3B90B68127E097CE00A582EC /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
+		3B91353229B0A5A0000CAB6C /* OneTimePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimePassword.swift; sourceTree = "<group>"; };
+		3B91353429B0A5E3000CAB6C /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		3B91353629B0A67D000CAB6C /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		3B91353A29B0A68B000CAB6C /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		3B91353F29B0A7D3000CAB6C /* Base32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32.swift; sourceTree = "<group>"; };
+		3B91354329B0AF78000CAB6C /* Base32+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base32+String.swift"; sourceTree = "<group>"; };
+		3B91354829B0B437000CAB6C /* Base32Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base32Tests.swift; sourceTree = "<group>"; };
 		3B918016268EFE7000176ECD /* AppCommunicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommunicationData.swift; sourceTree = "<group>"; };
 		3B918049268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplePayAvailabilityCheckRequest.swift; sourceTree = "<group>"; };
 		3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsBiometricAuthEnabledResult.swift; sourceTree = "<group>"; };
@@ -2237,6 +2259,17 @@
 			path = OAuth2;
 			sourceTree = "<group>";
 		};
+		3B7D5CBD29B0BA1D00D4F7FD /* OneTimePasswordTests */ = {
+			isa = PBXGroup;
+			children = (
+				3B7D5CC229B0BA6800D4F7FD /* EquatableTests.swift */,
+				3B7D5CC029B0BA5700D4F7FD /* GeneratorTests.swift */,
+				3B7D5CC429B0BA7400D4F7FD /* TokenSerializationTests.swift */,
+				3B7D5CBE29B0BA4E00D4F7FD /* TokenTests.swift */,
+			);
+			path = OneTimePasswordTests;
+			sourceTree = "<group>";
+		};
 		3B808B0026CA41FA006EDE92 /* PriceHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -2278,6 +2311,34 @@
 				3B4B8BE228EC755D0062963C /* URL+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3B91353129B0A592000CAB6C /* OneTimePassword */ = {
+			isa = PBXGroup;
+			children = (
+				3B91353429B0A5E3000CAB6C /* Crypto.swift */,
+				3B91353629B0A67D000CAB6C /* Generator.swift */,
+				3B91353229B0A5A0000CAB6C /* OneTimePassword.swift */,
+				3B91353A29B0A68B000CAB6C /* Token.swift */,
+			);
+			path = OneTimePassword;
+			sourceTree = "<group>";
+		};
+		3B91353E29B0A7C9000CAB6C /* Base32 */ = {
+			isa = PBXGroup;
+			children = (
+				3B91353F29B0A7D3000CAB6C /* Base32.swift */,
+				3B91354329B0AF78000CAB6C /* Base32+String.swift */,
+			);
+			path = Base32;
+			sourceTree = "<group>";
+		};
+		3B91354529B0B3ED000CAB6C /* Base32Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3B91354829B0B437000CAB6C /* Base32Tests.swift */,
+			);
+			path = Base32Tests;
 			sourceTree = "<group>";
 		};
 		3B9655E426B2868700921766 /* GeoService */ = {
@@ -2647,10 +2708,12 @@
 		3BB1442525386E9C004E9F63 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3B91353E29B0A7C9000CAB6C /* Base32 */,
 				3B6826A127BA951600933C95 /* Constants */,
 				3B855311253D6BF3001F7B66 /* Extensions */,
 				6ACBC08126FE0FA500E6AC05 /* Logger */,
 				3B772BCD292E638C00796CD1 /* MetaCollector */,
+				3B91353129B0A592000CAB6C /* OneTimePassword */,
 				3B36F2A628D21CED005D4EB0 /* PersistentData */,
 				3B970A282542D9BA0072F6BA /* Plists */,
 				3B68269827BA604700933C95 /* Views */,
@@ -3582,10 +3645,12 @@
 				92D31FAA2590950E0074F732 /* PACECloudSDKTests.swift */,
 				3B394BF128698C6A005621EC /* APITests */,
 				3B9709FD2542D9720072F6BA /* AppKitTests */,
+				3B91354529B0B3ED000CAB6C /* Base32Tests */,
 				3BA9E51E274B7F2D00617EDE /* GeoTests */,
 				3BB51B7427E9F5F700FE0014 /* Localization */,
 				3BC9A78F2539DD3200B933AE /* POIKitTests */,
 				3BD870FD26BD547C0098C411 /* IDKitTests */,
+				3B7D5CBD29B0BA1D00D4F7FD /* OneTimePasswordTests */,
 				9211951D25ECD64E0066AA5D /* Utils */,
 			);
 			path = PACECloudSDKTests;
@@ -4331,6 +4396,7 @@
 				84600F0425C03B1E0087194F /* POIAPIDeduplicatePoi.swift in Sources */,
 				8447A3BF25CAAE740095BEF1 /* UserAPICreateTOTP.swift in Sources */,
 				3BC3C6DF279EB3A600E39956 /* PayAPICreatePaymentMethodRMC.swift in Sources */,
+				3B91354429B0AF78000CAB6C /* Base32+String.swift in Sources */,
 				92EDDE2525A7592500E480F4 /* PoiKitObserverToken.swift in Sources */,
 				841A3ED425B9C8D40065284A /* FuelingAPIClient.swift in Sources */,
 				84600F2625C03B1E0087194F /* POIAPICreateSource.swift in Sources */,
@@ -4591,6 +4657,7 @@
 				8447A3DB25CAAE750095BEF1 /* AnyUserRequest.swift in Sources */,
 				3B2FB22228450BF200E8CD0C /* PCPOISubscription.swift in Sources */,
 				3B987087268E06AE00A0458F /* DisableRequest.swift in Sources */,
+				3B91353B29B0A68B000CAB6C /* Token.swift in Sources */,
 				3B7C8E7326FC5ED80080B2B5 /* PCFuelingGasStationNote.swift in Sources */,
 				3BC9A80F2539DDAD00B933AE /* vector_tile.proto in Sources */,
 				3B98705B268E06AE00A0458F /* AppInterceptableLinkResult.swift in Sources */,
@@ -4600,6 +4667,7 @@
 				3BA4807E2565492600187D0A /* IDKitUserAgent.swift in Sources */,
 				3B2FB1C92844EB2800E8CD0C /* PCUserUser.swift in Sources */,
 				3BC9A8102539DDAD00B933AE /* VectorTiles+Feature.swift in Sources */,
+				3B91353729B0A67D000CAB6C /* Generator.swift in Sources */,
 				3B970A702542D9BB0072F6BA /* NavigationTitleView.swift in Sources */,
 				84600F1425C03B1E0087194F /* POIAPIChangePoi.swift in Sources */,
 				3B2FB1DF2844EB2800E8CD0C /* PCUserAccessToken.swift in Sources */,
@@ -4668,6 +4736,7 @@
 				3B970A682542D9BB0072F6BA /* UIImage+Extension.swift in Sources */,
 				3B987095268E06AE00A0458F /* OpenURLInNewTabRequest.swift in Sources */,
 				051CAA8727227F320090779D /* Decimal+Extension.swift in Sources */,
+				3B91354029B0A7D3000CAB6C /* Base32.swift in Sources */,
 				8447A3CF25CAAE750095BEF1 /* UserAPICheckUserPIN.swift in Sources */,
 				84E1AC3B2562800D00C673EF /* Poly+Codable.swift in Sources */,
 				84600EFE25C03B1E0087194F /* POIAPIGetPoisDump.swift in Sources */,
@@ -4733,6 +4802,7 @@
 				3B2FB22928450BF200E8CD0C /* PCPOIFieldData.swift in Sources */,
 				3B79F8E626C12D3400C0278F /* GasStation+Extension.swift in Sources */,
 				3B2FB1BD2844EB2800E8CD0C /* PCUserVerifyUserPhoneRequest.swift in Sources */,
+				3B91353329B0A5A0000CAB6C /* OneTimePassword.swift in Sources */,
 				9A906BAF284637D700463618 /* PCPayPaymentMethodKind.swift in Sources */,
 				8447A3A525CAAE740095BEF1 /* UserAPICheckTerms.swift in Sources */,
 				3BC3C6E1279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift in Sources */,
@@ -4827,6 +4897,7 @@
 				3BC9A7FF2539DDAD00B933AE /* PriceHistoryResponse.swift in Sources */,
 				0B28F7DE299FCEA900E929EA /* PayAPIResendReceipt.swift in Sources */,
 				0B28F7B6299FCE5D00E929EA /* PCPayTransactionIDListRequest.swift in Sources */,
+				3B91353529B0A5E3000CAB6C /* Crypto.swift in Sources */,
 				3B772BD3292F55D100796CD1 /* MetaCollectorData.swift in Sources */,
 				3B2FB21F28450BF200E8CD0C /* PCPOIPOIRequest.swift in Sources */,
 				3BC9A8012539DDAD00B933AE /* Tile.swift in Sources */,
@@ -4895,6 +4966,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B91354929B0B437000CAB6C /* Base32Tests.swift in Sources */,
 				3BB51B7627E9F60D00FE0014 /* LocalizationTests.swift in Sources */,
 				9211951F25ECD65D0066AA5D /* QueryParamHandlerTests.swift in Sources */,
 				3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */,
@@ -4914,8 +4986,12 @@
 				3BA9E52D274B985400617EDE /* XCTestCase+Extension.swift in Sources */,
 				6ACBC03826FDC76300E6AC05 /* LoggerTests.swift in Sources */,
 				3B86D88D279FDEF8001F4F9B /* DecimalDecodingTests.swift in Sources */,
+				3B7D5CC129B0BA5700D4F7FD /* GeneratorTests.swift in Sources */,
 				3B970AC02542D9DB0072F6BA /* ManifestMocks.swift in Sources */,
+				3B7D5CC329B0BA6800D4F7FD /* EquatableTests.swift in Sources */,
+				3B7D5CBF29B0BA4E00D4F7FD /* TokenTests.swift in Sources */,
 				3BA9E523274B825200617EDE /* MockURLProtocol.swift in Sources */,
+				3B7D5CC529B0BA7400D4F7FD /* TokenSerializationTests.swift in Sources */,
 				3BA9E529274B838D00617EDE /* GeoServiceMockObject.swift in Sources */,
 				3B970AC52542D9DB0072F6BA /* AppKitTests.swift in Sources */,
 				3B8B02F5255C228E0020A6FA /* JWTTests.swift in Sources */,
