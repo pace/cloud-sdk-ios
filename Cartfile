@@ -1,3 +1,2 @@
 github "apple/swift-protobuf" ~> 1.15
-github "pace/OneTimePassword" ~> 3.3
 github "pace/AppAuth-iOS" ~> 1.5
