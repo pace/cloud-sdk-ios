@@ -58,7 +58,7 @@ extension IDKit {
         let request = OIDAuthorizationRequest(configuration: oidConfiguration,
                                               clientId: configuration.clientId,
                                               clientSecret: configuration.clientSecret,
-                                              scopes: configuration.scopes,
+                                              scopes: (configuration.scopes ?? []) + IDKit.defaultScopes,
                                               redirectURL: redirectUrl,
                                               responseType: configuration.responseType,
                                               additionalParameters: configuration.additionalParameters)
