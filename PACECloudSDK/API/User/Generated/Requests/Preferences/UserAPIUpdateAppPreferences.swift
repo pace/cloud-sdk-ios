@@ -17,7 +17,7 @@ preferences namespace, only with the respective scope e.g. `user:preferences:rea
 a client might be able to read the preferences of a different client.
 The preferences should not have more than 10 key-value pairs per app.
 Any key must not be longer than 128 bytes and any
-value not longer than 10 megabytes (including complex json objects).
+value not longer than 255 bytes (including complex json objects).
     */
     public enum UpdateAppPreferences {
 
@@ -992,9 +992,6 @@ Example:
             /** Resource not found */
             case status404(Status404)
 
-            /** Max number of keys exceeded */
-            case status413(PCUserErrors)
-
             /** Internal server error */
             case status501(Status501)
 
@@ -1010,7 +1007,6 @@ Example:
                 case .status401(let response): return response
                 case .status403(let response): return response
                 case .status404(let response): return response
-                case .status413(let response): return response
                 case .status501(let response): return response
                 default: return ()
                 }
@@ -1022,7 +1018,6 @@ Example:
                 case .status401: return 401
                 case .status403: return 403
                 case .status404: return 404
-                case .status413: return 413
                 case .status501: return 501
                 }
             }
@@ -1033,7 +1028,6 @@ Example:
                 case .status401: return false
                 case .status403: return false
                 case .status404: return false
-                case .status413: return false
                 case .status501: return false
                 }
             }
@@ -1044,7 +1038,6 @@ Example:
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 403: self = try .status403(decoder.decode(Status403.self, from: data))
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
-                case 413: self = try .status413(decoder.decode(PCUserErrors.self, from: data))
                 case 501: self = try .status501(decoder.decode(Status501.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }

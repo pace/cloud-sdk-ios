@@ -78,7 +78,7 @@ extension IDKit {
     func setPIN(pin: String, otp: String, completion: @escaping (Result<Bool, IDKitError>) -> Void) {
         logBiometryWarningsIfNeeded()
 
-        let pinData = PCUserUserPINAndOTPRequest(attributes: .init(pin: pin, otp: otp), type: .pin)
+        let pinData = PCUserUserPINRequest(attributes: .init(pin: pin, otp: otp), type: .pin)
         let request = UserAPI.Credentials.UpdateUserPIN.Request(body: .init(data: pinData))
 
         API.User.client.makeRequest(request) { [weak self] response in

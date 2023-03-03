@@ -29,9 +29,6 @@ public class PCUserUser: APIModel {
  */
     public var birthDate: DateDay?
 
-    /** time of the user creation */
-    public var createdAt: DateTime?
-
     public var email: String?
 
     public var firstName: String?
@@ -122,12 +119,11 @@ public class PCUserUser: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCUserType? = nil, address: Address? = nil, birthDate: DateDay? = nil, createdAt: DateTime? = nil, email: String? = nil, firstName: String? = nil, gender: PCUserGender? = nil, lastName: String? = nil, locale: String? = nil, phoneNumber: String? = nil, pictureUrl: String? = nil, zoneInfo: String? = nil) {
+    public init(id: ID? = nil, type: PCUserType? = nil, address: Address? = nil, birthDate: DateDay? = nil, email: String? = nil, firstName: String? = nil, gender: PCUserGender? = nil, lastName: String? = nil, locale: String? = nil, phoneNumber: String? = nil, pictureUrl: String? = nil, zoneInfo: String? = nil) {
         self.id = id
         self.type = type
         self.address = address
         self.birthDate = birthDate
-        self.createdAt = createdAt
         self.email = email
         self.firstName = firstName
         self.gender = gender
@@ -145,7 +141,6 @@ public class PCUserUser: APIModel {
         type = try container.decodeIfPresent("type")
         address = try container.decodeIfPresent("address")
         birthDate = try container.decodeIfPresent("birthDate")
-        createdAt = try container.decodeIfPresent("createdAt")
         email = try container.decodeIfPresent("email")
         firstName = try container.decodeIfPresent("firstName")
         gender = try container.decodeIfPresent("gender")
@@ -163,7 +158,6 @@ public class PCUserUser: APIModel {
         try container.encodeIfPresent(type, forKey: "type")
         try container.encodeIfPresent(address, forKey: "address")
         try container.encodeIfPresent(birthDate, forKey: "birthDate")
-        try container.encodeIfPresent(createdAt, forKey: "createdAt")
         try container.encodeIfPresent(email, forKey: "email")
         try container.encodeIfPresent(firstName, forKey: "firstName")
         try container.encodeIfPresent(gender, forKey: "gender")
@@ -180,7 +174,6 @@ public class PCUserUser: APIModel {
       guard self.type == object.type else { return false }
       guard self.address == object.address else { return false }
       guard self.birthDate == object.birthDate else { return false }
-      guard self.createdAt == object.createdAt else { return false }
       guard self.email == object.email else { return false }
       guard self.firstName == object.firstName else { return false }
       guard self.gender == object.gender else { return false }
