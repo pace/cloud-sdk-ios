@@ -5,44 +5,44 @@
 //  Created by PACE Telematics GmbH.
 //
 
-import Base32
 import Foundation
 import LocalAuthentication
-import OneTimePassword
 
-struct BiometryPolicy {
-    let laContext: LAContext
+public extension IDKit {
+    struct BiometryPolicy {
+        let laContext: LAContext
 
-    var isBiometryAvailable: Bool {
-        var authError: NSError?
-        let isBiometryAvailable = laContext.canEvaluatePolicy(laPolicy, error: &authError)
-        return isBiometryAvailable
-    }
+        var isBiometryAvailable: Bool {
+            var authError: NSError?
+            let isBiometryAvailable = laContext.canEvaluatePolicy(laPolicy, error: &authError)
+            return isBiometryAvailable
+        }
 
-    var canEvaluatePolicy: Bool {
-        var authError: NSError?
-        return laContext.canEvaluatePolicy(laPolicy, error: &authError)
-    }
+        var canEvaluatePolicy: Bool {
+            var authError: NSError?
+            return laContext.canEvaluatePolicy(laPolicy, error: &authError)
+        }
 
-    private var laPolicy: LAPolicy {
-        .deviceOwnerAuthentication
-    }
+        private var laPolicy: LAPolicy {
+            .deviceOwnerAuthentication
+        }
 
-    init() {
-        laContext = LAContext()
-    }
+        init() {
+            laContext = LAContext()
+        }
 
-    func evaluatePolicy(reasonText: String, completion: @escaping (Bool, Error?) -> Void) {
-        laContext.evaluatePolicy(laPolicy, localizedReason: reasonText, reply: completion)
+        func evaluatePolicy(reasonText: String, completion: @escaping (Bool, Error?) -> Void) {
+            laContext.evaluatePolicy(laPolicy, localizedReason: reasonText, reply: completion)
+        }
     }
 }
 
-extension BiometryPolicy {
+public extension IDKit.BiometryPolicy {
     static func generateTOTP(with totpData: Data, timeIntervalSince1970: TimeInterval) -> String? {
         guard let biometryTOTPData = try? JSONDecoder().decode(IDKit.BiometryTOTPData.self, from: totpData),
-              let secretData = MF_Base32Codec.data(fromBase32String: biometryTOTPData.secret), !secretData.isEmpty else { return nil }
+              let secretData = biometryTOTPData.secret.base32DecodedData, !secretData.isEmpty else { return nil }
 
-        let algorithm: Generator.Algorithm
+        let algorithm: OneTimePassword.Generator.Algorithm
 
         switch biometryTOTPData.algorithm {
         case PCUserDeviceTOTP.PCUserAlgorithm.sha1.rawValue:
@@ -58,15 +58,15 @@ extension BiometryPolicy {
             algorithm = .sha1
         }
 
-        guard let generator = Generator(factor: .timer(period: biometryTOTPData.period),
-                                        secret: secretData,
-                                        algorithm: algorithm,
-                                        digits: biometryTOTPData.digits)
+        guard let generator = OneTimePassword.Generator(factor: .timer(period: biometryTOTPData.period),
+                                                        secret: secretData,
+                                                        algorithm: algorithm,
+                                                        digits: biometryTOTPData.digits)
         else {
             return nil
         }
 
-        let token = Token(name: "TOTP", issuer: "PACE", generator: generator)
+        let token = OneTimePassword.Token(name: "TOTP", issuer: "PACE", generator: generator)
         let time = Date(timeIntervalSince1970: timeIntervalSince1970)
 
         do {
@@ -76,7 +76,9 @@ extension BiometryPolicy {
             return nil
         }
     }
+}
 
+extension IDKit.BiometryPolicy {
     static func retrieveMasterKey() -> String { // swiftlint:disable:this inclusive_language
         // We are appending a device id, because the Keychain is
         // persisted outside of the app's sandbox, therefore

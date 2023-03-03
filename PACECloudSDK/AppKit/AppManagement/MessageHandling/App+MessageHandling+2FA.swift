@@ -21,7 +21,7 @@ extension App {
     }
 
     func handleGetBiometricStatus(completion: @escaping (API.Communication.GetBiometricStatusResult) -> Void) {
-        let isBiometryAvailable = BiometryPolicy().isBiometryAvailable
+        let isBiometryAvailable = IDKit.BiometryPolicy().isBiometryAvailable
         completion(.init(.init(response: .init(biometryAvailable: isBiometryAvailable))))
     }
 
@@ -32,7 +32,7 @@ extension App {
             return
         }
 
-        let biometryPolicy = BiometryPolicy()
+        let biometryPolicy = IDKit.BiometryPolicy()
         let reasonText = PACECloudSDK.shared.localizable.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
@@ -73,7 +73,7 @@ extension App {
             return
         }
 
-        let biometryPolicy = BiometryPolicy()
+        let biometryPolicy = IDKit.BiometryPolicy()
         let reasonText = PACECloudSDK.shared.localizable.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
@@ -88,7 +88,7 @@ extension App {
                 return
             }
 
-            guard let totp = BiometryPolicy.generateTOTP(with: totpData, timeIntervalSince1970: request.serverTime) else {
+            guard let totp = IDKit.BiometryPolicy.generateTOTP(with: totpData, timeIntervalSince1970: request.serverTime) else {
                 completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Failed generating a device totp."))))
                 return
             }
@@ -137,7 +137,7 @@ extension App {
             return
         }
 
-        let biometryPolicy = BiometryPolicy()
+        let biometryPolicy = IDKit.BiometryPolicy()
         let reasonText = PACECloudSDK.shared.localizable.appkitSecureDataAuthenticationConfirmation
 
         guard biometryPolicy.canEvaluatePolicy else {
@@ -205,7 +205,7 @@ private extension App {
             return nil
         }
 
-        let secretKey = BiometryPolicy.retrieveMasterKey()
+        let secretKey = IDKit.BiometryPolicy.retrieveMasterKey()
         SDKKeychain.migrateUserScopedDataIfNeeded(key: secretKey)
         let totpData = SDKKeychain.data(for: secretKey, isUserSensitiveData: true)
         return totpData
@@ -218,7 +218,7 @@ private extension App {
         // Set master TOTP Data if not available yet
         guard masterTOTPData(host: host) == nil else { return }
 
-        let secretKey = BiometryPolicy.retrieveMasterKey()
+        let secretKey = IDKit.BiometryPolicy.retrieveMasterKey()
         SDKKeychain.set(newValue, for: secretKey, isUserSensitiveData: true)
     }
 }

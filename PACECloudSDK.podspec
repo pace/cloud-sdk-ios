@@ -13,6 +13,5 @@ Pod::Spec.new do |spec|
   spec.resources            = ["PACECloudSDK/**/*.{strings,png}", "PACECloudSDK/Utils/**/*.plist"]
   spec.dependency "AppAuth"
   spec.dependency "SwiftProtobuf", "~> 1.15.0"
-  spec.dependency "OneTimePassword", "~> 3.2.0"
   spec.dependency "Japx"
 end
