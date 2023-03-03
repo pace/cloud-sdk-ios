@@ -17,7 +17,7 @@ public struct UserAPI {
                                                             locale: Locale(identifier: "de_DE"),
                                                             calendar: Calendar(identifier: .gregorian))
 
-    public static let version = "master"
+    public static let version = "2021-2"
 
     public enum AuditLog {}
     public enum Callbacks {}
@@ -32,8 +32,8 @@ public struct UserAPI {
     public enum User {}
 
     public enum UserAPIServer {
-        /** Preview **/
-        public static let main = "https://api.pace.cloud/user/master"
+        /** Production server (stable release 2021-2) **/
+        public static let main = "https://api.pace.cloud/user/2021-2"
     }
 }
 

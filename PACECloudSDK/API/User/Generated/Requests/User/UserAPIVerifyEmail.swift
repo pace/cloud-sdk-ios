@@ -14,7 +14,7 @@ extension UserAPI.User {
     */
     public enum VerifyEmail {
 
-        public static var service = UserAPIService<Response>(id: "VerifyEmail", tag: "User", method: "POST", path: "/user/email/verify", hasBody: true, securityRequirements: [])
+        public static var service = UserAPIService<Response>(id: "VerifyEmail", tag: "User", method: "GET", path: "/user/email/verify", hasBody: true, securityRequirements: [])
 
         public final class Request: UserAPIRequest<Response> {
 
