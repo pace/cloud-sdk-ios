@@ -22,6 +22,10 @@ public class IDKit {
         sharedInstance?.session != nil
     }
 
+    static var defaultScopes: [String] {
+        [OIDScopeOpenID]
+    }
+
     private static var sharedInstance: IDKit?
 
     weak var delegate: IDKitDelegate?
