@@ -1,3 +1,26 @@
+14.0.0 Release notes (2023-03-06)
+=============================================================
+
+### Breaking Changes
+
+* Generate API 2022-1 for Fueling and Payment service
+* Add method to `POIKit.POIKitManager` that returns a list of `POIKit.GasStation` for the specified ids
+* Remove database delegates
+* Rework logging
+
+### Fixes
+
+* Reset user API to 2021-2
+* Add openid as default scope to authorization request
+* Fix `POIKit.GasStation` initializer
+
+### Internal
+
+* Make `generateTOTP(Data, TimeInterval) -> String?` of `BiometryPolicy` publicly accessible
+* Remove SDK dependency OneTimePassword
+* Implement OneTimePassword and Base32
+* Improve debug bundle handling
+
 13.1.0 Release notes (2023-01-12)
 =============================================================
 
