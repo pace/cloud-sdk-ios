@@ -1,6 +1,6 @@
 //
 //  OpeningHoursTests.swift
-//  POIKitTests
+//  PACECloudSDKTests
 //
 //  Created by PACE Telematics GmbH.
 //
@@ -8,165 +8,266 @@
 import XCTest
 @testable import PACECloudSDK
 
-class OpeningHoursTests: XCTestCase {
-    let allWeek: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
-
-    func testNoOpeningHour() {
-        let oh: [PCPOICommonOpeningHours.Rules] = []
-
-        XCTAssertEqual(oh.description, "[]")
-        XCTAssertTrue(oh.getClosedAreas(around: Date()).isEmpty)
-    }
+final class OpeningHoursTests: XCTestCase {
+    private let allWeek = PCPOICommonOpeningHours.Rules.PCPOIDays.allCases
+    private let weekday: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.monday, .tuesday, .wednesday, .thursday, .friday]
+    private let weekend: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.saturday, .sunday]
+    private let mondayToSaturday: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday]
+    private let sunday: [PCPOICommonOpeningHours.Rules.PCPOIDays] = [.sunday]
+    private let daily: POIKit.OpeningHoursValue = .daily
+    private let open247: POIKit.OpeningHoursValue = .open247
+    private let closed: POIKit.OpeningHoursValue = .closed
+    private let open9to5: POIKit.OpeningHoursValue = .time(value: "9:00 AM – 5:00 PM")
+    private let open8to2315: POIKit.OpeningHoursValue = .time(value: "8:00 AM – 11:15 PM")
+    private let open7to230: POIKit.OpeningHoursValue = .time(value: "7:00 AM – 2:30 AM")
+    private let open8to230: POIKit.OpeningHoursValue = .time(value: "8:00 AM – 2:30 AM")
+    private let openWithBreak: POIKit.OpeningHoursValue = .time(value: "8:00 AM – 12:35 PM\n2:00 PM – 11:00 PM")
 
     func testOpen247() {
-        let oh: [PCPOICommonOpeningHours.Rules] = [PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")])]
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: allWeek, timespans: [.init(from: "0", to: "0")])
+        ]
 
-        XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 0 to 0]: open]"#)
-        XCTAssertTrue(oh.getClosedAreas(around: Date()).isEmpty)
+        let appliedRules = openingHours.openingHours()
+
+        XCTAssertEqual(appliedRules.count, 1)
+        XCTAssertEqual(appliedRules.first?.0, daily)
+        XCTAssertEqual(appliedRules.first?.1, open247)
     }
 
-    func testOpenAllWeekWithClosed() {
-
-        let oh: [PCPOICommonOpeningHours.Rules] = [PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "5", to: "23:45")])]
-
-        XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 5 to 23:45]: open]"#)
-
-        let formatter = ISO8601DateFormatter()
-
-        let controlData = [
-            (formatter.timeIntervalSince1970(from: "1969-12-30T23:00:00Z")!, formatter.timeIntervalSince1970(from: "1969-12-31T04:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1969-12-31T22:44:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-01T04:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-01T22:44:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-02T04:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-02T22:44:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-03T04:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-03T22:44:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-04T04:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-04T22:44:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-04T23:00:00Z")!)
+    func testOpenFrom8To23() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: allWeek, timespans: [.init(from: "8", to: "23:15")])
         ]
 
-        XCTAssert(oh.getClosedAreas(around: formatter.date(from: "1970-01-02T00:00:00Z")!) == controlData)
+        let appliedRules = openingHours.openingHours()
+
+        XCTAssertEqual(appliedRules.count, 1)
+        XCTAssertEqual(appliedRules.first?.0, daily)
+        XCTAssertEqual(appliedRules.first?.1, open8to2315)
     }
 
-    func testOnlyOpenMonday() {
-        let oh: [PCPOICommonOpeningHours.Rules] = [
-            PCPOICommonOpeningHours.Rules(action: .close, days: Array(allWeek[1...]), timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")]),
-            PCPOICommonOpeningHours.Rules(action: .open, days: [.monday], timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")])
+    func testOpenFrom7To230() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: allWeek, timespans: [.init(from: "7", to: "2:30")])
         ]
 
-        XCTAssertEqual(oh.description, #"[["tu", "we", "th", "fr", "sa", "su"]: [From 0 to 0]: close, ["mo"]: [From 0 to 0]: open]"#)
+        let appliedRules = openingHours.openingHours()
 
-        let formatter = ISO8601DateFormatter()
-
-        let controlData = [
-            (formatter.timeIntervalSince1970(from: "1970-01-02T23:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-04T23:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-05T22:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-07T23:00:00Z")!)
-        ]
-
-        XCTAssertTrue(oh.getClosedAreas(around: formatter.date(from: "1970-01-05T00:00:00Z")!) == controlData)
+        XCTAssertEqual(appliedRules.count, 1)
+        XCTAssertEqual(appliedRules.first?.0, daily)
+        XCTAssertEqual(appliedRules.first?.1, open7to230)
     }
 
-    func testSundayClosed() {
-        let oh: [PCPOICommonOpeningHours.Rules] = [
-            PCPOICommonOpeningHours.Rules(action: .close, days: [.sunday], timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "0", to: "0")]),
-            PCPOICommonOpeningHours.Rules(action: .open, days: Array(allWeek.dropLast()), timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "7", to: "20")])
+    func testMultipleOpeningRules1() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: weekday, timespans: [.init(from: "8", to: "12:35")]),
+            .init(action: .open, days: weekday, timespans: [.init(from: "14", to: "23")]),
+            .init(action: .open, days: weekend, timespans: [.init(from: "8", to: "23:15")])
         ]
 
-        XCTAssertEqual(oh.description, #"[["su"]: [From 0 to 0]: close, ["mo", "tu", "we", "th", "fr", "sa"]: [From 7 to 20]: open]"#)
+        let appliedRules = openingHours.openingHours()
 
-        let formatter = ISO8601DateFormatter()
-
-        let controlData = [
-            (formatter.timeIntervalSince1970(from: "1970-01-01T23:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-02T06:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-02T18:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-03T06:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-03T18:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-05T06:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-05T18:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-06T06:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-06T18:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-06T23:00:00Z")!)
-        ]
-
-        XCTAssertTrue(oh.getClosedAreas(around: formatter.date(from: "1970-01-04T00:00:00Z")!) == controlData)
+        XCTAssertEqual(appliedRules.count, 2)
+        XCTAssertEqual(appliedRules[0].0, .weekday(from: "monday", to: "friday"))
+        XCTAssertEqual(appliedRules[0].1, openWithBreak)
+        XCTAssertEqual(appliedRules[1].0, .weekday(from: "saturday", to: "sunday"))
+        XCTAssertEqual(appliedRules[1].1, open8to2315)
     }
 
-    func testMultipleClosedSections() {
-        let oh: [PCPOICommonOpeningHours.Rules] = [
-            PCPOICommonOpeningHours.Rules(action: .close, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "21", to: "5"), PCPOICommonOpeningHours.Rules.Timespans(from: "11", to: "14")])
+    func testMultipleOpeningRules2() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: weekday, timespans: [.init(from: "7", to: "2:30")]),
+            .init(action: .open, days: weekend, timespans: [.init(from: "8", to: "2:30")])
         ]
 
-        let formatter = ISO8601DateFormatter()
+        let appliedRules = openingHours.openingHours()
 
-        let controlData = [
-            (formatter.timeIntervalSince1970(from: "1969-12-31T10:00:00Z")!, formatter.timeIntervalSince1970(from: "1969-12-31T12:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1969-12-31T20:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-01T03:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-01T10:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-01T12:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-01T20:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-02T03:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-02T10:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-02T12:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-02T20:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-03T03:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-03T10:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-03T12:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-03T20:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-04T03:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-04T10:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-04T12:59:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-04T20:00:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-05T03:59:00Z")!)
-        ]
-
-        XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 21 to 5, From 11 to 14]: close]"#)
-
-        XCTAssertTrue(oh.getClosedAreas(around: formatter.date(from: "1970-01-02T00:00:00Z")!) == controlData)
+        XCTAssertEqual(appliedRules.count, 2)
+        XCTAssertEqual(appliedRules[0].0, .weekday(from: "monday", to: "friday"))
+        XCTAssertEqual(appliedRules[0].1, open7to230)
+        XCTAssertEqual(appliedRules[1].0, .weekday(from: "saturday", to: "sunday"))
+        XCTAssertEqual(appliedRules[1].1, open8to230)
     }
 
-    func testOpenOvernight() {
-        let oh: [PCPOICommonOpeningHours.Rules] = [
-            PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "20", to: "8")])
+    func testMultipleOpeningRules3() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: mondayToSaturday, timespans: [.init(from: "9", to: "17")]),
+            .init(action: .open, days: sunday, timespans: [.init(from: "8", to: "23:15")])
         ]
 
-        let formatter = ISO8601DateFormatter()
+        let appliedRules = openingHours.openingHours()
 
-        let controlData = [
-            (formatter.timeIntervalSince1970(from: "1969-12-30T23:00:00Z")!, formatter.timeIntervalSince1970(from: "1969-12-31T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-01T06:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-01T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-02T06:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-02T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-03T06:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-03T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "1970-01-04T06:59:00Z")!, formatter.timeIntervalSince1970(from: "1970-01-04T19:00:00Z")!)
-        ]
-
-        XCTAssertEqual(oh.description, #"[["mo", "tu", "we", "th", "fr", "sa", "su"]: [From 20 to 8]: open]"#)
-
-        XCTAssertTrue(oh.getClosedAreas(around: formatter.date(from: "1970-01-02T00:00:00Z")!) == controlData)
+        XCTAssertEqual(appliedRules.count, 2)
+        XCTAssertEqual(appliedRules[0].0, .weekday(from: "monday", to: "saturday"))
+        XCTAssertEqual(appliedRules[0].1, open9to5)
+        XCTAssertEqual(appliedRules[1].0, .day(day: "sunday"))
+        XCTAssertEqual(appliedRules[1].1, open8to2315)
     }
 
-    func testDSTSafeClosingTimes() {
-        let oh: [PCPOICommonOpeningHours.Rules] = [
-            PCPOICommonOpeningHours.Rules(action: .open, days: allWeek, timespans: [PCPOICommonOpeningHours.Rules.Timespans(from: "20", to: "8")])
+    func testMultipleOpeningRulesWithClosed1() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: weekday, timespans: [.init(from: "8", to: "12:35")]),
+            .init(action: .open, days: weekday, timespans: [.init(from: "14", to: "23")]),
+            .init(action: .close, days: [.tuesday], timespans: [.init(from: "0", to: "0")]),
+            .init(action: .open, days: weekend, timespans: [.init(from: "8", to: "23:15")])
         ]
 
-        let formatter = ISO8601DateFormatter()
-        let date1 = formatter.date(from: "2022-03-26T12:00:00Z")!
-        let date2 = formatter.date(from: "2022-03-27T12:00:00Z")!
+        let appliedRules = openingHours.openingHours()
 
-        let controlData1 = [
-            (formatter.timeIntervalSince1970(from: "2022-03-23T23:00:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-24T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-25T06:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-25T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-26T06:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-26T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-27T05:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-27T18:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-28T05:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-28T18:00:00Z")!)
-        ]
-
-        let controlData2 = [
-            (formatter.timeIntervalSince1970(from: "2022-03-24T23:00:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-25T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-26T06:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-26T19:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-27T05:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-27T18:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-28T05:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-28T18:00:00Z")!),
-            (formatter.timeIntervalSince1970(from: "2022-03-29T05:59:00Z")!, formatter.timeIntervalSince1970(from: "2022-03-29T18:00:00Z")!)
-        ]
-
-        XCTAssertTrue(oh.getClosedAreas(around: date1) == controlData1)
-        XCTAssertTrue(oh.getClosedAreas(around: date2) == controlData2)
+        XCTAssertEqual(appliedRules.count, 4)
+        XCTAssertEqual(appliedRules[0].0, .day(day: "monday"))
+        XCTAssertEqual(appliedRules[0].1, openWithBreak)
+        XCTAssertEqual(appliedRules[1].0, .day(day: "tuesday"))
+        XCTAssertEqual(appliedRules[1].1, closed)
+        XCTAssertEqual(appliedRules[2].0, .weekday(from: "wednesday", to: "friday"))
+        XCTAssertEqual(appliedRules[2].1, openWithBreak)
+        XCTAssertEqual(appliedRules[3].0, .weekday(from: "saturday", to: "sunday"))
     }
-}
 
-extension Array where Element == (Double, Double) {
-    static func ==(lhs: [(Double, Double)], rhs: [(Double, Double)]) -> Bool {
-        guard lhs.count == rhs.count else { return false }
+    func testMultipleOpeningRulesWithClosed2() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: [.monday, .tuesday, .wednesday], timespans: [.init(from: "8", to: "23")]),
+            .init(action: .close, days: weekday, timespans: [.init(from: "12:35", to: "14")]),
+            .init(action: .open, days: [.thursday], timespans: [.init(from: "8", to: "17")]),
+            .init(action: .open, days: [.friday], timespans: [.init(from: "8", to: "20")]),
+            .init(action: .open, days: weekend, timespans: [.init(from: "8", to: "23:15")])
+        ]
 
-        for i in 0..<lhs.count {
-            if lhs[i] != rhs[i] { return false }
-        }
+        let appliedRules = openingHours.openingHours()
 
-        return true
+        XCTAssertEqual(appliedRules.count, 4)
+        XCTAssertEqual(appliedRules[0].0, .weekday(from: "monday", to: "wednesday"))
+        XCTAssertEqual(appliedRules[0].1, openWithBreak)
+        XCTAssertEqual(appliedRules[1].0, .day(day: "thursday"))
+        XCTAssertEqual(appliedRules[2].0, .day(day: "friday"))
+        XCTAssertEqual(appliedRules[3].0, .weekday(from: "saturday", to: "sunday"))
+        XCTAssertEqual(appliedRules[3].1, open8to2315)
+    }
+
+    func testMultipleOpeningRules() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: [.monday], timespans: [.init(from: "8", to: "20")]),
+            .init(action: .open, days: [.tuesday], timespans: [.init(from: "9", to: "20")]),
+            .init(action: .open, days: [.wednesday], timespans: [.init(from: "10", to: "20")]),
+            .init(action: .open, days: [.thursday], timespans: [.init(from: "8", to: "21")]),
+            .init(action: .open, days: [.friday], timespans: [.init(from: "8", to: "22")]),
+            .init(action: .open, days: [.saturday], timespans: [.init(from: "7", to: "24")]),
+            .init(action: .open, days: [.sunday], timespans: [.init(from: "7", to: "21")])
+        ]
+
+        let appliedRules = openingHours.openingHours()
+
+        XCTAssertEqual(appliedRules.count, 7)
+        XCTAssertEqual(appliedRules[0].0, .day(day: "monday"))
+        XCTAssertEqual(appliedRules[0].1, .time(value: "8:00 AM – 8:00 PM"))
+        XCTAssertEqual(appliedRules[1].0, .day(day: "tuesday"))
+        XCTAssertEqual(appliedRules[1].1, .time(value: "9:00 AM – 8:00 PM"))
+        XCTAssertEqual(appliedRules[2].0, .day(day: "wednesday"))
+        XCTAssertEqual(appliedRules[2].1, .time(value: "10:00 AM – 8:00 PM"))
+        XCTAssertEqual(appliedRules[3].0, .day(day: "thursday"))
+        XCTAssertEqual(appliedRules[3].1, .time(value: "8:00 AM – 9:00 PM"))
+        XCTAssertEqual(appliedRules[4].0, .day(day: "friday"))
+        XCTAssertEqual(appliedRules[4].1, .time(value: "8:00 AM – 10:00 PM"))
+        XCTAssertEqual(appliedRules[5].0, .day(day: "saturday"))
+        XCTAssertEqual(appliedRules[5].1, .time(value: "7:00 AM – 12:00 AM"))
+        XCTAssertEqual(appliedRules[6].0, .day(day: "sunday"))
+        XCTAssertEqual(appliedRules[6].1, .time(value: "7:00 AM – 9:00 PM"))
+    }
+
+    func testGetOpeningHours() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: [.monday, .tuesday, .wednesday], timespans: [.init(from: "8", to: "23")]),
+            .init(action: .open, days: [.thursday], timespans: [.init(from: "8", to: "17")]),
+            .init(action: .open, days: [.friday], timespans: [.init(from: "8", to: "20")]),
+            .init(action: .open, days: weekend, timespans: [.init(from: "8", to: "2")]),
+        ]
+
+        let date1 = Date(timeIntervalSince1970: 1547424000) // 14.01.19; a Monday
+        let date2 = Date(timeIntervalSince1970: 1547164800) // 11.01.19; a Friday
+        let date3 = Date(timeIntervalSince1970: 1553347671) // 23.03.19; a Saturday
+
+        let hours1 = openingHours.getOpeningHours(for: date1)
+        let hours2 = openingHours.getOpeningHours(for: date2)
+        let hours3 = openingHours.getOpeningHours(for: date3)
+
+        XCTAssertEqual(hours1, POIKit.OpeningHoursValue.time(value: "8:00 AM – 11:00 PM"))
+        XCTAssertEqual(hours2, POIKit.OpeningHoursValue.time(value: "8:00 AM – 8:00 PM"))
+        XCTAssertEqual(hours3, POIKit.OpeningHoursValue.time(value: "8:00 AM – 2:00 AM"))
+    }
+
+    func testMinutesTillClosed() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: [.monday, .tuesday, .wednesday], timespans: [.init(from: "8", to: "23")]),
+            .init(action: .open, days: [.thursday], timespans: [.init(from: "8", to: "17")]),
+            .init(action: .open, days: [.friday], timespans: [.init(from: "8", to: "20")]),
+            .init(action: .open, days: weekend, timespans: [.init(from: "8", to: "23:15")]),
+        ]
+
+        let date1 = Date(timeIntervalSince1970: 1553347671) // 23.03.19; a Saturday
+        let date2 = Date(timeIntervalSince1970: 1553434071) // 24.03.19; a Sunday
+
+        let minutes1 = openingHours.minuteTillClose(from: date1)
+        let minutes2 = openingHours.minuteTillClose(from: date2)
+
+        XCTAssertEqual(minutes1, 528)
+        XCTAssertEqual(minutes2, 528)
+    }
+
+    func testMidnightLogic() {
+        // the array can be empty, because the method is not dependent on its values
+        let openingHours: [PCPOICommonOpeningHours.Rules] = []
+
+        let time1 = openingHours.minutesToTime(0, locale: Locale(identifier: "de_DE"))
+        let time2 = openingHours.minutesToTime(0, from: true, locale: Locale(identifier: "de_DE"))
+        let time3 = openingHours.minutesToTime(0, locale: Locale(identifier: "en_US"))
+        let time4 = openingHours.minutesToTime(0, from: true, locale: Locale(identifier: "en_US"))
+
+        XCTAssertEqual(time1, "24:00")
+        XCTAssertEqual(time2, "00:00")
+        XCTAssertEqual(time3, "12:00 AM")
+        XCTAssertEqual(time4, "12:00 AM")
+    }
+
+    func testDateIsOpen() {
+        let openingHours: [PCPOICommonOpeningHours.Rules] = [
+            .init(action: .open, days: [.wednesday], timespans: [.init(from: "12", to: "1")]),
+            .init(action: .open, days: [.friday], timespans: [.init(from: "6", to: "2")]),
+            .init(action: .open, days: [.sunday], timespans: [.init(from: "0", to: "23")]),
+            .init(action: .close, days: [.sunday], timespans: [.init(from: "23", to: "1")])
+        ]
+
+        let thursdayOpen = Date(timeIntervalSince1970: 1678921200) // 16.03.23, Thursday 0:00
+
+        let fridayClosed = Date(timeIntervalSince1970: 1679025600) // 17.03.23, Friday 5:00
+        let fridayOpen = Date(timeIntervalSince1970: 1679092200) // 17.03.23, Friday 23:30
+        let saturdayOpen = Date(timeIntervalSince1970: 1679095200) // 18.03.23, Saturday 00:20
+        let saturdayClosed = Date(timeIntervalSince1970: 1679104800) // 18.03.23, Saturday 3:00
+
+        let sundayOpen = Date(timeIntervalSince1970: 1679216400) // 19.03.23, Sunday 10:00
+        let sundayClosed = Date(timeIntervalSince1970: 1679265000) // 19.03.23, Sunday 23:30
+        let mondayClosed = Date(timeIntervalSince1970: 1679268600) // 20.03.23, Monday 00:30
+
+        let isClosed1 = openingHours.isClosed(on: thursdayOpen)
+
+        let isClosed2 = openingHours.isClosed(on: fridayClosed)
+        let isClosed3 = openingHours.isClosed(on: fridayOpen)
+        let isClosed4 = openingHours.isClosed(on: saturdayOpen)
+        let isClosed5 = openingHours.isClosed(on: saturdayClosed)
+
+        let isClosed6 = openingHours.isClosed(on: sundayOpen)
+        let isClosed7 = openingHours.isClosed(on: sundayClosed)
+        let isClosed8 = openingHours.isClosed(on: mondayClosed)
+
+        XCTAssertFalse(isClosed1)
+
+        XCTAssertTrue(isClosed2)
+        XCTAssertFalse(isClosed3)
+        XCTAssertFalse(isClosed4)
+        XCTAssertTrue(isClosed5)
+
+        XCTAssertFalse(isClosed6)
+        XCTAssertTrue(isClosed7)
+        XCTAssertTrue(isClosed8)
     }
 }

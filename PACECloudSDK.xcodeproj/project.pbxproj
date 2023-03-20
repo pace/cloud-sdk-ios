@@ -406,6 +406,7 @@
 		3B6826A027BA949B00933C95 /* IDKitUserAgentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */; };
 		3B6826A327BA955300933C95 /* Constants+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6826A227BA955300933C95 /* Constants+UserAgent.swift */; };
 		3B6826A427BA958500933C95 /* Constants+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6826A227BA955300933C95 /* Constants+UserAgent.swift */; };
+		3B6A1DB929C4BAEB001F217C /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6A1DB829C4BAEB001F217C /* OpeningHoursTests.swift */; };
 		3B6B37F726298CF3001961B6 /* Cms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B37F626298CF3001961B6 /* Cms.swift */; };
 		3B6B380C26298DD4001961B6 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
 		3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
@@ -825,7 +826,7 @@
 		3BC3C6E0279EB3A600E39956 /* PayAPICreatePaymentMethodRMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3C6DD279EB3A600E39956 /* PayAPICreatePaymentMethodRMC.swift */; };
 		3BC3C6E1279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3C6DE279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift */; };
 		3BC3C6E2279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC3C6DE279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift */; };
-		3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */; };
+		3BC9A7972539DD5A00B933AE /* PriceHistoryClosedAreaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7952539DD5A00B933AE /* PriceHistoryClosedAreaTests.swift */; };
 		3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */; };
 		3BC9A7EE2539DDAD00B933AE /* POIKitAPI+GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */; };
 		3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */; };
@@ -1407,6 +1408,7 @@
 		3B68269627BA5ECA00933C95 /* IDKitWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitWebViewController.swift; sourceTree = "<group>"; };
 		3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitUserAgentType.swift; sourceTree = "<group>"; };
 		3B6826A227BA955300933C95 /* Constants+UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+UserAgent.swift"; sourceTree = "<group>"; };
+		3B6A1DB829C4BAEB001F217C /* OpeningHoursTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
 		3B6B37F626298CF3001961B6 /* Cms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cms.swift; sourceTree = "<group>"; };
 		3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmsAPIClient.swift; sourceTree = "<group>"; };
 		3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CmsAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
@@ -1633,7 +1635,7 @@
 		3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PACECloudSDK+URL.swift"; sourceTree = "<group>"; };
 		3BC3C6DD279EB3A600E39956 /* PayAPICreatePaymentMethodRMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAPICreatePaymentMethodRMC.swift; sourceTree = "<group>"; };
 		3BC3C6DE279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayAPICreatePaymentMethodRadius.swift; sourceTree = "<group>"; };
-		3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
+		3BC9A7952539DD5A00B933AE /* PriceHistoryClosedAreaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceHistoryClosedAreaTests.swift; sourceTree = "<group>"; };
 		3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+GasStation.swift"; sourceTree = "<group>"; };
 		3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableData+Extension.swift"; sourceTree = "<group>"; };
@@ -2770,7 +2772,8 @@
 			isa = PBXGroup;
 			children = (
 				3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */,
-				3BC9A7952539DD5A00B933AE /* OpeningHoursTests.swift */,
+				3B6A1DB829C4BAEB001F217C /* OpeningHoursTests.swift */,
+				3BC9A7952539DD5A00B933AE /* PriceHistoryClosedAreaTests.swift */,
 				3B2E46F225D2C0E00015E79A /* InvalidationTokenCacheTests.swift */,
 			);
 			path = POIKitTests;
@@ -4982,6 +4985,7 @@
 				3B7C0B2A266A196D00346FCC /* IconSelectorTests.swift in Sources */,
 				3B970ABF2542D9DB0072F6BA /* PWADataMock.swift in Sources */,
 				92D31FAB2590950E0074F732 /* PACECloudSDKTests.swift in Sources */,
+				3B6A1DB929C4BAEB001F217C /* OpeningHoursTests.swift in Sources */,
 				3B51D6D428D88DA300ECA65D /* SDKUserDefaultsTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
 				3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */,
@@ -4989,7 +4993,7 @@
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
 				3BB388312923D71C00044F09 /* ExponentialBackoffTests.swift in Sources */,
 				9AD092BA2817E1C9000A3CB3 /* DateCalculationsTests.swift in Sources */,
-				3BC9A7972539DD5A00B933AE /* OpeningHoursTests.swift in Sources */,
+				3BC9A7972539DD5A00B933AE /* PriceHistoryClosedAreaTests.swift in Sources */,
 				3B970AC32542D9DB0072F6BA /* URLBuilderTests.swift in Sources */,
 				3BA9E52B274B982C00617EDE /* CommandLineArguments.swift in Sources */,
 				3BA9E525274B82F000617EDE /* MockObject.swift in Sources */,

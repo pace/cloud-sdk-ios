@@ -9,4 +9,5 @@ import Foundation
 
 struct POIKitConstants {
     static let logTag = "[POIKit]"
+    static let dayInMinutes: Int = 1440
 }

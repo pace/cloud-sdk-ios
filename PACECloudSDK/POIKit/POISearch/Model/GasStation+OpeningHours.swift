@@ -83,6 +83,20 @@ extension PCPOICommonOpeningHours.Rules {
     func rulesForHours() -> [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)] {
         return timespans?.compactMap { ($0.ruleSet(), action ?? .close) } ?? []
     }
+
+    func rulesForPastMidnight() -> [(IndexSet, PCPOICommonOpeningHours.Rules.PCPOIAction)] {
+        let rulesForHours = rulesForHours()
+
+        // Get the one rule that specifies opening hours past midnight
+        guard let rulePastMidnight = rulesForHours.first(where: { $0.0.rangeView.contains(where: { $0.upperBound > POIKitConstants.dayInMinutes }) }),
+              let range = rulePastMidnight.0.rangeView.first(where: { $0.upperBound > POIKitConstants.dayInMinutes })
+        else { return [] }
+
+        let action = rulePastMidnight.1
+        let excess = range.upperBound - POIKitConstants.dayInMinutes
+        let pastMidnightIndexSet = IndexSet(0 ..< excess)
+        return [(pastMidnightIndexSet, action)]
+    }
 }
 
 extension PCPOICommonOpeningHours.Rules.Timespans {
@@ -94,7 +108,7 @@ extension PCPOICommonOpeningHours.Rules.Timespans {
         var to: Int = toComponents.enumerated().reduce(0) { $0 + $1.element * ($1.offset == 0 ? 60 : 1) }
 
         if from > to { // Add 24h because to time is in for the next day
-            to += 1440
+            to += POIKitConstants.dayInMinutes
         }
         return (from, to)
     }
@@ -209,8 +223,8 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
 
     private func mapTimesRangeToOpeningHoursString(_ range: Range<IndexSet.Element>) -> TimeFrame {
         var upperBound = range.upperBound
-        if upperBound > 1440 {
-            upperBound -= 1440
+        if upperBound > POIKitConstants.dayInMinutes {
+            upperBound -= POIKitConstants.dayInMinutes
         }
 
         if isAlwaysOpenSpecialCase(from: range.lowerBound, to: upperBound) {
@@ -222,7 +236,7 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
 
     /** Check the case: opening hours -> 00:00 - 23:59 */
     private func isAlwaysOpenSpecialCase(from: Int, to: Int) -> Bool {
-        return from % 1440 == 0 && to % 1440 == 1439  // 00:00 - 23:59
+        return from % POIKitConstants.dayInMinutes == 0 && to % POIKitConstants.dayInMinutes == 1439  // 00:00 - 23:59
     }
 
     /** Change opening value to 'open247' if gas station is open from 00:00 to 23:59 (aka 'wholeDay') */
@@ -319,6 +333,15 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
             if weekDay - 1 < weekdays.count, hour.days?.first(where: { weekdays[weekDay - 1] == $0 }) != nil {
                 rulesForToday.append(contentsOf: hour.rulesForHours())
             }
+
+            // Check if there are rules of the previous day
+            // that influence the opening hours of the current day
+            // (e.g rules that specify opening hours past midnight of the previous day)
+            let previousDayIndex = abs((weekDay - 2) % 7)
+            guard let previousDay = hour.days?.first(where: { weekdays[previousDayIndex] == $0 }),
+                  let previousDayOpeningHour = first(where: { $0.days?.contains(previousDay) ?? false }) else { continue }
+
+            rulesForToday.append(contentsOf: previousDayOpeningHour.rulesForPastMidnight())
         }
 
         let units: Set<Calendar.Component> = [.minute, .hour, .day, .month, .year]
@@ -329,6 +352,10 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
         guard let currentRange = appliedRules.rangeView.first(where: { $0.contains(minutesPassedTillMidnight) }) else { return -Int.max }
 
         return currentRange.upperBound - minutesPassedTillMidnight
+    }
+
+    public func isClosed(on date: Date = Date()) -> Bool {
+        minuteTillClose(from: date) == -Int.max
     }
 
     public func openingHours() -> [(POIKit.OpeningHoursValue, POIKit.OpeningHoursValue)] {
@@ -342,8 +369,8 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
             return first?.timespans?.compactMap {
                 let minutes = $0.stringToMinutes()
                 var to = minutes.to
-                if to > 1440 {
-                    to -= 1440
+                if to > POIKitConstants.dayInMinutes {
+                    to -= POIKitConstants.dayInMinutes
                 }
 
                 if isAlwaysOpenSpecialCase(from: minutes.from, to: to) { // 00:00 - 23:59 - equals open247
@@ -531,8 +558,8 @@ extension Array where Element: PCPOICommonOpeningHours.Rules {
             return first?.timespans?.compactMap {
                 let minutes = $0.stringToMinutes()
                 var to = minutes.to
-                if to > 1440 {
-                    to -= 1440
+                if to > POIKitConstants.dayInMinutes {
+                    to -= POIKitConstants.dayInMinutes
                 }
 
                 if isAlwaysOpenSpecialCase(from: minutes.from, to: to) { // 00:00 - 23:59 - equals open247
