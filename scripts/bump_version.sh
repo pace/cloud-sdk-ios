@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATE=$(date +'%Y-%m-%d')
-CURRENT_VERSION=$(git describe --tags --abbrev=0)
+CURRENT_VERSION=$(git describe --tags --abbrev=0 --match "[0-9]*") # Make sure to ignore the 'dev' and 'dev-review' tag
 
 # https://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash#answer-918931
 IFS='.' read -ra VERSIONS <<< "$CURRENT_VERSION"
@@ -41,6 +41,11 @@ for commit in $COMMITS; do
   # Get the subject of the current commit
   subject="$(git log -1 $commit --pretty=format:"%s")"
 
+  # Ignore 'Update Package file' commits (dev deployment commits)
+  if [[ $subject == 'build: Update Package file' ]]; then
+    continue
+  fi
+
   # Get the body of the current commit
   body="$(git log -1 $commit --pretty=format:"%B")"
 
@@ -67,7 +72,7 @@ for commit in $COMMITS; do
     trim_subject $subject
     internals+=( $trimmed_subject )
 
-  # If commit is none if the above -> add to internal
+  # If commit is none of the above -> add to internal
   else
     internals+=( $subject )
   fi
@@ -130,7 +135,5 @@ add_changes_if_needed "Internal" "${internals[@]}"
 sed -i '' -e "1s/^/$changelog\n/" CHANGELOG.md
 echo "Created changelog entry for version $new_version"
 
-# Commit changes
-git checkout -b "bump-version-$new_version"
-git add -u
-git commit -m "build: Bump version to $new_version"
+export OLD_SDK_VERSION=$CURRENT_VERSION
+export NEW_SDK_VERSION=$new_version

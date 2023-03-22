@@ -11,30 +11,12 @@
         }
       },
       {
-        "package": "Base32",
-        "repositoryURL": "https://github.com/pace/Base32",
-        "state": {
-          "branch": null,
-          "revision": "610f64d1f5d270e4c9eb71a3c76d645ef0bd9915",
-          "version": "1.2.1"
-        }
-      },
-      {
         "package": "Japx",
         "repositoryURL": "https://github.com/pace/Japx",
         "state": {
           "branch": null,
           "revision": "06fe392a1ecc05d0158d505d06899f0a9133030f",
           "version": "5.0.0"
-        }
-      },
-      {
-        "package": "OneTimePassword",
-        "repositoryURL": "https://github.com/pace/OneTimePassword",
-        "state": {
-          "branch": null,
-          "revision": "45dd041c3c71b7946ed70c5f6cdc82560c127606",
-          "version": "3.3.2"
         }
       },
       {
