@@ -1,6 +1,6 @@
-include:
-  - local: "ExampleApp/.gitlab-ci.yml"
-  - local: "FuelingExampleApp/.gitlab-ci.yml"
+# include:
+#   - local: "ExampleApp/.gitlab-ci.yml"
+#   - local: "FuelingExampleApp/.gitlab-ci.yml"
 
 variables:
   PROJECT_PATH: "PACECloudSDK"
@@ -15,13 +15,6 @@ stages:
 
 before_script:
   - bundle install || true
-  - export TAG_COMMIT_TIME=$(git show -s --format=%ct $CI_COMMIT_SHA)
-  - echo "Commit time to be used as build number:" $TAG_COMMIT_TIME
-  - export BUILD_NUMBER=$(TZ=Etc/Utc date -j -f '%s' ${TAG_COMMIT_TIME} "+%Y%m%d%H")
-  - export VERSION_NAME=$(TZ=Etc/Utc date -j -f '%s' ${TAG_COMMIT_TIME} "+%y.%V.%u")
-  - echo "Building version $VERSION_NAME with build number $BUILD_NUMBER"
-  - export TAG_NAME=${CI_COMMIT_TAG:-'2.0.0'}
-  - echo "Current tag version $TAG_NAME"
 
 ## Infrastructure
 .xcode_version:
@@ -87,24 +80,6 @@ before_script:
       - $CI_COMMIT_MESSAGE =~ /WIP/
   interruptible: true
 
-.xcframework: &xcframework
-  script:
-    - bundle exec fastlane set_version version_number:$TAG_NAME
-    - xcodebuild archive
-      -scheme $PROJECT_NAME
-      -sdk $DEVICE_SDK
-      -archivePath "archives/ios_devices.xcarchive" BUILD_LIBRARY_FOR_DISTRIBUTION=YES SKIP_INSTALL=NO | xcpretty
-    - xcodebuild archive
-      -scheme $PROJECT_NAME
-      -sdk $SIMULATOR_SDK
-      -archivePath "archives/ios_simulators.xcarchive" BUILD_LIBRARY_FOR_DISTRIBUTION=YES SKIP_INSTALL=NO | xcpretty
-    - xcodebuild
-      -create-xcframework
-      -framework archives/ios_devices.xcarchive/Products/Library/Frameworks/$PROJECT_NAME.framework
-      -framework archives/ios_simulators.xcarchive/Products/Library/Frameworks/$PROJECT_NAME.framework
-      -output build/${PROJECT_NAME}.xcframework | xcpretty
-  interruptible: true
-
 ### Commit format
 commit_format:
   stage: test
@@ -127,97 +102,109 @@ pacecloudsdk_plists:
 pacecloudsdk_code_style:
   extends: .code_style
 
-pacecloudsdk_unit_tests:
-  extends: .unit_test
-  variables:
-    PROJECT_PATH: "."
+# pacecloudsdk_unit_tests:
+#   extends: .unit_test
+#   variables:
+#     PROJECT_PATH: "."
 
 ## Build framework
-framework_review:
-  extends: .review
-  stage: build
-  variables:
-    TARGET_SCHEME: "PACECloudSDK"
+# framework_review:
+#   extends: .review
+#   stage: build
+#   variables:
+#     TARGET_SCHEME: "PACECloudSDK"
 
-framework_slim_review:
-  extends: .review
-  stage: build
-  variables:
-    TARGET_SCHEME: "PACECloudSlimSDK"
+# framework_slim_review:
+#   extends: .review
+#   stage: build
+#   variables:
+#     TARGET_SCHEME: "PACECloudSlimSDK"
 
-framework_watch_review:
-  extends: .review
-  stage: build
-  variables:
-    SIMULATOR_SDK: "watchsimulator"
-    TARGET_SCHEME: "PACECloudWatchSDK"
+# framework_watch_review:
+#   extends: .review
+#   stage: build
+#   variables:
+#     SIMULATOR_SDK: "watchsimulator"
+#     TARGET_SCHEME: "PACECloudWatchSDK"
 
-## Build xcframework
-framework_release_build:
+## Build all xcframeworks for releases
+.framework_release:
   extends: .xcode_version
   stage: build
-  <<: *xcframework
-  only:
-    - tags
+  script:
+    - ./scripts/build_xcframework.sh $PROJECT_NAME $DEVICE_SDK $SIMULATOR_SDK
+  interruptible: true
   artifacts:
     name: $PROJECT_NAME
     paths:
       - ./build/
-    expire_in: 1 week
-  interruptible: true
+    expire_in: 1 day
 
-## Build slim xcframework
+framework_release_build:
+  extends: .framework_release
+  rules:
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release"
+
 framework_slim_release_build:
-  extends: .xcode_version
+  extends: .framework_release
+  rules:
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release-dev"
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release"
   variables:
     PROJECT_NAME: "PACECloudSlimSDK"
-  stage: build
-  <<: *xcframework
-  only:
-    refs:
-      - merge_requests
-  except:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /WIP/
-  artifacts:
-    name: "PACECloudSlimSDK"
-    paths:
-      - ./build/
-    expire_in: 1 week
-  when: manual
-  interruptible: true
 
-## Build watch xcframework
 framework_watch_release_build:
-  extends: .xcode_version
+  extends: .framework_release
+  rules:
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release-dev"
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release"
   variables:
     PROJECT_NAME: "PACECloudWatchSDK"
     SIMULATOR_SDK: "watchsimulator"
     DEVICE_SDK: "watchos"
-  stage: build
-  <<: *xcframework
+
+# Dev Review Deployment
+deploy_dev_review:
+  extends: .xcode_version
+  stage: publish
+  script:
+    - ./scripts/deploy_dev_review.sh $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
   only:
     refs:
       - merge_requests
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /WIP/
-  artifacts:
-    name: "PACECloudWatchSDK"
-    paths:
-      - ./build/
-    expire_in: 1 week
   when: manual
   interruptible: true
 
-# Update CocoaPods trunk
-framework_publish_pods:
+# Dev Deployment
+deploy_dev:
   extends: .xcode_version
   stage: publish
+  rules:
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release-dev"
   script:
-    - pod trunk push PACECloudSDK.podspec --allow-warnings
-  only:
-    - tags
+    - ./scripts/deploy_dev.sh build/PACECloudSlimSDK.zip build/PACECloudSlimSDK.zip
+  interruptible: true
+  dependencies:
+    - framework_slim_release_build
+    - framework_watch_release_build
+
+# Prod Deployment
+deploy_prod:
+  extends: .xcode_version
+  stage: publish
+  rules:
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release"
+  script:
+    - ./scripts/deploy_prod.sh build/PACECloudSDK.zip build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip
+  interruptible: true
+  when: manual
+  dependencies:
+    - framework_release_build
+    - framework_slim_release_build
+    - framework_watch_release_build
 
 # Documentation
 documentation:
@@ -228,27 +215,13 @@ documentation:
     - find ~/Library/Developer/Xcode/DerivedData
       -name "$TARGET_SCHEME.doccarchive"
       -exec cp -R {} ./docs \;
-  only:
-    - tags
+  rules:
+    - if: $SCHEDULED_JOB == "pacecloudsdk-release"
   allow_failure: true
   variables:
     TARGET_SCHEME: "PACECloudSDK"
   artifacts:
     paths:
       - ./docs/${TARGET_SCHEME}.doccarchive
-    name: "ios-pace-cloud-sdk-$TAG_NAME"
+    name: "ios-pace-cloud-sdk"
     expire_in: 1 week
-
-# GitHub Release
-framework_publish_github:
-  script:
-    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@${COMMON_REPO} tmp/common
-    - pip3 install -r tmp/common/scripts/tags/requirements.txt
-    - python3 tmp/common/scripts/tags/create_github_release.py -d pace/cloud-sdk-ios
-  tags:
-    - xcode-12.4
-  allow_failure: true
-  stage: publish
-  only:
-    - tags
-  when: manual
