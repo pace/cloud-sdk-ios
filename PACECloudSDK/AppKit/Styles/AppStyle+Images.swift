@@ -36,6 +36,10 @@ extension AppStyle {
         return imageNamed("lock").withRenderingMode(.alwaysTemplate)
     }
 
+    static var distanceIcon: UIImage {
+        return imageNamed("icon_distance").withRenderingMode(.alwaysTemplate)
+    }
+
     private static func imageNamed(_ imageName: String) -> UIImage {
         return UIImage(named: imageName, in: Bundle.paceCloudSDK, compatibleWith: nil) ?? UIImage()
     }

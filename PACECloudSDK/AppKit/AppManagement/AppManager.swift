@@ -54,7 +54,7 @@ extension AppManager {
                 }
 
             case .success(let stations):
-                let appDatas = self?.retrieveAppData(from: stations)
+                let appDatas = self?.retrieveAppData(from: stations, for: location)
                 completion(appDatas)
             }
         }
@@ -155,14 +155,21 @@ extension AppManager {
         URLBuilder.buildAppStartUrl(with: appUrl, decomposedParams: [.references], references: reference)
     }
 
-    private func retrieveAppData(from cofuGasStations: [POIKit.CofuGasStation]) -> [AppKit.AppData] {
+    private func retrieveAppData(from cofuGasStations: [POIKit.CofuGasStation], for location: CLLocation) -> [AppKit.AppData] {
         let appDatas: [AppKit.AppData] = cofuGasStations.reduce(into: []) { result, station in
             let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.references: [station.id]]
             let appDatas: [AppKit.AppData] = (station.properties["apps"] as? [[String: Any]] ?? []).map { app in
                 let appData = AppKit.AppData(appID: nil, appUrl: app["url"] as? String ?? "", metadata: metadata)
+                appData.userDistance = station.location?.distance(from: location)
                 return appData
             }
             result.append(contentsOf: appDatas)
+        }
+
+        guard appDatas.count > 1 else { return appDatas }
+
+        for appData in appDatas {
+            appData.shouldShowDistance = true
         }
 
         return appDatas

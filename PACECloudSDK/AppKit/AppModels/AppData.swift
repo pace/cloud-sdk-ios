@@ -12,6 +12,7 @@ public extension AppKit {
         private(set) public var appID: String?
         private(set) public var title: String?
         private(set) public var subtitle: String?
+        internal(set) public var userDistance: Double?
         public let appBaseUrl: String?
 
         public let metadata: [AppKit.AppMetadata: AnyHashable]
@@ -31,6 +32,8 @@ public extension AppKit {
         public var poiId: String {
             (metadata[AppMetadata.references] as? [String])?.first ?? ""
         }
+
+        internal var shouldShowDistance: Bool = false
 
         init(appID: String?, title: String?, subtitle: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID

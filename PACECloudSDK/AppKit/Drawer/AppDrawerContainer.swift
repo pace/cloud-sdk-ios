@@ -76,12 +76,26 @@ public extension AppKit.AppDrawerContainer {
             !drawers.contains(where: { $0.appData == presentedDrawer.appData })
         }
 
+        let appDrawersToUpdate = drawers.filter { updatedDrawer in
+            guard let subviews = subviews else { return false }
+            return !subviews.isEmpty && subviews.contains(where: {
+                $0.appData == updatedDrawer.appData
+                && ($0.appData.shouldShowDistance != updatedDrawer.appData.shouldShowDistance)
+                || (updatedDrawer.appData.shouldShowDistance && $0.appData.userDistance != updatedDrawer.appData.userDistance)
+            })
+        }
+
         let appDrawersToAdd = drawers.filter { newDrawer in
             guard let subviews = subviews else { return true }
             return subviews.isEmpty || !subviews.contains(where: { $0.appData == newDrawer.appData })
         }
 
         subviewsToRemove?.forEach { $0.removeFromSuperview() }
+
+        appDrawersToUpdate.forEach { updatedDrawer in
+            guard let appDrawer = subviews?.first(where: { $0.appData == updatedDrawer.appData }) else { return }
+            appDrawer.update(with: updatedDrawer.appData)
+        }
 
         appDrawersToAdd.forEach {
             drawerStackView.addArrangedSubview($0)
