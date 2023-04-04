@@ -9,18 +9,6 @@ import CoreLocation
 import Foundation
 
 extension AppKit: AppManagerDelegate {
-    func didEnterGeofence(with id: String) {
-        notifyDidEnterGeofence(with: id)
-    }
-
-    func didExitGeofence(with id: String) {
-        notifyDidExitGeofence(with: id)
-    }
-
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error) {
-        notifyDidFailToMonitorRegion(region, error: error)
-    }
-
     func passErrorToClient(_ error: AppError) {
         notifyDidFail(with: error)
     }
