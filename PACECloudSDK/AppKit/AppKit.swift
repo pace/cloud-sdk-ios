@@ -179,21 +179,6 @@ public extension AppKit {
     }
 
     /**
-     Sets up geofences and starts monitoring the specified regions.
-     - parameter locations: A list of keys along a given coordinate.
-     */
-    static func setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D]) {
-        shared.appManager.setupGeofenceRegions(for: locations)
-    }
-
-    /**
-     Resets the geofences that have previously been set up via `setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D])`.
-     */
-    static func resetGeofences() {
-        shared.appManager.resetGeofences()
-    }
-
-    /**
      Handles the specified redirect URL within an `AppViewController`.
      - parameter url: The redirect URL.
      */

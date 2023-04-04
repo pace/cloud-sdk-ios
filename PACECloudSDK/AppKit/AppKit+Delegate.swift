@@ -15,10 +15,6 @@ public protocol AppKitDelegate: AnyObject {
     func didReceiveAppData(_ appData: [AppKit.AppData])
     func didEscapeForecourt(_ appDatas: [AppKit.AppData])
 
-    func didEnterGeofence(with id: String)
-    func didExitGeofence(with id: String)
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error)
-
     func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void))
     func logout(completion: @escaping ((AppKit.LogoutResponse) -> Void))
     func didReceiveImageData(_ image: UIImage)
@@ -39,9 +35,6 @@ public extension AppKitDelegate {
     func didReceiveAppDrawers(_ appDrawers: [AppKit.AppDrawer], _ appDatas: [AppKit.AppData]) {}
     func didReceiveAppData(_ appData: [AppKit.AppData]) {}
     func didEscapeForecourt(_ appDatas: [AppKit.AppData]) {}
-    func didEnterGeofence(with id: String) {}
-    func didExitGeofence(with id: String) {}
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error) {}
     func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void)) {}
     func didReceiveImageData(_ image: UIImage) {
         let item = ShareObject(shareData: image, customTitle: Bundle.main.bundleName)
@@ -79,24 +72,6 @@ extension AppKit {
     func notifyDidEscapeForecourt(_ appDatas: [AppData]) {
         notifyClient { [weak self] in
             self?.delegate?.didEscapeForecourt(appDatas)
-        }
-    }
-
-    func notifyDidEnterGeofence(with id: String) {
-        notifyClient { [weak self] in
-            self?.delegate?.didEnterGeofence(with: id)
-        }
-    }
-
-    func notifyDidExitGeofence(with id: String) {
-        notifyClient { [weak self] in
-            self?.delegate?.didExitGeofence(with: id)
-        }
-    }
-
-    func notifyDidFailToMonitorRegion(_ region: CLRegion, error: Error) {
-        notifyClient { [weak self] in
-            self?.delegate?.didFailToMonitorRegion(region, error: error)
         }
     }
 

@@ -11,9 +11,6 @@ protocol AppManagerDelegate: AnyObject {
     func passErrorToClient(_ error: AppKit.AppError)
     func didReceiveAppDatas(_ appDatas: [AppKit.AppData])
     func didEscapeForecourt(_ appDatas: [AppKit.AppData])
-    func didEnterGeofence(with id: String)
-    func didExitGeofence(with id: String)
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error)
 }
 
 class AppManager {
@@ -213,29 +210,6 @@ extension AppManager {
 }
 
 extension AppManager: AppDrawerLocationProviderDelegate {
-    func didEnterGeofence(with id: String) {
-        delegate?.didEnterGeofence(with: id)
-    }
-
-    func didExitGeofence(with id: String) {
-        delegate?.didExitGeofence(with: id)
-    }
-
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error) {
-        delegate?.didFailToMonitorRegion(region, error: error)
-    }
-
-    func setupGeofenceRegions(for locations: [String: CLLocationCoordinate2D]) {
-        AppKitLogger.d("[App Manager] Start setting up geofence regions")
-
-        resetGeofences()
-        locationProvider.monitorRegionsAt(locations: locations)
-    }
-
-    func resetGeofences() {
-        locationProvider.resetGeofences()
-    }
-
     func didReceiveLocation(_ location: CLLocation) {
         AppKitLogger.d("[App Manager] Did receive location. Checking for available apps...")
 

@@ -10,9 +10,6 @@ import CoreLocation
 protocol AppDrawerLocationProviderDelegate: AnyObject {
     func didReceiveLocation(_ location: CLLocation)
     func didFailWithError(_ error: Error)
-    func didEnterGeofence(with id: String)
-    func didExitGeofence(with id: String)
-    func didFailToMonitorRegion(_ region: CLRegion, error: Error)
 }
 
 struct LocationAccuracyThreshold {
@@ -185,62 +182,5 @@ extension AppDrawerLocationProvider: CLLocationManagerDelegate {
             delegate?.didFailWithError(clError)
             locationManager.stopUpdatingLocation()
         }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        guard let region = region as? CLCircularRegion else { return }
-
-        AppKitLogger.d("[Geofences] Entered region with id: \(region.identifier)")
-        delegate?.didEnterGeofence(with: region.identifier)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        guard let region = region as? CLCircularRegion else { return }
-
-        AppKitLogger.d("[Geofences] Exited region with id: \(region.identifier)")
-        delegate?.didExitGeofence(with: region.identifier)
-    }
-
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        guard let region = region as? CLCircularRegion else { return }
-
-        delegate?.didFailToMonitorRegion(region, error: error)
-    }
-}
-
-// MARK: - Geofences
-extension AppDrawerLocationProvider {
-    func monitorRegionsAt(locations: [String: CLLocationCoordinate2D]) {
-        // Make sure the devices supports region monitoring.
-        if CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
-            locations.forEach {
-                monitorRegionAtLocation(center: $0.value, identifier: $0.key)
-            }
-
-            AppKitLogger.d("[Geofences] Requesting region monitor for \(locations.count) regions")
-        } else {
-            AppKitLogger.e("[Geofences] Region monitoring is not available.")
-        }
-    }
-
-    func resetGeofences() {
-        AppKitLogger.d("[Geofences] Reset all monitored regions")
-
-        locationManager.monitoredRegions.forEach {
-            locationManager.stopMonitoring(for: $0)
-        }
-    }
-
-    private func monitorRegionAtLocation(center: CLLocationCoordinate2D, identifier: String) {
-        // Register the region.
-        let maxDistance = CLLocationDistance(100) // in meters
-        let region = CLCircularRegion(center: center,
-                                      radius: maxDistance,
-                                      identifier: identifier)
-
-        region.notifyOnEntry = true
-        region.notifyOnExit = true
-
-        locationManager.startMonitoring(for: region)
     }
 }

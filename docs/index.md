@@ -179,7 +179,11 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
   + Passing a `POIKitObserverTokenDelegate` to `POIKit.POIKitManager.observe(POIKit.BoundingBox) -> POIKit.BoundingBoxNotificationToken` is no longer possible
   + The type of `prices` in `POIKit.GasStationResponse` is now optional
 - Introduced version `2022-1` for the Pay, Fueling and POI API.
-  + `PCPayFuel` does not include `PCPayUnit` anymore. 
+  + `PCPayFuel` does not include `PCPayUnit` anymore.
+
+### From 14.x.x to 15.x.x
+
+- Removed geofence functionality
 
 ## Contribute
 ### Localizable Strings Generation
