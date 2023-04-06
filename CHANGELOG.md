@@ -1,3 +1,18 @@
+14.1.0 Release notes (2023-04-06)
+=============================================================
+
+### Enhancements
+
+* Add distance to AppDrawers when multiple apps are in range
+
+### Fixes
+
+* Fix opening hours calculations
+
+### Internal
+
+* Integrate Slim and Watch SDK as SPM binaries
+
 14.0.0 Release notes (2023-03-06)
 =============================================================
 
