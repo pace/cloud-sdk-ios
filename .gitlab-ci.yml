@@ -26,7 +26,7 @@ before_script:
 ## Infrastructure
 .xcode_version:
   tags:
-    - m1-xcode-14.1
+    - m1-xcode-14.3
 
 ### PLists
 .plist:
