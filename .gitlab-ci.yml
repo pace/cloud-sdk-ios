@@ -195,7 +195,7 @@ deploy_dev:
     refs:
       - master
   script:
-    - ./scripts/deploy_dev.sh build/PACECloudSlimSDK.zip build/PACECloudSlimSDK.zip
+    - ./scripts/deploy_dev.sh build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip
   interruptible: true
   dependencies:
     - framework_slim_release_build
