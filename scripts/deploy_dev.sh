@@ -9,7 +9,6 @@ echo 'Updating Package.swift file'
 echo 'Committing changes'
 git remote set-url origin "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
 git fetch --all --tags --force
-git pull --rebase
 git add -u
 git commit -m "build: Update Package file"
 git tag -f dev
