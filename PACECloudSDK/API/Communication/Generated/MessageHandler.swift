@@ -17,7 +17,7 @@ extension API.Communication {
             requestTimeoutHandler.delegate = self
         }
 
-        func handleAppMessage(_ message: WKScriptMessage, with replyHandler: ((Any?, String?) -> Void)?) {
+        func handleAppMessage(_ message: WKScriptMessage, with replyHandler: ReplyHandler?) {
             guard
                 let messageBody = message.body as? String,
                 let messageBodyData = messageBody.data(using: .utf8),
@@ -58,7 +58,7 @@ extension API.Communication {
             request: Request,
             response: Response,
             requestUrl: URL?,
-            with replyHandler: ((Any?, String?) -> Void)?
+            with replyHandler: ReplyHandler?
         ) {
             switch operation {
             case .introspect:
@@ -212,13 +212,13 @@ extension API.Communication {
             return .init(.init(response: .init(version: "v1", operations: operations)))
         }
 
-        private func handleResult(with result: Result, response: Response, operation: Operation?, with replyHandler: ((Any?, String?) -> Void)?) {
+        private func handleResult(with result: Result, response: Response, operation: Operation?, with replyHandler: ReplyHandler?) {
             response.status = result.status
             response.body = result.body
             sendResponse(with: response, operation: operation, with: replyHandler)
         }
 
-        private func decodeRequestBody<T : Decodable>(_ request: Request, _ response: Response, _ operation: Operation, with replyHandler: ((Any?, String?) -> Void)?) -> T? {
+        private func decodeRequestBody<T : Decodable>(_ request: Request, _ response: Response, _ operation: Operation, with replyHandler: ReplyHandler?) -> T? {
             guard
                 let body = request.body?.value,
                 let bodyData = try? JSONSerialization.data(withJSONObject: body),
@@ -231,17 +231,17 @@ extension API.Communication {
             return requestBody
         }
 
-        private func sendResponse(with response: Response, operation: Operation?, with replyHandler: ((Any?, String?) -> Void)?) {
+        private func sendResponse(with response: Response, operation: Operation?, with replyHandler: ReplyHandler?) {
             respond(with: response, with: replyHandler)
             if let id = response.id {
                 requestTimeoutHandler.stopTimer(with: id, operation: operation)
             }
         }
 
-        private func respond(with response: Response, with replyHandler: ((Any?, String?) -> Void)?) {
+        private func respond(with response: Response, with replyHandler: ReplyHandler?) {
             guard let response = encode(response) else { return }
             if let replyHandler = replyHandler {
-                replyHandler(response, nil)
+                replyHandler.reply(with: response, errorMessage: nil)
             } else {
                 delegate?.respond(with: response)
             }
@@ -270,7 +270,7 @@ extension API.Communication {
 }
 
 extension API.Communication.MessageHandler: RequestTimeoutHandlerDelegate {
-    func didReachTimeout(_ requestId: String, with replyHandler: ((Any?, String?) -> Void)?) {
+    func didReachTimeout(_ requestId: String, with replyHandler: ReplyHandler?) {
         let error = API.Communication.Error(message: "The request timed out.")
         let response = API.Communication.Response(id: requestId, header: nil, status: HttpStatusCode.requestTimeout.rawValue, body: .init(error))
         respond(with: response, with: replyHandler)

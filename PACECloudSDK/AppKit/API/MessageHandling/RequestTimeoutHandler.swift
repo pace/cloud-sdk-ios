@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RequestTimeoutHandlerDelegate: AnyObject {
-    func didReachTimeout(_ requestId: String, with replyHandler: ((Any?, String?) -> Void)?)
+    func didReachTimeout(_ requestId: String, with replyHandler: ReplyHandler?)
 }
 
 class RequestTimeoutHandler {
@@ -20,7 +20,7 @@ class RequestTimeoutHandler {
                        timeout: TimeInterval,
                        operation: API.Communication.Operation,
                        completion: @escaping () -> Void,
-                       with replyHandler: ((Any?, String?) -> Void)?) {
+                       with replyHandler: ReplyHandler?) {
         DispatchQueue.main.async { [weak self] in
             let timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] _ in
                 AppKitLogger.d("[RequestTimeoutHandler] Timeout for request with id \(requestId) - \(operation.rawValue)")

@@ -88,11 +88,12 @@ extension AppWebView {
     }
 }
 
-// MARK: - WKScriptMessageHandlerWithRepy
+// MARK: - WKScriptMessageHandlerWithReply
 @available(iOS 14, *)
 extension AppWebView {
     @objc
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @escaping (Any?, String?) -> Void) {
-        handleMessage(message: message, with: replyHandler)
+        let handler: ReplyHandler = .init(replyHandler: replyHandler)
+        handleMessage(message: message, with: handler)
     }
 }
