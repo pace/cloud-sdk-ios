@@ -12,10 +12,11 @@ echo 'Updating Package.swift file'
 echo 'Committing changes'
 git remote set-url origin "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
 git fetch --all --tags --force
+git checkout master
 git add -u
 git commit -m "build: Bump version to $NEW_SDK_VERSION"
 git tag $NEW_SDK_VERSION
-git push origin master --tags --atomic --force # Force push needed to override tags
+git push origin master --tags --atomic --force-with-lease # Force push needed to override tags
 
 echo 'Creating new release on GitHub'
 git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@${COMMON_REPO} tmp/common
