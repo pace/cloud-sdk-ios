@@ -13,7 +13,7 @@ git checkout master
 git add -u
 git commit -m "build: Update Package file"
 git tag -f dev
-git push origin master --tags --atomic --force-with-lease # Force push needed to override tag
+git push origin master --tags --force-with-lease # Force push needed to override tag
 
 echo 'Updating dev release'
 ./scripts/update_github_dev_release_assets.sh $SLIM_SDK $WATCH_SDK

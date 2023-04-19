@@ -22,7 +22,7 @@ echo 'Committing changes'
 git add -u
 git commit -m "dev-review: $COMMIT_MESSAGE"
 git tag -f dev-review
-git push origin development-review --tags --set-upstream --atomic --force # Force push needed to override tag
+git push origin development-review --tags --set-upstream --force # Force push needed to override tag
 
 echo 'Updating dev review release'
 ./scripts/update_github_dev_review_release_assets.sh build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip
