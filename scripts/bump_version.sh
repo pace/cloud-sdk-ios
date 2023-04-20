@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATE=$(date +'%Y-%m-%d')
-CURRENT_VERSION=$(git describe --tags --abbrev=0 --match "[0-9]*") # Make sure to ignore the 'dev' and 'dev-review' tag
+CURRENT_VERSION=$(git describe --tags --abbrev=0 --exclude "0.1") # Make sure to ignore the dev-review tag '0.1'
 
 # https://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash#answer-918931
 IFS='.' read -ra VERSIONS <<< "$CURRENT_VERSION"
