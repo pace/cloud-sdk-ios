@@ -188,20 +188,6 @@ deploy_dev_review:
   when: manual
   interruptible: true
 
-# Dev Deployment
-deploy_dev:
-  extends: .xcode_version
-  stage: publish
-  only:
-    refs:
-      - master
-  script:
-    - ./scripts/deploy_dev.sh build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip
-  interruptible: true
-  dependencies:
-    - framework_slim_release_build
-    - framework_watch_release_build
-
 # Prod Deployment
 deploy_prod:
   extends: .xcode_version
