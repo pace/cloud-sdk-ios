@@ -23,12 +23,7 @@ git push origin master
 git push origin $NEW_SDK_VERSION
 
 echo 'Creating new release on GitHub'
-git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@${COMMON_REPO} tmp/common
-pip3 install -r tmp/common/scripts/tags/requirements.txt
-python3 tmp/common/scripts/tags/create_github_release.py -d pace/cloud-sdk-ios
-
-echo 'Updating GitHub release assets'
-./scripts/update_github_latest_release_assets.sh $SDK $SLIM_SDK $WATCH_SDK
+bundle exec fastlane create_github_release new_sdk_version:$NEW_SDK_VERSION
 
 echo 'Creating new release for CocoaPods'
 pod trunk push PACECloudSDK.podspec --allow-warnings
