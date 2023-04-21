@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATE=$(date +'%Y-%m-%d')
-CURRENT_VERSION=$(git describe --tags --abbrev=0 --exclude "0.1") # Make sure to ignore the dev-review tag '0.1'
+CURRENT_VERSION=$(git describe --tags --abbrev=0 --match "[0-9]*" --exclude "0.1") # Make sure to ignore the dev-review tag '0.1'
 
 # https://stackoverflow.com/questions/918886/how-do-i-split-a-string-on-a-delimiter-in-bash#answer-918931
 IFS='.' read -ra VERSIONS <<< "$CURRENT_VERSION"
@@ -133,7 +133,12 @@ add_changes_if_needed "Internal" "${internals[@]}"
 
 # Add new changelog to file
 sed -i '' -e "1s/^/$changelog\n/" CHANGELOG.md
-echo "Created changelog entry for version $new_version"
+
+# Create release notes for new version
+echo " " >> ./build/release_notes_$new_version.md # sed can't work with empty files so use a space here
+sed -i '' -e "1s/^/$changelog\n/" ./build/release_notes_$new_version.md
+sed -i '' -e 1,2d ./build/release_notes_$new_version.md # Remove headline
 
 export OLD_SDK_VERSION=$CURRENT_VERSION
 export NEW_SDK_VERSION=$new_version
+echo "Created changelog for version $new_version"
