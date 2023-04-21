@@ -1,3 +1,29 @@
+15.0.0 Release notes (2023-04-20)
+=============================================================
+
+### Breaking Changes
+
+* Remove geofence functionality
+
+### Enhancements
+
+* Add distance to AppDrawers when multiple apps are in range
+
+### Fixes
+
+* Fix pull in deploy jobs
+* Fix push in deploy jobs
+* Fix deploy dev job
+* Fix opening hours calculations
+
+### Internal
+
+* Adjust deployment of dev and prod versions
+* Remove atomic push in deploy jobs
+* Correctly set branch for dev deploy job
+* Integrate Slim and Watch SDK as SPM binaries
+* Upgrade to Xcode 14.3
+
 14.0.0 Release notes (2023-03-06)
 =============================================================
 
