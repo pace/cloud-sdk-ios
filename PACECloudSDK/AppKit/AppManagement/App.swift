@@ -62,7 +62,7 @@ extension App {
         return request
     }
 
-    func handleMessage(message: WKScriptMessage, with replyHandler: ((Any?, String?) -> Void)? = nil) {
+    func handleMessage(message: WKScriptMessage, with replyHandler: ReplyHandler? = nil) {
         if message.name == ScriptMessageHandler.logger.rawValue,
            let body = message.body as? String {
             handleLog(with: body)

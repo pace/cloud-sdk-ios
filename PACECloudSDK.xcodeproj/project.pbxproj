@@ -392,6 +392,8 @@
 		3B5503F12539E61C00C291F1 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F02539E61C00C291F1 /* LiveData.swift */; };
 		3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F62539E6BE00C291F1 /* Vector2.swift */; };
 		3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
+		3B5B379A29F031480095C152 /* ReplyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B379929F031480095C152 /* ReplyHandler.swift */; };
+		3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B379929F031480095C152 /* ReplyHandler.swift */; };
 		3B5FBC0525F282C500AE93BF /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
 		3B637997281AC11400CD436A /* CDN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B637996281AC11400CD436A /* CDN.swift */; };
 		3B63799A281AC12A00CD436A /* CDN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B637996281AC11400CD436A /* CDN.swift */; };
@@ -1400,6 +1402,7 @@
 		3B5503F02539E61C00C291F1 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
 		3B5503F62539E6BE00C291F1 /* Vector2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2.swift; sourceTree = "<group>"; };
 		3B5504122539E81F00C291F1 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		3B5B379929F031480095C152 /* ReplyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyHandler.swift; sourceTree = "<group>"; };
 		3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryTOTPData.swift; sourceTree = "<group>"; };
 		3B637996281AC11400CD436A /* CDN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDN.swift; sourceTree = "<group>"; };
 		3B63799B281AC13400CD436A /* CDNAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDNAPIClient.swift; sourceTree = "<group>"; };
@@ -2507,6 +2510,7 @@
 			isa = PBXGroup;
 			children = (
 				3B918016268EFE7000176ECD /* AppCommunicationData.swift */,
+				3B5B379929F031480095C152 /* ReplyHandler.swift */,
 				3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */,
 				3BF7B42626306B010047CA34 /* ScriptMessageHandler.swift */,
 			);
@@ -4728,6 +4732,7 @@
 				3B970AA12542D9BB0072F6BA /* BaseQueryParams.swift in Sources */,
 				9A906B9F284637D700463618 /* PCPayPaymentMethodDKVCreateRequest.swift in Sources */,
 				843A86D225C2BBF40062B124 /* POIAPIClient+URLProtocol.swift in Sources */,
+				3B5B379A29F031480095C152 /* ReplyHandler.swift in Sources */,
 				3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */,
 				3B9B6438266F8EB900B2DC27 /* IDKitDelegate.swift in Sources */,
 				3B2FB23728450BF200E8CD0C /* PCPOICommonGeoJSONPoint.swift in Sources */,
@@ -5037,6 +5042,7 @@
 				3B9B2A6427B65AD40099EA37 /* GeoAPIResponse.swift in Sources */,
 				3B98706E268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
+				3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */,
 				3BA074CF292F96D5003A389C /* MetaCollector.swift in Sources */,
 				3B98705A268E06AE00A0458F /* SetTOTPResult.swift in Sources */,
 				3B987098268E06AE00A0458F /* GetTOTPRequest.swift in Sources */,
