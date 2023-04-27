@@ -171,22 +171,42 @@ extension VectorTile_Tile {
 
     private func loadPrices(for gasStation: POIKit.GasStation, from prices: String) {
         let priceComponents = prices.split(separator: ",").map { String($0) }
-         gasStation.prices = priceComponents.compactMap { priceComponent in
-            let priceDict = dictionary(from: priceComponent)
+        gasStation.prices = priceComponents.compactMap { priceComponent in
+            let priceArray = array(from: priceComponent)
 
-            guard let productType = priceDict["pt"] else { return nil } // TOOD: Is product type always set?
+            guard let productType = priceArray.first(where: { $0.0 == "pt"})?.1 else { return nil } // TOOD: Is product type always set?
 
-            let name = priceDict["pn"]
+            let name = priceArray.first(where: { $0.0 == "pn"})?.1
 
             var price: Double?
 
-            if let unwrapped = priceDict["pv"] {
+            if let unwrapped = priceArray.first(where: { $0.0 == "pv"})?.1 {
                 price = Double(unwrapped)
             }
 
             let fuelPrice = PCPOIFuelPrice(type: .fuelPrice, fuelType: productType, price: price, productName: name)
             return fuelPrice
         }
+    }
+
+    private func array(from string: String) -> [(String, String)] {
+        var array: [(String, String)] = .init()
+        let entries: [String] = string.split(separator: ";").map { $0.string }
+        for entry in entries {
+            let keyValuePair = entry.split(separator: "=").map { String($0) }
+            guard keyValuePair.count == 2 else { continue }
+            array.append((keyValuePair[0], keyValuePair[1]))
+        }
+        return array
+    }
+
+    private func loadAddress(from string: String) -> PCPOIGasStation.Address {
+        let addressEntries = dictionary(from: string)
+        return PCPOIGasStation.Address(city: addressEntries["l"],
+                                       countryCode: addressEntries["c"],
+                                       houseNo: addressEntries["hn"],
+                                       postalCode: addressEntries["pc"],
+                                       street: addressEntries["s"])
     }
 
     private func dictionary(from string: String) -> [String: String] {
@@ -198,14 +218,5 @@ extension VectorTile_Tile {
             dictionary[keyValuePair[0]] = keyValuePair[1]
         }
         return dictionary
-    }
-
-    private func loadAddress(from string: String) -> PCPOIGasStation.Address {
-        let addressEntries = dictionary(from: string)
-        return PCPOIGasStation.Address(city: addressEntries["l"],
-                                       countryCode: addressEntries["c"],
-                                       houseNo: addressEntries["hn"],
-                                       postalCode: addressEntries["pc"],
-                                       street: addressEntries["s"])
     }
 }
