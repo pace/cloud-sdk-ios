@@ -1,0 +1,8 @@
+"error_generic" = "Beklager, der gik noget galt. Prøv venligst igen senere.";
+"common_retry" = "Prøv igen";
+"loading_text" = "Indlæsning af data";
+"common_action_close" = "Luk";
+"error_connection_problem_network_headline" = "Utilstrækkelig netværksforbindelse";
+"error_connection_problem_network" = "PACE har brug for en stabil og tilstrækkelig hurtig netværksforbindelse for at kunne fortsætte.\n\nSørg for, at din app har tilladelse til at få adgang til mobil data på din telefon. Du kan også bruge Wi-Fi.";
+"appkit_secureData_authentication_confirmation" = "Godkend adgang til sikrede data";
+"idkit_biometryAuthentication_confirmation" = "Bekræft brugen af biometrisk autentificering";

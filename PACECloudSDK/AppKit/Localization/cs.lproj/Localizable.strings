@@ -2,5 +2,7 @@
 "common_retry" = "Zkuste to znovu";
 "loading_text" = "Načítání dat";
 "common_action_close" = "Zavřít";
+"error_connection_problem_network_headline" = "Nedostatečné síťové připojení";
+"error_connection_problem_network" = "Aplikace PACE potřebuje stabilní a dostatečně rychlé připojení k síti, aby mohla pokračovat.\n\nUjistěte se, že má aplikace povolen přístup k mobilním datům vašeho telefonu. Můžete také použít Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Autorizace přístupu k zabezpečeným datům";
 "idkit_biometryAuthentication_confirmation" = "Potvrzení používání biometrického ověřování";

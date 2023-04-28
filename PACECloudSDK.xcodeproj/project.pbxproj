@@ -1313,6 +1313,8 @@
 		3B1841E62683354600A0F625 /* POIAPIGetStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIAPIGetStats.swift; sourceTree = "<group>"; };
 		3B1D40C425FA271F007CF531 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		3B1D40C925FA45C2007CF531 /* BiometryPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryPolicy.swift; sourceTree = "<group>"; };
+		3B1DC88F29FBDF6000ED7682 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		3B1DC89029FBDF6000ED7682 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B1E917F253D92A800DC4BB1 /* POIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKit.swift; sourceTree = "<group>"; };
 		3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitAPIError.swift; sourceTree = "<group>"; };
 		3B2406AE2821263F00114EB8 /* DateTimeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeProvider.swift; sourceTree = "<group>"; };
@@ -3875,6 +3877,7 @@
 				ro,
 				nl,
 				it,
+				da,
 			);
 			mainGroup = 921E68222534883100438491;
 			packageReferences = (
@@ -5260,6 +5263,7 @@
 				3B889CBB27ABC8D9009BE1E1 /* ro */,
 				3B889CBD27ABC8E0009BE1E1 /* nl */,
 				3B889CBF27ABC8E6009BE1E1 /* it */,
+				3B1DC89029FBDF6000ED7682 /* da */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -5268,6 +5272,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3BA6A76E260DD06B005D4B5C /* Base */,
+				3B1DC88F29FBDF6000ED7682 /* da */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
