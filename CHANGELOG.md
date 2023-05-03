@@ -1,3 +1,16 @@
+15.1.0 Release notes (2023-05-03)
+=============================================================
+
+### Enhancements
+
+* Add danish localization
+
+### Internal
+
+* Revert "Only support arm64 architecture in Watch SDK"
+* Only support arm64 architecture in Watch SDK
+* Enable library evolution support for slim and watch SDK
+
 15.0.1 Release notes (2023-04-26)
 =============================================================
 
