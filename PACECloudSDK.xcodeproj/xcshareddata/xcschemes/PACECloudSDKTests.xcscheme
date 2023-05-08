@@ -72,6 +72,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "921E682B2534883100438491"
+            BuildableName = "PACECloudSDK.framework"
+            BlueprintName = "PACECloudSDK"
+            ReferencedContainer = "container:PACECloudSDK.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Development">

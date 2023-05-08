@@ -132,7 +132,9 @@ open class Logger {
 
     /// Deletes all currently not persisted Logs.
     public static func clearCurrentLogs() {
-        currentLogs = []
+        loggingQueue.async {
+            currentLogs = []
+        }
     }
 
     public static func deletePersistedLogs(completion: (() -> Void)? = nil) {

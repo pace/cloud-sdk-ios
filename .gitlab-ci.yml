@@ -113,7 +113,6 @@ pacecloudsdk_unit_tests:
   extends: .unit_test
   variables:
     PROJECT_PATH: "."
-  retry: 2
 
 # Build framework
 framework_review:

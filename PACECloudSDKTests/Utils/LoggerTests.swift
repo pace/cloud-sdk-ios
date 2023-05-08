@@ -21,12 +21,8 @@ class LoggerTests: XCTestCase {
                                               persistLogs: true))
 
         PACECloudSDK.shared.setLogLevel(to: .info)
-
-        // Delete temporary logs if existing
-        TestLogger.clearCurrentLogs()
-        TestLogger.deletePersistedLogs {
-            completion(nil)
-        }
+        deleteLogs()
+        completion(nil)
     }
 
     func testDeleteLogs() {
@@ -38,15 +34,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 2)) [PACECloudSDK_TEST] IMPORT LOG 2"]
 
         importLogs(logs)
-
-        let expectation = self.expectation(description: "DeletionExpectation")
-
-        TestLogger.clearCurrentLogs()
-        TestLogger.deletePersistedLogs {
-            expectation.fulfill()
-        }
-
-        wait(for: [expectation], timeout: 5)
+        deleteLogs()
 
         XCTAssertEqual(exportedLogs(), [])
         XCTAssertEqual(debugBundleFileNumber(), 0)
@@ -107,8 +95,9 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 10)) [PACECloudSDK_TEST] IMPORT LOG 2",
                               "\(dateString(daysAgo: 13)) [PACECloudSDK_TEST] IMPORT LOG 3"]
 
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
-        XCTAssertEqual(debugBundleFileNumber(), 4)
+        XCTAssertEqual(debugBundleFileNumber(), 3)
     }
 
     func testFileCountMultipleDaysOneWeekAgoExceedingMaxNumberOfFiles() {
@@ -119,6 +108,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 15)) [PACECloudSDK_TEST] IMPORT LOG 5",
                               "\(dateString(daysAgo: 13)) [PACECloudSDK_TEST] IMPORT LOG 6"]
 
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(debugBundleFileNumber(), 4)
     }
@@ -134,6 +124,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 4)) [PACECloudSDK_TEST] IMPORT LOG 4",
                               "\(dateString(daysAgo: 5)) [PACECloudSDK_TEST] IMPORT LOG 5"]
 
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(debugBundleFileNumber(), 4)
     }
@@ -149,6 +140,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 7)) [PACECloudSDK_TEST] IMPORT LOG 4",
                               "\(dateString(daysAgo: 9)) [PACECloudSDK_TEST] IMPORT LOG 5"]
 
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(debugBundleFileNumber(), 4)
     }
@@ -164,6 +156,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 5)) [PACECloudSDK_TEST] IMPORT LOG 4",
                               "\(dateString(daysAgo: 4)) [PACECloudSDK_TEST] IMPORT LOG 5"]
 
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(debugBundleFileNumber(), 4)
     }
@@ -179,6 +172,7 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 5)) [PACECloudSDK_TEST] IMPORT LOG 4",
                               "\(dateString(daysAgo: 9)) [PACECloudSDK_TEST] IMPORT LOG 5"]
 
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(debugBundleFileNumber(), 4)
     }
@@ -188,6 +182,8 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 0)) [PACECloudSDK_TEST] IMPORT LOG 2",
                               "\(dateString(daysAgo: 1)) [PACECloudSDK_TEST] IMPORT LOG 3",
                               "\(dateString(daysAgo: 2)) [PACECloudSDK_TEST] IMPORT LOG 4"]
+
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(exportedLogs(), [logs[3], logs[2], logs[0], logs[1]])
     }
@@ -197,6 +193,8 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 0)) [PACECloudSDK_TEST] IMPORT LOG 2",
                               "\(dateString(daysAgo: 1)) [PACECloudSDK_TEST] IMPORT LOG 3",
                               "\(dateString(daysAgo: 3)) [PACECloudSDK_TEST] IMPORT LOG 4"]
+
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(exportedLogs(), [logs[3], logs[2], logs[0], logs[1]])
     }
@@ -206,6 +204,8 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 0)) [PACECloudSDK_TEST] IMPORT LOG 2",
                               "\(dateString(daysAgo: 0)) [PACECloudSDK_TEST] IMPORT LOG 3",
                               "\(dateString(daysAgo: 2)) [PACECloudSDK_TEST] IMPORT LOG 4"]
+
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(exportedLogs(), [logs[3], logs[0], logs[1], logs[2]])
     }
@@ -215,6 +215,8 @@ class LoggerTests: XCTestCase {
                               "\(dateString(daysAgo: 0)) [PACECloudSDK_TEST] IMPORT LOG 2",
                               "\(dateString(daysAgo: 3)) [PACECloudSDK_TEST] IMPORT LOG 3",
                               "\(dateString(daysAgo: 0)) [PACECloudSDK_TEST] IMPORT LOG 4"]
+
+        deleteLogs() // Delete logs again right before importing
         importLogs(logs)
         XCTAssertEqual(exportedLogs(), [logs[2], logs[0], logs[1], logs[3]])
     }
@@ -446,6 +448,17 @@ private extension LoggerTests {
 
         wait(for: [expectation], timeout: 5)
         return exportedLogs
+    }
+
+    private func deleteLogs() {
+        let expectation = self.expectation(description: "DeleteExpectation")
+
+        TestLogger.clearCurrentLogs()
+        TestLogger.deletePersistedLogs {
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5)
     }
 
     private func debugBundleFileNumber() -> Int {
