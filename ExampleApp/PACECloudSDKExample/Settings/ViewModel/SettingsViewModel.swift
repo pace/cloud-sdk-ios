@@ -14,13 +14,12 @@ protocol SettingsViewModel: ObservableObject {
 
     func enableBiometricAuthentication(password: String?,
                                        pin: String?,
-                                       otp: String?,
-                                       completion: @escaping (Bool?) -> Void)
+                                       otp: String?) async -> Bool?
     func disableBiometricAuthentication()
-    func isPasswordSet(completion: @escaping (Bool?) -> Void)
-    func isPINSet(completion: @escaping (Bool?) -> Void)
-    func setPIN(pin: String, password: String?, otp: String?, completion: @escaping (Bool) -> Void)
-    func sendMailOTP(completion: @escaping (Bool?) -> Void)
+    func isPasswordSet() async -> Bool?
+    func isPINSet() async -> Bool?
+    func setPIN(pin: String, password: String?, otp: String?) async -> Bool
+    func sendMailOTP() async -> Bool?
     func fetchIconsViaPaymentMethodKinds(completion: @escaping (Bool) -> Void)
     func fetchIconsViaPaymentMethodVendors(completion: @escaping (Bool) -> Void)
     func logout()

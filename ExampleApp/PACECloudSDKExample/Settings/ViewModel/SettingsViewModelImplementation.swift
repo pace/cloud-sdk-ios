@@ -21,30 +21,23 @@ class SettingsViewModelImplementation: SettingsViewModel {
     }
 
     private func fetchUserEmail() {
-        IDKit.userInfo { [weak self] result in
-            switch result {
-            case .success(let userInfo):
-                self?.userEmail = userInfo.email ?? "Could not retrieve user info"
-
-            case .failure(let error):
-                ExampleLogger.e("Failed fetching user info with error \(error)")
-                self?.userEmail = "Could not retrieve user info"
-            }
+        Task { @MainActor [weak self] in
+            let userInfo = await IDControl.shared.userInfo()
+            self?.userEmail = userInfo?.email ?? "Could not retrieve user info"
         }
     }
 
     func enableBiometricAuthentication(password: String?,
                                        pin: String?,
-                                       otp: String?,
-                                       completion: @escaping (Bool?) -> Void) {
+                                       otp: String?) async -> Bool? {
         if let password = password {
-            IDControl.shared.enableBiometricAuthentication(password: password, completion: completion)
+            return await IDControl.shared.enableBiometricAuthentication(password: password)
         } else if let pin = pin {
-            IDControl.shared.enableBiometricAuthentication(pin: pin, completion: completion)
+            return await IDControl.shared.enableBiometricAuthentication(pin: pin)
         } else if let otp = otp {
-            IDControl.shared.enableBiometricAuthentication(otp: otp, completion: completion)
+            return await IDControl.shared.enableBiometricAuthentication(otp: otp)
         } else {
-            completion(false)
+            return false
         }
     }
 
@@ -52,26 +45,26 @@ class SettingsViewModelImplementation: SettingsViewModel {
         IDControl.shared.disableBiometricAuthentication()
     }
 
-    func isPasswordSet(completion: @escaping (Bool?) -> Void) {
-        IDControl.shared.isPasswordSet(completion: completion)
+    func isPasswordSet() async -> Bool? {
+        await IDControl.shared.isPasswordSet()
     }
 
-    func isPINSet(completion: @escaping (Bool?) -> Void) {
-        IDControl.shared.isPINSet(completion: completion)
+    func isPINSet() async -> Bool? {
+        await IDControl.shared.isPINSet()
     }
 
-    func setPIN(pin: String, password: String?, otp: String?, completion: @escaping (Bool) -> Void) {
+    func setPIN(pin: String, password: String?, otp: String?) async -> Bool {
         if let password = password {
-            IDControl.shared.setPIN(pin: pin, password: password, completion: completion)
+            return await IDControl.shared.setPIN(pin: pin, password: password)
         } else if let otp = otp {
-            IDControl.shared.setPIN(pin: pin, otp: otp, completion: completion)
+            return await IDControl.shared.setPIN(pin: pin, otp: otp)
         } else {
-            completion(false)
+            return false
         }
     }
 
-    func sendMailOTP(completion: @escaping (Bool?) -> Void) {
-        IDControl.shared.sendMailOTP(completion: completion)
+    func sendMailOTP() async -> Bool? {
+        return await IDControl.shared.sendMailOTP()
     }
 
     func fetchIconsViaPaymentMethodKinds(completion: @escaping (Bool) -> Void) {

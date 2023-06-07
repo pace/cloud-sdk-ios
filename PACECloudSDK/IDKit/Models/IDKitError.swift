@@ -25,6 +25,7 @@ public extension IDKit {
         case invalidData(URL)
         case failedTokenRefresh(Error)
         case authorizationCanceled
+        case missingSetup
         case other(Error)
 
         // Biometry
@@ -83,6 +84,9 @@ public extension IDKit {
 
             case .authorizationCanceled:
                 return "The authorization flow was canceled by the user."
+
+            case .missingSetup:
+                return "IDKit has not properly been set up."
 
             case .other(let error):
                 return error.localizedDescription

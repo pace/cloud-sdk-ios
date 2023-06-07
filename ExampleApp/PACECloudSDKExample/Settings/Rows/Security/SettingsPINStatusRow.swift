@@ -25,9 +25,11 @@ struct SettingsPINStatusRow<T: SettingsViewModel>: SettingsRow {
             StyledText(title)
             Spacer()
             Button(action: {
-                viewModel.isPINSet { isSuccessful in
-                    if let isSuccessful = isSuccessful {
-                        alertMessage = isSuccessful ? "PIN set" : "PIN not set"
+                Task {
+                    let isPINSet = await viewModel.isPINSet()
+
+                    if let isPINSet {
+                        alertMessage = isPINSet ? "PIN set" : "PIN not set"
                     } else {
                         alertMessage = "The request failed"
                     }

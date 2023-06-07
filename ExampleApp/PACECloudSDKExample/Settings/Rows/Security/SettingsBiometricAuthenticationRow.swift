@@ -62,12 +62,15 @@ struct SettingsBiometricAuthenticationRow<T: SettingsViewModel>: SettingsRow {
     }
 
     private func enableBiometricAuthentication(password: String?, pin: String?, otp: String?) {
-        viewModel.enableBiometricAuthentication(password: password, pin: pin, otp: otp) { isSuccessful in
+        Task {
+            let isSuccessful = await viewModel.enableBiometricAuthentication(password: password, pin: pin, otp: otp)
+
             if let isSuccessful = isSuccessful {
                 resultAlertMessage = isSuccessful ? "Activation successful" : "Activation failed"
             } else {
                 resultAlertMessage = "The request failed"
             }
+
             showResultAlert = true
             updateBiometryStatus()
         }
