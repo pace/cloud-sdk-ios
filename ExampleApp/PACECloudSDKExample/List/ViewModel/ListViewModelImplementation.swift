@@ -36,21 +36,24 @@ class ListViewModelImplementation: ListViewModel {
         }
 
         isLoading = true
-        POIKit.requestCofuGasStations(center: location, radius: cofuStationRadius) { result in
-            DispatchQueue.main.async { [weak self] in
-                defer {
-                    self?.isLoading = false
-                }
 
-                switch result {
-                case .success(let detailedStations):
-                    self?.didFail = detailedStations.isEmpty
-                    self?.cofuStations = detailedStations.compactMap { .init(from: $0, at: location) }.sorted(by: { $0.distance < $1.distance })
+        Task { @MainActor [weak self] in
+            guard let self = self else { return }
 
-                case .failure(let error):
-                    ExampleLogger.e("Failed fetching cofu stations with error \(error)")
-                    self?.didFail = true
-                }
+            let result = await POIKit.requestCofuGasStations(center: location, radius: self.cofuStationRadius)
+
+            defer {
+                self.isLoading = false
+            }
+
+            switch result {
+            case .success(let detailedStations):
+                self.didFail = detailedStations.isEmpty
+                self.cofuStations = detailedStations.compactMap { .init(from: $0, at: location) }.sorted(by: { $0.distance < $1.distance })
+
+            case .failure(let error):
+                ExampleLogger.e("Failed fetching cofu stations with error \(error)")
+                self.didFail = true
             }
         }
     }

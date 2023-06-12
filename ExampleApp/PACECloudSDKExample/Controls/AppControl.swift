@@ -39,8 +39,8 @@ class AppControl {
         AppKit.handleRedirectURL(url)
     }
 
-    func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void) {
-        POIKit.isPoiInRange(id: id, completion: completion)
+    func isPoiInRange(with id: String) async -> Bool {
+        await POIKit.isPoiInRange(id: id)
     }
 }
 

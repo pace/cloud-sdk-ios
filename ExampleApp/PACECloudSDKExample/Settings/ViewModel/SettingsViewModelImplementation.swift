@@ -120,7 +120,7 @@ class SettingsViewModelImplementation: SettingsViewModel {
         IDControl.shared.reset()
     }
 
-    func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void) {
-        AppControl.shared.isPoiInRange(with: id, completion: completion)
+    func isPoiInRange(with id: String) async -> Bool {
+        await AppControl.shared.isPoiInRange(with: id)
     }
 }

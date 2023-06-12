@@ -23,5 +23,5 @@ protocol SettingsViewModel: ObservableObject {
     func fetchIconsViaPaymentMethodKinds() async -> Bool
     func fetchIconsViaPaymentMethodVendors() async -> Bool
     func logout()
-    func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void)
+    func isPoiInRange(with id: String) async -> Bool
 }
