@@ -194,3 +194,30 @@ public class CDNAPIClient {
         }
     }
 }
+
+@available(iOS 13.0, watchOS 6.0, *) @MainActor
+public extension CDNAPIClient {
+    func paymentMethodVendors() async -> Result<[PaymentMethodVendor], APIClientError> {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.paymentMethodVendors { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    func paymentMethodVendorIcons(for paymentMethodKinds: PCPayPaymentMethodKinds) async -> PaymentMethodVendorIcons {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.paymentMethodVendorIcons(for: paymentMethodKinds) { icons in
+                continuation.resume(returning: icons)
+            }
+        }
+    }
+
+    func paymentMethodVendorIcons(for paymentMethodVendors: PaymentMethodVendors) async -> PaymentMethodVendorIcons {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.paymentMethodVendorIcons(for: paymentMethodVendors) { icons in
+                continuation.resume(returning: icons)
+            }
+        }
+    }
+}

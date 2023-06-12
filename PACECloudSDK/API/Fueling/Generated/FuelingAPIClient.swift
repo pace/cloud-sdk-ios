@@ -52,7 +52,7 @@ public class FuelingAPIClient {
     ///   - currentRetryCount: The current number of retries for this request due to network connection errors and timeouts
     ///   - completionQueue: The queue that complete will be called on
     ///   - complete: A closure that gets passed the FuelingAPIResponse
-    /// - Returns: A cancellable request. Not that cancellation will only work after any validation RequestBehaviours have run
+    /// - Returns: A cancellable request. Note that cancellation will only work after any validation RequestBehaviours have run
     @discardableResult
     public func makeRequest<T>(_ request: FuelingAPIRequest<T>,
                                behaviours: [FuelingAPIRequestBehaviour] = [],
@@ -365,6 +365,31 @@ public class FuelingAPIClient {
 
         completionQueue.async {
             complete(response)
+        }
+    }
+}
+
+@available(iOS 13.0, watchOS 6.0, *) @MainActor
+public extension FuelingAPIClient {
+    /// Makes a network request
+    ///
+    /// - Parameters:
+    ///   - request: The API request to make
+    ///   - behaviours: A list of behaviours that will be run for this request. Merged with APIClient.behaviours
+    ///   - currentUnauthorizedRetryCount: The current number of retries for this request due to `401` responses
+    ///   - currentRetryCount: The current number of retries for this request due to network connection errors and timeouts
+    /// - Returns: An asynchronously-delivered result that either contains the response of the request
+    func makeRequest<T>(_ request: FuelingAPIRequest<T>,
+                        behaviours: [FuelingAPIRequestBehaviour] = [],
+                        currentUnauthorizedRetryCount: Int = 0,
+                        currentRetryCount: Int = 0) async -> FuelingAPIResponse<T> {
+        await withCheckedContinuation { [weak self] continuation in
+            _ = self?.makeRequest(request, behaviours: behaviours,
+                                  currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                  currentRetryCount: currentRetryCount,
+                                  complete: { response in
+                continuation.resume(returning: response)
+            })
         }
     }
 }

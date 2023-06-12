@@ -20,8 +20,8 @@ protocol SettingsViewModel: ObservableObject {
     func isPINSet() async -> Bool?
     func setPIN(pin: String, password: String?, otp: String?) async -> Bool
     func sendMailOTP() async -> Bool?
-    func fetchIconsViaPaymentMethodKinds(completion: @escaping (Bool) -> Void)
-    func fetchIconsViaPaymentMethodVendors(completion: @escaping (Bool) -> Void)
+    func fetchIconsViaPaymentMethodKinds() async -> Bool
+    func fetchIconsViaPaymentMethodVendors() async -> Bool
     func logout()
     func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void)
 }

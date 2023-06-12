@@ -25,7 +25,8 @@ struct PaymentMethodKindsRow<T: SettingsViewModel>: SettingsRow {
             StyledText(title)
             Spacer()
             Button(action: {
-                viewModel.fetchIconsViaPaymentMethodKinds { isSuccessful in
+                Task {
+                    let isSuccessful = await viewModel.fetchIconsViaPaymentMethodKinds()
                     alertMessage = isSuccessful ? "Successfully requested kinds and icons." : "Failed fetching kinds and icons"
                     showAlert = true
                 }
