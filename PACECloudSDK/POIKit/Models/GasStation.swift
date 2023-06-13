@@ -10,6 +10,8 @@ import Foundation
 
 public extension POIKit {
     class GasStation: PCPOIGasStation {
+        public var brandId: String?
+
         public var prices: [PCPOIFuelPrice] = []
         public var currency: String?
 

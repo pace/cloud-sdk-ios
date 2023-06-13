@@ -41,9 +41,21 @@ extension VectorTile_Tile {
     private func loadGasStation(for values: [String: String]) -> POIKit.GasStation {
         let gasStation = POIKit.GasStation()
 
-        if let id = values["id"] { gasStation.id = id }
-        if let name = values["n"] { gasStation.stationName = name }
-        if let brand = values["b"] { gasStation.brand = brand }
+        if let id = values["id"] {
+            gasStation.id = id
+        }
+
+        if let name = values["n"] {
+            gasStation.stationName = name
+        }
+
+        if let brand = values["b"] {
+            gasStation.brand = brand
+        }
+
+        if let brandId = values["brand_id"] {
+            gasStation.brandId = brandId
+        }
 
         if let openingHoursValue = values["oh"] {
             loadOpeningHourRules(for: gasStation, from: openingHoursValue)
