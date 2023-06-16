@@ -25,7 +25,9 @@ struct SettingsMailOTPRow<T: SettingsViewModel>: SettingsRow {
             StyledText(title)
             Spacer()
             Button(action: {
-                viewModel.sendMailOTP { isSuccessful in
+                Task {
+                    let isSuccessful = await viewModel.sendMailOTP()
+
                     if let isSuccessful = isSuccessful {
                         alertMessage = isSuccessful ? "Successfully sent mail otp." : "Failed sending the mail otp."
                     } else {

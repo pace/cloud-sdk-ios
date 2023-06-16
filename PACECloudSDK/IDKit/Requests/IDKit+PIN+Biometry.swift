@@ -310,3 +310,62 @@ private extension IDKit {
         PACECloudSDK.shared.warningsHandler?.logBiometryWarningsIfNeeded()
     }
 }
+
+// MARK: - Concurrency
+
+@available(iOS 13.0, watchOS 6.0, *) @MainActor
+extension IDKit {
+    func isPasswordSet() async -> Result<Bool, IDKitError> {
+        await checkedContinuation(isPasswordSet)
+    }
+
+    func isPINSet() async -> Result<Bool, IDKitError> {
+        await checkedContinuation(isPINSet)
+    }
+
+    func isPINOrPasswordSet() async -> Result<Bool, IDKitError> {
+        await checkedContinuation(isPINOrPasswordSet)
+    }
+
+    func setPIN(pin: String, password: String) async -> Result<Bool, IDKitError> {
+        await checkedContinuation { [weak self] completion in
+            self?.setPIN(pin: pin, password: password, completion: completion)
+        }
+    }
+
+    func setPINWithBiometry(pin: String) async -> Result<Bool, IDKitError> {
+        await checkedContinuation { [weak self] completion in
+            self?.setPINWithBiometry(pin: pin, completion: completion)
+        }
+    }
+
+    func setPIN(pin: String, otp: String) async -> Result<Bool, IDKitError> {
+        await checkedContinuation { [weak self] completion in
+            self?.setPIN(pin: pin, otp: otp, completion: completion)
+        }
+    }
+
+    func evaluateBiometryPolicy() async -> Result<Bool, IDKitError> {
+        await checkedContinuation(evaluateBiometryPolicy)
+    }
+
+    func enableBiometricAuthentication(pin: String?, password: String?, otp: String?) async -> Result<Bool, IDKitError> {
+        await checkedContinuation { [weak self] completion in
+            self?.enableBiometricAuthentication(pin: pin, password: password, otp: otp, completion: completion)
+        }
+    }
+
+    func otp(password: String?, pin: String?) async -> Result<String, IDKitError> {
+        await checkedContinuation { [weak self] completion in
+            self?.otp(password: password, pin: pin, completion: completion)
+        }
+    }
+
+    func otpWithBiometry() async -> Result<String, IDKitError> {
+        await checkedContinuation(otpWithBiometry)
+    }
+
+    func sendMailOTP() async -> Result<Bool, IDKitError> {
+        await checkedContinuation(sendMailOTP)
+    }
+}

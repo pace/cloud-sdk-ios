@@ -25,9 +25,11 @@ struct SettingsPasswordStatusRow<T: SettingsViewModel>: SettingsRow {
             StyledText(title)
             Spacer()
             Button(action: {
-                viewModel.isPasswordSet { isSuccessful in
-                    if let isSuccessful = isSuccessful {
-                        alertMessage = isSuccessful ? "Password set" : "Password not set"
+                Task {
+                    let isPasswordSet = await viewModel.isPasswordSet()
+
+                    if let isPasswordSet {
+                        alertMessage = isPasswordSet ? "Password set" : "Password not set"
                     } else {
                         alertMessage = "The request failed"
                     }

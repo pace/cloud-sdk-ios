@@ -140,7 +140,7 @@ public extension IDKit {
      - parameter completion: The block to be called when the cancellation is complete.
      */
     static func cancelAuthorizationFlow(_ completion: (() -> Void)? = nil) {
-        shared?.authorizationFlow?.cancel(completion: completion)
+        shared?.performCancelAuthorizationFlow(completion: completion)
     }
 
     /**
@@ -394,7 +394,7 @@ public extension IDKit {
      - returns: The stored keychain data or `nil` if non was found.
      */
     static func getKeychainSecretData(with key: String) -> Data? {
-        return SDKKeychain.data(for: key, isUserSensitiveData: true)
+        SDKKeychain.data(for: key, isUserSensitiveData: true)
     }
 }
 

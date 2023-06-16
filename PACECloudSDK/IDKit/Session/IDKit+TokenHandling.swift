@@ -51,6 +51,10 @@ extension IDKit {
         startAuthorizationFlow(with: request, presentingViewController: viewController, completion)
     }
 
+    func performCancelAuthorizationFlow(completion: (() -> Void)?) {
+        authorizationFlow?.cancel(completion: completion)
+    }
+
     private func buildAuthorizationRequest(authorizationEndpoint: URL, tokenEndpoint: URL, redirectUrl: URL) -> OIDAuthorizationRequest {
         let oidConfiguration = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint,
                                                        tokenEndpoint: tokenEndpoint)
@@ -191,21 +195,18 @@ extension IDKit {
             completion?(result)
         }
     }
-}
 
-// MARK: - End session
-extension IDKit {
-    func endSession(_ completion: ((Result<Void, IDKitError>) -> Void)? = nil) {
+    private func endSession(_ completion: ((Result<Void, IDKitError>) -> Void)? = nil) {
         guard let accessToken = IDKit.latestAccessToken(),
               let refreshToken = session?.lastTokenResponse?.refreshToken,
               let sessionEndPoint = configuration.endSessionEndpoint,
               let url = URL(string: sessionEndPoint) else {
-                  IDKitLogger.w("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")
-                  DispatchQueue.main.async {
-                      completion?(.failure(.failedEndSession("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")))
-                  }
-                  return
-              }
+            IDKitLogger.w("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")
+            DispatchQueue.main.async {
+                completion?(.failure(.failedEndSession("End session failed: Couldn't retrieve accessToken, refreshToken or sessionEndPoint is invalid")))
+            }
+            return
+        }
 
         let headers = ["Authorization": "Bearer \(accessToken)", "Content-Type": "application/x-www-form-urlencoded"]
         var components = URLComponents()
@@ -226,5 +227,42 @@ extension IDKit {
                 }
             }
         }.resume()
+    }
+}
+
+// MARK: - Concurrency
+
+@available(iOS 13.0, macOS 10.15, watchOS 6.0, *) @MainActor
+extension IDKit {
+    func performAuthorization(showSignInMask: Bool) async -> Result<String?, IDKitError> {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.performAuthorization(showSignInMask: showSignInMask) { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    func performCancelAuthorizationFlow() async {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.performCancelAuthorizationFlow {
+                continuation.resume()
+            }
+        }
+    }
+
+    func performRefresh() async -> Result<String?, IDKitError> {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.performRefresh { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    func performReset() async -> Result<Void, IDKitError> {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.performReset { result in
+                continuation.resume(returning: result)
+            }
+        }
     }
 }

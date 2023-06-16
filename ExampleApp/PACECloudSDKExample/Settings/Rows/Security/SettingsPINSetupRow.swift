@@ -54,7 +54,8 @@ struct SettingsPINSetupRow<T: SettingsViewModel>: SettingsRow {
     }
 
     private func setPIN(pin: String, password: String?, otp: String?) {
-        viewModel.setPIN(pin: pin, password: password, otp: otp) { isSuccessful in
+        Task {
+            let isSuccessful = await viewModel.setPIN(pin: pin, password: password, otp: otp)
             resultAlertMessage = isSuccessful ? "PIN setup successful" : "PIN setup failed"
             showResultAlert = true
         }

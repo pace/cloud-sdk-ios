@@ -66,3 +66,20 @@ extension IDKit {
         }
     }
 }
+
+// MARK: - Concurrency
+
+@available(iOS 13.0, watchOS 6.0, *) @MainActor
+extension IDKit {
+    func userInfo() async -> Result<UserInfo, IDKitError> {
+        await checkedContinuation(userInfo)
+    }
+
+    func paymentMethods() async -> Result<PCPayPaymentMethods, IDKitError> {
+        await checkedContinuation(paymentMethods)
+    }
+
+    func transactions() async -> Result<PCPayTransactions, IDKitError> {
+       await checkedContinuation(transactions)
+    }
+}

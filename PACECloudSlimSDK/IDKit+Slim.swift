@@ -40,3 +40,24 @@ extension IDKit {
     func paymentMethods(completion: @escaping (Result<PCPayPaymentMethods, IDKitError>) -> Void) {}
     func transactions(completion: @escaping (Result<PCPayTransactions, IDKitError>) -> Void) {}
 }
+
+@available(iOS 13.0, watchOS 6.0, *)
+extension IDKit {
+    static func performDiscovery(issuerUrl: String) async -> Result<OIDConfiguration.Response, IDKitError> { .failure(.internalError) }
+
+    func userInfo() async -> Result<UserInfo, IDKitError> { .failure(.internalError) }
+    func paymentMethods() async -> Result<PCPayPaymentMethods, IDKitError> { .failure(.internalError) }
+    func transactions() async -> Result<PCPayTransactions, IDKitError> { .failure(.internalError) }
+
+    func isPasswordSet() async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func isPINSet() async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func isPINOrPasswordSet() async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func setPIN(pin: String, password: String) async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func setPINWithBiometry(pin: String) async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func setPIN(pin: String, otp: String) async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func evaluateBiometryPolicy() async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func enableBiometricAuthentication(pin: String?, password: String?, otp: String?) async -> Result<Bool, IDKitError> { .failure(.internalError) }
+    func otp(password: String?, pin: String?) async -> Result<String, IDKitError> { .failure(.internalError) }
+    func otpWithBiometry() async -> Result<String, IDKitError> { .failure(.internalError) }
+    func sendMailOTP() async -> Result<Bool, IDKitError> { .failure(.internalError) }
+}
