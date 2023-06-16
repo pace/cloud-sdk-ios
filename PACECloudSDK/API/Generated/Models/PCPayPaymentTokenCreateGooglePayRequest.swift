@@ -28,6 +28,7 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
         /** PACE resource name(s) of one or multiple resources, for which the payment should be authorized. */
         public var purposePRNs: [String]
 
+        /** The encrypted data received from GooglePay */
         public var googlePay: GooglePay
 
         public var discountTokens: [String]?
@@ -35,92 +36,51 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
         /** The code and method for two factor authentication, if required by the payment method */
         public var twoFactor: TwoFactor?
 
+        /** The encrypted data received from GooglePay */
         public class GooglePay: APIModel {
 
             public var paymentData: PaymentData?
 
-            public var paymentMethod: PaymentMethod?
+            public var signature: String?
 
-            public var transactionIdentifier: String?
+            public var version: String?
 
+            /** The encrypted data received from GooglePay */
             public class PaymentData: APIModel {
 
-                public var data: DataType?
+                public var encryptedMessage: String?
 
-                public var signature: String?
+                public var ephemeralPublicKey: String?
 
-                public var version: String?
+                public var tag: String?
 
-                public class DataType: APIModel {
-
-                    public var encryptedMessage: String?
-
-                    public var ephemeralPublicKey: String?
-
-                    public var tag: String?
-
-                    public init(encryptedMessage: String? = nil, ephemeralPublicKey: String? = nil, tag: String? = nil) {
-                        self.encryptedMessage = encryptedMessage
-                        self.ephemeralPublicKey = ephemeralPublicKey
-                        self.tag = tag
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        encryptedMessage = try container.decodeIfPresent("encryptedMessage")
-                        ephemeralPublicKey = try container.decodeIfPresent("ephemeralPublicKey")
-                        tag = try container.decodeIfPresent("tag")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(encryptedMessage, forKey: "encryptedMessage")
-                        try container.encodeIfPresent(ephemeralPublicKey, forKey: "ephemeralPublicKey")
-                        try container.encodeIfPresent(tag, forKey: "tag")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? DataType else { return false }
-                      guard self.encryptedMessage == object.encryptedMessage else { return false }
-                      guard self.ephemeralPublicKey == object.ephemeralPublicKey else { return false }
-                      guard self.tag == object.tag else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: DataType, rhs: DataType) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(data: DataType? = nil, signature: String? = nil, version: String? = nil) {
-                    self.data = data
-                    self.signature = signature
-                    self.version = version
+                public init(encryptedMessage: String? = nil, ephemeralPublicKey: String? = nil, tag: String? = nil) {
+                    self.encryptedMessage = encryptedMessage
+                    self.ephemeralPublicKey = ephemeralPublicKey
+                    self.tag = tag
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-                    data = try container.decodeIfPresent("data")
-                    signature = try container.decodeIfPresent("signature")
-                    version = try container.decodeIfPresent("version")
+                    encryptedMessage = try container.decodeIfPresent("encryptedMessage")
+                    ephemeralPublicKey = try container.decodeIfPresent("ephemeralPublicKey")
+                    tag = try container.decodeIfPresent("tag")
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
-                    try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(signature, forKey: "signature")
-                    try container.encodeIfPresent(version, forKey: "version")
+                    try container.encodeIfPresent(encryptedMessage, forKey: "encryptedMessage")
+                    try container.encodeIfPresent(ephemeralPublicKey, forKey: "ephemeralPublicKey")
+                    try container.encodeIfPresent(tag, forKey: "tag")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
                   guard let object = object as? PaymentData else { return false }
-                  guard self.data == object.data else { return false }
-                  guard self.signature == object.signature else { return false }
-                  guard self.version == object.version else { return false }
+                  guard self.encryptedMessage == object.encryptedMessage else { return false }
+                  guard self.ephemeralPublicKey == object.ephemeralPublicKey else { return false }
+                  guard self.tag == object.tag else { return false }
                   return true
                 }
 
@@ -129,76 +89,33 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
                 }
             }
 
-            public class PaymentMethod: APIModel {
-
-                public var displayName: String?
-
-                public var network: String?
-
-                public var type: String?
-
-                public init(displayName: String? = nil, network: String? = nil, type: String? = nil) {
-                    self.displayName = displayName
-                    self.network = network
-                    self.type = type
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    displayName = try container.decodeIfPresent("displayName")
-                    network = try container.decodeIfPresent("network")
-                    type = try container.decodeIfPresent("type")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(displayName, forKey: "displayName")
-                    try container.encodeIfPresent(network, forKey: "network")
-                    try container.encodeIfPresent(type, forKey: "type")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? PaymentMethod else { return false }
-                  guard self.displayName == object.displayName else { return false }
-                  guard self.network == object.network else { return false }
-                  guard self.type == object.type else { return false }
-                  return true
-                }
-
-                public static func == (lhs: PaymentMethod, rhs: PaymentMethod) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            public init(paymentData: PaymentData? = nil, paymentMethod: PaymentMethod? = nil, transactionIdentifier: String? = nil) {
+            public init(paymentData: PaymentData? = nil, signature: String? = nil, version: String? = nil) {
                 self.paymentData = paymentData
-                self.paymentMethod = paymentMethod
-                self.transactionIdentifier = transactionIdentifier
+                self.signature = signature
+                self.version = version
             }
 
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                 paymentData = try container.decodeIfPresent("paymentData")
-                paymentMethod = try container.decodeIfPresent("paymentMethod")
-                transactionIdentifier = try container.decodeIfPresent("transactionIdentifier")
+                signature = try container.decodeIfPresent("signature")
+                version = try container.decodeIfPresent("version")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.container(keyedBy: StringCodingKey.self)
 
                 try container.encodeIfPresent(paymentData, forKey: "paymentData")
-                try container.encodeIfPresent(paymentMethod, forKey: "paymentMethod")
-                try container.encodeIfPresent(transactionIdentifier, forKey: "transactionIdentifier")
+                try container.encodeIfPresent(signature, forKey: "signature")
+                try container.encodeIfPresent(version, forKey: "version")
             }
 
             public func isEqual(to object: Any?) -> Bool {
               guard let object = object as? GooglePay else { return false }
               guard self.paymentData == object.paymentData else { return false }
-              guard self.paymentMethod == object.paymentMethod else { return false }
-              guard self.transactionIdentifier == object.transactionIdentifier else { return false }
+              guard self.signature == object.signature else { return false }
+              guard self.version == object.version else { return false }
               return true
             }
 

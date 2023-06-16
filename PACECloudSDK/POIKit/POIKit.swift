@@ -94,3 +94,30 @@ extension POIKit {
         }
     }
 }
+
+@available(iOS 13.0, watchOS 6.0, *) @MainActor
+extension POIKit {
+    func requestCofuGasStations(option: CofuGasStation.Option = .all) async -> [CofuGasStation]? {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.requestCofuGasStations(option: option) { cofuStations in
+                continuation.resume(returning: cofuStations)
+            }
+        }
+    }
+
+    func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance) async -> Result<[POIKit.GasStation], POIKitAPIError> {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.requestCofuGasStations(center: center, radius: radius) { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    func isPoiInRange(id: String, at location: CLLocation?) async -> Bool {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.isPoiInRange(id: id, at: location) { isInRange in
+                continuation.resume(returning: isInRange)
+            }
+        }
+    }
+}

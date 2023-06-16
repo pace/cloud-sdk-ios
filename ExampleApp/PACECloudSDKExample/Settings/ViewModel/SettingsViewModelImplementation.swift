@@ -67,63 +67,60 @@ class SettingsViewModelImplementation: SettingsViewModel {
         return await IDControl.shared.sendMailOTP()
     }
 
-    func fetchIconsViaPaymentMethodKinds(completion: @escaping (Bool) -> Void) {
+    func fetchIconsViaPaymentMethodKinds() async -> Bool {
         guard let accessToken = IDControl.shared.latestAccessToken() else {
-            completion(false)
-            return
+            return false
         }
 
         let request = PayAPI.PaymentMethodKinds.GetPaymentMethodKinds.Request(additionalData: true)
         request.customHeaders = [HttpHeaderFields.authorization.rawValue: "Bearer \(accessToken)"]
-        API.Pay.client.makeRequest(request) { [weak self] response in
-            switch response.result {
-            case .success(let result):
-                guard let paymentMethodKinds = result.success?.data else {
-                    ExampleLogger.e("[SettingsViewModelImplementation] Failed fetching payment method kinds - Invalid data.")
-                    completion(false)
-                    return
-                }
-                self?.fetchPaymentMethodIcons(for: paymentMethodKinds, completion: completion)
 
-            case .failure(let error):
-                ExampleLogger.e("[SettingsViewModelImplementation] Failed fetching payment method kinds with error \(error)")
-                completion(false)
+        let response = await API.Pay.client.makeRequest(request)
+
+        switch response.result {
+        case .success(let result):
+            guard let paymentMethodKinds = result.success?.data else {
+                ExampleLogger.e("[SettingsViewModelImplementation] Failed fetching payment method kinds - Invalid data.")
+                return false
             }
+            return await fetchPaymentMethodIcons(for: paymentMethodKinds)
+
+        case .failure(let error):
+            ExampleLogger.e("[SettingsViewModelImplementation] Failed fetching payment method kinds with error \(error)")
+            return false
         }
     }
 
-    private func fetchPaymentMethodIcons(for paymentMethodKinds: PCPayPaymentMethodKinds, completion: @escaping (Bool) -> Void) {
-        API.CDN.client.paymentMethodVendorIcons(for: paymentMethodKinds) { icons in
-            ExampleLogger.i("[SettingsViewModelImplementation] Fetched icons for payment method kinds: \(icons)")
-            completion(true)
+    private func fetchPaymentMethodIcons(for paymentMethodKinds: PCPayPaymentMethodKinds) async -> Bool {
+        let icons = await API.CDN.client.paymentMethodVendorIcons(for: paymentMethodKinds)
+        ExampleLogger.i("[SettingsViewModelImplementation] Fetched icons for payment method kinds: \(icons)")
+        return true
+    }
+
+    func fetchIconsViaPaymentMethodVendors() async -> Bool {
+        let result = await API.CDN.client.paymentMethodVendors()
+
+        switch result {
+        case .success(let fetchedVendors):
+            return await fetchPaymentMethodIcons(for: fetchedVendors)
+
+        case .failure(let error):
+            ExampleLogger.e("[SettingsViewModelImplementation] Failed fetching payment method vendors with error \(error)")
+            return false
         }
     }
 
-    func fetchIconsViaPaymentMethodVendors(completion: @escaping (Bool) -> Void) {
-        API.CDN.client.paymentMethodVendors { [weak self] result in
-            switch result {
-            case .success(let fetchedVendors):
-                self?.fetchPaymentMethodIcons(for: fetchedVendors, completion: completion)
-
-            case .failure(let error):
-                ExampleLogger.e("[SettingsViewModelImplementation] Failed fetching payment method vendors with error \(error)")
-                completion(false)
-            }
-        }
-    }
-
-    private func fetchPaymentMethodIcons(for paymentMethodVendors: PaymentMethodVendors, completion: @escaping (Bool) -> Void) {
-        API.CDN.client.paymentMethodVendorIcons(for: paymentMethodVendors) { icons in
-            ExampleLogger.i("[SettingsViewModelImplementation] Fetched icons for payment method vendors: \(icons)")
-            completion(true)
-        }
+    private func fetchPaymentMethodIcons(for paymentMethodVendors: PaymentMethodVendors) async -> Bool {
+        let icons = await API.CDN.client.paymentMethodVendorIcons(for: paymentMethodVendors)
+        ExampleLogger.i("[SettingsViewModelImplementation] Fetched icons for payment method vendors: \(icons)")
+        return true
     }
 
     func logout() {
         IDControl.shared.reset()
     }
 
-    func isPoiInRange(with id: String, completion: @escaping (Bool) -> Void) {
-        AppControl.shared.isPoiInRange(with: id, completion: completion)
+    func isPoiInRange(with id: String) async -> Bool {
+        await AppControl.shared.isPoiInRange(with: id)
     }
 }

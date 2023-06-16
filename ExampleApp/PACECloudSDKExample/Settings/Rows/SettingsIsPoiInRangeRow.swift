@@ -46,7 +46,8 @@ struct SettingsIsPoiInRangeRow<T: SettingsViewModel>: SettingsRow {
     }
 
     private func checkIfPoiIsInRange(with id: String) {
-        viewModel.isPoiInRange(with: id) { isInRange in
+        Task {
+            let isInRange = await viewModel.isPoiInRange(with: id)
             resultAlertMessage = isInRange ? "In Range" : "Not In Range"
             showResultAlert = true
         }
