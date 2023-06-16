@@ -1,3 +1,24 @@
+16.0.0 Release notes (2023-06-16)
+=============================================================
+
+### Breaking Changes
+
+* Update Fueling, Pay, POI and User API
+
+### Enhancements
+
+* [POIKit+GeoService] Provide requests using Swift Concurrency
+* [API] Provide `makeRequest` function using Swift Concurrency
+* [IDKit] Provide requests using swift concurrency
+
+### Fixes
+
+* Fix logger unit tests
+
+### Internal
+
+* Add `brandId` property to `POIKit.GasStation`
+
 15.1.0 Release notes (2023-05-03)
 =============================================================
 
