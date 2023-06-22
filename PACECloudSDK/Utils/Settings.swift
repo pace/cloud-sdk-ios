@@ -17,7 +17,6 @@ class Settings {
     private(set) var fuelingApiHostUrl = ""
     private(set) var userApiHostUrl = ""
     private(set) var geoApiHostUrl = ""
-    private(set) var cmsApiHostUrl = ""
     private(set) var priceServiceApiHostUrl = ""
     private(set) var osrmBaseUrl = ""
     private(set) var searchBaseUrl = ""
@@ -63,7 +62,6 @@ class Settings {
         payApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("pay").absoluteString
         fuelingApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("fueling").absoluteString
         userApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("user").absoluteString
-        cmsApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("cms").absoluteString
         priceServiceApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("price-service").absoluteString
         osrmBaseUrl = settings[osrmBaseUrlKey]!
         searchBaseUrl = settings[searchBaseUrlKey]!
@@ -84,7 +82,7 @@ class Settings {
         endSessionEndpointUrl = settings[endSessionEndpoint]!
     }
 
-    func baseUrl(_ type: POIKitBaseUrl) -> String { // swiftlint:disable:this cyclomatic_complexity
+    func baseUrl(_ type: POIKitBaseUrl) -> String {
         switch type {
         case .poiApi:
             return poiApiHostUrl
@@ -100,9 +98,6 @@ class Settings {
 
         case .geo:
             return geoApiHostUrl
-
-        case .cms:
-            return cmsApiHostUrl
 
         case .priceService:
             return priceServiceApiHostUrl
@@ -130,7 +125,6 @@ class Settings {
         case fuelingApi
         case userApi
         case geo
-        case cms
         case priceService
         case cdn
     }

@@ -102,10 +102,7 @@
 		1785C95C26935EEE0041A20E /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1785C95B26935EEE0041A20E /* AppAuth */; };
 		1785C95E269432CF0041A20E /* HttpHeaderFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927111512573B295001D6DDA /* HttpHeaderFields.swift */; };
 		1785C96326943B420041A20E /* IDKit+WatchSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1785C96126943B3D0041A20E /* IDKit+WatchSDK.swift */; };
-		17B4E3F326CE52F600AEAF13 /* Cms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B37F626298CF3001961B6 /* Cms.swift */; };
-		17B4E3FA26CE81A900AEAF13 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
 		17B4E3FB26CE883600AEAF13 /* PaymentMethodVendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2D1DEC2629929D00C629C8 /* PaymentMethodVendor.swift */; };
-		17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
 		17B4E4E926CFE46600AEAF13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8414A59025CC0D370077E050 /* User.swift */; };
 		17B4E4EA26CFE47100AEAF13 /* UserAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447A37325CAAE740095BEF1 /* UserAPIClient.swift */; };
 		17B4E4EB26CFE47100AEAF13 /* UserAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447A37425CAAE740095BEF1 /* UserAPIRequest.swift */; };
@@ -421,9 +418,6 @@
 		3B6826A327BA955300933C95 /* Constants+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6826A227BA955300933C95 /* Constants+UserAgent.swift */; };
 		3B6826A427BA958500933C95 /* Constants+UserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6826A227BA955300933C95 /* Constants+UserAgent.swift */; };
 		3B6A1DB929C4BAEB001F217C /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6A1DB829C4BAEB001F217C /* OpeningHoursTests.swift */; };
-		3B6B37F726298CF3001961B6 /* Cms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B37F626298CF3001961B6 /* Cms.swift */; };
-		3B6B380C26298DD4001961B6 /* CmsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */; };
-		3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */; };
 		3B70FCB02636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
 		3B70FCB12636E1DE00786C9B /* SDKWarningsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */; };
 		3B73074725372A40009A7DF7 /* IDKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B73074625372A40009A7DF7 /* IDKit.swift */; };
@@ -1439,9 +1433,6 @@
 		3B68269B27BA886C00933C95 /* IDKitUserAgentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKitUserAgentType.swift; sourceTree = "<group>"; };
 		3B6826A227BA955300933C95 /* Constants+UserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+UserAgent.swift"; sourceTree = "<group>"; };
 		3B6A1DB829C4BAEB001F217C /* OpeningHoursTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
-		3B6B37F626298CF3001961B6 /* Cms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cms.swift; sourceTree = "<group>"; };
-		3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CmsAPIClient.swift; sourceTree = "<group>"; };
-		3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CmsAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
 		3B70FCAF2636E1DE00786C9B /* SDKWarningsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKWarningsHandler.swift; sourceTree = "<group>"; };
 		3B73074625372A40009A7DF7 /* IDKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDKit.swift; sourceTree = "<group>"; };
 		3B76F7562576468F008D8F9A /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -2079,7 +2070,6 @@
 				3B76F7562576468F008D8F9A /* API.swift */,
 				84A43A462580E35A00DE36FA /* Generated */,
 				3B637995281AC10200CD436A /* CDN */,
-				3B6B37F526298CB9001961B6 /* Cms */,
 				3B987019268E06AE00A0458F /* Communication */,
 				3B76F74A2576444A008D8F9A /* Pay */,
 				84CE69562563F6BE006A3912 /* POI */,
@@ -2098,13 +2088,6 @@
 				3BA58335256BCDCC0099629B /* IDKit+User.swift */,
 			);
 			path = Requests;
-			sourceTree = "<group>";
-		};
-		3B2D1DE72629929400C629C8 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		3B36F2A628D21CED005D4EB0 /* PersistentData */ = {
@@ -2214,25 +2197,6 @@
 				3B6826A227BA955300933C95 /* Constants+UserAgent.swift */,
 			);
 			path = Constants;
-			sourceTree = "<group>";
-		};
-		3B6B37F526298CB9001961B6 /* Cms */ = {
-			isa = PBXGroup;
-			children = (
-				3B6B381126298DDF001961B6 /* Custom */,
-				3B6B37F626298CF3001961B6 /* Cms.swift */,
-			);
-			path = Cms;
-			sourceTree = "<group>";
-		};
-		3B6B381126298DDF001961B6 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				3B2D1DE72629929400C629C8 /* Models */,
-				3B6B380B26298DD4001961B6 /* CmsAPIClient.swift */,
-				3B6B381626298E72001961B6 /* CmsAPIClient+URLProtocol.swift */,
-			);
-			path = Custom;
 			sourceTree = "<group>";
 		};
 		3B730745253729C0009A7DF7 /* IDKit */ = {
@@ -4125,7 +4089,6 @@
 				3B53F3872845E8A900E751FE /* POIAPIRequest.swift in Sources */,
 				9A906BA2284637D700463618 /* PCPayTransactions.swift in Sources */,
 				17B4E54826D39C9700AEAF13 /* UserAPISendmailOTP.swift in Sources */,
-				17B4E3F326CE52F600AEAF13 /* Cms.swift in Sources */,
 				9A906B7C284637D700463618 /* PCPayPaymentTokenCreateApplePayRequest.swift in Sources */,
 				1718B16A26B02FA20044146C /* PACECloudWatchSDK+Kits.swift in Sources */,
 				3B7D5CD829B0CBD500D4F7FD /* Crypto.swift in Sources */,
@@ -4278,7 +4241,6 @@
 				05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */,
 				17BB0D0C268CCF88009D4755 /* FuelingRequestBehaviour.swift in Sources */,
 				3B79FA9D26C15BEE00C0278F /* POIKitAPI+Search.swift in Sources */,
-				17B4E3FA26CE81A900AEAF13 /* CmsAPIClient.swift in Sources */,
 				0B28F7B3299FCE5D00E929EA /* PCPayPaymentTokenCreateGooglePayRequest.swift in Sources */,
 				17BB0D0D268CCF88009D4755 /* FuelingAPIService.swift in Sources */,
 				17BB0D3A268CD181009D4755 /* Double+Extension.swift in Sources */,
@@ -4402,7 +4364,6 @@
 				3B53F3962845E92400E751FE /* PCPOICategory.swift in Sources */,
 				3B79FAA926C15BF900C0278F /* POIKitLogger.swift in Sources */,
 				3B53F3912845E90100E751FE /* POIAPIGetTiles.swift in Sources */,
-				17B4E3FC26CE898300AEAF13 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				0B28F802299FCFFE00E929EA /* PCPOIFieldData.swift in Sources */,
 				17BB0CE9268CCEFE009D4755 /* PayAPIClient+URLProtocol.swift in Sources */,
 				3BA074D2292F96D9003A389C /* MetaCollectorData.swift in Sources */,
@@ -4785,7 +4746,6 @@
 				3B2FB23728450BF200E8CD0C /* PCPOICommonGeoJSONPoint.swift in Sources */,
 				84600F0A25C03B1E0087194F /* POIAPIGetPolicies.swift in Sources */,
 				9A906B7F284637D700463618 /* PCPayPagingMeta.swift in Sources */,
-				3B6B37F726298CF3001961B6 /* Cms.swift in Sources */,
 				3B2FB23028450BF200E8CD0C /* PCPOICategories.swift in Sources */,
 				84600F2E25C03B1F0087194F /* POIAPIGetApps.swift in Sources */,
 				3B987071268E06AE00A0458F /* ImageDataResult.swift in Sources */,
@@ -4844,7 +4804,6 @@
 				3B2FB1C32844EB2800E8CD0C /* PCUserOTPRequest.swift in Sources */,
 				0B28F7EA299FCFE800E929EA /* FuelingAPIInquireDiscountsForPump.swift in Sources */,
 				3B970A9E2542D9BB0072F6BA /* URLDataRequest.swift in Sources */,
-				3B6B380C26298DD4001961B6 /* CmsAPIClient.swift in Sources */,
 				3B970AE02542DEBD0072F6BA /* IDKitLogger.swift in Sources */,
 				841A3EFC25B9C96A0065284A /* PCFuelingCommonOpeningHours.swift in Sources */,
 				8447A3AF25CAAE740095BEF1 /* UserAPISetUser.swift in Sources */,
@@ -4981,7 +4940,6 @@
 				3BC9A8292539DDAD00B933AE /* TileInformation.swift in Sources */,
 				84600F0E25C03B1E0087194F /* POIAPIGetSubscriptions.swift in Sources */,
 				84A43A252580E34D00DE36FA /* PayAPIClient.swift in Sources */,
-				3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				3B970A782542D9BB0072F6BA /* AppDrawerContainer.swift in Sources */,
 				843A86D825C2BC040062B124 /* FuelingAPIClient+URLProtocol.swift in Sources */,
 				3B5A3CE62A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */,
