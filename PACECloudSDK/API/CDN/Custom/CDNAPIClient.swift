@@ -29,12 +29,13 @@ public class CDNAPIClient {
     }
 
     public func paymentMethodVendors(completion: @escaping (Result<[PaymentMethodVendor], APIClientError>) -> Void) {
-        guard let url = URL(string: "\(baseURL)\(Constants.cdnPayPath)/payment-method-vendors.json") else {
+        guard let url = URL(string: "\(baseURL)\(Constants.cdnPayPath)/payment-method-vendors.json"),
+              let utmUrl = QueryParamHandler.buildUrl(for: url) else {
             completion(.failure(.requestEncodingError(APIRequestError.encodingURL)))
             return
         }
 
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: utmUrl)
         performRequest(with: request) { (result: Result<[PaymentMethodVendorResponse], APIClientError>) in
             switch result {
             case .success(let paymentMethodVendorDTOs):
@@ -125,12 +126,13 @@ public class CDNAPIClient {
     }
 
     private func performIconRequest(urlString: String, completion: @escaping (Data?) -> Void) {
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: urlString),
+              let utmUrl = QueryParamHandler.buildUrl(for: url) else {
             completion(nil)
             return
         }
 
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: utmUrl)
         performDataTask(for: request) { result in
             var data: Data?
 
