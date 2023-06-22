@@ -13,7 +13,7 @@ struct URLDataRequest {
     private static var defaultURLSession: URLSession {
         let config = URLSessionConfiguration.default
         config.requestCachePolicy = .reloadRevalidatingCacheData
-        config.httpAdditionalHeaders = AppKit.Constants.userAgentHeader
+        config.httpAdditionalHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
         config.setCustomURLProtocolIfAvailable()
         return URLSession(configuration: config)
     }

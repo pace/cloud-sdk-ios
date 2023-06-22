@@ -13,4 +13,10 @@ extension URLRequest {
         guard withTracingId else { return }
         self.setValue(Constants.Tracing.identifier, forHTTPHeaderField: Constants.Tracing.key)
     }
+
+    static func defaultURLRequest(url: URL, withTracingId: Bool = false) -> URLRequest {
+        var request: URLRequest = .init(url: url, withTracingId: withTracingId)
+        request.setValue(Constants.userAgent, forHTTPHeaderField: HttpHeaderFields.userAgent.rawValue)
+        return request
+    }
 }

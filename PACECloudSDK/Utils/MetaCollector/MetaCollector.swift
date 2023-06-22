@@ -82,7 +82,7 @@ private extension PACECloudSDK.MetaCollector {
             return
         }
 
-        var request = URLRequest(url: utmUrl, withTracingId: true)
+        var request = URLRequest.defaultURLRequest(url: utmUrl, withTracingId: true)
         request.setValue("application/json", forHTTPHeaderField: HttpHeaderFields.contentType.rawValue)
         request.httpMethod = "POST"
         request.httpBody = data

@@ -212,7 +212,7 @@ extension IDKit {
         var components = URLComponents()
         components.queryItems = [.init(name: "client_id", value: configuration.clientId), .init(name: "refresh_token", value: refreshToken)]
 
-        var request = URLRequest(url: url)
+        var request = URLRequest.defaultURLRequest(url: url)
         headers.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
         request.httpMethod = "POST"
         request.httpBody = components.query?.data(using: .utf8)
