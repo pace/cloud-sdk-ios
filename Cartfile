@@ -1,2 +1,2 @@
-github "apple/swift-protobuf" ~> 1.15
+github "apple/swift-protobuf" ~> 1.22
 github "pace/AppAuth-iOS" ~> 1.5

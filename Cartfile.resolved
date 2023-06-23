@@ -1,3 +1,3 @@
 github "SnapKit/SnapKit" "5.0.1"
-github "apple/swift-protobuf" "1.15.0"
+github "apple/swift-protobuf" "1.22.0"
 github "pace/AppAuth-iOS" "1.5.0"
