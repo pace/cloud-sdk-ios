@@ -6443,7 +6443,7 @@
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.15.0;
+				version = 1.22.0;
 			};
 		};
 		3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
