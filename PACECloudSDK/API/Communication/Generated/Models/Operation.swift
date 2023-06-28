@@ -32,5 +32,8 @@ extension API.Communication {
         case isSignedIn
         case isRemoteConfigAvailable
         case shareText
+        case googlePayAvailabilityCheck
+        case googlePayPayment
+        case startNavigation
     }
 }

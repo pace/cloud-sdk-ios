@@ -30,5 +30,8 @@ protocol CommunicationProtocol: AnyObject {
     func handleIsSignedIn(completion: @escaping (API.Communication.IsSignedInResult) -> Void)
     func handleIsRemoteConfigAvailable(completion: @escaping (API.Communication.IsRemoteConfigAvailableResult) -> Void)
     func handleShareText(with request: API.Communication.ShareTextRequest, completion: @escaping (API.Communication.ShareTextResult) -> Void)
+    func handleGooglePayAvailabilityCheck(with request: API.Communication.GooglePayAvailabilityCheckRequest, completion: @escaping (API.Communication.GooglePayAvailabilityCheckResult) -> Void)
+    func handleGooglePayPayment(with request: API.Communication.GooglePayPaymentRequest, completion: @escaping (API.Communication.GooglePayPaymentResult) -> Void)
+    func handleStartNavigation(with request: API.Communication.StartNavigationRequest, completion: @escaping (API.Communication.StartNavigationResult) -> Void)
     func respond(with response: String)
 }

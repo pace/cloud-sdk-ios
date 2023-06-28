@@ -390,6 +390,20 @@
 		3B5503F12539E61C00C291F1 /* LiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F02539E61C00C291F1 /* LiveData.swift */; };
 		3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5503F62539E6BE00C291F1 /* Vector2.swift */; };
 		3B5504132539E81F00C291F1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
+		3B5A3CD62A4C740A00F83F93 /* GooglePayPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CD32A4C740A00F83F93 /* GooglePayPaymentRequest.swift */; };
+		3B5A3CD72A4C740A00F83F93 /* GooglePayPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CD32A4C740A00F83F93 /* GooglePayPaymentRequest.swift */; };
+		3B5A3CD82A4C740A00F83F93 /* StartNavigationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CD42A4C740A00F83F93 /* StartNavigationRequest.swift */; };
+		3B5A3CD92A4C740A00F83F93 /* StartNavigationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CD42A4C740A00F83F93 /* StartNavigationRequest.swift */; };
+		3B5A3CDA2A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CD52A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift */; };
+		3B5A3CDB2A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CD52A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift */; };
+		3B5A3CDF2A4C741200F83F93 /* StartNavigationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CDC2A4C741200F83F93 /* StartNavigationResult.swift */; };
+		3B5A3CE02A4C741200F83F93 /* StartNavigationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CDC2A4C741200F83F93 /* StartNavigationResult.swift */; };
+		3B5A3CE12A4C741200F83F93 /* GooglePayPaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CDD2A4C741200F83F93 /* GooglePayPaymentResult.swift */; };
+		3B5A3CE22A4C741200F83F93 /* GooglePayPaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CDD2A4C741200F83F93 /* GooglePayPaymentResult.swift */; };
+		3B5A3CE32A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CDE2A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift */; };
+		3B5A3CE42A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CDE2A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift */; };
+		3B5A3CE62A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CE52A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift */; };
+		3B5A3CE72A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A3CE52A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift */; };
 		3B5B379A29F031480095C152 /* ReplyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B379929F031480095C152 /* ReplyHandler.swift */; };
 		3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B379929F031480095C152 /* ReplyHandler.swift */; };
 		3B5FBC0525F282C500AE93BF /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
@@ -1408,6 +1422,13 @@
 		3B5503F02539E61C00C291F1 /* LiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveData.swift; sourceTree = "<group>"; };
 		3B5503F62539E6BE00C291F1 /* Vector2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2.swift; sourceTree = "<group>"; };
 		3B5504122539E81F00C291F1 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		3B5A3CD32A4C740A00F83F93 /* GooglePayPaymentRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePayPaymentRequest.swift; sourceTree = "<group>"; };
+		3B5A3CD42A4C740A00F83F93 /* StartNavigationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartNavigationRequest.swift; sourceTree = "<group>"; };
+		3B5A3CD52A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePayAvailabilityCheckRequest.swift; sourceTree = "<group>"; };
+		3B5A3CDC2A4C741200F83F93 /* StartNavigationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartNavigationResult.swift; sourceTree = "<group>"; };
+		3B5A3CDD2A4C741200F83F93 /* GooglePayPaymentResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePayPaymentResult.swift; sourceTree = "<group>"; };
+		3B5A3CDE2A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePayAvailabilityCheckResult.swift; sourceTree = "<group>"; };
+		3B5A3CE52A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling+GooglePay.swift"; sourceTree = "<group>"; };
 		3B5B379929F031480095C152 /* ReplyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyHandler.swift; sourceTree = "<group>"; };
 		3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryTOTPData.swift; sourceTree = "<group>"; };
 		3B637996281AC11400CD436A /* CDN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDN.swift; sourceTree = "<group>"; };
@@ -2308,6 +2329,7 @@
 				3B970A0F2542D9BA0072F6BA /* App+MessageHandling+2FA.swift */,
 				3B9B6445266F9A2800B2DC27 /* App+MessageHandling+AccessToken.swift */,
 				3B8C5A0D26678A4800D7D5D6 /* App+MessageHandling+ApplePay.swift */,
+				3B5A3CE52A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift */,
 				3B819C51268EF8F900441917 /* App+MessageHandling+Location.swift */,
 			);
 			path = MessageHandling;
@@ -2620,10 +2642,6 @@
 		3B98701E268E06AE00A0458F /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				6AB865752733ED4500EB4092 /* ShareTextResult.swift */,
-				6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */,
-				849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */,
-				3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */,
 				3B987026268E06AE00A0458F /* AppInterceptableLinkResult.swift */,
 				3B987027268E06AE00A0458F /* ApplePayAvailabilityCheckResult.swift */,
 				3B987024268E06AE00A0458F /* AppRedirectResult.swift */,
@@ -2637,14 +2655,21 @@
 				3B987020268E06AE00A0458F /* GetSecureDataResult.swift */,
 				3B987033268E06AE00A0458F /* GetTOTPResult.swift */,
 				3B98702D268E06AE00A0458F /* GetTraceIdResult.swift */,
+				3B5A3CDE2A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift */,
+				3B5A3CDD2A4C741200F83F93 /* GooglePayPaymentResult.swift */,
 				3B987031268E06AE00A0458F /* ImageDataResult.swift */,
 				3B98702B268E06AE00A0458F /* IntrospectResult.swift */,
+				3B91804C268F435300176ECD /* IsBiometricAuthEnabledResult.swift */,
+				6A8811E726F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift */,
+				849D8F0226E8E1DA0042413A /* IsSignedInResult.swift */,
 				3B987021268E06AE00A0458F /* LogEventResult.swift */,
 				3B987034268E06AE00A0458F /* LogoutResult.swift */,
 				3B987030268E06AE00A0458F /* OpenURLInNewTabResult.swift */,
 				3B98702E268E06AE00A0458F /* SetSecureDataResult.swift */,
 				3B987025268E06AE00A0458F /* SetTOTPResult.swift */,
 				3B987023268E06AE00A0458F /* SetUserPropertyResult.swift */,
+				6AB865752733ED4500EB4092 /* ShareTextResult.swift */,
+				3B5A3CDC2A4C741200F83F93 /* StartNavigationResult.swift */,
 				3B98702F268E06AE00A0458F /* VerifyLocationResult.swift */,
 			);
 			path = Response;
@@ -2653,7 +2678,6 @@
 		3B987038268E06AE00A0458F /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				6AB865732733EC9300EB4092 /* ShareTextRequest.swift */,
 				3B918049268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift */,
 				3B98703A268E06AE00A0458F /* AppRedirectRequest.swift */,
 				3B98703D268E06AE00A0458F /* DisableRequest.swift */,
@@ -2661,12 +2685,16 @@
 				3B987039268E06AE00A0458F /* GetConfigRequest.swift */,
 				3B98703E268E06AE00A0458F /* GetSecureDataRequest.swift */,
 				3B987045268E06AE00A0458F /* GetTOTPRequest.swift */,
+				3B5A3CD52A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift */,
+				3B5A3CD32A4C740A00F83F93 /* GooglePayPaymentRequest.swift */,
 				3B987042268E06AE00A0458F /* ImageDataRequest.swift */,
 				3B987046268E06AE00A0458F /* LogEventRequest.swift */,
 				3B987044268E06AE00A0458F /* OpenURLInNewTabRequest.swift */,
 				3B987040268E06AE00A0458F /* SetSecureDataRequest.swift */,
 				3B987043268E06AE00A0458F /* SetTOTPRequest.swift */,
 				3B98703B268E06AE00A0458F /* SetUserPropertyRequest.swift */,
+				6AB865732733EC9300EB4092 /* ShareTextRequest.swift */,
+				3B5A3CD42A4C740A00F83F93 /* StartNavigationRequest.swift */,
 				3B98703F268E06AE00A0458F /* VerifyLocationRequest.swift */,
 			);
 			path = Request;
@@ -4648,6 +4676,7 @@
 				84600EAC25C03B0C0087194F /* PayAPIGetTransaction.swift in Sources */,
 				84600E9225C03B0C0087194F /* PayAPIDeletePaymentToken.swift in Sources */,
 				3BC9A80B2539DDAD00B933AE /* POIKitManager.swift in Sources */,
+				3B5A3CE12A4C741200F83F93 /* GooglePayPaymentResult.swift in Sources */,
 				3BC9A8162539DDAD00B933AE /* POIKitConfig.swift in Sources */,
 				3BC9A7FA2539DDAD00B933AE /* NavigationResponse.swift in Sources */,
 				9A906B9B284637D700463618 /* PCPayPaymentMethodVendor.swift in Sources */,
@@ -4727,6 +4756,7 @@
 				6AB865742733EC9400EB4092 /* ShareTextRequest.swift in Sources */,
 				8414A59125CC0D370077E050 /* User.swift in Sources */,
 				0B28F7B4299FCE5D00E929EA /* PCPayDiscount.swift in Sources */,
+				3B5A3CD82A4C740A00F83F93 /* StartNavigationRequest.swift in Sources */,
 				3B2FB2742845151700E8CD0C /* PCPOIReferenceStatus.swift in Sources */,
 				3B73074725372A40009A7DF7 /* IDKit.swift in Sources */,
 				3B2FB24328450BF200E8CD0C /* PCPOILocationBasedAppRequest.swift in Sources */,
@@ -4750,6 +4780,7 @@
 				843A86D225C2BBF40062B124 /* POIAPIClient+URLProtocol.swift in Sources */,
 				3B5B379A29F031480095C152 /* ReplyHandler.swift in Sources */,
 				3B970A902542D9BB0072F6BA /* AppKitConstants.swift in Sources */,
+				3B5A3CD62A4C740A00F83F93 /* GooglePayPaymentRequest.swift in Sources */,
 				3B9B6438266F8EB900B2DC27 /* IDKitDelegate.swift in Sources */,
 				3B2FB23728450BF200E8CD0C /* PCPOICommonGeoJSONPoint.swift in Sources */,
 				84600F0A25C03B1E0087194F /* POIAPIGetPolicies.swift in Sources */,
@@ -4824,6 +4855,7 @@
 				3BB1442725386EA9004E9F63 /* Constants.swift in Sources */,
 				841A3EEC25B9C96A0065284A /* PCFuelingTransactionRequest.swift in Sources */,
 				3B2FB23C28450BF200E8CD0C /* PCPOIEvents.swift in Sources */,
+				3B5A3CE32A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift in Sources */,
 				3BC9A7F82539DDAD00B933AE /* tile_query_request.pb.swift in Sources */,
 				9A906BA1284637D700463618 /* PCPayTransactions.swift in Sources */,
 				3B2FB24728450BF200E8CD0C /* PCPOIMoveRequest.swift in Sources */,
@@ -4862,6 +4894,7 @@
 				3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */,
 				3B2406AF2821263F00114EB8 /* DateTimeProvider.swift in Sources */,
 				3B2FB23328450BF200E8CD0C /* PCPOIAppPOIsRelationships.swift in Sources */,
+				3B5A3CDF2A4C741200F83F93 /* StartNavigationResult.swift in Sources */,
 				84600F3A25C03B1F0087194F /* POIAPIUpdateAppPOIsRelationships.swift in Sources */,
 				84A43B1425825B5700DE36FA /* AnyPayRequest.swift in Sources */,
 				3B2FB21B28450BF200E8CD0C /* PCPOIErrors.swift in Sources */,
@@ -4882,6 +4915,7 @@
 				8447A3D325CAAE750095BEF1 /* UserAPIResponse.swift in Sources */,
 				3B5503F72539E6BE00C291F1 /* Vector2.swift in Sources */,
 				05521B0E26490F3E00AA4DBB /* GeoAPIManagerError.swift in Sources */,
+				3B5A3CDA2A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift in Sources */,
 				9A906BA5284637D700463618 /* PCPayPaymentMethodRoadrunnerCreateRequest.swift in Sources */,
 				3B987057268E06AE00A0458F /* AppRedirectResult.swift in Sources */,
 				84600E8A25C03B0C0087194F /* PayAPICreatePaymentMethodPayPal.swift in Sources */,
@@ -4950,6 +4984,7 @@
 				3B6B381726298E72001961B6 /* CmsAPIClient+URLProtocol.swift in Sources */,
 				3B970A782542D9BB0072F6BA /* AppDrawerContainer.swift in Sources */,
 				843A86D825C2BC040062B124 /* FuelingAPIClient+URLProtocol.swift in Sources */,
+				3B5A3CE62A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */,
 				3B3FC8F327FED6E7008B3F7F /* PACECloudSDKDelegate.swift in Sources */,
 				84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */,
 				84600EFC25C03B1E0087194F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */,
@@ -5059,6 +5094,7 @@
 				3B98706E268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
 				3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */,
+				3B5A3CE72A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */,
 				3BA074CF292F96D5003A389C /* MetaCollector.swift in Sources */,
 				3B98705A268E06AE00A0458F /* SetTOTPResult.swift in Sources */,
 				3B987098268E06AE00A0458F /* GetTOTPRequest.swift in Sources */,
@@ -5079,6 +5115,7 @@
 				3B4B8BE428EC785B0062963C /* URL+Extension.swift in Sources */,
 				8418E29A25B1B85E00D3722B /* APIRequestUtils.swift in Sources */,
 				3B987072268E06AE00A0458F /* ImageDataResult.swift in Sources */,
+				3B5A3CD72A4C740A00F83F93 /* GooglePayPaymentRequest.swift in Sources */,
 				3B987086268E06AE00A0458F /* GetAccessTokenRequest.swift in Sources */,
 				3B90B68327E097DF00A582EC /* Localizable.swift in Sources */,
 				3B987052268E06AE00A0458F /* LogEventResult.swift in Sources */,
@@ -5115,6 +5152,7 @@
 				92EDDBEE25A7270300E480F4 /* String+Extension.swift in Sources */,
 				92EDDC5025A729D000E480F4 /* HttpHeaderFields.swift in Sources */,
 				92EDDDCC25A7441C00E480F4 /* App+Slim.swift in Sources */,
+				3B5A3CE22A4C741200F83F93 /* GooglePayPaymentResult.swift in Sources */,
 				3B98709E268E06AE00A0458F /* Operation.swift in Sources */,
 				3B9B2A5B27B657BB0099EA37 /* NSMutableData+Extension.swift in Sources */,
 				84961AC3264E5A810070CB0B /* AppKit+Delegate+Slim.swift in Sources */,
@@ -5153,6 +5191,7 @@
 				92EDDBFE25A7270300E480F4 /* AppDrawer+Gestures.swift in Sources */,
 				92EDDC1B25A7270300E480F4 /* AppStyle+Images.swift in Sources */,
 				3B987084268E06AE00A0458F /* SetUserPropertyRequest.swift in Sources */,
+				3B5A3CD92A4C740A00F83F93 /* StartNavigationRequest.swift in Sources */,
 				92EDDC0225A7270300E480F4 /* RedirectServiceData.swift in Sources */,
 				053456BA269657D0007D482D /* BundleUserAgent+Extension.swift in Sources */,
 				92EDDC1025A7270300E480F4 /* LoadingView.swift in Sources */,
@@ -5162,6 +5201,7 @@
 				8418E29B25B1B85E00D3722B /* AnyResponse.swift in Sources */,
 				3BABEFF027C8E86F002256CB /* PaceIDSignInWindow.swift in Sources */,
 				6ACBC08926FE127300E6AC05 /* Logger.swift in Sources */,
+				3B5A3CDB2A4C740A00F83F93 /* GooglePayAvailabilityCheckRequest.swift in Sources */,
 				8418E24025B1B83800D3722B /* POI.swift in Sources */,
 				3B9B2A6227B65A380099EA37 /* GeoAPIManagerError.swift in Sources */,
 				3B98704A268E06AE00A0458F /* MessageHandler.swift in Sources */,
@@ -5219,6 +5259,7 @@
 				3BABEFF527C8E8AD002256CB /* IDKitError.swift in Sources */,
 				3BA074D1292F96D8003A389C /* MetaCollectorData.swift in Sources */,
 				3B98708E268E06AE00A0458F /* SetSecureDataRequest.swift in Sources */,
+				3B5A3CE42A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift in Sources */,
 				92EDDC2425A7270300E480F4 /* App.swift in Sources */,
 				923ED19525D7A991001444C3 /* PACECloudSlimSDK+API.swift in Sources */,
 				3B987092268E06AE00A0458F /* ImageDataRequest.swift in Sources */,
@@ -5231,6 +5272,7 @@
 				92EDDBF625A7270300E480F4 /* AppManifest.swift in Sources */,
 				3BABEFF927C8E8CC002256CB /* IDKitWebViewUserAgent.swift in Sources */,
 				3B99F5DA28D1CF2F00B2BF0A /* SDKUserDefaults.swift in Sources */,
+				3B5A3CE02A4C741200F83F93 /* StartNavigationResult.swift in Sources */,
 				92EDDBDD25A7202700E480F4 /* PACECloudSDK.swift in Sources */,
 				3B98709C268E06AE00A0458F /* Communication.swift in Sources */,
 				3B8A869E27479250001EBE29 /* Application.swift in Sources */,

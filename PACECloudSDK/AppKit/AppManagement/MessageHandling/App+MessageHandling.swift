@@ -201,4 +201,15 @@ extension App {
             completion(.init(.init(response: .init(remoteConfigAvailable: isAvailable))))
         }
     }
+
+    func handleStartNavigation(with request: API.Communication.StartNavigationRequest,
+                               completion: @escaping (API.Communication.StartNavigationResult) -> Void) {
+        AppKit.shared.notifyStartNavigation(request: request) { isSuccessful in
+            if isSuccessful {
+                completion(.init(.init()))
+            } else {
+                completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Failed starting navigation by client"))))
+            }
+        }
+    }
 }
