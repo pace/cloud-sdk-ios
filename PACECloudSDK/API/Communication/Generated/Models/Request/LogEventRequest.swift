@@ -15,7 +15,7 @@ public extension API.Communication {
         /**
          * Dictionary of additional event parameters */
         public let parameters: [String: AnyCodable]?
-    }
 
-    struct Parameters: Codable {}
+        public struct Parameters: Codable {}
+    }
 }

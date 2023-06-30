@@ -204,6 +204,24 @@ extension API.Communication {
                 delegate?.handleShareText(with: requestBody) { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
+
+            case .googlePayAvailabilityCheck:
+                guard let requestBody: GooglePayAvailabilityCheckRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
+                delegate?.handleGooglePayAvailabilityCheck(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
+                }
+
+            case .googlePayPayment:
+                guard let requestBody: GooglePayPaymentRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
+                delegate?.handleGooglePayPayment(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
+                }
+
+            case .startNavigation:
+                guard let requestBody: StartNavigationRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
+                delegate?.handleStartNavigation(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
+                }
             }
         }
 

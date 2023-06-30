@@ -28,6 +28,7 @@ public protocol AppKitDelegate: AnyObject {
     func getConfig(key: String, completion: @escaping ((Any?) -> Void))
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void))
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void))
+    func startNavigation(_ request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void)
 }
 
 public extension AppKitDelegate {
@@ -53,6 +54,7 @@ public extension AppKitDelegate {
         let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         UIWindow.topMost?.rootViewController?.present(av, animated: true, completion: nil)
     }
+    func startNavigation(_ request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void) { completion(false) }
 }
 
 extension AppKit {
@@ -138,6 +140,12 @@ extension AppKit {
     func notifyDidReceiveText(title: String, text: String) {
         notifyClient { [weak self] in
             self?.delegate?.didReceiveText(title: title, text: text)
+        }
+    }
+
+    func notifyStartNavigation(request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void) {
+        notifyClient { [weak self] in
+            self?.delegate?.startNavigation(request, completion: completion)
         }
     }
 
