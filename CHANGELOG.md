@@ -1,3 +1,13 @@
+16.0.2 Release notes (2023-07-03)
+=============================================================
+
+### Internal
+
+* Use the same user agent for every request
+* Add missing utm_source parameter to CDN requests
+* Remove `CMSAPIClient`
+* Provide functionality to request navigation from client
+
 16.0.1 Release notes (2023-06-27)
 =============================================================
 
