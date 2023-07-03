@@ -59,6 +59,7 @@ class GeoAPIManager {
         configuration.urlCache = cache
 
         configuration.setCustomURLProtocolIfAvailable()
+        configuration.httpAdditionalHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
 
         self.session = URLSession(configuration: configuration)
     }

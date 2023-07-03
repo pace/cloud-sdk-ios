@@ -13,10 +13,14 @@ extension PACECloudSDK {
         API.Pay.client.baseURL = Settings.shared.baseUrl(.payApi)
         API.Fueling.client.baseURL = Settings.shared.baseUrl(.fuelingApi)
         API.User.client.baseURL = Settings.shared.baseUrl(.userApi)
-        API.Cms.client.baseURL = Settings.shared.baseUrl(.cms)
         API.CDN.client.baseURL = Settings.shared.baseUrl(.cdn)
 
-        API.POI.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Bundle.paceCloudSDK.poiKitUserAgent,
+        API.POI.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent,
                                          HttpHeaderFields.apiKey.rawValue: apiKey ?? "Missing API key"]
+        API.Pay.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
+        API.Fueling.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
+        API.User.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
+        API.CDN.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
+        API.Custom.client.defaultHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
     }
 }

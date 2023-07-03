@@ -45,31 +45,25 @@ protocol HttpRequestProtocol {
     func httpRequest(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionTask
 }
 
-protocol URLSessionProtocol {
-    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
-}
-
-extension URLSession: URLSessionProtocol { }
-
 class HttpRequest: NSObject, HttpRequestProtocol {
-    var session: URLSessionProtocol = URLSession(configuration: .default)
-    let sslVerifyHost = "."
-    var acceptLanguage = "en"
-    var accessToken: String?
+    private var session: URLSession = .init(configuration: .default)
+    private let sslVerifyHost = "."
+    private var acceptLanguage = "en"
 
     // MARK: - Initialize
-    init(session: URLSessionProtocol? = nil) {
+    init(session: URLSession? = nil) {
         super.init()
 
-        if let session = session as? URLSession {
+        if let session {
             session.configuration.setCustomURLProtocolIfAvailable()
+            session.configuration.httpAdditionalHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
             self.session = session
         } else {
             let configuration = URLSessionConfiguration.default
             configuration.timeoutIntervalForRequest = POIKitConfig.connectTimeout
             configuration.timeoutIntervalForResource = POIKitConfig.readTimeout
             configuration.setCustomURLProtocolIfAvailable()
+            configuration.httpAdditionalHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
             self.session = URLSession(configuration: configuration, delegate: self, delegateQueue: OperationQueue())
         }
     }

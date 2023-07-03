@@ -15,10 +15,6 @@ public extension AppKit {
 extension AppKit.Constants {
     static let logTag = "[AppKit]"
 
-    static var userAgentHeader: [String: String] {
-        return [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
-    }
-
     static var currentLanguageCode: String? {
         return Locale.current.languageCode
     }
