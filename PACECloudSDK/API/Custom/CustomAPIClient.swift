@@ -138,7 +138,8 @@ public class CustomAPIClient {
             && IDKit.isSessionAvailable {
             IDKit.apiInducedRefresh { [weak self] error in
                 guard let error = error else {
-                    _ = self?.makeNetworkRequest(request: request,
+                    let updatedRequest = self?.updateAccessToken(of: request) ?? request
+                    _ = self?.makeNetworkRequest(request: updatedRequest,
                                                  currentUnauthorizedRetryCount: currentUnauthorizedRetryCount + 1,
                                                  currentRetryCount: currentRetryCount,
                                                  completion: completion)
@@ -228,6 +229,14 @@ public class CustomAPIClient {
         case .failure(let error):
             return .failure(error)
         }
+    }
+
+    private func updateAccessToken(of request: URLRequest) -> URLRequest {
+        guard let accessToken = API.accessToken else { return request }
+
+        var updatedRequest = request
+        updatedRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
+        return updatedRequest
     }
 }
 
