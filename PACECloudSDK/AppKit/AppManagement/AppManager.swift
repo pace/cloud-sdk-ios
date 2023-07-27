@@ -107,7 +107,8 @@ extension AppManager {
     private func fetchAppManifest(with appDatas: [AppKit.AppData]) {
         let dispatchGroup = DispatchGroup()
         for appData in appDatas {
-            guard let manifestUrlString = URLBuilder.buildAppManifestUrl(with: appData.appBaseUrl) else {
+            guard let appBaseUrlString = appData.appBaseUrl,
+                  let manifestUrlString = URLBuilder.buildAppManifestUrl(with: appBaseUrlString) else {
                 AppKitLogger.e("[AppManager] Manifest url string nil")
                 return
             }
