@@ -17,17 +17,12 @@ struct URLBuilder {
         return component
     }
 
-    static func buildAppManifestUrl(with baseUrl: String?) -> String? {
-        guard let baseUrlString = baseUrl, let baseUrl = URL(string: baseUrlString) else { return nil }
+    static func buildAppManifestUrl(with baseUrlString: String) -> String? {
+        guard var components = URLComponents(string: baseUrlString) else { return nil }
 
-        var manifestUrl: URL? {
-            var components = URLComponents()
-            components.scheme = baseUrl.scheme
-            components.host = baseUrl.host
-            components.port = baseUrl.port
-            components.path = "/manifest.json"
-            return components.url
-        }
+        components.queryItems = nil // Drop query items
+        components.fragment = nil // Drop fragment
+        let manifestUrl = components.url?.appendingPathComponent("manifest.json")
 
         return manifestUrl?.absoluteString
     }
