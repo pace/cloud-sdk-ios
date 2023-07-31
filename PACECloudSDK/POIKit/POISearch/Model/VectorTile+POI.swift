@@ -53,7 +53,7 @@ extension VectorTile_Tile {
             gasStation.brand = brand
         }
 
-        if let brandId = values["brand_id"] {
+        if let brandId = values["bi"] {
             gasStation.brandId = brandId
         }
 
