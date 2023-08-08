@@ -1,3 +1,14 @@
+16.0.4 Release notes (2023-08-08)
+=============================================================
+
+### Fixes
+
+* Fix building of app manifest url
+
+### Internal
+
+* Rename brand id field in tiles
+
 16.0.3 Release notes (2023-07-06)
 =============================================================
 
