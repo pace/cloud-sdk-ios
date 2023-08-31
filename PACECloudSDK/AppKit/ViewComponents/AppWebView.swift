@@ -21,6 +21,9 @@ class AppWebView: WebView, App {
     private(set) var messageHandler: API.Communication.MessageHandler?
     private(set) lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
+    /// Access Token that's temporarily stored if not using IDKit
+    var clientCustomAccessToken: String?
+
     override func setup() {
         attachMessageHandlers()
 

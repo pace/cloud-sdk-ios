@@ -16,13 +16,16 @@ extension App {
         let reason = AppKit.GetAccessTokenReason(rawValue: requestReason) ?? .other
         let oldToken = request.oldToken
 
-        guard IDKit.isSetUp else {
-            AppKit.shared.notifyGetAccessToken(reason: reason, oldToken: oldToken) { response in
-                completion(.init(.init(response: response)))
-            }
-            return
+        if IDKit.isSetUp {
+            handleGetAccessTokenWithIDKit(reason: reason, oldToken: oldToken, completion: completion)
+        } else {
+            handleGetAccessTokenWithoutIDKit(reason: reason, oldToken: oldToken, completion: completion)
         }
+    }
 
+    private func handleGetAccessTokenWithIDKit(reason: AppKit.GetAccessTokenReason,
+                                               oldToken: String?,
+                                               completion: @escaping (API.Communication.GetAccessTokenResult) -> Void) {
         if let oldToken = oldToken {
             let tokenValidator = IDKit.TokenValidator(accessToken: oldToken)
 
@@ -37,6 +40,26 @@ extension App {
 
         IDKit.appInducedRefresh { [weak self] accessToken in
             self?.respond(accessToken: accessToken, completion)
+        }
+    }
+
+    private func handleGetAccessTokenWithoutIDKit(reason: AppKit.GetAccessTokenReason,
+                                                  oldToken: String?,
+                                                  completion: @escaping (API.Communication.GetAccessTokenResult) -> Void) {
+        if let clientCustomAccessToken = clientCustomAccessToken {
+            let tokenValidator = IDKit.TokenValidator(accessToken: clientCustomAccessToken)
+
+            if tokenValidator.isTokenValid() {
+                completion(.init(.init(response: .init(accessToken: clientCustomAccessToken, isInitialToken: false))))
+                return
+            }
+        }
+
+        // If customAccessToken is not available or not valid anymore
+        // request a new token from the client
+        AppKit.shared.notifyGetAccessToken(reason: reason, oldToken: oldToken) { [weak self] response in
+            self?.clientCustomAccessToken = response.accessToken
+            completion(.init(.init(response: response)))
         }
     }
 

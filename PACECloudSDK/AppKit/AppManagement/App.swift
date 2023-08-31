@@ -19,6 +19,7 @@ protocol App: WKWebView, WKScriptMessageHandlerWithReply, WKScriptMessageHandler
     var messageHandler: API.Communication.MessageHandler? { get }
     var appActionsDelegate: AppActionsDelegate? { get set }
     var oneTimeLocationProvider: OneTimeLocationProvider { get }
+    var clientCustomAccessToken: String? { get set }
 }
 
 extension App {
