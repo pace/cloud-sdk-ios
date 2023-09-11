@@ -22,11 +22,7 @@ public extension AppKit {
                 return "Light"
 
             case .automatic:
-                if #available(iOS 13.0, *) {
-                    return UITraitCollection.current.userInterfaceStyle == .light ? "\(AppKitTheme.light)" : "\(AppKitTheme.dark)"
-                } else {
-                    return "\(AppKitTheme.light)"
-                }
+                return UITraitCollection.current.userInterfaceStyle == .light ? "\(AppKitTheme.light)" : "\(AppKitTheme.dark)"
             }
         }
 

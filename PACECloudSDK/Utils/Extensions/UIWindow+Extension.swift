@@ -17,14 +17,9 @@ extension UIWindow {
     }
 
     static var sortedWindowStack: [UIWindow] {
-        if #available(iOS 13.0, *) {
-            return
-                (Application.shared.connectedScenes
-                    .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene)?.windows
-                .sorted(by: { $0.windowLevel > $1.windowLevel }) ?? []
-        } else {
-            return Application.shared.windows.sorted(by: { $0.windowLevel > $1.windowLevel })
-        }
+        return (Application.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene)?.windows
+            .sorted(by: { $0.windowLevel > $1.windowLevel }) ?? []
     }
 
     static var topMost: UIWindow? {

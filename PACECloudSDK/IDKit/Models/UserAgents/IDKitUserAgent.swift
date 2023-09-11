@@ -8,7 +8,6 @@
 import AppAuth
 import AuthenticationServices
 
-@available(iOS 13.0, *)
 class IDKitUserAgent: NSObject, OIDExternalUserAgent {
     private let presentingViewController: UIViewController
     private var externalUserAgentFlowInProgress: Bool = false
@@ -69,7 +68,6 @@ class IDKitUserAgent: NSObject, OIDExternalUserAgent {
     }
 }
 
-@available(iOS 13.0, *)
 extension IDKitUserAgent: ASWebAuthenticationPresentationContextProviding {
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         presentingViewController.view.window ?? UIApplication.shared.keyWindow ?? UIWindow()

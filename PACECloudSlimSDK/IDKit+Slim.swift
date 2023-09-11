@@ -41,7 +41,6 @@ extension IDKit {
     func transactions(completion: @escaping (Result<PCPayTransactions, IDKitError>) -> Void) {}
 }
 
-@available(iOS 13.0, watchOS 6.0, *)
 extension IDKit {
     static func performDiscovery(issuerUrl: String) async -> Result<OIDConfiguration.Response, IDKitError> { .failure(.internalError) }
 

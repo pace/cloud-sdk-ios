@@ -106,7 +106,6 @@ extension IDKit {
             userAgent = IDKitWebViewUserAgent(with: presentingViewController)
 
         case .external:
-            guard #available(iOS 13.0, *) else { break }
             userAgent = IDKitUserAgent(with: presentingViewController) // Hide ASWebAuthenticationSession popup
         }
 
@@ -232,7 +231,7 @@ extension IDKit {
 
 // MARK: - Concurrency
 
-@available(iOS 13.0, macOS 10.15, watchOS 6.0, *) @MainActor
+@MainActor
 extension IDKit {
     func performAuthorization(showSignInMask: Bool) async -> Result<String?, IDKitError> {
         await withCheckedContinuation { [weak self] continuation in

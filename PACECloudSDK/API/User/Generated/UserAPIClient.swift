@@ -369,7 +369,7 @@ public class UserAPIClient {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension UserAPIClient {
     /// Makes a network request
     ///

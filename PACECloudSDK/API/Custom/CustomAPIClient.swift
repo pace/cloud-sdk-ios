@@ -240,7 +240,7 @@ public class CustomAPIClient {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension CustomAPIClient {
     func makeCustomJSONRequest<T: Decodable>(_ request: URLRequest,
                                              session: URLSession = .shared,

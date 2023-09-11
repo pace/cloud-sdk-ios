@@ -26,15 +26,11 @@ extension AppKit.AppDrawer {
 
 extension AppKit.AppDrawer: AppViewControllerDelegate {
     func prepareForOpenApp() {
-        if #available(iOS 13.0, *) {
-            guard let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as? UIApplication else { return }
-            let windowScene = application.connectedScenes.first
+        guard let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as? UIApplication else { return }
+        let windowScene = application.connectedScenes.first
 
-            if let windowScene = windowScene as? UIWindowScene {
-                appWindow = AppWindow(windowScene: windowScene)
-            }
-        } else {
-            appWindow = AppWindow(frame: UIScreen.main.bounds)
+        if let windowScene = windowScene as? UIWindowScene {
+            appWindow = AppWindow(windowScene: windowScene)
         }
 
         openApp()

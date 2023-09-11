@@ -369,7 +369,7 @@ public class POIAPIClient {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension POIAPIClient {
     /// Makes a network request
     ///

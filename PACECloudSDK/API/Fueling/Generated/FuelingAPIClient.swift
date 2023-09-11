@@ -369,7 +369,7 @@ public class FuelingAPIClient {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension FuelingAPIClient {
     /// Makes a network request
     ///

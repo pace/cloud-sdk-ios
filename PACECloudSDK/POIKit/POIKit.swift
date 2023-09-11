@@ -95,7 +95,7 @@ extension POIKit {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 extension POIKit {
     func requestCofuGasStations(option: CofuGasStation.Option = .all) async -> [CofuGasStation]? {
         await withCheckedContinuation { [weak self] continuation in

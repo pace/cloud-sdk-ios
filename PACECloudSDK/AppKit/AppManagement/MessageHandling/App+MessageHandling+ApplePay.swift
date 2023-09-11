@@ -24,15 +24,26 @@ extension App {
             paymentNetworks.append(contentsOf: [.barcode, .girocard])
         }
 
-        if #available(iOS 12.1.1, *) {
-            paymentNetworks.append(contentsOf: [.vPay, .maestro, .mada, .elo, .electron, .eftpos])
-        }
-
-        if #available(iOS 11.2, *) {
-            paymentNetworks.append(.cartesBancaires)
-        }
-
-        paymentNetworks.append(contentsOf: [.amex, .chinaUnionPay, .discover, .idCredit, .interac, .JCB, .masterCard, .privateLabel, .quicPay, .suica, .visa])
+        paymentNetworks.append(contentsOf: [
+            .amex,
+            .cartesBancaires,
+            .chinaUnionPay,
+            .discover,
+            .eftpos,
+            .electron,
+            .elo,
+            .idCredit,
+            .interac,
+            .JCB,
+            .mada,
+            .maestro,
+            .masterCard,
+            .privateLabel,
+            .quicPay,
+            .suica,
+            .visa,
+            .vPay
+        ])
 
         let matchingNetworks = paymentNetworks.filter { paymentNetwork in
             supportedNetworks.contains(where: { $0.lowercased() == paymentNetwork.rawValue.lowercased() })

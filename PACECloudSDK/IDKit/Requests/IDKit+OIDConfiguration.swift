@@ -38,7 +38,7 @@ extension IDKit {
 
 // MARK: - Concurrency
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 extension IDKit {
     static func performDiscovery(issuerUrl: String) async -> Result<OIDConfiguration.Response, IDKitError> {
         await withCheckedContinuation { continuation in

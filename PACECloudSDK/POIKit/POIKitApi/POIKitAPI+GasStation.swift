@@ -65,13 +65,7 @@ extension POIKitAPI {
     }
 
     private func handleMovedPOI(response: HTTPURLResponse, result: @escaping (Result<POIKit.GasStationResponse, Error>) -> Void) {
-        var location: String
-
-        if #available(iOS 13.0, *) {
-            location = response.value(forHTTPHeaderField: "Location") ?? ""
-        } else {
-            location = response.allHeaderFields["Location"] as? String ?? ""
-        }
+        let location: String = response.value(forHTTPHeaderField: "Location") ?? ""
 
         guard !location.isEmpty, let uuidComponent = location.split(separator: "/").last else {
             result(.failure(POIKit.POIKitAPIError.notFound))
