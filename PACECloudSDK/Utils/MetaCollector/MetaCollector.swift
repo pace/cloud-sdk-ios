@@ -130,7 +130,15 @@ private extension PACECloudSDK.MetaCollector {
     }
 
     func detachAppLifecycleObserver() {
-        NotificationCenter.default.removeObserver(self)
+        var notificationName: NSNotification.Name
+
+        #if PACECloudWatchSDK
+        notificationName = WKExtension.applicationWillEnterForegroundNotification
+        #else
+        notificationName = UIApplication.willEnterForegroundNotification
+        #endif
+
+        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
     }
 
     @objc

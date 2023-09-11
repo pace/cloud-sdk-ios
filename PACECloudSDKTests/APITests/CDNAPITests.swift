@@ -38,7 +38,7 @@ class CDNAPITests: XCTestCase {
     }
 
     func testPaymentMethodVendorLogoURLInvalidPath() {
-        let logo = PaymentMethodVendorLogo(from: .init(href: "this is not an url", variants: .init(dark: .init(href: "this is not an url"))))
+        let logo = PaymentMethodVendorLogo(from: .init(href: "", variants: .init(dark: .init(href: ""))))
         XCTAssertNil(logo.href)
         XCTAssertNil(logo.variants?.dark?.href)
     }

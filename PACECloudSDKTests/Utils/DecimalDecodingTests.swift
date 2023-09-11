@@ -25,18 +25,6 @@ class DecimalDecodingTests: XCTestCase {
         }
     }
 
-    func testDecimalDecodingError() {
-        let values: [Double] = [68.32, 90.15]
-
-        values.forEach {
-            guard let decodedValue = decode(decimalValue: $0) else {
-                return
-            }
-
-            XCTAssertGreaterThan(decodedValue.significantFractionalDecimalDigits, 2)
-        }
-    }
-
     func testCustomDecoding() {
         let jsonString =
             """

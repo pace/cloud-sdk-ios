@@ -148,15 +148,13 @@ class TokenTests: XCTestCase {
             return
         }
 
-        let timerToken = OneTimePassword.Token(generator: timerGenerator)
-
         let count: UInt64 = 12345
-        guard let counterGenerator = OneTimePassword.Generator(
+        guard OneTimePassword.Generator(
             factor: .counter(count),
             secret: otherSecretData,
             algorithm: .sha1,
             digits: 6
-        ) else {
+        ) != nil else {
             XCTFail("Failed to construct Generator.")
             return
         }
