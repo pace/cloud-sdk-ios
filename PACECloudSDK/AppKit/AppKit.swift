@@ -178,15 +178,6 @@ public extension AppKit {
         }
     }
 
-    /**
-     Handles the specified redirect URL within an `AppViewController`.
-     - parameter url: The redirect URL.
-     */
-    @available(*, deprecated, message: "Please use 'PACECloudSDK.shared.application(open:) instead.'")
-    static func handleRedirectURL(_ url: URL) {
-        PACECloudSDK.shared.application(open: url)
-    }
-
     static func sendEvent(_ event: AppEvent) {
         NotificationCenter.default.post(name: .appEventOccured, object: event)
     }

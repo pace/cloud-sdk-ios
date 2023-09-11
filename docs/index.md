@@ -195,6 +195,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 16.x.x to 17.x.x
 
 - Raise deployment target to iOS 13
+- Remove deprecated `AppKit` method `handleRedirectURL(URL)`
 
 ## Contribute
 ### Localizable Strings Generation
