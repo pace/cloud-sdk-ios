@@ -35,10 +35,6 @@ class AppControl {
         AppKit.appViewController(appUrl: appUrl)
     }
 
-    func handleRedirectURL(_ url: URL) {
-        AppKit.handleRedirectURL(url)
-    }
-
     func isPoiInRange(with id: String) async -> Bool {
         await POIKit.isPoiInRange(id: id)
     }

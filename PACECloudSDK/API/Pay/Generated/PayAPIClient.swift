@@ -369,7 +369,7 @@ public class PayAPIClient {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension PayAPIClient {
     /// Makes a network request
     ///

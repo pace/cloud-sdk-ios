@@ -24,10 +24,7 @@ public class WebViewController: UIViewController {
         self.webView.delegate = self
 
         navigationController?.setNavigationBarHidden(!hasNavigationBar, animated: false)
-
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = isModalInPresentation
-        }
+        self.isModalInPresentation = isModalInPresentation
     }
 
     required init?(coder: NSCoder) {

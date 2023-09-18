@@ -14,23 +14,13 @@ class AppWindow: UIWindow {
     private let defaultWindowLevel = UIWindow.Level.normal + 1
 
     private var topMostWindowLevel: UIWindow.Level? {
-        if #available(iOS 13.0, *) {
-            return
-                (UIApplication.shared.connectedScenes
-                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene)?.windows
-                .sorted(by: { $0.windowLevel > $1.windowLevel }).first?.windowLevel
-        } else {
-            return UIApplication.shared.windows.sorted(by: { $0.windowLevel > $1.windowLevel }).first?.windowLevel
-        }
+        return (UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene)?.windows
+            .sorted(by: { $0.windowLevel > $1.windowLevel }).first?.windowLevel
     }
 
-    @available(iOS 13.0, *)
     override init(windowScene: UIWindowScene) {
         super.init(windowScene: windowScene)
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
     }
 
     required init?(coder: NSCoder) {
@@ -52,9 +42,7 @@ class AppWindow: UIWindow {
         appViewController?.modalPresentationStyle = .pageSheet
         appViewController?.modalPresentationCapturesStatusBarAppearance = true
         appViewController?.navigationController?.setNavigationBarHidden(true, animated: false)
-        if #available(iOS 13.0, *) {
-            appViewController?.isModalInPresentation = true
-        }
+        appViewController?.isModalInPresentation = true
 
         guard let vc = appViewController else { return }
 
@@ -62,17 +50,14 @@ class AppWindow: UIWindow {
     }
 
     private func determineInterfaceStyle() {
-        if #available(iOS 13.0, *) {
-            if AppKit.shared.theme != .automatic {
-                overrideUserInterfaceStyle = AppKit.shared.theme == .light ? .light : .dark
-            }
-        }
+        guard AppKit.shared.theme != .automatic else { return }
+        overrideUserInterfaceStyle = AppKit.shared.theme == .light ? .light : .dark
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        guard #available(iOS 13.0, *), AppKit.shared.theme != .automatic else { return }
+        guard AppKit.shared.theme != .automatic else { return }
 
         overrideUserInterfaceStyle = AppKit.shared.theme == .light ? .light : .dark
     }

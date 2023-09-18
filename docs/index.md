@@ -16,6 +16,9 @@
         + [11.x.x -> 12.x.x](#from-11xx-to-12xx)
         + [From 12.x.x -> 13.x.x](#from-12xx-to-13xx)
         + [From 13.x.x -> 14.x.x](#from-13xx-to-14xx)
+        + [From 14.x.x -> 15.x.x](#from-14xx-to-15xx)
+        + [From 15.x.x -> 16.x.x](#from-15xx-to-16xx)
+        + [From 16.x.x -> 17.x.x](#from-16xx-to-17xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -184,6 +187,15 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 14.x.x to 15.x.x
 
 - Removed geofence functionality
+
+### From 15.x.x to 16.x.x
+
+- Update Fueling, Pay, POI and User API
+
+### From 16.x.x to 17.x.x
+
+- Raise deployment target to iOS 13
+- Remove deprecated `AppKit` method `handleRedirectURL(URL)`
 
 ## Contribute
 ### Localizable Strings Generation

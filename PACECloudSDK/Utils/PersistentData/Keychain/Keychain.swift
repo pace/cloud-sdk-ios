@@ -87,11 +87,7 @@ public extension PACECloudSDK {
         }
 
         private func errorMessage(for resultCode: OSStatus) -> String? {
-            if #available(iOS 11.3, *) {
-                return SecCopyErrorMessageString(resultCode, nil) as String?
-            } else {
-                return nil
-            }
+            return SecCopyErrorMessageString(resultCode, nil) as String?
         }
     }
 }

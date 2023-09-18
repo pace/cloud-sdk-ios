@@ -69,7 +69,7 @@ public extension POIKit {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension POIKit {
 
     /// Requests connected fueling gas stations for the specified option.

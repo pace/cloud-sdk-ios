@@ -9,7 +9,7 @@ import UIKit
 
 class AppActivityIndicatorView: UIActivityIndicatorView {
 
-    override init(style: UIActivityIndicatorView.Style = .gray) {
+    override init(style: UIActivityIndicatorView.Style = .medium) {
         super.init(style: style)
 
         color = AppStyle.blueColor

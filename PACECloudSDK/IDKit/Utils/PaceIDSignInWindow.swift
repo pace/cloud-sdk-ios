@@ -10,14 +10,8 @@ import UIKit
 class PaceIDSignInWindow: UIWindow {
     var baseViewController: UIViewController?
 
-    @available(iOS 13.0, *)
     override required init(windowScene: UIWindowScene) {
         super.init(windowScene: windowScene)
-        setup()
-    }
-
-    override required init(frame: CGRect) {
-        super.init(frame: frame)
         setup()
     }
 
@@ -46,10 +40,7 @@ private extension PaceIDSignInWindow {
             super.viewWillAppear(animated)
 
             view.backgroundColor = .clear
-
-            if #available(iOS 13.0, *) {
-                setNeedsStatusBarAppearanceUpdate()
-            }
+            setNeedsStatusBarAppearanceUpdate()
         }
     }
 }
@@ -58,15 +49,11 @@ extension PaceIDSignInWindow {
     static func create() -> PaceIDSignInWindow? {
         var window: PaceIDSignInWindow?
 
-        if #available(iOS 13.0, *) {
-            guard let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as? UIApplication else { return nil }
-            let windowScene = application.connectedScenes.first
+        guard let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as? UIApplication else { return nil }
+        let windowScene = application.connectedScenes.first
 
-            if let windowScene = windowScene as? UIWindowScene {
-                window = PaceIDSignInWindow(windowScene: windowScene)
-            }
-        } else {
-            window = PaceIDSignInWindow(frame: UIScreen.main.bounds)
+        if let windowScene = windowScene as? UIWindowScene {
+            window = PaceIDSignInWindow(windowScene: windowScene)
         }
 
         return window

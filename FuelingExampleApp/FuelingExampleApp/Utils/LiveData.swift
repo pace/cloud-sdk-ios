@@ -59,9 +59,9 @@ public class LiveData<T> {
         }
     }
 
-    public func notifyObserver<T>(of type: T.Type) {
+    public func notifyObserver<U>(of type: U.Type) {
         DispatchQueue.main.async {
-            let filteredObservers = self.observers.filter { $0.receiver != nil && $0.receiver is T }
+            let filteredObservers = self.observers.filter { $0.receiver != nil && $0.receiver is U }
             for observer in filteredObservers {
                 observer.handler(self.value)
             }

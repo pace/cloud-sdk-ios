@@ -40,7 +40,7 @@ class Base32Tests: XCTestCase {
             )
         }
 
-        for (expect, test, testHex) in strippedVectors {
+        for (expect, test, _) in strippedVectors {
             let result = test.base32DecodedData
             XCTAssertEqual(result!, expect, "base32Decode for \(test)")
         }
@@ -52,7 +52,7 @@ class Base32Tests: XCTestCase {
             ("MZXW6YTBO=======", "CPNMUOJ1E======="),
         ]
 
-        for (test, testHex) in invalidVectorWithPaddings {
+        for (test, _) in invalidVectorWithPaddings {
             let result = test.base32DecodedData
             XCTAssertNil(result, "base32Decode for \(test)")
         }
@@ -64,7 +64,7 @@ class Base32Tests: XCTestCase {
             )
         }
 
-        for (test, testHex) in invalidVectorWithoutPaddings {
+        for (test, _) in invalidVectorWithoutPaddings {
             let result = test.base32DecodedData
             XCTAssertNil(result, "base32Decode for \(test)")
         }

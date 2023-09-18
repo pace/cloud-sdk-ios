@@ -7,7 +7,7 @@
 
 import Foundation
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 extension IDKit {
     func checkedContinuation<T>(_ request: (@escaping (T) -> Void) -> Void) async -> T {
         await withCheckedContinuation { continuation in
@@ -20,7 +20,6 @@ extension IDKit {
 
 // MARK: - Discovery
 
-@available(iOS 13.0, watchOS 6.0, *)
 public extension IDKit {
 
     /// Performs a discovery to retrieve an OID configuration.
@@ -35,7 +34,6 @@ public extension IDKit {
 
 // MARK: - Token / Session handling
 
-@available(iOS 13.0, watchOS 6.0, *)
 public extension IDKit {
 
     /// Performs an OID authorization request.
@@ -73,7 +71,6 @@ public extension IDKit {
 
 // MARK: - User
 
-@available(iOS 13.0, watchOS 6.0, *)
 public extension IDKit {
 
     /// Retrieves the currently authorized user's information.
@@ -103,7 +100,6 @@ public extension IDKit {
 
 // MARK: - PIN / Biometry
 
-@available(iOS 13.0, watchOS 6.0, *)
 public extension IDKit {
 
     /// Checks if there is an active password set for the currently authenticated user.

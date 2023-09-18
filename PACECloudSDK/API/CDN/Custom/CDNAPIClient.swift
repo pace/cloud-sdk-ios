@@ -197,7 +197,7 @@ public class CDNAPIClient {
     }
 }
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 public extension CDNAPIClient {
     func paymentMethodVendors() async -> Result<[PaymentMethodVendor], APIClientError> {
         await withCheckedContinuation { [weak self] continuation in

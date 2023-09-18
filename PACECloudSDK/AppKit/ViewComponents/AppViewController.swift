@@ -38,10 +38,7 @@ public class AppViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleRedirectURL(_:)), name: AppKit.Constants.NotificationIdentifier.caughtRedirectService, object: nil)
 
         navigationController?.setNavigationBarHidden(!hasNavigationBar, animated: false)
-
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = isModalInPresentation
-        }
+        self.isModalInPresentation = isModalInPresentation
     }
 
     required init?(coder: NSCoder) {
@@ -161,13 +158,10 @@ private extension AppViewController {
     func presentSFSafariViewController(with url: URL) {
         let presentationBlock: (URL) -> Void = { [weak self] url in
             guard let self = self else { return }
+
             let sfSafariViewController = SFSafariViewController(url: url)
             sfSafariViewController.delegate = self
-
-            if #available(iOS 13.0, *) {
-                sfSafariViewController.modalPresentationStyle = .pageSheet
-            }
-
+            sfSafariViewController.modalPresentationStyle = .pageSheet
             sfSafariViewController.presentationController?.delegate = self
             self.sfSafariViewController = sfSafariViewController
             self.present(sfSafariViewController, animated: true)
@@ -195,9 +189,7 @@ extension AppViewController: AppActionsDelegate {
 
         self.cancelUrl = cancelUrl
 
-        // Apple pay support in WKWebView came with iOS 13
-        // Reference: https://webkit.org/blog/9674/new-webkit-features-in-safari-13/
-        if #available(iOS 13.0, *), integrated {
+        if integrated {
             presentIntegratedWebView(with: urlString)
         } else {
             presentSFSafariViewController(with: url)

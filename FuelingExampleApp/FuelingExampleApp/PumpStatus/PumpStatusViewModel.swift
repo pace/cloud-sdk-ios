@@ -167,9 +167,11 @@ class PumpStatusViewModelImplementation: PumpStatusViewModel {
     }
 
     private func handleWaitForPumpStatus(pumpInformation: PCFuelingPumpResponse, newStatus: PumpStatus) {
-        fuelingProcess.isPostPay
-        ? handlePostPayPumpStatus(pumpInformation: pumpInformation, newStatus: newStatus)
-        : handlePreAuthPumpStatus(pumpInformation: pumpInformation, newStatus: newStatus)
+        if fuelingProcess.isPostPay {
+            handlePostPayPumpStatus(pumpInformation: pumpInformation, newStatus: newStatus)
+        } else {
+            handlePreAuthPumpStatus(pumpInformation: pumpInformation, newStatus: newStatus)
+        }
     }
 
     func reset() {

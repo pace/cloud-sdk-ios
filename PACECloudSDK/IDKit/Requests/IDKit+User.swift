@@ -69,7 +69,7 @@ extension IDKit {
 
 // MARK: - Concurrency
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 extension IDKit {
     func userInfo() async -> Result<UserInfo, IDKitError> {
         await checkedContinuation(userInfo)

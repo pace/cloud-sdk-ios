@@ -313,7 +313,7 @@ private extension IDKit {
 
 // MARK: - Concurrency
 
-@available(iOS 13.0, watchOS 6.0, *) @MainActor
+@MainActor
 extension IDKit {
     func isPasswordSet() async -> Result<Bool, IDKitError> {
         await checkedContinuation(isPasswordSet)
