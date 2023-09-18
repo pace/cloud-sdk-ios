@@ -1,3 +1,15 @@
+17.0.0 Release notes (2023-09-18)
+=============================================================
+
+### Breaking Changes
+
+* Remove deprecated `AppKit` method `handleRedirectURL(URL)`
+* Drop support for iOS 11 and 12
+
+### Internal
+
+* Upgrade project to Xcode 15
+
 16.0.4 Release notes (2023-08-08)
 =============================================================
 
