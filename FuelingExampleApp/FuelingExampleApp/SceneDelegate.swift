@@ -32,7 +32,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             apiKey: "apikey",
             clientId: "cloud-sdk-example-app",
             environment: currentAppEnvironment,
-            geoAppsScope: "pace-drive-ios-min",
             logLevel: .debug,
             persistLogs: true
         )

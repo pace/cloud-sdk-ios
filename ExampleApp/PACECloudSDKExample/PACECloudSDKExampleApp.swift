@@ -17,7 +17,6 @@ struct PACECloudSDKExampleApp: App {
                                                        clientId: "cloud-sdk-example-app",
                                                        environment: currentAppEnvironment,
                                                        domainACL: ["pace.cloud", "pacelink.net", "fuel.site"],
-                                                       geoAppsScope: "pace-drive-ios-min",
                                                        logLevel: .debug,
                                                        persistLogs: true)
 

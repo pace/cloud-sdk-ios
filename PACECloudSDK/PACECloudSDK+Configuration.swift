@@ -88,7 +88,7 @@ public extension PACECloudSDK {
                 self.speedThreshold = Constants.Configuration.defaultSpeedThreshold
             }
 
-            self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
+            self.geoAppsScope = geoAppsScope ?? clientId
             self.allowedAppDrawerLocationOffset = allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
             self.isMetaCollectorEnabled = isMetaCollectorEnabled
             self.logLevel = logLevel
