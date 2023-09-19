@@ -19,6 +19,7 @@
         + [From 14.x.x -> 15.x.x](#from-14xx-to-15xx)
         + [From 15.x.x -> 16.x.x](#from-15xx-to-16xx)
         + [From 16.x.x -> 17.x.x](#from-16xx-to-17xx)
+        + [From 17.x.x -> 18.x.x](#from-17xx-to-18xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -196,6 +197,12 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 - Raise deployment target to iOS 13
 - Remove deprecated `AppKit` method `handleRedirectURL(URL)`
+
+### From 17.x.x to 18.x.x
+
+- Introduce `clientId` as required property for the SDK to be set up.
+  + This version now requires you to pass the `clientId` to the SDK setup, even if you're not using `IDKit` and its default OID Configuration.
+  + On the contrary, you now don't need to add the `OIDConfigurationClientID` to your app's `Info.plist` anymore in case you would like to use the default OID Configuration of `IDKit`
 
 ## Contribute
 ### Localizable Strings Generation

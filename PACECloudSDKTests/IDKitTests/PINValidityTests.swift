@@ -10,7 +10,7 @@ import XCTest
 
 class PINValidityTests: XCTestCase {
     override func setUpWithError() throws {
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: .development))
+        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", clientId: "unit-test-dummy", environment: .development))
     }
 
     func testValidPINs() {

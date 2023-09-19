@@ -11,6 +11,7 @@ import XCTest
 class QueryParamHandlerTests: XCTestCase {
     override class func setUp() {
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
+                                              clientId: "unit-test-dummy",
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false))
     }

@@ -35,8 +35,6 @@
 	<string>In order to download your receipts, we need to use Photo Library Usage permission</string>
 	<key>PACECloudSDKIDKitSetup</key>
 	<dict>
-		<key>OIDConfigurationClientID</key>
-		<string>cloud-sdk-example-app</string>
 		<key>OIDConfigurationRedirectURI</key>
 		<string>pace://cloud-sdk-example</string>
 	</dict>

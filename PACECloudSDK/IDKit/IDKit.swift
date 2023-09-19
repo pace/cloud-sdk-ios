@@ -55,7 +55,7 @@ public class IDKit {
     static func determineOIDConfiguration(with customOIDConfig: OIDConfiguration?, userAgentType: UserAgentType) {
         if let customOIDConfig = customOIDConfig {
             setup(with: customOIDConfig, userAgentType: userAgentType)
-        } else if let oidConfigClientId = Bundle.main.oidConfigClientId,
+        } else if let oidConfigClientId = PACECloudSDK.shared.clientId,
                   let oidConfigRedirectUri = Bundle.main.oidConfigRedirectUri {
             let defaultOIDConfiguration = OIDConfiguration.defaultOIDConfiguration(clientId: oidConfigClientId,
                                                                                    redirectUri: oidConfigRedirectUri,

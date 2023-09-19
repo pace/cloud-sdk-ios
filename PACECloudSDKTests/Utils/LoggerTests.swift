@@ -16,6 +16,7 @@ class LoggerTests: XCTestCase {
     override func setUp(completion: @escaping (Error?) -> Void) {
         // Setup SDK first and then delete logs
         PACECloudSDK.shared.setup(with: .init(apiKey: "",
+                                              clientId: "unit-test-dummy",
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false,
                                               persistLogs: true))

@@ -10,6 +10,7 @@ import Foundation
 extension PACECloudSDK {
     struct SDKWarningsHandler {
         private let apiKey: String
+        private let clientId: String
         private let redirectScheme: String?
         private let environment: Environment
         private let customOIDConfiguration: IDKit.OIDConfiguration?
@@ -18,6 +19,7 @@ extension PACECloudSDK {
 
         init(with config: PACECloudSDK.Configuration) {
             self.apiKey = config.apiKey
+            self.clientId = config.clientId
             self.redirectScheme = Bundle.main.clientRedirectScheme
             self.environment = config.environment
             self.customOIDConfiguration = config.customOIDConfiguration
@@ -71,6 +73,10 @@ private extension PACECloudSDK.SDKWarningsHandler {
             missingValues.append("API key")
         }
 
+        if clientId.isEmpty {
+            missingValues.append("Client Id")
+        }
+
         if isRedirectSchemeCheckEnabled && redirectScheme?.isEmpty ?? true {
             missingValues.append("Redirect scheme")
         }
@@ -83,7 +89,7 @@ private extension PACECloudSDK.SDKWarningsHandler {
     }
 
     var sdkSetupSuccessfulMessage: String {
-        var message = "\nAPI key is set"
+        var message = "\nAPI key is set\nClient Id is set"
 
         if isRedirectSchemeCheckEnabled, let redirectScheme = self.redirectScheme {
             message += "\nRedirect scheme: '\(redirectScheme)'"
@@ -103,14 +109,13 @@ private extension PACECloudSDK.SDKWarningsHandler {
 // MARK: - IDKit setup
 private extension PACECloudSDK.SDKWarningsHandler {
     var isIDKitSetupCorrect: Bool {
-        let oidClientId = Bundle.main.oidConfigClientId
         let oidRedirectUri = Bundle.main.oidConfigRedirectUri
 
         if customOIDConfiguration != nil {
             return true
         }
 
-        return [oidClientId, oidRedirectUri].compactMap { $0 }.count != 1 // If there is no custom config and only one plist value is set -> failure
+        return !(oidRedirectUri?.isEmpty ?? true)
     }
 
     var idKitSetupSuccessfulMessage: String {
@@ -118,7 +123,7 @@ private extension PACECloudSDK.SDKWarningsHandler {
 
         if customOIDConfiguration != nil {
             message += " custom"
-        } else if Bundle.main.oidConfigClientId != nil, Bundle.main.oidConfigRedirectUri != nil {
+        } else if PACECloudSDK.shared.clientId != nil, Bundle.main.oidConfigRedirectUri != nil {
             message += " default"
         } else {
             message += " none"
@@ -129,8 +134,8 @@ private extension PACECloudSDK.SDKWarningsHandler {
 
     var idKitSetupFailedMessage: String {
         """
-        \nIf you want to use the default IDKit oid configuration please make sure to add both `PACECloudSDKOIDConfigurationClientID` \
-        and `PACECloudSDKOIDConfigurationRedirectURI` with non-empty values to your Info.plist.
+        \nIf you want to use the default IDKit oid configuration please make sure to add \
+        `PACECloudSDKOIDConfigurationRedirectURI` with a non-empty value to your Info.plist.
         """
     }
 }

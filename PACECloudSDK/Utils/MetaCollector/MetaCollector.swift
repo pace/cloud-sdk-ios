@@ -24,7 +24,7 @@ public extension PACECloudSDK {
         private let jsonEncoder: JSONEncoder
 
         init?(isEnabled: Bool) {
-            guard let clientId = Bundle.main.oidConfigClientId ?? Bundle.main.bundleIdentifier else { return nil }
+            guard let clientId = PACECloudSDK.shared.clientId ?? Bundle.main.bundleIdentifier else { return nil }
             self.data = .init(deviceId: DeviceInformation.id,
                               clientId: clientId,
                               services: [

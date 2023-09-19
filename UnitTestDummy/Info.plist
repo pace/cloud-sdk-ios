@@ -8,8 +8,6 @@
 	<dict>
 		<key>OIDConfigurationRedirectURI</key>
 		<string>pace://unittestdummy</string>
-		<key>OIDConfigurationClientID</key>
-		<string>unit-test-dummy</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

@@ -18,6 +18,7 @@ final class SDKKeychainTests: XCTestCase {
 
         // Put setup code here. This method is called before the invocation of each test method in the class.
         PACECloudSDK.shared.setup(with: .init(apiKey: "",
+                                              clientId: "unit-test-dummy",
                                               authenticationMode: .native,
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false))
