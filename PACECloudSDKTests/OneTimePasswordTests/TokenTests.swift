@@ -138,12 +138,12 @@ class TokenTests: XCTestCase {
     }
 
     func testUpdatedToken() {
-        guard let timerGenerator = OneTimePassword.Generator(
+        guard OneTimePassword.Generator(
             factor: .timer(period: 30),
             secret: secretData,
             algorithm: .sha1,
             digits: 6
-        ) else {
+        ) != nil else {
             XCTFail("Failed to construct Generator.")
             return
         }

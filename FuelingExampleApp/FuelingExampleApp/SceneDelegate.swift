@@ -30,8 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func setupPACECloudSDK() {
         let config: PACECloudSDK.Configuration = .init(
             apiKey: "apikey",
+            clientId: "cloud-sdk-example-app",
             environment: currentAppEnvironment,
-            geoAppsScope: "pace-drive-ios-min",
             logLevel: .debug,
             persistLogs: true
         )

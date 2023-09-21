@@ -29,7 +29,7 @@ public class POIKit {
     static func setup() {
         shared.geoAPIManager.speedThreshold = PACECloudSDK.shared.config?.speedThreshold ?? Constants.Configuration.defaultSpeedThreshold
         shared.oneTimeLocationProvider.lowAccuracy = PACECloudSDK.shared.config?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
-        shared.geoAPIManager.geoAppsScope = PACECloudSDK.shared.config?.geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
+        shared.geoAPIManager.geoAppsScope = PACECloudSDK.shared.config?.geoAppsScope
     }
 }
 

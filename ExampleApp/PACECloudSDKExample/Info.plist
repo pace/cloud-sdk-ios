@@ -12,8 +12,6 @@
 	<dict>
 		<key>OIDConfigurationRedirectURI</key>
 		<string>pace://cloud-sdk-example</string>
-		<key>OIDConfigurationClientID</key>
-		<string>cloud-sdk-example-app</string>
 	</dict>
 	<key>CFBundleURLTypes</key>
 	<array>

@@ -9,8 +9,11 @@ import Foundation
 
 public extension PACECloudSDK {
     struct Configuration {
-        /// Is mandatory to be set. Your API key provided by PACE.
+        /// Your API key provided by PACE.
         let apiKey: String
+
+        /// Your client id provided by PACE.
+        let clientId: String
 
         /// The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
         let authenticationMode: AuthenticationMode
@@ -52,6 +55,7 @@ public extension PACECloudSDK {
         let persistLogs: Bool
 
         public init(apiKey: String,
+                    clientId: String,
                     authenticationMode: AuthenticationMode = .native,
                     environment: Environment = .production,
                     customOIDConfiguration: IDKit.OIDConfiguration? = nil,
@@ -66,6 +70,7 @@ public extension PACECloudSDK {
                     logLevel: Logger.LogLevel = .info,
                     persistLogs: Bool = false) {
             self.apiKey = apiKey
+            self.clientId = clientId
             self.authenticationMode = authenticationMode
             self.environment = environment
             self.customOIDConfiguration = customOIDConfiguration
@@ -83,7 +88,7 @@ public extension PACECloudSDK {
                 self.speedThreshold = Constants.Configuration.defaultSpeedThreshold
             }
 
-            self.geoAppsScope = geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
+            self.geoAppsScope = geoAppsScope ?? clientId
             self.allowedAppDrawerLocationOffset = allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
             self.isMetaCollectorEnabled = isMetaCollectorEnabled
             self.logLevel = logLevel

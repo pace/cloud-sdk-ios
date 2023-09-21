@@ -16,6 +16,7 @@ class GeoServiceTests: XCTestCase {
     override func setUp() {
         PACECloudSDK.shared.customURLProtocol = MockURLProtocol()
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
+                                              clientId: "unit-test-dummy",
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false,
                                               geoAppsScope: "pace-drive-ios-min"))

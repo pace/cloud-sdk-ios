@@ -15,6 +15,7 @@ public class PACECloudSDK {
     private(set) var authenticationMode: AuthenticationMode = .native
     private(set) var userAgentExtensions: [String] = []
     private(set) var apiKey: String?
+    private(set) var clientId: String?
 
     private var traceIdCreatedAt: Date?
     private var currentTraceId: String?
@@ -60,6 +61,7 @@ public class PACECloudSDK {
     public func setup(with config: Configuration) {
         self.config = config
         self.apiKey = config.apiKey
+        self.clientId = config.clientId
         self.authenticationMode = config.authenticationMode
         self.environment = config.environment
         self.persistLogs = config.persistLogs

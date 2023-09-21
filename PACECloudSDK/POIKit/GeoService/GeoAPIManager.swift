@@ -23,7 +23,7 @@ import Foundation
  */
 class GeoAPIManager {
     var speedThreshold: Double = Constants.Configuration.defaultSpeedThreshold
-    var geoAppsScope: String = PACECloudSDK.shared.config?.geoAppsScope ?? Constants.Configuration.defaultGeoAppsScope
+    var geoAppsScope: String?
 
     private let session: URLSession
     private let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
@@ -249,7 +249,14 @@ class GeoAPIManager {
         })
     }
 
+    // swiftlint:disable:next function_body_length
     private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) {
+        guard let geoAppsScope = geoAppsScope else {
+            POIKitLogger.e("[GeoAPIManager] Value for `geoAppsScope` is missing.")
+            result(.failure(.unknownError))
+            return
+        }
+
         let baseUrl = Settings.shared.geoApiHostUrl
         guard let url = URL(string: "\(baseUrl)/\(apiVersion)/apps/\(geoAppsScope).geojson"),
               let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {

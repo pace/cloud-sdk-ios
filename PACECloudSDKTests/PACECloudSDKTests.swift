@@ -13,7 +13,7 @@ class PACECloudSDKTests: XCTestCase {
         let envs: [PACECloudSDK.Environment] = [.development, .sandbox, .production]
 
         envs.forEach { env in
-            PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: env))
+            PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", clientId: "unit-test-dummy", environment: env))
             XCTAssertNotEqual(Settings.shared.apiGateway, "")
             XCTAssertNotEqual(Settings.shared.poiApiHostUrl, "")
             XCTAssertNotEqual(Settings.shared.osrmBaseUrl, "")
@@ -23,17 +23,17 @@ class PACECloudSDKTests: XCTestCase {
     }
 
     func testCommonUrls() {
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: .development))
+        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", clientId: "unit-test-dummy", environment: .development))
         XCTAssertEqual(PACECloudSDK.URL.paceID.absoluteString, "https://id.dev.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.payment.absoluteString, "https://pay.dev.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.transactions.absoluteString, "https://pay.dev.pace.cloud/transactions")
 
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: .sandbox))
+        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", clientId: "unit-test-dummy", environment: .sandbox))
         XCTAssertEqual(PACECloudSDK.URL.paceID.absoluteString, "https://id.sandbox.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.payment.absoluteString, "https://pay.sandbox.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.transactions.absoluteString, "https://pay.sandbox.pace.cloud/transactions")
 
-        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", environment: .production))
+        PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", clientId: "unit-test-dummy", environment: .production))
         XCTAssertEqual(PACECloudSDK.URL.paceID.absoluteString, "https://id.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.payment.absoluteString, "https://pay.pace.cloud")
         XCTAssertEqual(PACECloudSDK.URL.transactions.absoluteString, "https://pay.pace.cloud/transactions")

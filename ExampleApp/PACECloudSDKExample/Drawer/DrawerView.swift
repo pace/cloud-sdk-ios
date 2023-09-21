@@ -44,10 +44,6 @@ struct DrawerView<T: DrawerViewModel>: View {
 struct DrawerViewControllerView<T: DrawerViewModel>: UIViewControllerRepresentable {
     @ObservedObject private(set) var viewModel: T
 
-    init(viewModel: T) {
-        self.viewModel = viewModel
-    }
-
     func makeUIViewController(context: Context) -> DrawerViewController {
         .init()
     }

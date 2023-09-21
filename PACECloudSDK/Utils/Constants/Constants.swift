@@ -23,7 +23,6 @@ struct Constants {
     struct Configuration {
         static let defaultAllowedLowAccuracy: Double = 250
         static let defaultSpeedThreshold: Double = 13
-        static let defaultGeoAppsScope: String = "pace-min"
         static let defaultAllowedAppDrawerLocationOffset: Double = 150 // meters
         static let defaultDomainACL: [String] = ["pace.cloud", "fuel.site"]
     }
