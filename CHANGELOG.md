@@ -1,3 +1,14 @@
+18.0.0 Release notes (2023-09-21)
+=============================================================
+
+### Breaking Changes
+
+* Introduce `clientId` as required property for the SDK to be set up
+
+### Internal
+
+* Replace `pace-min` as the default `geoAppsScope` with the `clientId`
+
 17.0.0 Release notes (2023-09-18)
 =============================================================
 
