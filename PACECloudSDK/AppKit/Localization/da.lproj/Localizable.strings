@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "PACE har brug for en stabil og tilstrækkelig hurtig netværksforbindelse for at kunne fortsætte.\n\nSørg for, at din app har tilladelse til at få adgang til mobil data på din telefon. Du kan også bruge Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Godkend adgang til sikrede data";
 "idkit_biometryAuthentication_confirmation" = "Bekræft brugen af biometrisk autentificering";
+"default_drawer_first_line" = "Betal ved pumpen";
+"default_drawer_second_line" = "Connected Fueling";

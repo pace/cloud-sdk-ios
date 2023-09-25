@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "PACE needs a stable and sufficiently fast network connection to continue.\n\nPlease make sure that your app is allowed to access your phone’s mobile data. You can also use Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Authorize to access secured data";
 "idkit_biometryAuthentication_confirmation" = "Confirm the use of biometric authentication";
+"default_drawer_first_line" = "Pay at the pump";
+"default_drawer_second_line" = "Connected Fueling";

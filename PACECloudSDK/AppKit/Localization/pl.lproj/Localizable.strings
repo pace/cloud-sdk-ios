@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "PACE wymaga stabilnego i wystarczająco szybkiego połączenia z siecią, aby móc kontynuować pracę.Upewnij się, że Twoja aplikacja ma dostęp do danych komórkowych Twojego telefonu. Możesz również skorzystać z sieci Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Upoważnienie do dostępu do zabezpieczonych danych";
 "idkit_biometryAuthentication_confirmation" = "Potwierdzenie stosowania uwierzytelniania biometrycznego";
+"default_drawer_first_line" = "Płać bezpośrednio przy pompie";
+"default_drawer_second_line" = "Connected Fueling";
