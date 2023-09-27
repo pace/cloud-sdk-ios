@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "PACE benötigt eine stabile und ausreichend schnelle Internetverbindung, um fortzufahren.\n\nBitte stelle sicher, dass deine App auf mobile Daten zugreifen darf, oder nutze eine WLAN-Verbindung.";
 "appkit_secureData_authentication_confirmation" = "Jetzt autorisieren, um auf gesicherte Daten zuzugreifen";
 "idkit_biometryAuthentication_confirmation" = "Bestätige die Verwendung der biometrischen Authentifizierung";
+"default_drawer_first_line" = "Zahle direkt an der Zapfsäule";
+"default_drawer_second_line" = "Connected Fueling";

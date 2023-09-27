@@ -117,8 +117,8 @@ extension AppKit {
 
             super.init(frame: CGRect())
 
-            titleLabel.text = appData.appManifest?.name ?? "Name Placeholder"
-            subtitleLabel.text = appData.appManifest?.description ?? "Description Placeholder"
+            titleLabel.text = appData.appManifest?.name ?? L10n.defaultDrawerSecondLine
+            subtitleLabel.text = appData.appManifest?.description ?? L10n.defaultDrawerFirstLine
             updateUserDistance(with: appData)
 
             setupGestureRecognizers()

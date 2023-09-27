@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "PACE heeft een stabiele en voldoende snelle netwerkverbinding nodig om door te kunnen gaan.\ Zorg ervoor dat uw app toegang heeft tot de mobiele gegevens van uw telefoon. U kunt ook Wi-Fi gebruiken.";
 "appkit_secureData_authentication_confirmation" = "Machtigen voor toegang tot beveiligde gegevens";
 "idkit_biometryAuthentication_confirmation" = "Bevestiging van het gebruik van biometrische authentificatie";
+"default_drawer_first_line" = "Betaal direct aan de pomp";
+"default_drawer_second_line" = "Connected Fueling";

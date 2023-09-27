@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "PACE ha bisogno di una connessione di rete stabile e sufficientemente veloce per continuare. Puoi anche usare il Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Autorizzare l'accesso ai dati protetti";
 "idkit_biometryAuthentication_confirmation" = "Confermare l'uso dell'autenticazione biometrica";
+"default_drawer_first_line" = "Paga direttamente alla pompa";
+"default_drawer_second_line" = "Connected Fueling";

@@ -6,3 +6,5 @@
 "error_connection_problem_network" = "Для продолжения работы PACE необходимо стабильное и достаточно быстрое подключение к сети.\n\nПожалуйста, убедитесь, что приложению разрешен доступ к мобильным данным вашего телефона. Вы также можете использовать Wi-Fi.";
 "appkit_secureData_authentication_confirmation" = "Разрешить доступ к защищенным данным";
 "idkit_biometryAuthentication_confirmation" = "Подтвердить использование биометрической аутентификации";
+"default_drawer_first_line" = "Платите непосредственно на насосе";
+"default_drawer_second_line" = "Connected Fueling";
