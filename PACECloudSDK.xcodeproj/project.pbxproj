@@ -1267,6 +1267,8 @@
 		9A906BBE284637D700463618 /* PCPayPaymentMethodZGMCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A906B71284637D600463618 /* PCPayPaymentMethodZGMCreateRequest.swift */; };
 		9A906BBF284637D700463618 /* PCPayPaymentMethodCreditCardCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A906B72284637D600463618 /* PCPayPaymentMethodCreditCardCreateRequest.swift */; };
 		9A906BC0284637D700463618 /* PCPayPaymentMethodCreditCardCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A906B72284637D600463618 /* PCPayPaymentMethodCreditCardCreateRequest.swift */; };
+		9ABA95C62ACAE1C0006768CF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9ABA95C52ACAE1C0006768CF /* PrivacyInfo.xcprivacy */; };
+		9ABA95CA2ACAE2ED006768CF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9ABA95C92ACAE2ED006768CF /* PrivacyInfo.xcprivacy */; };
 		9AD092B42816D340000A3CB3 /* ISO8601DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B32816D340000A3CB3 /* ISO8601DateFormatter+Extension.swift */; };
 		9AD092B628170D88000A3CB3 /* DateComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */; };
 		9AD092B72817DA72000A3CB3 /* DateComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */; };
@@ -1958,6 +1960,9 @@
 		9A906B70284637D600463618 /* PCPayPaymentMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethods.swift; sourceTree = "<group>"; };
 		9A906B71284637D600463618 /* PCPayPaymentMethodZGMCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodZGMCreateRequest.swift; sourceTree = "<group>"; };
 		9A906B72284637D600463618 /* PCPayPaymentMethodCreditCardCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodCreditCardCreateRequest.swift; sourceTree = "<group>"; };
+		9ABA95C52ACAE1C0006768CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		9ABA95C72ACAE1D8006768CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		9ABA95C92ACAE2ED006768CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		9AD092B32816D340000A3CB3 /* ISO8601DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Extension.swift"; sourceTree = "<group>"; };
 		9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCalculationsTests.swift; sourceTree = "<group>"; };
@@ -2045,6 +2050,7 @@
 				17BB0CD9268CCED6009D4755 /* PACECloudWatchSDK.h */,
 				1718B16926B02FA20044146C /* PACECloudWatchSDK+Kits.swift */,
 				3BB7D06528D303CA00CB5BDB /* SDKKeychain+Watch.swift */,
+				9ABA95C92ACAE2ED006768CF /* PrivacyInfo.xcprivacy */,
 			);
 			path = PACECloudWatchSDK;
 			sourceTree = "<group>";
@@ -3664,6 +3670,7 @@
 				3BA8220827BCE6E4009FDF48 /* PACECloudSDK+Configuration.swift */,
 				3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */,
 				1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */,
+				9ABA95C52ACAE1C0006768CF /* PrivacyInfo.xcprivacy */,
 			);
 			path = PACECloudSDK;
 			sourceTree = "<group>";
@@ -3699,6 +3706,7 @@
 			children = (
 				92EDDBCF25A71EEB00E480F4 /* PACECloudSlimSDK.h */,
 				92EDDBD025A71EEB00E480F4 /* Info.plist */,
+				9ABA95C72ACAE1D8006768CF /* PrivacyInfo.xcprivacy */,
 				92EDDDCB25A7441C00E480F4 /* App+Slim.swift */,
 				84961AC2264E5A810070CB0B /* AppKit+Delegate+Slim.swift */,
 				92EDDED925AC7E1F00E480F4 /* Bundle+Resource.swift */,
@@ -3923,6 +3931,7 @@
 				17D5495926A9BFC800911D0D /* FallbackVersions.plist in Resources */,
 				17D5495526A9BFB100911D0D /* Environment-development.plist in Resources */,
 				17D5495726A9BFC100911D0D /* Environment-sandbox.plist in Resources */,
+				9ABA95CA2ACAE2ED006768CF /* PrivacyInfo.xcprivacy in Resources */,
 				17D5495626A9BFB500911D0D /* Environment-production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3946,6 +3955,7 @@
 				926D0F6B2541BA3200409432 /* README.md in Resources */,
 				3B970A852542D9BB0072F6BA /* Localizable.strings in Resources */,
 				3B970A892542D9BB0072F6BA /* Environment-development.plist in Resources */,
+				9ABA95C62ACAE1C0006768CF /* PrivacyInfo.xcprivacy in Resources */,
 				3B970A882542D9BB0072F6BA /* Environment-production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
