@@ -30,12 +30,7 @@ class AppWebView: WebView, App {
     }
 
     private func attachMessageHandlers() {
-        if #available(iOS 14.0, *) {
-            self.configuration.userContentController.addScriptMessageHandler(self, contentWorld: .page, name: ScriptMessageHandler.nativeAPIWithReply.rawValue)
-        } else {
-            self.configuration.userContentController.add(self, name: ScriptMessageHandler.nativeAPI.rawValue)
-        }
-
+        self.configuration.userContentController.addScriptMessageHandler(self, contentWorld: .page, name: ScriptMessageHandler.nativeAPIWithReply.rawValue)
         self.configuration.userContentController.add(self, name: ScriptMessageHandler.logger.rawValue)
     }
 
@@ -89,7 +84,6 @@ extension AppWebView {
 }
 
 // MARK: - WKScriptMessageHandlerWithReply
-@available(iOS 14, *)
 extension AppWebView {
     @objc
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @escaping (Any?, String?) -> Void) {

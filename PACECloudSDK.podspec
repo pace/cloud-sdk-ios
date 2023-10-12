@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.homepage             = "http://github.com/pace/cloud-sdk-ios"
   spec.license              = { :type => "MIT", :file => "LICENSE.md" }
   spec.author               = "PACE Telematics GmbH"
-  spec.platform             = :ios, "13.0"
+  spec.platform             = :ios, "15.0"
   spec.swift_version        = ["5.0"]
   spec.source               = { :git => "https://github.com/pace/cloud-sdk-ios.git", :tag => "#{spec.version}" }
   spec.source_files         = "PACECloudSDK/**/*.swift"

@@ -20,11 +20,9 @@ extension App {
     private func paymentNetworks(for supportedNetworks: [String]) -> [PKPaymentNetwork] {
         var paymentNetworks: [PKPaymentNetwork] = []
 
-        if #available(iOS 14.0, *) {
-            paymentNetworks.append(contentsOf: [.barcode, .girocard])
-        }
-
         paymentNetworks.append(contentsOf: [
+            .barcode,
+            .girocard,
             .amex,
             .cartesBancaires,
             .chinaUnionPay,
