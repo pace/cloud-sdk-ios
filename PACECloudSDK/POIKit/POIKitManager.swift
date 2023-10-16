@@ -61,11 +61,7 @@ public extension POIKit {
         }
 
         public var locationAccuracyState: LocationAccuracyState {
-            if #available(iOS 14.0, *) {
-                return locationManager.accuracyAuthorization == .fullAccuracy ? .fullAccuracy : .reducedAccuracy
-            } else {
-                return .fullAccuracy
-            }
+            return locationManager.accuracyAuthorization == .fullAccuracy ? .fullAccuracy : .reducedAccuracy
         }
 
         public required init(environment: PACECloudSDK.Environment) {

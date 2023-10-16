@@ -132,10 +132,7 @@ class AppDrawerLocationProvider: NSObject {
     }
 
     private func isLocationAccuracyReduced() -> Bool {
-        if #available(iOS 14.0, *) {
-            return locationManager.accuracyAuthorization == .reducedAccuracy
-        }
-        return false
+        locationManager.accuracyAuthorization == .reducedAccuracy
     }
 
     private func reset() {

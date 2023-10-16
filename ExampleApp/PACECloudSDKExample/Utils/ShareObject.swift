@@ -32,7 +32,6 @@ class ShareObject: NSObject, UIActivityItemSource {
         return shareData
     }
 
-    @available(iOS 13.0, *)
     func activityViewControllerLinkMetadata(_: UIActivityViewController) -> LPLinkMetadata? {
         guard let customTitle = customTitle else { return nil }
         let metadata = LPLinkMetadata()
