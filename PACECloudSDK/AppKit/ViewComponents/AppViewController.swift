@@ -57,6 +57,14 @@ public class AppViewController: UIViewController {
         setupView()
     }
 
+    override public func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if isGettingDismissed {
+            completion?()
+        }
+    }
+
     override public func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
@@ -64,10 +72,6 @@ public class AppViewController: UIViewController {
             guard !cookies.isEmpty else { return }
             AppKit.CookieStorage.sharedSessionCookies = cookies
             AppKit.CookieStorage.saveCookies(cookies)
-        }
-
-        if isBeingDismissed {
-            completion?()
         }
     }
 
@@ -91,8 +95,6 @@ public class AppViewController: UIViewController {
         } else {
             nav.popViewController(animated: true)
         }
-
-        completion?()
     }
 
     @objc
