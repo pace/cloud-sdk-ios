@@ -178,10 +178,10 @@ extension POIKitAPI {
 
         guard let cofuGasStations = cofuGasStations else { return pois }
 
-        // Add info if pois are part of the geojson file
+        // Add cofuGasStation if pois are part of the geojson file
         for poi in pois {
             guard let poiId = poi.id, let cofuGasStation = cofuGasStations[poiId] else { continue }
-            poi.isOnlineCoFuGasStation = cofuGasStation.cofuStatus == .online
+            poi.cofuGasStation = cofuGasStation
         }
 
         return pois

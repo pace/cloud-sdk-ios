@@ -213,6 +213,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 19.x.x to 20.x.x
 
 - `POIModelConvertible` has been removed as it is no longer relevant.
+- The property `isOnlineCoFuGasStation` of `POIKit.GasStation` is now a computed property, thus the setter is no longer accessible.
 
 ## Contribute
 ### Localizable Strings Generation

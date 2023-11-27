@@ -28,7 +28,7 @@ public extension POIKit {
         private let appsPropertyKey = "apps"
         private let fuelingURLPropertyKey = "url"
 
-        init(id: String, coordinates: GeoAPICoordinate?, polygon: [GeoAPICoordinates]?, properties: [String: Any]) {
+        public init(id: String, coordinates: GeoAPICoordinate?, polygon: [GeoAPICoordinates]?, properties: [String: Any]) {
             self.id = id
             self.coordinates = coordinates
             self.polygon = polygon
