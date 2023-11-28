@@ -21,6 +21,7 @@
         + [From 16.x.x -> 17.x.x](#from-16xx-to-17xx)
         + [From 17.x.x -> 18.x.x](#from-17xx-to-18xx)
         + [From 18.x.x -> 19.x.x](#from-18xx-to-19xx)
+        + [From 19.x.x -> 20.x.x](#from-19xx-to-20xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -208,6 +209,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 18.x.x to 19.x.x
 
 - Raise deployment target to iOS 15
+
+### From 19.x.x to 20.x.x
+
+- `POIModelConvertible` has been removed as it is no longer relevant.
 
 ## Contribute
 ### Localizable Strings Generation
