@@ -1,3 +1,15 @@
+20.0.0 Release notes (2023-11-29)
+=============================================================
+
+### Breaking Changes
+
+* Add `POIKit.CofuGasStation` property to `POIKit.GasStation` if available
+* Remove obsolete `POIModelConvertible`
+
+### Fixes
+
+* Fix completion handler of appviewcontroller not always being called
+
 19.0.0 Release notes (2023-10-16)
 =============================================================
 
