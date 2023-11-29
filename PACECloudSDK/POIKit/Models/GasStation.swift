@@ -88,10 +88,15 @@ public extension POIKit {
 
         public var isConnectedFuelingAvailable = false
 
-        /// If there is a `POIKit.CoFuGasStation` equivalent in the .geojson file of this gas station instance,
-        /// this value reflects its cofu status property.
-        /// `nil` if there is no equivalent.
-        public var isOnlineCoFuGasStation: Bool?
+        /// Reflects the cofu status value of the `cofuGasStation` property.
+        /// `nil` if there is no `POIKit.CofuGasStation` equivalent
+        public var isOnlineCoFuGasStation: Bool? {
+            cofuGasStation?.cofuStatus == .online
+        }
+
+        /// The `POIKit.CofuGasStation` equivalent of this gas station.
+        /// `nil` if there is no `POIKit.CofuGasStation` equivalent
+        public var cofuGasStation: CofuGasStation?
 
         public var lastUpdated: Date?
         public var lastFetched: Date = Date()
