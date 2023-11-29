@@ -409,6 +409,8 @@
 		3B5B379A29F031480095C152 /* ReplyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B379929F031480095C152 /* ReplyHandler.swift */; };
 		3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B379929F031480095C152 /* ReplyHandler.swift */; };
 		3B5FBC0525F282C500AE93BF /* BiometryTOTPData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */; };
+		3B6254D12B0DFBAA008FAB25 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6254D02B0DFBAA008FAB25 /* UIViewController+Extension.swift */; };
+		3B6254D22B0E2836008FAB25 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6254D02B0DFBAA008FAB25 /* UIViewController+Extension.swift */; };
 		3B637997281AC11400CD436A /* CDN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B637996281AC11400CD436A /* CDN.swift */; };
 		3B63799A281AC12A00CD436A /* CDN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B637996281AC11400CD436A /* CDN.swift */; };
 		3B63799C281AC13400CD436A /* CDNAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63799B281AC13400CD436A /* CDNAPIClient.swift */; };
@@ -1433,6 +1435,7 @@
 		3B5A3CE52A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App+MessageHandling+GooglePay.swift"; sourceTree = "<group>"; };
 		3B5B379929F031480095C152 /* ReplyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyHandler.swift; sourceTree = "<group>"; };
 		3B5FBC0425F282C500AE93BF /* BiometryTOTPData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometryTOTPData.swift; sourceTree = "<group>"; };
+		3B6254D02B0DFBAA008FAB25 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		3B637996281AC11400CD436A /* CDN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDN.swift; sourceTree = "<group>"; };
 		3B63799B281AC13400CD436A /* CDNAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDNAPIClient.swift; sourceTree = "<group>"; };
 		3B63799D281AC13D00CD436A /* CDNAPIClient+URLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNAPIClient+URLProtocol.swift"; sourceTree = "<group>"; };
@@ -2428,6 +2431,7 @@
 				3B970A022542D9B90072F6BA /* UIImage+Extension.swift */,
 				3B9709FF2542D9B90072F6BA /* UIImageView+Extension.swift */,
 				3B970A012542D9B90072F6BA /* UIView+Extension.swift */,
+				3B6254D02B0DFBAA008FAB25 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -4589,6 +4593,7 @@
 				9A906B81284637D700463618 /* PCPayPaymentTokens.swift in Sources */,
 				9A906B7B284637D700463618 /* PCPayPaymentTokenCreateApplePayRequest.swift in Sources */,
 				84600F4F25C03B340087194F /* FuelingAPIGetPumps.swift in Sources */,
+				3B6254D12B0DFBAA008FAB25 /* UIViewController+Extension.swift in Sources */,
 				9A906B79284637D700463618 /* PCPayPaymentMethodRadiusCreateRequest.swift in Sources */,
 				3BC9A7F22539DDAD00B933AE /* LayerType.swift in Sources */,
 				0B28F7B2299FCE5D00E929EA /* PCPayPaymentTokenCreateGooglePayRequest.swift in Sources */,
@@ -5082,6 +5087,7 @@
 				3B98706E268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
 				3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */,
+				3B6254D22B0E2836008FAB25 /* UIViewController+Extension.swift in Sources */,
 				3B5A3CE72A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */,
 				3BA074CF292F96D5003A389C /* MetaCollector.swift in Sources */,
 				3B98705A268E06AE00A0458F /* SetTOTPResult.swift in Sources */,
