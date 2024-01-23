@@ -22,6 +22,7 @@
         + [From 17.x.x -> 18.x.x](#from-17xx-to-18xx)
         + [From 18.x.x -> 19.x.x](#from-18xx-to-19xx)
         + [From 19.x.x -> 20.x.x](#from-19xx-to-20xx)
+        + [From 20.x.x -> 21.x.x](#from-20xx-to-21xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -214,6 +215,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 - `POIModelConvertible` has been removed as it is no longer relevant.
 - The property `isOnlineCoFuGasStation` of `POIKit.GasStation` is now a computed property, thus the setter is no longer accessible.
+
+### From 20.x.x to 21.x.x
+
+- The enum case `POIKit.CofuGasStation.boundingBox(center: CLLocation, radius: CLLocationDistance)` has been renamed to `POIKit.CofuGasStation.boundingCircle(center: CLLocation, radius: CLLocationDistance)`.
 
 ## Contribute
 ### Localizable Strings Generation
