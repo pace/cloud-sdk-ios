@@ -63,9 +63,4 @@ public extension POIKit.CofuGasStation {
     enum CofuStatus: String {
         case online, offline
     }
-
-    enum Option {
-        case all
-        case boundingBox(center: CLLocation, radius: CLLocationDistance)
-    }
 }

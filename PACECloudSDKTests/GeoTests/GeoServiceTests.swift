@@ -86,7 +86,7 @@ class GeoServiceTests: XCTestCase {
     func testCofuStationsArea() {
         let expectation = expectation(description: "CofuStationsArea")
 
-        geoAPIManager.cofuGasStations(option: .boundingBox(center: location, radius: 10_000)) { result in
+        geoAPIManager.cofuGasStations(option: .boundingCircle(center: location, radius: 10_000)) { result in
             switch result {
             case .failure:
                 XCTFail()
@@ -105,7 +105,7 @@ class GeoServiceTests: XCTestCase {
         addCommandLineArguments([.emptyGeoResponse])
         let expectation = expectation(description: "EmptyCofuStationsArea")
 
-        geoAPIManager.cofuGasStations(option: .boundingBox(center: location, radius: 10_000)) { result in
+        geoAPIManager.cofuGasStations(option: .boundingCircle(center: location, radius: 10_000)) { result in
             switch result {
             case .failure:
                 XCTFail()

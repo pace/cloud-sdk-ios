@@ -48,8 +48,37 @@ extension POIKit {
         }
     }
 
+    func requestCofuGasStations(boundingBox: POIKit.BoundingBox, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
+        requestCofuGasStations(option: .boundingBox(box: boundingBox)) { stations in
+            guard let stations = stations else {
+                completion(.failure(.unknown))
+                return
+            }
+
+            let poiKitManager = POIKit.POIKitManager(environment: self.currentEnvironment)
+
+            _ = poiKitManager.fetchPOIs(locations: stations.compactMap { $0.location }) { result in
+                switch result {
+                case .success(let poiStations):
+                    let cofuStations = poiStations.filter { poiStation in
+                        guard let station = stations.first(where: { $0.id == poiStation.id }) else { return false }
+                        poiStation.additionalProperties = station.properties
+                        return true
+                    }
+                    completion(.success(cofuStations))
+
+                case .failure(let error as POIKit.POIKitAPIError):
+                    completion(.failure(error))
+
+                case .failure:
+                    completion(.failure(.unknown))
+                }
+            }
+        }
+    }
+
     func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
-        requestCofuGasStations(option: .boundingBox(center: center, radius: radius)) { stations in
+        requestCofuGasStations(option: .boundingCircle(center: center, radius: radius)) { stations in
             guard let stations = stations else {
                 completion(.failure(.unknown))
                 return
@@ -108,6 +137,14 @@ extension POIKit {
     func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance) async -> Result<[POIKit.GasStation], POIKitAPIError> {
         await withCheckedContinuation { [weak self] continuation in
             self?.requestCofuGasStations(center: center, radius: radius) { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+
+    func requestCofuGasStations(boundingBox: POIKit.BoundingBox) async -> Result<[POIKit.GasStation], POIKitAPIError> {
+        await withCheckedContinuation { [weak self] continuation in
+            self?.requestCofuGasStations(boundingBox: boundingBox) { result in
                 continuation.resume(returning: result)
             }
         }

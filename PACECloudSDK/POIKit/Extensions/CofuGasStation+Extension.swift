@@ -25,3 +25,11 @@ public extension Array where Element == POIKit.CofuGasStation {
         }
     }
 }
+
+public extension POIKit.CofuGasStation {
+    enum Option {
+        case all
+        case boundingCircle(center: CLLocation, radius: CLLocationDistance)
+        case boundingBox(box: POIKit.BoundingBox)
+    }
+}

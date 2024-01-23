@@ -28,3 +28,10 @@ class GeoAPIManager {
         completion(false)
     }
 }
+
+public extension POIKit.CofuGasStation {
+    enum Option {
+        case all
+        case boundingBox(center: CLLocation, radius: CLLocationDistance)
+    }
+}

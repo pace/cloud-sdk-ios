@@ -157,8 +157,11 @@ class GeoAPIManager {
         cloudQueue.async {
             var cofuStations: [POIKit.CofuGasStation] = []
 
-            if case let .boundingBox(center, radius) = option {
+            if case let .boundingCircle(center, radius) = option {
                 let filteredFeatures = self.applyRadiusFilter(features, for: center, radius: radius)
+                cofuStations = self.retrieveCoFuGasStations(from: filteredFeatures)
+            } else if case let .boundingBox(box) = option {
+                let filteredFeatures = self.applyBoundingBoxFilter(features, for: box)
                 cofuStations = self.retrieveCoFuGasStations(from: filteredFeatures)
             } else if case .all = option {
                 cofuStations = self.retrieveCoFuGasStations(from: features)
@@ -402,6 +405,15 @@ private extension GeoAPIManager {
         return filteredResponse
     }
 
+    func applyBoundingBoxFilter(_ features: [GeoAPIFeature], for boundingBox: POIKit.BoundingBox) -> [GeoAPIFeature] {
+        let filteredResponse = features.filter { feature in
+            guard let geometry = feature.geometry else { return false }
+            return isInBoundingBox(geometry: geometry, boundingBox: boundingBox)
+        }
+
+        return filteredResponse
+    }
+
     func resetCache() {
         locationBasedLastUpdatedAt = nil
         locationBasedFeatures = nil
@@ -409,6 +421,19 @@ private extension GeoAPIManager {
 
         allCofuLastUpdatedAt = nil
         allCofuFeatures = nil
+    }
+
+    func isInBoundingBox(geometry: GeometryFeature, boundingBox: POIKit.BoundingBox) -> Bool {
+        switch geometry {
+        case .point(let pointFeature):
+            return isInBoundingBox(point: pointFeature, boundingBox: boundingBox)
+
+        case .polygon(let polygonFeature):
+            return isInBoundingBox(polygon: polygonFeature, boundingBox: boundingBox)
+
+        case .collections(let collectionFeature):
+            return isInBoundingBox(collection: collectionFeature, boundingBox: boundingBox)
+        }
     }
 
     func isInRadius(geometry: GeometryFeature, location: CLLocation, radius: CLLocationDistance) -> Bool {
@@ -460,6 +485,47 @@ private extension GeoAPIManager {
 
         for geometry in geometries {
             return isInRadius(geometry: geometry, location: location, radius: radius)
+        }
+
+        return false
+    }
+
+    private func isInBoundingBox(point: GeometryPointFeature, boundingBox: POIKit.BoundingBox) -> Bool {
+        guard let lon = point.coordinates[safe: 0], let lat = point.coordinates[safe: 1] else { return false }
+        let pointCoordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        return boundingBox.contains(coord: pointCoordinates)
+    }
+
+    private func isInBoundingBox(polygon: GeometryPolygonFeature, boundingBox: POIKit.BoundingBox) -> Bool {
+        for coordinates in polygon.coordinates {
+            for coordinate in coordinates {
+                guard let lon = coordinate[safe: 0], let lat = coordinate[safe: 1] else { continue }
+                let pointCoordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+
+                if !boundingBox.contains(coord: pointCoordinates) {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    private func isInBoundingBox(collection: GeometryCollectionsFeature, boundingBox: POIKit.BoundingBox) -> Bool {
+        guard let geometries = collection.geometries else { return false }
+
+        for geometry in geometries {
+            switch geometry {
+            case .point(let point):
+                return isInBoundingBox(point: point, boundingBox: boundingBox)
+
+            default:
+                continue
+            }
+        }
+
+        for geometry in geometries {
+            return isInBoundingBox(geometry: geometry, boundingBox: boundingBox)
         }
 
         return false

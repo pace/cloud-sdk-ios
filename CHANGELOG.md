@@ -1,3 +1,10 @@
+WIP
+=============================================================
+
+### Breaking Changes
+* Rename `POIKit.CofuGasStation.boundingBox(center: CLLocation, radius: CLLocationDistance)` to `POIKit.CofuGasStation.boundingCircle(center: CLLocation, radius: CLLocationDistance)`
+* Add `POIKit.CofuGasStation.boundingBox(box: POIKit.BoundingBox)` and `POIKit.requestCofuGasStations(boundingBox: POIKit.BoundingBox, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void)`
+
 20.0.0 Release notes (2023-11-29)
 =============================================================
 
