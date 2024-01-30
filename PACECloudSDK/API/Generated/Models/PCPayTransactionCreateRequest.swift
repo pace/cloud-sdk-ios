@@ -48,6 +48,8 @@ public class PCPayTransactionCreateRequest: APIModel {
         /** PACE resource name - referring to the transaction's merchant */
         public var merchantPRN: String?
 
+        public var metadata: [PCPayTransactionMetadata]?
+
         /** Current mileage in meters */
         public var mileage: Int?
 
@@ -60,8 +62,6 @@ public class PCPayTransactionCreateRequest: APIModel {
 
         /** The given productFlow (e.g. preAuth, postPay) */
         public var productFlow: String?
-
-        public var tolling: PCPayTollingMetadata?
 
         /** Set to true if the payment is for an unattended process */
         public var unattended: Bool?
@@ -108,7 +108,7 @@ public class PCPayTransactionCreateRequest: APIModel {
             }
         }
 
-        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, tolling: PCPayTollingMetadata? = nil, unattended: Bool? = nil, vin: String? = nil) {
+        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, metadata: [PCPayTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, unattended: Bool? = nil, vin: String? = nil) {
             self.paymentToken = paymentToken
             self.purposePRN = purposePRN
             self.providerPRN = providerPRN
@@ -119,12 +119,12 @@ public class PCPayTransactionCreateRequest: APIModel {
             self.fuelProductName = fuelProductName
             self.issuerPRN = issuerPRN
             self.merchantPRN = merchantPRN
+            self.metadata = metadata
             self.mileage = mileage
             self.numberPlate = numberPlate
             self.priceExcludingVAT = priceExcludingVAT
             self.priceIncludingVAT = priceIncludingVAT
             self.productFlow = productFlow
-            self.tolling = tolling
             self.unattended = unattended
             self.vin = vin
         }
@@ -142,12 +142,12 @@ public class PCPayTransactionCreateRequest: APIModel {
             fuelProductName = try container.decodeIfPresent("fuelProductName")
             issuerPRN = try container.decodeIfPresent("issuerPRN")
             merchantPRN = try container.decodeIfPresent("merchantPRN")
+            metadata = try container.decodeArrayIfPresent("metadata")
             mileage = try container.decodeIfPresent("mileage")
             numberPlate = try container.decodeIfPresent("numberPlate")
             priceExcludingVAT = try container.decodeLosslessDecimal("priceExcludingVAT")
             priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
             productFlow = try container.decodeIfPresent("productFlow")
-            tolling = try container.decodeIfPresent("tolling")
             unattended = try container.decodeIfPresent("unattended")
             vin = try container.decodeIfPresent("vin")
         }
@@ -165,12 +165,12 @@ public class PCPayTransactionCreateRequest: APIModel {
             try container.encodeIfPresent(fuelProductName, forKey: "fuelProductName")
             try container.encodeIfPresent(issuerPRN, forKey: "issuerPRN")
             try container.encodeIfPresent(merchantPRN, forKey: "merchantPRN")
+            try container.encodeIfPresent(metadata, forKey: "metadata")
             try container.encodeIfPresent(mileage, forKey: "mileage")
             try container.encodeIfPresent(numberPlate, forKey: "numberPlate")
             try container.encodeIfPresent(priceExcludingVAT, forKey: "priceExcludingVAT")
             try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
             try container.encodeIfPresent(productFlow, forKey: "productFlow")
-            try container.encodeIfPresent(tolling, forKey: "tolling")
             try container.encodeIfPresent(unattended, forKey: "unattended")
             try container.encodeIfPresent(vin, forKey: "vin")
         }
@@ -187,12 +187,12 @@ public class PCPayTransactionCreateRequest: APIModel {
           guard self.fuelProductName == object.fuelProductName else { return false }
           guard self.issuerPRN == object.issuerPRN else { return false }
           guard self.merchantPRN == object.merchantPRN else { return false }
+          guard self.metadata == object.metadata else { return false }
           guard self.mileage == object.mileage else { return false }
           guard self.numberPlate == object.numberPlate else { return false }
           guard self.priceExcludingVAT == object.priceExcludingVAT else { return false }
           guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
           guard self.productFlow == object.productFlow else { return false }
-          guard self.tolling == object.tolling else { return false }
           guard self.unattended == object.unattended else { return false }
           guard self.vin == object.vin else { return false }
           return true

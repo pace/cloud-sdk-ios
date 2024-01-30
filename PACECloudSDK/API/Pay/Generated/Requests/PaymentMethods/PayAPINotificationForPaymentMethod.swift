@@ -20,9 +20,9 @@ extension PayAPI.PaymentMethods {
                 public var type: String?
 
                 /** ID of the paymentMethod */
-                public var paymentMethodId: ID
+                public var paymentMethodId: String
 
-                public init(type: String? = nil, paymentMethodId: ID) {
+                public init(type: String? = nil, paymentMethodId: String) {
                     self.type = type
                     self.paymentMethodId = paymentMethodId
                 }
@@ -36,13 +36,13 @@ extension PayAPI.PaymentMethods {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(type: String? = nil, paymentMethodId: ID) {
+            public convenience init(type: String? = nil, paymentMethodId: String) {
                 let options = Options(type: type, paymentMethodId: paymentMethodId)
                 self.init(options: options)
             }
 
             public override var path: String {
-                return super.path.replacingOccurrences(of: "{" + "paymentMethodId" + "}", with: "\(self.options.paymentMethodId.encode())")
+                return super.path.replacingOccurrences(of: "{" + "paymentMethodId" + "}", with: "\(self.options.paymentMethodId)")
             }
 
             public override var queryParameters: [String: Any] {

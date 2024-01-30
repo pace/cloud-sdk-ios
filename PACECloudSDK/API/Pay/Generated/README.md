@@ -167,15 +167,17 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentMethodKindRelationship**
 - **PCPayPaymentMethodKinds**
 - **PCPayPaymentMethodLogpayCreateRequest**
+- **PCPayPaymentMethodLogpaysandboxCreateRequest**
 - **PCPayPaymentMethodModel**
+- **PCPayPaymentMethodOMVCreateRequest**
 - **PCPayPaymentMethodPayDirektCreateRequest**
 - **PCPayPaymentMethodPayPalCreateRequest**
-- **PCPayPaymentMethodRMCCreateRequest**
 - **PCPayPaymentMethodRadiusCreateRequest**
 - **PCPayPaymentMethodRelationship**
 - **PCPayPaymentMethodRoadrunnerCreateRequest**
 - **PCPayPaymentMethodSepaCreateRequest**
 - **PCPayPaymentMethodTFCCreateRequest**
+- **PCPayPaymentMethodTFCSandboxCreateRequest**
 - **PCPayPaymentMethodVendor**
 - **PCPayPaymentMethodVendorRelationship**
 - **PCPayPaymentMethodZGMCreateRequest**
@@ -189,15 +191,19 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayReadOnlyLocation**
 - **PCPayRequestApplePaySessionRequest**
 - **PCPayRequestPaymentMethodModelRequest**
-- **PCPayTollingMetadata**
 - **PCPayTransaction**
 - **PCPayTransactionCreateRequest**
 - **PCPayTransactionIDListRequest**
 - **PCPayTransactionLinks**
+- **PCPayTransactionMetadata**
+- **PCPayTransactionShort**
 - **PCPayTransactions**
+- **PCPayTransactionsShort**
 
 ## Requests
 
+- **PayAPI.JET**
+	- **ListTransactionsForJET**: GET `/transactions/contracts/partners/jet`
 - **PayAPI.NewPaymentMethods**
 	- **CreatePaymentMethodCreditCard**: POST `/payment-methods/creditcard`
 	- **CreatePaymentMethodDKV**: POST `/payment-methods/dkv`
@@ -205,14 +211,16 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **CreatePaymentMethodGiropay**: POST `/payment-methods/giropay`
 	- **CreatePaymentMethodHoyer**: POST `/payment-methods/hoyer`
 	- **CreatePaymentMethodLogpay**: POST `/payment-methods/logpay`
+	- **CreatePaymentMethodLogpaysandbox**: POST `/payment-methods/logpaysandbox`
+	- **CreatePaymentMethodOMV**: POST `/payment-methods/omv`
 	- **CreatePaymentMethodPACECardSandbox**: POST `/payment-methods/pacecardsandbox`
 	- **CreatePaymentMethodPayDirekt**: POST `/payment-methods/paydirekt`
 	- **CreatePaymentMethodPayPal**: POST `/payment-methods/paypal`
-	- **CreatePaymentMethodRMC**: POST `/payment-methods/rmc`
 	- **CreatePaymentMethodRadius**: POST `/payment-methods/radius`
 	- **CreatePaymentMethodRoadrunner**: POST `/payment-methods/roadrunner`
 	- **CreatePaymentMethodSEPA**: POST `/payment-methods/sepa-direct-debit`
 	- **CreatePaymentMethodTFC**: POST `/payment-methods/tfc`
+	- **CreatePaymentMethodTFCSandbox**: POST `/payment-methods/tfcsandbox`
 	- **CreatePaymentMethodZGM**: POST `/payment-methods/zgm`
 - **PayAPI.PaymentMethodKinds**
 	- **GetPaymentMethodKinds**: GET `/payment-method-kinds`
@@ -243,5 +251,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **GetTransaction**: GET `/transactions/{transactionid}`
 	- **ListTransactions**: GET `/transactions`
 	- **ListTransactionsCSV**: GET `/transactions.csv`
+	- **ListTransactionsForContractID**: GET `/transactions/contracts/{contractid}`
+	- **ListTransactionsForJET**: GET `/transactions/contracts/partners/jet`
 	- **ProcessPayment**: POST `/transactions`
 	- **ResendReceipt**: POST `/receipts/resend`

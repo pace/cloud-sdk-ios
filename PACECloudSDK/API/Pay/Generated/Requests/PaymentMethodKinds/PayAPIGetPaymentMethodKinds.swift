@@ -26,9 +26,13 @@ extension PayAPI.PaymentMethodKinds {
                 /** Flag to allow more data to the payment method kinds. */
                 public var additionalData: Bool?
 
-                public init(acceptLanguage: String? = nil, additionalData: Bool? = nil) {
+                /** Filter allowed payment methods kinds by poi. */
+                public var poiID: ID?
+
+                public init(acceptLanguage: String? = nil, additionalData: Bool? = nil, poiID: ID? = nil) {
                     self.acceptLanguage = acceptLanguage
                     self.additionalData = additionalData
+                    self.poiID = poiID
                 }
             }
 
@@ -40,8 +44,8 @@ extension PayAPI.PaymentMethodKinds {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(acceptLanguage: String? = nil, additionalData: Bool? = nil) {
-                let options = Options(acceptLanguage: acceptLanguage, additionalData: additionalData)
+            public convenience init(acceptLanguage: String? = nil, additionalData: Bool? = nil, poiID: ID? = nil) {
+                let options = Options(acceptLanguage: acceptLanguage, additionalData: additionalData, poiID: poiID)
                 self.init(options: options)
             }
 
@@ -49,6 +53,9 @@ extension PayAPI.PaymentMethodKinds {
                 var params: [String: Any] = [:]
                 if let additionalData = options.additionalData {
                   params["additionalData"] = additionalData
+                }
+                if let poiID = options.poiID?.encode() {
+                  params["poiID"] = poiID
                 }
                 return params
             }

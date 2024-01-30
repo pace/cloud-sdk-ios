@@ -219,6 +219,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 20.x.x to 21.x.x
 
 - The enum case `POIKit.CofuGasStation.boundingBox(center: CLLocation, radius: CLLocationDistance)` has been renamed to `POIKit.CofuGasStation.boundingCircle(center: CLLocation, radius: CLLocationDistance)`.
+- `PCPayTollingMetadata` has been removed.
 
 ## Contribute
 ### Localizable Strings Generation
