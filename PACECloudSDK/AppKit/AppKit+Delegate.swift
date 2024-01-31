@@ -18,6 +18,7 @@ public protocol AppKitDelegate: AnyObject {
     func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void))
     func logout(completion: @escaping ((AppKit.LogoutResponse) -> Void))
     func didReceiveImageData(_ image: UIImage)
+    func didReceiveFileData(_ data: Data)
     func didReceiveText(title: String, text: String)
 
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void))
@@ -37,11 +38,6 @@ public extension AppKitDelegate {
     func didReceiveAppData(_ appData: [AppKit.AppData]) {}
     func didEscapeForecourt(_ appDatas: [AppKit.AppData]) {}
     func getAccessToken(reason: AppKit.GetAccessTokenReason, oldToken: String?, completion: @escaping ((API.Communication.GetAccessTokenResponse) -> Void)) {}
-    func didReceiveImageData(_ image: UIImage) {
-        let item = ShareObject(shareData: image, customTitle: Bundle.main.bundleName)
-        let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
-        UIWindow.topMost?.rootViewController?.present(av, animated: true, completion: nil)
-    }
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) { completion(false) }
     func currentLocation(completion: @escaping (CLLocation?) -> Void) { completion(nil) }
     func setUserProperty(key: String, value: String, update: Bool) {}
@@ -49,12 +45,31 @@ public extension AppKitDelegate {
     func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) { isAllowed(true) }
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) { isAvailable(false) }
+    func startNavigation(_ request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void) { completion(false) }
+}
+
+public extension AppKitDelegate {
+    func didReceiveImageData(_ image: UIImage) {
+        let item = ShareObject(shareData: image, customTitle: Bundle.main.bundleName)
+        shareItem(item)
+    }
+    
+    func didReceiveFileData(_ data: Data) {
+        let item = ShareObject(shareData: data, customTitle: Bundle.main.bundleName)
+        shareItem(item)
+    }
+
     func didReceiveText(title: String, text: String) {
         let item = ShareObject(shareData: text, customTitle: title)
+        shareItem(item)
+    }
+}
+
+private extension AppKitDelegate {
+    func shareItem(_ item: ShareObject) {
         let av = UIActivityViewController(activityItems: [item], applicationActivities: nil)
         UIWindow.topMost?.rootViewController?.present(av, animated: true, completion: nil)
     }
-    func startNavigation(_ request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void) { completion(false) }
 }
 
 extension AppKit {
@@ -92,6 +107,12 @@ extension AppKit {
     func notifyImageData(with image: UIImage) {
         notifyClient { [weak self] in
             self?.delegate?.didReceiveImageData(image)
+        }
+    }
+
+    func notifyShareFile(data: Data) {
+        notifyClient { [weak self] in
+            self?.delegate?.didReceiveFileData(data)
         }
     }
 

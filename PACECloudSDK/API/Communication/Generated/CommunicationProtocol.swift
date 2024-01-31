@@ -33,5 +33,6 @@ protocol CommunicationProtocol: AnyObject {
     func handleGooglePayAvailabilityCheck(with request: API.Communication.GooglePayAvailabilityCheckRequest, completion: @escaping (API.Communication.GooglePayAvailabilityCheckResult) -> Void)
     func handleGooglePayPayment(with request: API.Communication.GooglePayPaymentRequest, completion: @escaping (API.Communication.GooglePayPaymentResult) -> Void)
     func handleStartNavigation(with request: API.Communication.StartNavigationRequest, completion: @escaping (API.Communication.StartNavigationResult) -> Void)
+    func handleShareFile(with request: API.Communication.ShareFileRequest, completion: @escaping (API.Communication.ShareFileResult) -> Void)
     func respond(with response: String)
 }
