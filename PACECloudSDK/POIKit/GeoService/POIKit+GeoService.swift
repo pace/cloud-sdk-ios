@@ -57,6 +57,22 @@ public extension POIKit {
         shared.requestCofuGasStations(center: center, radius: radius, completion: completion)
     }
 
+    /// Requests connected fueling gas stations for the specified bounding box with detailed information.
+    ///
+    /// The response might also include connected fueling stations that are currently **offline**.
+    ///
+    ///  If you only need a list of connected fueling gas stations e.g. for their ids or their location, please use
+    ///  `requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) ->
+    ///  Void)`
+    ///  instead.
+    ///
+    /// - Parameter boundingBox: The bounding box of the area you are requesting.
+    /// - Parameter completion: The block to be called when the response is available
+    /// either containing a list of online connected fueling gas stations with detailed information or an `error`.
+    static func requestCofuGasStations(boundingBox: POIKit.BoundingBox, completion: @escaping (Result<[POIKit.GasStation], POIKitAPIError>) -> Void) {
+        shared.requestCofuGasStations(boundingBox: boundingBox, completion: completion)
+    }
+
     /// Checks if the connected fueling gas station with the specified id is in range of the user's current location.
     /// - Parameter id: The id of the gas station.
     /// - Parameter location: The location to be checked. Defaults to `nil`. If `location` is not specified the SDK
@@ -110,6 +126,23 @@ public extension POIKit {
     /// error.
     static func requestCofuGasStations(center: CLLocation, radius: CLLocationDistance) async -> Result<[POIKit.GasStation], POIKitAPIError> {
         await shared.requestCofuGasStations(center: center, radius: radius)
+    }
+
+    /// Requests connected fueling gas stations for the specified bounding box with detailed information.
+    ///
+    /// The response might also include connected fueling stations that are currently **offline**.
+    ///
+    ///  If you only need a list of connected fueling gas stations e.g. for their ids or their location, please use
+    ///  `requestCofuGasStations(option: CofuGasStation.Option = .all) async -> [CofuGasStation]?`
+    ///  instead.
+    ///
+    /// - Parameter boundingBox: The bounding box of the area you are requesting.
+    /// - Parameter completion: The block to be called when the response is available
+    /// either containing a list of online connected fueling gas stations with detailed information or an `error`.
+    /// - Returns: An asynchronously-delivered result that either contains an array of `POIKit.CofuGasStation` or an
+    /// error.
+    static func requestCofuGasStations(boundingBox: POIKit.BoundingBox) async -> Result<[POIKit.GasStation], POIKitAPIError> {
+        await shared.requestCofuGasStations(boundingBox: boundingBox)
     }
 
     /// Checks if the connected fueling gas station with the specified id is in range of the user's current location.
