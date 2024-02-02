@@ -7,26 +7,18 @@ import Foundation
 
 extension PayAPI.NewPaymentMethods {
 
-    /**
-    Register a RMC Card as a payment method
+    /** Register a OMV card as a payment method */
+    public enum CreatePaymentMethodOMV {
 
-    By registering you allow the user to use a RMC Card as a payment method.
-The payment method ID is optional when posting data.
-    */
-    public enum CreatePaymentMethodRMC {
-
-        public static var service = PayAPIService<Response>(id: "CreatePaymentMethodRMC", tag: "New Payment Methods", method: "POST", path: "/payment-methods/rmc", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:create"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:create"])])
+        public static var service = PayAPIService<Response>(id: "CreatePaymentMethodOMV", tag: "New Payment Methods", method: "POST", path: "/payment-methods/omv", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:create"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:create"])])
 
         public final class Request: PayAPIRequest<Response> {
 
-            /** By registering you allow the user to use a RMC Card as a payment method.
-            The payment method ID is optional when posting data.
-             */
             public class Body: APIModel {
 
-                public var data: PCPayPaymentMethodRMCCreateRequest?
+                public var data: PCPayPaymentMethodOMVCreateRequest?
 
-                public init(data: PCPayPaymentMethodRMCCreateRequest? = nil) {
+                public init(data: PCPayPaymentMethodOMVCreateRequest? = nil) {
                     self.data = data
                 }
 
@@ -57,7 +49,7 @@ The payment method ID is optional when posting data.
 
             public init(body: Body, encoder: RequestEncoder? = nil) {
                 self.body = body
-                super.init(service: CreatePaymentMethodRMC.service) { defaultEncoder in
+                super.init(service: CreatePaymentMethodOMV.service) { defaultEncoder in
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
                 self.contentType = "application/vnd.api+json"
@@ -74,9 +66,6 @@ The payment method ID is optional when posting data.
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** By registering you allow the user to use a RMC Card as a payment method.
-            The payment method ID is optional when posting data.
-             */
             public class Status201: APIModel {
 
                 public var data: PCPayPaymentMethod?
