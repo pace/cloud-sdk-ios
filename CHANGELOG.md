@@ -1,3 +1,15 @@
+21.0.0 Release notes (2024-02-19)
+=============================================================
+
+### Breaking Changes
+
+* Update PayAPI
+* Add fetch cofu stations within POIKit.BoundingBox
+
+### Enhancements
+
+* Implement shareFile message handler
+
 20.0.0 Release notes (2023-11-29)
 =============================================================
 
