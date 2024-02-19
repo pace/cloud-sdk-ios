@@ -112,20 +112,48 @@ extension App {
     }
 
     func handleImageData(with request: API.Communication.ImageDataRequest, completion: @escaping (API.Communication.ImageDataResult) -> Void) {
-        guard let decodedData = Data(base64Encoded: request.image),
-              let image = UIImage(data: decodedData) else {
-            AppKitLogger.e("[App] Could not decode base64 string")
-            completion(.init(.init(statusCode: .internalServerError, response: .init(message: "The value for 'image' couldn't be converted into an image."))))
+        guard let decodedData = Data(base64Encoded: request.image) else {
+            AppKitLogger.e("[App] Could not decode base64 string into data - imageData")
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The value for 'image' couldn't be decoded."))))
             return
         }
 
-        AppKit.shared.notifyImageData(with: image)
-        completion(.init(.init()))
+        if handleShareImage(of: decodedData) {
+            completion(.init(.init()))
+        } else {
+            AppKitLogger.e("[App] Could not decode base64 string - imageData")
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The value for 'image' couldn't be converted into an image."))))
+        }
     }
 
     func handleShareText(with request: API.Communication.ShareTextRequest, completion: @escaping (API.Communication.ShareTextResult) -> Void) {
         AppKit.shared.notifyDidReceiveText(title: request.title, text: request.text)
         completion(.init(.init()))
+    }
+
+    func handleShareFile(with request: API.Communication.ShareFileRequest, completion: @escaping (API.Communication.ShareFileResult) -> Void) {
+        guard let decodedData = Data(base64Encoded: request.payload) else {
+            AppKitLogger.e("[App] Could not decode base64 string into data - shareFile")
+            completion(.init(.init(statusCode: .badRequest, response: .init(message: "The value for 'payload' couldn't be decoded."))))
+            return
+        }
+
+        switch request.fileExtension {
+        case "png":
+            if handleShareImage(of: decodedData) {
+                completion(.init(.init()))
+            } else {
+                AppKitLogger.e("[App] Could not decode base64 string into image - shareFile")
+                completion(.init(.init(statusCode: .badRequest, response: .init(message: "The value for 'payload' couldn't be converted into an image."))))
+            }
+
+        case "pdf":
+            AppKit.shared.notifyShareFile(data: decodedData)
+            completion(.init(.init()))
+
+        default:
+            completion(.init(.init(statusCode: .methodNotAllowed, response: .init(message: "Unsupported file extension"))))
+        }
     }
 
     func handleBack(completion: @escaping (API.Communication.BackResult) -> Void) {
@@ -211,5 +239,17 @@ extension App {
                 completion(.init(.init(statusCode: .internalServerError, response: .init(message: "Failed starting navigation by client"))))
             }
         }
+    }
+}
+
+private extension App {
+    func handleShareImage(of data: Data) -> Bool {
+        guard let image = UIImage(data: data) else {
+            AppKitLogger.e("[App] Could not decode base64 string into image - shareFile")
+            return false
+        }
+
+        AppKit.shared.notifyImageData(with: image)
+        return true
     }
 }

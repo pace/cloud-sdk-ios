@@ -222,6 +222,12 @@ extension API.Communication {
                 delegate?.handleStartNavigation(with: requestBody) { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
+
+            case .shareFile:
+                guard let requestBody: ShareFileRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
+                delegate?.handleShareFile(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
+                }
             }
         }
 

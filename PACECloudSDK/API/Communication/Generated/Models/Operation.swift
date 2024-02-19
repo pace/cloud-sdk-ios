@@ -35,5 +35,6 @@ extension API.Communication {
         case googlePayAvailabilityCheck
         case googlePayPayment
         case startNavigation
+        case shareFile
     }
 }
