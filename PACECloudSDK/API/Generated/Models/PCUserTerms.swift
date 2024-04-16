@@ -19,15 +19,19 @@ public class PCUserTerms: APIModel {
     /** Location to the terms of service that need to be accepted */
     public var acceptUrl: String?
 
+    /** Terms of service formatted as HTML */
+    public var html: String?
+
     /** Terms of service formatted as markdown */
     public var markdown: String?
 
     public var version: Double?
 
-    public init(id: ID? = nil, type: PCUserType? = nil, acceptUrl: String? = nil, markdown: String? = nil, version: Double? = nil) {
+    public init(id: ID? = nil, type: PCUserType? = nil, acceptUrl: String? = nil, html: String? = nil, markdown: String? = nil, version: Double? = nil) {
         self.id = id
         self.type = type
         self.acceptUrl = acceptUrl
+        self.html = html
         self.markdown = markdown
         self.version = version
     }
@@ -38,6 +42,7 @@ public class PCUserTerms: APIModel {
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
         acceptUrl = try container.decodeIfPresent("acceptUrl")
+        html = try container.decodeIfPresent("html")
         markdown = try container.decodeIfPresent("markdown")
         version = try container.decodeIfPresent("version")
     }
@@ -48,6 +53,7 @@ public class PCUserTerms: APIModel {
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
         try container.encodeIfPresent(acceptUrl, forKey: "acceptUrl")
+        try container.encodeIfPresent(html, forKey: "html")
         try container.encodeIfPresent(markdown, forKey: "markdown")
         try container.encodeIfPresent(version, forKey: "version")
     }
@@ -57,6 +63,7 @@ public class PCUserTerms: APIModel {
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
       guard self.acceptUrl == object.acceptUrl else { return false }
+      guard self.html == object.html else { return false }
       guard self.markdown == object.markdown else { return false }
       guard self.version == object.version else { return false }
       return true
