@@ -52,13 +52,13 @@ let package = Package(
             ]),
         .binaryTarget(
             name: "PACECloudSlimSDK",
-            url: "https://github.com/pace/cloud-sdk-ios/releases/download/21.0.0/PACECloudSlimSDK.zip",
-            checksum: "69cc3ee1daffc13c2dec2488c1406312149546c23ee62448edb263a47ce93967"
+            url: "https://github.com/pace/cloud-sdk-ios/releases/download/22.0.0/PACECloudSlimSDK.zip",
+            checksum: "675073d07124b8e4299cc275e5deb17b64932ad2735122548bec496d2c44bbf9"
         ),
         .binaryTarget(
             name: "PACECloudWatchSDK",
-            url: "https://github.com/pace/cloud-sdk-ios/releases/download/21.0.0/PACECloudWatchSDK.zip",
-            checksum: "d7a5302cd8c0fceaddd9027491f1573ab91d7a48891d3952bf41619b53c80ab3"
+            url: "https://github.com/pace/cloud-sdk-ios/releases/download/22.0.0/PACECloudWatchSDK.zip",
+            checksum: "b859aa4010049938460787e8f48e4ff7f1a640f346f4e4b974c4da8cc57a8036"
         )
     ]
 )
