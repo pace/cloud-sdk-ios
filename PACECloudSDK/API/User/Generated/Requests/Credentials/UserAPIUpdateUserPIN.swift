@@ -30,9 +30,9 @@ The following rules apply to verify the PIN:
              */
             public class Body: APIModel {
 
-                public var data: PCUserUserPINRequest?
+                public var data: PCUserUserPINAndOTPRequest?
 
-                public init(data: PCUserUserPINRequest? = nil) {
+                public init(data: PCUserUserPINAndOTPRequest? = nil) {
                     self.data = data
                 }
 

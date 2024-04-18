@@ -23,6 +23,7 @@
         + [From 18.x.x -> 19.x.x](#from-18xx-to-19xx)
         + [From 19.x.x -> 20.x.x](#from-19xx-to-20xx)
         + [From 20.x.x -> 21.x.x](#from-20xx-to-21xx)
+        + [From 21.x.x -> 22.x.x](#from-21xx-to-22xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -220,6 +221,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 - The enum case `POIKit.CofuGasStation.boundingBox(center: CLLocation, radius: CLLocationDistance)` has been renamed to `POIKit.CofuGasStation.boundingCircle(center: CLLocation, radius: CLLocationDistance)`.
 - `PCPayTollingMetadata` has been removed.
+
+### From 21.x.x to 22.x.x
+
+- The `PCUserUserPINRequest` type has been renamed to `PCUserUserPINAndOTPRequest`
 
 ## Contribute
 ### Localizable Strings Generation

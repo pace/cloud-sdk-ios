@@ -33,7 +33,7 @@ RFCs for reference:
     */
     public enum TokenExchange {
 
-        public static var service = UserAPIService<Response>(id: "TokenExchange", tag: "OAuth2", method: "POST", path: "/protocol/openid-connect/token", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["user:oidc:token-exchange"]), SecurityRequirement(type: "OIDC", scopes: ["user:oidc:token-exchange"])])
+        public static var service = UserAPIService<Response>(id: "TokenExchange", tag: "OAuth2", method: "POST", path: "/protocol/openid-connect/token", hasBody: true, securityRequirements: [])
 
         public final class Request: UserAPIRequest<Response> {
 
@@ -45,14 +45,6 @@ RFCs for reference:
                     return try (encoder ?? defaultEncoder).encode(body)
                 }
                 self.contentType = "application/x-www-form-urlencoded"
-            }
-
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
             }
         }
 

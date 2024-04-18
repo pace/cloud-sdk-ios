@@ -160,15 +160,21 @@ To add support for a specific asynchronous library, just add an extension on `Us
 - **PCUserOTPRequest**
 - **PCUserPinOrPassword**
 - **PCUserPlainOTPRequest**
+- **PCUserScopesRequest**
+- **PCUserScopes**
 - **PCUserSessionRequest**
 - **PCUserTerms**
 - **PCUserUpdateUserPhoneRequest**
 - **PCUserUser**
 - **PCUserUserPINRequest**
+- **PCUserUserPINAndOTPRequest**
 - **PCUserVerifyUserPhoneRequest**
 
 ## Requests
 
+- **UserAPI.Attributes**
+	- **GetUserAttributes**: GET `/attributes`
+	- **SetUserAttributes**: PUT `/attributes`
 - **UserAPI.AuditLog**
 	- **RecordAuditLog**: POST `/auditlogs/record`
 - **UserAPI.Callbacks**
@@ -181,8 +187,11 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **ResetPassword**: PUT `/user/password/reset`
 	- **UpdateUserPIN**: PUT `/user/pin`
 - **UserAPI.FederatedIdentity**
+	- **DeleteFederatedIdentity**: DELETE `/federated-identities/{identityprovider}`
 	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
 	- **SetFederatedIdentity**: PUT `/federated-identities/{identityprovider}`
+- **UserAPI.Maintenance**
+	- **PostMaintenanceCheckScopes**: POST `/maintenance/check-scopes`
 - **UserAPI.OAuth2**
 	- **GrantFederatedToken**: POST `/federated-identities/{identityprovider}/token`
 	- **TokenExchange**: POST `/protocol/openid-connect/token`
@@ -200,6 +209,7 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **CheckTerms**: GET `/terms/check`
 	- **GetTerms**: GET `/terms/{termsid}`
 	- **LatestTerms**: GET `/terms/latest`
+	- **UpdateTerms**: PUT `/terms/update`
 - **UserAPI.TOTP**
 	- **CreateOTP**: POST `/user/otp`
 	- **CreateTOTP**: POST `/user/devices/totp`
@@ -211,4 +221,4 @@ To add support for a specific asynchronous library, just add an extension on `Us
 	- **GetUser**: GET `/users/{userid}`
 	- **SetUser**: PUT `/users/{userid}`
 	- **UpdateUser**: PATCH `/users/{userid}`
-	- **VerifyEmail**: GET `/user/email/verify`
+	- **VerifyEmail**: POST `/user/email/verify`
