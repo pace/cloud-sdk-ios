@@ -471,7 +471,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3B784C4126B3E5E600B1D859 /* Build configuration list for PBXNativeTarget "PACECloudSDKExample" */;
 			buildPhases = (
-				3B784C5626B3E94200B1D859 /* Swiftlint */,
 				3B784C2E26B3E5E500B1D859 /* Sources */,
 				3B784C2F26B3E5E500B1D859 /* Frameworks */,
 				3B784C3026B3E5E500B1D859 /* Resources */,
@@ -480,6 +479,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0B6203232BDBE51A00BC7D59 /* PBXTargetDependency */,
 				3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */,
 			);
 			name = PACECloudSDKExample;
@@ -515,6 +515,7 @@
 			mainGroup = 3B784C2926B3E5E500B1D859;
 			packageReferences = (
 				6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */,
+				0B6203212BDBE51000BC7D59 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 3B784C3326B3E5E500B1D859 /* Products */;
 			projectDirPath = "";
@@ -585,28 +586,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3B784C5626B3E94200B1D859 /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Default homebrew directory on m1\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3B784C2E26B3E5E500B1D859 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -671,6 +650,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0B6203232BDBE51A00BC7D59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0B6203222BDBE51A00BC7D59 /* SwiftLintPlugin */;
+		};
 		3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PACECloudSDK;
@@ -954,6 +937,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0B6203212BDBE51000BC7D59 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.54.0;
+			};
+		};
 		6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip";
@@ -965,6 +956,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B6203222BDBE51A00BC7D59 /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B6203212BDBE51000BC7D59 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
 		6ACBC02926FA1FB100E6AC05 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */;

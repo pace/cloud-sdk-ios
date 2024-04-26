@@ -374,7 +374,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AD6E96F286AE6F600B6FDA4 /* Build configuration list for PBXNativeTarget "FuelingExampleApp" */;
 			buildPhases = (
-				3B92A5BD28BCE62400E1965B /* Swiftlint */,
 				9AD6E957286AE6F500B6FDA4 /* Sources */,
 				9AD6E958286AE6F500B6FDA4 /* Frameworks */,
 				9AD6E959286AE6F500B6FDA4 /* Resources */,
@@ -383,6 +382,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0B7F75512BDF7BC800093A0C /* PBXTargetDependency */,
 				9AD6E986286AE75800B6FDA4 /* PBXTargetDependency */,
 			);
 			name = FuelingExampleApp;
@@ -417,6 +417,7 @@
 			);
 			mainGroup = 9AD6E952286AE6F500B6FDA4;
 			packageReferences = (
+				0B7F754F2BDF7BBF00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 9AD6E95C286AE6F500B6FDA4 /* Products */;
 			projectDirPath = "";
@@ -483,28 +484,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3B92A5BD28BCE62400E1965B /* Swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Swiftlint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Default homebrew directory on m1\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		9AD6E957286AE6F500B6FDA4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -560,6 +539,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0B7F75512BDF7BC800093A0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0B7F75502BDF7BC800093A0C /* SwiftLintBuildToolPlugin */;
+		};
 		9AD6E986286AE75800B6FDA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PACECloudSDK;
@@ -883,6 +866,25 @@
 			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0B7F754F2BDF7BBF00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.54.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0B7F75502BDF7BC800093A0C /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7F754F2BDF7BBF00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9AD6E953286AE6F500B6FDA4 /* Project object */;
 }
