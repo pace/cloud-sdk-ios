@@ -10,7 +10,8 @@ platform :ios do
       reset_simulator: true, 
       force_quit_simulator: true, 
       prelaunch_simulator: true, 
-      reinstall_app: true
+      reinstall_app: true,
+      xcargs: "-skipPackagePluginValidation -skipMacroValidation"
     )
   end
 

@@ -41,7 +41,8 @@ platform :ios do
       reset_simulator: true, 
       force_quit_simulator: true, 
       prelaunch_simulator: true, 
-      reinstall_app: true
+      reinstall_app: true,
+      xcargs: "-skipPackagePluginValidation -skipMacroValidation"
     )
   end
 
@@ -109,7 +110,8 @@ platform :ios do
           APP_IDENTIFIER => ENV["sigh_#{APP_IDENTIFIER}_development_profile-name"]
         }
       },
-      codesigning_identity: 'Apple Development'
+      codesigning_identity: 'Apple Development',
+      xcargs: "-skipPackagePluginValidation -skipMacroValidation"
     )
   end
 end

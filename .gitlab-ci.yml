@@ -79,7 +79,7 @@ before_script:
   extends: .xcode_version
   stage: build
   script:
-    - xcodebuild -scheme $TARGET_SCHEME -sdk $SIMULATOR_SDK | xcpretty
+    - xcodebuild -scheme $TARGET_SCHEME -sdk $SIMULATOR_SDK -skipPackagePluginValidation -skipMacroValidation | xcpretty
   only:
     - merge_requests
   except:
@@ -207,7 +207,7 @@ documentation:
   extends: .xcode_version
   stage: build
   script:
-    - xcodebuild docbuild -scheme $TARGET_SCHEME -sdk $SIMULATOR_SDK | xcpretty
+    - xcodebuild docbuild -scheme $TARGET_SCHEME -sdk $SIMULATOR_SDK -skipPackagePluginValidation -skipMacroValidation | xcpretty
     - find ~/Library/Developer/Xcode/DerivedData
       -name "$TARGET_SCHEME.doccarchive"
       -exec cp -R {} ./docs \;

@@ -41,7 +41,8 @@ platform :ios do
       reset_simulator: true, 
       force_quit_simulator: true, 
       prelaunch_simulator: true, 
-      reinstall_app: true
+      reinstall_app: true,
+      xcargs: "-skipPackagePluginValidation -skipMacroValidation"
     )
   end
 
@@ -69,7 +70,8 @@ platform :ios do
     set_info_plist_value(path: info_plist_path, key: 'CFBundleShortVersionString', value: version_number)
     set_info_plist_value(path: info_plist_path, key: 'CFBundleVersion', value: build_number)
 
-    disable_automatic_code_signing(
+    update_code_signing_settings(
+      use_automatic_signing: false,
       path: PROJECT_PATH,
       team_id: TEAM_ID
     )
@@ -93,7 +95,13 @@ platform :ios do
       xcodeproj: PROJECT_PATH,
       target_filter: 'FuelingExampleApp',
       profile: ENV["sigh_#{APP_IDENTIFIER}_development_profile-path"],
-      build_configuration: options[:config]
+      build_configuration: options[:config],
+    )
+
+    update_project_team(
+      path: PROJECT_PATH,
+      targets: "FuelingExampleApp",
+      teamid: TEAM_ID
     )
 
     gym(
@@ -109,7 +117,8 @@ platform :ios do
           APP_IDENTIFIER => ENV["sigh_#{APP_IDENTIFIER}_development_profile-name"]
         }
       },
-      codesigning_identity: 'Apple Development'
+      codesigning_identity: 'Apple Development',
+      xcargs: "-skipPackagePluginValidation -skipMacroValidation CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=#{TEAM_ID}"
     )
   end
 end

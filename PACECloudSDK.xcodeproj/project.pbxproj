@@ -3836,6 +3836,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0B7F75442BDF734400093A0C /* PBXTargetDependency */,
 			);
 			name = PACECloudWatchSDK;
 			packageProductDependencies = (
@@ -3868,7 +3869,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 921E68402534883200438491 /* Build configuration list for PBXNativeTarget "PACECloudSDK" */;
 			buildPhases = (
-				921E68482534C6D300438491 /* SwiftLint */,
 				921E68272534883100438491 /* Headers */,
 				921E68282534883100438491 /* Sources */,
 				921E68292534883100438491 /* Frameworks */,
@@ -3877,6 +3877,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0B7F75402BDF733700093A0C /* PBXTargetDependency */,
 			);
 			name = PACECloudSDK;
 			packageProductDependencies = (
@@ -3919,6 +3920,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0B7F75422BDF734000093A0C /* PBXTargetDependency */,
 			);
 			name = PACECloudSlimSDK;
 			packageProductDependencies = (
@@ -3983,6 +3985,7 @@
 				3B87D06825DACE6400D635F0 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */,
+				0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 921E682D2534883100438491 /* Products */;
 			projectDirPath = "";
@@ -4055,28 +4058,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		921E68482534C6D300438491 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Default homebrew directory on m1\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		17BB0CD3268CCED6009D4755 /* Sources */ = {
@@ -5377,6 +5358,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0B7F75402BDF733700093A0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0B7F753F2BDF733700093A0C /* SwiftLintPlugin */;
+		};
+		0B7F75422BDF734000093A0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0B7F75412BDF734000093A0C /* SwiftLintPlugin */;
+		};
+		0B7F75442BDF734400093A0C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 0B7F75432BDF734400093A0C /* SwiftLintPlugin */;
+		};
 		3BA6A787260DD0B0005D4B5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3BA6A75F260DD06A005D4B5C /* UnitTestDummy */;
@@ -6590,6 +6583,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = revision;
+				revision = 108b1fca7a9445c12a92a83fdd9945ae03309f5d;
+			};
+		};
 		3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pace/Japx";
@@ -6617,6 +6618,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B7F753F2BDF733700093A0C /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
+		0B7F75412BDF734000093A0C /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
+		0B7F75432BDF734400093A0C /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
 		1785C95B26935EEE0041A20E /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
