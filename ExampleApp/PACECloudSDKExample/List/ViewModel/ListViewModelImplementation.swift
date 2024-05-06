@@ -14,6 +14,7 @@ class ListViewModelImplementation: ListViewModel {
     @Published private(set) var cofuStations: [ListGasStation] = []
     @Published private(set) var didFail: Bool = false
     @Published private(set) var isLoading: Bool = false
+    @Published var selectedCofuStationId: String?
 
     @Published var cofuStationRadius: CLLocationDistance = 20_000 {
         didSet {

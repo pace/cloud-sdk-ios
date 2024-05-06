@@ -11,7 +11,6 @@ import SwiftUI
 
 struct ListView<T: ListViewModel>: View {
     @ObservedObject private(set) var viewModel: T
-    @State private var isFuelingViewControllerVisible = false
     @State private var showRadiusAlert: Bool = false
 
     init(viewModel: T) {
@@ -43,6 +42,9 @@ struct ListView<T: ListViewModel>: View {
             Spacer()
                 .frame(height: .defaultPadding / 2)
         }
+        .sheet(item: $viewModel.selectedCofuStationId) { stationId in
+            AppView(presetUrl: .fueling(id: stationId))
+        }
         .alert(isPresented: $showRadiusAlert,
                TextFieldAlert(title: "Enter radius in meters",
                               textFields: [
@@ -73,7 +75,7 @@ struct ListView<T: ListViewModel>: View {
 
     var populatedListView: some View {
         List(viewModel.cofuStations, id: \.id) { station in
-            ListViewRow(with: station)
+            ListViewRow(viewModel: viewModel, cofuStation: station)
         }
     }
 }
