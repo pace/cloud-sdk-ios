@@ -13,6 +13,7 @@ protocol ListViewModel: ObservableObject {
     var cofuStations: [ListGasStation] { get }
     var didFail: Bool { get }
     var isLoading: Bool { get }
+    var selectedCofuStationId: String? { get set }
     var cofuStationRadius: CLLocationDistance { get set }
     func fetchCofuStations()
 }

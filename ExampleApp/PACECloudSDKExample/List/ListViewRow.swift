@@ -9,11 +9,12 @@ import Foundation
 import PACECloudSDK
 import SwiftUI
 
-struct ListViewRow: View {
+struct ListViewRow<T: ListViewModel>: View {
+    @ObservedObject private var viewModel: T
     private let cofuStation: ListGasStation
-    @State private var isFuelingViewControllerVisible: Bool = false
 
-    init(with cofuStation: ListGasStation) {
+    init(viewModel: T, cofuStation: ListGasStation) {
+        self.viewModel = viewModel
         self.cofuStation = cofuStation
     }
 
@@ -29,15 +30,12 @@ struct ListViewRow: View {
                 .font(.system(size: 17, weight: .medium))
                 .foregroundColor(.secondary)
             Button(action: {
-                isFuelingViewControllerVisible = true
+                viewModel.selectedCofuStationId = cofuStation.id
             }, label: {
                 Image(systemName: "chevron.right")
                     .font(.body)
                     .foregroundColor(.black)
             })
-            .sheet(isPresented: $isFuelingViewControllerVisible) {
-                AppView(presetUrl: .fueling(id: cofuStation.id))
-            }
         }
         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
     }
