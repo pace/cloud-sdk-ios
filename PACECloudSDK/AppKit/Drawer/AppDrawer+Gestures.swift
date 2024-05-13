@@ -8,55 +8,6 @@
 import UIKit
 
 extension AppKit.AppDrawer {
-    public func expand() {
-        isSlidingLocked = true
-        drawerWidthConstraint?.constant = AppStyle.drawerMaxWidth
-
-        UIView.animate(withDuration: AppStyle.animationDuration,
-                       delay: 0,
-                       usingSpringWithDamping: AppStyle.damping,
-                       initialSpringVelocity: AppStyle.springVelocity,
-                       options: .curveEaseOut,
-                       animations: {
-
-                        self.setDrawerBackgroundViewColor(with: self.appDrawerBackgroundColor)
-                        self.layoutSuperviews()
-        }, completion: { _ in
-            self.isSlidingLocked = false
-            self.drawerRightPaddingConstraint?.constant = 0
-            self.layoutSuperviews()
-        })
-
-        // Animate appearance of close button
-        UIView.animate(withDuration: AppStyle.animationDuration / 3, animations: {
-            self.activateCloseButton()
-        })
-
-        currentState = .expanded
-    }
-
-    func collapse() {
-        isSlidingLocked = true
-        drawerWidthConstraint?.constant = AppStyle.drawerSize
-
-        deactivateCloseButtton()
-
-        UIView.animate(withDuration: AppStyle.animationDuration,
-                       delay: 0,
-                       usingSpringWithDamping: AppStyle.damping,
-                       initialSpringVelocity: AppStyle.springVelocity,
-                       options: .curveEaseOut,
-                       animations: {
-
-                        self.setDrawerBackgroundViewColor(with: self.appIconBackgroundColor)
-                        self.layoutSuperviews()
-        }, completion: { _ in
-            self.isSlidingLocked = false
-        })
-
-        currentState = .collapsed
-    }
-
     func slide() {
         guard let gesture = slideDrawerGestureRecognizer,
          let widthConstraint = drawerWidthConstraint else { return }
@@ -71,7 +22,7 @@ extension AppKit.AppDrawer {
             lastSlideDirection = widthDelta >= 0 ? .right : .left
             let newWidth = widthConstraint.constant - widthDelta
 
-            if newWidth < AppStyle.drawerSize || newWidth > AppStyle.drawerMaxWidth {
+            if newWidth < Self.drawerSize || newWidth > Self.drawerMaxWidth {
                 return
             }
 
@@ -107,7 +58,7 @@ extension AppKit.AppDrawer {
         closeButton.layer.opacity = Float(1 - ratio)
     }
 
-    private func layoutSuperviews() {
+    func layoutSuperviews() {
         // self -> stackView -> containerView -> clientParentView
         self.superview?.superview?.superview?.layoutIfNeeded()
     }

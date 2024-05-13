@@ -14,11 +14,12 @@ public protocol AppDrawerProtocol: AnyObject {
 
 extension AppKit {
     open class AppDrawer: UIView {
-        internal(set) public var appData: AppData
-        public var currentState: State = .collapsed
         public weak var delegate: AppDrawerProtocol?
+
+        internal(set) public var appData: AppData
         internal(set) public var appViewController: AppViewController?
 
+        var currentState: State = .collapsed
         var appWindow: AppWindow?
 
         private var didLayoutSubviews = false
@@ -30,7 +31,7 @@ extension AppKit {
         var expandOrOpenAppGestureRecognizer: UITapGestureRecognizer?
         var slideDrawerGestureRecognizer: UIPanGestureRecognizer?
         var slideStartX: CGFloat = 0
-        let labelsPadding = AppStyle.drawerSize + 8
+        let labelsPadding = AppDrawer.drawerSize + 8
         var lastSlideDirection: SlideDirection = .left
 
         var appDrawerBackgroundColor: UIColor = AppStyle.lightColor
@@ -38,7 +39,7 @@ extension AppKit {
         var distanceViewLeadingConstraint: NSLayoutConstraint?
         var subtitleTrailingConstraint: NSLayoutConstraint?
 
-        lazy var drawerBackgroundView: UIView = {
+        public lazy var drawerBackgroundView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.backgroundColor = .clear
@@ -130,7 +131,7 @@ extension AppKit {
             fatalError("init(coder:) has not been implemented")
         }
 
-        public override func layoutSubviews() {
+        open override func layoutSubviews() {
             super.layoutSubviews()
 
             if !didLayoutSubviews {
@@ -158,6 +159,50 @@ extension AppKit {
             switchTheme(to: theme)
             setupDesign()
             layoutView()
+        }
+
+        open func layoutView() {
+            drawerWidthConstraint = self.widthAnchor.constraint(equalToConstant: Self.drawerSize)
+            drawerWidthConstraint?.isActive = true
+
+            [drawerBackgroundView, appImageBackgroundView].forEach(addSubview)
+            [titleLabel, subtitleContainer, closeButton].forEach(drawerBackgroundView.addSubview)
+            appImageBackgroundView.addSubview(appImageView)
+
+            appImageBackgroundView.anchor(top: drawerBackgroundView.topAnchor,
+                                          leading: drawerBackgroundView.leadingAnchor,
+                                          bottom: drawerBackgroundView.bottomAnchor,
+                                          size: .init(width: Self.drawerSize, height: Self.drawerSize))
+
+            let closeButtonSize = Self.closeButtonSize
+            let labelWidth = Self.drawerMaxWidth - labelsPadding - closeButtonSize + 16 // 16 == trailing inset label <-> closeButton
+
+            titleLabel.anchor(leading: drawerBackgroundView.leadingAnchor,
+                              bottom: drawerBackgroundView.bottomAnchor,
+                              padding: .init(top: 0, left: labelsPadding, bottom: 9.5, right: 0),
+                              size: .init(width: labelWidth, height: 0))
+
+            subtitleContainer.anchor(top: drawerBackgroundView.topAnchor,
+                                     leading: drawerBackgroundView.leadingAnchor,
+                                     bottom: titleLabel.topAnchor,
+                                     padding: .init(top: 9, left: labelsPadding, bottom: 4.5, right: 0),
+                                     size: .init(width: labelWidth, height: 0))
+
+            layoutSubtitleContainer()
+
+            closeButton.anchor(centerY: drawerBackgroundView.centerYAnchor, size: .init(width: closeButtonSize, height: closeButtonSize))
+            closeButton.anchor(trailing: drawerBackgroundView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
+
+            drawerBackgroundView.anchor(top: topAnchor, 
+                                        leading: leadingAnchor,
+                                        bottom: bottomAnchor,
+                                        padding: .init(top: 0, left: 1, bottom: 0, right: 0),
+                                        size: .init(width: 0, height: Self.drawerSize))
+
+            drawerRightPaddingConstraint = drawerBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20)
+            drawerRightPaddingConstraint?.isActive = true
+
+            appImageView.centerInSuperview(size: .init(width: Self.iconSize, height: Self.iconSize))
         }
 
         func switchTheme(to theme: AppDrawerTheme) {
@@ -195,62 +240,53 @@ extension AppKit {
             (drawerBackgroundView.layer.sublayers?.first as? CAShapeLayer)?.fillColor = color.cgColor
         }
 
-        private func setupGestureRecognizers() {
-            expandOrOpenAppGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressAppDrawer))
-            self.addGestureRecognizer(expandOrOpenAppGestureRecognizer!) // swiftlint:disable:this force_unwrapping
+        open func expand() {
+            isSlidingLocked = true
+            drawerWidthConstraint?.constant = Self.drawerMaxWidth
 
-            slideDrawerGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideGesture))
-            slideDrawerGestureRecognizer?.delegate = self
-            self.addGestureRecognizer(slideDrawerGestureRecognizer!) // swiftlint:disable:this force_unwrapping
+            UIView.animate(withDuration: Self.animationDuration,
+                           delay: 0,
+                           usingSpringWithDamping: Self.damping,
+                           initialSpringVelocity: Self.springVelocity,
+                           options: .curveEaseOut,
+                           animations: {
+
+                self.setDrawerBackgroundViewColor(with: self.appDrawerBackgroundColor)
+                self.layoutSuperviews()
+            }, completion: { _ in
+                self.isSlidingLocked = false
+                self.drawerRightPaddingConstraint?.constant = 0
+                self.layoutSuperviews()
+            })
+
+            // Animate appearance of close button
+            UIView.animate(withDuration: Self.animationDuration / 3, animations: {
+                self.activateCloseButton()
+            })
+
+            currentState = .expanded
         }
 
-        private func loadIcon() {
-            guard let manifest = appData.appManifest,
-                let icons = manifest.icons,
-                let icon = IconSelector.chooseSuitableDrawerIcon(in: icons,
-                                                                 requestedSize: (Int(AppStyle.drawerSize), Int(AppStyle.drawerSize))),
-                let iconSource = icon.source,
-                let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
-            else { return }
+        open func collapse() {
+            isSlidingLocked = true
+            drawerWidthConstraint?.constant = Self.drawerSize
 
-            appImageView.load(urlString: iconUrlString.absoluteString)
-        }
+            deactivateCloseButtton()
 
-        private func updateUserDistance(with appData: AppData) {
-            if appData.shouldShowDistance,
-               let distance = appData.userDistance,
-               let formattedDistance = metricFormatter.string(from: NSNumber(value: distance)) {
-                distanceLabel.text = distance <= 10 ? "0 m" : "\(formattedDistance) m"
-            }
-        }
+            UIView.animate(withDuration: Self.animationDuration,
+                           delay: 0,
+                           usingSpringWithDamping: Self.damping,
+                           initialSpringVelocity: Self.springVelocity,
+                           options: .curveEaseOut,
+                           animations: {
 
-        private func setupDesign() {
-            self.appImageBackgroundView.backgroundColor = appIconBackgroundColor
-        }
+                self.setDrawerBackgroundViewColor(with: self.appIconBackgroundColor)
+                self.layoutSuperviews()
+            }, completion: { _ in
+                self.isSlidingLocked = false
+            })
 
-        @objc
-        private func didPressAppDrawer() {
-            handleExpandOrOpenApp()
-        }
-
-        private func handleExpandOrOpenApp() {
-            if currentState == .collapsed {
-                expand()
-            } else if currentState == .expanded {
-                prepareForOpenApp()
-            }
-        }
-
-        @objc
-        private func handleCollapse() {
-            guard currentState == .expanded else { return }
-            collapse()
-        }
-
-        @objc
-        func handleSlideGesture(gesture: UIPanGestureRecognizer) {
-            guard !isSlidingLocked else { return }
-            slide()
+            currentState = .collapsed
         }
 
         deinit {
@@ -268,63 +304,8 @@ extension AppKit {
     }
 }
 
+// MARK: - Private functions
 extension AppKit.AppDrawer {
-    public enum State {
-        case collapsed
-        case expanded
-    }
-
-    public enum SlideDirection {
-        case left
-        case right
-    }
-}
-
-/* View Setup */
-extension AppKit.AppDrawer {
-    private func layoutView() {
-        anchor(size: .init(width: 0, height: AppStyle.drawerSize))
-
-        drawerWidthConstraint = self.widthAnchor.constraint(equalToConstant: AppStyle.drawerSize)
-        drawerWidthConstraint?.isActive = true
-
-        [drawerBackgroundView, appImageBackgroundView].forEach(addSubview)
-        [titleLabel, subtitleContainer, closeButton].forEach(drawerBackgroundView.addSubview)
-        appImageBackgroundView.addSubview(appImageView)
-
-        appImageBackgroundView.anchor(top: topAnchor,
-                                      leading: leadingAnchor,
-                                      bottom: bottomAnchor,
-                                      size: .init(width: AppStyle.drawerSize, height: AppStyle.drawerSize))
-
-        let closeButtonSize = AppStyle.closeButtonSize
-        let labelWidth = AppStyle.drawerMaxWidth - labelsPadding - closeButtonSize + 16 // 16 == trailing inset label <-> closeButton
-
-        titleLabel.anchor(leading: drawerBackgroundView.leadingAnchor,
-                          bottom: drawerBackgroundView.bottomAnchor,
-                          padding: .init(top: 0, left: labelsPadding, bottom: 9.5, right: 0),
-                          size: .init(width: labelWidth, height: 0))
-
-        subtitleContainer.anchor(top: drawerBackgroundView.topAnchor,
-                             leading: drawerBackgroundView.leadingAnchor,
-                             bottom: titleLabel.topAnchor,
-                             padding: .init(top: 9, left: labelsPadding, bottom: 4.5, right: 0),
-                             size: .init(width: labelWidth, height: 0))
-
-        layoutSubtitleContainer()
-
-        closeButton.anchor(centerY: drawerBackgroundView.centerYAnchor, size: .init(width: closeButtonSize, height: closeButtonSize))
-        closeButton.anchor(trailing: drawerBackgroundView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
-
-        drawerBackgroundView.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, padding: .init(top: 0, left: 1, bottom: 0, right: 0))
-
-        drawerRightPaddingConstraint = drawerBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20)
-        drawerRightPaddingConstraint?.isActive = true
-
-        let iconSize = AppStyle.iconSize
-        appImageView.centerInSuperview(size: .init(width: iconSize, height: iconSize))
-    }
-
     private func layoutSubtitleContainer() {
         subtitleContainer.addSubview(subtitleLabel)
         subtitleTrailingConstraint = subtitleLabel.trailingAnchor.constraint(equalTo: subtitleContainer.trailingAnchor)
@@ -366,9 +347,90 @@ extension AppKit.AppDrawer {
                              centerY: distanceIcon.centerYAnchor,
                              padding: .init(top: 2, left: 4, bottom: 2, right: 4))
     }
+
+    private func setupDesign() {
+        self.appImageBackgroundView.backgroundColor = appIconBackgroundColor
+    }
+
+    private func setupGestureRecognizers() {
+        expandOrOpenAppGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressAppDrawer))
+        self.addGestureRecognizer(expandOrOpenAppGestureRecognizer!) // swiftlint:disable:this force_unwrapping
+
+        slideDrawerGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleSlideGesture))
+        slideDrawerGestureRecognizer?.delegate = self
+        self.addGestureRecognizer(slideDrawerGestureRecognizer!) // swiftlint:disable:this force_unwrapping
+    }
+
+    private func loadIcon() {
+        guard let manifest = appData.appManifest,
+              let icons = manifest.icons,
+              let icon = IconSelector.chooseSuitableDrawerIcon(in: icons,
+                                                               requestedSize: (Int(Self.drawerSize), Int(Self.drawerSize))),
+              let iconSource = icon.source,
+              let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
+        else { return }
+
+        appImageView.load(urlString: iconUrlString.absoluteString)
+    }
+
+    private func updateUserDistance(with appData: AppKit.AppData) {
+        if appData.shouldShowDistance,
+           let distance = appData.userDistance,
+           let formattedDistance = metricFormatter.string(from: NSNumber(value: distance)) {
+            distanceLabel.text = distance <= 10 ? "0 m" : "\(formattedDistance) m"
+        }
+    }
+
+    @objc
+    private func didPressAppDrawer() {
+        handleExpandOrOpenApp()
+    }
+
+    private func handleExpandOrOpenApp() {
+        if currentState == .collapsed {
+            expand()
+        } else if currentState == .expanded {
+            prepareForOpenApp()
+        }
+    }
+
+    @objc
+    private func handleCollapse() {
+        guard currentState == .expanded else { return }
+        collapse()
+    }
+
+    @objc
+    private func handleSlideGesture(gesture: UIPanGestureRecognizer) {
+        guard !isSlidingLocked else { return }
+        slide()
+    }
 }
 
-public extension AppKit.AppDrawer {
+extension AppKit.AppDrawer {
+    enum State {
+        case collapsed
+        case expanded
+    }
+
+    enum SlideDirection {
+        case left
+        case right
+    }
+    
+    public static let drawerSize: CGFloat = 64
+
+    static let drawerMargin: CGFloat = 16
+    static let drawerMaxWidth = UIScreen.main.bounds.width - drawerMargin
+
+    static let iconSize: CGFloat = 40
+    static let closeButtonSize: CGFloat = 48
+
+    // Animations
+    static let animationDuration: TimeInterval = 0.6
+    static let damping: CGFloat = 0.7
+    static let springVelocity: CGFloat = 0.5
+
     static func == (lhs: AppKit.AppDrawer, rhs: AppKit.AppDrawer) -> Bool {
         return lhs.appData == rhs.appData
     }
