@@ -17,9 +17,9 @@ extension POIAPI.POI {
             public struct Options {
 
                 /** ID of the POI */
-                public var poiId: ID?
+                public var poiId: ID
 
-                public init(poiId: ID? = nil) {
+                public init(poiId: ID) {
                     self.poiId = poiId
                 }
             }
@@ -32,13 +32,13 @@ extension POIAPI.POI {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(poiId: ID? = nil) {
+            public convenience init(poiId: ID) {
                 let options = Options(poiId: poiId)
                 self.init(options: options)
             }
 
             public override var path: String {
-                return super.path.replacingOccurrences(of: "{" + "poiId" + "}", with: "\(self.options.poiId?.encode() ?? "")")
+                return super.path.replacingOccurrences(of: "{" + "poiId" + "}", with: "\(self.options.poiId.encode())")
             }
 
             override var headerParameters: [String: String] {

@@ -17,7 +17,6 @@ class AppManager {
     weak var delegate: AppManagerDelegate?
 
     private var locationProvider: AppDrawerLocationProvider
-    private var isGeneralFetchRunning = false
 
     private var currentlyDisplayedApps: (apps: [AppKit.AppData], location: CLLocation)?
 
@@ -53,53 +52,6 @@ extension AppManager {
             case .success(let stations):
                 let appDatas = self?.retrieveAppData(from: stations, for: location)
                 completion(appDatas)
-            }
-        }
-    }
-
-    func fetchListOfApps(completion: @escaping (Result<[AppKit.AppData], AppKit.AppError>) -> Void) {
-        guard !isGeneralFetchRunning else {
-            completion(.failure(.fetchAlreadyRunning))
-            return
-        }
-
-        isGeneralFetchRunning = true
-        let apiRequest = POIAPI.Apps.GetApps.Request()
-        API.POI.client.makeRequest(apiRequest) { [weak self] apiResult in
-            defer {
-                self?.isGeneralFetchRunning = false
-            }
-
-            switch apiResult.result {
-            case .success(let response):
-                guard let apps = response.success?.data else {
-                    completion(.failure(.couldNotFetchApp))
-                    return
-                }
-
-                var appDatas: [AppKit.AppData] = []
-
-                for app in apps {
-                    guard let id = app.id else {
-                        continue
-                    }
-
-                    let metadata: [AppKit.AppMetadata: AnyHashable] = [AppKit.AppMetadata.appId: app.id]
-
-                    let appData = AppKit.AppData(appID: id,
-                                          title: app.title,
-                                          subtitle: app.subtitle,
-                                          appUrl: app.pwaUrl,
-                                          metadata: metadata)
-
-                    appDatas.append(appData)
-                }
-
-                completion(.success(appDatas))
-
-            case .failure(let error):
-                AppKitLogger.e("[AppManager] failed fetching list of apps with error \(error)")
-                completion(.failure(.other(error)))
             }
         }
     }

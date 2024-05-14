@@ -13,7 +13,7 @@ public class POIAPIRequest<ResponseType: APIResponseValue> {
     public let encodeBody: ((RequestEncoder) throws -> Data)?
     private(set) var headerParameters: [String: String]
     public var customHeaders: [String: String] = [:]
-    public var version: String = "2022-1"
+    public var version: String = "2024-1"
     public var contentType: String = "application/json"
 
     public var headers: [String: String] {

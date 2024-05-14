@@ -23,8 +23,12 @@ extension POIAPI.Stats {
                 /** Comma separated strings that represent the fields to be returned in the response alongside the default response */
                 public var fields: String?
 
-                public init(fields: String? = nil) {
+                /** Adds stats for stations that are coming soon */
+                public var includeAll: Bool?
+
+                public init(fields: String? = nil, includeAll: Bool? = nil) {
                     self.fields = fields
+                    self.includeAll = includeAll
                 }
             }
 
@@ -36,8 +40,8 @@ extension POIAPI.Stats {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(fields: String? = nil) {
-                let options = Options(fields: fields)
+            public convenience init(fields: String? = nil, includeAll: Bool? = nil) {
+                let options = Options(fields: fields, includeAll: includeAll)
                 self.init(options: options)
             }
 
@@ -45,6 +49,9 @@ extension POIAPI.Stats {
                 var params: [String: Any] = [:]
                 if let fields = options.fields {
                   params["fields"] = fields
+                }
+                if let includeAll = options.includeAll {
+                  params["includeAll"] = includeAll
                 }
                 return params
             }

@@ -152,17 +152,6 @@ public extension POIKit {
         }
 
         /**
-         Fetches the filters for a given coordinate from the metadata endpoint
-
-         - parameter coordinate: Coordinate to fetch the result for
-         - parameter result: Result block called with either the response or an error message.
-         */
-        public func getFilters(for coordinates: CLLocationCoordinate2D, result: @escaping (Result<POIFiltersResponse, Error>) -> Void) {
-            let request = POIFiltersRequest(coordinates: coordinates)
-            api.filters(request, result: result)
-        }
-
-        /**
          Fetches the price history for a given id, fuelType and period of time.
 
          - parameter request: The price history request.
