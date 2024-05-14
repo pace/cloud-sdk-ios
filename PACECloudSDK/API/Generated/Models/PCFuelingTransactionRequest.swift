@@ -35,9 +35,15 @@ public class PCFuelingTransactionRequest: APIModel {
                 case ron95e5 = "ron95e5"
                 case ron100 = "ron100"
                 case dieselGtl = "dieselGtl"
+                case dieselB0 = "dieselB0"
                 case dieselB7 = "dieselB7"
                 case dieselB15 = "dieselB15"
+                case dieselB20 = "dieselB20"
+                case dieselBMix = "dieselBMix"
                 case dieselPremium = "dieselPremium"
+                case dieselHvo = "dieselHvo"
+                case dieselRed = "dieselRed"
+                case dieselSynthetic = "dieselSynthetic"
                 case lpg = "lpg"
                 case cng = "cng"
                 case lng = "lng"
@@ -56,6 +62,9 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Pump ID */
             public var pumpId: ID
 
+            /** additional data for omv */
+            public var additionalData: String?
+
             /** A callback URL to report the status of the transaction to, once completed. Only relevant if unattendedPayment is true */
             public var callbackURL: String?
 
@@ -64,6 +73,11 @@ public class PCFuelingTransactionRequest: APIModel {
 
             /** Currency as specified in ISO-4217. */
             public var currency: String?
+
+            /** Driver/vehicle identification */
+            public var driverVehicleID: String?
+
+            public var metadata: [PCFuelingTransactionMetadata]?
 
             /** Current mileage in meters */
             public var mileage: Int?
@@ -79,12 +93,15 @@ public class PCFuelingTransactionRequest: APIModel {
             /** Vehicle identification number */
             public var vin: String?
 
-            public init(paymentToken: String, pumpId: ID, callbackURL: String? = nil, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceIncludingVAT: Decimal? = nil, unattendedPayment: Bool? = nil, vin: String? = nil) {
+            public init(paymentToken: String, pumpId: ID, additionalData: String? = nil, callbackURL: String? = nil, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, driverVehicleID: String? = nil, metadata: [PCFuelingTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceIncludingVAT: Decimal? = nil, unattendedPayment: Bool? = nil, vin: String? = nil) {
                 self.paymentToken = paymentToken
                 self.pumpId = pumpId
+                self.additionalData = additionalData
                 self.callbackURL = callbackURL
                 self.carFuelType = carFuelType
                 self.currency = currency
+                self.driverVehicleID = driverVehicleID
+                self.metadata = metadata
                 self.mileage = mileage
                 self.numberPlate = numberPlate
                 self.priceIncludingVAT = priceIncludingVAT
@@ -97,9 +114,12 @@ public class PCFuelingTransactionRequest: APIModel {
 
                 paymentToken = try container.decode("paymentToken")
                 pumpId = try container.decode("pumpId")
+                additionalData = try container.decodeIfPresent("additionalData")
                 callbackURL = try container.decodeIfPresent("callbackURL")
                 carFuelType = try container.decodeIfPresent("carFuelType")
                 currency = try container.decodeIfPresent("currency")
+                driverVehicleID = try container.decodeIfPresent("driverVehicleID")
+                metadata = try container.decodeArrayIfPresent("metadata")
                 mileage = try container.decodeIfPresent("mileage")
                 numberPlate = try container.decodeIfPresent("numberPlate")
                 priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
@@ -112,9 +132,12 @@ public class PCFuelingTransactionRequest: APIModel {
 
                 try container.encode(paymentToken, forKey: "paymentToken")
                 try container.encode(pumpId, forKey: "pumpId")
+                try container.encodeIfPresent(additionalData, forKey: "additionalData")
                 try container.encodeIfPresent(callbackURL, forKey: "callbackURL")
                 try container.encodeIfPresent(carFuelType, forKey: "carFuelType")
                 try container.encodeIfPresent(currency, forKey: "currency")
+                try container.encodeIfPresent(driverVehicleID, forKey: "driverVehicleID")
+                try container.encodeIfPresent(metadata, forKey: "metadata")
                 try container.encodeIfPresent(mileage, forKey: "mileage")
                 try container.encodeIfPresent(numberPlate, forKey: "numberPlate")
                 try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
@@ -126,9 +149,12 @@ public class PCFuelingTransactionRequest: APIModel {
               guard let object = object as? Attributes else { return false }
               guard self.paymentToken == object.paymentToken else { return false }
               guard self.pumpId == object.pumpId else { return false }
+              guard self.additionalData == object.additionalData else { return false }
               guard self.callbackURL == object.callbackURL else { return false }
               guard self.carFuelType == object.carFuelType else { return false }
               guard self.currency == object.currency else { return false }
+              guard self.driverVehicleID == object.driverVehicleID else { return false }
+              guard self.metadata == object.metadata else { return false }
               guard self.mileage == object.mileage else { return false }
               guard self.numberPlate == object.numberPlate else { return false }
               guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }

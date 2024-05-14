@@ -48,6 +48,9 @@ public class PCFuelingPump: APIModel {
 
     public var vat: VAT?
 
+    /** Only if status is locked: available fuel products at the given pump */
+    public var availableProducts: [PCFuelingProduct]?
+
     /** Currency as specified in ISO-4217. */
     public var currency: String?
 
@@ -133,10 +136,11 @@ public class PCFuelingPump: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, purposePRNs: [String]? = nil, status: PCFuelingStatus? = nil, transaction: PCFuelingTransaction? = nil, transactionId: ID? = nil, unit: String? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, availableProducts: [PCFuelingProduct]? = nil, currency: String? = nil, fuelAmount: Decimal? = nil, fuelType: String? = nil, fuelingProcess: PCFuelingFuelingProcess? = nil, identifier: String? = nil, priceIncludingVAT: Decimal? = nil, pricePerUnit: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productName: String? = nil, purposePRNs: [String]? = nil, status: PCFuelingStatus? = nil, transaction: PCFuelingTransaction? = nil, transactionId: ID? = nil, unit: String? = nil) {
         self.id = id
         self.type = type
         self.vat = vat
+        self.availableProducts = availableProducts
         self.currency = currency
         self.fuelAmount = fuelAmount
         self.fuelType = fuelType
@@ -159,6 +163,7 @@ public class PCFuelingPump: APIModel {
         id = try container.decodeIfPresent("id")
         type = try container.decodeIfPresent("type")
         vat = try container.decodeIfPresent("VAT")
+        availableProducts = try container.decodeArrayIfPresent("availableProducts")
         currency = try container.decodeIfPresent("currency")
         fuelAmount = try container.decodeLosslessDecimal("fuelAmount")
         fuelType = try container.decodeIfPresent("fuelType")
@@ -181,6 +186,7 @@ public class PCFuelingPump: APIModel {
         try container.encodeIfPresent(id, forKey: "id")
         try container.encodeIfPresent(type, forKey: "type")
         try container.encodeIfPresent(vat, forKey: "VAT")
+        try container.encodeIfPresent(availableProducts, forKey: "availableProducts")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(fuelAmount, forKey: "fuelAmount")
         try container.encodeIfPresent(fuelType, forKey: "fuelType")
@@ -202,6 +208,7 @@ public class PCFuelingPump: APIModel {
       guard self.id == object.id else { return false }
       guard self.type == object.type else { return false }
       guard self.vat == object.vat else { return false }
+      guard self.availableProducts == object.availableProducts else { return false }
       guard self.currency == object.currency else { return false }
       guard self.fuelAmount == object.fuelAmount else { return false }
       guard self.fuelType == object.fuelType else { return false }

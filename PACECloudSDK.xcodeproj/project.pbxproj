@@ -929,6 +929,10 @@
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
 		3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD870FE26BD548E0098C411 /* PINValidityTests.swift */; };
 		3BD960EE2701ED41003D8DD3 /* PCFuelingFuelPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDF25B9C9690065284A /* PCFuelingFuelPriceResponse.swift */; };
+		3BDBA5692BF3913C006C0151 /* PCFuelingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */; };
+		3BDBA56A2BF3913C006C0151 /* PCFuelingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */; };
+		3BDBA56B2BF3913C006C0151 /* PCFuelingTransactionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBA5682BF3913C006C0151 /* PCFuelingTransactionMetadata.swift */; };
+		3BDBA56C2BF3913C006C0151 /* PCFuelingTransactionMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBA5682BF3913C006C0151 /* PCFuelingTransactionMetadata.swift */; };
 		3BEECBCB26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */; };
 		3BF1527525DD2C8D00BD6751 /* FallbackVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */; };
@@ -1765,6 +1769,8 @@
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
 		3BD870FE26BD548E0098C411 /* PINValidityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINValidityTests.swift; sourceTree = "<group>"; };
+		3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCFuelingProduct.swift; sourceTree = "<group>"; };
+		3BDBA5682BF3913C006C0151 /* PCFuelingTransactionMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCFuelingTransactionMetadata.swift; sourceTree = "<group>"; };
 		3BEECBCA26402EA000A8EA56 /* URLRequest+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extension.swift"; sourceTree = "<group>"; };
 		3BF1527425DD2C8D00BD6751 /* FallbackVersions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FallbackVersions.plist; sourceTree = "<group>"; };
 		3BF303D22625A7E90079ED64 /* RequestTimeoutHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTimeoutHandler.swift; sourceTree = "<group>"; };
@@ -3539,9 +3545,11 @@
 				841A3EE625B9C96A0065284A /* PCFuelingPaymentMethod.swift */,
 				841A3EE425B9C96A0065284A /* PCFuelingPaymentMethodKind.swift */,
 				841A3EE725B9C96A0065284A /* PCFuelingProcessPaymentResponse.swift */,
+				3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */,
 				841A3EE225B9C9690065284A /* PCFuelingPump.swift */,
 				841A3EDE25B9C9690065284A /* PCFuelingPumpResponse.swift */,
 				3B7C8E6F26FC5ED70080B2B5 /* PCFuelingTransaction.swift */,
+				3BDBA5682BF3913C006C0151 /* PCFuelingTransactionMetadata.swift */,
 				841A3EDD25B9C9690065284A /* PCFuelingTransactionRequest.swift */,
 				9A906B6C284637D600463618 /* PCPayApplePaySession.swift */,
 				9A906B59284637D500463618 /* PCPayCurrency.swift */,
@@ -4194,6 +4202,7 @@
 				3B79FA7D26C15BDE00C0278F /* POIFiltersRequest.swift in Sources */,
 				9A906B88284637D700463618 /* PCPayTransactionCreateRequest.swift in Sources */,
 				3B92C51D2A3705CA005C7AEA /* PayAPICreatePaymentMethodTFC.swift in Sources */,
+				3BDBA56A2BF3913C006C0151 /* PCFuelingProduct.swift in Sources */,
 				9A906BAC284637D700463618 /* PCPayPaymentMethodRelationship.swift in Sources */,
 				3B7D5CD929B0CBD500D4F7FD /* Generator.swift in Sources */,
 				0B28F7B1299FCE5D00E929EA /* PCPayPaymentMethodModel.swift in Sources */,
@@ -4420,6 +4429,7 @@
 				3B79FA8926C15BEB00C0278F /* tile_query_request.pb.swift in Sources */,
 				3B2FB1DE2844EB2800E8CD0C /* PCUserCreateOTP.swift in Sources */,
 				17BB0D40268CD1E8009D4755 /* PCFuelingPumpResponse.swift in Sources */,
+				3BDBA56C2BF3913C006C0151 /* PCFuelingTransactionMetadata.swift in Sources */,
 				3BC3C6E2279EB3A600E39956 /* PayAPICreatePaymentMethodRadius.swift in Sources */,
 				17BB0CE7268CCEFB009D4755 /* PayRequestBehaviour.swift in Sources */,
 				9A906B80284637D700463618 /* PCPayPagingMeta.swift in Sources */,
@@ -4508,6 +4518,7 @@
 				841A3ED425B9C8D40065284A /* FuelingAPIClient.swift in Sources */,
 				84600F2625C03B1E0087194F /* POIAPICreateSource.swift in Sources */,
 				3B9036A927D0AF510011E063 /* POIResponse.swift in Sources */,
+				3BDBA5692BF3913C006C0151 /* PCFuelingProduct.swift in Sources */,
 				8447A3B725CAAE740095BEF1 /* UserAPIUpdateSession.swift in Sources */,
 				3B987051268E06AE00A0458F /* LogEventResult.swift in Sources */,
 				84600F0825C03B1E0087194F /* POIAPICreatePolicy.swift in Sources */,
@@ -4903,6 +4914,7 @@
 				3B2FB1C32844EB2800E8CD0C /* PCUserOTPRequest.swift in Sources */,
 				0B28F7EA299FCFE800E929EA /* FuelingAPIInquireDiscountsForPump.swift in Sources */,
 				3B970A9E2542D9BB0072F6BA /* URLDataRequest.swift in Sources */,
+				3BDBA56B2BF3913C006C0151 /* PCFuelingTransactionMetadata.swift in Sources */,
 				3B970AE02542DEBD0072F6BA /* IDKitLogger.swift in Sources */,
 				841A3EFC25B9C96A0065284A /* PCFuelingCommonOpeningHours.swift in Sources */,
 				8447A3AF25CAAE740095BEF1 /* UserAPISetUser.swift in Sources */,
