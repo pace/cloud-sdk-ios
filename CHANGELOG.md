@@ -1,3 +1,15 @@
+22.0.1 Release notes (2024-05-14)
+=============================================================
+
+### Fixes
+
+* Fix webview resets
+
+### Internal
+
+* Make AppDrawer class more accessible
+* Integrate swiftlint as build tool plugin
+
 22.0.0 Release notes (2024-04-18)
 =============================================================
 
