@@ -5,38 +5,22 @@
 
 import Foundation
 
-extension PayAPI.PaymentTransactions {
+extension PayAPI.FleetPaymentMethods {
 
-    /**
-    List transactions for JET
+    /** Get a payment method */
+    public enum GetFleetPaymentMethod {
 
-    List all transactions for JET within the given time frame.
-    */
-    public enum ListTransactionsForJET {
-
-        public static var service = PayAPIService<Response>(id: "ListTransactionsForJET", tag: "Payment Transactions", method: "GET", path: "/transactions/contracts/partners/jet", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:transactions:jet:read"])])
+        public static var service = PayAPIService<Response>(id: "GetFleetPaymentMethod", tag: "Fleet Payment Methods", method: "GET", path: "/fleet/payment-methods/{paymentMethodId}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:read:one"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:read:one"])])
 
         public final class Request: PayAPIRequest<Response> {
 
             public struct Options {
 
-                /** Number of the page that should be returned (sometimes referred to as "offset"). Page `0` is the first page. */
-                public var pagenumber: Int?
+                /** ID of the paymentMethod */
+                public var paymentMethodId: ID
 
-                /** Page size of the currently returned page (sometimes referred to as "limit"). */
-                public var pagesize: Int?
-
-                /** Start date of the period for which transactions should be returned. */
-                public var dateFrom: DateTime
-
-                /** End date of the period for which transactions should be returned. */
-                public var dateTo: DateTime
-
-                public init(pagenumber: Int? = nil, pagesize: Int? = nil, dateFrom: DateTime, dateTo: DateTime) {
-                    self.pagenumber = pagenumber
-                    self.pagesize = pagesize
-                    self.dateFrom = dateFrom
-                    self.dateTo = dateTo
+                public init(paymentMethodId: ID) {
+                    self.paymentMethodId = paymentMethodId
                 }
             }
 
@@ -44,26 +28,17 @@ extension PayAPI.PaymentTransactions {
 
             public init(options: Options) {
                 self.options = options
-                super.init(service: ListTransactionsForJET.service)
+                super.init(service: GetFleetPaymentMethod.service)
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(pagenumber: Int? = nil, pagesize: Int? = nil, dateFrom: DateTime, dateTo: DateTime) {
-                let options = Options(pagenumber: pagenumber, pagesize: pagesize, dateFrom: dateFrom, dateTo: dateTo)
+            public convenience init(paymentMethodId: ID) {
+                let options = Options(paymentMethodId: paymentMethodId)
                 self.init(options: options)
             }
 
-            public override var queryParameters: [String: Any] {
-                var params: [String: Any] = [:]
-                if let pagenumber = options.pagenumber {
-                  params["page[number]"] = pagenumber
-                }
-                if let pagesize = options.pagesize {
-                  params["page[size]"] = pagesize
-                }
-                params["date_from"] = options.dateFrom.encode()
-                params["date_to"] = options.dateTo.encode()
-                return params
+            public override var path: String {
+                return super.path.replacingOccurrences(of: "{" + "paymentMethodId" + "}", with: "\(self.options.paymentMethodId.encode())")
             }
 
             override var headerParameters: [String: String] {
@@ -77,264 +52,33 @@ extension PayAPI.PaymentTransactions {
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
 
-            /** List all transactions for JET within the given time frame.
-             */
             public class Status200: APIModel {
 
-                public var data: PCPayTransactionsShort?
+                public var data: PCPayFleetPaymentMethod?
 
-                public var meta: PCPayPagingMeta?
-
-                public init(data: PCPayTransactionsShort? = nil, meta: PCPayPagingMeta? = nil) {
+                public init(data: PCPayFleetPaymentMethod? = nil) {
                     self.data = data
-                    self.meta = meta
                 }
 
                 public required init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: StringCodingKey.self)
 
                     data = try container.decodeIfPresent("data")
-                    meta = try container.decodeIfPresent("meta")
                 }
 
                 public func encode(to encoder: Encoder) throws {
                     var container = encoder.container(keyedBy: StringCodingKey.self)
 
                     try container.encodeIfPresent(data, forKey: "data")
-                    try container.encodeIfPresent(meta, forKey: "meta")
                 }
 
                 public func isEqual(to object: Any?) -> Bool {
                   guard let object = object as? Status200 else { return false }
                   guard self.data == object.data else { return false }
-                  guard self.meta == object.meta else { return false }
                   return true
                 }
 
                 public static func == (lhs: Status200, rhs: Status200) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            /** Error objects provide additional information about problems encountered while performing an operation.
-            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * `1000`:  generic error
-                * `1001`:  payment processing temporarily unavailable
-                * `1002`:  requested amount exceeds the authorized amount of the provided token
-                * `1003`:  implicit payment methods cannot be modified
-                * `1004`:  payment method rejected by provider
-                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-             */
-            public class Status400: APIModel {
-
-                public var errors: [Errors]?
-
-                /** Error objects provide additional information about problems encountered while performing an operation.
-                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * `1000`:  generic error
-                    * `1001`:  payment processing temporarily unavailable
-                    * `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * `1003`:  implicit payment methods cannot be modified
-                    * `1004`:  payment method rejected by provider
-                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                 */
-                public class Errors: APIModel {
-
-                    /** an application-specific error code, expressed as a string value.
-                 */
-                    public var code: String?
-
-                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                 */
-                    public var detail: String?
-
-                    /** A unique identifier for this particular occurrence of the problem. */
-                    public var id: String?
-
-                    public var links: Links?
-
-                    /** a meta object containing non-standard meta-information about the error.
-                 */
-                    public var meta: [String: Any]?
-
-                    /** An object containing references to the source of the error.
-                 */
-                    public var source: Source?
-
-                    /** the HTTP status code applicable to this problem, expressed as a string value.
-                 */
-                    public var status: String?
-
-                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                 */
-                    public var title: String?
-
-                    /** Error objects provide additional information about problems encountered while performing an operation.
-                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * `1000`:  generic error
-                        * `1001`:  payment processing temporarily unavailable
-                        * `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * `1003`:  implicit payment methods cannot be modified
-                        * `1004`:  payment method rejected by provider
-                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                     */
-                    public class Links: APIModel {
-
-                        /** A link that leads to further details about this particular occurrence of the problem.
-                     */
-                        public var about: String?
-
-                        public init(about: String? = nil) {
-                            self.about = about
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            about = try container.decodeIfPresent("about")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(about, forKey: "about")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Links else { return false }
-                          guard self.about == object.about else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Links, rhs: Links) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    /** An object containing references to the source of the error.
-                     */
-                    public class Source: APIModel {
-
-                        /** A string indicating which URI query parameter caused the error.
-                     */
-                        public var parameter: String?
-
-                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-                     */
-                        public var pointer: String?
-
-                        public init(parameter: String? = nil, pointer: String? = nil) {
-                            self.parameter = parameter
-                            self.pointer = pointer
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            parameter = try container.decodeIfPresent("parameter")
-                            pointer = try container.decodeIfPresent("pointer")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(parameter, forKey: "parameter")
-                            try container.encodeIfPresent(pointer, forKey: "pointer")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Source else { return false }
-                          guard self.parameter == object.parameter else { return false }
-                          guard self.pointer == object.pointer else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Source, rhs: Source) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
-                        self.code = code
-                        self.detail = detail
-                        self.id = id
-                        self.links = links
-                        self.meta = meta
-                        self.source = source
-                        self.status = status
-                        self.title = title
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        code = try container.decodeIfPresent("code")
-                        detail = try container.decodeIfPresent("detail")
-                        id = try container.decodeIfPresent("id")
-                        links = try container.decodeIfPresent("links")
-                        meta = try container.decodeAnyIfPresent("meta")
-                        source = try container.decodeIfPresent("source")
-                        status = try container.decodeIfPresent("status")
-                        title = try container.decodeIfPresent("title")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(code, forKey: "code")
-                        try container.encodeIfPresent(detail, forKey: "detail")
-                        try container.encodeIfPresent(id, forKey: "id")
-                        try container.encodeIfPresent(links, forKey: "links")
-                        try container.encodeAnyIfPresent(meta, forKey: "meta")
-                        try container.encodeIfPresent(source, forKey: "source")
-                        try container.encodeIfPresent(status, forKey: "status")
-                        try container.encodeIfPresent(title, forKey: "title")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Errors else { return false }
-                      guard self.code == object.code else { return false }
-                      guard self.detail == object.detail else { return false }
-                      guard self.id == object.id else { return false }
-                      guard self.links == object.links else { return false }
-                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
-                      guard self.source == object.source else { return false }
-                      guard self.status == object.status else { return false }
-                      guard self.title == object.title else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(errors: [Errors]? = nil) {
-                    self.errors = errors
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    errors = try container.decodeArrayIfPresent("errors")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(errors, forKey: "errors")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status400 else { return false }
-                  guard self.errors == object.errors else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Status400, rhs: Status400) -> Bool {
                     return lhs.isEqual(to: rhs)
                 }
             }
@@ -1018,675 +762,6 @@ extension PayAPI.PaymentTransactions {
                 * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
                 * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
              */
-            public class Status409: APIModel {
-
-                public var errors: [Errors]?
-
-                /** Error objects provide additional information about problems encountered while performing an operation.
-                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * `1000`:  generic error
-                    * `1001`:  payment processing temporarily unavailable
-                    * `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * `1003`:  implicit payment methods cannot be modified
-                    * `1004`:  payment method rejected by provider
-                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                 */
-                public class Errors: APIModel {
-
-                    /** an application-specific error code, expressed as a string value.
-                 */
-                    public var code: String?
-
-                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                 */
-                    public var detail: String?
-
-                    /** A unique identifier for this particular occurrence of the problem. */
-                    public var id: String?
-
-                    public var links: Links?
-
-                    /** a meta object containing non-standard meta-information about the error.
-                 */
-                    public var meta: [String: Any]?
-
-                    /** An object containing references to the source of the error.
-                 */
-                    public var source: Source?
-
-                    /** the HTTP status code applicable to this problem, expressed as a string value.
-                 */
-                    public var status: String?
-
-                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                 */
-                    public var title: String?
-
-                    /** Error objects provide additional information about problems encountered while performing an operation.
-                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * `1000`:  generic error
-                        * `1001`:  payment processing temporarily unavailable
-                        * `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * `1003`:  implicit payment methods cannot be modified
-                        * `1004`:  payment method rejected by provider
-                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                     */
-                    public class Links: APIModel {
-
-                        /** A link that leads to further details about this particular occurrence of the problem.
-                     */
-                        public var about: String?
-
-                        public init(about: String? = nil) {
-                            self.about = about
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            about = try container.decodeIfPresent("about")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(about, forKey: "about")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Links else { return false }
-                          guard self.about == object.about else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Links, rhs: Links) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    /** An object containing references to the source of the error.
-                     */
-                    public class Source: APIModel {
-
-                        /** A string indicating which URI query parameter caused the error.
-                     */
-                        public var parameter: String?
-
-                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-                     */
-                        public var pointer: String?
-
-                        public init(parameter: String? = nil, pointer: String? = nil) {
-                            self.parameter = parameter
-                            self.pointer = pointer
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            parameter = try container.decodeIfPresent("parameter")
-                            pointer = try container.decodeIfPresent("pointer")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(parameter, forKey: "parameter")
-                            try container.encodeIfPresent(pointer, forKey: "pointer")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Source else { return false }
-                          guard self.parameter == object.parameter else { return false }
-                          guard self.pointer == object.pointer else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Source, rhs: Source) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
-                        self.code = code
-                        self.detail = detail
-                        self.id = id
-                        self.links = links
-                        self.meta = meta
-                        self.source = source
-                        self.status = status
-                        self.title = title
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        code = try container.decodeIfPresent("code")
-                        detail = try container.decodeIfPresent("detail")
-                        id = try container.decodeIfPresent("id")
-                        links = try container.decodeIfPresent("links")
-                        meta = try container.decodeAnyIfPresent("meta")
-                        source = try container.decodeIfPresent("source")
-                        status = try container.decodeIfPresent("status")
-                        title = try container.decodeIfPresent("title")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(code, forKey: "code")
-                        try container.encodeIfPresent(detail, forKey: "detail")
-                        try container.encodeIfPresent(id, forKey: "id")
-                        try container.encodeIfPresent(links, forKey: "links")
-                        try container.encodeAnyIfPresent(meta, forKey: "meta")
-                        try container.encodeIfPresent(source, forKey: "source")
-                        try container.encodeIfPresent(status, forKey: "status")
-                        try container.encodeIfPresent(title, forKey: "title")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Errors else { return false }
-                      guard self.code == object.code else { return false }
-                      guard self.detail == object.detail else { return false }
-                      guard self.id == object.id else { return false }
-                      guard self.links == object.links else { return false }
-                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
-                      guard self.source == object.source else { return false }
-                      guard self.status == object.status else { return false }
-                      guard self.title == object.title else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(errors: [Errors]? = nil) {
-                    self.errors = errors
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    errors = try container.decodeArrayIfPresent("errors")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(errors, forKey: "errors")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status409 else { return false }
-                  guard self.errors == object.errors else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Status409, rhs: Status409) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            /** Error objects provide additional information about problems encountered while performing an operation.
-            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * `1000`:  generic error
-                * `1001`:  payment processing temporarily unavailable
-                * `1002`:  requested amount exceeds the authorized amount of the provided token
-                * `1003`:  implicit payment methods cannot be modified
-                * `1004`:  payment method rejected by provider
-                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-             */
-            public class Status415: APIModel {
-
-                public var errors: [Errors]?
-
-                /** Error objects provide additional information about problems encountered while performing an operation.
-                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * `1000`:  generic error
-                    * `1001`:  payment processing temporarily unavailable
-                    * `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * `1003`:  implicit payment methods cannot be modified
-                    * `1004`:  payment method rejected by provider
-                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                 */
-                public class Errors: APIModel {
-
-                    /** an application-specific error code, expressed as a string value.
-                 */
-                    public var code: String?
-
-                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                 */
-                    public var detail: String?
-
-                    /** A unique identifier for this particular occurrence of the problem. */
-                    public var id: String?
-
-                    public var links: Links?
-
-                    /** a meta object containing non-standard meta-information about the error.
-                 */
-                    public var meta: [String: Any]?
-
-                    /** An object containing references to the source of the error.
-                 */
-                    public var source: Source?
-
-                    /** the HTTP status code applicable to this problem, expressed as a string value.
-                 */
-                    public var status: String?
-
-                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                 */
-                    public var title: String?
-
-                    /** Error objects provide additional information about problems encountered while performing an operation.
-                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * `1000`:  generic error
-                        * `1001`:  payment processing temporarily unavailable
-                        * `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * `1003`:  implicit payment methods cannot be modified
-                        * `1004`:  payment method rejected by provider
-                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                     */
-                    public class Links: APIModel {
-
-                        /** A link that leads to further details about this particular occurrence of the problem.
-                     */
-                        public var about: String?
-
-                        public init(about: String? = nil) {
-                            self.about = about
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            about = try container.decodeIfPresent("about")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(about, forKey: "about")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Links else { return false }
-                          guard self.about == object.about else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Links, rhs: Links) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    /** An object containing references to the source of the error.
-                     */
-                    public class Source: APIModel {
-
-                        /** A string indicating which URI query parameter caused the error.
-                     */
-                        public var parameter: String?
-
-                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-                     */
-                        public var pointer: String?
-
-                        public init(parameter: String? = nil, pointer: String? = nil) {
-                            self.parameter = parameter
-                            self.pointer = pointer
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            parameter = try container.decodeIfPresent("parameter")
-                            pointer = try container.decodeIfPresent("pointer")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(parameter, forKey: "parameter")
-                            try container.encodeIfPresent(pointer, forKey: "pointer")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Source else { return false }
-                          guard self.parameter == object.parameter else { return false }
-                          guard self.pointer == object.pointer else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Source, rhs: Source) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
-                        self.code = code
-                        self.detail = detail
-                        self.id = id
-                        self.links = links
-                        self.meta = meta
-                        self.source = source
-                        self.status = status
-                        self.title = title
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        code = try container.decodeIfPresent("code")
-                        detail = try container.decodeIfPresent("detail")
-                        id = try container.decodeIfPresent("id")
-                        links = try container.decodeIfPresent("links")
-                        meta = try container.decodeAnyIfPresent("meta")
-                        source = try container.decodeIfPresent("source")
-                        status = try container.decodeIfPresent("status")
-                        title = try container.decodeIfPresent("title")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(code, forKey: "code")
-                        try container.encodeIfPresent(detail, forKey: "detail")
-                        try container.encodeIfPresent(id, forKey: "id")
-                        try container.encodeIfPresent(links, forKey: "links")
-                        try container.encodeAnyIfPresent(meta, forKey: "meta")
-                        try container.encodeIfPresent(source, forKey: "source")
-                        try container.encodeIfPresent(status, forKey: "status")
-                        try container.encodeIfPresent(title, forKey: "title")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Errors else { return false }
-                      guard self.code == object.code else { return false }
-                      guard self.detail == object.detail else { return false }
-                      guard self.id == object.id else { return false }
-                      guard self.links == object.links else { return false }
-                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
-                      guard self.source == object.source else { return false }
-                      guard self.status == object.status else { return false }
-                      guard self.title == object.title else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(errors: [Errors]? = nil) {
-                    self.errors = errors
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    errors = try container.decodeArrayIfPresent("errors")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(errors, forKey: "errors")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status415 else { return false }
-                  guard self.errors == object.errors else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Status415, rhs: Status415) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            /** Error objects provide additional information about problems encountered while performing an operation.
-            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * `1000`:  generic error
-                * `1001`:  payment processing temporarily unavailable
-                * `1002`:  requested amount exceeds the authorized amount of the provided token
-                * `1003`:  implicit payment methods cannot be modified
-                * `1004`:  payment method rejected by provider
-                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-             */
-            public class Status422: APIModel {
-
-                public var errors: [Errors]?
-
-                /** Error objects provide additional information about problems encountered while performing an operation.
-                Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                    * `1000`:  generic error
-                    * `1001`:  payment processing temporarily unavailable
-                    * `1002`:  requested amount exceeds the authorized amount of the provided token
-                    * `1003`:  implicit payment methods cannot be modified
-                    * `1004`:  payment method rejected by provider
-                    * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                    * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                 */
-                public class Errors: APIModel {
-
-                    /** an application-specific error code, expressed as a string value.
-                 */
-                    public var code: String?
-
-                    /** a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                 */
-                    public var detail: String?
-
-                    /** A unique identifier for this particular occurrence of the problem. */
-                    public var id: String?
-
-                    public var links: Links?
-
-                    /** a meta object containing non-standard meta-information about the error.
-                 */
-                    public var meta: [String: Any]?
-
-                    /** An object containing references to the source of the error.
-                 */
-                    public var source: Source?
-
-                    /** the HTTP status code applicable to this problem, expressed as a string value.
-                 */
-                    public var status: String?
-
-                    /** A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                 */
-                    public var title: String?
-
-                    /** Error objects provide additional information about problems encountered while performing an operation.
-                    Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                        * `1000`:  generic error
-                        * `1001`:  payment processing temporarily unavailable
-                        * `1002`:  requested amount exceeds the authorized amount of the provided token
-                        * `1003`:  implicit payment methods cannot be modified
-                        * `1004`:  payment method rejected by provider
-                        * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                        * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-                     */
-                    public class Links: APIModel {
-
-                        /** A link that leads to further details about this particular occurrence of the problem.
-                     */
-                        public var about: String?
-
-                        public init(about: String? = nil) {
-                            self.about = about
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            about = try container.decodeIfPresent("about")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(about, forKey: "about")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Links else { return false }
-                          guard self.about == object.about else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Links, rhs: Links) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    /** An object containing references to the source of the error.
-                     */
-                    public class Source: APIModel {
-
-                        /** A string indicating which URI query parameter caused the error.
-                     */
-                        public var parameter: String?
-
-                        /** A JSON Pointer [RFC6901] to the associated entity in the request document [e.g. "/data" for a primary data object, or "/data/attributes/title" for a specific attribute].
-                     */
-                        public var pointer: String?
-
-                        public init(parameter: String? = nil, pointer: String? = nil) {
-                            self.parameter = parameter
-                            self.pointer = pointer
-                        }
-
-                        public required init(from decoder: Decoder) throws {
-                            let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                            parameter = try container.decodeIfPresent("parameter")
-                            pointer = try container.decodeIfPresent("pointer")
-                        }
-
-                        public func encode(to encoder: Encoder) throws {
-                            var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                            try container.encodeIfPresent(parameter, forKey: "parameter")
-                            try container.encodeIfPresent(pointer, forKey: "pointer")
-                        }
-
-                        public func isEqual(to object: Any?) -> Bool {
-                          guard let object = object as? Source else { return false }
-                          guard self.parameter == object.parameter else { return false }
-                          guard self.pointer == object.pointer else { return false }
-                          return true
-                        }
-
-                        public static func == (lhs: Source, rhs: Source) -> Bool {
-                            return lhs.isEqual(to: rhs)
-                        }
-                    }
-
-                    public init(code: String? = nil, detail: String? = nil, id: String? = nil, links: Links? = nil, meta: [String: Any]? = nil, source: Source? = nil, status: String? = nil, title: String? = nil) {
-                        self.code = code
-                        self.detail = detail
-                        self.id = id
-                        self.links = links
-                        self.meta = meta
-                        self.source = source
-                        self.status = status
-                        self.title = title
-                    }
-
-                    public required init(from decoder: Decoder) throws {
-                        let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                        code = try container.decodeIfPresent("code")
-                        detail = try container.decodeIfPresent("detail")
-                        id = try container.decodeIfPresent("id")
-                        links = try container.decodeIfPresent("links")
-                        meta = try container.decodeAnyIfPresent("meta")
-                        source = try container.decodeIfPresent("source")
-                        status = try container.decodeIfPresent("status")
-                        title = try container.decodeIfPresent("title")
-                    }
-
-                    public func encode(to encoder: Encoder) throws {
-                        var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                        try container.encodeIfPresent(code, forKey: "code")
-                        try container.encodeIfPresent(detail, forKey: "detail")
-                        try container.encodeIfPresent(id, forKey: "id")
-                        try container.encodeIfPresent(links, forKey: "links")
-                        try container.encodeAnyIfPresent(meta, forKey: "meta")
-                        try container.encodeIfPresent(source, forKey: "source")
-                        try container.encodeIfPresent(status, forKey: "status")
-                        try container.encodeIfPresent(title, forKey: "title")
-                    }
-
-                    public func isEqual(to object: Any?) -> Bool {
-                      guard let object = object as? Errors else { return false }
-                      guard self.code == object.code else { return false }
-                      guard self.detail == object.detail else { return false }
-                      guard self.id == object.id else { return false }
-                      guard self.links == object.links else { return false }
-                      guard NSDictionary(dictionary: self.meta ?? [:]).isEqual(to: object.meta ?? [:]) else { return false }
-                      guard self.source == object.source else { return false }
-                      guard self.status == object.status else { return false }
-                      guard self.title == object.title else { return false }
-                      return true
-                    }
-
-                    public static func == (lhs: Errors, rhs: Errors) -> Bool {
-                        return lhs.isEqual(to: rhs)
-                    }
-                }
-
-                public init(errors: [Errors]? = nil) {
-                    self.errors = errors
-                }
-
-                public required init(from decoder: Decoder) throws {
-                    let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                    errors = try container.decodeArrayIfPresent("errors")
-                }
-
-                public func encode(to encoder: Encoder) throws {
-                    var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                    try container.encodeIfPresent(errors, forKey: "errors")
-                }
-
-                public func isEqual(to object: Any?) -> Bool {
-                  guard let object = object as? Status422 else { return false }
-                  guard self.errors == object.errors else { return false }
-                  return true
-                }
-
-                public static func == (lhs: Status422, rhs: Status422) -> Bool {
-                    return lhs.isEqual(to: rhs)
-                }
-            }
-
-            /** Error objects provide additional information about problems encountered while performing an operation.
-            Errors also contain codes besides title and message which can be used for checks even if the detailed messages might change.
-                * `1000`:  generic error
-                * `1001`:  payment processing temporarily unavailable
-                * `1002`:  requested amount exceeds the authorized amount of the provided token
-                * `1003`:  implicit payment methods cannot be modified
-                * `1004`:  payment method rejected by provider
-                * `provider:payment-method-rejected`:  payment method rejected by provider (identical to `1004`)
-                * `rule:product-denied`: Product restrictions forbid transaction, e.g., forbidden fuel type - token authorized only for Diesel but attempted to fuel Super.
-             */
             public class Status500: APIModel {
 
                 public var errors: [Errors]?
@@ -1901,11 +976,8 @@ extension PayAPI.PaymentTransactions {
             }
             public typealias SuccessType = Status200
 
-            /** List of transactions for JET within the given time frame. */
+            /** The requested payment method. */
             case status200(Status200)
-
-            /** Bad request */
-            case status400(Status400)
 
             /** OAuth token missing or invalid or a linked identity is missing.
 Linked identity missing is a special case where you need to make sure that
@@ -1935,15 +1007,6 @@ Example:
             /** The specified accept header is invalid */
             case status406(Status406)
 
-            /** Resource conflicts */
-            case status409(Status409)
-
-            /** The specified content type header is invalid */
-            case status415(Status415)
-
-            /** The request was well-formed but was unable to be followed due to semantic errors. */
-            case status422(Status422)
-
             /** Internal server error */
             case status500(Status500)
 
@@ -1957,13 +1020,9 @@ Example:
             public var response: Any {
                 switch self {
                 case .status200(let response): return response
-                case .status400(let response): return response
                 case .status401(let response): return response
                 case .status404(let response): return response
                 case .status406(let response): return response
-                case .status409(let response): return response
-                case .status415(let response): return response
-                case .status422(let response): return response
                 case .status500(let response): return response
                 }
             }
@@ -1971,13 +1030,9 @@ Example:
             public var statusCode: Int {
                 switch self {
                 case .status200: return 200
-                case .status400: return 400
                 case .status401: return 401
                 case .status404: return 404
                 case .status406: return 406
-                case .status409: return 409
-                case .status415: return 415
-                case .status422: return 422
                 case .status500: return 500
                 }
             }
@@ -1985,13 +1040,9 @@ Example:
             public var successful: Bool {
                 switch self {
                 case .status200: return true
-                case .status400: return false
                 case .status401: return false
                 case .status404: return false
                 case .status406: return false
-                case .status409: return false
-                case .status415: return false
-                case .status422: return false
                 case .status500: return false
                 }
             }
@@ -1999,13 +1050,9 @@ Example:
             public init(statusCode: Int, data: Data, decoder: ResponseDecoder) throws {
                 switch statusCode {
                 case 200: self = try .status200(decoder.decode(Status200.self, from: data))
-                case 400: self = try .status400(decoder.decode(Status400.self, from: data))
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
                 case 406: self = try .status406(decoder.decode(Status406.self, from: data))
-                case 409: self = try .status409(decoder.decode(Status409.self, from: data))
-                case 415: self = try .status415(decoder.decode(Status415.self, from: data))
-                case 422: self = try .status422(decoder.decode(Status422.self, from: data))
                 case 500: self = try .status500(decoder.decode(Status500.self, from: data))
                 default: throw APIClientError.unexpectedStatusCode(statusCode: statusCode, data: data)
                 }

@@ -5,12 +5,12 @@
 
 import Foundation
 
-extension PayAPI.PaymentMethods {
+extension PayAPI.FleetPaymentMethods {
 
     /** Delete a payment method */
-    public enum DeletePaymentMethod {
+    public enum DeleteFleetPaymentMethod {
 
-        public static var service = PayAPIService<Response>(id: "DeletePaymentMethod", tag: "Payment Methods", method: "DELETE", path: "/payment-methods/{paymentMethodId}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:delete"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:delete"])])
+        public static var service = PayAPIService<Response>(id: "DeleteFleetPaymentMethod", tag: "Fleet Payment Methods", method: "DELETE", path: "/fleet/payment-methods/{paymentMethodId}", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:delete:one pay:payment-methods:delete:omv"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:delete:one pay:payment-methods:delete:omv"])])
 
         public final class Request: PayAPIRequest<Response> {
 
@@ -19,8 +19,12 @@ extension PayAPI.PaymentMethods {
                 /** ID of the paymentMethod */
                 public var paymentMethodId: ID
 
-                public init(paymentMethodId: ID) {
+                /** ID of the user that is required when user ID is not present in the authorization token. */
+                public var userId: ID
+
+                public init(paymentMethodId: ID, userId: ID) {
                     self.paymentMethodId = paymentMethodId
+                    self.userId = userId
                 }
             }
 
@@ -28,17 +32,23 @@ extension PayAPI.PaymentMethods {
 
             public init(options: Options) {
                 self.options = options
-                super.init(service: DeletePaymentMethod.service)
+                super.init(service: DeleteFleetPaymentMethod.service)
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(paymentMethodId: ID) {
-                let options = Options(paymentMethodId: paymentMethodId)
+            public convenience init(paymentMethodId: ID, userId: ID) {
+                let options = Options(paymentMethodId: paymentMethodId, userId: userId)
                 self.init(options: options)
             }
 
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "paymentMethodId" + "}", with: "\(self.options.paymentMethodId.encode())")
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                params["userId"] = options.userId.encode()
+                return params
             }
 
             override var headerParameters: [String: String] {

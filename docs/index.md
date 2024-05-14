@@ -229,7 +229,7 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 
 ### From 22.x.x to 23.x.x
 
-- Updated Fueling API
+- Updated Fueling and Pay API
 
 ## Contribute
 ### Localizable Strings Generation

@@ -53,11 +53,16 @@ extension PayAPI.PaymentTransactions {
 
             public struct Options {
 
-                /** Language preference of localized response properties. The full standard of RFC 7231 (https://tools.ietf.org/html/rfc7231#section-5.3.5) is supported. */
-                public var acceptLanguage: String?
+                /** (Optional) Specify the language you want the returned receipt to be localized in.
+Returns the receipt in the default language that is available if the specified language is not available.
+Language does not have to be valid language. For example, `language=local` means that the receipt should be displayed
+in the language that is determined to be spoken in the area that the point of intereset at which the receipt has been generated at.
+*Prefer using the `Accept-Language` header if you use this endpoint on an end-user device.*
+ */
+                public var language: String?
 
-                public init(acceptLanguage: String? = nil) {
-                    self.acceptLanguage = acceptLanguage
+                public init(language: String? = nil) {
+                    self.language = language
                 }
             }
 
@@ -75,20 +80,24 @@ extension PayAPI.PaymentTransactions {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(acceptLanguage: String? = nil, body: Body) {
-                let options = Options(acceptLanguage: acceptLanguage)
+            public convenience init(language: String? = nil, body: Body) {
+                let options = Options(language: language)
                 self.init(body: body, options: options)
+            }
+
+            public override var queryParameters: [String: Any] {
+                var params: [String: Any] = [:]
+                if let language = options.language {
+                  params["language"] = language
+                }
+                return params
             }
 
             override var headerParameters: [String: String] {
                 var headers: [String: String] = [:]
-                if let acceptLanguage = options.acceptLanguage {
-                  headers["Accept-Language"] = acceptLanguage
-                }
                 if let token = API.accessToken {
                     headers["Authorization"] = "Bearer \(token)"
                 }
-
                 return headers
             }
         }
