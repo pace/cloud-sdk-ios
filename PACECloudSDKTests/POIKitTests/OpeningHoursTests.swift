@@ -17,11 +17,11 @@ final class OpeningHoursTests: XCTestCase {
     private let daily: POIKit.OpeningHoursValue = .daily
     private let open247: POIKit.OpeningHoursValue = .open247
     private let closed: POIKit.OpeningHoursValue = .closed
-    private let open9to5: POIKit.OpeningHoursValue = .time(value: "9:00 AM – 5:00 PM")
-    private let open8to2315: POIKit.OpeningHoursValue = .time(value: "8:00 AM – 11:15 PM")
-    private let open7to230: POIKit.OpeningHoursValue = .time(value: "7:00 AM – 2:30 AM")
-    private let open8to230: POIKit.OpeningHoursValue = .time(value: "8:00 AM – 2:30 AM")
-    private let openWithBreak: POIKit.OpeningHoursValue = .time(value: "8:00 AM – 12:35 PM\n2:00 PM – 11:00 PM")
+    private let open9to5: POIKit.OpeningHoursValue = .time(value: "09:00 – 17:00")
+    private let open8to2315: POIKit.OpeningHoursValue = .time(value: "08:00 – 23:15")
+    private let open7to230: POIKit.OpeningHoursValue = .time(value: "07:00 – 02:30")
+    private let open8to230: POIKit.OpeningHoursValue = .time(value: "08:00 – 02:30")
+    private let openWithBreak: POIKit.OpeningHoursValue = .time(value: "08:00 – 12:35\n14:00 – 23:00")
 
     func testOpen247() {
         let openingHours: [PCPOICommonOpeningHours.Rules] = [
@@ -160,19 +160,19 @@ final class OpeningHoursTests: XCTestCase {
 
         XCTAssertEqual(appliedRules.count, 7)
         XCTAssertEqual(appliedRules[0].0, .day(day: "monday"))
-        XCTAssertEqual(appliedRules[0].1, .time(value: "8:00 AM – 8:00 PM"))
+        XCTAssertEqual(appliedRules[0].1, .time(value: "08:00 – 20:00"))
         XCTAssertEqual(appliedRules[1].0, .day(day: "tuesday"))
-        XCTAssertEqual(appliedRules[1].1, .time(value: "9:00 AM – 8:00 PM"))
+        XCTAssertEqual(appliedRules[1].1, .time(value: "09:00 – 20:00"))
         XCTAssertEqual(appliedRules[2].0, .day(day: "wednesday"))
-        XCTAssertEqual(appliedRules[2].1, .time(value: "10:00 AM – 8:00 PM"))
+        XCTAssertEqual(appliedRules[2].1, .time(value: "10:00 – 20:00"))
         XCTAssertEqual(appliedRules[3].0, .day(day: "thursday"))
-        XCTAssertEqual(appliedRules[3].1, .time(value: "8:00 AM – 9:00 PM"))
+        XCTAssertEqual(appliedRules[3].1, .time(value: "08:00 – 21:00"))
         XCTAssertEqual(appliedRules[4].0, .day(day: "friday"))
-        XCTAssertEqual(appliedRules[4].1, .time(value: "8:00 AM – 10:00 PM"))
+        XCTAssertEqual(appliedRules[4].1, .time(value: "08:00 – 22:00"))
         XCTAssertEqual(appliedRules[5].0, .day(day: "saturday"))
-        XCTAssertEqual(appliedRules[5].1, .time(value: "7:00 AM – 12:00 AM"))
+        XCTAssertEqual(appliedRules[5].1, .time(value: "07:00 – 24:00"))
         XCTAssertEqual(appliedRules[6].0, .day(day: "sunday"))
-        XCTAssertEqual(appliedRules[6].1, .time(value: "7:00 AM – 9:00 PM"))
+        XCTAssertEqual(appliedRules[6].1, .time(value: "07:00 – 21:00"))
     }
 
     func testGetOpeningHours() {
@@ -191,9 +191,9 @@ final class OpeningHoursTests: XCTestCase {
         let hours2 = openingHours.getOpeningHours(for: date2)
         let hours3 = openingHours.getOpeningHours(for: date3)
 
-        XCTAssertEqual(hours1, POIKit.OpeningHoursValue.time(value: "8:00 AM – 11:00 PM"))
-        XCTAssertEqual(hours2, POIKit.OpeningHoursValue.time(value: "8:00 AM – 8:00 PM"))
-        XCTAssertEqual(hours3, POIKit.OpeningHoursValue.time(value: "8:00 AM – 2:00 AM"))
+        XCTAssertEqual(hours1, POIKit.OpeningHoursValue.time(value: "08:00 – 23:00"))
+        XCTAssertEqual(hours2, POIKit.OpeningHoursValue.time(value: "08:00 – 20:00"))
+        XCTAssertEqual(hours3, POIKit.OpeningHoursValue.time(value: "08:00 – 02:00"))
     }
 
     func testMinutesTillClosed() {

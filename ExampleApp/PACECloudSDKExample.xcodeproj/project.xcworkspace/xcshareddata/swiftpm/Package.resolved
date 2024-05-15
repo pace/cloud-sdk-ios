@@ -1,5 +1,5 @@
 {
-  "originHash" : "e0713bdbaed12173aa79fd8b5a53a02b221bf41ba76d358427b2b685b30cc4f9",
+  "originHash" : "da68c000b21e6de9cfbaf22201af9660e783191ac5de2b84d7c74dea2a63667e",
   "pins" : [
     {
       "identity" : "appauth-ios",
@@ -69,8 +69,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "6ad4ea24b01559dde0773e3d091f1b9e36175036",
-        "version" : "509.0.2"
+        "revision" : "08a2f0a9a30e0f705f79c9cfaca1f68b71bdc775",
+        "version" : "510.0.0"
       }
     },
     {
@@ -78,8 +78,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/SwiftLint.git",
       "state" : {
-        "revision" : "f17a4f9dfb6a6afb0408426354e4180daaf49cee",
-        "version" : "0.54.0"
+        "revision" : "108b1fca7a9445c12a92a83fdd9945ae03309f5d"
       }
     },
     {
@@ -119,5 +118,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
