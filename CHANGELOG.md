@@ -1,3 +1,17 @@
+23.0.0 Release notes (2024-05-22)
+=============================================================
+
+### Breaking Changes
+
+* Update poi api to 2024-1
+* Update pay api to 2024-2
+* Update fueling api to 2024-2
+
+### Internal
+
+* Adjust review deploy tag version
+* Adjust unit tests to appropriate locale
+
 22.0.1 Release notes (2024-05-14)
 =============================================================
 
