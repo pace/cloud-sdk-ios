@@ -22,7 +22,13 @@ public class PCPayTransaction: APIModel {
 
     public var vat: VAT?
 
-    /** Initial creation date of the transaction (https://tools.ietf.org/html/rfc3339#section-5.6).
+    /** additional data for omv */
+    public var additionalData: String?
+
+    /** ID of the authorization payment token */
+    public var authorizePaymentTokenId: ID?
+
+    /** Initial creation date of the transaction (UTC) (https://tools.ietf.org/html/rfc3339#section-5.6).
  */
     public var createdAt: DateTime?
 
@@ -35,6 +41,12 @@ public class PCPayTransaction: APIModel {
 
     /** Amount that was discounted. Only if any discounts were applied earlier. */
     public var discountAmount: Decimal?
+
+    /** Driver/vehicle identification */
+    public var driverVehicleID: String?
+
+    /** Description of the error that occured */
+    public var error: String?
 
     public var fuel: PCPayFuel?
 
@@ -58,6 +70,12 @@ public class PCPayTransaction: APIModel {
     /** Payment token value */
     public var paymentToken: String?
 
+    /** Request ID of the payment token */
+    public var paymentTokenRequestID: String?
+
+    /** Request ID of the payment transaction */
+    public var paymentTransactionRequestID: String?
+
     /** If a discount was applied, this is the already fully discounted transaction sum */
     public var priceIncludingVAT: Decimal?
 
@@ -77,7 +95,7 @@ public class PCPayTransaction: APIModel {
 
     public var references: [String]?
 
-    /** Date of the last update (https://tools.ietf.org/html/rfc3339#section-5.6).
+    /** Date of the last update (UTC) (https://tools.ietf.org/html/rfc3339#section-5.6).
  */
     public var updatedAt: DateTime?
 
@@ -121,16 +139,20 @@ public class PCPayTransaction: APIModel {
         }
     }
 
-    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, additionalData: String? = nil, authorizePaymentTokenId: ID? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, error: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, paymentTokenRequestID: String? = nil, paymentTransactionRequestID: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
         self.id = id
         self.links = links
         self.type = type
         self.discountTokens = discountTokens
         self.vat = vat
+        self.additionalData = additionalData
+        self.authorizePaymentTokenId = authorizePaymentTokenId
         self.createdAt = createdAt
         self.createdAtLocaltime = createdAtLocaltime
         self.currency = currency
         self.discountAmount = discountAmount
+        self.driverVehicleID = driverVehicleID
+        self.error = error
         self.fuel = fuel
         self.issuerPRN = issuerPRN
         self.location = location
@@ -139,6 +161,8 @@ public class PCPayTransaction: APIModel {
         self.paymentMethodId = paymentMethodId
         self.paymentMethodKind = paymentMethodKind
         self.paymentToken = paymentToken
+        self.paymentTokenRequestID = paymentTokenRequestID
+        self.paymentTransactionRequestID = paymentTransactionRequestID
         self.priceIncludingVAT = priceIncludingVAT
         self.priceIncludingVATBeforeDiscount = priceIncludingVATBeforeDiscount
         self.priceWithoutVAT = priceWithoutVAT
@@ -158,10 +182,14 @@ public class PCPayTransaction: APIModel {
         type = try container.decodeIfPresent("type")
         discountTokens = try container.decodeIfPresent("discountTokens")
         vat = try container.decodeIfPresent("VAT")
+        additionalData = try container.decodeIfPresent("additionalData")
+        authorizePaymentTokenId = try container.decodeIfPresent("authorizePaymentTokenId")
         createdAt = try container.decodeIfPresent("createdAt")
         createdAtLocaltime = try container.decodeIfPresent("createdAtLocaltime")
         currency = try container.decodeIfPresent("currency")
         discountAmount = try container.decodeLosslessDecimal("discountAmount")
+        driverVehicleID = try container.decodeIfPresent("driverVehicleID")
+        error = try container.decodeIfPresent("error")
         fuel = try container.decodeIfPresent("fuel")
         issuerPRN = try container.decodeIfPresent("issuerPRN")
         location = try container.decodeIfPresent("location")
@@ -170,6 +198,8 @@ public class PCPayTransaction: APIModel {
         paymentMethodId = try container.decodeIfPresent("paymentMethodId")
         paymentMethodKind = try container.decodeIfPresent("paymentMethodKind")
         paymentToken = try container.decodeIfPresent("paymentToken")
+        paymentTokenRequestID = try container.decodeIfPresent("paymentTokenRequestID")
+        paymentTransactionRequestID = try container.decodeIfPresent("paymentTransactionRequestID")
         priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
         priceIncludingVATBeforeDiscount = try container.decodeLosslessDecimal("priceIncludingVATBeforeDiscount")
         priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
@@ -189,10 +219,14 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(type, forKey: "type")
         try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
         try container.encodeIfPresent(vat, forKey: "VAT")
+        try container.encodeIfPresent(additionalData, forKey: "additionalData")
+        try container.encodeIfPresent(authorizePaymentTokenId, forKey: "authorizePaymentTokenId")
         try container.encodeIfPresent(createdAt, forKey: "createdAt")
         try container.encodeIfPresent(createdAtLocaltime, forKey: "createdAtLocaltime")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(discountAmount, forKey: "discountAmount")
+        try container.encodeIfPresent(driverVehicleID, forKey: "driverVehicleID")
+        try container.encodeIfPresent(error, forKey: "error")
         try container.encodeIfPresent(fuel, forKey: "fuel")
         try container.encodeIfPresent(issuerPRN, forKey: "issuerPRN")
         try container.encodeIfPresent(location, forKey: "location")
@@ -201,6 +235,8 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(paymentMethodId, forKey: "paymentMethodId")
         try container.encodeIfPresent(paymentMethodKind, forKey: "paymentMethodKind")
         try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
+        try container.encodeIfPresent(paymentTokenRequestID, forKey: "paymentTokenRequestID")
+        try container.encodeIfPresent(paymentTransactionRequestID, forKey: "paymentTransactionRequestID")
         try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
         try container.encodeIfPresent(priceIncludingVATBeforeDiscount, forKey: "priceIncludingVATBeforeDiscount")
         try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
@@ -219,10 +255,14 @@ public class PCPayTransaction: APIModel {
       guard self.type == object.type else { return false }
       guard self.discountTokens == object.discountTokens else { return false }
       guard self.vat == object.vat else { return false }
+      guard self.additionalData == object.additionalData else { return false }
+      guard self.authorizePaymentTokenId == object.authorizePaymentTokenId else { return false }
       guard self.createdAt == object.createdAt else { return false }
       guard self.createdAtLocaltime == object.createdAtLocaltime else { return false }
       guard self.currency == object.currency else { return false }
       guard self.discountAmount == object.discountAmount else { return false }
+      guard self.driverVehicleID == object.driverVehicleID else { return false }
+      guard self.error == object.error else { return false }
       guard self.fuel == object.fuel else { return false }
       guard self.issuerPRN == object.issuerPRN else { return false }
       guard self.location == object.location else { return false }
@@ -231,6 +271,8 @@ public class PCPayTransaction: APIModel {
       guard self.paymentMethodId == object.paymentMethodId else { return false }
       guard self.paymentMethodKind == object.paymentMethodKind else { return false }
       guard self.paymentToken == object.paymentToken else { return false }
+      guard self.paymentTokenRequestID == object.paymentTokenRequestID else { return false }
+      guard self.paymentTransactionRequestID == object.paymentTransactionRequestID else { return false }
       guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
       guard self.priceIncludingVATBeforeDiscount == object.priceIncludingVATBeforeDiscount else { return false }
       guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }

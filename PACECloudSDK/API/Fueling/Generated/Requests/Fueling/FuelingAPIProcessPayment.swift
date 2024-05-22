@@ -2186,6 +2186,23 @@ Example:
             /** The provided priceIncludingVAT does not match the actual price */
             case status409(Status409)
 
+            /** Precondition failed
+```
+  {
+      "errors": [
+          {
+              "id": "buck3h44qtf5j268141g",
+              "title": "Pump already unlocked/in-use on site by someone else",
+              "detail": "",
+              "status": "412",
+              "code": "FUELING_PUMP_BUSY_ON_SITE"
+          }
+      ]
+  }
+```
+ */
+            case status412(PCFuelingErrors)
+
             /** The specified content type header is invalid */
             case status415(Status415)
 
@@ -2214,6 +2231,7 @@ Example:
                 case .status404(let response): return response
                 case .status406(let response): return response
                 case .status409(let response): return response
+                case .status412(let response): return response
                 case .status415(let response): return response
                 case .status422(let response): return response
                 case .status500(let response): return response
@@ -2232,6 +2250,7 @@ Example:
                 case .status404: return 404
                 case .status406: return 406
                 case .status409: return 409
+                case .status412: return 412
                 case .status415: return 415
                 case .status422: return 422
                 case .status500: return 500
@@ -2249,6 +2268,7 @@ Example:
                 case .status404: return false
                 case .status406: return false
                 case .status409: return false
+                case .status412: return false
                 case .status415: return false
                 case .status422: return false
                 case .status500: return false
@@ -2266,6 +2286,7 @@ Example:
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
                 case 406: self = try .status406(decoder.decode(Status406.self, from: data))
                 case 409: self = try .status409(decoder.decode(Status409.self, from: data))
+                case 412: self = try .status412(decoder.decode(PCFuelingErrors.self, from: data))
                 case 415: self = try .status415(decoder.decode(Status415.self, from: data))
                 case 422: self = try .status422(decoder.decode(Status422.self, from: data))
                 case 500: self = try .status500(decoder.decode(Status500.self, from: data))

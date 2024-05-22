@@ -1193,6 +1193,9 @@ Example:
  */
             case status401(Status401)
 
+            /** Not allowed to delete payment method, either it's set as the implicit method, either it's used in ongoing transactions. */
+            case status403
+
             /** Resource not found */
             case status404(Status404)
 
@@ -1227,6 +1230,7 @@ Example:
                 switch self {
                 case .status204: return 204
                 case .status401: return 401
+                case .status403: return 403
                 case .status404: return 404
                 case .status405: return 405
                 case .status406: return 406
@@ -1238,6 +1242,7 @@ Example:
                 switch self {
                 case .status204: return true
                 case .status401: return false
+                case .status403: return false
                 case .status404: return false
                 case .status405: return false
                 case .status406: return false
@@ -1249,6 +1254,7 @@ Example:
                 switch statusCode {
                 case 204: self = .status204
                 case 401: self = try .status401(decoder.decode(Status401.self, from: data))
+                case 403: self = .status403
                 case 404: self = try .status404(decoder.decode(Status404.self, from: data))
                 case 405: self = try .status405(decoder.decode(Status405.self, from: data))
                 case 406: self = try .status406(decoder.decode(Status406.self, from: data))

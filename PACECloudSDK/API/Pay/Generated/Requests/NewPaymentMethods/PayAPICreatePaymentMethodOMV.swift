@@ -10,7 +10,7 @@ extension PayAPI.NewPaymentMethods {
     /** Register a OMV card as a payment method */
     public enum CreatePaymentMethodOMV {
 
-        public static var service = PayAPIService<Response>(id: "CreatePaymentMethodOMV", tag: "New Payment Methods", method: "POST", path: "/payment-methods/omv", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:create"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:create"])])
+        public static var service = PayAPIService<Response>(id: "CreatePaymentMethodOMV", tag: "New Payment Methods", method: "POST", path: "/payment-methods/omv", hasBody: true, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["pay:payment-methods:create pay:payment-methods:create:one"]), SecurityRequirement(type: "OIDC", scopes: ["pay:payment-methods:create pay:payment-methods:create:one"])])
 
         public final class Request: PayAPIRequest<Response> {
 

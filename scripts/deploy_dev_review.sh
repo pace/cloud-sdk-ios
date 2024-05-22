@@ -16,14 +16,14 @@ git branch -D dev-review
 git checkout -b "dev-review"
 
 echo 'Updating Package.swift file'
-./scripts/update_package.sh 0.1 build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip
+./scripts/update_package.sh 0.1.0 build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip
 
 echo 'Committing changes'
 git add -u
 git commit -m "dev-review: $COMMIT_MESSAGE"
-git tag -f 0.1
+git tag -f 0.1.0
 git push origin dev-review --set-upstream
-git push origin 0.1 --force # Force push needed to override tag
+git push origin 0.1.0 --force # Force push needed to override tag
 
 echo 'Updating dev review release'
 ./scripts/update_github_dev_review_release_assets.sh build/PACECloudSlimSDK.zip build/PACECloudWatchSDK.zip

@@ -45,69 +45,40 @@ This field is optional and if not present should be assumed to indicate `implici
     /** data privacy information */
     public class DataPrivacy: APIModel {
 
-        /** Localized hint that data privacy terms apply. The hint comes formatted in multiple ways, which are all equally valid if given. Additional formats might be added in the future. */
-        public var hint: Hint?
-
         /** Localized data privacy terms. The terms come formatted in multiple ways, which are all equally valid if given. Additional formats might be added in the future. */
         public var terms: Terms?
-
-        /** Localized hint that data privacy terms apply. The hint comes formatted in multiple ways, which are all equally valid if given. Additional formats might be added in the future. */
-        public class Hint: APIModel {
-
-            /** Hint formatted as markdown. Contains only links to the reference <code>terms</code>. Does not contain other links. Other than that, only contains markdown syntax for <a href="https://daringfireball.net/projects/markdown/syntax#p">Paragraphs and Line Breaks</a> and <a href="https://daringfireball.net/projects/markdown/syntax#em">Emphasis</a>. */
-            public var markdown: String?
-
-            public init(markdown: String? = nil) {
-                self.markdown = markdown
-            }
-
-            public required init(from decoder: Decoder) throws {
-                let container = try decoder.container(keyedBy: StringCodingKey.self)
-
-                markdown = try container.decodeIfPresent("markdown")
-            }
-
-            public func encode(to encoder: Encoder) throws {
-                var container = encoder.container(keyedBy: StringCodingKey.self)
-
-                try container.encodeIfPresent(markdown, forKey: "markdown")
-            }
-
-            public func isEqual(to object: Any?) -> Bool {
-              guard let object = object as? Hint else { return false }
-              guard self.markdown == object.markdown else { return false }
-              return true
-            }
-
-            public static func == (lhs: Hint, rhs: Hint) -> Bool {
-                return lhs.isEqual(to: rhs)
-            }
-        }
 
         /** Localized data privacy terms. The terms come formatted in multiple ways, which are all equally valid if given. Additional formats might be added in the future. */
         public class Terms: APIModel {
 
             /** Terms formatted as markdown. Does not contain external resources like images. */
+            public var html: String?
+
+            /** Terms formatted as markdown. Does not contain external resources like images. */
             public var markdown: String?
 
-            public init(markdown: String? = nil) {
+            public init(html: String? = nil, markdown: String? = nil) {
+                self.html = html
                 self.markdown = markdown
             }
 
             public required init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: StringCodingKey.self)
 
+                html = try container.decodeIfPresent("html")
                 markdown = try container.decodeIfPresent("markdown")
             }
 
             public func encode(to encoder: Encoder) throws {
                 var container = encoder.container(keyedBy: StringCodingKey.self)
 
+                try container.encodeIfPresent(html, forKey: "html")
                 try container.encodeIfPresent(markdown, forKey: "markdown")
             }
 
             public func isEqual(to object: Any?) -> Bool {
               guard let object = object as? Terms else { return false }
+              guard self.html == object.html else { return false }
               guard self.markdown == object.markdown else { return false }
               return true
             }
@@ -117,28 +88,24 @@ This field is optional and if not present should be assumed to indicate `implici
             }
         }
 
-        public init(hint: Hint? = nil, terms: Terms? = nil) {
-            self.hint = hint
+        public init(terms: Terms? = nil) {
             self.terms = terms
         }
 
         public required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
-            hint = try container.decodeIfPresent("hint")
             terms = try container.decodeIfPresent("terms")
         }
 
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
-            try container.encodeIfPresent(hint, forKey: "hint")
             try container.encodeIfPresent(terms, forKey: "terms")
         }
 
         public func isEqual(to object: Any?) -> Bool {
           guard let object = object as? DataPrivacy else { return false }
-          guard self.hint == object.hint else { return false }
           guard self.terms == object.terms else { return false }
           return true
         }

@@ -22,11 +22,6 @@ To search inside a bounding box provide the following query parameter:
 
         public static var service = POIAPIService<Response>(id: "GetGasStations", tag: "Gas Stations", method: "GET", path: "/gas-stations", hasBody: false, securityRequirements: [SecurityRequirement(type: "OAuth2", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"]), SecurityRequirement(type: "OIDC", scopes: ["poi:gas-stations:read", "poi:gas-stations.references:read"])])
 
-        /** POI type you are searching for (in this case gas stations) */
-        public enum PCPOIFilterpoiType: String, Codable, Equatable, CaseIterable {
-            case gasStation = "gasStation"
-        }
-
         /** Search only gas stations with fueling app available */
         public enum PCPOIFilterappType: String, Codable, Equatable, CaseIterable {
             case fueling = "fueling"
@@ -41,9 +36,6 @@ To search inside a bounding box provide the following query parameter:
 
                 /** items per page */
                 public var pagesize: Int?
-
-                /** POI type you are searching for (in this case gas stations) */
-                public var filterpoiType: PCPOIFilterpoiType?
 
                 /** Search only gas stations with fueling app available */
                 public var filterappType: [PCPOIFilterappType]?
@@ -62,26 +54,17 @@ To search inside a bounding box provide the following query parameter:
  */
                 public var filterboundingBox: [Float]?
 
-                /** Reduces the opening hours rules. After compilation only rules with the action open will remain in the response. */
-                public var compileopeningHours: Bool?
-
-                /** Filter by source ID */
-                public var filtersource: ID?
-
                 /** Comma separated strings that filter stations according to supported payment methods. */
                 public var filterpaymentMethod: String?
 
-                public init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCPOIFilterpoiType? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil, filterpaymentMethod: String? = nil) {
+                public init(pagenumber: Int? = nil, pagesize: Int? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, filterpaymentMethod: String? = nil) {
                     self.pagenumber = pagenumber
                     self.pagesize = pagesize
-                    self.filterpoiType = filterpoiType
                     self.filterappType = filterappType
                     self.filterlatitude = filterlatitude
                     self.filterlongitude = filterlongitude
                     self.filterradius = filterradius
                     self.filterboundingBox = filterboundingBox
-                    self.compileopeningHours = compileopeningHours
-                    self.filtersource = filtersource
                     self.filterpaymentMethod = filterpaymentMethod
                 }
             }
@@ -94,8 +77,8 @@ To search inside a bounding box provide the following query parameter:
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(pagenumber: Int? = nil, pagesize: Int? = nil, filterpoiType: PCPOIFilterpoiType? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, compileopeningHours: Bool? = nil, filtersource: ID? = nil, filterpaymentMethod: String? = nil) {
-                let options = Options(pagenumber: pagenumber, pagesize: pagesize, filterpoiType: filterpoiType, filterappType: filterappType, filterlatitude: filterlatitude, filterlongitude: filterlongitude, filterradius: filterradius, filterboundingBox: filterboundingBox, compileopeningHours: compileopeningHours, filtersource: filtersource, filterpaymentMethod: filterpaymentMethod)
+            public convenience init(pagenumber: Int? = nil, pagesize: Int? = nil, filterappType: [PCPOIFilterappType]? = nil, filterlatitude: Float? = nil, filterlongitude: Float? = nil, filterradius: Float? = nil, filterboundingBox: [Float]? = nil, filterpaymentMethod: String? = nil) {
+                let options = Options(pagenumber: pagenumber, pagesize: pagesize, filterappType: filterappType, filterlatitude: filterlatitude, filterlongitude: filterlongitude, filterradius: filterradius, filterboundingBox: filterboundingBox, filterpaymentMethod: filterpaymentMethod)
                 self.init(options: options)
             }
 
@@ -106,9 +89,6 @@ To search inside a bounding box provide the following query parameter:
                 }
                 if let pagesize = options.pagesize {
                   params["page[size]"] = pagesize
-                }
-                if let filterpoiType = options.filterpoiType?.encode() {
-                  params["filter[poiType]"] = filterpoiType
                 }
                 if let filterappType = options.filterappType?.encode().map({ String(describing: $0) }).joined(separator: ",") {
                   params["filter[appType]"] = filterappType
@@ -124,12 +104,6 @@ To search inside a bounding box provide the following query parameter:
                 }
                 if let filterboundingBox = options.filterboundingBox?.map({ String(describing: $0) }).joined(separator: ",") {
                   params["filter[boundingBox]"] = filterboundingBox
-                }
-                if let compileopeningHours = options.compileopeningHours {
-                  params["compile[openingHours]"] = compileopeningHours
-                }
-                if let filtersource = options.filtersource?.encode() {
-                  params["filter[source]"] = filtersource
                 }
                 if let filterpaymentMethod = options.filterpaymentMethod {
                   params["filter[paymentMethod]"] = filterpaymentMethod

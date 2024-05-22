@@ -22,9 +22,9 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
             public struct Options {
 
                 /** ID of the App */
-                public var appID: ID?
+                public var appID: ID
 
-                public init(appID: ID? = nil) {
+                public init(appID: ID) {
                     self.appID = appID
                 }
             }
@@ -37,13 +37,13 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(appID: ID? = nil) {
+            public convenience init(appID: ID) {
                 let options = Options(appID: appID)
                 self.init(options: options)
             }
 
             public override var path: String {
-                return super.path.replacingOccurrences(of: "{" + "appID" + "}", with: "\(self.options.appID?.encode() ?? "")")
+                return super.path.replacingOccurrences(of: "{" + "appID" + "}", with: "\(self.options.appID.encode())")
             }
 
             override var headerParameters: [String: String] {

@@ -27,7 +27,7 @@ public class PCPayPaymentMethodOMVCreateRequest: APIModel {
         public var kind: PCPayKind
 
         /** Identifier or PAN (Primary Account Number) representing the OMV Card. The identifier is payment provider specific and provided by the payment provider. */
-        public var pan: String?
+        public var pan: String
 
         /** The date the card is expiring in YYMM format. */
         public var expiry: String?
@@ -41,7 +41,7 @@ public class PCPayPaymentMethodOMVCreateRequest: APIModel {
         /** Track 2 data of payment card. */
         public var track2: String?
 
-        public init(kind: PCPayKind, pan: String? = nil, expiry: String? = nil, managed: Bool? = nil, track1: String? = nil, track2: String? = nil) {
+        public init(kind: PCPayKind, pan: String, expiry: String? = nil, managed: Bool? = nil, track1: String? = nil, track2: String? = nil) {
             self.kind = kind
             self.pan = pan
             self.expiry = expiry
@@ -54,7 +54,7 @@ public class PCPayPaymentMethodOMVCreateRequest: APIModel {
             let container = try decoder.container(keyedBy: StringCodingKey.self)
 
             kind = try container.decode("kind")
-            pan = try container.decodeIfPresent("PAN")
+            pan = try container.decode("PAN")
             expiry = try container.decodeIfPresent("expiry")
             managed = try container.decodeIfPresent("managed")
             track1 = try container.decodeIfPresent("track1")
@@ -65,7 +65,7 @@ public class PCPayPaymentMethodOMVCreateRequest: APIModel {
             var container = encoder.container(keyedBy: StringCodingKey.self)
 
             try container.encode(kind, forKey: "kind")
-            try container.encodeIfPresent(pan, forKey: "PAN")
+            try container.encode(pan, forKey: "PAN")
             try container.encodeIfPresent(expiry, forKey: "expiry")
             try container.encodeIfPresent(managed, forKey: "managed")
             try container.encodeIfPresent(track1, forKey: "track1")

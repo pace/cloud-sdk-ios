@@ -26,9 +26,11 @@ public class PCFuelingApproachingResponse: APIModel {
 
     public var transactions: [PCFuelingTransaction]?
 
+    public var unsupportedPaymentMethodKinds: [PCFuelingPaymentMethodKind]?
+
     public var unsupportedPaymentMethods: [PCFuelingPaymentMethod]?
 
-    public init(id: ID? = nil, type: PCFuelingType? = nil, gasStation: PCFuelingGasStation? = nil, gasStationNote: PCFuelingGasStationNote? = nil, paymentMethods: [PCFuelingPaymentMethod]? = nil, supportedPaymentMethodKinds: [PCFuelingPaymentMethodKind]? = nil, transactions: [PCFuelingTransaction]? = nil, unsupportedPaymentMethods: [PCFuelingPaymentMethod]? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, gasStation: PCFuelingGasStation? = nil, gasStationNote: PCFuelingGasStationNote? = nil, paymentMethods: [PCFuelingPaymentMethod]? = nil, supportedPaymentMethodKinds: [PCFuelingPaymentMethodKind]? = nil, transactions: [PCFuelingTransaction]? = nil, unsupportedPaymentMethodKinds: [PCFuelingPaymentMethodKind]? = nil, unsupportedPaymentMethods: [PCFuelingPaymentMethod]? = nil) {
         self.id = id
         self.type = type
         self.gasStation = gasStation
@@ -36,6 +38,7 @@ public class PCFuelingApproachingResponse: APIModel {
         self.paymentMethods = paymentMethods
         self.supportedPaymentMethodKinds = supportedPaymentMethodKinds
         self.transactions = transactions
+        self.unsupportedPaymentMethodKinds = unsupportedPaymentMethodKinds
         self.unsupportedPaymentMethods = unsupportedPaymentMethods
     }
 
@@ -49,6 +52,7 @@ public class PCFuelingApproachingResponse: APIModel {
         paymentMethods = try container.decodeIfPresent("paymentMethods")
         supportedPaymentMethodKinds = try container.decodeIfPresent("supportedPaymentMethodKinds")
         transactions = try container.decodeIfPresent("transactions")
+        unsupportedPaymentMethodKinds = try container.decodeIfPresent("unsupportedPaymentMethodKinds")
         unsupportedPaymentMethods = try container.decodeIfPresent("unsupportedPaymentMethods")
     }
 
@@ -62,6 +66,7 @@ public class PCFuelingApproachingResponse: APIModel {
         try container.encodeIfPresent(paymentMethods, forKey: "paymentMethods")
         try container.encodeIfPresent(supportedPaymentMethodKinds, forKey: "supportedPaymentMethodKinds")
         try container.encodeIfPresent(transactions, forKey: "transactions")
+        try container.encodeIfPresent(unsupportedPaymentMethodKinds, forKey: "unsupportedPaymentMethodKinds")
         try container.encodeIfPresent(unsupportedPaymentMethods, forKey: "unsupportedPaymentMethods")
     }
 
@@ -74,6 +79,7 @@ public class PCFuelingApproachingResponse: APIModel {
       guard self.paymentMethods == object.paymentMethods else { return false }
       guard self.supportedPaymentMethodKinds == object.supportedPaymentMethodKinds else { return false }
       guard self.transactions == object.transactions else { return false }
+      guard self.unsupportedPaymentMethodKinds == object.unsupportedPaymentMethodKinds else { return false }
       guard self.unsupportedPaymentMethods == object.unsupportedPaymentMethods else { return false }
       return true
     }

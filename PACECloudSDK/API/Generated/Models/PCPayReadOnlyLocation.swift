@@ -11,9 +11,13 @@ public class PCPayReadOnlyLocation: APIModel {
 
     public var brand: String?
 
+    public var brandId: String?
+
     public var latitude: Float?
 
     public var longitude: Float?
+
+    public var stationName: String?
 
     public class Address: APIModel {
 
@@ -71,11 +75,13 @@ public class PCPayReadOnlyLocation: APIModel {
         }
     }
 
-    public init(address: Address? = nil, brand: String? = nil, latitude: Float? = nil, longitude: Float? = nil) {
+    public init(address: Address? = nil, brand: String? = nil, brandId: String? = nil, latitude: Float? = nil, longitude: Float? = nil, stationName: String? = nil) {
         self.address = address
         self.brand = brand
+        self.brandId = brandId
         self.latitude = latitude
         self.longitude = longitude
+        self.stationName = stationName
     }
 
     public required init(from decoder: Decoder) throws {
@@ -83,8 +89,10 @@ public class PCPayReadOnlyLocation: APIModel {
 
         address = try container.decodeIfPresent("address")
         brand = try container.decodeIfPresent("brand")
+        brandId = try container.decodeIfPresent("brandId")
         latitude = try container.decodeIfPresent("latitude")
         longitude = try container.decodeIfPresent("longitude")
+        stationName = try container.decodeIfPresent("stationName")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -92,16 +100,20 @@ public class PCPayReadOnlyLocation: APIModel {
 
         try container.encodeIfPresent(address, forKey: "address")
         try container.encodeIfPresent(brand, forKey: "brand")
+        try container.encodeIfPresent(brandId, forKey: "brandId")
         try container.encodeIfPresent(latitude, forKey: "latitude")
         try container.encodeIfPresent(longitude, forKey: "longitude")
+        try container.encodeIfPresent(stationName, forKey: "stationName")
     }
 
     public func isEqual(to object: Any?) -> Bool {
       guard let object = object as? PCPayReadOnlyLocation else { return false }
       guard self.address == object.address else { return false }
       guard self.brand == object.brand else { return false }
+      guard self.brandId == object.brandId else { return false }
       guard self.latitude == object.latitude else { return false }
       guard self.longitude == object.longitude else { return false }
+      guard self.stationName == object.stationName else { return false }
       return true
     }
 

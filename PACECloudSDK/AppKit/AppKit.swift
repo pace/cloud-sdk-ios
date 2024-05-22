@@ -167,17 +167,6 @@ public extension AppKit {
         shared.appManager.startRetrievingLocation()
     }
 
-    /**
-     Requests a list `AppData` for all available apps.
-     */
-    static func requestListOfAppData(completion: @escaping (Result<[AppKit.AppData], AppKit.AppError>) -> Void) {
-        shared.appManager.fetchListOfApps { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-    }
-
     static func sendEvent(_ event: AppEvent) {
         NotificationCenter.default.post(name: .appEventOccured, object: event)
     }

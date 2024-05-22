@@ -30,6 +30,8 @@ public class PCPOIGasStation: APIModel {
 
     public var brand: String?
 
+    public var brandID: String?
+
     public var contact: Contact?
 
     public var food: [String]?
@@ -219,7 +221,7 @@ public class PCPOIGasStation: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCPOIType? = nil, fuelPrices: [PCPOIFuelPrice]? = nil, locationBasedApps: [PCPOILocationBasedApp]? = nil, referenceStatuses: [PCPOIReferenceStatus]? = nil, sucessorOf: [PCPOIGasStation]? = nil, address: Address? = nil, amenities: [String]? = nil, brand: String? = nil, contact: Contact? = nil, food: [String]? = nil, latitude: Float? = nil, longitude: Float? = nil, loyaltyPrograms: [String]? = nil, onlinePayment: OnlinePayment? = nil, openingHours: PCPOICommonOpeningHours? = nil, paymentMethods: [String]? = nil, postalServices: [String]? = nil, priceFormat: String? = nil, references: [String]? = nil, services: [String]? = nil, shopGoods: [String]? = nil, stationName: String? = nil) {
+    public init(id: ID? = nil, type: PCPOIType? = nil, fuelPrices: [PCPOIFuelPrice]? = nil, locationBasedApps: [PCPOILocationBasedApp]? = nil, referenceStatuses: [PCPOIReferenceStatus]? = nil, sucessorOf: [PCPOIGasStation]? = nil, address: Address? = nil, amenities: [String]? = nil, brand: String? = nil, brandID: String? = nil, contact: Contact? = nil, food: [String]? = nil, latitude: Float? = nil, longitude: Float? = nil, loyaltyPrograms: [String]? = nil, onlinePayment: OnlinePayment? = nil, openingHours: PCPOICommonOpeningHours? = nil, paymentMethods: [String]? = nil, postalServices: [String]? = nil, priceFormat: String? = nil, references: [String]? = nil, services: [String]? = nil, shopGoods: [String]? = nil, stationName: String? = nil) {
         self.id = id
         self.type = type
         self.fuelPrices = fuelPrices
@@ -229,6 +231,7 @@ public class PCPOIGasStation: APIModel {
         self.address = address
         self.amenities = amenities
         self.brand = brand
+        self.brandID = brandID
         self.contact = contact
         self.food = food
         self.latitude = latitude
@@ -257,6 +260,7 @@ public class PCPOIGasStation: APIModel {
         address = try container.decodeIfPresent("address")
         amenities = try container.decodeArrayIfPresent("amenities")
         brand = try container.decodeIfPresent("brand")
+        brandID = try container.decodeIfPresent("brandID")
         contact = try container.decodeIfPresent("contact")
         food = try container.decodeArrayIfPresent("food")
         latitude = try container.decodeIfPresent("latitude")
@@ -285,6 +289,7 @@ public class PCPOIGasStation: APIModel {
         try container.encodeIfPresent(address, forKey: "address")
         try container.encodeIfPresent(amenities, forKey: "amenities")
         try container.encodeIfPresent(brand, forKey: "brand")
+        try container.encodeIfPresent(brandID, forKey: "brandID")
         try container.encodeIfPresent(contact, forKey: "contact")
         try container.encodeIfPresent(food, forKey: "food")
         try container.encodeIfPresent(latitude, forKey: "latitude")
@@ -312,6 +317,7 @@ public class PCPOIGasStation: APIModel {
       guard self.address == object.address else { return false }
       guard self.amenities == object.amenities else { return false }
       guard self.brand == object.brand else { return false }
+      guard self.brandID == object.brandID else { return false }
       guard self.contact == object.contact else { return false }
       guard self.food == object.food else { return false }
       guard self.latitude == object.latitude else { return false }

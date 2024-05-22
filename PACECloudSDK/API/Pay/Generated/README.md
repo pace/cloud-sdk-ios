@@ -152,6 +152,8 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayDiscountRelationship**
 - **PCPayDiscounts**
 - **PCPayErrors**
+- **PCPayFleetPaymentMethod**
+- **PCPayFleetPaymentMethodOMVCreateRequest**
 - **PCPayFuel**
 - **PCPayPRN**
 - **PCPayPagingMeta**
@@ -172,7 +174,6 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayPaymentMethodOMVCreateRequest**
 - **PCPayPaymentMethodPayDirektCreateRequest**
 - **PCPayPaymentMethodPayPalCreateRequest**
-- **PCPayPaymentMethodRadiusCreateRequest**
 - **PCPayPaymentMethodRelationship**
 - **PCPayPaymentMethodRoadrunnerCreateRequest**
 - **PCPayPaymentMethodSepaCreateRequest**
@@ -196,14 +197,14 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 - **PCPayTransactionIDListRequest**
 - **PCPayTransactionLinks**
 - **PCPayTransactionMetadata**
-- **PCPayTransactionShort**
 - **PCPayTransactions**
-- **PCPayTransactionsShort**
 
 ## Requests
 
-- **PayAPI.JET**
-	- **ListTransactionsForJET**: GET `/transactions/contracts/partners/jet`
+- **PayAPI.FleetPaymentMethods**
+	- **CreateFleetPaymentMethodOMV**: POST `/fleet/payment-methods/omv`
+	- **DeleteFleetPaymentMethod**: DELETE `/fleet/payment-methods/{paymentmethodid}`
+	- **GetFleetPaymentMethod**: GET `/fleet/payment-methods/{paymentmethodid}`
 - **PayAPI.NewPaymentMethods**
 	- **CreatePaymentMethodCreditCard**: POST `/payment-methods/creditcard`
 	- **CreatePaymentMethodDKV**: POST `/payment-methods/dkv`
@@ -216,7 +217,6 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **CreatePaymentMethodPACECardSandbox**: POST `/payment-methods/pacecardsandbox`
 	- **CreatePaymentMethodPayDirekt**: POST `/payment-methods/paydirekt`
 	- **CreatePaymentMethodPayPal**: POST `/payment-methods/paypal`
-	- **CreatePaymentMethodRadius**: POST `/payment-methods/radius`
 	- **CreatePaymentMethodRoadrunner**: POST `/payment-methods/roadrunner`
 	- **CreatePaymentMethodSEPA**: POST `/payment-methods/sepa-direct-debit`
 	- **CreatePaymentMethodTFC**: POST `/payment-methods/tfc`
@@ -252,6 +252,5 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **ListTransactions**: GET `/transactions`
 	- **ListTransactionsCSV**: GET `/transactions.csv`
 	- **ListTransactionsForContractID**: GET `/transactions/contracts/{contractid}`
-	- **ListTransactionsForJET**: GET `/transactions/contracts/partners/jet`
 	- **ProcessPayment**: POST `/transactions`
 	- **ResendReceipt**: POST `/receipts/resend`

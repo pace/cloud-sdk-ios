@@ -13,15 +13,15 @@ public struct FuelingAPI {
                                                             locale: Locale(identifier: "de_DE"),
                                                             calendar: Calendar(identifier: .gregorian))
 
-    public static let version = "2022-1"
+    public static let version = "2024-2"
 
     public enum Discount {}
     public enum Fueling {}
     public enum Notification {}
 
     public enum FuelingAPIServer {
-        /** Production server (stable release 2022-1) **/
-        public static let main = "https://api.pace.cloud/fueling/2022-1"
+        /** Production server (stable release 2024-2) **/
+        public static let main = "https://api.pace.cloud/fueling/2024-2"
     }
 }
 

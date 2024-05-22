@@ -23,12 +23,8 @@ extension POIAPI.GasStations {
                 /** Gas station ID */
                 public var id: ID
 
-                /** Reduces the opening hours rules. After compilation, only rules with the action open will remain in the response. */
-                public var compileopeningHours: Bool?
-
-                public init(id: ID, compileopeningHours: Bool? = nil) {
+                public init(id: ID) {
                     self.id = id
-                    self.compileopeningHours = compileopeningHours
                 }
             }
 
@@ -40,21 +36,13 @@ extension POIAPI.GasStations {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(id: ID, compileopeningHours: Bool? = nil) {
-                let options = Options(id: id, compileopeningHours: compileopeningHours)
+            public convenience init(id: ID) {
+                let options = Options(id: id)
                 self.init(options: options)
             }
 
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "id" + "}", with: "\(self.options.id.encode())")
-            }
-
-            public override var queryParameters: [String: Any] {
-                var params: [String: Any] = [:]
-                if let compileopeningHours = options.compileopeningHours {
-                  params["compile[openingHours]"] = compileopeningHours
-                }
-                return params
             }
 
             override var headerParameters: [String: String] {

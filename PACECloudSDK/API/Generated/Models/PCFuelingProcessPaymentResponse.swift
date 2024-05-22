@@ -24,6 +24,9 @@ public class PCFuelingProcessPaymentResponse: APIModel {
     /** Amount that was discounted. Only if any discounts were applied earlier. */
     public var discountAmount: Decimal?
 
+    /** Driver/vehicle identification */
+    public var driverVehicleID: String?
+
     public var gasStationId: ID?
 
     /** Mileage in meters */
@@ -77,12 +80,13 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, discountAmount: Decimal? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, pumpId: ID? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, pumpId: ID? = nil, vin: String? = nil) {
         self.id = id
         self.type = type
         self.vat = vat
         self.currency = currency
         self.discountAmount = discountAmount
+        self.driverVehicleID = driverVehicleID
         self.gasStationId = gasStationId
         self.mileage = mileage
         self.paymentToken = paymentToken
@@ -100,6 +104,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         vat = try container.decodeIfPresent("VAT")
         currency = try container.decodeIfPresent("currency")
         discountAmount = try container.decodeLosslessDecimal("discountAmount")
+        driverVehicleID = try container.decodeIfPresent("driverVehicleID")
         gasStationId = try container.decodeIfPresent("gasStationId")
         mileage = try container.decodeIfPresent("mileage")
         paymentToken = try container.decodeIfPresent("paymentToken")
@@ -117,6 +122,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         try container.encodeIfPresent(vat, forKey: "VAT")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(discountAmount, forKey: "discountAmount")
+        try container.encodeIfPresent(driverVehicleID, forKey: "driverVehicleID")
         try container.encodeIfPresent(gasStationId, forKey: "gasStationId")
         try container.encodeIfPresent(mileage, forKey: "mileage")
         try container.encodeIfPresent(paymentToken, forKey: "paymentToken")
@@ -133,6 +139,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
       guard self.vat == object.vat else { return false }
       guard self.currency == object.currency else { return false }
       guard self.discountAmount == object.discountAmount else { return false }
+      guard self.driverVehicleID == object.driverVehicleID else { return false }
       guard self.gasStationId == object.gasStationId else { return false }
       guard self.mileage == object.mileage else { return false }
       guard self.paymentToken == object.paymentToken else { return false }

@@ -31,8 +31,14 @@ public class PCPayTransactionCreateRequest: APIModel {
 
         public var vat: VAT?
 
+        /** additional data for omv */
+        public var additionalData: String?
+
         /** Currency as specified in ISO-4217. */
         public var currency: String?
+
+        /** Driver/vehicle identification */
+        public var driverVehicleID: String?
 
         public var fuel: PCPayFuel?
 
@@ -108,12 +114,14 @@ public class PCPayTransactionCreateRequest: APIModel {
             }
         }
 
-        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, currency: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, metadata: [PCPayTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, unattended: Bool? = nil, vin: String? = nil) {
+        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, additionalData: String? = nil, currency: String? = nil, driverVehicleID: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, metadata: [PCPayTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, unattended: Bool? = nil, vin: String? = nil) {
             self.paymentToken = paymentToken
             self.purposePRN = purposePRN
             self.providerPRN = providerPRN
             self.vat = vat
+            self.additionalData = additionalData
             self.currency = currency
+            self.driverVehicleID = driverVehicleID
             self.fuel = fuel
             self.fuelAmount = fuelAmount
             self.fuelProductName = fuelProductName
@@ -136,7 +144,9 @@ public class PCPayTransactionCreateRequest: APIModel {
             purposePRN = try container.decode("purposePRN")
             providerPRN = try container.decode("providerPRN")
             vat = try container.decodeIfPresent("VAT")
+            additionalData = try container.decodeIfPresent("additionalData")
             currency = try container.decodeIfPresent("currency")
+            driverVehicleID = try container.decodeIfPresent("driverVehicleID")
             fuel = try container.decodeIfPresent("fuel")
             fuelAmount = try container.decodeLosslessDecimal("fuelAmount")
             fuelProductName = try container.decodeIfPresent("fuelProductName")
@@ -159,7 +169,9 @@ public class PCPayTransactionCreateRequest: APIModel {
             try container.encode(purposePRN, forKey: "purposePRN")
             try container.encode(providerPRN, forKey: "providerPRN")
             try container.encodeIfPresent(vat, forKey: "VAT")
+            try container.encodeIfPresent(additionalData, forKey: "additionalData")
             try container.encodeIfPresent(currency, forKey: "currency")
+            try container.encodeIfPresent(driverVehicleID, forKey: "driverVehicleID")
             try container.encodeIfPresent(fuel, forKey: "fuel")
             try container.encodeIfPresent(fuelAmount, forKey: "fuelAmount")
             try container.encodeIfPresent(fuelProductName, forKey: "fuelProductName")
@@ -181,7 +193,9 @@ public class PCPayTransactionCreateRequest: APIModel {
           guard self.purposePRN == object.purposePRN else { return false }
           guard self.providerPRN == object.providerPRN else { return false }
           guard self.vat == object.vat else { return false }
+          guard self.additionalData == object.additionalData else { return false }
           guard self.currency == object.currency else { return false }
+          guard self.driverVehicleID == object.driverVehicleID else { return false }
           guard self.fuel == object.fuel else { return false }
           guard self.fuelAmount == object.fuelAmount else { return false }
           guard self.fuelProductName == object.fuelProductName else { return false }
