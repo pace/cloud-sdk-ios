@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get latest information
+git fetch --all --tags --prune --prune-tags
+
 DATE=$(date +'%Y-%m-%d')
 CURRENT_VERSION=$(git describe --tags --abbrev=0 --match "[0-9]*" --exclude "0.1") # Make sure to ignore the dev-review tag '0.1'
 
@@ -26,9 +29,6 @@ trim_subject () {
   trimmed_subject=$(echo $subject | sed -e s/^.*:" "//)
   trimmed_subject=$(echo $trimmed_subject | awk '{$1=toupper(substr($1,0,1))substr($1,2)}1')
 }
-
-# Get latest information
-git fetch --all
 
 # Get all commits since latest tag - without merge commits - formatted to only include the commit hash
 # Only using the hashes here to avoid cumbersome parsing
