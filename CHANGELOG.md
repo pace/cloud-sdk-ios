@@ -1,3 +1,22 @@
+23.0.0 Release notes (2024-05-23)
+=============================================================
+
+### Breaking Changes
+
+* Update poi api to 2024-1
+* Update pay api to 2024-2
+* Update fueling api to 2024-2
+
+### Internal
+
+* Adjust bump script to correctly prune tags
+* Bump version to 23.0.1"
+* Bump version to 23.0.1
+* Bump version to 23.0.0"
+* Bump version to 23.0.0
+* Adjust review deploy tag version
+* Adjust unit tests to appropriate locale
+
 22.0.1 Release notes (2024-05-14)
 =============================================================
 
