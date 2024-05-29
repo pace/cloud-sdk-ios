@@ -9,7 +9,7 @@ import Foundation
 
 struct URLRequestBuilder {
     static func buildRequest(with urlString: String, additionalHeaders: [String: String]?) -> URLRequest? {
-        guard let url = URL(string: urlString), let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {
+        guard let url = URL(string: urlString), let urlWithQueryParams = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
             return nil
         }
 

@@ -8,7 +8,6 @@
 import Foundation
 
 extension IDKit {
-    func performApiInducedRefresh(_ completion: @escaping (IDKitError?) -> Void) {}
     static func performDiscovery(issuerUrl: String, _ completion: @escaping (Result<OIDConfiguration.Response, IDKitError>) -> Void) {}
 }
 

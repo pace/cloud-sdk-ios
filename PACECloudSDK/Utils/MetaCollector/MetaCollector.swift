@@ -77,7 +77,7 @@ public extension PACECloudSDK.MetaCollector {
 private extension PACECloudSDK.MetaCollector {
     func performRequest(data: Data) {
         guard let url = URL(string: "\(Settings.shared.apiGateway)/client-data-collector/data"),
-              let utmUrl = QueryParamHandler.buildUrl(for: url) else {
+              let utmUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
             SDKLogger.e("[MetaCollector] Failed building url.")
             return
         }

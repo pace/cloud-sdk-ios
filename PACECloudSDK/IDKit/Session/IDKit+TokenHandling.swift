@@ -123,15 +123,16 @@ extension IDKit {
     func handleUpdatedAccessToken(with token: String?) {
         API.accessToken = token
 
-        guard let token = token,
-              let userId = TokenValidator(accessToken: token).jwtValue(for: IDKitConstants.jwtSubjectKey) as? String else {
+        if let token = token,
+           let userId = TokenValidator(accessToken: token).jwtValue(for: IDKitConstants.jwtSubjectKey) as? String {
+            SDKUserDefaults.setUserId(userId)
+            SDKKeychain.setUserId(userId)
+        } else {
             SDKUserDefaults.deleteUserScopedData()
             SDKKeychain.deleteUserScopedData()
-            return
         }
 
-        SDKUserDefaults.setUserId(userId)
-        SDKKeychain.setUserId(userId)
+        delegate?.accessTokenChanged(token)
     }
 }
 

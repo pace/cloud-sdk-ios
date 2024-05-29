@@ -30,7 +30,7 @@ public class CDNAPIClient {
 
     public func paymentMethodVendors(completion: @escaping (Result<[PaymentMethodVendor], APIClientError>) -> Void) {
         guard let url = URL(string: "\(baseURL)\(Constants.cdnPayPath)/payment-method-vendors.json"),
-              let utmUrl = QueryParamHandler.buildUrl(for: url) else {
+              let utmUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
             completion(.failure(.requestEncodingError(APIRequestError.encodingURL)))
             return
         }
@@ -127,7 +127,7 @@ public class CDNAPIClient {
 
     private func performIconRequest(urlString: String, completion: @escaping (Data?) -> Void) {
         guard let url = URL(string: urlString),
-              let utmUrl = QueryParamHandler.buildUrl(for: url) else {
+              let utmUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
             completion(nil)
             return
         }

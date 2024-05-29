@@ -122,7 +122,7 @@ struct PayAPIRequestBehaviourGroup {
         }
 
         if let newRequestUrl = newRequest.url {
-            newRequest.url = QueryParamHandler.buildUrl(for: newRequestUrl)
+            newRequest.url = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: newRequestUrl)
         }
 
         newRequest.setValue(Constants.Tracing.identifier, forHTTPHeaderField: Constants.Tracing.key)

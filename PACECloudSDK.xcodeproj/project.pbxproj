@@ -479,7 +479,6 @@
 		3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C74F25DD67E500039296 /* GeoAPIManager.swift */; };
 		3B86C78A25DD6AA500039296 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
 		3B86D88D279FDEF8001F4F9B /* DecimalDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */; };
-		3B879A99268210FF00D400B4 /* IDKit+API+TokenHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */; };
 		3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06925DACE6400D635F0 /* SwiftProtobuf */; };
 		3B8A65A62710723D00B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
 		3B8A65A727107C7600B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
@@ -1381,7 +1380,6 @@
 		3B86C74F25DD67E500039296 /* GeoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIManager.swift; sourceTree = "<group>"; };
 		3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIResponse.swift; sourceTree = "<group>"; };
 		3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalDecodingTests.swift; sourceTree = "<group>"; };
-		3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IDKit+API+TokenHandling.swift"; sourceTree = "<group>"; };
 		3B889CAE27ABC82E009BE1E1 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B889CB027ABC842009BE1E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B889CB327ABC8A3009BE1E1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1984,7 +1982,6 @@
 		3B1E9105253D844E00DC4BB1 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				3B76F7562576468F008D8F9A /* API.swift */,
 				84A43A462580E35A00DE36FA /* Generated */,
 				3B637995281AC10200CD436A /* CDN */,
 				3B1448F42A44719200015EF9 /* Custom */,
@@ -2604,7 +2601,6 @@
 		3B9B6420266F767700B2DC27 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				3B879A98268210FF00D400B4 /* IDKit+API+TokenHandling.swift */,
 				3B9B6421266F768F00B2DC27 /* IDKit+App+TokenHandling.swift */,
 				3BB2093C25384A77008DDE45 /* IDKit+TokenHandling.swift */,
 			);
@@ -3255,14 +3251,15 @@
 		84A43A8B2580E35A00DE36FA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				84A43A922580E35A00DE36FA /* AnyCodable.swift */,
+				84A43B0B2580EA3700DE36FA /* AnyResponse.swift */,
+				3B76F7562576468F008D8F9A /* API.swift */,
+				84A43A8F2580E35A00DE36FA /* APIClientError.swift */,
 				8431E1A3258B89F0009401BF /* APIRequestUtils.swift */,
 				8431E1A4258B89F0009401BF /* APIResponseUtils.swift */,
-				84A43B0B2580EA3700DE36FA /* AnyResponse.swift */,
-				84A43A8C2580E35A00DE36FA /* Coding.swift */,
 				84A43A8D2580E35A00DE36FA /* APIResult.swift */,
-				84A43A8F2580E35A00DE36FA /* APIClientError.swift */,
+				84A43A8C2580E35A00DE36FA /* Coding.swift */,
 				84A43A912580E35A00DE36FA /* URLEncoding.swift */,
-				84A43A922580E35A00DE36FA /* AnyCodable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -4326,7 +4323,6 @@
 				3B85531D253D6FD8001F7B66 /* DeviceInformation.swift in Sources */,
 				9A906BA9284637D700463618 /* PCPayPRN.swift in Sources */,
 				8447A3CB25CAAE750095BEF1 /* UserAPICreateUserPassword.swift in Sources */,
-				3B879A99268210FF00D400B4 /* IDKit+API+TokenHandling.swift in Sources */,
 				9A906B9D284637D700463618 /* PCPayPaymentMethodRMCCreateRequest.swift in Sources */,
 				3B2FB1BB2844EB2800E8CD0C /* PCUserEmailRequest.swift in Sources */,
 				3B987073268E06AE00A0458F /* CloseResult.swift in Sources */,
