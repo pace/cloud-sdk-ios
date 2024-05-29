@@ -36,6 +36,15 @@ public protocol IDKitDelegate: AnyObject {
      - parameter result:The result of the authorization containing either the access token if successful or an error.
      */
     func didPerformAuthorization(_ result: Result<String, IDKit.IDKitError>)
+
+    /**
+     Called, whenever `IDKit` updates the access token.
+
+     This includes authorizations, token refreshs and session resets.
+
+     - parameter newAccessToken: The new access token or `nil` if none available.
+     */
+    func accessTokenChanged(_ newAccessToken: String?)
 }
 
 public extension IDKitDelegate {
@@ -46,4 +55,5 @@ public extension IDKitDelegate {
     }
 
     func didPerformAuthorization(_ result: Result<String, IDKit.IDKitError>) {}
+    func accessTokenChanged(_ newAccessToken: String?) {}
 }

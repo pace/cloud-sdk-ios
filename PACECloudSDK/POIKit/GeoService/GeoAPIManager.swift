@@ -262,7 +262,7 @@ class GeoAPIManager {
 
         let baseUrl = Settings.shared.geoApiHostUrl
         guard let url = URL(string: "\(baseUrl)/\(apiVersion)/apps/\(geoAppsScope).geojson"),
-              let urlWithQueryParams = QueryParamHandler.buildUrl(for: url) else {
+              let urlWithQueryParams = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
             result(.failure(.unknownError))
             return
         }

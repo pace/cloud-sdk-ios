@@ -8,7 +8,7 @@
 import XCTest
 @testable import PACECloudSDK
 
-class QueryParamHandlerTests: XCTestCase {
+class QueryParamUTMHandlerTests: XCTestCase {
     override class func setUp() {
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
                                               clientId: "unit-test-dummy",
@@ -20,7 +20,7 @@ class QueryParamHandlerTests: XCTestCase {
         let url = URL(string: "https://pace.cloud?id=1337&foo=bar&utm_source=UnitTestDummy")
         PACECloudSDK.shared.additionalQueryParams = nil
 
-        let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
+        let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url!)
 
         XCTAssertEqual(url!.absoluteString, modifiedUrl!.absoluteString)
     }
@@ -31,7 +31,7 @@ class QueryParamHandlerTests: XCTestCase {
 
         PACECloudSDK.shared.additionalQueryParams = Set(queryItems)
 
-        let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
+        let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url!)
         let components = URLComponents(string: modifiedUrl!.absoluteString)
 
         XCTAssertNotEqual(url!.absoluteString, modifiedUrl!.absoluteString)
@@ -45,7 +45,7 @@ class QueryParamHandlerTests: XCTestCase {
 
         PACECloudSDK.shared.additionalQueryParams = Set(queryItems)
 
-        let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
+        let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url!)
         let components = URLComponents(string: modifiedUrl!.absoluteString)
 
         XCTAssertEqual(utmURL!.absoluteString, modifiedUrl!.absoluteString)
@@ -58,7 +58,7 @@ class QueryParamHandlerTests: XCTestCase {
 
         PACECloudSDK.shared.additionalQueryParams = Set(queryItems)
 
-        let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
+        let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url!)
         let components = URLComponents(string: modifiedUrl!.absoluteString)
 
         XCTAssertEqual(url!.absoluteString, modifiedUrl!.absoluteString)
@@ -71,7 +71,7 @@ class QueryParamHandlerTests: XCTestCase {
 
         PACECloudSDK.shared.additionalQueryParams = Set(queryItems)
 
-        let modifiedUrl = QueryParamHandler.buildUrl(for: url!)
+        let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url!)
 
         XCTAssertEqual(url!.absoluteString, modifiedUrl!.absoluteString)
     }

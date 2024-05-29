@@ -31,7 +31,7 @@ extension App {
         }
 
         // Add additional query parameter to request, if applicable
-        guard let utmUrl = QueryParamHandler.buildUrl(for: url) else {
+        guard let utmUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
             AppKitLogger.e("[App] Can't load component url")
             AppKit.shared.notifyDidFail(with: .failedRetrievingUrl)
             return
