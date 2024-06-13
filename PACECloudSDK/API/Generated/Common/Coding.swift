@@ -235,7 +235,7 @@ let dateDecoder: (Decoder) throws -> Date = { decoder in
         let string = try container.decode(String.self)
 
         let formatterWithMilliseconds = DateFormatter()
-        formatterWithMilliseconds.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        formatterWithMilliseconds.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         formatterWithMilliseconds.locale = Locale(identifier: "de_DE")
         formatterWithMilliseconds.timeZone = TimeZone(identifier: "UTC")
         formatterWithMilliseconds.calendar = Calendar(identifier: .gregorian)

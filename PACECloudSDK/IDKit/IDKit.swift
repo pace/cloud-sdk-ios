@@ -18,10 +18,6 @@ public class IDKit {
         sharedInstance != nil
     }
 
-    static var isSessionAvailable: Bool {
-        sharedInstance?.session != nil
-    }
-
     static var defaultScopes: [String] {
         [OIDScopeOpenID]
     }
@@ -76,10 +72,6 @@ public class IDKit {
         shared?.performAppInducedSessionReset(with: error, completion)
     }
 
-    static func apiInducedRefresh(_ completion: @escaping (IDKitError?) -> Void) {
-        shared?.performApiInducedRefresh(completion)
-    }
-
     func presentSignInWindow() {
         paceIDSignInWindow = PaceIDSignInWindow.create()
     }
@@ -101,6 +93,23 @@ public extension IDKit {
     static var presentingViewController: UIViewController? {
         get { shared?.clientPresentingViewController }
         set { shared?.clientPresentingViewController = newValue }
+    }
+
+    /**
+     Checks if a session object is available.
+
+     If this statement returns `true`, it does not necessarily mean the access token is valid or even non-nil.
+     It just means there generally is a session object available for the current user 
+     even though the access might not be fresh.
+
+     Can be used to check whether a user is supposed to be authenticated.
+
+     To check the state of the latest access token, use `IDKit.latestAccessToken()`.
+     
+     - returns: Whether a session object exists.
+     */
+    static var isSessionAvailable: Bool {
+        shared?.session != nil
     }
 }
 

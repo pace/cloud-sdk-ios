@@ -171,7 +171,7 @@ class HttpRequest: NSObject, HttpRequestProtocol {
                                 onCompletion: @escaping (_ response: HTTPURLResponse?, _ data: Data?, _ error: Error?) -> Void) -> URLSessionTask {
         var newRequest = request
 
-        if let oldUrl = request.url, let modifiedUrl = QueryParamHandler.buildUrl(for: oldUrl) {
+        if let oldUrl = request.url, let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: oldUrl) {
             newRequest.url = modifiedUrl
         }
 

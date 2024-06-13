@@ -136,8 +136,8 @@ public class CustomAPIClient {
         if response.statusCode == HttpStatusCode.unauthorized.rawValue
             && currentUnauthorizedRetryCount < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
-            IDKit.apiInducedRefresh { [weak self] error in
-                guard let error = error else {
+            IDKit.refreshToken { [weak self] result in
+                guard case .failure(let error) = result else {
                     let updatedRequest = self?.updateAccessToken(of: request) ?? request
                     _ = self?.makeNetworkRequest(request: updatedRequest,
                                                  currentUnauthorizedRetryCount: currentUnauthorizedRetryCount + 1,
@@ -201,7 +201,7 @@ public class CustomAPIClient {
         var newRequest = request
 
         if let newRequestUrl = newRequest.url {
-            newRequest.url = QueryParamHandler.buildUrl(for: newRequestUrl)
+            newRequest.url = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: newRequestUrl)
         }
 
         newRequest.setValue(Constants.Tracing.identifier, forHTTPHeaderField: Constants.Tracing.key)
