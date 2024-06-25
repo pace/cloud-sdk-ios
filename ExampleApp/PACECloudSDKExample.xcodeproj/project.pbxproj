@@ -195,6 +195,9 @@
 		3BEF1E312864922400852A18 /* PaymentMethodVendorsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodVendorsRow.swift; sourceTree = "<group>"; };
 		6ACBC02F26FB758800E6AC05 /* ExampleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleLogger.swift; sourceTree = "<group>"; };
 		6ACBC03526FDC17D00E6AC05 /* ShareObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareObject.swift; sourceTree = "<group>"; };
+		9A2B25BC2C3679CA000E7233 /* SameBrand.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SameBrand.gpx; sourceTree = "<group>"; };
+		9A2B25BD2C3679CA000E7233 /* DifferentBrands.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DifferentBrands.gpx; sourceTree = "<group>"; };
+		9A2B25BE2C3679CA000E7233 /* TestStationLinkenheimHochstetten.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestStationLinkenheimHochstetten.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +288,9 @@
 		3B784C5026B3E84B00B1D859 /* GPX */ = {
 			isa = PBXGroup;
 			children = (
+				9A2B25BD2C3679CA000E7233 /* DifferentBrands.gpx */,
+				9A2B25BC2C3679CA000E7233 /* SameBrand.gpx */,
+				9A2B25BE2C3679CA000E7233 /* TestStationLinkenheimHochstetten.gpx */,
 				3B784C5126B3E85700B1D859 /* HEM(Baden).gpx */,
 				3B784C5326B3E86000B1D859 /* Kirche-Jet.gpx */,
 				3B784C4C26B3E83F00B1D859 /* PACE.gpx */,

@@ -34,7 +34,7 @@ extension AppKit {
         let labelsPadding = AppDrawer.drawerSize + 8
         var lastSlideDirection: SlideDirection = .left
 
-        var appDrawerBackgroundColor: UIColor = AppStyle.lightColor
+        var appDrawerBackgroundColor: UIColor = AppStyle.blueColor
         let appIconBackgroundColor: UIColor
         var distanceViewLeadingConstraint: NSLayoutConstraint?
         var subtitleTrailingConstraint: NSLayoutConstraint?
@@ -60,7 +60,7 @@ extension AppKit {
             return label
         }()
 
-        lazy var distanceView: UIView = {
+        public lazy var distanceView: UIView = {
             let view = UIView()
             view.layer.cornerRadius = 4
             return view
@@ -114,7 +114,7 @@ extension AppKit {
             self.appData = appData
 
             let appColorString = appData.appManifest?.iconBackgroundColor ?? ""
-            appIconBackgroundColor = UIColor(hex: appColorString) ?? AppStyle.lightColor
+            appIconBackgroundColor = UIColor(hex: appColorString) ?? AppStyle.darkColor
 
             super.init(frame: CGRect())
 
@@ -218,8 +218,8 @@ extension AppKit {
                 appDrawerBackgroundColor = themeColor
                 appDrawerTextColor = textColor
             } else {
-                appDrawerBackgroundColor = theme == .light ? AppStyle.lightColor : AppStyle.darkColor
-                appDrawerTextColor = UIColor.contrastColor(hex: appDrawerBackgroundColor.hexString)
+                appDrawerBackgroundColor = AppStyle.blueColor
+                appDrawerTextColor = AppStyle.darkColor
             }
 
             self.appDrawerBackgroundColor = appDrawerBackgroundColor
@@ -368,7 +368,11 @@ extension AppKit.AppDrawer {
                                                                requestedSize: (Int(Self.drawerSize), Int(Self.drawerSize))),
               let iconSource = icon.source,
               let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
-        else { return }
+        else {
+            AppKitLogger.d("[AppDrawer] Set default app drawer image")
+            appImageView.image = AppStyle.iconDefaultAppDrawer
+            return
+        }
 
         appImageView.load(urlString: iconUrlString.absoluteString)
     }
