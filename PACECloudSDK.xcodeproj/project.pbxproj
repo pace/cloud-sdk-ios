@@ -1127,6 +1127,7 @@
 		92EDDED525AC7E0000E480F4 /* Bundle+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDED425AC7E0000E480F4 /* Bundle+Resource.swift */; };
 		92EDDEDA25AC7E1F00E480F4 /* Bundle+Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDED925AC7E1F00E480F4 /* Bundle+Resource.swift */; };
 		92EFB207258B5C00001768F0 /* PACECloudSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EFB206258B5C00001768F0 /* PACECloudSDK.swift */; };
+		9A2B25BB2C3453DC000E7233 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A2B25BA2C3453DC000E7233 /* Assets.xcassets */; };
 		9A906B73284637D700463618 /* PCPayPaymentMethodHoyerCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A906B4C284637D400463618 /* PCPayPaymentMethodHoyerCreateRequest.swift */; };
 		9A906B74284637D700463618 /* PCPayPaymentMethodHoyerCreateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A906B4C284637D400463618 /* PCPayPaymentMethodHoyerCreateRequest.swift */; };
 		9A906B75284637D700463618 /* PCPayPaymentMethodKindMinimal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A906B4D284637D400463618 /* PCPayPaymentMethodKindMinimal.swift */; };
@@ -1817,6 +1818,7 @@
 		92EDDED425AC7E0000E480F4 /* Bundle+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Resource.swift"; sourceTree = "<group>"; };
 		92EDDED925AC7E1F00E480F4 /* Bundle+Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Resource.swift"; sourceTree = "<group>"; };
 		92EFB206258B5C00001768F0 /* PACECloudSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PACECloudSDK.swift; sourceTree = "<group>"; };
+		9A2B25BA2C3453DC000E7233 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A906B4C284637D400463618 /* PCPayPaymentMethodHoyerCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodHoyerCreateRequest.swift; sourceTree = "<group>"; };
 		9A906B4D284637D400463618 /* PCPayPaymentMethodKindMinimal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentMethodKindMinimal.swift; sourceTree = "<group>"; };
 		9A906B4E284637D400463618 /* PCPayPaymentTokenCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayPaymentTokenCreateRequest.swift; sourceTree = "<group>"; };
@@ -3469,6 +3471,7 @@
 				3BC1AD7C25C2F13000725CB9 /* PACECloudSDK+URL.swift */,
 				1718B16526B02F040044146C /* PACECloudSDK+Kits.swift */,
 				9ABA95C52ACAE1C0006768CF /* PrivacyInfo.xcprivacy */,
+				9A2B25BA2C3453DC000E7233 /* Assets.xcassets */,
 			);
 			path = PACECloudSDK;
 			sourceTree = "<group>";
@@ -3757,6 +3760,7 @@
 				3B970A852542D9BB0072F6BA /* Localizable.strings in Resources */,
 				3B970A892542D9BB0072F6BA /* Environment-development.plist in Resources */,
 				9ABA95C62ACAE1C0006768CF /* PrivacyInfo.xcprivacy in Resources */,
+				9A2B25BB2C3453DC000E7233 /* Assets.xcassets in Resources */,
 				3B970A882542D9BB0072F6BA /* Environment-production.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

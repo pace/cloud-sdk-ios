@@ -60,7 +60,7 @@ extension AppKit {
             return label
         }()
 
-        lazy var distanceView: UIView = {
+        public lazy var distanceView: UIView = {
             let view = UIView()
             view.layer.cornerRadius = 4
             return view
@@ -114,7 +114,7 @@ extension AppKit {
             self.appData = appData
 
             let appColorString = appData.appManifest?.iconBackgroundColor ?? ""
-            appIconBackgroundColor = UIColor(hex: appColorString) ?? AppStyle.lightColor
+            appIconBackgroundColor = UIColor(hex: appColorString) ?? AppStyle.darkColor // TODO: dark color here?
 
             super.init(frame: CGRect())
 
@@ -368,7 +368,10 @@ extension AppKit.AppDrawer {
                                                                requestedSize: (Int(Self.drawerSize), Int(Self.drawerSize))),
               let iconSource = icon.source,
               let iconUrlString = URLBuilder.buildAppIconUrl(baseUrl: appData.appBaseUrl, iconSrc: iconSource)
-        else { return }
+        else {
+            // TODO: default image from assets here?
+            return
+        }
 
         appImageView.load(urlString: iconUrlString.absoluteString)
     }
