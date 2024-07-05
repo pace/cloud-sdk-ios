@@ -111,6 +111,7 @@ extension AppManager {
             let appDatas: [AppKit.AppData] = (station.properties["apps"] as? [[String: Any]] ?? []).map { app in
                 let appData = AppKit.AppData(appID: nil, appUrl: app["url"] as? String ?? "", metadata: metadata)
                 appData.userDistance = station.location?.distance(from: location)
+                appData.userLocationAccuracy = location.verticalAccuracy
                 return appData
             }
             result.append(contentsOf: appDatas)
