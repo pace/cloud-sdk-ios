@@ -40,6 +40,10 @@ extension AppStyle {
         return imageNamed("icon_distance").withRenderingMode(.alwaysTemplate)
     }
 
+    static var iconDefaultAppDrawer: UIImage {
+        return imageNamed("default_notification_logo")
+    }
+
     private static func imageNamed(_ imageName: String) -> UIImage {
         return UIImage(named: imageName, in: Bundle.paceCloudSDK, compatibleWith: nil) ?? UIImage()
     }

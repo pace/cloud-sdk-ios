@@ -36,7 +36,7 @@ public extension AppKit {
 
         internal var shouldShowDistance: Bool = false
 
-        init(appID: String?, title: String?, subtitle: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
+        public init(appID: String?, title: String?, subtitle: String?, appUrl: String?, metadata: [AppKit.AppMetadata: AnyHashable]) {
             self.appID = appID
             self.title = title
             self.subtitle = subtitle
