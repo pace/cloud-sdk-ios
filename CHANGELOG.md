@@ -1,3 +1,11 @@
+23.1.0 Release notes (2024-07-11)
+=============================================================
+
+### Enhancements
+
+* Extend AppDrawer customizability
+* Add userLocationAccuracy to AppData
+
 23.0.1 Release notes (2024-06-13)
 =============================================================
 
