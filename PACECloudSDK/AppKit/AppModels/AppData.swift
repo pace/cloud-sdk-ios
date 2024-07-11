@@ -13,6 +13,7 @@ public extension AppKit {
         private(set) public var title: String?
         private(set) public var subtitle: String?
         internal(set) public var userDistance: Double?
+        internal(set) public var userLocationAccuracy: Double?
         public let appBaseUrl: String?
 
         public let metadata: [AppKit.AppMetadata: AnyHashable]
