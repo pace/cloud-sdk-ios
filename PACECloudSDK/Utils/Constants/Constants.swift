@@ -40,6 +40,10 @@ struct Constants {
         }
     }
 
+    struct CofuGasStationProperty {
+        static let paymentMethodKindsKey = "paymentMethodKinds"
+    }
+
     static let userDefaultsMigrationVersionKey = "pacecloudsdk_user_defaults_migration_version"
     static let keychainMigrationVersionKey = "pacecloudsdk_keychain_migration_version"
 
