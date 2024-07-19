@@ -55,6 +55,10 @@ extension UserAPI.Maintenance {
                 }
                 self.contentType = "application/vnd.api+json"
             }
+
+            public override var isAuthorizationRequired: Bool {
+                false
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

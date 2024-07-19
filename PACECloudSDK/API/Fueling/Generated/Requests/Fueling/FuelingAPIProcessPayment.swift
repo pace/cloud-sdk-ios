@@ -71,12 +71,8 @@ As an additional feature, the caller can - in case of Post Pay - opt for unatten
                 return super.path.replacingOccurrences(of: "{" + "gasStationId" + "}", with: "\(self.options.gasStationId.encode())")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

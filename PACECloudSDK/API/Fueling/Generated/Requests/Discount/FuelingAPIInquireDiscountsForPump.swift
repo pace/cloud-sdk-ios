@@ -92,12 +92,8 @@ Only use this if the pump status is ready to pay, otherwise returns `403 Forbidd
                 return super.path.replacingOccurrences(of: "{" + "gasStationId" + "}", with: "\(self.options.gasStationId.encode())").replacingOccurrences(of: "{" + "pumpId" + "}", with: "\(self.options.pumpId.encode())")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

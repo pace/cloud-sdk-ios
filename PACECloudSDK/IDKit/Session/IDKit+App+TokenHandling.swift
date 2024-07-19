@@ -9,13 +9,13 @@ import AppAuth
 import Foundation
 
 extension IDKit {
-    func performAppInducedRefresh(_ completion: @escaping (String?) -> Void) {
+    func performAppInducedRefresh(force: Bool = false, _ completion: @escaping (String?) -> Void) {
         guard IDKit.isSessionAvailable else {
             performAppInducedAuthorization(completion)
             return
         }
 
-        performRefresh { [weak self] result in
+        performRefresh(force: force) { [weak self] result in
             switch result {
             case .success(let accessToken):
                 completion(accessToken)

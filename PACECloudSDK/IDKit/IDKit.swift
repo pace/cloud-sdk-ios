@@ -69,8 +69,8 @@ public class IDKit {
         shared?.performAppInducedAuthorization(completion)
     }
 
-    static func appInducedRefresh(_ completion: @escaping (String?) -> Void) {
-        shared?.performAppInducedRefresh(completion)
+    static func appInducedRefresh(force: Bool = false, _ completion: @escaping (String?) -> Void) {
+        shared?.performAppInducedRefresh(force: force, completion)
     }
 
     static func appInducedSessionReset(with error: IDKitError? = nil, _ completion: @escaping (String?) -> Void) {
@@ -144,8 +144,8 @@ public extension IDKit {
      Refreshes the current access token if needed.
      - parameter completion: The block to be called when the request is completed including either a new valid `accessToken` or an `error`.
      */
-    static func refreshToken(_ completion: @escaping (Result<String?, IDKitError>) -> Void) {
-        shared?.performRefresh(completion)
+    static func refreshToken(force: Bool = false, _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
+        shared?.performRefresh(force: force, completion)
     }
 
     /**

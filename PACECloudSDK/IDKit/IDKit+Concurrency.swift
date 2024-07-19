@@ -48,8 +48,8 @@ public extension IDKit {
     ///
     /// - Returns: An asynchronously-delivered result
     /// that either contains a new valid access token or an error.
-    static func refreshToken() async -> Result<String?, IDKitError> {
-        await shared?.performRefresh() ?? .failure(.missingSetup)
+    static func refreshToken(force: Bool = false) async -> Result<String?, IDKitError> {
+        await shared?.performRefresh(force: force) ?? .failure(.missingSetup)
     }
 
     /// Asynchronously cancels the authorization flow

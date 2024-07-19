@@ -21,6 +21,10 @@ extension UserAPI.AuditLog {
             public init() {
                 super.init(service: RecordAuditLog.service)
             }
+
+            public override var isAuthorizationRequired: Bool {
+                false
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
