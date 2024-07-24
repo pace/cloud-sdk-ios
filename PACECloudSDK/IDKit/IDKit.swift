@@ -34,6 +34,11 @@ public class IDKit {
     var clientPresentingViewController: UIViewController?
     var paceIDSignInWindow: PaceIDSignInWindow?
 
+    internal var isRefreshing = false
+    internal var refreshCompletionHandlers: [(Result<String?, IDKitError>) -> Void] = []
+
+    let idKitQueue = DispatchQueue(label: "idkit-queue")
+
     private init(with configuration: OIDConfiguration, userAgentType: UserAgentType) {
         self.configuration = configuration
         self.userAgentType = userAgentType

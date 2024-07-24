@@ -139,6 +139,31 @@ extension IDKit {
 // MARK: - Refresh
 extension IDKit {
     func performRefresh(_ completion: @escaping (Result<String?, IDKitError>) -> Void) {
+        idKitQueue.async { [weak self] in
+            guard let self else {
+                completion(.failure(.internalError))
+                IDKitLogger.e("[TokenRefresh] Self not available")
+                return
+            }
+
+            refreshCompletionHandlers.append(completion)
+
+            guard !isRefreshing else { return }
+
+            isRefreshing = true
+
+            performActualRefresh { [weak self] result in
+                self?.idKitQueue.async {
+                    self?.refreshCompletionHandlers.forEach { $0(result) }
+                    self?.refreshCompletionHandlers.removeAll()
+                    self?.isRefreshing = false
+                }
+            }
+        }
+    }
+
+    private func performActualRefresh(currentRetryCount: Int = 0,
+                                      _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         guard let session = session else {
             completion(.failure(.invalidSession))
             return
@@ -146,27 +171,70 @@ extension IDKit {
 
         session.setNeedsTokenRefresh()
         session.performAction(freshTokens: { [weak self] accessToken, _, error in
+            guard let self else {
+                completion(.failure(.internalError))
+                IDKitLogger.e("[TokenRefresh] Self not available")
+                return
+            }
+
             guard let error = error else {
-                self?.handleUpdatedAccessToken(with: accessToken)
+                handleUpdatedAccessToken(with: accessToken)
                 completion(.success(accessToken))
-                IDKitLogger.i("Refresh successful")
+                IDKitLogger.i("[TokenRefresh] Refresh successful")
 
                 // Update persisted session
                 SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
                 return
             }
 
+            let newRetryCount = currentRetryCount + 1
+
             if session.isAuthorized {
-                if (error as NSError).code == OIDErrorCode.serverError.rawValue {
-                    completion(.failure(.internalError))
-                } else {
-                    // e.g network error
+                switch (error as NSError).code {
+                case NSURLErrorTimedOut,
+                    OIDErrorCode.networkError.rawValue:
+                    IDKitLogger.d("[TokenRefresh] Failed with network error, retrying again.")
+
+                    let requestDelay = nextExponentialBackoffRequestDelayWithJitter(currentRetryCount: newRetryCount)
+
+                    idKitQueue.asyncAfter(deadline: .now() + .seconds(requestDelay)) { [weak self] in
+                        self?.performActualRefresh(currentRetryCount: newRetryCount, completion)
+                    }
+
+                case OIDErrorCode.serverError.rawValue:
+                    IDKitLogger.d("[TokenRefresh] Failed with server error, retrying again.")
+                    let requestDelay = nextExponentialBackoffRequestDelayWithJitter(currentRetryCount: newRetryCount, delayLowerBound: 60, delayUpperBound: 5 * 60)
+
+                    idKitQueue.asyncAfter(deadline: .now() + .seconds(requestDelay)) { [weak self] in
+                        self?.performActualRefresh(currentRetryCount: newRetryCount, completion)
+                    }
+
+                default:
                     completion(.failure(.other(error)))
                 }
             } else {
-                self?.performReset { _ in completion(.failure(.failedTokenRefresh(error))) }
+                performReset { _ in completion(.failure(.failedTokenRefresh(error))) }
             }
         })
+    }
+}
+
+// MARK: - Exponential backoff
+extension IDKit {
+    /**
+     Returns the number of seconds an API request should be delayed before the next retry is executed.
+
+     It calculates the number of seconds based on an exponential backoff algorithm with jitter.
+
+     - parameter currentRetryCount: The current number of retries for a specific request.
+     - parameter delayUpperBound: The maximum number of seconds a request should be delayed. Defaults to `60`.
+     - returns: The request delay in seconds.
+     */
+    func nextExponentialBackoffRequestDelayWithJitter(currentRetryCount: Int, delayLowerBound: Int = 0, delayUpperBound: Int = 60) -> Int {
+        let nextDelayIteration = NSDecimalNumber(decimal: pow(2, currentRetryCount - 1))
+        let max = min(Int(truncating: nextDelayIteration), delayUpperBound)
+
+        return Int.random(in: 0...max)
     }
 }
 
