@@ -20,7 +20,9 @@ public extension POIKit {
 
         public var distance: Float?
 
-        public var cofuPaymentMethods: [String] = []
+        public var cofuPaymentMethods: [String] {
+            return cofuGasStation?.properties[Constants.CofuGasStationProperty.paymentMethodKindsKey] as? [String] ?? []
+        }
 
         public var geometry: [GeometryCommand] = [] {
             didSet {
