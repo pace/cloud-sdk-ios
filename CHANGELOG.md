@@ -1,3 +1,15 @@
+23.2.0 Release notes (2024-07-25)
+=============================================================
+
+### Enhancements
+
+* Add exponential backoff to refresh token request
+
+### Internal
+
+* Handling of 401 for authorized HTTP requests
+* Fetch cofu payment methods from geojson instead of tiles
+
 23.1.1 Release notes (2024-07-18)
 =============================================================
 
