@@ -51,12 +51,8 @@ In case the session is created an OTP for the user is created and send via email
                 return super.path.replacingOccurrences(of: "{" + "sessionId" + "}", with: "\(self.options.sessionId?.encode() ?? "")")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

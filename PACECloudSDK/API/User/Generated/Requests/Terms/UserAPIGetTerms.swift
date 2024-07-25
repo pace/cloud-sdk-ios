@@ -72,6 +72,10 @@ extension UserAPI.Terms {
 
                 return headers
             }
+
+            public override var isAuthorizationRequired: Bool {
+                false
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

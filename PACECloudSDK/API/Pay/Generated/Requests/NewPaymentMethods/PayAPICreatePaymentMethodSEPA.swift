@@ -63,12 +63,8 @@ The payment method ID is optional when posting data.
                 self.contentType = "application/vnd.api+json"
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

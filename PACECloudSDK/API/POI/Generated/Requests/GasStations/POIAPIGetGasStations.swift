@@ -111,12 +111,8 @@ To search inside a bounding box provide the following query parameter:
                 return params
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

@@ -27,6 +27,10 @@ extension UserAPI.User {
                 }
                 self.contentType = "application/json"
             }
+
+            public override var isAuthorizationRequired: Bool {
+                false
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

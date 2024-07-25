@@ -47,12 +47,8 @@ Only use after approaching, otherwise returns `403 Forbidden`.
                 return super.path.replacingOccurrences(of: "{" + "gasStationId" + "}", with: "\(self.options.gasStationId.encode())")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

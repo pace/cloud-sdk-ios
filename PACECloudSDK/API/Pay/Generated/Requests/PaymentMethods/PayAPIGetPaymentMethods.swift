@@ -14,16 +14,40 @@ extension PayAPI.PaymentMethods {
 
         public final class Request: PayAPIRequest<Response> {
 
-            public init() {
+            public struct Options {
+
+                /** Language preference of localized response properties. The full standard of RFC 7231 (https://tools.ietf.org/html/rfc7231#section-5.3.5) is supported. */
+                public var acceptLanguage: String?
+
+                public init(acceptLanguage: String? = nil) {
+                    self.acceptLanguage = acceptLanguage
+                }
+            }
+
+            public var options: Options
+
+            public init(options: Options) {
+                self.options = options
                 super.init(service: GetPaymentMethods.service)
+            }
+
+            /// convenience initialiser so an Option doesn't have to be created
+            public convenience init(acceptLanguage: String? = nil) {
+                let options = Options(acceptLanguage: acceptLanguage)
+                self.init(options: options)
             }
 
             override var headerParameters: [String: String] {
                 var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
+                if let acceptLanguage = options.acceptLanguage {
+                  headers["Accept-Language"] = acceptLanguage
                 }
+
                 return headers
+            }
+
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

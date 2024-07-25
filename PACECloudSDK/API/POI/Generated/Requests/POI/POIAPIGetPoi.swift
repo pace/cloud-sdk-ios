@@ -41,12 +41,8 @@ extension POIAPI.POI {
                 return super.path.replacingOccurrences(of: "{" + "poiId" + "}", with: "\(self.options.poiId.encode())")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

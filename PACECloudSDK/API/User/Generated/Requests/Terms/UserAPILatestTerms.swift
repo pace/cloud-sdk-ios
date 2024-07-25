@@ -46,6 +46,10 @@ extension UserAPI.Terms {
                 params["filter[serviceName]"] = options.filterserviceName
                 return params
             }
+
+            public override var isAuthorizationRequired: Bool {
+                false
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

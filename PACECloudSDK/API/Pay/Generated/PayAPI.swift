@@ -5,8 +5,7 @@
 
 import Foundation
 
-/** Welcome to the PACE Payment API documentation.
-This API is responsible for managing payment methods for users as well as authorizing payments on behalf of PACE services.
+/** The PACE Payment API is responsible for managing payment methods for users as well as authorizing payments on behalf of PACE services.
  */
 public struct PayAPI {
 
@@ -27,6 +26,8 @@ public struct PayAPI {
     public enum PayAPIServer {
         /** Production server (stable release 2024-2) **/
         public static let main = "https://api.pace.cloud/pay/2024-2"
+        /** Production server (stable release 2024-2) **/
+        public static let server2 = "https://api.pace.cloud/pay/master"
     }
 }
 

@@ -46,6 +46,10 @@ RFCs for reference:
                 }
                 self.contentType = "application/x-www-form-urlencoded"
             }
+
+            public override var isAuthorizationRequired: Bool {
+                false
+            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

@@ -49,12 +49,8 @@ In case no preferences were ever set an empty object `{}` is returned.
                 return super.path.replacingOccurrences(of: "{" + "clientId" + "}", with: "\(self.options.clientId ?? "")")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

@@ -46,12 +46,8 @@ user record will be returned.
                 return super.path.replacingOccurrences(of: "{" + "userId" + "}", with: "\(self.options.userId?.encode() ?? "")")
             }
 
-            override var headerParameters: [String: String] {
-                var headers: [String: String] = [:]
-                if let token = API.accessToken {
-                    headers["Authorization"] = "Bearer \(token)"
-                }
-                return headers
+            public override var isAuthorizationRequired: Bool {
+                true
             }
         }
 

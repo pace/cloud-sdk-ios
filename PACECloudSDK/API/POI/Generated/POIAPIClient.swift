@@ -83,10 +83,69 @@ public class POIAPIClient {
             urlRequest.allHTTPHeaderFields?[key] = value
         }
 
-        urlRequest = requestBehaviour.modifyRequest(urlRequest)
-
         let cancellableRequest = CancellablePOIAPIRequest(request: request.asAny())
 
+        urlRequest = requestBehaviour.modifyRequest(urlRequest)
+
+        if request.isAuthorizationRequired
+            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil
+            && IDKit.isSessionAvailable {
+            IDKit.refreshToken { [weak self] result in
+                guard let self else { return }
+                guard case let .failure(error) = result else {
+                    guard case let .success(accessToken) = result, 
+                            let accessToken else { return }
+                    urlRequest.setValue("Bearer \(accessToken)", 
+                                        forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
+                    self.validateNetworkRequest(request: request,
+                                                urlRequest: urlRequest,
+                                                cancellableRequest: cancellableRequest,
+                                                requestBehaviour: requestBehaviour,
+                                                currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                                currentRetryCount: currentRetryCount,
+                                                completionQueue: completionQueue,
+                                                complete: complete)
+                    return
+                }
+
+                if case .failedTokenRefresh = error {
+                    completionQueue.async {
+                        let response = POIAPIResponse<T>(request: request,
+                                                                     result: .failure(APIClientError
+                                                                        .unexpectedStatusCode(statusCode: 401,
+                                                                                              data: Data("UNAUTHORIZED".utf8))))
+                        complete(response)
+                    }
+                } else {
+                    completionQueue.async {
+                        let response = POIAPIResponse<T>(request: request,
+                                                                     result: .failure(APIClientError.unknownError(error)))
+                        complete(response)
+                    }
+                }
+            }
+        } else {
+            validateNetworkRequest(request: request,
+                                   urlRequest: urlRequest,
+                                   cancellableRequest: cancellableRequest,
+                                   requestBehaviour: requestBehaviour,
+                                   currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                   currentRetryCount: currentRetryCount,
+                                   completionQueue: completionQueue,
+                                   complete: complete)
+        }
+
+        return cancellableRequest
+    }
+
+    private func validateNetworkRequest<T>(request: POIAPIRequest<T>,
+                                           urlRequest: URLRequest,
+                                           cancellableRequest: CancellablePOIAPIRequest,
+                                           requestBehaviour: POIAPIRequestBehaviourGroup,
+                                           currentUnauthorizedRetryCount: Int,
+                                           currentRetryCount: Int,
+                                           completionQueue: DispatchQueue,
+                                           complete: @escaping (POIAPIResponse<T>) -> Void) {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
@@ -104,7 +163,6 @@ public class POIAPIClient {
                 complete(response)
             }
         }
-        return cancellableRequest
     }
 
     private func makeNetworkRequest<T>(request: POIAPIRequest<T>,
@@ -270,9 +328,10 @@ public class POIAPIClient {
         }
 
         if response.statusCode == HttpStatusCode.unauthorized.rawValue
+            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil
             && currentUnauthorizedRetryCount < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
-            IDKit.refreshToken { [weak self] result in
+            IDKit.refreshToken(force: true) { [weak self] result in
                 guard case .failure(let error) = result else {
                     self?.makeRequest(request,
                                       behaviours: requestBehaviour.behaviours,
