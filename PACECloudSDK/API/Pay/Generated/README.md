@@ -224,6 +224,7 @@ To add support for a specific asynchronous library, just add an extension on `Pa
 	- **CreatePaymentMethodZGM**: POST `/payment-methods/zgm`
 - **PayAPI.PaymentMethodKinds**
 	- **GetPaymentMethodKinds**: GET `/payment-method-kinds`
+	- **GetPaymentMethodKindsByClientID**: GET `/payment-method-kinds/{clientid}`
 - **PayAPI.PaymentMethods**
 	- **ConfirmPaymentMethod**: GET `/payment-methods/confirm/{token}`
 	- **DeletePaymentMethod**: DELETE `/payment-methods/{paymentmethodid}`
