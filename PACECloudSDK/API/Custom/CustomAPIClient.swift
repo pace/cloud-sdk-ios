@@ -29,7 +29,7 @@ public class CustomAPIClient {
     /// Makes a custom JSON request and decodes the response into a specified `Decodable` type.
     ///
     /// This method should be used for making general JSON requests that do not require authentication or that do not use IDKit.
-    /// If the request needs authorization and IDKit is used, use the `makeCustomAuthenticatedJSONRequest` method instead.
+    /// If the request needs authorization **and** IDKit is used, use the `makeCustomAuthenticatedJSONRequest` method instead.
     @discardableResult
     public func makeCustomJSONRequest<T: Decodable>(_ request: URLRequest,
                                                     session: URLSession = .shared,
@@ -93,7 +93,7 @@ public class CustomAPIClient {
     /// Makes a custom request and passes the received data in the completion block.
     ///
     /// This method should be used for making general data requests that do not require authentication or that do not use IDKit.
-    /// If the request needs authorization and IDKit is used, use the `makeCustomAuthenticatedDataRequest` method instead.
+    /// If the request needs authorization **and** IDKit is used, use the `makeCustomAuthenticatedDataRequest` method instead.
     @discardableResult
     public func makeCustomDataRequest(_ request: URLRequest,
                                       session: URLSession = .shared,
@@ -214,8 +214,8 @@ public class CustomAPIClient {
             return
         }
 
-        if isAuthenticatedRequest,
-           response.statusCode == HttpStatusCode.unauthorized.rawValue
+        if isAuthenticatedRequest
+            && response.statusCode == HttpStatusCode.unauthorized.rawValue
             && currentUnauthorizedRetryCount < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
             IDKit.refreshToken(force: true) { [weak self] result in
