@@ -88,41 +88,53 @@ public class FuelingAPIClient {
         urlRequest = requestBehaviour.modifyRequest(urlRequest)
 
         if request.isAuthorizationRequired
-            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil
-            && IDKit.isSessionAvailable {
-            IDKit.refreshToken { [weak self] result in
-                guard let self else { return }
-                guard case let .failure(error) = result else {
-                    guard case let .success(accessToken) = result, 
-                            let accessToken else { return }
-                    urlRequest.setValue("Bearer \(accessToken)", 
-                                        forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
-                    self.validateNetworkRequest(request: request,
-                                                urlRequest: urlRequest,
-                                                cancellableRequest: cancellableRequest,
-                                                requestBehaviour: requestBehaviour,
-                                                currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                                                currentRetryCount: currentRetryCount,
-                                                completionQueue: completionQueue,
-                                                complete: complete)
-                    return
-                }
+            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil {
+            if IDKit.isSessionAvailable {
+                IDKit.refreshToken { [weak self] result in
+                    guard let self else { return }
+                    guard case let .failure(error) = result else {
+                        guard case let .success(accessToken) = result,
+                                let accessToken else { return }
+                        urlRequest.setValue("Bearer \(accessToken)",
+                                            forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
+                        self.validateNetworkRequest(request: request,
+                                                    urlRequest: urlRequest,
+                                                    cancellableRequest: cancellableRequest,
+                                                    requestBehaviour: requestBehaviour,
+                                                    currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                                    currentRetryCount: currentRetryCount,
+                                                    completionQueue: completionQueue,
+                                                    complete: complete)
+                        return
+                    }
 
-                if case .failedTokenRefresh = error {
-                    completionQueue.async {
-                        let response = FuelingAPIResponse<T>(request: request,
-                                                                     result: .failure(APIClientError
-                                                                        .unexpectedStatusCode(statusCode: 401,
-                                                                                              data: Data("UNAUTHORIZED".utf8))))
-                        complete(response)
-                    }
-                } else {
-                    completionQueue.async {
-                        let response = FuelingAPIResponse<T>(request: request,
-                                                                     result: .failure(APIClientError.unknownError(error)))
-                        complete(response)
+                    if case .failedTokenRefresh = error {
+                        completionQueue.async {
+                            let response = FuelingAPIResponse<T>(request: request,
+                                                                         result: .failure(APIClientError
+                                                                            .unexpectedStatusCode(statusCode: 401,
+                                                                                                  data: Data("UNAUTHORIZED".utf8))))
+                            complete(response)
+                        }
+                    } else {
+                        completionQueue.async {
+                            let response = FuelingAPIResponse<T>(request: request,
+                                                                         result: .failure(APIClientError.unknownError(error)))
+                            complete(response)
+                        }
                     }
                 }
+            } else if let accessToken = API.accessToken {
+                urlRequest.setValue("Bearer \(accessToken)",
+                                    forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
+                self.validateNetworkRequest(request: request,
+                                            urlRequest: urlRequest,
+                                            cancellableRequest: cancellableRequest,
+                                            requestBehaviour: requestBehaviour,
+                                            currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                                            currentRetryCount: currentRetryCount,
+                                            completionQueue: completionQueue,
+                                            complete: complete)
             }
         } else {
             validateNetworkRequest(request: request,
