@@ -93,10 +93,12 @@ public class PayAPIClient {
                 IDKit.refreshToken { [weak self] result in
                     guard let self else { return }
                     guard case let .failure(error) = result else {
-                        guard case let .success(accessToken) = result,
-                                let accessToken else { return }
-                        urlRequest.setValue("Bearer \(accessToken)",
-                                            forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
+                        guard case let .success(accessToken) = result else { return }
+                        if let accessToken {
+                            urlRequest.setValue("Bearer \(accessToken)",
+                                                forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
+                        }
+                        
                         self.validateNetworkRequest(request: request,
                                                     urlRequest: urlRequest,
                                                     cancellableRequest: cancellableRequest,
@@ -107,45 +109,42 @@ public class PayAPIClient {
                                                     complete: complete)
                         return
                     }
-
+                    
                     if case .failedTokenRefresh = error {
                         completionQueue.async {
                             let response = PayAPIResponse<T>(request: request,
-                                                                         result: .failure(APIClientError
-                                                                            .unexpectedStatusCode(statusCode: 401,
-                                                                                                  data: Data("UNAUTHORIZED".utf8))))
+                                                             result: .failure(APIClientError
+                                                                .unexpectedStatusCode(statusCode: 401,
+                                                                                      data: Data("UNAUTHORIZED".utf8))))
                             complete(response)
                         }
                     } else {
                         completionQueue.async {
                             let response = PayAPIResponse<T>(request: request,
-                                                                         result: .failure(APIClientError.unknownError(error)))
+                                                             result: .failure(APIClientError.unknownError(error)))
                             complete(response)
                         }
                     }
                 }
-            } else if let accessToken = API.accessToken {
+                
+                return cancellableRequest
+                
+            }
+            
+            if let accessToken = API.accessToken {
                 urlRequest.setValue("Bearer \(accessToken)",
                                     forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
-                self.validateNetworkRequest(request: request,
-                                            urlRequest: urlRequest,
-                                            cancellableRequest: cancellableRequest,
-                                            requestBehaviour: requestBehaviour,
-                                            currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                                            currentRetryCount: currentRetryCount,
-                                            completionQueue: completionQueue,
-                                            complete: complete)
             }
-        } else {
-            validateNetworkRequest(request: request,
-                                   urlRequest: urlRequest,
-                                   cancellableRequest: cancellableRequest,
-                                   requestBehaviour: requestBehaviour,
-                                   currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                                   currentRetryCount: currentRetryCount,
-                                   completionQueue: completionQueue,
-                                   complete: complete)
         }
+        
+        validateNetworkRequest(request: request,
+                               urlRequest: urlRequest,
+                               cancellableRequest: cancellableRequest,
+                               requestBehaviour: requestBehaviour,
+                               currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
+                               currentRetryCount: currentRetryCount,
+                               completionQueue: completionQueue,
+                               complete: complete)
 
         return cancellableRequest
     }
