@@ -228,6 +228,18 @@ extension API.Communication {
                 delegate?.handleShareFile(with: requestBody) { [weak self] result in
                     self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
                 }
+
+            case .receiptEmail:
+                guard let requestBody: ReceiptEmailRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
+                delegate?.handleReceiptEmail(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
+                }
+
+            case .receiptAttachments:
+                guard let requestBody: ReceiptAttachmentsRequest = decodeRequestBody(request, response, operation, with: replyHandler) else { return }
+                delegate?.handleReceiptAttachments(with: requestBody) { [weak self] result in
+                    self?.handleResult(with: result, response: response, operation: operation, with: replyHandler)
+                }
             }
         }
 

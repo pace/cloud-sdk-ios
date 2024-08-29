@@ -36,5 +36,7 @@ extension API.Communication {
         case googlePayPayment
         case startNavigation
         case shareFile
+        case receiptEmail
+        case receiptAttachments
     }
 }

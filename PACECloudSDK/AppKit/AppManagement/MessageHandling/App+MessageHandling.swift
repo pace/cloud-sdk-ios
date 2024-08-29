@@ -240,6 +240,18 @@ extension App {
             }
         }
     }
+
+    func handleReceiptEmail(with request: API.Communication.ReceiptEmailRequest, completion: @escaping (API.Communication.ReceiptEmailResult) -> Void) {
+        AppKit.shared.notifyGetReceiptEmail(request: request) { email in
+            completion(.init(.init(response: .init(email: email))))
+        }
+    }
+
+    func handleReceiptAttachments(with request: API.Communication.ReceiptAttachmentsRequest, completion: @escaping (API.Communication.ReceiptAttachmentsResult) -> Void) {
+        AppKit.shared.notifyGetReceiptAttachments(request: request) { attachments in
+            completion(.init(.init(response: .init(attachments: attachments))))
+        }
+    }
 }
 
 private extension App {
