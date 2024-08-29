@@ -45,8 +45,12 @@ extension POIAPI.GasStations {
                 return super.path.replacingOccurrences(of: "{" + "id" + "}", with: "\(self.options.id.encode())")
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

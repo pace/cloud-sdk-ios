@@ -65,12 +65,11 @@ extension PayAPI.PaymentMethodKinds {
                 if let acceptLanguage = options.acceptLanguage {
                   headers["Accept-Language"] = acceptLanguage
                 }
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
 
                 return headers
-            }
-
-            public override var isAuthorizationRequired: Bool {
-                true
             }
         }
 

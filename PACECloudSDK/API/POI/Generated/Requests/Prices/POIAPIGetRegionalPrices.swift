@@ -51,10 +51,6 @@ extension POIAPI.Prices {
                 params["filter[longitude]"] = options.filterlongitude
                 return params
             }
-
-            public override var isAuthorizationRequired: Bool {
-                false
-            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

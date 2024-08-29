@@ -65,8 +65,12 @@ If you provide a valid Billing Agreement ID, the payment method is created direc
                 self.contentType = "application/vnd.api+json"
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

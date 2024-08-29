@@ -69,8 +69,12 @@ Please note that calling this API is very cheap and can be done regularly.
                 return params
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

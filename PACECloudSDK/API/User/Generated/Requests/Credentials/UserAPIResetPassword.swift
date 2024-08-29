@@ -49,10 +49,6 @@ If no recover pin is passed in the body user's payment methods will also be rese
                 }
                 return params
             }
-
-            public override var isAuthorizationRequired: Bool {
-                false
-            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

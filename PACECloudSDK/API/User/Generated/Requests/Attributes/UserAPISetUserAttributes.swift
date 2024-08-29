@@ -30,8 +30,12 @@ with any new keys, updating conflicting keys and leaving the rest untouched.
                 self.contentType = "application/json"
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

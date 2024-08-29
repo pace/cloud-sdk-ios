@@ -41,8 +41,12 @@ extension PayAPI.PaymentTokens {
                 return super.path.replacingOccurrences(of: "{" + "paymentTokenId" + "}", with: "\(self.options.paymentTokenId)")
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

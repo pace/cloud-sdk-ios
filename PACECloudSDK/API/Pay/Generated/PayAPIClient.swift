@@ -83,69 +83,10 @@ public class PayAPIClient {
             urlRequest.allHTTPHeaderFields?[key] = value
         }
 
-        let cancellableRequest = CancellablePayAPIRequest(request: request.asAny())
-
         urlRequest = requestBehaviour.modifyRequest(urlRequest)
 
-        if request.isAuthorizationRequired
-            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil
-            && IDKit.isSessionAvailable {
-            IDKit.refreshToken { [weak self] result in
-                guard let self else { return }
-                guard case let .failure(error) = result else {
-                    guard case let .success(accessToken) = result, 
-                            let accessToken else { return }
-                    urlRequest.setValue("Bearer \(accessToken)", 
-                                        forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
-                    self.validateNetworkRequest(request: request,
-                                                urlRequest: urlRequest,
-                                                cancellableRequest: cancellableRequest,
-                                                requestBehaviour: requestBehaviour,
-                                                currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                                                currentRetryCount: currentRetryCount,
-                                                completionQueue: completionQueue,
-                                                complete: complete)
-                    return
-                }
+        let cancellableRequest = CancellablePayAPIRequest(request: request.asAny())
 
-                if case .failedTokenRefresh = error {
-                    completionQueue.async {
-                        let response = PayAPIResponse<T>(request: request,
-                                                                     result: .failure(APIClientError
-                                                                        .unexpectedStatusCode(statusCode: 401,
-                                                                                              data: Data("UNAUTHORIZED".utf8))))
-                        complete(response)
-                    }
-                } else {
-                    completionQueue.async {
-                        let response = PayAPIResponse<T>(request: request,
-                                                                     result: .failure(APIClientError.unknownError(error)))
-                        complete(response)
-                    }
-                }
-            }
-        } else {
-            validateNetworkRequest(request: request,
-                                   urlRequest: urlRequest,
-                                   cancellableRequest: cancellableRequest,
-                                   requestBehaviour: requestBehaviour,
-                                   currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                                   currentRetryCount: currentRetryCount,
-                                   completionQueue: completionQueue,
-                                   complete: complete)
-        }
-
-        return cancellableRequest
-    }
-
-    private func validateNetworkRequest<T>(request: PayAPIRequest<T>,
-                                           urlRequest: URLRequest,
-                                           cancellableRequest: CancellablePayAPIRequest,
-                                           requestBehaviour: PayAPIRequestBehaviourGroup,
-                                           currentUnauthorizedRetryCount: Int,
-                                           currentRetryCount: Int,
-                                           completionQueue: DispatchQueue,
-                                           complete: @escaping (PayAPIResponse<T>) -> Void) {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
@@ -163,6 +104,7 @@ public class PayAPIClient {
                 complete(response)
             }
         }
+        return cancellableRequest
     }
 
     private func makeNetworkRequest<T>(request: PayAPIRequest<T>,
@@ -328,10 +270,9 @@ public class PayAPIClient {
         }
 
         if response.statusCode == HttpStatusCode.unauthorized.rawValue
-            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil
             && currentUnauthorizedRetryCount < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
-            IDKit.refreshToken(force: true) { [weak self] result in
+            IDKit.refreshToken { [weak self] result in
                 guard case .failure(let error) = result else {
                     self?.makeRequest(request,
                                       behaviours: requestBehaviour.behaviours,

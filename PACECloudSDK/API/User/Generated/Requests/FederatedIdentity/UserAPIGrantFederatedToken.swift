@@ -43,10 +43,6 @@ extension UserAPI.FederatedIdentity {
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "identityProvider" + "}", with: "\(self.options.identityProvider ?? "")")
             }
-
-            public override var isAuthorizationRequired: Bool {
-                false
-            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {
