@@ -52,8 +52,12 @@ Cancel an unattended payment process. This will only work if the payment was not
                 return super.path.replacingOccurrences(of: "{" + "gasStationId" + "}", with: "\(self.options.gasStationId.encode())").replacingOccurrences(of: "{" + "transactionId" + "}", with: "\(self.options.transactionId.encode())")
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

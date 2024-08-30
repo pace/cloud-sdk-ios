@@ -65,8 +65,12 @@ Registering giropay as payment method is a 2-step process, thus the payment meth
                 self.contentType = "application/vnd.api+json"
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

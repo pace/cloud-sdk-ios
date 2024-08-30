@@ -138,7 +138,7 @@ extension IDKit {
 
 // MARK: - Refresh
 extension IDKit {
-    func performRefresh(force: Bool = false, _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
+    func performRefresh(_ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         idKitQueue.async { [weak self] in
             guard let self else {
                 completion(.failure(.internalError))
@@ -152,7 +152,7 @@ extension IDKit {
 
             isRefreshing = true
 
-            performActualRefresh(force: force) { [weak self] result in
+            performActualRefresh { [weak self] result in
                 self?.idKitQueue.async {
                     self?.refreshCompletionHandlers.forEach { $0(result) }
                     self?.refreshCompletionHandlers.removeAll()
@@ -162,18 +162,14 @@ extension IDKit {
         }
     }
 
-    private func performActualRefresh(force: Bool = false,
-                                      currentRetryCount: Int = 0,
+    private func performActualRefresh(currentRetryCount: Int = 0,
                                       _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         guard let session = session else {
             completion(.failure(.invalidSession))
             return
         }
 
-        if force {
-            session.setNeedsTokenRefresh()
-        }
-
+        session.setNeedsTokenRefresh()
         session.performAction(freshTokens: { [weak self] accessToken, _, error in
             guard let self else {
                 completion(.failure(.internalError))
@@ -202,7 +198,7 @@ extension IDKit {
                     let requestDelay = nextExponentialBackoffRequestDelayWithJitter(currentRetryCount: newRetryCount)
 
                     idKitQueue.asyncAfter(deadline: .now() + .seconds(requestDelay)) { [weak self] in
-                        self?.performActualRefresh(force: force, currentRetryCount: newRetryCount, completion)
+                        self?.performActualRefresh(currentRetryCount: newRetryCount, completion)
                     }
 
                 case OIDErrorCode.serverError.rawValue:
@@ -210,7 +206,7 @@ extension IDKit {
                     let requestDelay = nextExponentialBackoffRequestDelayWithJitter(currentRetryCount: newRetryCount, delayLowerBound: 60, delayUpperBound: 5 * 60)
 
                     idKitQueue.asyncAfter(deadline: .now() + .seconds(requestDelay)) { [weak self] in
-                        self?.performActualRefresh(force: force, currentRetryCount: newRetryCount, completion)
+                        self?.performActualRefresh(currentRetryCount: newRetryCount, completion)
                     }
 
                 default:
@@ -322,9 +318,9 @@ extension IDKit {
         }
     }
 
-    func performRefresh(force: Bool = false) async -> Result<String?, IDKitError> {
+    func performRefresh() async -> Result<String?, IDKitError> {
         await withCheckedContinuation { [weak self] continuation in
-            self?.performRefresh(force: force) { result in
+            self?.performRefresh { result in
                 continuation.resume(returning: result)
             }
         }

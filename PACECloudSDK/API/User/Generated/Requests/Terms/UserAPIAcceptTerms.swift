@@ -46,8 +46,12 @@ consent with the terms of service.
                 return super.path.replacingOccurrences(of: "{" + "termsId" + "}", with: "\(self.options.termsId?.encode() ?? "")")
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

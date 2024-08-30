@@ -83,80 +83,10 @@ public class UserAPIClient {
             urlRequest.allHTTPHeaderFields?[key] = value
         }
 
-        let cancellableRequest = CancellableUserAPIRequest(request: request.asAny())
-
         urlRequest = requestBehaviour.modifyRequest(urlRequest)
 
-        if request.isAuthorizationRequired
-            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil {
-            if IDKit.isSessionAvailable {
-                IDKit.refreshToken { [weak self] result in
-                    guard let self else { return }
-                    guard case let .failure(error) = result else {
-                        guard case let .success(accessToken) = result else { return }
-                        if let accessToken {
-                            urlRequest.setValue("Bearer \(accessToken)",
-                                                forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
-                        }
-                        
-                        self.validateNetworkRequest(request: request,
-                                                    urlRequest: urlRequest,
-                                                    cancellableRequest: cancellableRequest,
-                                                    requestBehaviour: requestBehaviour,
-                                                    currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                                                    currentRetryCount: currentRetryCount,
-                                                    completionQueue: completionQueue,
-                                                    complete: complete)
-                        return
-                    }
-                    
-                    if case .failedTokenRefresh = error {
-                        completionQueue.async {
-                            let response = UserAPIResponse<T>(request: request,
-                                                             result: .failure(APIClientError
-                                                                .unexpectedStatusCode(statusCode: 401,
-                                                                                      data: Data("UNAUTHORIZED".utf8))))
-                            complete(response)
-                        }
-                    } else {
-                        completionQueue.async {
-                            let response = UserAPIResponse<T>(request: request,
-                                                             result: .failure(APIClientError.unknownError(error)))
-                            complete(response)
-                        }
-                    }
-                }
-                
-                return cancellableRequest
-                
-            }
-            
-            if let accessToken = API.accessToken {
-                urlRequest.setValue("Bearer \(accessToken)",
-                                    forHTTPHeaderField: HttpHeaderFields.authorization.rawValue)
-            }
-        }
-        
-        validateNetworkRequest(request: request,
-                               urlRequest: urlRequest,
-                               cancellableRequest: cancellableRequest,
-                               requestBehaviour: requestBehaviour,
-                               currentUnauthorizedRetryCount: currentUnauthorizedRetryCount,
-                               currentRetryCount: currentRetryCount,
-                               completionQueue: completionQueue,
-                               complete: complete)
+        let cancellableRequest = CancellableUserAPIRequest(request: request.asAny())
 
-        return cancellableRequest
-    }
-
-    private func validateNetworkRequest<T>(request: UserAPIRequest<T>,
-                                           urlRequest: URLRequest,
-                                           cancellableRequest: CancellableUserAPIRequest,
-                                           requestBehaviour: UserAPIRequestBehaviourGroup,
-                                           currentUnauthorizedRetryCount: Int,
-                                           currentRetryCount: Int,
-                                           completionQueue: DispatchQueue,
-                                           complete: @escaping (UserAPIResponse<T>) -> Void) {
         requestBehaviour.validate(urlRequest) { result in
             switch result {
             case .success(let urlRequest):
@@ -174,6 +104,7 @@ public class UserAPIClient {
                 complete(response)
             }
         }
+        return cancellableRequest
     }
 
     private func makeNetworkRequest<T>(request: UserAPIRequest<T>,
@@ -339,10 +270,9 @@ public class UserAPIClient {
         }
 
         if response.statusCode == HttpStatusCode.unauthorized.rawValue
-            && request.customHeaders[HttpHeaderFields.authorization.rawValue] == nil
             && currentUnauthorizedRetryCount < maxUnauthorizedRetryCount
             && IDKit.isSessionAvailable {
-            IDKit.refreshToken(force: true) { [weak self] result in
+            IDKit.refreshToken { [weak self] result in
                 guard case .failure(let error) = result else {
                     self?.makeRequest(request,
                                       behaviours: requestBehaviour.behaviours,

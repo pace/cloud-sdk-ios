@@ -65,8 +65,12 @@ This endpoint is pre-requisite for calling `/payment-method-kinds/applepay/autho
                 self.contentType = "application/vnd.api+json"
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

@@ -28,7 +28,7 @@ extension App {
 
             if reason == .unauthorized,
                tokenValidator.isTokenValid() {
-                IDKit.appInducedRefresh(force: true) { [weak self] accessToken in
+                IDKit.appInducedSessionReset { [weak self] accessToken in
                     self?.respond(accessToken: accessToken, completion)
                 }
                 return

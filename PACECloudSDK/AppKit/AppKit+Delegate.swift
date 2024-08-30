@@ -30,6 +30,9 @@ public protocol AppKitDelegate: AnyObject {
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void))
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void))
     func startNavigation(_ request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void)
+
+    func getReceiptEmail(_ request: API.Communication.ReceiptEmailRequest, completion: @escaping (String?) -> Void)
+    func getReceiptAttachments(_ request: API.Communication.ReceiptAttachmentsRequest, completion: @escaping ([String]?) -> Void)
 }
 
 public extension AppKitDelegate {
@@ -46,6 +49,10 @@ public extension AppKitDelegate {
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) { isAllowed(true) }
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) { isAvailable(false) }
     func startNavigation(_ request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void) { completion(false) }
+
+    func getReceiptEmail(_ request: API.Communication.ReceiptEmailRequest, completion: @escaping (String?) -> Void) { completion(nil) }
+
+    func getReceiptAttachments(_ request: API.Communication.ReceiptAttachmentsRequest, completion: @escaping ([String]?) -> Void) { completion(nil) }
 }
 
 public extension AppKitDelegate {
@@ -167,6 +174,18 @@ extension AppKit {
     func notifyStartNavigation(request: API.Communication.StartNavigationRequest, completion: @escaping (Bool) -> Void) {
         notifyClient { [weak self] in
             self?.delegate?.startNavigation(request, completion: completion)
+        }
+    }
+
+    func notifyGetReceiptEmail(request: API.Communication.ReceiptEmailRequest, completion: @escaping (String?) -> Void) {
+        notifyClient { [weak self] in
+            self?.delegate?.getReceiptEmail(request, completion: completion)
+        }
+    }
+
+    func notifyGetReceiptAttachments(request: API.Communication.ReceiptAttachmentsRequest, completion: @escaping ([String]?) -> Void) {
+        notifyClient { [weak self] in
+            self?.delegate?.getReceiptAttachments(request, completion: completion)
         }
     }
 

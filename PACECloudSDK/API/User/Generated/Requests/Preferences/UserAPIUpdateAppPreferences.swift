@@ -57,8 +57,12 @@ value not longer than 10 megabytes (including complex json objects).
                 return super.path.replacingOccurrences(of: "{" + "clientId" + "}", with: "\(self.options.clientId ?? "")")
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

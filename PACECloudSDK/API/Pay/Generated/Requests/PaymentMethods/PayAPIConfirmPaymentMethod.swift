@@ -44,10 +44,6 @@ extension PayAPI.PaymentMethods {
             public override var path: String {
                 return super.path.replacingOccurrences(of: "{" + "token" + "}", with: "\(self.options.token)")
             }
-
-            public override var isAuthorizationRequired: Bool {
-                false
-            }
         }
 
         public enum Response: APIResponseValue, CustomStringConvertible, CustomDebugStringConvertible {

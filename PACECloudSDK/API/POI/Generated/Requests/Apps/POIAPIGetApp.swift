@@ -46,8 +46,12 @@ In case the query returns a `404` (`Not Found`) the app was deleted and should b
                 return super.path.replacingOccurrences(of: "{" + "appID" + "}", with: "\(self.options.appID.encode())")
             }
 
-            public override var isAuthorizationRequired: Bool {
-                true
+            override var headerParameters: [String: String] {
+                var headers: [String: String] = [:]
+                if let token = API.accessToken {
+                    headers["Authorization"] = "Bearer \(token)"
+                }
+                return headers
             }
         }
 

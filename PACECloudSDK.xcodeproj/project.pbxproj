@@ -1211,6 +1211,14 @@
 		9AD092BA2817E1C9000A3CB3 /* DateCalculationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */; };
 		9AD092BB28181FDE000A3CB3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
 		9AD092BC2818227B000A3CB3 /* DateComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */; };
+		CB85FF772C80CCBD00551A77 /* ReceiptEmailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF752C80CCBD00551A77 /* ReceiptEmailResult.swift */; };
+		CB85FF782C80CCBD00551A77 /* ReceiptAttachmentsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF762C80CCBD00551A77 /* ReceiptAttachmentsResult.swift */; };
+		CB85FF792C80CCC300551A77 /* ReceiptAttachmentsResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF762C80CCBD00551A77 /* ReceiptAttachmentsResult.swift */; };
+		CB85FF7A2C80CCC500551A77 /* ReceiptEmailResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF752C80CCBD00551A77 /* ReceiptEmailResult.swift */; };
+		CB85FF7D2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */; };
+		CB85FF7E2C80CDC400551A77 /* ReceiptEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */; };
+		CB85FF7F2C80CDCE00551A77 /* ReceiptAttachmentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */; };
+		CB85FF802C80CDD000551A77 /* ReceiptEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1861,6 +1869,10 @@
 		9AD092B32816D340000A3CB3 /* ISO8601DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponents+Extension.swift"; sourceTree = "<group>"; };
 		9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCalculationsTests.swift; sourceTree = "<group>"; };
+		CB85FF752C80CCBD00551A77 /* ReceiptEmailResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptEmailResult.swift; sourceTree = "<group>"; };
+		CB85FF762C80CCBD00551A77 /* ReceiptAttachmentsResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttachmentsResult.swift; sourceTree = "<group>"; };
+		CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttachmentsRequest.swift; sourceTree = "<group>"; };
+		CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptEmailRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2538,6 +2550,8 @@
 		3B98701E268E06AE00A0458F /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				CB85FF762C80CCBD00551A77 /* ReceiptAttachmentsResult.swift */,
+				CB85FF752C80CCBD00551A77 /* ReceiptEmailResult.swift */,
 				3B987026268E06AE00A0458F /* AppInterceptableLinkResult.swift */,
 				3B987027268E06AE00A0458F /* ApplePayAvailabilityCheckResult.swift */,
 				3B987024268E06AE00A0458F /* AppRedirectResult.swift */,
@@ -2575,6 +2589,8 @@
 		3B987038268E06AE00A0458F /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */,
+				CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */,
 				3B918049268F434500176ECD /* ApplePayAvailabilityCheckRequest.swift */,
 				3B98703A268E06AE00A0458F /* AppRedirectRequest.swift */,
 				3B98703D268E06AE00A0458F /* DisableRequest.swift */,
@@ -4242,6 +4258,7 @@
 				841A3EF225B9C96A0065284A /* PCFuelingFuelPrice.swift in Sources */,
 				9A906BA3284637D700463618 /* PCPayPaymentMethodRequest.swift in Sources */,
 				9A906BB7284637D700463618 /* PCPayPaymentToken.swift in Sources */,
+				CB85FF772C80CCBD00551A77 /* ReceiptEmailResult.swift in Sources */,
 				9A906BB3284637D700463618 /* PCPayApplePaySession.swift in Sources */,
 				92843A0A25B1A2DF004CF9D6 /* QueryParamUTMHandler.swift in Sources */,
 				92EDDED525AC7E0000E480F4 /* Bundle+Resource.swift in Sources */,
@@ -4456,6 +4473,7 @@
 				3B7C0C08266A594400346FCC /* UserAPISetFederatedIdentity.swift in Sources */,
 				3BB208852538338A008DDE45 /* IDKitError.swift in Sources */,
 				3B7569F92B69063C00CB836F /* PCPayPaymentMethodOMVCreateRequest.swift in Sources */,
+				CB85FF7D2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift in Sources */,
 				3BA4807E2565492600187D0A /* IDKitUserAgent.swift in Sources */,
 				3B2FB1C92844EB2800E8CD0C /* PCUserUser.swift in Sources */,
 				3BC9A8102539DDAD00B933AE /* VectorTiles+Feature.swift in Sources */,
@@ -4539,6 +4557,7 @@
 				84600E9625C03B0C0087194F /* PayAPIRequestApplePaySession.swift in Sources */,
 				8447A39D25CAAE740095BEF1 /* UserAPIClient.swift in Sources */,
 				3B970A7F2542D9BB0072F6BA /* ButtonRectangular.swift in Sources */,
+				CB85FF782C80CCBD00551A77 /* ReceiptAttachmentsResult.swift in Sources */,
 				3B987065268E06AE00A0458F /* IntrospectResult.swift in Sources */,
 				3B7569FD2B69065700CB836F /* PayAPICreatePaymentMethodLogpaysandbox.swift in Sources */,
 				8447A3AB25CAAE740095BEF1 /* UserAPIGetTerms.swift in Sources */,
@@ -4692,6 +4711,7 @@
 				843A86D825C2BC040062B124 /* FuelingAPIClient+URLProtocol.swift in Sources */,
 				3B5A3CE62A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */,
 				3B3FC8F327FED6E7008B3F7F /* PACECloudSDKDelegate.swift in Sources */,
+				CB85FF7E2C80CDC400551A77 /* ReceiptEmailRequest.swift in Sources */,
 				3BDBA7232BF396F1006C0151 /* PCPOICommonCountryId.swift in Sources */,
 				84E1AC3C2562800D00C673EF /* Result+Value.swift in Sources */,
 				84600EFC25C03B1E0087194F /* POIAPIGetGasStationFuelTypeNameMapping.swift in Sources */,
@@ -4797,6 +4817,7 @@
 				3B98706E268E06AE00A0458F /* VerifyLocationResult.swift in Sources */,
 				92EDDC0625A7270300E480F4 /* URLRequestError.swift in Sources */,
 				3B5B379B29F0327B0095C152 /* ReplyHandler.swift in Sources */,
+				CB85FF802C80CDD000551A77 /* ReceiptEmailRequest.swift in Sources */,
 				3B6254D22B0E2836008FAB25 /* UIViewController+Extension.swift in Sources */,
 				3B5A3CE72A4C74D600F83F93 /* App+MessageHandling+GooglePay.swift in Sources */,
 				3BA074CF292F96D5003A389C /* MetaCollector.swift in Sources */,
@@ -4931,6 +4952,7 @@
 				92EDDC1D25A7270300E480F4 /* AppStyle+Colors.swift in Sources */,
 				3B98706C268E06AE00A0458F /* SetSecureDataResult.swift in Sources */,
 				92EDDC0D25A7270300E480F4 /* UIImage+Extension.swift in Sources */,
+				CB85FF792C80CCC300551A77 /* ReceiptAttachmentsResult.swift in Sources */,
 				3B987054268E06AE00A0458F /* BackResult.swift in Sources */,
 				3B68269F27BA93EB00933C95 /* IDKitUserAgentType.swift in Sources */,
 				92EDDBE725A726AD00E480F4 /* AppKit+Configuration.swift in Sources */,
@@ -4939,6 +4961,7 @@
 				3B8E3D682654F24700E0A6D1 /* URLSessionConfiguration+Extension.swift in Sources */,
 				92EDDBEC25A7270300E480F4 /* AppKitConstants.swift in Sources */,
 				3B987066268E06AE00A0458F /* IntrospectResult.swift in Sources */,
+				CB85FF7A2C80CCC500551A77 /* ReceiptEmailResult.swift in Sources */,
 				3BEECBCC26402EA000A8EA56 /* URLRequest+Extension.swift in Sources */,
 				9AD092BC2818227B000A3CB3 /* DateComponents+Extension.swift in Sources */,
 				8492C7F227510687001A4D7B /* WebViewController.swift in Sources */,
@@ -4960,6 +4983,7 @@
 				8418E29925B1B85E00D3722B /* APIResult.swift in Sources */,
 				3BABEFF527C8E8AD002256CB /* IDKitError.swift in Sources */,
 				3BA074D1292F96D8003A389C /* MetaCollectorData.swift in Sources */,
+				CB85FF7F2C80CDCE00551A77 /* ReceiptAttachmentsRequest.swift in Sources */,
 				3B98708E268E06AE00A0458F /* SetSecureDataRequest.swift in Sources */,
 				3B5A3CE42A4C741200F83F93 /* GooglePayAvailabilityCheckResult.swift in Sources */,
 				92EDDC2425A7270300E480F4 /* App.swift in Sources */,
