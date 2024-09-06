@@ -1,3 +1,17 @@
+23.3.0 Release notes (2024-09-06)
+=============================================================
+
+### Enhancements
+
+* Add sdk handlers for optional receipt email and receipt attachments
+
+### Fixes
+
+* Handling of 401 for authorized HTTP requests"
+* Fix setting access token for non IDKit use cases"
+* Fix network requests may not complete when no access token available"
+* Fix network requests may not complete when no access token available
+
 23.2.1 Release notes (2024-08-13)
 =============================================================
 
