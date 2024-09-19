@@ -93,6 +93,9 @@ public class PCPayTransaction: APIModel {
     /** PACE resource name */
     public var purposePRN: String?
 
+    /** Additional information that will be rendered on the receipt */
+    public var receiptInformation: [String]?
+
     public var references: [String]?
 
     /** Date of the last update (UTC) (https://tools.ietf.org/html/rfc3339#section-5.6).
@@ -139,7 +142,7 @@ public class PCPayTransaction: APIModel {
         }
     }
 
-    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, additionalData: String? = nil, authorizePaymentTokenId: ID? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, error: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, paymentTokenRequestID: String? = nil, paymentTransactionRequestID: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, additionalData: String? = nil, authorizePaymentTokenId: ID? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, error: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, paymentTokenRequestID: String? = nil, paymentTransactionRequestID: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, receiptInformation: [String]? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
         self.id = id
         self.links = links
         self.type = type
@@ -169,6 +172,7 @@ public class PCPayTransaction: APIModel {
         self.productFlow = productFlow
         self.providerPRN = providerPRN
         self.purposePRN = purposePRN
+        self.receiptInformation = receiptInformation
         self.references = references
         self.updatedAt = updatedAt
         self.vin = vin
@@ -206,6 +210,7 @@ public class PCPayTransaction: APIModel {
         productFlow = try container.decodeIfPresent("productFlow")
         providerPRN = try container.decodeIfPresent("providerPRN")
         purposePRN = try container.decodeIfPresent("purposePRN")
+        receiptInformation = try container.decodeArrayIfPresent("receiptInformation")
         references = try container.decodeArrayIfPresent("references")
         updatedAt = try container.decodeIfPresent("updatedAt")
         vin = try container.decodeIfPresent("vin")
@@ -243,6 +248,7 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(productFlow, forKey: "productFlow")
         try container.encodeIfPresent(providerPRN, forKey: "providerPRN")
         try container.encodeIfPresent(purposePRN, forKey: "purposePRN")
+        try container.encodeIfPresent(receiptInformation, forKey: "receiptInformation")
         try container.encodeIfPresent(references, forKey: "references")
         try container.encodeIfPresent(updatedAt, forKey: "updatedAt")
         try container.encodeIfPresent(vin, forKey: "vin")
@@ -279,6 +285,7 @@ public class PCPayTransaction: APIModel {
       guard self.productFlow == object.productFlow else { return false }
       guard self.providerPRN == object.providerPRN else { return false }
       guard self.purposePRN == object.purposePRN else { return false }
+      guard self.receiptInformation == object.receiptInformation else { return false }
       guard self.references == object.references else { return false }
       guard self.updatedAt == object.updatedAt else { return false }
       guard self.vin == object.vin else { return false }

@@ -36,6 +36,8 @@ public class PCPayFuel: APIModel {
         case dieselHvo = "dieselHvo"
         case dieselBMix = "dieselBMix"
         case dieselRed = "dieselRed"
+        case washerFluid = "washerFluid"
+        case twoStroke = "twoStroke"
     }
 
     /** Fuel amount in provided unit */

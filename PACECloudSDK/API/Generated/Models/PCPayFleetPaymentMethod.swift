@@ -35,7 +35,7 @@ public class PCPayFleetPaymentMethod: APIModel {
 
     public var paymentMethodVendor: PCPayPaymentMethodVendor?
 
-    public var paymentTokens: PCPayPaymentTokens?
+    public var paymentTokens: [PCPayPaymentToken]?
 
     /** Customer chosen alias for the payment method */
     public var alias: String?
@@ -256,7 +256,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         }
     }
 
-    public init(id: ID? = nil, links: Links? = nil, meta: Meta? = nil, type: PCPayType? = nil, paymentMethodKind: PCPayPaymentMethodKind? = nil, paymentMethodVendor: PCPayPaymentMethodVendor? = nil, paymentTokens: PCPayPaymentTokens? = nil, alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, userID: ID? = nil, vendorPRN: String? = nil) {
+    public init(id: ID? = nil, links: Links? = nil, meta: Meta? = nil, type: PCPayType? = nil, paymentMethodKind: PCPayPaymentMethodKind? = nil, paymentMethodVendor: PCPayPaymentMethodVendor? = nil, paymentTokens: [PCPayPaymentToken]? = nil, alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, userID: ID? = nil, vendorPRN: String? = nil) {
         self.id = id
         self.links = links
         self.meta = meta
