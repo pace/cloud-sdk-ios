@@ -51,6 +51,9 @@ public class PCPayPaymentMethodRequest: APIModel {
         /** Implicit (`true`) payment methods are read-only and cannot be deleted, e.g., ApplePay */
         public var implicit: Bool?
 
+        /** Indicates if the payment method is eligible for discounts. */
+        public var isEligibleForDiscounts: Bool?
+
         /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
         public var kind: String?
 
@@ -118,12 +121,13 @@ public class PCPayPaymentMethodRequest: APIModel {
             }
         }
 
-        public init(alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+        public init(alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, isEligibleForDiscounts: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
             self.alias = alias
             self.approvalURL = approvalURL
             self.expiry = expiry
             self.identificationString = identificationString
             self.implicit = implicit
+            self.isEligibleForDiscounts = isEligibleForDiscounts
             self.kind = kind
             self.managed = managed
             self.mandatoryAuthorisationAttributes = mandatoryAuthorisationAttributes
@@ -141,6 +145,7 @@ public class PCPayPaymentMethodRequest: APIModel {
             expiry = try container.decodeIfPresent("expiry")
             identificationString = try container.decodeIfPresent("identificationString")
             implicit = try container.decodeIfPresent("implicit")
+            isEligibleForDiscounts = try container.decodeIfPresent("isEligibleForDiscounts")
             kind = try container.decodeIfPresent("kind")
             managed = try container.decodeIfPresent("managed")
             mandatoryAuthorisationAttributes = try container.decodeArrayIfPresent("mandatoryAuthorisationAttributes")
@@ -158,6 +163,7 @@ public class PCPayPaymentMethodRequest: APIModel {
             try container.encodeIfPresent(expiry, forKey: "expiry")
             try container.encodeIfPresent(identificationString, forKey: "identificationString")
             try container.encodeIfPresent(implicit, forKey: "implicit")
+            try container.encodeIfPresent(isEligibleForDiscounts, forKey: "isEligibleForDiscounts")
             try container.encodeIfPresent(kind, forKey: "kind")
             try container.encodeIfPresent(managed, forKey: "managed")
             try container.encodeIfPresent(mandatoryAuthorisationAttributes, forKey: "mandatoryAuthorisationAttributes")
@@ -174,6 +180,7 @@ public class PCPayPaymentMethodRequest: APIModel {
           guard self.expiry == object.expiry else { return false }
           guard self.identificationString == object.identificationString else { return false }
           guard self.implicit == object.implicit else { return false }
+          guard self.isEligibleForDiscounts == object.isEligibleForDiscounts else { return false }
           guard self.kind == object.kind else { return false }
           guard self.managed == object.managed else { return false }
           guard self.mandatoryAuthorisationAttributes == object.mandatoryAuthorisationAttributes else { return false }
