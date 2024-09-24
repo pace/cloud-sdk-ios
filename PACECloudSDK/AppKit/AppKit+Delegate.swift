@@ -25,7 +25,7 @@ public protocol AppKitDelegate: AnyObject {
     func currentLocation(completion: @escaping (CLLocation?) -> Void)
 
     func setUserProperty(key: String, value: String, update: Bool)
-    func logEvent(key: String, parameters: [String: Any])
+    func logEvent(key: String, parameters: [String: Any], context: [String: Any]?)
     func getConfig(key: String, completion: @escaping ((Any?) -> Void))
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void))
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void))
@@ -44,7 +44,7 @@ public extension AppKitDelegate {
     func didRequestLocationVerification(location: CLLocation, threshold: Double, completion: @escaping ((Bool) -> Void)) { completion(false) }
     func currentLocation(completion: @escaping (CLLocation?) -> Void) { completion(nil) }
     func setUserProperty(key: String, value: String, update: Bool) {}
-    func logEvent(key: String, parameters: [String: Any]) {}
+    func logEvent(key: String, parameters: [String: Any], context: [String: Any]?) {}
     func getConfig(key: String, completion: @escaping ((Any?) -> Void)) { completion(nil) }
     func isAppRedirectAllowed(app: String, isAllowed: @escaping ((Bool) -> Void)) { isAllowed(true) }
     func isRemoteConfigAvailable(isAvailable: @escaping ((Bool) -> Void)) { isAvailable(false) }
@@ -141,9 +141,9 @@ extension AppKit {
         }
     }
 
-    func notifyLogEvent(key: String, parameters: [String: Any]) {
+    func notifyLogEvent(key: String, parameters: [String: Any], context: [String: Any]?) {
         notifyClient { [weak self] in
-            self?.delegate?.logEvent(key: key, parameters: parameters)
+            self?.delegate?.logEvent(key: key, parameters: parameters, context: context)
         }
     }
 

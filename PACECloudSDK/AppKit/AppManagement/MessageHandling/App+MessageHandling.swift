@@ -186,7 +186,13 @@ extension App {
     func handleLogEvent(with request: API.Communication.LogEventRequest, completion: @escaping (API.Communication.LogEventResult) -> Void) {
         let key = request.key
         let parameters: [String: Any] = request.parameters?.reduce(into: [:], { $0[$1.key] = $1.value.value }) ?? [:]
-        AppKit.shared.notifyLogEvent(key: key, parameters: parameters)
+
+        var context: [String: Any] = [:]
+        if request.context != nil {
+            context = request.context!.reduce(into: [:], { $0[$1.key] = $1.value.value })
+        }
+
+        AppKit.shared.notifyLogEvent(key: key, parameters: parameters, context: context)
         completion(.init(.init()))
     }
 
