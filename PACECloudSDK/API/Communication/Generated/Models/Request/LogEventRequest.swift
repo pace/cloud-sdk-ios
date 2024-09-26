@@ -15,7 +15,12 @@ public extension API.Communication {
         /**
          * Dictionary of additional event parameters */
         public let parameters: [String: AnyCodable]?
+        /**
+         * Provide additional context for the SDK which will not be logged */
+        public let context: [String: AnyCodable]?
 
         public struct Parameters: Codable {}
+
+        public struct Context: Codable {}
     }
 }

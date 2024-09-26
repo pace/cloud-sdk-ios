@@ -25,6 +25,7 @@
         + [From 20.x.x -> 21.x.x](#from-20xx-to-21xx)
         + [From 21.x.x -> 22.x.x](#from-21xx-to-22xx)
         + [From 22.x.x -> 23.x.x](#from-22xx-to-23xx)
+       +  [From 23.x.x -> 24.x.x](#from-23xx-to-24xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -230,6 +231,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 22.x.x to 23.x.x
 
 - Updated Fueling, Pay and POI API
+
+### From 23.x.x to 24.x.x
+
+- The `logEvent` SDK handler now includes an optional `context`. This context is to be used to provide a context in which the event is logged and must not be forwarded to the analytics backend.
 
 ## Contribute
 ### Localizable Strings Generation
