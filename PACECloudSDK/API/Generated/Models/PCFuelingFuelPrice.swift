@@ -42,6 +42,8 @@ public class PCFuelingFuelPrice: APIModel {
         case truckDieselPremium = "truckDieselPremium"
         case truckLpg = "truckLpg"
         case heatingOil = "heatingOil"
+        case washerFluid = "washerFluid"
+        case twoStroke = "twoStroke"
     }
 
     /** Fuel Price ID */

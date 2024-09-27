@@ -40,6 +40,9 @@ public class PCFuelingProcessPaymentResponse: APIModel {
 
     public var pumpId: ID?
 
+    /** Additional information that will be rendered on the receipt */
+    public var receiptInformation: [String]?
+
     /** Vehicle identification number */
     public var vin: String?
 
@@ -80,7 +83,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         }
     }
 
-    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, pumpId: ID? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, type: PCFuelingType? = nil, vat: VAT? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, gasStationId: ID? = nil, mileage: Int? = nil, paymentToken: String? = nil, priceIncludingVAT: Decimal? = nil, priceWithoutVAT: Decimal? = nil, pumpId: ID? = nil, receiptInformation: [String]? = nil, vin: String? = nil) {
         self.id = id
         self.type = type
         self.vat = vat
@@ -93,6 +96,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         self.priceIncludingVAT = priceIncludingVAT
         self.priceWithoutVAT = priceWithoutVAT
         self.pumpId = pumpId
+        self.receiptInformation = receiptInformation
         self.vin = vin
     }
 
@@ -111,6 +115,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
         priceWithoutVAT = try container.decodeLosslessDecimal("priceWithoutVAT")
         pumpId = try container.decodeIfPresent("pumpId")
+        receiptInformation = try container.decodeArrayIfPresent("receiptInformation")
         vin = try container.decodeIfPresent("vin")
     }
 
@@ -129,6 +134,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
         try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
         try container.encodeIfPresent(priceWithoutVAT, forKey: "priceWithoutVAT")
         try container.encodeIfPresent(pumpId, forKey: "pumpId")
+        try container.encodeIfPresent(receiptInformation, forKey: "receiptInformation")
         try container.encodeIfPresent(vin, forKey: "vin")
     }
 
@@ -146,6 +152,7 @@ public class PCFuelingProcessPaymentResponse: APIModel {
       guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
       guard self.priceWithoutVAT == object.priceWithoutVAT else { return false }
       guard self.pumpId == object.pumpId else { return false }
+      guard self.receiptInformation == object.receiptInformation else { return false }
       guard self.vin == object.vin else { return false }
       return true
     }

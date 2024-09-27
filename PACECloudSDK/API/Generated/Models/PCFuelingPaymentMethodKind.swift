@@ -25,11 +25,15 @@ public class PCFuelingPaymentMethodKind: APIModel {
     /** Indicates whether the payment method is a fuel card. Fuelcard `no` means no. */
     public var fuelcard: Bool?
 
-    /** Indicates whether the payment method can be onboarded/modified. Implict `true` means no. Otherwise yes.
-Most payment method kinds are no implicit, i.e., `implicit=false`.
+    /** Indicates whether the payment method has been onboarded implicitely, e.g., an on-device payment method such as Apple Pay or Google Pay.
 This field is optional and if not present should be assumed to indicate `implicit=false`.
  */
     public var implicit: Bool?
+
+    /** Indicates whether the payment method can be onboarded/modified. Managed `true` means no. Otherwise yes.
+Most payment method kinds are not managed, i.e., `managed=false`.
+ */
+    public var managed: Bool?
 
     /** localized name */
     public var name: String?
@@ -240,13 +244,14 @@ This field is optional and if not present should be assumed to indicate `implici
         }
     }
 
-    public init(id: String? = nil, type: PCFuelingType? = nil, currencies: [String]? = nil, dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil, vendors: [Vendors]? = nil) {
+    public init(id: String? = nil, type: PCFuelingType? = nil, currencies: [String]? = nil, dataPrivacy: DataPrivacy? = nil, fuelcard: Bool? = nil, implicit: Bool? = nil, managed: Bool? = nil, name: String? = nil, twoFactor: Bool? = nil, vendorPRNs: [String]? = nil, vendors: [Vendors]? = nil) {
         self.id = id
         self.type = type
         self.currencies = currencies
         self.dataPrivacy = dataPrivacy
         self.fuelcard = fuelcard
         self.implicit = implicit
+        self.managed = managed
         self.name = name
         self.twoFactor = twoFactor
         self.vendorPRNs = vendorPRNs
@@ -262,6 +267,7 @@ This field is optional and if not present should be assumed to indicate `implici
         dataPrivacy = try container.decodeIfPresent("dataPrivacy")
         fuelcard = try container.decodeIfPresent("fuelcard")
         implicit = try container.decodeIfPresent("implicit")
+        managed = try container.decodeIfPresent("managed")
         name = try container.decodeIfPresent("name")
         twoFactor = try container.decodeIfPresent("twoFactor")
         vendorPRNs = try container.decodeArrayIfPresent("vendorPRNs")
@@ -277,6 +283,7 @@ This field is optional and if not present should be assumed to indicate `implici
         try container.encodeIfPresent(dataPrivacy, forKey: "dataPrivacy")
         try container.encodeIfPresent(fuelcard, forKey: "fuelcard")
         try container.encodeIfPresent(implicit, forKey: "implicit")
+        try container.encodeIfPresent(managed, forKey: "managed")
         try container.encodeIfPresent(name, forKey: "name")
         try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         try container.encodeIfPresent(vendorPRNs, forKey: "vendorPRNs")
@@ -291,6 +298,7 @@ This field is optional and if not present should be assumed to indicate `implici
       guard self.dataPrivacy == object.dataPrivacy else { return false }
       guard self.fuelcard == object.fuelcard else { return false }
       guard self.implicit == object.implicit else { return false }
+      guard self.managed == object.managed else { return false }
       guard self.name == object.name else { return false }
       guard self.twoFactor == object.twoFactor else { return false }
       guard self.vendorPRNs == object.vendorPRNs else { return false }
