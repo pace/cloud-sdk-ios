@@ -2410,7 +2410,7 @@ Example:
             case status409(Status409)
 
             /** A preconditon for the payment process failed. The following codes may be seen:
-* `FUELING_PUMP_BUSY_ON_SITE`: The pump is aready unlocked.
+* `FUELING_PUMP_BUSY_ON_SITE`: The pump is already unlocked.
 * `FUELING_PROVIDER_FORCED_PRE_AUTH`: The pump is already in use. This code is only used for a specific integration in ifsf360 to show an errorscreen in our app.
  */
             case status412(Status412)

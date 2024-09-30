@@ -22,6 +22,8 @@ public struct FuelingAPI {
     public enum FuelingAPIServer {
         /** Production server (preview release 2024-3) **/
         public static let main = "https://api.pace.cloud/fueling/2024-3"
+        /** Production server (deprecated) **/
+        public static let server2 = "https://api.pace.cloud/fueling/beta"
     }
 }
 

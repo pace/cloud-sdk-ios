@@ -54,6 +54,8 @@ public class PCFuelingTransactionRequest: APIModel {
                 case truckDieselPremium = "truckDieselPremium"
                 case truckLpg = "truckLpg"
                 case heatingOil = "heatingOil"
+                case washerFluid = "washerFluid"
+                case twoStroke = "twoStroke"
             }
 
             /** 'Value' field of the payment token (not the payment token ID) */
@@ -87,13 +89,16 @@ public class PCFuelingTransactionRequest: APIModel {
 
             public var priceIncludingVAT: Decimal?
 
+            /** Additional information that will be rendered on the receipt */
+            public var receiptInformation: [String]?
+
             /** Set to 'true' if you want the payment to be cleared automatically in the background after fueling */
             public var unattendedPayment: Bool?
 
             /** Vehicle identification number */
             public var vin: String?
 
-            public init(paymentToken: String, pumpId: ID, additionalData: String? = nil, callbackURL: String? = nil, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, driverVehicleID: String? = nil, metadata: [PCFuelingTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceIncludingVAT: Decimal? = nil, unattendedPayment: Bool? = nil, vin: String? = nil) {
+            public init(paymentToken: String, pumpId: ID, additionalData: String? = nil, callbackURL: String? = nil, carFuelType: PCFuelingCarFuelType? = nil, currency: String? = nil, driverVehicleID: String? = nil, metadata: [PCFuelingTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceIncludingVAT: Decimal? = nil, receiptInformation: [String]? = nil, unattendedPayment: Bool? = nil, vin: String? = nil) {
                 self.paymentToken = paymentToken
                 self.pumpId = pumpId
                 self.additionalData = additionalData
@@ -105,6 +110,7 @@ public class PCFuelingTransactionRequest: APIModel {
                 self.mileage = mileage
                 self.numberPlate = numberPlate
                 self.priceIncludingVAT = priceIncludingVAT
+                self.receiptInformation = receiptInformation
                 self.unattendedPayment = unattendedPayment
                 self.vin = vin
             }
@@ -123,6 +129,7 @@ public class PCFuelingTransactionRequest: APIModel {
                 mileage = try container.decodeIfPresent("mileage")
                 numberPlate = try container.decodeIfPresent("numberPlate")
                 priceIncludingVAT = try container.decodeLosslessDecimal("priceIncludingVAT")
+                receiptInformation = try container.decodeArrayIfPresent("receiptInformation")
                 unattendedPayment = try container.decodeIfPresent("unattendedPayment")
                 vin = try container.decodeIfPresent("vin")
             }
@@ -141,6 +148,7 @@ public class PCFuelingTransactionRequest: APIModel {
                 try container.encodeIfPresent(mileage, forKey: "mileage")
                 try container.encodeIfPresent(numberPlate, forKey: "numberPlate")
                 try container.encodeIfPresent(priceIncludingVAT, forKey: "priceIncludingVAT")
+                try container.encodeIfPresent(receiptInformation, forKey: "receiptInformation")
                 try container.encodeIfPresent(unattendedPayment, forKey: "unattendedPayment")
                 try container.encodeIfPresent(vin, forKey: "vin")
             }
@@ -158,6 +166,7 @@ public class PCFuelingTransactionRequest: APIModel {
               guard self.mileage == object.mileage else { return false }
               guard self.numberPlate == object.numberPlate else { return false }
               guard self.priceIncludingVAT == object.priceIncludingVAT else { return false }
+              guard self.receiptInformation == object.receiptInformation else { return false }
               guard self.unattendedPayment == object.unattendedPayment else { return false }
               guard self.vin == object.vin else { return false }
               return true
