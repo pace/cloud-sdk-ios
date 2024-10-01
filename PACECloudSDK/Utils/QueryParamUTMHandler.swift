@@ -9,15 +9,8 @@ import Foundation
 
 public extension PACECloudSDK {
     enum QueryParamUTMHandler {
-        private static let ignoredUrls: [String] = [
-            Settings.shared.baseUrl(.search),
-            Settings.shared.baseUrl(.reverseGeocode),
-            Settings.shared.baseUrl(.osrm)
-        ]
-
         public static func buildUrl(for url: Foundation.URL) -> Foundation.URL? {
-            guard !ignoredUrls.contains(where: url.absoluteString.contains),
-                  var urlComponents = URLComponents(string: url.absoluteString)
+            guard var urlComponents = URLComponents(string: url.absoluteString)
             else {
                 return url
             }

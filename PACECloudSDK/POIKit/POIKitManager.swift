@@ -101,46 +101,6 @@ public extension POIKit {
         }
 
         /**
-         Retrieves a route for a navigation request.
-
-         - parameter request: request with the coordinates for the route and more parameters to restrict the search
-         - parameter handler: block called with the calculated route or error if search failed
-         */
-        public func route(for request: NavigationRequest, handler: ((NavigationResponse?, POIKitAPIError) -> Void)? = nil) {
-            api.route(request, handler: handler)
-        }
-
-        /**
-         Search for a text with the given parameters
-
-         - parameter request: search request restricting the search
-         - parameter handler: block called with the search response or error if the request failed
-         */
-        public func search(_ request: AddressSearchRequest, handler: ((GeoJSONResult?, POIKitAPIError?) -> Void)? = nil) {
-            api.search(request, handler: handler)
-        }
-
-        /**
-         Searches for address results used as search suggestions for the user
-
-         - parameter request: search request restricting the search
-         - parameter handler: block called with the search response or error if the request failed
-         */
-        public func autocomplete(_ request: AddressSearchRequest, isThrottled: Bool, handler: ((GeoJSONResult?, POIKitAPIError?) -> Void)? = nil) {
-            api.autocomplete(request, isThrottled: isThrottled, handler: handler)
-        }
-
-        /**
-         Reverse geocode a location with the given parameters
-
-         - parameter request: reverse geocode request restricting the location
-         - parameter handler: block called with the reverse geocode response or error if the request failed
-         */
-        public func reverseGeocode(_ request: ReverseGeocodeRequest, handler: ((GeoJSONResult?, POIKitAPIError) -> Void)? = nil) {
-            api.reverseGeocode(request, handler: handler)
-        }
-
-        /**
          Fetches the regional price for a given coordinate.
 
          - parameter coordinate: Coordinate to fetch the result for

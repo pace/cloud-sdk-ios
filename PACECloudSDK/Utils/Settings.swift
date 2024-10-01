@@ -18,16 +18,10 @@ class Settings {
     private(set) var userApiHostUrl = ""
     private(set) var geoApiHostUrl = ""
     private(set) var priceServiceApiHostUrl = ""
-    private(set) var osrmBaseUrl = ""
-    private(set) var searchBaseUrl = ""
-    private(set) var reverseGeocodeBaseUrl = ""
     private(set) var cdnBaseUrl = ""
 
     private let environmentPrefix = "Environment"
     private let apiGatewayKey = "ApiGateway"
-    private let osrmBaseUrlKey = "OsrmBaseUrl"
-    private let searchBaseUrlKey = "SearchBaseUrl"
-    private let reverseGeocodeBaseUrlKey = "ReverseGeocodeBaseUrl"
     private let cdnBaseUrlKey = "CDNBaseUrl"
 
     // MARK: - OIDConfiguration
@@ -63,9 +57,6 @@ class Settings {
         fuelingApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("fueling").absoluteString
         userApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("user").absoluteString
         priceServiceApiHostUrl = URL(string: apiGateway)!.appendingPathComponent("price-service").absoluteString
-        osrmBaseUrl = settings[osrmBaseUrlKey]!
-        searchBaseUrl = settings[searchBaseUrlKey]!
-        reverseGeocodeBaseUrl = settings[reverseGeocodeBaseUrlKey]!
         cdnBaseUrl = settings[cdnBaseUrlKey]!
         geoApiHostUrl = URL(string: cdnBaseUrl)!.appendingPathComponent("geo").absoluteString
     }
@@ -102,24 +93,12 @@ class Settings {
         case .priceService:
             return priceServiceApiHostUrl
 
-        case .osrm:
-            return osrmBaseUrl
-
-        case .search:
-            return searchBaseUrl
-
-        case .reverseGeocode:
-            return reverseGeocodeBaseUrl
-
         case .cdn:
             return cdnBaseUrl
         }
     }
 
     enum POIKitBaseUrl {
-        case osrm
-        case search
-        case reverseGeocode
         case poiApi
         case payApi
         case fuelingApi
