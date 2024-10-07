@@ -6,12 +6,6 @@
 	<string>https://cdn.sandbox.pace.cloud</string>
 	<key>ApiGateway</key>
 	<string>https://api.sandbox.pace.cloud</string>
-	<key>OsrmBaseUrl</key>
-	<string>https://api.pace.cloud/routing</string>
-	<key>SearchBaseUrl</key>
-	<string>https://api.pace.cloud/photon/api</string>
-	<key>ReverseGeocodeBaseUrl</key>
-	<string>https://api.pace.cloud/photon/reverse</string>
 	<key>AuthorizationEndpoint</key>
 	<string>https://id.sandbox.pace.cloud/auth/realms/pace/protocol/openid-connect/auth</string>
 	<key>TokenEndpoint</key>

@@ -16,9 +16,6 @@ class PACECloudSDKTests: XCTestCase {
             PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey", clientId: "unit-test-dummy", environment: env))
             XCTAssertNotEqual(Settings.shared.apiGateway, "")
             XCTAssertNotEqual(Settings.shared.poiApiHostUrl, "")
-            XCTAssertNotEqual(Settings.shared.osrmBaseUrl, "")
-            XCTAssertNotEqual(Settings.shared.searchBaseUrl, "")
-            XCTAssertNotEqual(Settings.shared.reverseGeocodeBaseUrl, "")
         }
     }
 

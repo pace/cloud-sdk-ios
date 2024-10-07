@@ -397,11 +397,9 @@
 		3B79FA8E26C15BEB00C0278F /* GasStationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A42539DDAC00B933AE /* GasStationRequest.swift */; };
 		3B79FA8F26C15BEB00C0278F /* tile_query_response.proto in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7AE2539DDAC00B933AE /* tile_query_response.proto */; };
 		3B79FA9026C15BEB00C0278F /* tile_query_response.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7B32539DDAC00B933AE /* tile_query_response.pb.swift */; };
-		3B79FA9126C15BEE00C0278F /* POIKitAPI+ReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */; };
 		3B79FA9226C15BEE00C0278F /* POIKitAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */; };
 		3B79FA9326C15BEE00C0278F /* PoiKitObserverToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDBD25A7401A00E480F4 /* PoiKitObserverToken.swift */; };
 		3B79FA9426C15BEE00C0278F /* PoiKitObserverToken+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDE7625A916E000E480F4 /* PoiKitObserverToken+Tiles.swift */; };
-		3B79FA9526C15BEE00C0278F /* POIKitAPI+Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */; };
 		3B79FA9626C15BEE00C0278F /* POIKitAPI+Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */; };
 		3B79FA9726C15BEE00C0278F /* POIKitAPI+VectorTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BD2539DDAC00B933AE /* POIKitAPI+VectorTiles.swift */; };
 		3B79FA9826C15BEE00C0278F /* POIKitAPI+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */; };
@@ -409,7 +407,6 @@
 		3B79FA9A26C15BEE00C0278F /* POIKitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BC2539DDAC00B933AE /* POIKitAPI.swift */; };
 		3B79FA9B26C15BEE00C0278F /* POIKitAPI+GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */; };
 		3B79FA9C26C15BEE00C0278F /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8482BAD325D5342000A7CD16 /* HttpRequest.swift */; };
-		3B79FA9D26C15BEE00C0278F /* POIKitAPI+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */; };
 		3B79FA9F26C15BF300C0278F /* Feature+Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7CC2539DDAD00B933AE /* Feature+Geometry.swift */; };
 		3B79FAA026C15BF300C0278F /* VectorTile+POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C72539DDAD00B933AE /* VectorTile+POI.swift */; };
 		3B79FAA126C15BF300C0278F /* GasStation+OpeningHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7CA2539DDAD00B933AE /* GasStation+OpeningHours.swift */; };
@@ -759,7 +756,6 @@
 		3BC9A7EC2539DDAD00B933AE /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */; };
 		3BC9A7EE2539DDAD00B933AE /* POIKitAPI+GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */; };
 		3BC9A7EF2539DDAD00B933AE /* NSMutableData+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */; };
-		3BC9A7F02539DDAD00B933AE /* POIKitAPI+ReverseGeocode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */; };
 		3BC9A7F12539DDAD00B933AE /* GasStationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A42539DDAC00B933AE /* GasStationRequest.swift */; };
 		3BC9A7F22539DDAD00B933AE /* LayerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7A52539DDAC00B933AE /* LayerType.swift */; };
 		3BC9A7F52539DDAD00B933AE /* RegionalPriceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7AA2539DDAC00B933AE /* RegionalPriceRequest.swift */; };
@@ -780,8 +776,6 @@
 		3BC9A8042539DDAD00B933AE /* POIKitAPI+Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */; };
 		3BC9A8052539DDAD00B933AE /* POIKitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BC2539DDAC00B933AE /* POIKitAPI.swift */; };
 		3BC9A8062539DDAD00B933AE /* POIKitAPI+VectorTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BD2539DDAC00B933AE /* POIKitAPI+VectorTiles.swift */; };
-		3BC9A8072539DDAD00B933AE /* POIKitAPI+Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */; };
-		3BC9A8092539DDAD00B933AE /* POIKitAPI+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */; };
 		3BC9A80B2539DDAD00B933AE /* POIKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C22539DDAC00B933AE /* POIKitManager.swift */; };
 		3BC9A80C2539DDAD00B933AE /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C52539DDAD00B933AE /* Address.swift */; };
 		3BC9A80D2539DDAD00B933AE /* CGPoint+Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9A7C62539DDAD00B933AE /* CGPoint+Coordinates.swift */; };
@@ -1581,7 +1575,6 @@
 		3BC9A79D2539DDAC00B933AE /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		3BC9A7A02539DDAC00B933AE /* POIKitAPI+GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+GasStation.swift"; sourceTree = "<group>"; };
 		3BC9A7A12539DDAC00B933AE /* NSMutableData+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableData+Extension.swift"; sourceTree = "<group>"; };
-		3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+ReverseGeocode.swift"; sourceTree = "<group>"; };
 		3BC9A7A42539DDAC00B933AE /* GasStationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GasStationRequest.swift; sourceTree = "<group>"; };
 		3BC9A7A52539DDAC00B933AE /* LayerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerType.swift; sourceTree = "<group>"; };
 		3BC9A7AA2539DDAC00B933AE /* RegionalPriceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionalPriceRequest.swift; sourceTree = "<group>"; };
@@ -1602,8 +1595,6 @@
 		3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+Prices.swift"; sourceTree = "<group>"; };
 		3BC9A7BC2539DDAC00B933AE /* POIKitAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIKitAPI.swift; sourceTree = "<group>"; };
 		3BC9A7BD2539DDAC00B933AE /* POIKitAPI+VectorTiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+VectorTiles.swift"; sourceTree = "<group>"; };
-		3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+Routing.swift"; sourceTree = "<group>"; };
-		3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "POIKitAPI+Search.swift"; sourceTree = "<group>"; };
 		3BC9A7C22539DDAC00B933AE /* POIKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIKitManager.swift; sourceTree = "<group>"; };
 		3BC9A7C52539DDAD00B933AE /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3BC9A7C62539DDAD00B933AE /* CGPoint+Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Coordinates.swift"; sourceTree = "<group>"; };
@@ -2751,9 +2742,6 @@
 				92EDDDAF25A73C6900E480F4 /* POIKitAPI+Observer.swift */,
 				3BC9A7BB2539DDAC00B933AE /* POIKitAPI+Prices.swift */,
 				3B808AFC26CA4174006EDE92 /* POIKitAPI+PriceHistory.swift */,
-				3BC9A7A22539DDAC00B933AE /* POIKitAPI+ReverseGeocode.swift */,
-				3BC9A7BE2539DDAC00B933AE /* POIKitAPI+Routing.swift */,
-				3BC9A7C02539DDAC00B933AE /* POIKitAPI+Search.swift */,
 				3BC9A7BD2539DDAC00B933AE /* POIKitAPI+VectorTiles.swift */,
 				3B1E918B253D9CEB00DC4BB1 /* POIKitAPIError.swift */,
 				92EDDDD025A745C400E480F4 /* POIKitAPIProtocol.swift */,
@@ -3841,7 +3829,6 @@
 				17B4E3FB26CE883600AEAF13 /* PaymentMethodVendor.swift in Sources */,
 				17BB0CF2268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingPaymentToken.swift in Sources */,
 				3B2FB1CE2844EB2800E8CD0C /* PCUserOAuth2Token.swift in Sources */,
-				3B79FA9526C15BEE00C0278F /* POIKitAPI+Routing.swift in Sources */,
 				3BA074D0292F96D5003A389C /* MetaCollector.swift in Sources */,
 				17BB0D04268CCF13009D4755 /* PayAPIGetTransaction.swift in Sources */,
 				17B4E55426D39CA900AEAF13 /* UserAPIAcceptTerms.swift in Sources */,
@@ -3987,7 +3974,6 @@
 				3BDBA7122BF396F1006C0151 /* PCPOIFieldName.swift in Sources */,
 				17B4E54726D39C9700AEAF13 /* UserAPICreateTOTP.swift in Sources */,
 				17BB0CFF268CCF13009D4755 /* PayAPIGetPaymentMethodsIncludingCreditCheck.swift in Sources */,
-				3B79FA9126C15BEE00C0278F /* POIKitAPI+ReverseGeocode.swift in Sources */,
 				3B2FB1C62844EB2800E8CD0C /* PCUserUserPINRequest.swift in Sources */,
 				0B28F7D4299FCE9100E929EA /* PayAPICreatePaymentMethodPACECardSandbox.swift in Sources */,
 				3B79FA6526C15BCC00C0278F /* POIKit.swift in Sources */,
@@ -4050,7 +4036,6 @@
 				17B4E55726D39CAC00AEAF13 /* UserAPIUpdateAppPreferences.swift in Sources */,
 				05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */,
 				17BB0D0C268CCF88009D4755 /* FuelingRequestBehaviour.swift in Sources */,
-				3B79FA9D26C15BEE00C0278F /* POIKitAPI+Search.swift in Sources */,
 				0B28F7B3299FCE5D00E929EA /* PCPayPaymentTokenCreateGooglePayRequest.swift in Sources */,
 				17BB0D0D268CCF88009D4755 /* FuelingAPIService.swift in Sources */,
 				17BB0D3A268CD181009D4755 /* Double+Extension.swift in Sources */,
@@ -4244,7 +4229,6 @@
 				3BDBA7132BF396F1006C0151 /* PCPOILocationBasedApps.swift in Sources */,
 				8447A39F25CAAE740095BEF1 /* UserAPIRequest.swift in Sources */,
 				3B970AAB2542D9BB0072F6BA /* AppStyle+Colors.swift in Sources */,
-				3BC9A8092539DDAD00B933AE /* POIKitAPI+Search.swift in Sources */,
 				3B63799C281AC13400CD436A /* CDNAPIClient.swift in Sources */,
 				3B987061268E06AE00A0458F /* GetAccessTokenResult.swift in Sources */,
 				0B28F7BC299FCE5D00E929EA /* PCPayDiscountRelationship.swift in Sources */,
@@ -4418,7 +4402,6 @@
 				9AD092B628170D88000A3CB3 /* DateComponents+Extension.swift in Sources */,
 				3B7C8E2F26FC597E0080B2B5 /* PayAPIDeletePaymentMethods.swift in Sources */,
 				6A8811E826F2044C00C1B1CA /* IsRemoteConfigAvailableResult.swift in Sources */,
-				3BC9A7F02539DDAD00B933AE /* POIKitAPI+ReverseGeocode.swift in Sources */,
 				8447A3C725CAAE750095BEF1 /* UserAPICheckUserPinOrPassword.swift in Sources */,
 				841A3EBE25B9C8D40065284A /* FuelingRequestBehaviour.swift in Sources */,
 				84600F5325C03B340087194F /* FuelingAPIProcessPayment.swift in Sources */,
@@ -4523,7 +4506,6 @@
 				3B2FB1D12844EB2800E8CD0C /* PCUserSessionRequest.swift in Sources */,
 				3B5503F12539E61C00C291F1 /* LiveData.swift in Sources */,
 				841A3ED625B9C8D50065284A /* FuelingAPIResponse.swift in Sources */,
-				3BC9A8072539DDAD00B933AE /* POIKitAPI+Routing.swift in Sources */,
 				84A43AD92580E35A00DE36FA /* APIClientError.swift in Sources */,
 				3BC9A80D2539DDAD00B933AE /* CGPoint+Coordinates.swift in Sources */,
 				3BC9A8222539DDAD00B933AE /* PKOperation.swift in Sources */,

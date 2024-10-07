@@ -64,15 +64,4 @@ class QueryParamUTMHandlerTests: XCTestCase {
         XCTAssertEqual(url!.absoluteString, modifiedUrl!.absoluteString)
         XCTAssertFalse(queryItems.allSatisfy(components!.queryItems!.contains))
     }
-
-    func testWithIgnoredUrl() {
-        let url = URL(string: "https://api.pace.cloud/photon/api?id=1337&foo=bar")
-        let queryItems = ["bar": "foo", "foobar": "barfoo"].map { URLQueryItem(name: $0.key, value: $0.value) }
-
-        PACECloudSDK.shared.additionalQueryParams = Set(queryItems)
-
-        let modifiedUrl = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url!)
-
-        XCTAssertEqual(url!.absoluteString, modifiedUrl!.absoluteString)
-    }
 }
