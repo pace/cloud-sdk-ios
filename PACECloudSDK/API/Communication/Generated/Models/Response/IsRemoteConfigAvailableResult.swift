@@ -10,9 +10,9 @@ public extension API.Communication {
     struct IsRemoteConfigAvailableResponse: Codable {
         /**
          * Whether remote config is available or not. */
-        public let remoteConfigAvailable: Bool?
+        public let remoteConfigAvailable: Bool
 
-        public init(remoteConfigAvailable: Bool?) {
+        public init(remoteConfigAvailable: Bool) {
             self.remoteConfigAvailable = remoteConfigAvailable
         }
     }
