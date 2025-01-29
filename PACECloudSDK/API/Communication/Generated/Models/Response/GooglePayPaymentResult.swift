@@ -58,18 +58,18 @@ public extension API.Communication {
             public struct Info: Codable {
                 /**
                  * The details about the card. This value is commonly the last four digits of the selected payment account number. */
-                public let cardDetails: String?
+                public let cardDetails: String
                 /**
                  * This object provides information about the validation performed on the returned payment data if assuranceDetailsRequired is set to true in the CardParameters. */
-                public let assuranceDetails: AssuranceDetails?
+                public let assuranceDetails: AssuranceDetails
                 /**
                  * The payment card network of the selected payment. Returned values match the format of allowedCardNetworks in CardParameters. */
-                public let cardNetwork: String?
+                public let cardNetwork: String
                 /**
                  * Shipping address, if shippingAddressRequired is set to true in the PaymentDataRequest. */
                 public let billingAddress: BillingAddress?
 
-                public init(cardDetails: String?, assuranceDetails: AssuranceDetails?, cardNetwork: String?, billingAddress: BillingAddress?) {
+                public init(cardDetails: String, assuranceDetails: AssuranceDetails, cardNetwork: String, billingAddress: BillingAddress?) {
                     self.cardDetails = cardDetails
                     self.assuranceDetails = assuranceDetails
                     self.cardNetwork = cardNetwork

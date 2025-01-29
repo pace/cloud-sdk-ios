@@ -10,19 +10,28 @@ public extension API.Communication {
     struct GooglePayPaymentRequest: Codable {
         /**
          * Major API version. The value is 2 for this specification. */
-        public let apiVersion: Int?
+        public let apiVersion: Int
         /**
          * Minor API version. The value is 0 for this specification. */
-        public let apiVersionMinor: Int?
+        public let apiVersionMinor: Int
         /**
          * Information about the merchant that requests payment data. */
         public let merchantInfo: MerchantInfo?
         /**
          * Specifies support for one or more payment methods supported by the Google Pay API. */
-        public let allowedPaymentMethods: [AllowedPaymentMethodsElement]?
+        public let allowedPaymentMethods: [AllowedPaymentMethodsElement]
         /**
          * Details about the authorization of the transaction based upon whether the user agrees to the transaction or not. Includes total price and price status. */
         public let transactionInfo: TransactionInfo
+        /**
+         * Set to true to request an email address. */
+        public let emailRequired: Bool?
+        /**
+         * Set to true to request a full shipping address. */
+        public let shippingAddressRequired: Bool?
+        /**
+         * If shippingAddressParameters is set to true, specify shipping address restrictions. */
+        public let shippingAddressParameters: ShippingAddressParameters?
 
         public struct MerchantInfo: Codable {
             /**
@@ -36,7 +45,7 @@ public extension API.Communication {
         public struct AllowedPaymentMethodsElement: Codable {
             /**
              * A short identifier for the supported payment method. CARD is the only supported value for this parameter. */
-            public let type: String?
+            public let type: String
             /**
              * Parameters required to configure the provided payment method type. */
             public let parameters: Parameters
@@ -124,6 +133,15 @@ public extension API.Communication {
             /**
              * Affects the submit button text displayed in the Google Pay payment sheet. */
             public let checkoutOption: String?
+        }
+
+        public struct ShippingAddressParameters: Codable {
+            /**
+             * ISO 3166-1 alpha-2 country code values of the countries where shipping is allowed. If this object isn't specified, all shipping address countries are allowed. */
+            public let allowedCountryCodes: [String]?
+            /**
+             * Set to true if a phone number is required for the provided shipping address. */
+            public let phoneNumberRequired: Bool?
         }
     }
 }

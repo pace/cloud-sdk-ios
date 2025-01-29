@@ -21,10 +21,10 @@ public extension API.Communication {
         public struct AllowedPaymentMethodsElement: Codable {
             /**
              * A short identifier for the supported payment method. CARD is the only supported value for this parameter. */
-            public let type: String?
+            public let type: String
             /**
              * Parameters required to configure the provided payment method type. */
-            public let parameters: Parameters?
+            public let parameters: Parameters
 
             public struct Parameters: Codable {
                 /**
