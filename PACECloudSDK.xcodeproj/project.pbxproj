@@ -3613,7 +3613,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				0B7F75402BDF733700093A0C /* PBXTargetDependency */,
+				CB55C4922DB0EAA0000BBBCB /* PBXTargetDependency */,
 			);
 			name = PACECloudSDK;
 			packageProductDependencies = (
@@ -5012,10 +5012,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0B7F75402BDF733700093A0C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 0B7F753F2BDF733700093A0C /* SwiftLintPlugin */;
-		};
 		0B7F75422BDF734000093A0C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 0B7F75412BDF734000093A0C /* SwiftLintPlugin */;
@@ -5033,6 +5029,10 @@
 			isa = PBXTargetDependency;
 			target = 921E682B2534883100438491 /* PACECloudSDK */;
 			targetProxy = 921E68372534883200438491 /* PBXContainerItemProxy */;
+		};
+		CB55C4922DB0EAA0000BBBCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = CB55C4912DB0EAA0000BBBCB /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6241,8 +6241,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
 			requirement = {
-				kind = revision;
-				revision = 108b1fca7a9445c12a92a83fdd9945ae03309f5d;
+				kind = exactVersion;
+				version = 0.58.2;
 			};
 		};
 		3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */ = {
@@ -6272,11 +6272,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0B7F753F2BDF733700093A0C /* SwiftLintPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintPlugin";
-		};
 		0B7F75412BDF734000093A0C /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
@@ -6326,6 +6321,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
+		};
+		CB55C4912DB0EAA0000BBBCB /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

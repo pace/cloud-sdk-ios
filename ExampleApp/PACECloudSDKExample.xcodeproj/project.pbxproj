@@ -488,7 +488,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				0B6203232BDBE51A00BC7D59 /* PBXTargetDependency */,
+				CB55C49A2DB0EAD3000BBBCB /* PBXTargetDependency */,
 				3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */,
 			);
 			name = PACECloudSDKExample;
@@ -660,14 +660,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0B6203232BDBE51A00BC7D59 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 0B6203222BDBE51A00BC7D59 /* SwiftLintPlugin */;
-		};
 		3B784C6B26B3EA8100B1D859 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PACECloudSDK;
 			targetProxy = 3B784C6A26B3EA8100B1D859 /* PBXContainerItemProxy */;
+		};
+		CB55C49A2DB0EAD3000BBBCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = CB55C4992DB0EAD3000BBBCB /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -952,7 +952,7 @@
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.54.0;
+				version = 0.58.2;
 			};
 		};
 		6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */ = {
@@ -966,15 +966,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0B6203222BDBE51A00BC7D59 /* SwiftLintPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0B6203212BDBE51000BC7D59 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintPlugin";
-		};
 		6ACBC02926FA1FB100E6AC05 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6ACBC02826FA1FB100E6AC05 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		CB55C4992DB0EAD3000BBBCB /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B6203212BDBE51000BC7D59 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -38,7 +38,7 @@ public extension POIKit {
         var receivedInvalidationToken: UInt64?
         var didCallHandler: Bool = false
 
-        private (set) public var boundingBox: BoundingBox
+        private(set) public var boundingBox: BoundingBox
         private let maxDistance: (distance: Double, padding: Double)?
 
         init(boundingBox: BoundingBox,
