@@ -70,7 +70,8 @@ platform :ios do
     set_info_plist_value(path: info_plist_path, key: 'CFBundleShortVersionString', value: version_number)
     set_info_plist_value(path: info_plist_path, key: 'CFBundleVersion', value: build_number)
 
-    disable_automatic_code_signing(
+    update_code_signing_settings(
+      use_automatic_signing: false,
       path: PROJECT_PATH,
       team_id: TEAM_ID
     )
@@ -97,6 +98,12 @@ platform :ios do
       build_configuration: options[:config]
     )
 
+    update_project_team(
+      path: PROJECT_PATH,
+      targets: "PACECloudSDKExample",
+      teamid: TEAM_ID
+    )
+
     gym(
       clean: true,
       export_method: 'development',
@@ -111,7 +118,7 @@ platform :ios do
         }
       },
       codesigning_identity: 'Apple Development',
-      xcargs: "-skipPackagePluginValidation -skipMacroValidation"
+      xcargs: "-skipPackagePluginValidation -skipMacroValidation CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=#{TEAM_ID}"
     )
   end
 end
