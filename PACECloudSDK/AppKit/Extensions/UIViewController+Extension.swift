@@ -9,36 +9,62 @@ import UIKit
 
 extension UIViewController {
     var isGettingDismissed: Bool {
-        isBeingDismissed ||
-        isMovingFromParent ||
-        navigationController?.isBeingDismissed == true ||
-        isUnderlyingViewControllerBeingDismissed(of: self)
+        return isBeingDismissed
+        || isMovingFromParent
+        || navigationController?.isBeingDismissed == true
+        || checkUnderlyingDismissal()
     }
 
-    private func isUnderlyingViewControllerBeingDismissed(of viewController: UIViewController?) -> Bool {
-        let presentingViewController = viewController?.presentingViewController
-        let presentedViewController = viewController?.presentedViewController
+    private func checkUnderlyingDismissal() -> Bool {
+        var visited = Set<ObjectIdentifier>()
+        return isUnderlyingViewControllerBeingDismissed(of: self, visited: &visited)
+    }
 
-        if presentingViewController == nil && presentedViewController == nil {
-            return false
+    private func isUnderlyingViewControllerBeingDismissed(
+        of viewController: UIViewController?,
+        visited: inout Set<ObjectIdentifier>
+    ) -> Bool {
+        guard let vc = viewController else { return false }
+        let id = ObjectIdentifier(vc)
+        guard !visited.contains(id) else { return false }
+        visited.insert(id)
+
+        if isParentDismissed(vc, visited: &visited) {
+            return true
         }
 
-        if presentingViewController == nil {
-            if presentedViewController?.isBeingDismissed == true {
-                return true
-            }
+        return isChildDismissed(vc, visited: &visited)
+    }
 
-            return isUnderlyingViewControllerBeingDismissed(of: presentedViewController)
+    private func isParentDismissed(
+        _ vc: UIViewController,
+        visited: inout Set<ObjectIdentifier>
+    ) -> Bool {
+        guard let presenting = vc.presentingViewController else { return false }
+
+        if presenting.isBeingDismissed {
+            return true
         }
 
-        if presentedViewController == nil {
-            if presentingViewController?.isBeingDismissed == true {
-                return true
-            }
+        return isUnderlyingViewControllerBeingDismissed(
+            of: presenting,
+            visited: &visited
+        )
+    }
 
-            return isUnderlyingViewControllerBeingDismissed(of: presentingViewController)
+    private func isChildDismissed(
+        _ vc: UIViewController,
+        visited: inout Set<ObjectIdentifier>
+    ) -> Bool {
+        guard let presented = vc.presentedViewController else { return false }
+
+        if presented.isBeingDismissed {
+            return true
         }
 
-        return isUnderlyingViewControllerBeingDismissed(of: presentingViewController) || isUnderlyingViewControllerBeingDismissed(of: presentedViewController)
+        return isUnderlyingViewControllerBeingDismissed(
+            of: presented,
+            visited: &visited
+        )
     }
 }
