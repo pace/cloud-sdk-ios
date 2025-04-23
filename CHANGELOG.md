@@ -1,3 +1,20 @@
+25.0.0 Release notes (2025-04-23)
+=============================================================
+
+### Breaking Changes
+
+* Remove all photon based API endpoints
+
+### Fixes
+
+* Fix infinite recursion in UIViewController.isGettingDismissed helper
+
+### Internal
+
+* Update swiftlint version to match runners
+* Update runner xcode version
+* Regenerate communication code
+
 24.0.1 Release notes (2024-09-30)
 =============================================================
 
