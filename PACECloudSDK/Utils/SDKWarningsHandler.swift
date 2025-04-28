@@ -29,7 +29,7 @@ extension PACECloudSDK {
         }
 
         func preCheckSetup() {
-            guard [isSDKSetupValuesAvailable, isIDKitSetupCorrect].filter({ !$0 }).isEmpty else {
+            guard isSDKSetupValuesAvailable else {
                 logSDKWarningsIfNeeded()
                 return
             }
@@ -42,18 +42,8 @@ extension PACECloudSDK {
         }
 
         func logSDKWarningsIfNeeded() {
-            guard [isSDKSetupValuesAvailable, isIDKitSetupCorrect].contains(where: { !$0 }) else { return }
-
-            var warningMessage = "❌ We've noticed some inconsistencies with your PACECloudSDK setup!"
-
-            if !isSDKSetupValuesAvailable {
-                warningMessage += sdkSetupFailedMessage
-            }
-
-            if !isIDKitSetupCorrect {
-                warningMessage += idKitSetupFailedMessage
-            }
-
+            guard !isSDKSetupValuesAvailable else { return }
+            let warningMessage = "❌ We've noticed some inconsistencies with your PACECloudSDK setup!" + sdkSetupFailedMessage
             SDKLogger.w(warningMessage)
         }
 
@@ -108,16 +98,6 @@ private extension PACECloudSDK.SDKWarningsHandler {
 
 // MARK: - IDKit setup
 private extension PACECloudSDK.SDKWarningsHandler {
-    var isIDKitSetupCorrect: Bool {
-        let oidRedirectUri = Bundle.main.oidConfigRedirectUri
-
-        if customOIDConfiguration != nil {
-            return true
-        }
-
-        return !(oidRedirectUri?.isEmpty ?? true)
-    }
-
     var idKitSetupSuccessfulMessage: String {
         var message = "\nIDKit oid configuration:"
 
@@ -130,12 +110,5 @@ private extension PACECloudSDK.SDKWarningsHandler {
         }
 
         return message
-    }
-
-    var idKitSetupFailedMessage: String {
-        """
-        \nIf you want to use the default IDKit oid configuration please make sure to add \
-        `PACECloudSDKOIDConfigurationRedirectURI` with a non-empty value to your Info.plist.
-        """
     }
 }
