@@ -12,15 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "PACECloudSDK",
-            targets: ["PACECloudSDK"]),
-        .library(
-            name: "PACECloudSlimSDK",
-            targets: ["PACECloudSlimSDK"]
-        ),
-        .library(
-            name: "PACECloudWatchSDK",
-            targets: ["PACECloudWatchSDK"]
-        )
+            targets: ["PACECloudSDK"])
     ],
     dependencies: [
         .package(name: "AppAuth", url: "https://github.com/pace/AppAuth-iOS", .exact("1.5.0")),
@@ -49,16 +41,6 @@ let package = Package(
                 .process("POIKit/POIKitApi/Model/tile_query_request.proto"),
                 .process("POIKit/POIKitApi/Model/tile_query_response.proto"),
                 .process("POIKit/POISearch/Model/vector_tile.proto")
-            ]),
-        .binaryTarget(
-            name: "PACECloudSlimSDK",
-            url: "https://github.com/pace/cloud-sdk-ios/releases/download/25.0.0/PACECloudSlimSDK.zip",
-            checksum: "5bf1d41cfaf21c65a86929a28c1f967d805a06e9a14c18a9cefe96219a9abecf"
-        ),
-        .binaryTarget(
-            name: "PACECloudWatchSDK",
-            url: "https://github.com/pace/cloud-sdk-ios/releases/download/25.0.0/PACECloudWatchSDK.zip",
-            checksum: "08546d518b4fcd5318fe633387ac5f3f84a77237d6a3434fe1d0c459cf502f51"
-        )
+            ])
     ]
 )
