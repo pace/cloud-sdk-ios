@@ -172,6 +172,7 @@ extension AppKit {
             appImageBackgroundView.anchor(top: drawerBackgroundView.topAnchor,
                                           leading: drawerBackgroundView.leadingAnchor,
                                           bottom: drawerBackgroundView.bottomAnchor,
+                                          padding: .init(top: 0, left: -1, bottom: 0, right: 0),
                                           size: .init(width: Self.drawerSize, height: Self.drawerSize))
 
             let closeButtonSize = Self.closeButtonSize
@@ -193,10 +194,10 @@ extension AppKit {
             closeButton.anchor(centerY: drawerBackgroundView.centerYAnchor, size: .init(width: closeButtonSize, height: closeButtonSize))
             closeButton.anchor(trailing: drawerBackgroundView.trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 0))
 
-            drawerBackgroundView.anchor(top: topAnchor, 
+            drawerBackgroundView.anchor(top: topAnchor,
                                         leading: leadingAnchor,
                                         bottom: bottomAnchor,
-                                        padding: .init(top: 0, left: 1, bottom: 0, right: 0),
+                                        padding: .init(top: 0, left: 0, bottom: 0, right: 0),
                                         size: .init(width: 0, height: Self.drawerSize))
 
             drawerRightPaddingConstraint = drawerBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20)
@@ -421,7 +422,7 @@ extension AppKit.AppDrawer {
         case left
         case right
     }
-    
+
     public static let drawerSize: CGFloat = 64
 
     static let drawerMargin: CGFloat = 16
