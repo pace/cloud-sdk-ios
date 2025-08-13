@@ -121,18 +121,48 @@ extension IDKit {
     }
 
     func handleUpdatedAccessToken(with token: String?) {
-        API.accessToken = token
-
-        if let token = token,
-           let userId = TokenValidator(accessToken: token).jwtValue(for: IDKitConstants.jwtSubjectKey) as? String {
-            SDKUserDefaults.setUserId(userId)
-            SDKKeychain.setUserId(userId)
-        } else {
-            SDKUserDefaults.deleteUserScopedData()
-            SDKKeychain.deleteUserScopedData()
+        Task {
+            if let exchangeConfig = configuration.tokenExchangeConfig, let token {
+                var request = URLRequest(url: URL(string: exchangeConfig.exchangeIssuer)!)
+                request.httpMethod = "POST"
+                
+                let params = [
+                    "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
+                    "client_id": exchangeConfig.exchangeClientID,
+                    "subject_issuer" : exchangeConfig.exchangeIssuerID,
+                    "client_secret" : exchangeConfig.exchangeClientSecret,
+                    "subject_token": token,
+                    "subject_token_type": "urn:ietf:params:oauth:token-type:access_token"
+                ]
+                request.httpBody = params
+                    .map { "\($0)=\($1.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)" }
+                    .joined(separator: "&")
+                    .data(using: .utf8)
+                
+                request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                let group = DispatchGroup()
+                let (data, response) = try await URLSession.shared.data(for: request)
+                if let jsonString = data.prettyPrintedJSONString, let exchangeToken = jsonString["access_token"] as? String {
+                    API.accessToken = exchangeToken
+                    
+                } else {
+                    IDKitLogger.e("[TokenExchange] Error while token exchange")
+                }
+                
+            } else {
+                API.accessToken = token
+            }
+            if let token = token,
+               let userId = TokenValidator(accessToken: token).jwtValue(for: IDKitConstants.jwtSubjectKey) as? String {
+                SDKUserDefaults.setUserId(userId)
+                SDKKeychain.setUserId(userId)
+            } else {
+                SDKUserDefaults.deleteUserScopedData()
+                SDKKeychain.deleteUserScopedData()
+            }
+            
+            delegate?.accessTokenChanged(token)
         }
-
-        delegate?.accessTokenChanged(token)
     }
 }
 

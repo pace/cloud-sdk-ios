@@ -18,7 +18,11 @@ extension IDKit {
         performRefresh { [weak self] result in
             switch result {
             case .success(let accessToken):
-                completion(accessToken)
+                if let self, self.configuration.tokenExchangeConfig != nil {
+                    completion(API.accessToken)
+                } else {
+                    completion(accessToken)
+                }
 
             case .failure(let error):
                 guard case .failedTokenRefresh = error else {

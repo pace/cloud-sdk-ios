@@ -30,3 +30,15 @@ extension Data {
       Array(self)
     }
 }
+
+extension Data {
+    var prettyPrintedJSONString: [String: Any]? {
+        guard let jsonObjectData = try? JSONSerialization.jsonObject(with: self, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: jsonObjectData,
+                                                       options: [.prettyPrinted]),
+              let json = try? JSONSerialization.jsonObject(with: self, options: []), let payload = json as? [String: Any]  else {
+                  return nil
+               }
+        return payload
+    }
+}
