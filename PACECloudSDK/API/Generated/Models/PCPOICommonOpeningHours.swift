@@ -74,7 +74,7 @@ public class PCPOICommonOpeningHours: APIModel {
             }
         }
 
-        public init(action: PCPOIAction? = nil, days: [PCPOIDays]? = nil, timespans: [Timespans]? = nil) {
+        public init(action: PCPOIAction? = .open, days: [PCPOIDays]? = nil, timespans: [Timespans]? = nil) {
             self.action = action
             self.days = days
             self.timespans = timespans

@@ -1205,6 +1205,7 @@
 		9AD092BA2817E1C9000A3CB3 /* DateCalculationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */; };
 		9AD092BB28181FDE000A3CB3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
 		9AD092BC2818227B000A3CB3 /* DateComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */; };
+		C379EE882E4CBAD700E73B60 /* IkigaJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C379EE872E4CBAD700E73B60 /* IkigaJSON */; };
 		C384393B2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384393A2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift */; };
 		C384393C2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384393A2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift */; };
 		C384393E2C9DC16200D8305E /* PayAPIGetPaymentMethodKindsByClientID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384393D2C9DC16200D8305E /* PayAPIGetPaymentMethodKindsByClientID.swift */; };
@@ -1894,6 +1895,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C379EE882E4CBAD700E73B60 /* IkigaJSON in Frameworks */,
 				3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */,
 				3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */,
 				3B2ECC5F283295E900A2E721 /* Japx in Frameworks */,
@@ -3620,6 +3622,7 @@
 				3B87D06925DACE6400D635F0 /* SwiftProtobuf */,
 				3BA6A79B260DDF5A005D4B5C /* AppAuth */,
 				3B2ECC5E283295E900A2E721 /* Japx */,
+				C379EE872E4CBAD700E73B60 /* IkigaJSON */,
 			);
 			productName = PACECloudSDK;
 			productReference = 921E682C2534883100438491 /* PACECloudSDK.framework */;
@@ -3722,6 +3725,7 @@
 				3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */,
 				0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */,
 			);
 			productRefGroup = 921E682D2534883100438491 /* Products */;
 			projectDirPath = "";
@@ -6269,6 +6273,14 @@
 				version = 1.5.0;
 			};
 		};
+		C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/orlandos-nl/IkigaJSON.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.3.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -6326,6 +6338,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		C379EE872E4CBAD700E73B60 /* IkigaJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */;
+			productName = IkigaJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

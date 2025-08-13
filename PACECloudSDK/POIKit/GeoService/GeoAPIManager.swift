@@ -7,6 +7,7 @@
 
 import CoreLocation
 import Foundation
+import IkigaJSON
 
 // swiftlint:disable type_body_length file_length
 
@@ -189,13 +190,13 @@ class GeoAPIManager {
 
                 if let location = location {
                     let filteredFeatures = self.applyRadiusFilter(features, for: location, radius: self.cacheRadius)
-                    self.locationBasedFeatures = filteredFeatures
-                    self.locationBasedLastUpdatedAt = Date()
+//                    self.locationBasedFeatures = filteredFeatures
+//                    self.locationBasedLastUpdatedAt = Date()
                     self.cacheCenter = location
                     result(.success(filteredFeatures))
                 } else {
-                    self.allCofuFeatures = features
-                    self.allCofuLastUpdatedAt = Date()
+//                    self.allCofuFeatures = features
+//                    self.allCofuLastUpdatedAt = Date()
                     result(.success(features))
                 }
 
@@ -371,7 +372,7 @@ class GeoAPIManager {
 
     private func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? {
         do {
-            let response = try JSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
+            let response = try IkigaJSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
             return response
         } catch {
             POIKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
