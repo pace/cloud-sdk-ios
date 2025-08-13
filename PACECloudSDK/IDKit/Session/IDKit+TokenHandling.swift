@@ -87,16 +87,20 @@ extension IDKit {
                 self?.performReset { _ in completion(.failure(.failedRetrievingSessionWhileAuthorizing)) }
                 return
             }
-
-            // Persist current session
-            SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
-
             self?.session = authState
             let accessToken = session.lastTokenResponse?.accessToken
-            self?.handleUpdatedAccessToken(with: accessToken)
 
-            completion(.success(accessToken))
-            IDKitLogger.i("Authorization successful")
+            if let exchangeConfig = self?.configuration.tokenExchangeConfig, let token = accessToken {
+                self?.performTokenExchange(with: token, configuration: exchangeConfig) { newApiToken in
+                    guard let newApiToken else {
+                        self?.performReset { _ in completion(.failure(.tokenExchangeFailed)) }
+                        return
+                    }
+                    self?.finalizeAuthorization(session: session, accessToken: accessToken, exchangeToken: newApiToken, completion: completion)
+                }
+            } else {
+                self?.finalizeAuthorization(session: session, accessToken: accessToken, exchangeToken: nil, completion: completion)
+            }
         }
 
         var userAgent: OIDExternalUserAgent?
@@ -119,10 +123,55 @@ extension IDKit {
 
         self.authorizationFlow = authorizationFlow
     }
+    
+    private func finalizeAuthorization(session: OIDAuthState,
+                                       accessToken: String?,
+                                       exchangeToken: String?,
+                                       completion: @escaping (Result<String?, IDKitError>) -> Void) {
+        handleUpdatedAccessToken(with: accessToken, exchangeToken: exchangeToken)
+        SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
+        completion(.success(accessToken))
+        IDKitLogger.i("Authorization successful")
+    }
 
-    func handleUpdatedAccessToken(with token: String?) {
-        API.accessToken = token
 
+    func performTokenExchange(with token: String, configuration: TokenExchangeConfiguration, completion: @escaping ((String?) -> Void)) {
+        var request = URLRequest(url: URL(string: Settings.shared.tokenEndpointUrl)!) // swiftlint:disable:this force_unwrapping
+        request.httpMethod = "POST"
+        let params = [
+            "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
+            "client_id": configuration.exchangeClientID,
+            "subject_issuer": configuration.exchangeIssuerID,
+            "client_secret": configuration.exchangeClientSecret,
+            "subject_token": token,
+            "subject_token_type": "urn:ietf:params:oauth:token-type:access_token"
+        ]
+        request.httpBody = params
+            .map { "\($0)=\($1.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)" } // swiftlint:disable:this force_unwrapping
+            .joined(separator: "&")
+            .data(using: .utf8)
+
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+            var returnToken: String?
+            if let data = data, let jsonString = data.prettyPrintedJSONString, let exchangeToken = jsonString["access_token"] as? String {
+                returnToken = exchangeToken
+                IDKitLogger.i("[TokenExchange] Token exchange successful")
+            } else {
+                IDKitLogger.e("[TokenExchange] Error while token exchange \(String(describing: error))")
+            }
+            completion(returnToken)
+        })
+        task.resume()
+    }
+
+    func handleUpdatedAccessToken(with token: String?, exchangeToken: String?) {
+        if let exchangeToken = exchangeToken {
+            API.accessToken = exchangeToken
+        } else {
+            API.accessToken = token
+        }
         if let token = token,
            let userId = TokenValidator(accessToken: token).jwtValue(for: IDKitConstants.jwtSubjectKey) as? String {
             SDKUserDefaults.setUserId(userId)
@@ -131,8 +180,8 @@ extension IDKit {
             SDKUserDefaults.deleteUserScopedData()
             SDKKeychain.deleteUserScopedData()
         }
+        delegate?.accessTokenChanged(API.accessToken)
 
-        delegate?.accessTokenChanged(token)
     }
 }
 
@@ -145,7 +194,6 @@ extension IDKit {
                 IDKitLogger.e("[TokenRefresh] Self not available")
                 return
             }
-
             refreshCompletionHandlers.append(completion)
 
             guard !isRefreshing else { return }
@@ -162,8 +210,7 @@ extension IDKit {
         }
     }
 
-    private func performActualRefresh(currentRetryCount: Int = 0,
-                                      _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
+    private func performActualRefresh(currentRetryCount: Int = 0, _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         guard let session = session else {
             completion(.failure(.invalidSession))
             return
@@ -178,12 +225,29 @@ extension IDKit {
             }
 
             guard let error = error else {
-                handleUpdatedAccessToken(with: accessToken)
-                completion(.success(accessToken))
-                IDKitLogger.i("[TokenRefresh] Refresh successful")
+                if let exchangeConfig = self.configuration.tokenExchangeConfig, let token = accessToken {
+                    self.performTokenExchange(with: token, configuration: exchangeConfig) { newApiToken in
+                        if newApiToken == nil {
+                            completion(.failure(.tokenExchangeFailed))
+                            return
+                        } else {
+                            completion(.success(newApiToken))
+                        }
+                        self.handleUpdatedAccessToken(with: accessToken, exchangeToken: newApiToken)
+                        IDKitLogger.i("[TokenRefresh] Refresh successful")
 
-                // Update persisted session
-                SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
+                        // Update persisted session
+                        SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
+                        return
+                    }
+                } else {
+                    completion(.success(accessToken))
+                    self.handleUpdatedAccessToken(with: accessToken, exchangeToken: nil)
+                    IDKitLogger.i("[TokenRefresh] Refresh successful")
+
+                    // Update persisted session
+                    SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
+                }
                 return
             }
 
@@ -246,7 +310,7 @@ extension IDKit {
 
             self?.disableBiometricAuthentication()
 
-            self?.handleUpdatedAccessToken(with: nil)
+            self?.handleUpdatedAccessToken(with: nil, exchangeToken: nil)
 
             self?.session = nil
             SessionCache.reset(for: PACECloudSDK.shared.environment)

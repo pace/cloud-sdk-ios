@@ -26,6 +26,7 @@ public extension IDKit {
         case failedTokenRefresh(Error)
         case authorizationCanceled
         case missingSetup
+        case tokenExchangeFailed
         case other(Error)
 
         // Biometry
@@ -87,6 +88,9 @@ public extension IDKit {
 
             case .missingSetup:
                 return "IDKit has not properly been set up."
+
+            case .tokenExchangeFailed:
+                return "Token exchange failed."
 
             case .other(let error):
                 return error.localizedDescription
