@@ -6,6 +6,7 @@
 //
 
 import Foundation
+internal import IkigaJSON
 
 struct GeoAPIResponse: Decodable {
     let type: String?
@@ -37,6 +38,37 @@ enum GeometryFeature: Codable {
     case point(GeometryPointFeature)
     case polygon(GeometryPolygonFeature)
     case collections(GeometryCollectionsFeature)
+
+    init?(from jsonObject: JSONObject) {
+        guard let type = jsonObject["type"] as? String else { return nil }
+
+        switch type.lowercased() {
+        case "point":
+            guard let jsonArray = jsonObject["coordinates"] as? JSONArray,
+                  let pointFeature = GeometryPointFeature(jsonArray: jsonArray) else { return nil }
+            self = .point(pointFeature)
+
+        case "polygon":
+            guard let coordinatesArray = jsonObject["coordinates"] as? [[[Double]]] else { return nil }
+            let coordinates = coordinatesArray.map { $0.map { $0 } }
+            let polygonFeature = GeometryPolygonFeature(type: type, coordinates: coordinates)
+            self = .polygon(polygonFeature)
+
+        case "geometrycollection":
+            let geometriesArray = jsonObject["geometries"] as? [JSONObject]
+            var geometries: [GeometryFeature]? = nil
+            
+            if let geometriesArray = geometriesArray {
+                geometries = geometriesArray.compactMap { GeometryFeature(from: $0) }
+            }
+            
+            let collectionsFeature = GeometryCollectionsFeature(type: type, geometries: geometries)
+            self = .collections(collectionsFeature)
+            
+        default:
+            return nil
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -74,8 +106,19 @@ enum GeometryFeature: Codable {
 }
 
 struct GeometryPointFeature: Codable {
-    let type: String?
     let coordinates: GeoAPICoordinate
+
+    init?(jsonArray: JSONArray) {
+        var coordinates: [Double] = []
+        for coordinate in jsonArray {
+            if let doubleCoordinate = coordinate.double {
+                coordinates.append(doubleCoordinate)
+            }
+        }
+
+        guard coordinates.count == 2 else { return nil }
+        self.coordinates = coordinates
+    }
 }
 
 struct GeometryPolygonFeature: Codable {

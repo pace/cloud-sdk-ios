@@ -7,7 +7,7 @@
 
 import CoreLocation
 import Foundation
-import IkigaJSON
+internal import IkigaJSON
 
 // swiftlint:disable type_body_length file_length
 
@@ -32,10 +32,10 @@ class GeoAPIManager {
 
     private var sessionTask: URLSessionDataTask?
 
-    private var allCofuFeatures: [GeoAPIFeature]?
+    private var allCofuFeatures: JSONArray?
     private var allCofuLastUpdatedAt: Date?
 
-    private var locationBasedFeatures: [GeoAPIFeature]?
+    private var locationBasedFeatures: JSONArray?
     private var locationBasedLastUpdatedAt: Date?
 
     private var cacheCenter: CLLocation?
@@ -43,7 +43,7 @@ class GeoAPIManager {
     private let cacheRadius: CLLocationDistance = 30_000 // 30km
 
     private var isGeoRequestRunning: Bool = false
-    private var resultHandlers: [(Result<GeoAPIResponse?, GeoApiManagerError>) -> Void] = []
+    private var resultHandlers: [(Result<JSONObject?, GeoApiManagerError>) -> Void] = []
 
     init() {
         let configuration = URLSessionConfiguration.default
@@ -172,7 +172,7 @@ class GeoAPIManager {
         }
     }
 
-    private func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
+    private func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<JSONObject, GeoApiManagerError>) -> Void) {
         performGeoRequest { [weak self] apiResult in
             guard let self = self else {
                 result(.failure(.unknownError))
@@ -181,7 +181,8 @@ class GeoAPIManager {
 
             switch apiResult {
             case .success(let apiResponse):
-                guard let features = apiResponse?.features else {
+                guard let object = apiResponse,
+                      let features: JSONArray = object["features"] as? JSONArray else {
                     // If request fails reset cache to try again next time
                     self.resetCache()
                     result(.failure(.invalidResponse))
@@ -190,13 +191,13 @@ class GeoAPIManager {
 
                 if let location = location {
                     let filteredFeatures = self.applyRadiusFilter(features, for: location, radius: self.cacheRadius)
-//                    self.locationBasedFeatures = filteredFeatures
-//                    self.locationBasedLastUpdatedAt = Date()
+                    self.locationBasedFeatures = filteredFeatures
+                    self.locationBasedLastUpdatedAt = Date()
                     self.cacheCenter = location
                     result(.success(filteredFeatures))
                 } else {
-//                    self.allCofuFeatures = features
-//                    self.allCofuLastUpdatedAt = Date()
+                    self.allCofuFeatures = features
+                    self.allCofuLastUpdatedAt = Date()
                     result(.success(features))
                 }
 
@@ -241,6 +242,7 @@ class GeoAPIManager {
                 }
             }
 
+            // TODO: get properties from json
             guard let id = feature.id,
                   let properties = feature.properties
             else {
@@ -254,7 +256,7 @@ class GeoAPIManager {
     }
 
     // swiftlint:disable:next function_body_length
-    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) {
+    private func performGeoRequest(result: @escaping (Result<JSONObject?, GeoApiManagerError>) -> Void) {
         guard let geoAppsScope = geoAppsScope else {
             POIKitLogger.e("[GeoAPIManager] Value for `geoAppsScope` is missing.")
             result(.failure(.unknownError))
@@ -318,15 +320,19 @@ class GeoAPIManager {
                     return
                 }
 
-                let decodedResponse = self?.decodeGeoAPIResponse(geoApiData: data)
-                self?.notifyResultHandlers(with: .success(decodedResponse))
+                do {
+                    let jsonObject = try JSONObject(data: data)
+                    self?.notifyResultHandlers(with: .success(jsonObject))
+                } catch {
+                    self?.notifyResultHandlers(with: .failure(.invalidResponse))
+                }
             })
 
             self.sessionTask?.resume()
         }
     }
 
-    private func notifyResultHandlers(with result: Result<GeoAPIResponse?, GeoApiManagerError>) {
+    private func notifyResultHandlers(with result: Result<JSONObject?, GeoApiManagerError>) {
         resultHandlers.forEach { $0(result) }
         resultHandlers.removeAll()
     }
@@ -370,15 +376,15 @@ class GeoAPIManager {
         return nil
     }
 
-    private func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? {
-        do {
-            let response = try IkigaJSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
-            return response
-        } catch {
-            POIKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
-            return nil
-        }
-    }
+//    private func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? {
+//        do {
+//            let response = try IkigaJSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
+//            return response
+//        } catch {
+//            POIKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
+//            return nil
+//        }
+//    }
 
     deinit {
         sessionTask?.cancel()
@@ -397,12 +403,16 @@ private extension GeoAPIManager {
         return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge || cacheCenter.distance(from: location) > cacheRadius
     }
 
-    func applyRadiusFilter(_ features: [GeoAPIFeature], for location: CLLocation, radius: CLLocationDistance) -> [GeoAPIFeature] {
+    func applyRadiusFilter(_ features: JSONArray, for location: CLLocation, radius: CLLocationDistance) -> [GeoAPIFeature] {
         let filteredResponse = features.filter { feature in
-            guard let geometry = feature.geometry else { return false }
-            return isInRadius(geometry: geometry, location: location, radius: radius)
-        }
+            let object = feature as! JSONObject
 
+            // TODO: get geometryfeature
+
+//            guard let geometry = feature.geometry else { return false }
+            return true
+            //isInRadius(geometry: geometry, location: location, radius: radius)
+        }
         return filteredResponse
     }
 
