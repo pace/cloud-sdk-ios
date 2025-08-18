@@ -54,6 +54,12 @@ public extension PACECloudSDK {
         /// Stats whether logs should be persisted into files.
         let persistLogs: Bool
 
+        /// The url to store a persistent database that holds information about all CoFu gas stations.
+        ///
+        /// Passing `nil` will not create a database and the information will be held in memory.
+        /// Defaults to `nil`.
+        let geoDatabaseUrl: Foundation.URL?
+
         public init(apiKey: String,
                     clientId: String,
                     authenticationMode: AuthenticationMode = .native,
@@ -68,7 +74,8 @@ public extension PACECloudSDK {
                     allowedAppDrawerLocationOffset: Double? = nil,
                     isMetaCollectorEnabled: Bool = true,
                     logLevel: Logger.LogLevel = .info,
-                    persistLogs: Bool = false) {
+                    persistLogs: Bool = false,
+                    geoDatabaseUrl: Foundation.URL? = nil) {
             self.apiKey = apiKey
             self.clientId = clientId
             self.authenticationMode = authenticationMode
@@ -93,6 +100,7 @@ public extension PACECloudSDK {
             self.isMetaCollectorEnabled = isMetaCollectorEnabled
             self.logLevel = logLevel
             self.persistLogs = persistLogs
+            self.geoDatabaseUrl = geoDatabaseUrl
         }
     }
 

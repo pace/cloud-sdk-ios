@@ -276,8 +276,6 @@ class LoggerTests: XCTestCase {
 
         let files = debugBundleFiles()
 
-        print("### \(files)")
-
         XCTAssertTrue(files.contains(controlFileName1))
         XCTAssertTrue(files.contains(controlFileName2))
         XCTAssertTrue(files.contains(controlFileName3))

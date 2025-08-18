@@ -16,7 +16,7 @@ public class POIKit {
 
     private static var sharedInstance: POIKit = POIKit()
 
-    private var geoAPIManager: GeoAPIManager
+    private let geoAPIManager: GeoAPIManager
     private lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     private var currentEnvironment: PACECloudSDK.Environment
@@ -27,9 +27,12 @@ public class POIKit {
     }
 
     static func setup() {
-        shared.geoAPIManager.speedThreshold = PACECloudSDK.shared.config?.speedThreshold ?? Constants.Configuration.defaultSpeedThreshold
-        shared.oneTimeLocationProvider.lowAccuracy = PACECloudSDK.shared.config?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
-        shared.geoAPIManager.geoAppsScope = PACECloudSDK.shared.config?.geoAppsScope
+        let sdkConfig = PACECloudSDK.shared.config
+
+        shared.oneTimeLocationProvider.lowAccuracy = sdkConfig?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
+        shared.geoAPIManager.setup(speedThreshold: sdkConfig?.speedThreshold ?? Constants.Configuration.defaultSpeedThreshold,
+                                   geoAppsScope: sdkConfig?.geoAppsScope,
+                                   databaseUrl: sdkConfig?.geoDatabaseUrl)
     }
 }
 

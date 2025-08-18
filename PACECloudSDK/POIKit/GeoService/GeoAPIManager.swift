@@ -25,24 +25,15 @@ internal import IkigaJSON
  - Additionally we use the native response caching of `URLSession` within the network layer
  */
 class GeoAPIManager {
-    var speedThreshold: Double = Constants.Configuration.defaultSpeedThreshold
-    var geoAppsScope: String?
+    private var speedThreshold: Double = Constants.Configuration.defaultSpeedThreshold
+    private var geoAppsScope: String?
+    private var database: GeoDatabase?
 
     private let session: URLSession
     private let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
     private let apiVersion = "2021-1"
 
     private var sessionTask: URLSessionDataTask?
-
-    private var allCofuFeatures: [GeoAPIFeature]?
-    private var allCofuLastUpdatedAt: Date?
-
-    private var locationBasedFeatures: [GeoAPIFeature]?
-    private var locationBasedLastUpdatedAt: Date?
-
-    private var cacheCenter: CLLocation?
-    private let cacheMaxAge: TimeInterval = 60 * 60 // 1h
-    private let cacheRadius: CLLocationDistance = 30_000 // 30km
 
     private var isGeoRequestRunning: Bool = false
     private var resultHandlers: [(Result<GeoAPIResponse?, GeoApiManagerError>) -> Void] = []
@@ -67,6 +58,19 @@ class GeoAPIManager {
         self.session = URLSession(configuration: configuration)
     }
 
+    func setup(speedThreshold: Double, geoAppsScope: String?, databaseUrl: URL?) {
+        self.speedThreshold = speedThreshold
+        self.geoAppsScope = geoAppsScope
+
+        if let databaseUrl {
+            do {
+                self.database = try GeoDatabase(url: databaseUrl, targetQueue: cloudQueue)
+            } catch {
+                POIKitLogger.e("[GeoAPIManager] Failed setting up geo database with error \(error)")
+            }
+        }
+    }
+
     // Load cofu stations for a specific area; location based
     func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
         if isSpeedThresholdExceeded(for: location) {
@@ -74,52 +78,38 @@ class GeoAPIManager {
             return
         }
 
-        guard let cachedFeatures = locationBasedFeatures, !isLocationBasedCacheOutdated(with: location) else {
-            // Send request if cache is not available or outdated
-            fetchCofuGasStations(for: location) { [weak self] response in
-                guard let self = self else {
-                    result(.failure(.unknownError))
-                    return
-                }
-
-                switch response {
-                case .success(let cofuFeatures):
-                    self.loadLocationBasedCofuStations(with: cofuFeatures, location: location, result: result)
-
-                case .failure(let error):
-                    result(.failure(error))
-                }
+        fetchCofuGasStations(for: location) { [weak self] response in
+            guard let self = self else {
+                result(.failure(.unknownError))
+                return
             }
-            return
-        }
 
-        // Load cofu stations from cache
-        loadLocationBasedCofuStations(with: cachedFeatures, location: location, result: result)
+            switch response {
+            case .success(let cofuFeatures):
+                self.loadLocationBasedCofuStations(with: cofuFeatures, location: location, result: result)
+
+            case .failure(let error):
+                result(.failure(error))
+            }
+        }
     }
 
     // Load all available cofu stations with certain options
     func cofuGasStations(option: POIKit.CofuGasStation.Option, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        guard let cachedCofuFeatures = allCofuFeatures, !isCofuCacheOutdated() else {
-            // Send request if cache is not available or outdated
-            fetchCofuGasStations(for: nil) { [weak self] response in
-                guard let self = self else {
-                    result(.failure(.unknownError))
-                    return
-                }
-
-                switch response {
-                case .success(let cofuFeatures):
-                    self.loadAllCofuStations(with: cofuFeatures, option: option, result: result)
-
-                case .failure(let error):
-                    result(.failure(error))
-                }
+        fetchCofuGasStations(for: nil) { [weak self] response in
+            guard let self = self else {
+                result(.failure(.unknownError))
+                return
             }
-            return
-        }
 
-        // Load cofu stations from cache
-        loadAllCofuStations(with: cachedCofuFeatures, option: option, result: result)
+            switch response {
+            case .success(let cofuFeatures):
+                self.loadAllCofuStations(with: cofuFeatures, option: option, result: result)
+
+            case .failure(let error):
+                result(.failure(error))
+            }
+        }
     }
 
     private func loadLocationBasedCofuStations(with features: [GeoAPIFeature],
@@ -175,6 +165,7 @@ class GeoAPIManager {
     }
 
     private func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
+        print("### Fetching")
         performGeoRequest { [weak self] apiResult in
             guard let self = self else {
                 result(.failure(.unknownError))
@@ -183,24 +174,21 @@ class GeoAPIManager {
 
             switch apiResult {
             case .success(let apiResponse):
-                guard let features = apiResponse?.features else {
-                    // If request fails reset cache to try again next time
-                    self.resetCache()
+                guard let features = apiResponse?.features
+                else {
                     result(.failure(.invalidResponse))
                     return
                 }
 
-                if let location = location {
-                    let filteredFeatures = self.applyRadiusFilter(features, for: location, radius: self.cacheRadius)
-                    self.locationBasedFeatures = filteredFeatures
-                    self.locationBasedLastUpdatedAt = Date()
-                    self.cacheCenter = location
-                    result(.success(filteredFeatures))
-                } else {
-                    self.allCofuFeatures = features
-                    self.allCofuLastUpdatedAt = Date()
-                    result(.success(features))
+                let geoElements = features.compactMap { GeoDatabase.GeoElement(from: $0) }
+
+                do {
+                    try self.database?.write(geoElements)
+                } catch {
+                    print("### \(error)")
                 }
+
+                result(.success(features))
 
             case .failure(let error):
                 result(.failure(error))
@@ -284,7 +272,7 @@ class GeoAPIManager {
 
             self.isGeoRequestRunning = true
             self.sessionTask?.cancel()
-            self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error -> Void in
+            self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
                 defer {
                     self?.isGeoRequestRunning = false
                 }
@@ -394,16 +382,6 @@ class GeoAPIManager {
 
 // MARK: - Cache
 private extension GeoAPIManager {
-    func isCofuCacheOutdated() -> Bool {
-        guard let lastUpdated = allCofuLastUpdatedAt else { return true }
-        return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge
-    }
-
-    func isLocationBasedCacheOutdated(with location: CLLocation) -> Bool {
-        guard let lastUpdated = locationBasedLastUpdatedAt, let cacheCenter = cacheCenter else { return true }
-        return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge || cacheCenter.distance(from: location) > cacheRadius
-    }
-
     func applyRadiusFilter(_ features: [GeoAPIFeature], for location: CLLocation, radius: CLLocationDistance) -> [GeoAPIFeature] {
         let filteredResponse = features.filter { feature in
             guard let geometry = feature.geometry else { return false }
@@ -420,15 +398,6 @@ private extension GeoAPIManager {
         }
 
         return filteredResponse
-    }
-
-    func resetCache() {
-        locationBasedLastUpdatedAt = nil
-        locationBasedFeatures = nil
-        cacheCenter = nil
-
-        allCofuLastUpdatedAt = nil
-        allCofuFeatures = nil
     }
 
     func isInBoundingBox(geometry: GeometryFeature, boundingBox: POIKit.BoundingBox) -> Bool {
@@ -548,30 +517,22 @@ extension GeoAPIManager {
             return
         }
 
-        guard let cachedFeatures = locationBasedFeatures, !isLocationBasedCacheOutdated(with: location) else {
-            // Send request if cache is not available or outdated
-            fetchCofuGasStations(for: location) { [weak self] response in
-                guard let self = self else {
-                    completion(false)
-                    return
-                }
-
-                switch response {
-                case .success(let fetchedFeatures):
-                    let cofuStations: [POIKit.CofuGasStation] = self.retrieveCoFuGasStations(from: fetchedFeatures)
-                    let isAvailable = self.isAppAvailable(for: id, location: location, cofuStations: cofuStations)
-                    completion(isAvailable)
-
-                case .failure:
-                    completion(false)
-                }
+        fetchCofuGasStations(for: location) { [weak self] response in
+            guard let self = self else {
+                completion(false)
+                return
             }
-            return
-        }
 
-        let stations = retrieveCoFuGasStations(from: cachedFeatures)
-        let isAvailable = isAppAvailable(for: id, location: location, cofuStations: stations)
-        completion(isAvailable)
+            switch response {
+            case .success(let fetchedFeatures):
+                let cofuStations: [POIKit.CofuGasStation] = self.retrieveCoFuGasStations(from: fetchedFeatures)
+                let isAvailable = self.isAppAvailable(for: id, location: location, cofuStations: cofuStations)
+                completion(isAvailable)
+
+            case .failure:
+                completion(false)
+            }
+        }
     }
 
     private func isAppAvailable(for id: String, location: CLLocation, cofuStations: [POIKit.CofuGasStation]) -> Bool {
