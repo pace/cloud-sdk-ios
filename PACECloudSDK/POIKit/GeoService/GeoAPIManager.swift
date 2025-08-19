@@ -7,6 +7,9 @@
 
 import CoreLocation
 import Foundation
+#if !PACECloudWatchSDK
+internal import IkigaJSON
+#endif
 
 // swiftlint:disable type_body_length file_length
 
@@ -371,8 +374,13 @@ class GeoAPIManager {
 
     private func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? {
         do {
+            #if PACECloudWatchSDK
             let response = try JSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
             return response
+            #else
+            let response = try IkigaJSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
+            return response
+            #endif
         } catch {
             POIKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
             return nil
