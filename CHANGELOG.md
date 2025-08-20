@@ -1,3 +1,19 @@
+25.1.0 Release notes (2025-08-20)
+=============================================================
+
+### Enhancements
+
+* Introduce IkigaJSON
+
+### Fixes
+
+* Fix app drawer layout
+
+### Internal
+
+* Remove warning if custom oid configuration is nil
+* Bump version to 25.0.0
+
 25.0.0 Release notes (2025-04-23)
 =============================================================
 
