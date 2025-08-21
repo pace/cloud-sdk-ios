@@ -27,6 +27,15 @@ platform :ios do
   lane :create_github_release do |options|
     new_sdk_version = options[:new_sdk_version]
 
+    asset_paths = ["../build/PACECloudSDK.zip", "../build/PACECloudSlimSDK.zip", "../build/PACECloudWatchSDK.zip"]
+    assets = []
+
+    for asset_path in asset_paths do
+      if File.exist?(asset_path)
+        assets.append(asset_path)
+      end
+    end
+
     set_github_release(
       repository_name: "pace/cloud-sdk-ios",
       api_token: ENV["GITHUB_API_TOKEN"],
@@ -34,7 +43,7 @@ platform :ios do
       tag_name: new_sdk_version,
       description: (File.read("../build/release_notes_#{new_sdk_version}.md") rescue "No changelog provided"),
       commitish: "master",
-      upload_assets: ["./build/PACECloudSDK.zip", "./build/PACECloudSlimSDK.zip", "./build/PACECloudWatchSDK.zip"]
+      upload_assets: assets
     )
   end
 end

@@ -4,6 +4,18 @@ SDK=$1
 SLIM_SDK=$2
 WATCH_SDK=$3
 
+if [ ! -e $SDK ]; then
+    echo "⚠️ PACECloudSDK.xcframework not found. Deployment will continue since this xcframework is not mandatory for a successful release."
+fi
+
+if [ ! -e $SLIM_SDK ]; then
+    echo "❌ PACECloudSlimSDK.xcframework not found but it's mandatory. Canceling deployment..."
+    exit 1
+elif [ ! -e $WATCH_SDK ]; then
+    echo "❌ PACECloudWatchSDK.xcframework not found but it's mandatory. Canceling deployment..."
+    exit 1
+fi
+
 echo 'Checking out master branch'
 git remote set-url origin "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
 git fetch --all --tags --force
