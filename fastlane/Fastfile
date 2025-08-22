@@ -27,13 +27,20 @@ platform :ios do
   lane :create_github_release do |options|
     new_sdk_version = options[:new_sdk_version]
 
-    asset_paths = ["../build/PACECloudSDK.zip", "../build/PACECloudSlimSDK.zip", "../build/PACECloudWatchSDK.zip"]
+    # Somehow when working with File the current working directory is the fastlane directory
+    # but when passing the assets to the 'set_github_release' lane the cwd is the root directory of the sdk
     assets = []
 
-    for asset_path in asset_paths do
-      if File.exist?(asset_path)
-        assets.append(asset_path)
-      end
+    if File.exist?("../build/PACECloudSDK.zip")
+      assets.append("./build/PACECloudSDK.zip")
+    end
+
+    if File.exist?("../build/PACECloudSlimSDK.zip")
+      assets.append("./build/PACECloudSlimSDK.zip")
+    end
+
+    if File.exist?("../build/PACECloudWatchSDK.zip")
+      assets.append("./build/PACECloudWatchSDK.zip")
     end
 
     set_github_release(
