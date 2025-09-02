@@ -15,6 +15,7 @@ class CDNAPITests: XCTestCase {
     override func setUp() {
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
                                               clientId: "unit-test-dummy",
+                                              geoDatabaseMode: .disabled,
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false,
                                               geoAppsScope: "pace-drive-ios-min"))

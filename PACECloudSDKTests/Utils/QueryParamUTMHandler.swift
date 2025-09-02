@@ -12,6 +12,7 @@ class QueryParamUTMHandlerTests: XCTestCase {
     override class func setUp() {
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
                                               clientId: "unit-test-dummy",
+                                              geoDatabaseMode: .disabled, 
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false))
     }

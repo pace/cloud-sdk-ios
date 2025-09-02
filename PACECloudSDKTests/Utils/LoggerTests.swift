@@ -17,6 +17,7 @@ class LoggerTests: XCTestCase {
         // Setup SDK first and then delete logs
         PACECloudSDK.shared.setup(with: .init(apiKey: "",
                                               clientId: "unit-test-dummy",
+                                              geoDatabaseMode: .disabled,
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false,
                                               persistLogs: true))
@@ -275,8 +276,6 @@ class LoggerTests: XCTestCase {
         let controlFileName4 = "\(fileDateString(daysAgo: 3))\(logFileSuffix)"
 
         let files = debugBundleFiles()
-
-        print("### \(files)")
 
         XCTAssertTrue(files.contains(controlFileName1))
         XCTAssertTrue(files.contains(controlFileName2))

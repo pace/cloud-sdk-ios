@@ -11,56 +11,44 @@ import Foundation
 internal import IkigaJSON
 #endif
 
-// swiftlint:disable type_body_length file_length
-
 /**
- This class is used to fetch and temporarily store a geojson response
- which contains every cofu gas station with its polygon and app information.
+ This class is used to fetch and store all geojson information
+ which contains every cofu gas station with its location and app information.
 
- To reduce network requests and computation the caching is implemented as follows:
- - Fetch the geojson information with the initial call and decode the json
- - Build a cache object by only using the cofu stations that are within a specified radius
- - This cache object is valid for a predefined time to return apps
- - If the cache expires or the user's location isn't in the specified radius anymore -> Send new request
- - Additionally we use the native response caching of `URLSession` within the network layer
+ Network requests and memory footprint will be reduced as follows:
+ - Use a SQLite database to persist the geo features to reduce in-memory footprint
+ - Use a faster json decoder to improve decoding times and memory load
+ - Use the native response caching of `URLSession` within the network layer + e-tags
  */
 class GeoAPIManager {
-    var speedThreshold: Double = Constants.Configuration.defaultSpeedThreshold
-    var geoAppsScope: String?
+    private let database: GeoDatabase
+    private let speedThreshold: Double
+    private let geoAppsScope: String
 
     private let session: URLSession
-    private let cloudQueue = DispatchQueue(label: "poikit-cloud-queue")
     private let apiVersion = "2021-1"
 
-    private var sessionTask: URLSessionDataTask?
+    private let lastFetchedInterval: TimeInterval = 60 * 60 // 1h
+    private var lastFetchedAt: Date?
 
-    private var allCofuFeatures: [GeoAPIFeature]?
-    private var allCofuLastUpdatedAt: Date?
+    private var isLastFetchedThresholdMet: Bool {
+        guard let lastFetchedAt else { return true }
+        return abs(lastFetchedAt.timeIntervalSinceNow) > lastFetchedInterval
+    }
 
-    private var locationBasedFeatures: [GeoAPIFeature]?
-    private var locationBasedLastUpdatedAt: Date?
+    init?(databaseUrl: URL, speedThreshold: Double, geoAppsScope: String) async {
+        do {
+            self.database = try await GeoDatabase(url: databaseUrl)
+        } catch {
+            POIKitLogger.e("[GeoAPIManager] Failed setting up geo database with error \(error)")
+            return nil
+        }
 
-    private var cacheCenter: CLLocation?
-    private let cacheMaxAge: TimeInterval = 60 * 60 // 1h
-    private let cacheRadius: CLLocationDistance = 30_000 // 30km
+        self.speedThreshold = speedThreshold
+        self.geoAppsScope = geoAppsScope
 
-    private var isGeoRequestRunning: Bool = false
-    private var resultHandlers: [(Result<GeoAPIResponse?, GeoApiManagerError>) -> Void] = []
-
-    init() {
         let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .useProtocolCachePolicy
-
-        // https://pspdfkit.com/blog/2020/downloading-large-files-with-urlsession/
-        // cache size must be at least 20x as big as the data that needes to be cached
-        // the defined capacity will actually not be allocated but still needs to be defined as such.
-        let memoryCapacity = 200 * 1024 * 1024 // 200 MB
-        let diskCapacity = 1 * 1024 * 1024 * 1024 // 1 GB
-        let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
-        let diskCachePath = cachesURL?.appendingPathComponent("GeoAppsResponseCache").absoluteString
-        let cache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: diskCachePath)
-        configuration.urlCache = cache
-
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         configuration.setCustomURLProtocolIfAvailable()
         configuration.httpAdditionalHeaders = [HttpHeaderFields.userAgent.rawValue: Constants.userAgent]
 
@@ -68,269 +56,187 @@ class GeoAPIManager {
     }
 
     // Load cofu stations for a specific area; location based
-    func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
+    func locationBasedCofuStations(for location: CLLocation) async -> Result<[POIKit.CofuGasStation], GeoApiManagerError> {
         if isSpeedThresholdExceeded(for: location) {
-            result(.failure(.invalidSpeed))
-            return
+            return .failure(.invalidSpeed)
         }
 
-        guard let cachedFeatures = locationBasedFeatures, !isLocationBasedCacheOutdated(with: location) else {
-            // Send request if cache is not available or outdated
-            fetchCofuGasStations(for: location) { [weak self] response in
-                guard let self = self else {
-                    result(.failure(.unknownError))
-                    return
-                }
-
-                switch response {
-                case .success(let cofuFeatures):
-                    self.loadLocationBasedCofuStations(with: cofuFeatures, location: location, result: result)
-
-                case .failure(let error):
-                    result(.failure(error))
-                }
-            }
-            return
-        }
-
-        // Load cofu stations from cache
-        loadLocationBasedCofuStations(with: cachedFeatures, location: location, result: result)
+        let locationOffset = PACECloudSDK.shared.config?.allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
+        return await loadCofuGasStations(option: .boundingCircle(center: location, radius: locationOffset))
     }
 
     // Load all available cofu stations with certain options
-    func cofuGasStations(option: POIKit.CofuGasStation.Option, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        guard let cachedCofuFeatures = allCofuFeatures, !isCofuCacheOutdated() else {
-            // Send request if cache is not available or outdated
-            fetchCofuGasStations(for: nil) { [weak self] response in
-                guard let self = self else {
-                    result(.failure(.unknownError))
-                    return
-                }
-
-                switch response {
-                case .success(let cofuFeatures):
-                    self.loadAllCofuStations(with: cofuFeatures, option: option, result: result)
-
-                case .failure(let error):
-                    result(.failure(error))
-                }
-            }
-            return
-        }
-
-        // Load cofu stations from cache
-        loadAllCofuStations(with: cachedCofuFeatures, option: option, result: result)
+    func cofuGasStations(option: POIKit.CofuGasStation.Option) async -> Result<[POIKit.CofuGasStation], GeoApiManagerError> {
+        await loadCofuGasStations(option: option)
     }
 
-    private func loadLocationBasedCofuStations(with features: [GeoAPIFeature],
-                                               location: CLLocation,
-                                               result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        cloudQueue.async { [weak self] in
-            guard let self = self else { return }
-            let cofuStations = self.retrieveCoFuGasStations(from: features)
+    private func loadCofuGasStations(option: POIKit.CofuGasStation.Option) async -> Result<[POIKit.CofuGasStation], GeoApiManagerError> {
+        let result = await loadCofuGasStationsIntoDatabase()
 
-            let apps: [POIKit.CofuGasStation] = cofuStations.filter { station in
-                if let coordinates = station.coordinates,
-                   let lat = coordinates[safe: 1],
-                   let lon = coordinates[safe: 0] {
-                    let cofuStationLocation = CLLocation(latitude: lat, longitude: lon)
-                    return self.isUserInLocationBasedCofuStationRange(cofuStationLocation: cofuStationLocation, userLocation: location)
+        switch result {
+        case .success:
+            do {
+                let cofuGasStations = switch option {
+                case .all:
+                    try await database.readAll()
+
+                case .boundingBox(box: let boundingBox):
+                    try await database.read(boundingBox: boundingBox)
+
+                case .boundingCircle(center: let location, radius: let radius):
+                    try await database.read(boundingBox: .init(center: location.coordinate, radius: radius))
+                }
+
+                return .success(cofuGasStations)
+            } catch {
+                resetLastFetchedDate()
+                return .failure(.database(error))
+            }
+
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    private func loadCofuGasStation(id: String) async -> Result<POIKit.CofuGasStation?, GeoApiManagerError> {
+        let result = await loadCofuGasStationsIntoDatabase()
+
+        switch result {
+        case .success:
+            do {
+                let cofuGasStation = try await database.read(poiId: id)
+                return .success(cofuGasStation)
+            } catch {
+                resetLastFetchedDate()
+                return .failure(.database(error))
+            }
+
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    private func loadCofuGasStationsIntoDatabase() async -> Result<Void, GeoApiManagerError> {
+        let result = await fetchGeoAPIFeatures()
+
+        switch result {
+        case .success:
+            return .success(())
+
+        case .failure(let error):
+            // For errors like `requestCancelled`, unexpected status codes >= 500 and network errors
+            // cofu stations can still be loaded from database.
+            // All other errors will be treated as such
+            switch error {
+            case .requestCancelled, .notModified, .lastFetchedThresholdNotMet:
+                return .success(())
+
+            case .network(let error as NSError):
+                if error.code == NSURLErrorNotConnectedToInternet || error.code == NSURLErrorNetworkConnectionLost {
+                    return .success(())
                 } else {
-                    let coordinates = station.polygon?.flatMap { $0 } ?? []
-                    return coordinates.contains(where: { coordinates in
-                        guard let lat = coordinates[safe: 1], let lon = coordinates[safe: 0] else { return false }
-                        let cofuStationLocation = CLLocation(latitude: lat, longitude: lon)
-                        return self.isUserInLocationBasedCofuStationRange(cofuStationLocation: cofuStationLocation, userLocation: location)
-                    })
-                }
-            }
-
-            result(.success(apps))
-        }
-    }
-
-    private func isUserInLocationBasedCofuStationRange(cofuStationLocation: CLLocation, userLocation: CLLocation) -> Bool {
-        let locationOffset = PACECloudSDK.shared.config?.allowedAppDrawerLocationOffset ?? Constants.Configuration.defaultAllowedAppDrawerLocationOffset
-        return cofuStationLocation.distance(from: userLocation) <= locationOffset
-    }
-
-    private func loadAllCofuStations(with features: [GeoAPIFeature],
-                                     option: POIKit.CofuGasStation.Option,
-                                     result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        cloudQueue.async {
-            var cofuStations: [POIKit.CofuGasStation] = []
-
-            if case let .boundingCircle(center, radius) = option {
-                let filteredFeatures = self.applyRadiusFilter(features, for: center, radius: radius)
-                cofuStations = self.retrieveCoFuGasStations(from: filteredFeatures)
-            } else if case let .boundingBox(box) = option {
-                let filteredFeatures = self.applyBoundingBoxFilter(features, for: box)
-                cofuStations = self.retrieveCoFuGasStations(from: filteredFeatures)
-            } else if case .all = option {
-                cofuStations = self.retrieveCoFuGasStations(from: features)
-            }
-
-            result(.success(cofuStations))
-        }
-    }
-
-    private func fetchCofuGasStations(for location: CLLocation?, result: @escaping (Result<[GeoAPIFeature], GeoApiManagerError>) -> Void) {
-        performGeoRequest { [weak self] apiResult in
-            guard let self = self else {
-                result(.failure(.unknownError))
-                return
-            }
-
-            switch apiResult {
-            case .success(let apiResponse):
-                guard let features = apiResponse?.features else {
-                    // If request fails reset cache to try again next time
-                    self.resetCache()
-                    result(.failure(.invalidResponse))
-                    return
+                    return .failure(.network(error))
                 }
 
-                if let location = location {
-                    let filteredFeatures = self.applyRadiusFilter(features, for: location, radius: self.cacheRadius)
-                    self.locationBasedFeatures = filteredFeatures
-                    self.locationBasedLastUpdatedAt = Date()
-                    self.cacheCenter = location
-                    result(.success(filteredFeatures))
+            case .unexpectedStatusCode(statusCode: let statusCode):
+                if statusCode >= HttpStatusCode.internalError.rawValue {
+                    return .success(())
                 } else {
-                    self.allCofuFeatures = features
-                    self.allCofuLastUpdatedAt = Date()
-                    result(.success(features))
+                    return .failure(.unexpectedStatusCode(statusCode: statusCode))
                 }
 
-            case .failure(let error):
-                result(.failure(error))
+            default:
+                return .failure(error)
             }
         }
     }
 
-    private func retrieveCoFuGasStations(from geoFeatures: [GeoAPIFeature]) -> [POIKit.CofuGasStation] {
-        return (geoFeatures.compactMap { feature in
-            var collectionFeature: GeometryCollectionsFeature?
-            var pointValue: [Double]?
-            var polygonValue: [[[Double]]]?
+    private func fetchGeoAPIFeatures() async -> Result<Void, GeoApiManagerError> {
+        let apiResult = await performGeoRequest()
 
-            switch feature.geometry {
-            case .collections(let geoCollection):
-                collectionFeature = geoCollection
-
-            case .point(let pointFeature):
-                pointValue = pointFeature.coordinates
-
-            case .polygon(let polygonFeature):
-                polygonValue = polygonFeature.coordinates
-
-            case .none:
-                return nil
+        switch apiResult {
+        case .success(let apiResponse):
+            guard let features = apiResponse.features else {
+                return .failure(.invalidResponse)
             }
 
-            if let collection = collectionFeature {
-                collection.geometries?.forEach { geometry in
-                    switch geometry {
-                    case .point(let pointFeature):
-                        pointValue = pointFeature.coordinates
+            let result = await persistGeoAPIFeatures(features)
+            return result
 
-                    case .polygon(let polygonFeature):
-                        polygonValue = polygonFeature.coordinates
-
-                    case .collections:
-                        POIKitLogger.w("[GeoAPIManager] unhandled nested GeometryCollectionsFeature")
-                    }
-                }
-            }
-
-            guard let id = feature.id,
-                  let properties = feature.properties
-            else {
-                return nil
-            }
-
-            let newProperties = Dictionary(uniqueKeysWithValues: properties.map { key, value in (key, value.value) })
-
-            return POIKit.CofuGasStation(id: id, coordinates: pointValue, polygon: polygonValue, properties: newProperties)
-        })
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 
-    // swiftlint:disable:next function_body_length
-    private func performGeoRequest(result: @escaping (Result<GeoAPIResponse?, GeoApiManagerError>) -> Void) {
-        guard let geoAppsScope = geoAppsScope else {
-            POIKitLogger.e("[GeoAPIManager] Value for `geoAppsScope` is missing.")
-            result(.failure(.unknownError))
-            return
-        }
+    private func performGeoRequest() async -> Result<GeoAPIResponse, GeoApiManagerError> {
+        guard isLastFetchedThresholdMet else { return .failure(.lastFetchedThresholdNotMet) }
 
         let baseUrl = Settings.shared.geoApiHostUrl
+
         guard let url = URL(string: "\(baseUrl)/\(apiVersion)/apps/\(geoAppsScope).geojson"),
               let urlWithQueryParams = PACECloudSDK.QueryParamUTMHandler.buildUrl(for: url) else {
-            result(.failure(.unknownError))
-            return
+            return .failure(.invalidURL)
         }
 
-        let request = URLRequest(url: urlWithQueryParams, withTracingId: true)
+        var request = URLRequest(url: urlWithQueryParams, withTracingId: true)
 
-        cloudQueue.async { [weak self] in
-            guard let self = self else {
-                result(.failure(.unknownError))
-                return
+        let eTag = await eTag()
+        request.setValue(eTag, forHTTPHeaderField: HttpHeaderFields.ifNoneMatch.rawValue)
+
+        do {
+            let (data, urlResonse) = try await self.session.data(for: request)
+
+            guard let response = urlResonse as? HTTPURLResponse else {
+                POIKitLogger.e("[GeoAPIManager] Failed fetching features due to invalid response")
+                return .failure(.invalidResponse)
             }
 
-            self.resultHandlers.append(result)
+            let statusCode = response.statusCode
 
-            guard !self.isGeoRequestRunning else { return }
+            guard statusCode < HttpStatusCode.badRequest.rawValue else {
+                POIKitLogger.e("[GeoAPIManager] Failed fetching features with status code \(statusCode)")
+                return .failure(.unexpectedStatusCode(statusCode: statusCode))
+            }
 
-            self.isGeoRequestRunning = true
-            self.sessionTask?.cancel()
-            self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
-                defer {
-                    self?.isGeoRequestRunning = false
+            self.lastFetchedAt = Date()
+
+            if statusCode == HttpStatusCode.notModified.rawValue {
+                POIKitLogger.d("[GeoAPIManager] GeoJSON response not modified")
+                return .failure(.notModified)
+            }
+
+            do {
+                let decodedResponse = try decodedGeoAPIResponse(geoApiData: data)
+
+                if let eTag = response.value(forHTTPHeaderField: HttpHeaderFields.etag.rawValue) {
+                    await persistETag(eTag)
                 }
 
-                if let error = error {
-                    if (error as NSError?)?.code == NSURLErrorCancelled {
-                        self?.notifyResultHandlers(with: .failure(.requestCancelled))
-                        return
-                    }
+                return .success(decodedResponse)
+            } catch {
+                POIKitLogger.e("[GeoAPIManager] Failed decoding features response with error \(error)")
+                resetLastFetchedDate()
+                return .failure(.decoding(error))
+            }
+        } catch {
+            if (error as NSError?)?.code == NSURLErrorCancelled {
+                return .failure(.requestCancelled)
+            }
 
-                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons with error \(error)")
-                    self?.notifyResultHandlers(with: .failure(.unknownError))
-                    return
-                }
-
-                guard let response = response as? HTTPURLResponse else {
-                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid response")
-                    self?.notifyResultHandlers(with: .failure(.invalidResponse))
-                    return
-                }
-
-                let statusCode = response.statusCode
-
-                guard statusCode < 400 else {
-                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons with status code \(statusCode)")
-                    self?.notifyResultHandlers(with: .failure(.unknownError))
-                    return
-                }
-
-                guard let data = data else {
-                    POIKitLogger.e("[GeoAPIManager] Failed fetching polygons due to invalid data")
-                    self?.notifyResultHandlers(with: .failure(.invalidResponse))
-                    return
-                }
-
-                let decodedResponse = self?.decodeGeoAPIResponse(geoApiData: data)
-                self?.notifyResultHandlers(with: .success(decodedResponse))
-            })
-
-            self.sessionTask?.resume()
+            POIKitLogger.e("[GeoAPIManager] Failed fetching features with error \(error)")
+            return .failure(.network(error))
         }
     }
 
-    private func notifyResultHandlers(with result: Result<GeoAPIResponse?, GeoApiManagerError>) {
-        resultHandlers.forEach { $0(result) }
-        resultHandlers.removeAll()
+    private func persistGeoAPIFeatures(_ features: [GeoAPIFeature]) async -> Result<Void, GeoApiManagerError> {
+        do {
+            try await database.write(features)
+            return .success(())
+        } catch {
+            POIKitLogger.e("[GeoAPIManager] Failed writing features to database with error \(error)")
+            resetLastFetchedDate()
+            return .failure(.database(error))
+        }
     }
 
     private func isSpeedThresholdExceeded(for location: CLLocation) -> Bool {
@@ -341,243 +247,50 @@ class GeoAPIManager {
         0...3 ~= location.speedAccuracy && location.speed > speedThreshold
     }
 
-    private func retrievePolygon(from feature: GeoAPIFeature) -> [[[Double]]]? {
-        switch feature.geometry {
-        case .collections(let collection):
-            return retrievePolygon(from: collection)
+    private func decodedGeoAPIResponse(geoApiData: Data) throws -> GeoAPIResponse {
+        #if PACECloudWatchSDK
+        let response = try JSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
+        #else
+        let response = try IkigaJSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
+        #endif
 
-        case .polygon(let polygon):
-            return polygon.coordinates
-
-        case .point, .none:
-            return nil
-        }
+        return response
     }
 
-    private func retrievePolygon(from collection: GeometryCollectionsFeature) -> [[[Double]]]? {
-        guard let geometries = collection.geometries else { return nil }
-        for geometry in geometries {
-            switch geometry {
-            case .collections(let collection):
-                return retrievePolygon(from: collection)
-
-            case .polygon(let polygon):
-                return polygon.coordinates
-
-            default:
-                break
-            }
-        }
-
-        return nil
+    private func eTag() async -> String? {
+        try? await database.readETag()
     }
 
-    private func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? {
-        do {
-            #if PACECloudWatchSDK
-            let response = try JSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
-            return response
-            #else
-            let response = try IkigaJSONDecoder().decode(GeoAPIResponse.self, from: geoApiData)
-            return response
-            #endif
-        } catch {
-            POIKitLogger.e("[GeoAPIManager] Failed decoding geo api response with error \(error)")
-            return nil
-        }
+    private func persistETag(_ eTag: String) async {
+        try? await database.write(eTag)
     }
 
-    deinit {
-        sessionTask?.cancel()
-    }
-}
-
-// MARK: - Cache
-private extension GeoAPIManager {
-    func isCofuCacheOutdated() -> Bool {
-        guard let lastUpdated = allCofuLastUpdatedAt else { return true }
-        return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge
-    }
-
-    func isLocationBasedCacheOutdated(with location: CLLocation) -> Bool {
-        guard let lastUpdated = locationBasedLastUpdatedAt, let cacheCenter = cacheCenter else { return true }
-        return abs(lastUpdated.timeIntervalSinceNow) > cacheMaxAge || cacheCenter.distance(from: location) > cacheRadius
-    }
-
-    func applyRadiusFilter(_ features: [GeoAPIFeature], for location: CLLocation, radius: CLLocationDistance) -> [GeoAPIFeature] {
-        let filteredResponse = features.filter { feature in
-            guard let geometry = feature.geometry else { return false }
-            return isInRadius(geometry: geometry, location: location, radius: radius)
-        }
-
-        return filteredResponse
-    }
-
-    func applyBoundingBoxFilter(_ features: [GeoAPIFeature], for boundingBox: POIKit.BoundingBox) -> [GeoAPIFeature] {
-        let filteredResponse = features.filter { feature in
-            guard let geometry = feature.geometry else { return false }
-            return isInBoundingBox(geometry: geometry, boundingBox: boundingBox)
-        }
-
-        return filteredResponse
-    }
-
-    func resetCache() {
-        locationBasedLastUpdatedAt = nil
-        locationBasedFeatures = nil
-        cacheCenter = nil
-
-        allCofuLastUpdatedAt = nil
-        allCofuFeatures = nil
-    }
-
-    func isInBoundingBox(geometry: GeometryFeature, boundingBox: POIKit.BoundingBox) -> Bool {
-        switch geometry {
-        case .point(let pointFeature):
-            return isInBoundingBox(point: pointFeature, boundingBox: boundingBox)
-
-        case .polygon(let polygonFeature):
-            return isInBoundingBox(polygon: polygonFeature, boundingBox: boundingBox)
-
-        case .collections(let collectionFeature):
-            return isInBoundingBox(collection: collectionFeature, boundingBox: boundingBox)
-        }
-    }
-
-    func isInRadius(geometry: GeometryFeature, location: CLLocation, radius: CLLocationDistance) -> Bool {
-        switch geometry {
-        case .point(let pointFeature):
-            return isInRadius(point: pointFeature, location: location, radius: radius)
-
-        case .polygon(let polygonFeature):
-            return isInRadius(polygon: polygonFeature, location: location, radius: radius)
-
-        case .collections(let collectionFeature):
-            return isInRadius(collection: collectionFeature, location: location, radius: radius)
-        }
-    }
-
-    private func isInRadius(point: GeometryPointFeature, location: CLLocation, radius: CLLocationDistance) -> Bool {
-        guard let lon = point.coordinates[safe: 0], let lat = point.coordinates[safe: 1] else { return false }
-        let pointLocation = CLLocation(latitude: lat, longitude: lon)
-        return location.distance(from: pointLocation) < radius
-    }
-
-    private func isInRadius(polygon: GeometryPolygonFeature, location: CLLocation, radius: CLLocationDistance) -> Bool {
-        for coordinates in polygon.coordinates {
-            for coordinate in coordinates {
-                guard let lon = coordinate[safe: 0], let lat = coordinate[safe: 1] else { continue }
-                let polygonEdgeLocation = CLLocation(latitude: lat, longitude: lon)
-
-                if location.distance(from: polygonEdgeLocation) > radius {
-                    return false
-                }
-            }
-        }
-
-        return true
-    }
-
-    private func isInRadius(collection: GeometryCollectionsFeature, location: CLLocation, radius: CLLocationDistance) -> Bool {
-        guard let geometries = collection.geometries else { return false }
-
-        for geometry in geometries {
-            switch geometry {
-            case .point(let point):
-                return isInRadius(point: point, location: location, radius: radius)
-
-            default:
-                continue
-            }
-        }
-
-        for geometry in geometries {
-            return isInRadius(geometry: geometry, location: location, radius: radius)
-        }
-
-        return false
-    }
-
-    private func isInBoundingBox(point: GeometryPointFeature, boundingBox: POIKit.BoundingBox) -> Bool {
-        guard let lon = point.coordinates[safe: 0], let lat = point.coordinates[safe: 1] else { return false }
-        let pointCoordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        return boundingBox.contains(coord: pointCoordinates)
-    }
-
-    private func isInBoundingBox(polygon: GeometryPolygonFeature, boundingBox: POIKit.BoundingBox) -> Bool {
-        for coordinates in polygon.coordinates {
-            for coordinate in coordinates {
-                guard let lon = coordinate[safe: 0], let lat = coordinate[safe: 1] else { continue }
-                let pointCoordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-
-                if !boundingBox.contains(coord: pointCoordinates) {
-                    return false
-                }
-            }
-        }
-
-        return true
-    }
-
-    private func isInBoundingBox(collection: GeometryCollectionsFeature, boundingBox: POIKit.BoundingBox) -> Bool {
-        guard let geometries = collection.geometries else { return false }
-
-        for geometry in geometries {
-            switch geometry {
-            case .point(let point):
-                return isInBoundingBox(point: point, boundingBox: boundingBox)
-
-            default:
-                continue
-            }
-        }
-
-        for geometry in geometries {
-            return isInBoundingBox(geometry: geometry, boundingBox: boundingBox)
-        }
-
-        return false
+    private func resetLastFetchedDate() {
+        self.lastFetchedAt = nil
     }
 }
 
 // MARK: - isPoiInRange
 extension GeoAPIManager {
-    func isPoiInRange(with id: String, near location: CLLocation, completion: @escaping (Bool) -> Void) {
+    func isPoiInRange(with id: String, near location: CLLocation) async -> Bool {
         if isSpeedThresholdExceeded(for: location) {
-            completion(false)
-            return
+            return false
         }
 
-        guard let cachedFeatures = locationBasedFeatures, !isLocationBasedCacheOutdated(with: location) else {
-            // Send request if cache is not available or outdated
-            fetchCofuGasStations(for: location) { [weak self] response in
-                guard let self = self else {
-                    completion(false)
-                    return
-                }
+        switch await loadCofuGasStation(id: id) {
+        case .success(let cofuGasStation):
+            guard let cofuGasStation else { return false }
 
-                switch response {
-                case .success(let fetchedFeatures):
-                    let cofuStations: [POIKit.CofuGasStation] = self.retrieveCoFuGasStations(from: fetchedFeatures)
-                    let isAvailable = self.isAppAvailable(for: id, location: location, cofuStations: cofuStations)
-                    completion(isAvailable)
+            let isAvailable = self.isAppAvailable(cofuGasStation, at: location)
+            return isAvailable
 
-                case .failure:
-                    completion(false)
-                }
-            }
-            return
+        case .failure:
+            return false
         }
-
-        let stations = retrieveCoFuGasStations(from: cachedFeatures)
-        let isAvailable = isAppAvailable(for: id, location: location, cofuStations: stations)
-        completion(isAvailable)
     }
 
-    private func isAppAvailable(for id: String, location: CLLocation, cofuStations: [POIKit.CofuGasStation]) -> Bool {
-        guard let app = cofuStations.first(where: { $0.id == id }),
-              let distance = app.distance(from: location) else { return false }
-
+    private func isAppAvailable(_ cofuStation: POIKit.CofuGasStation, at location: CLLocation) -> Bool {
+        guard let distance = cofuStation.distance(from: location) else { return false }
         return distance <= Constants.isPoiInRangeThreshold
     }
 }

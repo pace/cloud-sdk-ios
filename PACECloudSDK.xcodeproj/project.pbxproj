@@ -1216,6 +1216,16 @@
 		CB85FF7E2C80CDC400551A77 /* ReceiptEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */; };
 		CB85FF7F2C80CDCE00551A77 /* ReceiptAttachmentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */; };
 		CB85FF802C80CDD000551A77 /* ReceiptEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */; };
+		CD3DEA552E532D4E00FFD7F7 /* GeoDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DEA542E532D4E00FFD7F7 /* GeoDatabase.swift */; };
+		CD3DEA562E532D4E00FFD7F7 /* GeoDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DEA542E532D4E00FFD7F7 /* GeoDatabase.swift */; };
+		CD6FB2CE2EA2238000CF5069 /* GRDBSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = CD6FB2CD2EA2238000CF5069 /* GRDBSQLite */; };
+		CDB3BAA62EA7609E00EC239A /* GeoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB3BAA52EA7609E00EC239A /* GeoMetadata.swift */; };
+		CDB3BAA72EA7609E00EC239A /* GeoMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB3BAA52EA7609E00EC239A /* GeoMetadata.swift */; };
+		CDB4FE6C2E617CE700DDBAC9 /* GeoDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB4FE6B2E617CE700DDBAC9 /* GeoDatabaseTests.swift */; };
+		CDCFB6D62E9E43D9008BDDC1 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = CDCFB6D52E9E43D9008BDDC1 /* GRDB */; };
+		CDCFB6D82E9E43E2008BDDC1 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = CDCFB6D72E9E43E2008BDDC1 /* GRDB */; };
+		CDF303222E55BE8F00312D2D /* GeoElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF303212E55BE8F00312D2D /* GeoElement.swift */; };
+		CDF303232E55BE8F00312D2D /* GeoElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF303212E55BE8F00312D2D /* GeoElement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1868,6 +1878,10 @@
 		CB85FF762C80CCBD00551A77 /* ReceiptAttachmentsResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttachmentsResult.swift; sourceTree = "<group>"; };
 		CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttachmentsRequest.swift; sourceTree = "<group>"; };
 		CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptEmailRequest.swift; sourceTree = "<group>"; };
+		CD3DEA542E532D4E00FFD7F7 /* GeoDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoDatabase.swift; sourceTree = "<group>"; };
+		CDB3BAA52EA7609E00EC239A /* GeoMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMetadata.swift; sourceTree = "<group>"; };
+		CDB4FE6B2E617CE700DDBAC9 /* GeoDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoDatabaseTests.swift; sourceTree = "<group>"; };
+		CDF303212E55BE8F00312D2D /* GeoElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1878,6 +1892,8 @@
 				1785C95C26935EEE0041A20E /* AppAuth in Frameworks */,
 				3B79FA0A26C15B3B00C0278F /* SwiftProtobuf in Frameworks */,
 				3B2ECC632832964100A2E721 /* Japx in Frameworks */,
+				CDCFB6D82E9E43E2008BDDC1 /* GRDB in Frameworks */,
+				CD6FB2CE2EA2238000CF5069 /* GRDBSQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1893,6 +1909,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C379EE882E4CBAD700E73B60 /* IkigaJSON in Frameworks */,
+				CDCFB6D62E9E43D9008BDDC1 /* GRDB in Frameworks */,
 				3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */,
 				3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */,
 				3B2ECC5F283295E900A2E721 /* Japx in Frameworks */,
@@ -2291,6 +2308,7 @@
 		3B9655E426B2868700921766 /* GeoService */ = {
 			isa = PBXGroup;
 			children = (
+				CD3DEA532E532D4000FFD7F7 /* Database */,
 				3B9655E526B286A700921766 /* CofuGasStation.swift */,
 				3B86C74F25DD67E500039296 /* GeoAPIManager.swift */,
 				05521B0D26490F3E00AA4DBB /* GeoAPIManagerError.swift */,
@@ -2645,6 +2663,7 @@
 			isa = PBXGroup;
 			children = (
 				3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */,
+				CDB4FE6B2E617CE700DDBAC9 /* GeoDatabaseTests.swift */,
 			);
 			path = GeoTests;
 			sourceTree = "<group>";
@@ -3529,6 +3548,16 @@
 			path = PACECloudSlimSDK;
 			sourceTree = "<group>";
 		};
+		CD3DEA532E532D4000FFD7F7 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				CD3DEA542E532D4E00FFD7F7 /* GeoDatabase.swift */,
+				CDF303212E55BE8F00312D2D /* GeoElement.swift */,
+				CDB3BAA52EA7609E00EC239A /* GeoMetadata.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3577,6 +3606,8 @@
 				1785C95B26935EEE0041A20E /* AppAuth */,
 				3B79FA0926C15B3B00C0278F /* SwiftProtobuf */,
 				3B2ECC622832964100A2E721 /* Japx */,
+				CDCFB6D72E9E43E2008BDDC1 /* GRDB */,
+				CD6FB2CD2EA2238000CF5069 /* GRDBSQLite */,
 			);
 			productName = PACECloudWatchSDK;
 			productReference = 17BB0CD7268CCED6009D4755 /* PACECloudWatchSDK.framework */;
@@ -3619,6 +3650,7 @@
 				3BA6A79B260DDF5A005D4B5C /* AppAuth */,
 				3B2ECC5E283295E900A2E721 /* Japx */,
 				C379EE872E4CBAD700E73B60 /* IkigaJSON */,
+				CDCFB6D52E9E43D9008BDDC1 /* GRDB */,
 			);
 			productName = PACECloudSDK;
 			productReference = 921E682C2534883100438491 /* PACECloudSDK.framework */;
@@ -3722,6 +3754,7 @@
 				3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */,
 				0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */,
+				CDCFB6D42E9E43D9008BDDC1 /* XCRemoteSwiftPackageReference "GRDB" */,
 			);
 			productRefGroup = 921E682D2534883100438491 /* Products */;
 			projectDirPath = "";
@@ -3844,6 +3877,7 @@
 				C384393F2C9DC16200D8305E /* PayAPIGetPaymentMethodKindsByClientID.swift in Sources */,
 				0B28F7D6299FCE9100E929EA /* PayAPICreatePaymentMethodEsso.swift in Sources */,
 				3B79FAA226C15BF300C0278F /* vector_tile.pb.swift in Sources */,
+				CDF303222E55BE8F00312D2D /* GeoElement.swift in Sources */,
 				17BB0D17268CCF92009D4755 /* FuelingAPICreateNotification.swift in Sources */,
 				3B79FA9226C15BEE00C0278F /* POIKitAPIError.swift in Sources */,
 				9A906B98284637D700463618 /* PCPayPaymentTokensRelationship.swift in Sources */,
@@ -3959,6 +3993,7 @@
 				9A906B86284637D700463618 /* PCPayErrors.swift in Sources */,
 				9A906BAE284637D700463618 /* PCPayPaymentMethodPayPalCreateRequest.swift in Sources */,
 				3B1448F12A4451BC00015EF9 /* PACECloudSDK+API.swift in Sources */,
+				CDB3BAA72EA7609E00EC239A /* GeoMetadata.swift in Sources */,
 				17BB0D1A268CCF92009D4755 /* FuelingAPIProcessPayment.swift in Sources */,
 				3B79FA6726C15BCC00C0278F /* POIKitManager+Tiles.swift in Sources */,
 				3BDBA7062BF396F1006C0151 /* PCPOIFieldData.swift in Sources */,
@@ -4061,6 +4096,7 @@
 				17BB0D4C268CD4AC009D4755 /* String+Extension.swift in Sources */,
 				0B28F7DF299FCEA900E929EA /* PayAPIResendReceipt.swift in Sources */,
 				3B7D5CDA29B0CBD500D4F7FD /* Token.swift in Sources */,
+				CD3DEA552E532D4E00FFD7F7 /* GeoDatabase.swift in Sources */,
 				17BB0D2D268CD0EB009D4755 /* PCFuelingTransactionRequest.swift in Sources */,
 				9A906B78284637D700463618 /* PCPayPaymentTokenCreateRequest.swift in Sources */,
 				3B3DF5DF26E2512A00934991 /* IDKitConstants.swift in Sources */,
@@ -4234,6 +4270,7 @@
 				3B970A6B2542D9BB0072F6BA /* String+Extension.swift in Sources */,
 				9A906BAB284637D700463618 /* PCPayPaymentMethodRelationship.swift in Sources */,
 				3B970A812542D9BB0072F6BA /* LoadingView.swift in Sources */,
+				CDF303232E55BE8F00312D2D /* GeoElement.swift in Sources */,
 				3B970AB62542D9BB0072F6BA /* AppDrawerTheme.swift in Sources */,
 				84600EA825C03B0C0087194F /* PayAPIDeletePaymentMethod.swift in Sources */,
 				3B753F682BCE69F100C7BA3B /* PCUserScopesRequest.swift in Sources */,
@@ -4252,6 +4289,7 @@
 				9A906BA3284637D700463618 /* PCPayPaymentMethodRequest.swift in Sources */,
 				9A906BB7284637D700463618 /* PCPayPaymentToken.swift in Sources */,
 				CB85FF772C80CCBD00551A77 /* ReceiptEmailResult.swift in Sources */,
+				CD3DEA562E532D4E00FFD7F7 /* GeoDatabase.swift in Sources */,
 				9A906BB3284637D700463618 /* PCPayApplePaySession.swift in Sources */,
 				92843A0A25B1A2DF004CF9D6 /* QueryParamUTMHandler.swift in Sources */,
 				92EDDED525AC7E0000E480F4 /* Bundle+Resource.swift in Sources */,
@@ -4388,6 +4426,7 @@
 				3BC9A80E2539DDAD00B933AE /* VectorTile+POI.swift in Sources */,
 				3B7C8E2726FC59600080B2B5 /* PayAPICreatePaymentMethodRoadrunner.swift in Sources */,
 				92EDDDB925A73EDD00E480F4 /* POIKitManager+Tiles.swift in Sources */,
+				CDB3BAA62EA7609E00EC239A /* GeoMetadata.swift in Sources */,
 				841A3ED225B9C8D40065284A /* FuelingAPIRequest.swift in Sources */,
 				9A906B7D284637D700463618 /* PCPayPaymentMethod.swift in Sources */,
 				3BDBA71D2BF396F1006C0151 /* PCPOIReferenceStatus.swift in Sources */,
@@ -4765,6 +4804,7 @@
 				3BB388312923D71C00044F09 /* ExponentialBackoffTests.swift in Sources */,
 				9AD092BA2817E1C9000A3CB3 /* DateCalculationsTests.swift in Sources */,
 				3BC9A7972539DD5A00B933AE /* PriceHistoryClosedAreaTests.swift in Sources */,
+				CDB4FE6C2E617CE700DDBAC9 /* GeoDatabaseTests.swift in Sources */,
 				3B970AC32542D9DB0072F6BA /* URLBuilderTests.swift in Sources */,
 				3BA9E52B274B982C00617EDE /* CommandLineArguments.swift in Sources */,
 				3BA9E525274B82F000617EDE /* MockObject.swift in Sources */,
@@ -5853,6 +5893,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/**",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = PACECloudSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -5868,6 +5909,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -6278,6 +6321,14 @@
 				version = 2.3.2;
 			};
 		};
+		CDCFB6D42E9E43D9008BDDC1 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				kind = exactVersion;
+				version = 7.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -6340,6 +6391,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		CD6FB2CD2EA2238000CF5069 /* GRDBSQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDCFB6D42E9E43D9008BDDC1 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDBSQLite;
+		};
+		CDCFB6D52E9E43D9008BDDC1 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDCFB6D42E9E43D9008BDDC1 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
+		};
+		CDCFB6D72E9E43E2008BDDC1 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CDCFB6D42E9E43D9008BDDC1 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

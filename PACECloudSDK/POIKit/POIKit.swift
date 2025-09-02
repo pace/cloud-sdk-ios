@@ -16,34 +16,64 @@ public class POIKit {
 
     private static var sharedInstance: POIKit = POIKit()
 
-    private var geoAPIManager: GeoAPIManager
+    private var geoAPIManager: GeoAPIManager?
     private lazy var oneTimeLocationProvider: OneTimeLocationProvider = .init()
 
     private var currentEnvironment: PACECloudSDK.Environment
 
     private init() {
-        geoAPIManager = GeoAPIManager()
         currentEnvironment = PACECloudSDK.shared.environment
     }
 
     static func setup() {
-        shared.geoAPIManager.speedThreshold = PACECloudSDK.shared.config?.speedThreshold ?? Constants.Configuration.defaultSpeedThreshold
-        shared.oneTimeLocationProvider.lowAccuracy = PACECloudSDK.shared.config?.allowedLowAccuracy ?? Constants.Configuration.defaultAllowedLowAccuracy
-        shared.geoAPIManager.geoAppsScope = PACECloudSDK.shared.config?.geoAppsScope
+        guard let sdkConfig = PACECloudSDK.shared.config else {
+            POIKitLogger.e("[POIKit] Failed setting up POIKit. Corrupted SDK config")
+            return
+        }
+
+        shared.oneTimeLocationProvider.lowAccuracy = sdkConfig.allowedLowAccuracy
+
+        switch sdkConfig.geoDatabaseMode {
+        case .enabled(let databaseUrl):
+            Task {
+                shared.geoAPIManager = await .init(databaseUrl: databaseUrl,
+                                                   speedThreshold: sdkConfig.speedThreshold,
+                                                   geoAppsScope: sdkConfig.geoAppsScope)
+            }
+
+        case .disabled:
+            POIKitLogger.i("[POIKit] GeoDatabase has been disabled.")
+        }
     }
 }
 
 extension POIKit {
     func locationBasedCofuStations(for location: CLLocation, completion: @escaping (Result<[CofuGasStation], GeoApiManagerError>) -> Void) {
-        geoAPIManager.locationBasedCofuStations(for: location, result: completion)
+        guard let geoAPIManager else {
+            completion(.failure(.unknown))
+            return
+        }
+
+        Task(priority: .utility) {
+            let result = await geoAPIManager.locationBasedCofuStations(for: location)
+            completion(result)
+        }
     }
 
     func requestCofuGasStations(option: CofuGasStation.Option = .all, completion: @escaping ([CofuGasStation]?) -> Void) {
-        geoAPIManager.cofuGasStations(option: option) { result in
+        guard let geoAPIManager else {
+            completion(nil)
+            return
+        }
+
+        Task(priority: .utility) {
+            let result = await geoAPIManager.cofuGasStations(option: option)
+
             guard case let .success(stations) = result else {
                 completion(nil)
                 return
             }
+
             completion(stations)
         }
     }
@@ -70,20 +100,27 @@ extension POIKit {
         }
     }
 
-    func isPoiInRange(id: String, at location: CLLocation?, completion: @escaping ((Bool) -> Void)) {
+    func isPoiInRange(id: String, at location: CLLocation?, completion: @escaping (Bool) -> Void) {
         DispatchQueue.main.async { [weak self] in
-            guard let location = location else {
+            guard let geoAPIManager = self?.geoAPIManager, let location = location else {
                 self?.oneTimeLocationProvider.requestLocation { [weak self] location in
-                    guard let location = location else {
+                    guard let geoAPIManager = self?.geoAPIManager, let location = location else {
                         completion(false)
                         return
                     }
 
-                    self?.geoAPIManager.isPoiInRange(with: id, near: location, completion: completion)
+                    Task(priority: .utility) {
+                        let isInRange = await geoAPIManager.isPoiInRange(with: id, near: location)
+                        completion(isInRange)
+                    }
                 }
                 return
             }
-            self?.geoAPIManager.isPoiInRange(with: id, near: location, completion: completion)
+
+            Task(priority: .utility) {
+                let isInRange = await geoAPIManager.isPoiInRange(with: id, near: location)
+                completion(isInRange)
+            }
         }
     }
 

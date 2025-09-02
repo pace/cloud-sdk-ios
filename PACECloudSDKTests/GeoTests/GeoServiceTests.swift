@@ -13,280 +13,214 @@ class GeoServiceTests: XCTestCase {
     private let location: CLLocation = .init(latitude: 49.012591, longitude: 8.427429)
     private var geoAPIManager: GeoAPIManager!
 
-    override func setUp() {
+    private var temporaryDatabaseURL: URL {
+        let fileName = "tmp_geo_database"
+        let fileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        return fileURL
+    }
+
+    override func setUp() async throws {
+        try await super.setUp()
+
         PACECloudSDK.shared.customURLProtocol = MockURLProtocol()
         PACECloudSDK.shared.setup(with: .init(apiKey: "apiKey",
                                               clientId: "unit-test-dummy",
+                                              geoDatabaseMode: .disabled,
                                               environment: .development,
                                               isRedirectSchemeCheckEnabled: false,
                                               geoAppsScope: "pace-drive-ios-min"))
 
-        geoAPIManager = .init()
-        geoAPIManager.geoAppsScope = "pace-drive-ios-min"
+        geoAPIManager = await .init(databaseUrl: temporaryDatabaseURL, speedThreshold: Constants.Configuration.defaultSpeedThreshold, geoAppsScope: "pace-drive-ios-min")
     }
 
-    override func tearDownWithError() throws {
+    override func tearDown() {
+        super.tearDown()
+
+        geoAPIManager = nil
+        try? FileManager.default.removeItem(at: temporaryDatabaseURL)
         CommandLine.arguments.removeAll()
     }
 
-    func testLocationBasedStations() {
-        let expectation = expectation(description: "LocationBasedStations")
+    func testLocationBasedStations() async {
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
 
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                XCTFail()
+        switch result {
+        case .failure:
+            XCTFail()
 
-            case .success(let stations):
-                if stations.count == 2 {
-                    expectation.fulfill()
-                }
-            }
+        case .success(let stations):
+            XCTAssertEqual(stations.count, 2)
         }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testEmptyLocationBasedStations() {
+    func testEmptyLocationBasedStations() async {
         addCommandLineArguments([.emptyGeoResponse])
-        let expectation = expectation(description: "EmptyLocationBasedStations")
 
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                XCTFail()
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
 
-            case .success(let stations):
-                if stations.count == 0 {
-                    expectation.fulfill()
-                }
-            }
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            XCTAssertEqual(stations.count, 0)
         }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testLocationBasedStationsError() {
+    func testLocationBasedStationsError() async {
         addCommandLineArguments([.geoRequestError])
-        let expectation = expectation(description: "LocationBasedStationsError")
 
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                expectation.fulfill()
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
 
-            case .success:
-                XCTFail()
-            }
+        switch result {
+        case .failure:
+            break
+
+        case .success:
+            XCTFail()
         }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testCofuStationsArea() {
-        let expectation = expectation(description: "CofuStationsArea")
+    func testCofuStationsArea() async {
+        let result = await geoAPIManager.cofuGasStations(option: .boundingCircle(center: location, radius: 10_000))
 
-        geoAPIManager.cofuGasStations(option: .boundingCircle(center: location, radius: 10_000)) { result in
-            switch result {
-            case .failure:
-                XCTFail()
+        switch result {
+        case .failure:
+            XCTFail()
 
-            case .success(let stations):
-                if stations.count == 2 {
-                    expectation.fulfill()
-                }
-            }
+        case .success(let stations):
+            XCTAssertEqual(stations.count, 2)
         }
 
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testEmptyCofuStationsArea() {
+    func testEmptyCofuStationsArea() async {
         addCommandLineArguments([.emptyGeoResponse])
-        let expectation = expectation(description: "EmptyCofuStationsArea")
 
-        geoAPIManager.cofuGasStations(option: .boundingCircle(center: location, radius: 10_000)) { result in
-            switch result {
-            case .failure:
-                XCTFail()
+        let result = await geoAPIManager.cofuGasStations(option: .boundingCircle(center: location, radius: 10_000))
 
-            case .success(let stations):
-                if stations.count == 0 {
-                    expectation.fulfill()
-                }
-            }
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            XCTAssertEqual(stations.count, 0)
         }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testCofuStationsAll() {
-        let expectation = expectation(description: "EmptyCofuStationsAll")
+    func testCofuStationsAll() async {
+        let result = await geoAPIManager.cofuGasStations(option: .all)
 
-        geoAPIManager.cofuGasStations(option: .all) { result in
-            switch result {
-            case .failure:
-                XCTFail()
+        switch result {
+        case .failure:
+            XCTFail()
 
-            case .success(let stations):
-                if stations.count == 2 {
-                    expectation.fulfill()
-                }
-            }
+        case .success(let stations):
+            XCTAssertEqual(stations.count, 2)
         }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testEmptyCofuStationsAll() {
+    func testEmptyCofuStationsAll() async {
         addCommandLineArguments([.emptyGeoResponse])
-        let expectation = expectation(description: "EmptyCofuStationsAll")
 
-        geoAPIManager.cofuGasStations(option: .all) { result in
-            switch result {
-            case .failure:
-                XCTFail()
+        let result = await geoAPIManager.cofuGasStations(option: .all)
 
-            case .success(let stations):
-                if stations.count == 0 {
-                    expectation.fulfill()
-                }
-            }
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            XCTAssertEqual(stations.count, 0)
         }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
     }
 
-    func testCofuStationsError() {
+    func testCofuStationsError() async {
         addCommandLineArguments([.geoRequestError])
-        let expectation = expectation(description: "CofuStationsError")
 
-        geoAPIManager.cofuGasStations(option: .all) { result in
-            switch result {
-            case .failure:
-                expectation.fulfill()
+        let result = await geoAPIManager.cofuGasStations(option: .all)
 
-            case .success:
+        switch result {
+        case .failure:
+            break
+
+        case .success:
+            XCTFail()
+        }
+    }
+
+    func testAppsProperty() async {
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
+
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            let appDatas: [AppKit.AppData] = (stations.first?.properties["apps"] as? [[String: Any]] ?? []).map {
+                AppKit.AppData(appID: nil, appUrl: $0["url"] as? String ?? "", metadata: [:])
+            }
+
+            XCTAssertTrue(!appDatas.isEmpty)
+        }
+    }
+
+    func testCofuStatusProperty() async {
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
+
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            XCTAssertTrue(stations[0].cofuStatus == .online && stations[1].cofuStatus == .offline)
+        }
+    }
+
+    func testFuelingURLsProperty() async {
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
+
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            stations.forEach {
+                XCTAssertEqual("https://dev.fuel.site", $0.fuelingURLs.first!)
+            }
+        }
+    }
+
+    func testPacePayProperty() async {
+        let result = await geoAPIManager.locationBasedCofuStations(for: location)
+
+        switch result {
+        case .failure:
+            XCTFail()
+
+        case .success(let stations):
+            guard let station1PacePay = stations[0].properties["pacePay"] as? Bool,
+                  let station2PacePay = stations[1].properties["pacePay"] as? Bool else {
                 XCTFail()
+                return
             }
-        }
 
-        waitForExpectations(timeout: 0.3, handler: nil)
+            XCTAssertTrue(station1PacePay)
+            XCTAssertFalse(station2PacePay)
+        }
     }
 
-    func testAppsProperty() {
-        let expectation = expectation(description: "AppsProperty")
-
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                XCTFail()
-
-            case .success(let stations):
-                let appDatas: [AppKit.AppData] = (stations.first?.properties["apps"] as? [[String: Any]] ?? []).map {
-                    AppKit.AppData(appID: nil, appUrl: $0["url"] as? String ?? "", metadata: [:])
-                }
-
-                if !appDatas.isEmpty {
-                    expectation.fulfill()
-                }
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
+    func testIsPoiInRange() async {
+        let isInRange = await geoAPIManager.isPoiInRange(with: "e3211b77-03f0-4d49-83aa-4adaa46d95ae", near: location)
+        XCTAssertTrue(isInRange)
     }
 
-    func testCofuStatusProperty() {
-        let expectation = expectation(description: "CofuStatusProperty")
-
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                XCTFail()
-
-            case .success(let stations):
-                if stations[0].cofuStatus == .online && stations[1].cofuStatus == .offline {
-                    expectation.fulfill()
-                }
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
+    func testIsPoiNotInRange() async {
+        let isInRange = await geoAPIManager.isPoiInRange(with: "e3211b77-03f0-4d49-83aa-4adaa46d95ae", near: CLLocation())
+        XCTAssertFalse(isInRange)
     }
 
-    func testFuelingURLsProperty() {
-        let expectation = expectation(description: "FuelingURLsProperty")
-
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                XCTFail()
-
-            case .success(let stations):
-                stations.forEach {
-                    XCTAssertEqual("https://dev.fuel.site", $0.fuelingURLs.first!)
-                }
-                expectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
-    }
-
-    func testPacePayProperty() {
-        let expectation = expectation(description: "PacePayProperty")
-
-        geoAPIManager.locationBasedCofuStations(for: location) { result in
-            switch result {
-            case .failure:
-                XCTFail()
-
-            case .success(let stations):
-                if let station1PacePay = stations[0].properties["pacePay"] as? Bool,
-                   let station2PacePay = stations[1].properties["pacePay"] as? Bool,
-                   station1PacePay,
-                   !station2PacePay {
-                    expectation.fulfill()
-                }
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
-    }
-
-    func testIsPoiInRange() {
-        let expectation = expectation(description: "IsPoiInRange")
-
-        geoAPIManager.isPoiInRange(with: "e3211b77-03f0-4d49-83aa-4adaa46d95ae", near: location) { isInRange in
-            if isInRange {
-                expectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
-    }
-
-    func testIsPoiNotInRange() {
-        let expectation = expectation(description: "IsPoiNotInRange")
-
-        geoAPIManager.isPoiInRange(with: "e3211b77-03f0-4d49-83aa-4adaa46d95ae", near: CLLocation()) { isInRange in
-            if !isInRange {
-                expectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
-    }
-
-    func testIsPoiInRangeWrongUUID() {
-        let expectation = expectation(description: "IsPoiInRangeWrongUUID")
-
-        geoAPIManager.isPoiInRange(with: "7777777-777-7777-7777-777777777777", near: location) { isInRange in
-            if !isInRange {
-                expectation.fulfill()
-            }
-        }
-
-        waitForExpectations(timeout: 0.3, handler: nil)
+    func testIsPoiInRangeWrongUUID() async {
+        let isInRange = await geoAPIManager.isPoiInRange(with: "7777777-777-7777-7777-777777777777", near: location)
+        XCTAssertFalse(isInRange)
     }
 }

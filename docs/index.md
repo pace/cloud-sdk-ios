@@ -27,6 +27,7 @@
         + [From 22.x.x -> 23.x.x](#from-22xx-to-23xx)
         + [From 23.x.x -> 24.x.x](#from-23xx-to-24xx)
         + [From 24.x.x -> 25.x.x](#from-24xx-to-25xx)
+        + [From 25.x.x -> 26.x.x](#from-25xx-to-26xx)
     * [Contribute](#contribute)
         + [Localizable Strings Generation](#localizable-strings-generation)
 
@@ -240,6 +241,10 @@ In version `7.x.x` we've made some big `AppKit` and `IDKit` changes.
 ### From 24.x.x to 25.x.x
 
 - The POIKit API no longer exposes `search`, `reverseGeocode` and `routing` endpoints.
+
+### From 25.x.x to 26.x.x
+
+- Fetching CoFu gas stations now requires a URL to store a local database that persists the stations. This URL needs to be passed to the SDK's configuration. Passing `nil` will prevent CoFu gas stations from being fetched.
 
 ## Contribute
 ### Localizable Strings Generation

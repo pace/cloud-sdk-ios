@@ -15,6 +15,12 @@ public extension PACECloudSDK {
         /// Your client id provided by PACE.
         let clientId: String
 
+        /// The mode of the database used to persist geoJSON information.
+        ///
+        /// When enabled, it requires an `URL` where to persist the geoJSON information at.
+        /// When disabled, no CoFu gas stations will be retrieved.
+        let geoDatabaseMode: GeoDatabaseMode
+
         /// The default authentication mode is `.native`. If you're not using native authentication set this value to `.web`.
         let authenticationMode: AuthenticationMode
 
@@ -56,6 +62,7 @@ public extension PACECloudSDK {
 
         public init(apiKey: String,
                     clientId: String,
+                    geoDatabaseMode: GeoDatabaseMode,
                     authenticationMode: AuthenticationMode = .native,
                     environment: Environment = .production,
                     customOIDConfiguration: IDKit.OIDConfiguration? = nil,
@@ -71,6 +78,7 @@ public extension PACECloudSDK {
                     persistLogs: Bool = false) {
             self.apiKey = apiKey
             self.clientId = clientId
+            self.geoDatabaseMode = geoDatabaseMode
             self.authenticationMode = authenticationMode
             self.environment = environment
             self.customOIDConfiguration = customOIDConfiguration
@@ -113,6 +121,11 @@ public extension PACECloudSDK {
                 return "prod"
             }
         }
+    }
+
+    enum GeoDatabaseMode {
+        case enabled(Foundation.URL)
+        case disabled
     }
 
     enum AuthenticationMode: String {

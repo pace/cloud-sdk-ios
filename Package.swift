@@ -27,6 +27,7 @@ let package = Package(
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .exact("1.22.0")),
         .package(name: "Japx", url: "https://github.com/pace/Japx", .exact("5.0.0")),
         .package(name: "IkigaJSON", url: "https://github.com/Ikiga/IkigaJSON.git", .exact("2.3.2")),
+        .package(name: "GRDB", url: "https://github.com/groue/GRDB.swift", .exact("7.8.0")),
     ],
     targets: [
         .target(
@@ -35,7 +36,9 @@ let package = Package(
                 "AppAuth",
                 "SwiftProtobuf",
                 "Japx",
-                "IkigaJSON"
+                "IkigaJSON",
+                "GRDB",
+                .product(name: "GRDBSQLite", package: "GRDB")
             ],
             path: "PACECloudSDK",
             exclude: [

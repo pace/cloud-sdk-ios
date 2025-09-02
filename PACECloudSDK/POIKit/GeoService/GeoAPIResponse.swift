@@ -33,7 +33,7 @@ struct GeoAPIFeature: Decodable {
     }
 }
 
-enum GeometryFeature: Codable {
+enum GeometryFeature: Decodable {
     case point(GeometryPointFeature)
     case polygon(GeometryPolygonFeature)
     case collections(GeometryCollectionsFeature)
@@ -57,33 +57,19 @@ enum GeometryFeature: Codable {
 
         throw DecodingError.typeMismatch(GeometryFeature.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for GeometryFeature"))
     }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .point(let x):
-            try container.encode(x)
-
-        case .polygon(let x):
-            try container.encode(x)
-
-        case .collections(let x):
-            try container.encode(x)
-        }
-    }
 }
 
-struct GeometryPointFeature: Codable {
+struct GeometryPointFeature: Decodable {
     let type: String?
     let coordinates: GeoAPICoordinate
 }
 
-struct GeometryPolygonFeature: Codable {
+struct GeometryPolygonFeature: Decodable {
     let type: String?
     let coordinates: [GeoAPICoordinates]
 }
 
-struct GeometryCollectionsFeature: Codable {
+struct GeometryCollectionsFeature: Decodable {
     let type: String?
     let geometries: [GeometryFeature]?
 }

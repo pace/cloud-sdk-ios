@@ -9,8 +9,35 @@ import PACECloudSDK
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
+
+    var currentAppEnvironment: PACECloudSDK.Environment {
+        #if PRODUCTION
+        return .production
+        #elseif SANDBOX
+        return .sandbox
+        #else
+        return .development
+        #endif
+    }
+
+    private var databaseUrl: URL {
+        do {
+            let fileManager = FileManager.default
+            let appSupportURL = try fileManager.url(
+                for: .applicationSupportDirectory,
+                in: .userDomainMask,
+                appropriateFor: nil,
+                create: true)
+            let directoryURL = appSupportURL.appendingPathComponent("GeoDatabase", isDirectory: true)
+            try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
+
+            let databaseURL = directoryURL.appendingPathComponent("db.sqlite")
+            return databaseURL
+        } catch {
+            fatalError("[ExampleApp] Invalid geo database url")
+        }
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -31,21 +58,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let config: PACECloudSDK.Configuration = .init(
             apiKey: "apikey",
             clientId: "cloud-sdk-example-app",
+            geoDatabaseMode: .enabled(databaseUrl),
             environment: currentAppEnvironment,
             logLevel: .debug,
             persistLogs: true
         )
 
         PACECloudSDK.shared.setup(with: config)
-    }
-
-    var currentAppEnvironment: PACECloudSDK.Environment {
-        #if PRODUCTION
-        return .production
-        #elseif SANDBOX
-        return .sandbox
-        #else
-        return .development
-        #endif
     }
 }

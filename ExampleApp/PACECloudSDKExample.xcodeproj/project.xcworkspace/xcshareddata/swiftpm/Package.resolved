@@ -1,5 +1,5 @@
 {
-  "originHash" : "530b1fe4b1868c4900e26e244340848714fa319247042241dd03bb7c075e0e35",
+  "originHash" : "1ff7b49afde33a12711b34197dfe9ddefc58bdd7f3f53a31b81e58ae30454a9b",
   "pins" : [
     {
       "identity" : "appauth-ios",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "729e01bc9b9dab466ac85f21fb9ee2bc1c61b258",
         "version" : "1.8.4"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift",
+      "state" : {
+        "revision" : "18497b68fdbb3a09528d260a0a0e1e7e61c8c53d",
+        "version" : "7.8.0"
       }
     },
     {

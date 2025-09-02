@@ -15,11 +15,11 @@ class GeoAPIManager {
     func fetchPolygons() {}
 
     func locationBasedCofuStations(for location: CLLocation, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        result(.failure(.unknownError))
+        result(.failure(.unknown))
     }
 
     func cofuGasStations(option: POIKit.CofuGasStation.Option, result: @escaping (Result<[POIKit.CofuGasStation], GeoApiManagerError>) -> Void) {
-        result(.failure(.unknownError))
+        result(.failure(.unknown))
     }
 
     func decodeGeoAPIResponse(geoApiData: Data) -> GeoAPIResponse? { nil }

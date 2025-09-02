@@ -24,6 +24,22 @@ public extension POIKit {
             return point1.distance(from: point2)
         }
 
+        public var minLat: CLLocationDistance {
+            min(point1.latitude, point2.latitude)
+        }
+
+        public var maxLat: CLLocationDistance {
+            max(point1.latitude, point2.latitude)
+        }
+
+        public var minLon: CLLocationDistance {
+            min(point1.longitude, point2.longitude)
+        }
+
+        public var maxLon: CLLocationDistance {
+            max(point1.longitude, point2.longitude)
+        }
+
         private static let precisionFormat = "%.5f"
 
         /**
@@ -47,11 +63,6 @@ public extension POIKit {
         }
 
         public func contains(coord: CLLocationCoordinate2D) -> Bool {
-            let minLat = min(point1.latitude, point2.latitude)
-            let maxLat = max(point1.latitude, point2.latitude)
-            let minLon = min(point1.longitude, point2.longitude)
-            let maxLon = max(point1.longitude, point2.longitude)
-
             return minLat ... maxLat ~= coord.latitude && minLon ... maxLon ~= coord.longitude
         }
 
