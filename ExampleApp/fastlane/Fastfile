@@ -53,12 +53,7 @@ platform :ios do
 
   desc 'Build example app'
   lane :build_example_app do |options|
-    produce(
-      app_identifier: APP_IDENTIFIER,
-      app_name: "PACECloudSDKExample #{options[:config]}",
-      skip_itc: true,
-      team_id: TEAM_ID
-    )
+    app_store_connect_api_key(in_house: false)
 
     case options[:config]
     when 'Development'
