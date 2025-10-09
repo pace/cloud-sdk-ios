@@ -166,7 +166,7 @@ public class CDNAPIClient {
             requestWithHeaders.setValue(value, forHTTPHeaderField: key)
         }
 
-        self.session.dataTask(with: requestWithHeaders) { data, response, error -> Void in
+        self.session.dataTask(with: requestWithHeaders) { data, response, error in
             if let error = error {
                 completion(.failure(.networkError(error)))
                 return

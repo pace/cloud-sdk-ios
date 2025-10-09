@@ -35,7 +35,7 @@ enum Base32 {
         base32decode(string, alphabetDecodeTable).flatMap(Data.init(_:))
     }
 
-    // swiftlint:disable:next function_body_length
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     private static func base32decode(_ string: String, _ table: [UInt8]) -> [UInt8]? {
         let length = string.unicodeScalars.count
         if length == 0 {

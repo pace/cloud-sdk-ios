@@ -90,7 +90,7 @@ class GasStationListViewModelImplementation: NSObject, GasStationListViewModel {
                     return
                 }
 
-                if result.response as? FuelingAPI.Fueling.ApproachingAtTheForecourt.Response.Status404 != nil {
+                if result.response is FuelingAPI.Fueling.ApproachingAtTheForecourt.Response.Status404 {
                     self?.showApproachingError(message: "Connected Fueling is coming soon to this gas station.")
                     NSLog("[GasStationListViewModelImplementation] Failed approaching at station \(stationId): 404 - Coming Soon. Request with request-id: \(APIHelper.retrieveRequestID(from: response.urlResponse))") // swiftlint:disable:this line_length
                     return

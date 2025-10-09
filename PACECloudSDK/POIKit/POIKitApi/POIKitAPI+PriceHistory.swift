@@ -15,7 +15,7 @@ extension POIKitAPI {
             return
         }
 
-        self.request.httpRequest(.get, url: url, body: nil, includeDefaultHeaders: false, headers: request.customHeaders, on: cloudQueue) { response, data, error -> Void in
+        self.request.httpRequest(.get, url: url, body: nil, includeDefaultHeaders: false, headers: request.customHeaders, on: cloudQueue) { response, data, error in
             if let error = error as NSError?, error.code == NSURLError.notConnectedToInternet.rawValue {
                 result(.failure(POIKit.POIKitAPIError.networkError))
                 return

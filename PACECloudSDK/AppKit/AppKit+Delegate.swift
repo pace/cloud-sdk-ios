@@ -60,7 +60,7 @@ public extension AppKitDelegate {
         let item = ShareObject(shareData: image, customTitle: Bundle.main.bundleName)
         shareItem(item)
     }
-    
+
     func didReceiveFileData(_ data: Data) {
         let item = ShareObject(shareData: data, customTitle: Bundle.main.bundleName)
         shareItem(item)
