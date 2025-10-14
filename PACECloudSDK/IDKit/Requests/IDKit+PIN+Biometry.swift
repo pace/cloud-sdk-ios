@@ -42,7 +42,7 @@ extension IDKit {
     }
 
     func isPINValid(pin: String) -> Bool {
-        let charSet = Set(pin.enumerated().map { $0.element })
+        let charSet = Set(pin.map { $0 })
         let charChain = "0123456789012"
 
         return pin.count == 4

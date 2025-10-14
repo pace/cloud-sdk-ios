@@ -256,13 +256,13 @@ extension PumpStatusViewModelImplementation {
         waitForTransactionRequest = APIHelper.makePayRequest(request) { [weak self] response in
             switch response.result {
             case .success(let result):
-                if result.response as? PayAPI.PaymentTransactions.GetTransaction.Response.Status410 != nil {
+                if result.response is PayAPI.PaymentTransactions.GetTransaction.Response.Status410 {
                     self?.handleCancelledTransaction()
                     NSLog("[PumpStatusViewModelImplementation] Wait for transaction cancelled: Status code 410. Request with request-id: \(APIHelper.retrieveRequestID(from: response.urlResponse))") // swiftlint:disable:this line_length
                     return
                 }
 
-                if result.response as? PayAPI.PaymentTransactions.GetTransaction.Response.Status404 != nil {
+                if result.response is PayAPI.PaymentTransactions.GetTransaction.Response.Status404 {
                     self?.waitForTransaction()
                     return
                 }
