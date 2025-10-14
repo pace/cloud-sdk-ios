@@ -284,7 +284,7 @@ class GeoAPIManager {
 
             self.isGeoRequestRunning = true
             self.sessionTask?.cancel()
-            self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error -> Void in
+            self.sessionTask = self.session.dataTask(with: request, completionHandler: { [weak self] data, response, error in
                 defer {
                     self?.isGeoRequestRunning = false
                 }

@@ -7,6 +7,8 @@
 
 import UIKit
 
+// swiftlint:disable file_length
+
 public protocol AppDrawerProtocol: AnyObject {
     func didOpenApp()
     func didDisableApp(_ appDrawer: AppKit.AppDrawer, host: String)

@@ -189,7 +189,7 @@ extension App {
 
         var context: [String: Any] = [:]
         if request.context != nil {
-            context = request.context!.reduce(into: [:], { $0[$1.key] = $1.value.value })
+            context = request.context!.reduce(into: [:], { $0[$1.key] = $1.value.value }) // swiftlint:disable:this force_unwrapping
         }
 
         AppKit.shared.notifyLogEvent(key: key, parameters: parameters, context: context)

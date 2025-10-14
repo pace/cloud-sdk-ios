@@ -152,7 +152,9 @@ class LoginViewController: UIViewController {
     }
 
     private func presentErrorAlert(message: String?) {
-        let alert = UIAlertController.errorAlert(message: message)
-        present(alert, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            let alert = UIAlertController.errorAlert(message: message)
+            self?.present(alert, animated: true)
+        }
     }
 }
