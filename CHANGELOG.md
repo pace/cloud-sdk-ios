@@ -1,3 +1,16 @@
+25.1.1 Release notes (2025-10-14)
+=============================================================
+
+### Fixes
+
+* Fix create github release script
+
+### Internal
+
+* Resolve "Upgrade to Xcode 26 without liquid glass"
+* Improve fastlane session handling
+* Update fastlane
+
 25.1.0 Release notes (2025-08-21)
 =============================================================
 
