@@ -3,10 +3,10 @@
 COMMIT_MESSAGE=$1
 
 echo 'Creating xcFramework for Slim SDK'
-./scripts/build_slim_xcframework.sh
+./scripts/build_slim_xcframework.sh || exit 1
 
 echo 'Creating xcFramework for Watch SDK'
-./scripts/build_watch_xcframework.sh
+./scripts/build_watch_xcframework.sh || exit 1
 
 echo 'Setting up dev review branch'
 git remote set-url origin "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
