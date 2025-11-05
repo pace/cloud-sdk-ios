@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,8 +32,6 @@
 		9AD6E961286AE6F500B6FDA4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6E960286AE6F500B6FDA4 /* SceneDelegate.swift */; };
 		9AD6E968286AE6F600B6FDA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD6E967286AE6F600B6FDA4 /* Assets.xcassets */; };
 		9AD6E96B286AE6F600B6FDA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD6E969286AE6F600B6FDA4 /* LaunchScreen.storyboard */; };
-		9AD6E987286AE76E00B6FDA4 /* PACECloudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD6E97C286AE73D00B6FDA4 /* PACECloudSDK.framework */; platformFilter = ios; };
-		9AD6E988286AE76E00B6FDA4 /* PACECloudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD6E97C286AE73D00B6FDA4 /* PACECloudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9AD6E9A9286AF8FB00B6FDA4 /* GasStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6E9A8286AF8FB00B6FDA4 /* GasStation.swift */; };
 		9AD6E9B1286AFD3500B6FDA4 /* GasStationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6E9AE286AFB2400B6FDA4 /* GasStationListViewModel.swift */; };
 		9AD6E9B2286AFD3900B6FDA4 /* GasStationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD6E9AF286AFB2400B6FDA4 /* GasStationCell.swift */; };
@@ -55,52 +53,8 @@
 		9AF393F9286DB4BD0040B40A /* SuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF393F8286DB4BD0040B40A /* SuccessViewModel.swift */; };
 		9AF393FD287337CE0040B40A /* AmountSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF393FC287337CE0040B40A /* AmountSelectionViewController.swift */; };
 		9AF393FF287337DD0040B40A /* AmountSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF393FE287337DD0040B40A /* AmountSelectionViewModel.swift */; };
+		F23A93172EB0E72700E4DE8B /* PACECloudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = F23A93162EB0E72700E4DE8B /* PACECloudSDK */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9AD6E97B286AE73D00B6FDA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 921E682C2534883100438491;
-			remoteInfo = PACECloudSDK;
-		};
-		9AD6E97D286AE73D00B6FDA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 92EDDBCD25A71EEB00E480F4;
-			remoteInfo = PACECloudSlimSDK;
-		};
-		9AD6E97F286AE73D00B6FDA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 921E68352534883200438491;
-			remoteInfo = PACECloudSDKTests;
-		};
-		9AD6E981286AE73D00B6FDA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3BA6A760260DD06A005D4B5C;
-			remoteInfo = UnitTestDummy;
-		};
-		9AD6E983286AE73D00B6FDA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 17BB0CD7268CCED6009D4755;
-			remoteInfo = PACECloudWatchSDK;
-		};
-		9AD6E985286AE75800B6FDA4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 921E682B2534883100438491;
-			remoteInfo = PACECloudSDK;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9AD6E989286AE76F00B6FDA4 /* Embed Frameworks */ = {
@@ -109,7 +63,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9AD6E988286AE76E00B6FDA4 /* PACECloudSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,7 +97,6 @@
 		9AD6E967286AE6F600B6FDA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9AD6E96A286AE6F600B6FDA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AD6E96C286AE6F600B6FDA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PACECloudSDK.xcodeproj; path = ../PACECloudSDK.xcodeproj; sourceTree = "<group>"; };
 		9AD6E9A8286AF8FB00B6FDA4 /* GasStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GasStation.swift; sourceTree = "<group>"; };
 		9AD6E9AE286AFB2400B6FDA4 /* GasStationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasStationListViewModel.swift; sourceTree = "<group>"; };
 		9AD6E9AF286AFB2400B6FDA4 /* GasStationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasStationCell.swift; sourceTree = "<group>"; };
@@ -173,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AD6E987286AE76E00B6FDA4 /* PACECloudSDK.framework in Frameworks */,
+				F23A93172EB0E72700E4DE8B /* PACECloudSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,21 +208,8 @@
 		9AD6E972286AE73C00B6FDA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9AD6E974286AE73D00B6FDA4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9AD6E97C286AE73D00B6FDA4 /* PACECloudSDK.framework */,
-				9AD6E97E286AE73D00B6FDA4 /* PACECloudSlimSDK.framework */,
-				9AD6E980286AE73D00B6FDA4 /* PACECloudSDKTests.xctest */,
-				9AD6E982286AE73D00B6FDA4 /* UnitTestDummy.app */,
-				9AD6E984286AE73D00B6FDA4 /* PACECloudWatchSDK.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9AD6E9AD286AFB2400B6FDA4 /* GasStationList */ = {
@@ -383,10 +322,10 @@
 			);
 			dependencies = (
 				0B7F75512BDF7BC800093A0C /* PBXTargetDependency */,
-				9AD6E986286AE75800B6FDA4 /* PBXTargetDependency */,
 			);
 			name = FuelingExampleApp;
 			packageProductDependencies = (
+				F23A93162EB0E72700E4DE8B /* PACECloudSDK */,
 			);
 			productName = FuelingApp;
 			productReference = 9AD6E95B286AE6F500B6FDA4 /* FuelingExampleApp.app */;
@@ -418,59 +357,16 @@
 			mainGroup = 9AD6E952286AE6F500B6FDA4;
 			packageReferences = (
 				0B7F754F2BDF7BBF00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				F23A93152EB0E72700E4DE8B /* XCLocalSwiftPackageReference "../" */,
 			);
 			productRefGroup = 9AD6E95C286AE6F500B6FDA4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 9AD6E974286AE73D00B6FDA4 /* Products */;
-					ProjectRef = 9AD6E973286AE73D00B6FDA4 /* PACECloudSDK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9AD6E95A286AE6F500B6FDA4 /* FuelingExampleApp */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		9AD6E97C286AE73D00B6FDA4 /* PACECloudSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PACECloudSDK.framework;
-			remoteRef = 9AD6E97B286AE73D00B6FDA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9AD6E97E286AE73D00B6FDA4 /* PACECloudSlimSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PACECloudSlimSDK.framework;
-			remoteRef = 9AD6E97D286AE73D00B6FDA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9AD6E980286AE73D00B6FDA4 /* PACECloudSDKTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = PACECloudSDKTests.xctest;
-			remoteRef = 9AD6E97F286AE73D00B6FDA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9AD6E982286AE73D00B6FDA4 /* UnitTestDummy.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = UnitTestDummy.app;
-			remoteRef = 9AD6E981286AE73D00B6FDA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9AD6E984286AE73D00B6FDA4 /* PACECloudWatchSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PACECloudWatchSDK.framework;
-			remoteRef = 9AD6E983286AE73D00B6FDA4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9AD6E959286AE6F500B6FDA4 /* Resources */ = {
@@ -542,11 +438,6 @@
 		0B7F75512BDF7BC800093A0C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 0B7F75502BDF7BC800093A0C /* SwiftLintBuildToolPlugin */;
-		};
-		9AD6E986286AE75800B6FDA4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PACECloudSDK;
-			targetProxy = 9AD6E985286AE75800B6FDA4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -842,6 +733,102 @@
 			};
 			name = Sandbox;
 		};
+		F23A92FE2EB0A49100E4DE8B /* DevelopmentTokenExchange */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = DevelopmentTokenExchange;
+		};
+		F23A92FF2EB0A49100E4DE8B /* DevelopmentTokenExchange */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8T694MPXAZ;
+				ENABLE_BITCODE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FuelingExampleApp/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "PACE uses FaceID to confirm your payments.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "FuelingExampleApp needs location access to show you connected fueling stations nearby";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "FuelingExampleApp needs location access to show you connected fueling stations nearby";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "FuelingExampleApp needs location access to show you connected fueling stations nearby";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "In order to download your receipts, we need to use Photo Library Usage permission";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = car.pace.FuelingExampleApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG DEVELOPMENT TOKEN_EXCHANGE";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = DevelopmentTokenExchange;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -849,6 +836,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9AD6E994286AEB6F00B6FDA4 /* Development */,
+				F23A92FE2EB0A49100E4DE8B /* DevelopmentTokenExchange */,
 				9AD6E996286AEB7D00B6FDA4 /* Production */,
 				9AD6E998286AEB9400B6FDA4 /* Sandbox */,
 			);
@@ -859,6 +847,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9AD6E995286AEB6F00B6FDA4 /* Development */,
+				F23A92FF2EB0A49100E4DE8B /* DevelopmentTokenExchange */,
 				9AD6E997286AEB7D00B6FDA4 /* Production */,
 				9AD6E999286AEB9400B6FDA4 /* Sandbox */,
 			);
@@ -866,6 +855,13 @@
 			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F23A93152EB0E72700E4DE8B /* XCLocalSwiftPackageReference "../" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../";
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		0B7F754F2BDF7BBF00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
@@ -883,6 +879,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0B7F754F2BDF7BBF00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		F23A93162EB0E72700E4DE8B /* PACECloudSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PACECloudSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

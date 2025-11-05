@@ -1,5 +1,5 @@
 {
-  "originHash" : "66c4fe366dd326fe0cd39ed326a99261010f816490de712b837f7f13510b84ad",
+  "originHash" : "ee266ce3cb2d3146b7fa1d9839847cd1255790d88c85b0cac43d20dd06903af9",
   "pins" : [
     {
       "identity" : "appauth-ios",
@@ -31,7 +31,7 @@
     {
       "identity" : "ikigajson",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/orlandos-nl/IkigaJSON.git",
+      "location" : "https://github.com/Ikiga/IkigaJSON.git",
       "state" : {
         "revision" : "17cc2f9d7fb03b6027ec1f6702c9b66be7cd9c6e",
         "version" : "2.3.2"
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "a18bddb0acf7a40d982b2f128ce73ce4ee31f352",
-        "version" : "2.86.2"
+        "revision" : "4e8f4b1c9adaa59315c523540c1ff2b38adc20a9",
+        "version" : "2.87.0"
       }
     },
     {

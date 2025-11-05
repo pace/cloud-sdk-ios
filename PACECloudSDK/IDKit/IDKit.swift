@@ -46,7 +46,7 @@ public class IDKit {
         guard let session = SessionCache.loadSession(for: PACECloudSDK.shared.environment) else { return }
         self.session = session
 
-        handleUpdatedAccessToken(with: session.lastTokenResponse?.accessToken)
+        handleUpdatedAccessToken(with: session.lastTokenResponse?.accessToken, exchangeToken: nil)
     }
 
     private static func setup(with configuration: OIDConfiguration, userAgentType: UserAgentType) {
@@ -178,7 +178,11 @@ public extension IDKit {
      - returns: The latest access token.
      */
     static func latestAccessToken() -> String? {
-        shared?.session?.lastTokenResponse?.accessToken
+        if shared?.configuration.tokenExchangeConfig != nil {
+            return API.accessToken
+        } else {
+            return shared?.session?.lastTokenResponse?.accessToken
+        }
     }
 }
 

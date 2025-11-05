@@ -21,6 +21,7 @@ public extension IDKit {
         let redirectUri: String
         let responseType: String
         var additionalParameters: [String: String]?
+        let tokenExchangeConfig: TokenExchangeConfiguration?
 
         /// Creates an instance of `OIDConfiguration` with the specified values
         public init(authorizationEndpoint: String,
@@ -32,7 +33,8 @@ public extension IDKit {
                     scopes: [String]? = nil,
                     redirectUri: String,
                     responseType: String = OIDResponseTypeCode,
-                    additionalParameters: [String: String]? = nil) {
+                    additionalParameters: [String: String]? = nil,
+                    tokenExchangeConfig: TokenExchangeConfiguration? = nil) {
             self.authorizationEndpoint = authorizationEndpoint
             self.tokenEndpoint = tokenEndpoint
             self.userEndpoint = userEndpoint
@@ -43,6 +45,7 @@ public extension IDKit {
             self.redirectUri = redirectUri
             self.responseType = responseType
             self.additionalParameters = additionalParameters
+            self.tokenExchangeConfig = tokenExchangeConfig
         }
 
         /**
@@ -81,6 +84,18 @@ public extension IDKit {
                          clientId: clientId,
                          redirectUri: redirectUri,
                          additionalParameters: additionalParameters)
+        }
+    }
+
+    struct TokenExchangeConfiguration {
+        let exchangeClientID: String
+        let exchangeIssuerID: String
+        let exchangeClientSecret: String
+
+        public init(exchangeClientID: String, exchangeIssuerID: String, exchangeClientSecret: String) {
+            self.exchangeClientID = exchangeClientID
+            self.exchangeIssuerID = exchangeIssuerID
+            self.exchangeClientSecret = exchangeClientSecret
         }
     }
 }
