@@ -138,14 +138,16 @@ extension IDKit {
     func performTokenExchange(with token: String, configuration: TokenExchangeConfiguration, completion: @escaping ((String?) -> Void)) {
         var request = URLRequest(url: URL(string: Settings.shared.tokenEndpointUrl)!) // swiftlint:disable:this force_unwrapping
         request.httpMethod = "POST"
-        let params = [
+        var params = [
             "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
             "client_id": configuration.exchangeClientID,
             "subject_issuer": configuration.exchangeIssuerID,
-            "client_secret": configuration.exchangeClientSecret,
             "subject_token": token,
             "subject_token_type": "urn:ietf:params:oauth:token-type:access_token"
         ]
+        if let clientSecret = configuration.exchangeClientSecret {
+            params["client_secret"] = clientSecret
+        }
         request.httpBody = params
             .map { "\($0)=\($1.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)" } // swiftlint:disable:this force_unwrapping
             .joined(separator: "&")

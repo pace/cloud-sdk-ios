@@ -90,9 +90,9 @@ public extension IDKit {
     struct TokenExchangeConfiguration {
         let exchangeClientID: String
         let exchangeIssuerID: String
-        let exchangeClientSecret: String
+        let exchangeClientSecret: String?
 
-        public init(exchangeClientID: String, exchangeIssuerID: String, exchangeClientSecret: String) {
+        public init(exchangeClientID: String, exchangeIssuerID: String, exchangeClientSecret: String? = nil) {
             self.exchangeClientID = exchangeClientID
             self.exchangeIssuerID = exchangeIssuerID
             self.exchangeClientSecret = exchangeClientSecret
