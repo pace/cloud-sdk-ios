@@ -1,3 +1,17 @@
+25.2.0 Release notes (2025-12-03)
+=============================================================
+
+### Enhancements
+
+* Implement token exchange
+
+### Internal
+
+* Allow failure of framework_release_build job
+* Make client secret optional
+* Fallback to token exchange client id for geo scope if set
+* End deploy scripts early if errors occur
+
 25.1.1 Release notes (2025-10-14)
 =============================================================
 

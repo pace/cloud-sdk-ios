@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>25.1.1</string>
+	<string>25.2.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 </dict>
