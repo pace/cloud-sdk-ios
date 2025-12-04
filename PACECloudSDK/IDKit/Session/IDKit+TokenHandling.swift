@@ -7,6 +7,7 @@
 
 import AppAuth
 
+// swiftlint:disable file_length
 // MARK: - Authorization
 extension IDKit {
     func performAuthorization(showSignInMask: Bool, _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
@@ -123,7 +124,7 @@ extension IDKit {
 
         self.authorizationFlow = authorizationFlow
     }
-    
+
     private func finalizeAuthorization(session: OIDAuthState,
                                        accessToken: String?,
                                        exchangeToken: String?,
@@ -133,7 +134,6 @@ extension IDKit {
         completion(.success(accessToken))
         IDKitLogger.i("Authorization successful")
     }
-
 
     func performTokenExchange(with token: String, configuration: TokenExchangeConfiguration, completion: @escaping ((String?) -> Void)) {
         var request = URLRequest(url: URL(string: Settings.shared.tokenEndpointUrl)!) // swiftlint:disable:this force_unwrapping
@@ -212,6 +212,7 @@ extension IDKit {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     private func performActualRefresh(currentRetryCount: Int = 0, _ completion: @escaping (Result<String?, IDKitError>) -> Void) {
         guard let session = session else {
             completion(.failure(.invalidSession))

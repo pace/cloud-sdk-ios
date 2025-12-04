@@ -15,7 +15,7 @@ public struct PayAPI {
                                                             locale: Locale(identifier: "de_DE"),
                                                             calendar: Calendar(identifier: .gregorian))
 
-    public static let version = "2024-3"
+    public static let version = "2025-1"
 
     public enum FleetPaymentMethods {}
     public enum NewPaymentMethods {}
@@ -25,10 +25,8 @@ public struct PayAPI {
     public enum PaymentTransactions {}
 
     public enum PayAPIServer {
-        /** Production server (preview release 2024-3) **/
-        public static let main = "https://api.pace.cloud/pay/2024-3"
-        /** Production server (deprecated) **/
-        public static let server2 = "https://api.pace.cloud/pay/beta"
+        /** Production server (stable release 2025-1) **/
+        public static let main = "https://api.pace.cloud/pay/2025-1"
     }
 }
 

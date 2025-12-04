@@ -1216,6 +1216,8 @@
 		CB85FF7E2C80CDC400551A77 /* ReceiptEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */; };
 		CB85FF7F2C80CDCE00551A77 /* ReceiptAttachmentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */; };
 		CB85FF802C80CDD000551A77 /* ReceiptEmailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */; };
+		CDE675C32EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE675C22EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift */; };
+		CDE675C42EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE675C22EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1868,6 +1870,7 @@
 		CB85FF762C80CCBD00551A77 /* ReceiptAttachmentsResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttachmentsResult.swift; sourceTree = "<group>"; };
 		CB85FF7B2C80CDC400551A77 /* ReceiptAttachmentsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAttachmentsRequest.swift; sourceTree = "<group>"; };
 		CB85FF7C2C80CDC400551A77 /* ReceiptEmailRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptEmailRequest.swift; sourceTree = "<group>"; };
+		CDE675C22EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCPayPatchPaymentMethodReqRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3286,6 +3289,7 @@
 		84D6C009258A03270094982D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CDE675C22EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift */,
 				841A3EDC25B9C9690065284A /* PCFuelingApproachingResponse.swift */,
 				841A3EE525B9C96A0065284A /* PCFuelingCommonOpeningHours.swift */,
 				0B28F7E0299FCFCC00E929EA /* PCFuelingDiscount.swift */,
@@ -3861,6 +3865,7 @@
 				17BB0CF1268CCF13009D4755 /* PayAPIDeletePaymentToken.swift in Sources */,
 				3BDBA7042BF396F1006C0151 /* PCPOIFuelType.swift in Sources */,
 				3B7C8E6E26FC5D8E0080B2B5 /* UserAPITokenExchange.swift in Sources */,
+				CDE675C32EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift in Sources */,
 				3B79FA8D26C15BEB00C0278F /* Waypoint.swift in Sources */,
 				3B2FB1D82844EB2800E8CD0C /* PCUserOAuth2Error.swift in Sources */,
 				3B2406B12821264900114EB8 /* DateTimeProvider.swift in Sources */,
@@ -4679,6 +4684,7 @@
 				0B28F7BE299FCE5D00E929EA /* PCPayRequestPaymentMethodModelRequest.swift in Sources */,
 				3B9655EC26B2981700921766 /* POIKit+GeoService.swift in Sources */,
 				3B7569FE2B69065700CB836F /* PayAPICreatePaymentMethodTFCSandbox.swift in Sources */,
+				CDE675C42EE199D4002C1E39 /* PCPayPatchPaymentMethodReqRequest.swift in Sources */,
 				3BC9A7FC2539DDAD00B933AE /* GasStationApiResponse.swift in Sources */,
 				3BDBA5772BF39332006C0151 /* PayAPICreateFleetPaymentMethodOMV.swift in Sources */,
 				84600EAE25C03B0C0087194F /* PayAPIGetReceiptByFormat.swift in Sources */,
