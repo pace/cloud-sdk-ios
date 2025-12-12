@@ -30,6 +30,9 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
 
         public var applePay: ApplePay
 
+        /** The billing e-mail address */
+        public var billingEmail: String?
+
         public var discountTokens: [String]?
 
         /** The code and method for two factor authentication, if required by the payment method */
@@ -259,11 +262,12 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             }
         }
 
-        public init(currency: String, amount: Decimal, purposePRNs: [String], applePay: ApplePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Decimal, purposePRNs: [String], applePay: ApplePay, billingEmail: String? = nil, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs
             self.applePay = applePay
+            self.billingEmail = billingEmail
             self.discountTokens = discountTokens
             self.twoFactor = twoFactor
         }
@@ -275,6 +279,7 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             amount = try container.decode("amount")
             purposePRNs = try container.decodeArray("purposePRNs")
             applePay = try container.decode("applePay")
+            billingEmail = try container.decodeIfPresent("billingEmail")
             discountTokens = try container.decodeArrayIfPresent("discountTokens")
             twoFactor = try container.decodeIfPresent("twoFactor")
         }
@@ -286,6 +291,7 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
             try container.encode(amount, forKey: "amount")
             try container.encode(purposePRNs, forKey: "purposePRNs")
             try container.encode(applePay, forKey: "applePay")
+            try container.encodeIfPresent(billingEmail, forKey: "billingEmail")
             try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         }
@@ -296,6 +302,7 @@ public class PCPayPaymentTokenCreateApplePayRequest: APIModel {
           guard self.amount == object.amount else { return false }
           guard self.purposePRNs == object.purposePRNs else { return false }
           guard self.applePay == object.applePay else { return false }
+          guard self.billingEmail == object.billingEmail else { return false }
           guard self.discountTokens == object.discountTokens else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
           return true

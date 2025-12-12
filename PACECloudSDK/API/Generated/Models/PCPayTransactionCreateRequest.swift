@@ -34,8 +34,14 @@ public class PCPayTransactionCreateRequest: APIModel {
         /** additional data for omv */
         public var additionalData: String?
 
+        /** The date and time the transaction was created */
+        public var createdAt: DateTime?
+
         /** Currency as specified in ISO-4217. */
         public var currency: String?
+
+        /** Driver code of the driver. Must not exceed 4 digits. */
+        public var driverCode: String?
 
         /** Driver/vehicle identification */
         public var driverVehicleID: String?
@@ -74,6 +80,9 @@ public class PCPayTransactionCreateRequest: APIModel {
 
         /** Set to true if the payment is for an unattended process */
         public var unattended: Bool?
+
+        /** User uuid in case we need different user to update transaction */
+        public var userUuid: ID?
 
         /** Vehicle identification number */
         public var vin: String?
@@ -117,13 +126,15 @@ public class PCPayTransactionCreateRequest: APIModel {
             }
         }
 
-        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, additionalData: String? = nil, currency: String? = nil, driverVehicleID: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, metadata: [PCPayTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, receiptInformation: [String]? = nil, unattended: Bool? = nil, vin: String? = nil) {
+        public init(paymentToken: String, purposePRN: String, providerPRN: String, vat: VAT? = nil, additionalData: String? = nil, createdAt: DateTime? = nil, currency: String? = nil, driverCode: String? = nil, driverVehicleID: String? = nil, fuel: PCPayFuel? = nil, fuelAmount: Decimal? = nil, fuelProductName: String? = nil, issuerPRN: String? = nil, merchantPRN: String? = nil, metadata: [PCPayTransactionMetadata]? = nil, mileage: Int? = nil, numberPlate: String? = nil, priceExcludingVAT: Decimal? = nil, priceIncludingVAT: Decimal? = nil, productFlow: String? = nil, receiptInformation: [String]? = nil, unattended: Bool? = nil, userUuid: ID? = nil, vin: String? = nil) {
             self.paymentToken = paymentToken
             self.purposePRN = purposePRN
             self.providerPRN = providerPRN
             self.vat = vat
             self.additionalData = additionalData
+            self.createdAt = createdAt
             self.currency = currency
+            self.driverCode = driverCode
             self.driverVehicleID = driverVehicleID
             self.fuel = fuel
             self.fuelAmount = fuelAmount
@@ -138,6 +149,7 @@ public class PCPayTransactionCreateRequest: APIModel {
             self.productFlow = productFlow
             self.receiptInformation = receiptInformation
             self.unattended = unattended
+            self.userUuid = userUuid
             self.vin = vin
         }
 
@@ -149,7 +161,9 @@ public class PCPayTransactionCreateRequest: APIModel {
             providerPRN = try container.decode("providerPRN")
             vat = try container.decodeIfPresent("VAT")
             additionalData = try container.decodeIfPresent("additionalData")
+            createdAt = try container.decodeIfPresent("createdAt")
             currency = try container.decodeIfPresent("currency")
+            driverCode = try container.decodeIfPresent("driverCode")
             driverVehicleID = try container.decodeIfPresent("driverVehicleID")
             fuel = try container.decodeIfPresent("fuel")
             fuelAmount = try container.decodeLosslessDecimal("fuelAmount")
@@ -164,6 +178,7 @@ public class PCPayTransactionCreateRequest: APIModel {
             productFlow = try container.decodeIfPresent("productFlow")
             receiptInformation = try container.decodeArrayIfPresent("receiptInformation")
             unattended = try container.decodeIfPresent("unattended")
+            userUuid = try container.decodeIfPresent("userUuid")
             vin = try container.decodeIfPresent("vin")
         }
 
@@ -175,7 +190,9 @@ public class PCPayTransactionCreateRequest: APIModel {
             try container.encode(providerPRN, forKey: "providerPRN")
             try container.encodeIfPresent(vat, forKey: "VAT")
             try container.encodeIfPresent(additionalData, forKey: "additionalData")
+            try container.encodeIfPresent(createdAt, forKey: "createdAt")
             try container.encodeIfPresent(currency, forKey: "currency")
+            try container.encodeIfPresent(driverCode, forKey: "driverCode")
             try container.encodeIfPresent(driverVehicleID, forKey: "driverVehicleID")
             try container.encodeIfPresent(fuel, forKey: "fuel")
             try container.encodeIfPresent(fuelAmount, forKey: "fuelAmount")
@@ -190,6 +207,7 @@ public class PCPayTransactionCreateRequest: APIModel {
             try container.encodeIfPresent(productFlow, forKey: "productFlow")
             try container.encodeIfPresent(receiptInformation, forKey: "receiptInformation")
             try container.encodeIfPresent(unattended, forKey: "unattended")
+            try container.encodeIfPresent(userUuid, forKey: "userUuid")
             try container.encodeIfPresent(vin, forKey: "vin")
         }
 
@@ -200,7 +218,9 @@ public class PCPayTransactionCreateRequest: APIModel {
           guard self.providerPRN == object.providerPRN else { return false }
           guard self.vat == object.vat else { return false }
           guard self.additionalData == object.additionalData else { return false }
+          guard self.createdAt == object.createdAt else { return false }
           guard self.currency == object.currency else { return false }
+          guard self.driverCode == object.driverCode else { return false }
           guard self.driverVehicleID == object.driverVehicleID else { return false }
           guard self.fuel == object.fuel else { return false }
           guard self.fuelAmount == object.fuelAmount else { return false }
@@ -215,6 +235,7 @@ public class PCPayTransactionCreateRequest: APIModel {
           guard self.productFlow == object.productFlow else { return false }
           guard self.receiptInformation == object.receiptInformation else { return false }
           guard self.unattended == object.unattended else { return false }
+          guard self.userUuid == object.userUuid else { return false }
           guard self.vin == object.vin else { return false }
           return true
         }

@@ -19,8 +19,12 @@ extension PayAPI.PaymentMethods {
                 /** ID of the paymentMethod */
                 public var paymentMethodId: ID
 
-                public init(paymentMethodId: ID) {
+                /** ID of the user */
+                public var filteruserId: ID
+
+                public init(paymentMethodId: ID, filteruserId: ID) {
                     self.paymentMethodId = paymentMethodId
+                    self.filteruserId = filteruserId
                 }
             }
 
@@ -32,13 +36,13 @@ extension PayAPI.PaymentMethods {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(paymentMethodId: ID) {
-                let options = Options(paymentMethodId: paymentMethodId)
+            public convenience init(paymentMethodId: ID, filteruserId: ID) {
+                let options = Options(paymentMethodId: paymentMethodId, filteruserId: filteruserId)
                 self.init(options: options)
             }
 
             public override var path: String {
-                return super.path.replacingOccurrences(of: "{" + "paymentMethodId" + "}", with: "\(self.options.paymentMethodId.encode())")
+                return super.path.replacingOccurrences(of: "{" + "paymentMethodId" + "}", with: "\(self.options.paymentMethodId.encode())").replacingOccurrences(of: "{" + "filter[userId]" + "}", with: "\(self.options.filteruserId.encode())")
             }
 
             override var headerParameters: [String: String] {

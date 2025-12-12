@@ -37,6 +37,15 @@ public class PCPayPaymentMethod: APIModel {
 
     public var paymentTokens: [PCPayPaymentToken]?
 
+    /** The datetime (iso8601) when the payment method was created */
+    public var createdAt: DateTime?
+
+    /** The datetime (iso8601) when the payment method was updated */
+    public var updatedAt: DateTime?
+
+    /** client of our utm partner */
+    public var utmPartnerClient: String?
+
     /** Customer chosen alias for the payment method */
     public var alias: String?
 
@@ -51,7 +60,7 @@ public class PCPayPaymentMethod: APIModel {
     /** Implicit (`true`) payment methods are read-only and cannot be deleted, e.g., ApplePay */
     public var implicit: Bool?
 
-    /** Indicates if the payment method is eligible for discounts. */
+    /** Indicates if the payment method is eligible for  discounts. */
     public var isEligibleForDiscounts: Bool?
 
     /** one of sepa, creditcard, paypal, paydirekt, dkv, applepay, ... */
@@ -257,7 +266,7 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         }
     }
 
-    public init(id: ID? = nil, links: Links? = nil, meta: Meta? = nil, type: PCPayType? = nil, paymentMethodKind: PCPayPaymentMethodKind? = nil, paymentMethodVendor: PCPayPaymentMethodVendor? = nil, paymentTokens: [PCPayPaymentToken]? = nil, alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, isEligibleForDiscounts: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
+    public init(id: ID? = nil, links: Links? = nil, meta: Meta? = nil, type: PCPayType? = nil, paymentMethodKind: PCPayPaymentMethodKind? = nil, paymentMethodVendor: PCPayPaymentMethodVendor? = nil, paymentTokens: [PCPayPaymentToken]? = nil, createdAt: DateTime? = nil, updatedAt: DateTime? = nil, utmPartnerClient: String? = nil, alias: String? = nil, approvalURL: String? = nil, expiry: DateTime? = nil, identificationString: String? = nil, implicit: Bool? = nil, isEligibleForDiscounts: Bool? = nil, kind: String? = nil, managed: Bool? = nil, mandatoryAuthorisationAttributes: [MandatoryAuthorisationAttributes]? = nil, pacePay: Bool? = nil, status: PCPayStatus? = nil, twoFactor: Bool? = nil, vendorPRN: String? = nil) {
         self.id = id
         self.links = links
         self.meta = meta
@@ -265,6 +274,9 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         self.paymentMethodKind = paymentMethodKind
         self.paymentMethodVendor = paymentMethodVendor
         self.paymentTokens = paymentTokens
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.utmPartnerClient = utmPartnerClient
         self.alias = alias
         self.approvalURL = approvalURL
         self.expiry = expiry
@@ -290,6 +302,9 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         paymentMethodKind = try container.decodeIfPresent("paymentMethodKind")
         paymentMethodVendor = try container.decodeIfPresent("paymentMethodVendor")
         paymentTokens = try container.decodeIfPresent("paymentTokens")
+        createdAt = try container.decodeIfPresent("CreatedAt")
+        updatedAt = try container.decodeIfPresent("UpdatedAt")
+        utmPartnerClient = try container.decodeIfPresent("UtmPartnerClient")
         alias = try container.decodeIfPresent("alias")
         approvalURL = try container.decodeIfPresent("approvalURL")
         expiry = try container.decodeIfPresent("expiry")
@@ -315,6 +330,9 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
         try container.encodeIfPresent(paymentMethodKind, forKey: "paymentMethodKind")
         try container.encodeIfPresent(paymentMethodVendor, forKey: "paymentMethodVendor")
         try container.encodeIfPresent(paymentTokens, forKey: "paymentTokens")
+        try container.encodeIfPresent(createdAt, forKey: "CreatedAt")
+        try container.encodeIfPresent(updatedAt, forKey: "UpdatedAt")
+        try container.encodeIfPresent(utmPartnerClient, forKey: "UtmPartnerClient")
         try container.encodeIfPresent(alias, forKey: "alias")
         try container.encodeIfPresent(approvalURL, forKey: "approvalURL")
         try container.encodeIfPresent(expiry, forKey: "expiry")
@@ -339,6 +357,9 @@ which have an asynchronous verification process, e.g., paydirekt (waiting for an
       guard self.paymentMethodKind == object.paymentMethodKind else { return false }
       guard self.paymentMethodVendor == object.paymentMethodVendor else { return false }
       guard self.paymentTokens == object.paymentTokens else { return false }
+      guard self.createdAt == object.createdAt else { return false }
+      guard self.updatedAt == object.updatedAt else { return false }
+      guard self.utmPartnerClient == object.utmPartnerClient else { return false }
       guard self.alias == object.alias else { return false }
       guard self.approvalURL == object.approvalURL else { return false }
       guard self.expiry == object.expiry else { return false }

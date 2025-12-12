@@ -42,6 +42,9 @@ public class PCPayTransaction: APIModel {
     /** Amount that was discounted. Only if any discounts were applied earlier. */
     public var discountAmount: Decimal?
 
+    /** Driver code of the driver. Must not exceed 4 digits. */
+    public var driverCode: String?
+
     /** Driver/vehicle identification */
     public var driverVehicleID: String?
 
@@ -142,7 +145,7 @@ public class PCPayTransaction: APIModel {
         }
     }
 
-    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, additionalData: String? = nil, authorizePaymentTokenId: ID? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverVehicleID: String? = nil, error: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, paymentTokenRequestID: String? = nil, paymentTransactionRequestID: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, receiptInformation: [String]? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
+    public init(id: ID? = nil, links: PCPayTransactionLinks? = nil, type: PCPayType? = nil, discountTokens: [PCPayDiscount]? = nil, vat: VAT? = nil, additionalData: String? = nil, authorizePaymentTokenId: ID? = nil, createdAt: DateTime? = nil, createdAtLocaltime: String? = nil, currency: String? = nil, discountAmount: Decimal? = nil, driverCode: String? = nil, driverVehicleID: String? = nil, error: String? = nil, fuel: PCPayFuel? = nil, issuerPRN: String? = nil, location: PCPayReadOnlyLocation? = nil, mileage: Int? = nil, numberPlate: String? = nil, paymentMethodId: ID? = nil, paymentMethodKind: String? = nil, paymentToken: String? = nil, paymentTokenRequestID: String? = nil, paymentTransactionRequestID: String? = nil, priceIncludingVAT: Decimal? = nil, priceIncludingVATBeforeDiscount: Decimal? = nil, priceWithoutVAT: Decimal? = nil, productFlow: String? = nil, providerPRN: String? = nil, purposePRN: String? = nil, receiptInformation: [String]? = nil, references: [String]? = nil, updatedAt: DateTime? = nil, vin: String? = nil) {
         self.id = id
         self.links = links
         self.type = type
@@ -154,6 +157,7 @@ public class PCPayTransaction: APIModel {
         self.createdAtLocaltime = createdAtLocaltime
         self.currency = currency
         self.discountAmount = discountAmount
+        self.driverCode = driverCode
         self.driverVehicleID = driverVehicleID
         self.error = error
         self.fuel = fuel
@@ -192,6 +196,7 @@ public class PCPayTransaction: APIModel {
         createdAtLocaltime = try container.decodeIfPresent("createdAtLocaltime")
         currency = try container.decodeIfPresent("currency")
         discountAmount = try container.decodeLosslessDecimal("discountAmount")
+        driverCode = try container.decodeIfPresent("driverCode")
         driverVehicleID = try container.decodeIfPresent("driverVehicleID")
         error = try container.decodeIfPresent("error")
         fuel = try container.decodeIfPresent("fuel")
@@ -230,6 +235,7 @@ public class PCPayTransaction: APIModel {
         try container.encodeIfPresent(createdAtLocaltime, forKey: "createdAtLocaltime")
         try container.encodeIfPresent(currency, forKey: "currency")
         try container.encodeIfPresent(discountAmount, forKey: "discountAmount")
+        try container.encodeIfPresent(driverCode, forKey: "driverCode")
         try container.encodeIfPresent(driverVehicleID, forKey: "driverVehicleID")
         try container.encodeIfPresent(error, forKey: "error")
         try container.encodeIfPresent(fuel, forKey: "fuel")
@@ -267,6 +273,7 @@ public class PCPayTransaction: APIModel {
       guard self.createdAtLocaltime == object.createdAtLocaltime else { return false }
       guard self.currency == object.currency else { return false }
       guard self.discountAmount == object.discountAmount else { return false }
+      guard self.driverCode == object.driverCode else { return false }
       guard self.driverVehicleID == object.driverVehicleID else { return false }
       guard self.error == object.error else { return false }
       guard self.fuel == object.fuel else { return false }

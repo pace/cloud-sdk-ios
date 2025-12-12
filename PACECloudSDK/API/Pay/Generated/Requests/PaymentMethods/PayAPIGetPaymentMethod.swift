@@ -19,8 +19,12 @@ extension PayAPI.PaymentMethods {
                 /** ID of the paymentMethod */
                 public var paymentMethodId: ID
 
-                public init(paymentMethodId: ID) {
+                /** ID of the user to which the payment method is linked, only available with scope `pay:payment-methods-per-user:read:one`. */
+                public var filteruserID: ID?
+
+                public init(paymentMethodId: ID, filteruserID: ID? = nil) {
                     self.paymentMethodId = paymentMethodId
+                    self.filteruserID = filteruserID
                 }
             }
 
@@ -32,8 +36,8 @@ extension PayAPI.PaymentMethods {
             }
 
             /// convenience initialiser so an Option doesn't have to be created
-            public convenience init(paymentMethodId: ID) {
-                let options = Options(paymentMethodId: paymentMethodId)
+            public convenience init(paymentMethodId: ID, filteruserID: ID? = nil) {
+                let options = Options(paymentMethodId: paymentMethodId, filteruserID: filteruserID)
                 self.init(options: options)
             }
 

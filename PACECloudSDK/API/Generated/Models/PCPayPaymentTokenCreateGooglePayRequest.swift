@@ -31,6 +31,9 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
         /** The encrypted data received from GooglePay */
         public var googlePay: GooglePay
 
+        /** The billing e-mail address */
+        public var billingEmail: String?
+
         public var discountTokens: [String]?
 
         /** The code and method for two factor authentication, if required by the payment method */
@@ -164,11 +167,12 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
             }
         }
 
-        public init(currency: String, amount: Decimal, purposePRNs: [String], googlePay: GooglePay, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
+        public init(currency: String, amount: Decimal, purposePRNs: [String], googlePay: GooglePay, billingEmail: String? = nil, discountTokens: [String]? = nil, twoFactor: TwoFactor? = nil) {
             self.currency = currency
             self.amount = amount
             self.purposePRNs = purposePRNs
             self.googlePay = googlePay
+            self.billingEmail = billingEmail
             self.discountTokens = discountTokens
             self.twoFactor = twoFactor
         }
@@ -180,6 +184,7 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
             amount = try container.decode("amount")
             purposePRNs = try container.decodeArray("purposePRNs")
             googlePay = try container.decode("googlePay")
+            billingEmail = try container.decodeIfPresent("billingEmail")
             discountTokens = try container.decodeArrayIfPresent("discountTokens")
             twoFactor = try container.decodeIfPresent("twoFactor")
         }
@@ -191,6 +196,7 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
             try container.encode(amount, forKey: "amount")
             try container.encode(purposePRNs, forKey: "purposePRNs")
             try container.encode(googlePay, forKey: "googlePay")
+            try container.encodeIfPresent(billingEmail, forKey: "billingEmail")
             try container.encodeIfPresent(discountTokens, forKey: "discountTokens")
             try container.encodeIfPresent(twoFactor, forKey: "twoFactor")
         }
@@ -201,6 +207,7 @@ public class PCPayPaymentTokenCreateGooglePayRequest: APIModel {
           guard self.amount == object.amount else { return false }
           guard self.purposePRNs == object.purposePRNs else { return false }
           guard self.googlePay == object.googlePay else { return false }
+          guard self.billingEmail == object.billingEmail else { return false }
           guard self.discountTokens == object.discountTokens else { return false }
           guard self.twoFactor == object.twoFactor else { return false }
           return true
