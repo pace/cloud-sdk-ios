@@ -45,12 +45,20 @@ public class IDKit {
 
         guard let session = SessionCache.loadSession(for: PACECloudSDK.shared.environment) else { return }
         self.session = session
-
-        handleUpdatedAccessToken(with: session.lastTokenResponse?.accessToken, exchangeToken: nil)
     }
 
     private static func setup(with configuration: OIDConfiguration, userAgentType: UserAgentType) {
         sharedInstance = IDKit(with: configuration, userAgentType: userAgentType)
+        sharedInstance?.setInitialToken()
+    }
+    
+    func setInitialToken() {
+        let token = self.session?.lastTokenResponse?.accessToken ?? ""
+        var exchangeToken: String?
+        if let tokenExhangeConfig = configuration.tokenExchangeConfig {
+            exchangeToken = SessionCache.loadExchangeToken(for: PACECloudSDK.shared.environment)
+        }
+        handleUpdatedAccessToken(with: token, exchangeToken: exchangeToken)
     }
 
     static func determineOIDConfiguration(with customOIDConfig: OIDConfiguration?, userAgentType: UserAgentType) {
