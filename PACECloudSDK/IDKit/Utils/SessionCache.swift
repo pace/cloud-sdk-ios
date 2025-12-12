@@ -50,8 +50,27 @@ class SessionCache {
             SDKUserDefaults.set(nil, for: $0, isUserSensitiveData: false)
         }
     }
-
+    
     private static func sessionCacheKey(for environment: PACECloudSDK.Environment) -> String {
         "\(IDKitConstants.UserDefaults.sessionCache)_\(environment.rawValue)"
+    }
+}
+
+extension SessionCache {
+    static func loadExchangeToken(for environment: PACECloudSDK.Environment) -> String? {
+        IDKitLogger.d("Attempting to load previous exchange token...")
+
+        let token = SDKUserDefaults.string(for: exchangeTokenCacheKey(for: environment), isUserSensitiveData: false)
+        return token
+    }
+    
+    static func persistExchangeToken(_ token: String, for environment: PACECloudSDK.Environment) {
+        IDKitLogger.d("Persisting exchange token")
+
+        SDKUserDefaults.set(token, for: exchangeTokenCacheKey(for: environment), isUserSensitiveData: false)
+    }
+    
+    private static func exchangeTokenCacheKey(for environment: PACECloudSDK.Environment) -> String {
+        "\(IDKitConstants.UserDefaults.exchangeTokenCache)_\(environment.rawValue)"
     }
 }

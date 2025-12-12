@@ -12,5 +12,6 @@ struct IDKitConstants {
 
     struct UserDefaults {
         static let sessionCache = "sessionCache"
+        static let exchangeTokenCache = "exchangeTokenCache"
     }
 }

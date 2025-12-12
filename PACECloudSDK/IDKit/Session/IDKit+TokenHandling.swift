@@ -159,6 +159,7 @@ extension IDKit {
             var returnToken: String?
             if let data = data, let jsonString = data.prettyPrintedJSONString, let exchangeToken = jsonString["access_token"] as? String {
                 returnToken = exchangeToken
+                SessionCache.persistExchangeToken(exchangeToken, for: PACECloudSDK.shared.environment)
                 IDKitLogger.i("[TokenExchange] Token exchange successful")
             } else {
                 IDKitLogger.e("[TokenExchange] Error while token exchange \(String(describing: error))")
@@ -238,7 +239,6 @@ extension IDKit {
                         }
                         self.handleUpdatedAccessToken(with: accessToken, exchangeToken: newApiToken)
                         IDKitLogger.i("[TokenRefresh] Refresh successful")
-
                         // Update persisted session
                         SessionCache.persistSession(session, for: PACECloudSDK.shared.environment)
                         return
