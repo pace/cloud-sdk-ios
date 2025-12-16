@@ -1,3 +1,14 @@
+26.0.0 Release notes (2025-12-16)
+=============================================================
+
+### Breaking Changes
+
+* Update Pay API to 2025-1
+
+### Enhancements
+
+* Perform token exchange when needed during setup
+
 25.2.0 Release notes (2025-12-03)
 =============================================================
 
