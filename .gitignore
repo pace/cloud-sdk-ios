@@ -57,3 +57,7 @@ ehthumbs.db
 Thumbs.db
 
 /generated
+
+# Claude Code
+.claude/
+.claude.local.md
