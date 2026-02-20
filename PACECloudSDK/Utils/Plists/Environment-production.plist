@@ -14,5 +14,7 @@
 	<string>https://id.pace.cloud/auth/realms/pace/protocol/openid-connect/userinfo</string>
 	<key>EndSessionEndpoint</key>
 	<string>https://id.pace.cloud/auth/realms/pace/protocol/openid-connect/logout</string>
+	<key>TokenRevocationEndpoint</key>
+	<string>https://id.pace.cloud/auth/realms/pace/protocol/openid-connect/revoke</string>
 </dict>
 </plist>

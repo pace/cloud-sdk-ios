@@ -30,11 +30,13 @@ class Settings {
     private let tokenEndpoint = "TokenEndpoint"
     private let userEndpoint = "UserEndpoint"
     private let endSessionEndpoint = "EndSessionEndpoint"
+    private let tokenRevocationEndpoint = "TokenRevocationEndpoint"
 
     private(set) var authorizationEndpointUrl = ""
     private(set) var tokenEndpointUrl = ""
     private(set) var userEndpointUrl = ""
     private(set) var endSessionEndpointUrl = ""
+    private(set) var tokenRevocationEndpointUrl = ""
 
     struct SettingsBundleKeys {
         static let AppVersionKey = "AppVersionAndBuild"
@@ -71,6 +73,7 @@ class Settings {
         tokenEndpointUrl = settings[tokenEndpoint]!
         userEndpointUrl = settings[userEndpoint]!
         endSessionEndpointUrl = settings[endSessionEndpoint]!
+        tokenRevocationEndpointUrl = settings[tokenRevocationEndpoint]!
     }
 
     func baseUrl(_ type: POIKitBaseUrl) -> String {

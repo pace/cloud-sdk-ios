@@ -14,6 +14,7 @@ public extension IDKit {
         let tokenEndpoint: String
         let userEndpoint: String?
         let endSessionEndpoint: String?
+        let tokenRevocationEndpoint: String?
 
         let clientId: String
         let clientSecret: String?
@@ -28,6 +29,7 @@ public extension IDKit {
                     tokenEndpoint: String,
                     userEndpoint: String? = nil,
                     endSessionEndpoint: String? = nil,
+                    tokenRevocationEndpoint: String? = nil,
                     clientId: String,
                     clientSecret: String? = nil,
                     scopes: [String]? = nil,
@@ -39,6 +41,7 @@ public extension IDKit {
             self.tokenEndpoint = tokenEndpoint
             self.userEndpoint = userEndpoint
             self.endSessionEndpoint = endSessionEndpoint
+            self.tokenRevocationEndpoint = tokenRevocationEndpoint
             self.clientId = clientId
             self.clientSecret = clientSecret
             self.scopes = scopes
@@ -68,9 +71,13 @@ public extension IDKit {
          Creates a default OID Configuration with all endpoints pointing to PACE ID.
          - parameter clientId: The client id of the OID configuration.
          - parameter redirectUri: The redirect uri of the OID configuration.
+         - parameter scopes: The scopes of the OID configuration. Defaults to `nil`.
          - parameter idpHint: The IDP hint of the OID configuration. Defaults to `nil`.
          */
-        public static func defaultOIDConfiguration(clientId: String, redirectUri: String, idpHint: String? = nil) -> OIDConfiguration {
+        public static func defaultOIDConfiguration(clientId: String,
+                                                   redirectUri: String,
+                                                   scopes: [String]? = nil,
+                                                   idpHint: String? = nil) -> OIDConfiguration {
             var additionalParameters: [String: String]?
 
             if let idpHint = idpHint {
@@ -81,7 +88,9 @@ public extension IDKit {
                          tokenEndpoint: Settings.shared.tokenEndpointUrl,
                          userEndpoint: Settings.shared.userEndpointUrl,
                          endSessionEndpoint: Settings.shared.endSessionEndpointUrl,
+                         tokenRevocationEndpoint: Settings.shared.tokenRevocationEndpointUrl,
                          clientId: clientId,
+                         scopes: scopes,
                          redirectUri: redirectUri,
                          additionalParameters: additionalParameters)
         }

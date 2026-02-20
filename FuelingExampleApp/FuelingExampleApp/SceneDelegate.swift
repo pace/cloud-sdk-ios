@@ -35,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let oidConfig = IDKit.OIDConfiguration(authorizationEndpoint: "https://id.dev.pace.cloud/auth/realms/MultiRealm/protocol/openid-connect/auth",
                                                tokenEndpoint: "https://id.dev.pace.cloud/auth/realms/MultiRealm/protocol/openid-connect/token",
+                                               tokenRevocationEndpoint: "https://id.dev.pace.cloud/auth/realms/MultiRealm/protocol/openid-connect/revoke",
                                                clientId: "cloud-sdk-example-app",
                                                clientSecret: "YIUXbpLZeN6OD1afjXwD4lFZigQAIHp7",
                                                redirectUri: "cloud-sdk-example://callback",
