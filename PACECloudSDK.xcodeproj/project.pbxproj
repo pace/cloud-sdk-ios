@@ -474,6 +474,9 @@
 		3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */; };
 		3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C74F25DD67E500039296 /* GeoAPIManager.swift */; };
 		3B86C78A25DD6AA500039296 /* GeoAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */; };
+		CC00000000000001AABBCC01 /* GeoJSONStreamParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000001AABBCC00 /* GeoJSONStreamParser.swift */; };
+		CC00000000000001AABBCC04 /* GeoJSONStreamParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000001AABBCC00 /* GeoJSONStreamParser.swift */; };
+		CC00000000000001AABBCC03 /* GeoJSONStreamParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000000000001AABBCC02 /* GeoJSONStreamParserTests.swift */; };
 		3B86D88D279FDEF8001F4F9B /* DecimalDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */; };
 		3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 3B87D06925DACE6400D635F0 /* SwiftProtobuf */; };
 		3B8A65A62710723D00B87FB1 /* PaymentMethodVendorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8A65A52710723D00B87FB1 /* PaymentMethodVendorIcon.swift */; };
@@ -1203,7 +1206,6 @@
 		9AD092BA2817E1C9000A3CB3 /* DateCalculationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B92817E1C9000A3CB3 /* DateCalculationsTests.swift */; };
 		9AD092BB28181FDE000A3CB3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5504122539E81F00C291F1 /* Date+Extension.swift */; };
 		9AD092BC2818227B000A3CB3 /* DateComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD092B528170D88000A3CB3 /* DateComponents+Extension.swift */; };
-		C379EE882E4CBAD700E73B60 /* IkigaJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C379EE872E4CBAD700E73B60 /* IkigaJSON */; };
 		C384393B2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384393A2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift */; };
 		C384393C2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384393A2C9DC14D00D8305E /* PayAPIDisableDiscountsForPaymentMethod.swift */; };
 		C384393E2C9DC16200D8305E /* PayAPIGetPaymentMethodKindsByClientID.swift in Sources */ = {isa = PBXBuildFile; fileRef = C384393D2C9DC16200D8305E /* PayAPIGetPaymentMethodKindsByClientID.swift */; };
@@ -1386,6 +1388,8 @@
 		3B85532A253D70C8001F7B66 /* MimeTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimeTypeTests.swift; sourceTree = "<group>"; };
 		3B86C74F25DD67E500039296 /* GeoAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIManager.swift; sourceTree = "<group>"; };
 		3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAPIResponse.swift; sourceTree = "<group>"; };
+		CC00000000000001AABBCC00 /* GeoJSONStreamParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSONStreamParser.swift; sourceTree = "<group>"; };
+		CC00000000000001AABBCC02 /* GeoJSONStreamParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJSONStreamParserTests.swift; sourceTree = "<group>"; };
 		3B86D88C279FDEF8001F4F9B /* DecimalDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalDecodingTests.swift; sourceTree = "<group>"; };
 		3B889CAE27ABC82E009BE1E1 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B889CB027ABC842009BE1E1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1895,7 +1899,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C379EE882E4CBAD700E73B60 /* IkigaJSON in Frameworks */,
 				3BA6A79C260DDF5A005D4B5C /* AppAuth in Frameworks */,
 				3B87D06A25DACE6400D635F0 /* SwiftProtobuf in Frameworks */,
 				3B2ECC5F283295E900A2E721 /* Japx in Frameworks */,
@@ -2298,6 +2301,7 @@
 				3B86C74F25DD67E500039296 /* GeoAPIManager.swift */,
 				05521B0D26490F3E00AA4DBB /* GeoAPIManagerError.swift */,
 				3B86C78925DD6AA500039296 /* GeoAPIResponse.swift */,
+				CC00000000000001AABBCC00 /* GeoJSONStreamParser.swift */,
 				3B9655EB26B2981700921766 /* POIKit+GeoService.swift */,
 			);
 			path = GeoService;
@@ -2648,6 +2652,7 @@
 			isa = PBXGroup;
 			children = (
 				3BA9E51F274B7F5700617EDE /* GeoServiceTests.swift */,
+				CC00000000000001AABBCC02 /* GeoJSONStreamParserTests.swift */,
 			);
 			path = GeoTests;
 			sourceTree = "<group>";
@@ -3622,7 +3627,6 @@
 				3B87D06925DACE6400D635F0 /* SwiftProtobuf */,
 				3BA6A79B260DDF5A005D4B5C /* AppAuth */,
 				3B2ECC5E283295E900A2E721 /* Japx */,
-				C379EE872E4CBAD700E73B60 /* IkigaJSON */,
 			);
 			productName = PACECloudSDK;
 			productReference = 921E682C2534883100438491 /* PACECloudSDK.framework */;
@@ -3725,7 +3729,6 @@
 				3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				3B2ECC5D283295E900A2E721 /* XCRemoteSwiftPackageReference "Japx" */,
 				0B7F753E2BDF732D00093A0C /* XCRemoteSwiftPackageReference "SwiftLint" */,
-				C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */,
 			);
 			productRefGroup = 921E682D2534883100438491 /* Products */;
 			projectDirPath = "";
@@ -4036,6 +4039,7 @@
 				3BDBA72A2BF396F1006C0151 /* PCPOIPOIs.swift in Sources */,
 				17BB0CEF268CCF13009D4755 /* PayAPIGetPaymentMethods.swift in Sources */,
 				3B79FA7426C15BD700C0278F /* GeoAPIManager.swift in Sources */,
+				CC00000000000001AABBCC04 /* GeoJSONStreamParser.swift in Sources */,
 				3B2FB1E02844EB2800E8CD0C /* PCUserAccessToken.swift in Sources */,
 				17B4E55726D39CAC00AEAF13 /* UserAPIUpdateAppPreferences.swift in Sources */,
 				05AEBABD2696CAD6000B75F5 /* Result+Value.swift in Sources */,
@@ -4299,6 +4303,7 @@
 				84A43AD62580E35A00DE36FA /* Coding.swift in Sources */,
 				3B7C8E6B26FC5D8E0080B2B5 /* UserAPIRecordAuditLog.swift in Sources */,
 				3B86C75025DD67E500039296 /* GeoAPIManager.swift in Sources */,
+				CC00000000000001AABBCC01 /* GeoJSONStreamParser.swift in Sources */,
 				3BDBA70B2BF396F1006C0151 /* PCPOIFuelPrice.swift in Sources */,
 				3B2FB1C52844EB2800E8CD0C /* PCUserUserPINRequest.swift in Sources */,
 				84A43A432580E34D00DE36FA /* PayAPI.swift in Sources */,
@@ -4789,6 +4794,7 @@
 				3B51D6D628D894A200ECA65D /* SDKKeychainTests.swift in Sources */,
 				3B85532B253D70C8001F7B66 /* MimeTypeTests.swift in Sources */,
 				3BA9E520274B7F5700617EDE /* GeoServiceTests.swift in Sources */,
+				CC00000000000001AABBCC03 /* GeoJSONStreamParserTests.swift in Sources */,
 				3B394BF328698C7D005621EC /* CDNAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6276,14 +6282,6 @@
 				version = 1.5.0;
 			};
 		};
-		C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/orlandos-nl/IkigaJSON.git";
-			requirement = {
-				kind = exactVersion;
-				version = 2.3.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -6336,11 +6334,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3BA6A79A260DDF5A005D4B5C /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
-		};
-		C379EE872E4CBAD700E73B60 /* IkigaJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C379EE862E4CBAD700E73B60 /* XCRemoteSwiftPackageReference "IkigaJSON" */;
-			productName = IkigaJSON;
 		};
 		CB55C4912DB0EAA0000BBBCB /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;

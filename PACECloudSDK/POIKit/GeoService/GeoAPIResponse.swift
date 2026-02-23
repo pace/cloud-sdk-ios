@@ -15,7 +15,7 @@ struct GeoAPIResponse: Decodable {
 struct GeoAPIFeature: Decodable {
     let id, type: String?
     let geometry: GeometryFeature?
-    let properties: [String: AnyCodable]?
+    let properties: [String: Any]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,12 +24,20 @@ struct GeoAPIFeature: Decodable {
         case properties
     }
 
+    init(id: String?, type: String?, geometry: GeometryFeature?, properties: [String: Any]?) {
+        self.id = id
+        self.type = type
+        self.geometry = geometry
+        self.properties = properties
+    }
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(String.self, forKey: .id)
         type = try values.decode(String.self, forKey: .type)
         geometry = try values.decode(GeometryFeature.self, forKey: .geometry)
-        properties = try values.decode([String: AnyCodable].self, forKey: .properties)
+        let codableProperties = try values.decode([String: AnyCodable].self, forKey: .properties)
+        properties = codableProperties.mapValues { $0.value }
     }
 }
 

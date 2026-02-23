@@ -24,7 +24,7 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(areas: [area], zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest) { result in
+        return loadPois(tileRequest, boundingBox: boundingBox) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
@@ -48,7 +48,18 @@ extension POIKitAPI {
 
         let tileRequest = TileQueryRequest(tiles: tiles, zoomLevel: UInt32(zoomLevel))
 
-        return loadPois(tileRequest) { result in
+        let coords = locations.map { $0.coordinate }
+        let minLat = coords.map(\.latitude).min() ?? 0
+        let maxLat = coords.map(\.latitude).max() ?? 0
+        let minLon = coords.map(\.longitude).min() ?? 0
+        let maxLon = coords.map(\.longitude).max() ?? 0
+        let boundingBox = POIKit.BoundingBox(
+            point1: CLLocationCoordinate2D(latitude: maxLat + 0.1, longitude: maxLon + 0.1),
+            point2: CLLocationCoordinate2D(latitude: minLat - 0.1, longitude: minLon - 0.1),
+            center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
+        )
+
+        return loadPois(tileRequest, boundingBox: boundingBox) { result in
             switch result {
             case .failure(let error):
                 handler(.failure(error))
@@ -64,6 +75,7 @@ extension POIKitAPI {
 
 extension POIKitAPI {
     func loadPois(_ tileRequest: TileQueryRequest,
+                  boundingBox: POIKit.BoundingBox? = nil,
                   completion: @escaping (Result<POIResponse, Error>) -> Void) -> CancellablePOIAPIRequest? {
         guard let tileRequestData = try? tileRequest.serializedData() else {
             completion(.failure(POIKit.POIKitAPIError.unknown))
@@ -77,7 +89,7 @@ extension POIKitAPI {
         var cofuGasStations: [String: POIKit.CofuGasStation]?
         var tilesResponseResult: Result<TilesResponse, Error>?
 
-        loadCoFuGasStations { cofuStations in
+        loadCoFuGasStations(boundingBox: boundingBox) { cofuStations in
             // Due to constant lookup time convert array to dictionary here.
             // This is ultimatively faster than `contains(...)` when checking
             // if the pois are included in the geojson file in `extractPOIS(...)`
@@ -187,8 +199,9 @@ extension POIKitAPI {
         return pois
     }
 
-    private func loadCoFuGasStations(completion: @escaping ([POIKit.CofuGasStation]?) -> Void) {
-        POIKit.requestCofuGasStations(option: .all, completion: completion)
+    private func loadCoFuGasStations(boundingBox: POIKit.BoundingBox? = nil, completion: @escaping ([POIKit.CofuGasStation]?) -> Void) {
+        let option: POIKit.CofuGasStation.Option = boundingBox.map { .boundingBox(box: $0) } ?? .all
+        POIKit.requestCofuGasStations(option: option, completion: completion)
     }
 
     private func timeToLive(from response: HTTPURLResponse?) -> Int? {
