@@ -308,27 +308,61 @@ extension IDKit {
 // MARK: - Reset
 extension IDKit {
     func performReset(_ completion: ((Result<Void, IDKitError>) -> Void)? = nil) {
-        endSession { [weak self] result in
-            self?.delegate?.willResetSession()
+        // Fire-and-forget: revoke offline token (RFC 7009)
+        revokeToken()
 
-            self?.disableBiometricAuthentication()
+        // Fire-and-forget: end SSO session
+        endSession()
 
-            self?.handleUpdatedAccessToken(with: nil, exchangeToken: nil)
+        // Local cleanup proceeds regardless
+        delegate?.willResetSession()
+        disableBiometricAuthentication()
+        handleUpdatedAccessToken(with: nil, exchangeToken: nil)
+        session = nil
+        SessionCache.reset(for: PACECloudSDK.shared.environment)
 
-            self?.session = nil
-            SessionCache.reset(for: PACECloudSDK.shared.environment)
-
-            guard let authorizationFlow = self?.authorizationFlow else {
-                completion?(result)
-                return
-            }
-
+        if let authorizationFlow = authorizationFlow {
             authorizationFlow.cancel { [weak self] in
                 self?.authorizationFlow = nil
             }
-
-            completion?(result)
         }
+
+        DispatchQueue.main.async {
+            completion?(.success(()))
+        }
+    }
+
+    private func revokeToken() {
+        guard let refreshToken = session?.lastTokenResponse?.refreshToken else {
+            IDKitLogger.w("[TokenRevocation] Skipping token revocation: no refresh token available")
+            return
+        }
+
+        guard let revocationEndpoint = configuration.tokenRevocationEndpoint,
+              let url = URL(string: revocationEndpoint) else {
+            IDKitLogger.w("[TokenRevocation] Skipping token revocation: tokenRevocationEndpoint is not configured")
+            return
+        }
+
+        var components = URLComponents()
+        components.queryItems = [
+            .init(name: "client_id", value: configuration.clientId),
+            .init(name: "token", value: refreshToken),
+            .init(name: "token_type_hint", value: "refresh_token")
+        ]
+
+        var request = URLRequest.defaultURLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = components.query?.data(using: .utf8)
+
+        URLSession.shared.dataTask(with: request) { _, _, error in
+            if let error = error {
+                IDKitLogger.w("[TokenRevocation] Token revocation failed with error: \(error.localizedDescription)")
+            } else {
+                IDKitLogger.i("[TokenRevocation] Token revocation successful")
+            }
+        }.resume()
     }
 
     private func endSession(_ completion: ((Result<Void, IDKitError>) -> Void)? = nil) {

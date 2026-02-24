@@ -805,6 +805,7 @@
 		3BD1B2B22581287E001EFEB0 /* POIKitLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */; };
 		3BD1B2B625812899001EFEB0 /* POIKitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */; };
 		3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD870FE26BD548E0098C411 /* PINValidityTests.swift */; };
+		A1B2C3D526FE0001009E7F00 /* TokenRevocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D426FE0001009E7F00 /* TokenRevocationTests.swift */; };
 		3BD960EE2701ED41003D8DD3 /* PCFuelingFuelPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A3EDF25B9C9690065284A /* PCFuelingFuelPriceResponse.swift */; };
 		3BDBA5692BF3913C006C0151 /* PCFuelingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */; };
 		3BDBA56A2BF3913C006C0151 /* PCFuelingProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */; };
@@ -1626,6 +1627,7 @@
 		3BD1B2B12581287E001EFEB0 /* POIKitLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitLogger.swift; sourceTree = "<group>"; };
 		3BD1B2B525812899001EFEB0 /* POIKitConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIKitConstants.swift; sourceTree = "<group>"; };
 		3BD870FE26BD548E0098C411 /* PINValidityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PINValidityTests.swift; sourceTree = "<group>"; };
+		A1B2C3D426FE0001009E7F00 /* TokenRevocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRevocationTests.swift; sourceTree = "<group>"; };
 		3BDBA5672BF3913C006C0151 /* PCFuelingProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCFuelingProduct.swift; sourceTree = "<group>"; };
 		3BDBA5682BF3913C006C0151 /* PCFuelingTransactionMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCFuelingTransactionMetadata.swift; sourceTree = "<group>"; };
 		3BDBA56D2BF39312006C0151 /* PCPayFleetPaymentMethodOMVCreateRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCPayFleetPaymentMethodOMVCreateRequest.swift; sourceTree = "<group>"; };
@@ -2874,6 +2876,7 @@
 			isa = PBXGroup;
 			children = (
 				3BD870FE26BD548E0098C411 /* PINValidityTests.swift */,
+				A1B2C3D426FE0001009E7F00 /* TokenRevocationTests.swift */,
 			);
 			path = IDKitTests;
 			sourceTree = "<group>";
@@ -4771,6 +4774,7 @@
 				3B51D6D428D88DA300ECA65D /* SDKUserDefaultsTests.swift in Sources */,
 				3B2E46F325D2C0E00015E79A /* InvalidationTokenCacheTests.swift in Sources */,
 				3BD870FF26BD548E0098C411 /* PINValidityTests.swift in Sources */,
+				A1B2C3D526FE0001009E7F00 /* TokenRevocationTests.swift in Sources */,
 				3B970AC12542D9DB0072F6BA /* AssetTests.swift in Sources */,
 				3B970AC42542D9DB0072F6BA /* URLDecomposerTests.swift in Sources */,
 				3BB388312923D71C00044F09 /* ExponentialBackoffTests.swift in Sources */,
