@@ -1,3 +1,15 @@
+26.1.0 Release notes (2026-02-25)
+=============================================================
+
+### Enhancements
+
+* Implement RFC 7009 token revocation in IDKit
+* Implement GEOJson stream parser
+
+### Internal
+
+* Add CLAUDE.md
+
 26.0.0 Release notes (2025-12-16)
 =============================================================
 
