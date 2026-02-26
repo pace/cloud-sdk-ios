@@ -18,7 +18,7 @@ public extension IDKit {
 
         let clientId: String
         let clientSecret: String?
-        let scopes: [String]?
+        var scopes: [String]?
         let redirectUri: String
         let responseType: String
         var additionalParameters: [String: String]?
@@ -68,10 +68,23 @@ public extension IDKit {
         }
 
         /**
+         Appends additional scopes to the existing OID configuration.
+
+         Make sure the PACECloudSDK has already been set up via `PACECloudSDK.shared.setup()`
+         before calling this method.
+
+         - parameter scopes: The scopes to append.
+         */
+        public static func appendScopes(_ scopes: [String]) {
+            let currentScopes = shared?.configuration.scopes ?? []
+            shared?.configuration.scopes = currentScopes + scopes.filter { !currentScopes.contains($0) }
+        }
+
+        /**
          Creates a default OID Configuration with all endpoints pointing to PACE ID.
          - parameter clientId: The client id of the OID configuration.
          - parameter redirectUri: The redirect uri of the OID configuration.
-         - parameter scopes: The scopes of the OID configuration. Defaults to `nil`.
+         - parameter scopes: Additional OAuth scopes to request. Defaults to `nil`.
          - parameter idpHint: The IDP hint of the OID configuration. Defaults to `nil`.
          */
         public static func defaultOIDConfiguration(clientId: String,
