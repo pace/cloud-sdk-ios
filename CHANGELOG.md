@@ -1,3 +1,10 @@
+26.2.0 Release notes (2026-02-27)
+=============================================================
+
+### Enhancements
+
+* Allow to configure additional OAuth scopes after setup
+
 26.1.0 Release notes (2026-02-25)
 =============================================================
 
