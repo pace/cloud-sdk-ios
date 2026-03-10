@@ -1,3 +1,10 @@
+26.2.1 Release notes (2026-03-10)
+=============================================================
+
+### Fixes
+
+* Prevent fatal crash in Logger caused by NSLog format string vulnerability
+
 26.2.0 Release notes (2026-02-27)
 =============================================================
 
