@@ -81,7 +81,7 @@ open class Logger {
 
             let log = "\(logTag)\(moduleTag)\(level.tag) \(message)"
 
-            NSLog(log)
+            NSLog("%@", log)
 
             guard PACECloudSDK.shared.isLoggingEnabled else { return }
 
