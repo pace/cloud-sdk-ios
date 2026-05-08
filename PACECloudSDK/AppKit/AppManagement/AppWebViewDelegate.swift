@@ -45,14 +45,14 @@ class AppWebViewDelegate: NSObject, WKNavigationDelegate, UIScrollViewDelegate, 
                  createWebViewWith configuration: WKWebViewConfiguration,
                  for navigationAction: WKNavigationAction,
                  windowFeatures: WKWindowFeatures) -> WKWebView? {
-        guard let url = navigationAction.request.url else { return nil }
-
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-            return nil
+        if navigationAction.targetFrame == nil, let url = navigationAction.request.url {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            } else {
+                webView.load(navigationAction.request)
+            }
         }
-
-        return webView
+        return nil
     }
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation, withError error: Error) {
