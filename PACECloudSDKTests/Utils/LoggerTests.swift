@@ -491,6 +491,61 @@ class LoggerTests: XCTestCase {
 
         XCTAssertNil(weakObserver, "The registry must hold observers weakly")
     }
+
+    func testLoggingNotifiesObserversWithTheEmittingLoggersTag() {
+        let observer = RecordingObserver()
+        Logger.addObserver(observer)
+        defer { Logger.removeObserver(observer) }
+
+        let marker = "observer check \(UUID().uuidString)"
+        let expectation = expectation(description: "observer receives the record")
+
+        TestLogger.i(marker)
+
+        // `Logger.log` dispatches onto its own serial queue, so poll until the record
+        // lands rather than asserting inline.
+        DispatchQueue.global().async {
+            while observer.records.allSatisfy({ $0.message != marker }) {
+                usleep(10_000)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+
+        let record = observer.records.first { $0.message == marker }
+        XCTAssertEqual(record?.tag, "[PACECloudSDK_TEST]")
+        XCTAssertEqual(record?.level, .info)
+    }
+
+    func testObserversAreNotNotifiedBelowTheConfiguredLogLevel() {
+        let observer = RecordingObserver()
+        Logger.addObserver(observer)
+        defer {
+            Logger.removeObserver(observer)
+            PACECloudSDK.shared.setLogLevel(to: .info)
+        }
+
+        PACECloudSDK.shared.setLogLevel(to: .error)
+
+        let suppressed = "suppressed \(UUID().uuidString)"
+        let allowed = "allowed \(UUID().uuidString)"
+        let expectation = expectation(description: "the allowed record lands")
+
+        TestLogger.i(suppressed)
+        TestLogger.e(allowed)
+
+        DispatchQueue.global().async {
+            while observer.records.allSatisfy({ $0.message != allowed }) {
+                usleep(10_000)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+
+        // The queue is serial, so the allowed record arriving proves the earlier
+        // suppressed call has already been processed and dropped.
+        XCTAssertFalse(observer.records.contains { $0.message == suppressed })
+    }
 }
 
 private extension LoggerTests {

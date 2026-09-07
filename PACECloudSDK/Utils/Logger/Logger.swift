@@ -83,6 +83,11 @@ open class Logger {
 
             NSLog("%@", log)
 
+            LoggerObserverRegistry.shared.notify(.init(timestamp: Date(),
+                                                       level: level,
+                                                       tag: "\(logTag)\(moduleTag)",
+                                                       message: message))
+
             guard PACECloudSDK.shared.isLoggingEnabled else { return }
 
             let messageLogs: [String] = message.components(separatedBy: "\n")
