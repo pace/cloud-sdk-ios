@@ -35,6 +35,17 @@ public extension Logger {
     /// queue, never on the main queue. Hop to main yourself if your implementation needs
     /// it. Records arrive only for logs that pass the configured log level (see
     /// ``PACECloudSDK/setLogLevel(to:)``) and arrive regardless of `persistLogs`.
+    ///
+    /// Do not log through `Logger` from inside `logger(didCapture:)`. `Logger.i` and
+    /// friends are public on an `open class`, so a host can; because `log` dispatches
+    /// `async`, that self-feeds forever as a queue-spinning loop rather than overflowing
+    /// the stack.
+    ///
+    /// A slow implementation cannot block a caller thread — nothing ever does
+    /// `loggingQueue.sync`, and the queue is `qos: .background` — but it does back up
+    /// that serial queue, and ``Logger/exportLogs(completion:)``/
+    /// ``Logger/debugBundleDirectory(completion:)`` completions are enqueued on the same
+    /// queue, so they stall behind it.
     protocol Observer: AnyObject {
         func logger(didCapture record: Record)
     }

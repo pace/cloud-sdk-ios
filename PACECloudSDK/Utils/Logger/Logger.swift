@@ -79,13 +79,15 @@ open class Logger {
         loggingQueue.async {
             guard level.rawValue >= PACECloudSDK.shared.currentLogLevel.rawValue else { return }
 
-            let log = "\(logTag)\(moduleTag)\(level.tag) \(message)"
+            let tag = "\(logTag)\(moduleTag)"
+            let now = Date()
+            let log = "\(tag)\(level.tag) \(message)"
 
             NSLog("%@", log)
 
-            LoggerObserverRegistry.shared.notify(.init(timestamp: Date(),
+            LoggerObserverRegistry.shared.notify(.init(timestamp: now,
                                                        level: level,
-                                                       tag: "\(logTag)\(moduleTag)",
+                                                       tag: tag,
                                                        message: message))
 
             guard PACECloudSDK.shared.isLoggingEnabled else { return }
@@ -93,8 +95,8 @@ open class Logger {
             let messageLogs: [String] = message.components(separatedBy: "\n")
 
             messageLogs.forEach {
-                let singleMessageLog = "\(logTag)\(moduleTag)\(level.tag) \($0)"
-                let timestamp = dateFormatter.string(from: Date())
+                let singleMessageLog = "\(tag)\(level.tag) \($0)"
+                let timestamp = dateFormatter.string(from: now)
                 let timestampLog = "\(timestamp) \(singleMessageLog)"
                 currentLogs.append(timestampLog)
             }

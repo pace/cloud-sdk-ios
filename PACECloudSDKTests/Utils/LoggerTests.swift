@@ -426,9 +426,38 @@ class LoggerTests: XCTestCase {
         XCTAssertTrue(debugBundleFileNumber() == 0)
     }
 
+    /// With `persistLogs` disabled, the observer is the host's only path to the SDK's
+    /// logs, so this pins both halves of that contract: the record still arrives, and
+    /// nothing gets written to disk.
+    func testObserverReceivesRecordsWhenLogPersistanceIsDisabled() {
+        PACECloudSDK.shared.persistLogs = false
+
+        let observer = RecordingObserver()
+        Logger.addObserver(observer)
+        defer { Logger.removeObserver(observer) }
+
+        let marker = "no persistence \(UUID().uuidString)"
+        let expectation = expectation(description: "observer receives the record without persistence")
+
+        observer.onRecord = { record in
+            guard record.message == marker else { return }
+            expectation.fulfill()
+        }
+
+        TestLogger.i(marker)
+
+        wait(for: [expectation], timeout: 5)
+
+        XCTAssertTrue(debugBundleFileNumber() == 0)
+    }
+
     private final class RecordingObserver: Logger.Observer {
         private let lock = NSLock()
         private var capturedRecords: [Logger.Record] = []
+
+        /// Fired synchronously from `logger(didCapture:)`, in addition to appending
+        /// to `records`, so tests can settle an `XCTestExpectation` instead of polling.
+        var onRecord: ((Logger.Record) -> Void)?
 
         var records: [Logger.Record] {
             lock.lock()
@@ -440,6 +469,7 @@ class LoggerTests: XCTestCase {
             lock.lock()
             capturedRecords.append(record)
             lock.unlock()
+            onRecord?(record)
         }
     }
 
@@ -464,9 +494,17 @@ class LoggerTests: XCTestCase {
         registry.add(observer)
         registry.remove(observer)
 
+        // A second, still-registered observer proves `add` actually registered the
+        // first observer in the first place — otherwise this test would also pass if
+        // `add` were a no-op.
+        let stillRegisteredObserver = RecordingObserver()
+        registry.add(stillRegisteredObserver)
+        defer { registry.remove(stillRegisteredObserver) }
+
         registry.notify(Logger.Record(timestamp: Date(), level: .info, tag: "[Test]", message: "ignored"))
 
         XCTAssertTrue(observer.records.isEmpty)
+        XCTAssertEqual(stillRegisteredObserver.records.count, 1)
     }
 
     func testRegistryToleratesDeallocatedObservers() {
@@ -475,8 +513,17 @@ class LoggerTests: XCTestCase {
             let observer = RecordingObserver()
             registry.add(observer)
         }
-        // The observer is gone; notifying must not crash on the dangling weak reference.
+
+        // A second, still-live observer proves dead entries are skipped while live ones
+        // are still served, rather than `notify` merely doing nothing at all.
+        let stillLiveObserver = RecordingObserver()
+        registry.add(stillLiveObserver)
+        defer { registry.remove(stillLiveObserver) }
+
+        // The first observer is gone; notifying must not crash on the dangling weak reference.
         registry.notify(Logger.Record(timestamp: Date(), level: .debug, tag: "[Test]", message: "noop"))
+
+        XCTAssertEqual(stillLiveObserver.records.count, 1)
     }
 
     func testRegistryDoesNotRetainObservers() {
@@ -500,21 +547,68 @@ class LoggerTests: XCTestCase {
         let marker = "observer check \(UUID().uuidString)"
         let expectation = expectation(description: "observer receives the record")
 
-        TestLogger.i(marker)
-
-        // `Logger.log` dispatches onto its own serial queue, so poll until the record
-        // lands rather than asserting inline.
-        DispatchQueue.global().async {
-            while observer.records.allSatisfy({ $0.message != marker }) {
-                usleep(10_000)
-            }
+        // `Logger.log` dispatches onto its own serial queue, so wait for `onRecord`
+        // to fire rather than asserting inline or polling `observer.records`.
+        observer.onRecord = { record in
+            guard record.message == marker else { return }
             expectation.fulfill()
         }
+
+        TestLogger.i(marker)
+
         wait(for: [expectation], timeout: 5)
 
         let record = observer.records.first { $0.message == marker }
         XCTAssertEqual(record?.tag, "[PACECloudSDK_TEST]")
         XCTAssertEqual(record?.level, .info)
+    }
+
+    /// `TestLogger` only overrides `logTag`, so every other test exercises `moduleTag`
+    /// as `""`. `IDKitLogger` overrides both, producing the two-part
+    /// `"[PACECloudSDK][IDKit]"` shape that the host uses to attribute a line to a
+    /// specific module.
+    func testLoggingThroughAModuleLoggerNotifiesObserversWithTheCombinedTag() {
+        let observer = RecordingObserver()
+        Logger.addObserver(observer)
+        defer { Logger.removeObserver(observer) }
+
+        let marker = "module tag check \(UUID().uuidString)"
+        let expectation = expectation(description: "observer receives the record from the module logger")
+
+        observer.onRecord = { record in
+            guard record.message == marker else { return }
+            expectation.fulfill()
+        }
+
+        IDKitLogger.i(marker)
+
+        wait(for: [expectation], timeout: 5)
+
+        let record = observer.records.first { $0.message == marker }
+        XCTAssertEqual(record?.tag, "[PACECloudSDK][IDKit]")
+    }
+
+    /// A second, independent module logger, so the combined-tag shape asserted above
+    /// isn't just an accident of `IDKitLogger`'s particular constants.
+    func testLoggingThroughAnotherModuleLoggerNotifiesObserversWithItsOwnCombinedTag() {
+        let observer = RecordingObserver()
+        Logger.addObserver(observer)
+        defer { Logger.removeObserver(observer) }
+
+        let marker = "app kit module tag check \(UUID().uuidString)"
+        let expectation = expectation(description: "observer receives the record from the AppKit module logger")
+
+        observer.onRecord = { record in
+            guard record.message == marker else { return }
+            expectation.fulfill()
+        }
+
+        AppKitLogger.i(marker)
+
+        wait(for: [expectation], timeout: 5)
+
+        let record = observer.records.first { $0.message == marker }
+        XCTAssertEqual(record?.tag, "[PACECloudSDK][AppKit]")
     }
 
     func testObserversAreNotNotifiedBelowTheConfiguredLogLevel() {
@@ -531,15 +625,14 @@ class LoggerTests: XCTestCase {
         let allowed = "allowed \(UUID().uuidString)"
         let expectation = expectation(description: "the allowed record lands")
 
+        observer.onRecord = { record in
+            guard record.message == allowed else { return }
+            expectation.fulfill()
+        }
+
         TestLogger.i(suppressed)
         TestLogger.e(allowed)
 
-        DispatchQueue.global().async {
-            while observer.records.allSatisfy({ $0.message != allowed }) {
-                usleep(10_000)
-            }
-            expectation.fulfill()
-        }
         wait(for: [expectation], timeout: 5)
 
         // The queue is serial, so the allowed record arriving proves the earlier
