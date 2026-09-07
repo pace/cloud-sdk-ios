@@ -425,6 +425,72 @@ class LoggerTests: XCTestCase {
         TestLogger.i("INFO LOG")
         XCTAssertTrue(debugBundleFileNumber() == 0)
     }
+
+    private final class RecordingObserver: Logger.Observer {
+        private let lock = NSLock()
+        private var capturedRecords: [Logger.Record] = []
+
+        var records: [Logger.Record] {
+            lock.lock()
+            defer { lock.unlock() }
+            return capturedRecords
+        }
+
+        func logger(didCapture record: Logger.Record) {
+            lock.lock()
+            capturedRecords.append(record)
+            lock.unlock()
+        }
+    }
+
+    func testRegistryNotifiesRegisteredObservers() {
+        let registry = LoggerObserverRegistry()
+        let observer = RecordingObserver()
+        registry.add(observer)
+        defer { registry.remove(observer) }
+
+        let record = Logger.Record(timestamp: Date(), level: .error, tag: "[Test]", message: "boom")
+        registry.notify(record)
+
+        XCTAssertEqual(observer.records.count, 1)
+        XCTAssertEqual(observer.records.first?.message, "boom")
+        XCTAssertEqual(observer.records.first?.tag, "[Test]")
+        XCTAssertEqual(observer.records.first?.level, .error)
+    }
+
+    func testRegistryStopsNotifyingAfterRemoval() {
+        let registry = LoggerObserverRegistry()
+        let observer = RecordingObserver()
+        registry.add(observer)
+        registry.remove(observer)
+
+        registry.notify(Logger.Record(timestamp: Date(), level: .info, tag: "[Test]", message: "ignored"))
+
+        XCTAssertTrue(observer.records.isEmpty)
+    }
+
+    func testRegistryToleratesDeallocatedObservers() {
+        let registry = LoggerObserverRegistry()
+        do {
+            let observer = RecordingObserver()
+            registry.add(observer)
+        }
+        // The observer is gone; notifying must not crash on the dangling weak reference.
+        registry.notify(Logger.Record(timestamp: Date(), level: .debug, tag: "[Test]", message: "noop"))
+    }
+
+    func testRegistryDoesNotRetainObservers() {
+        let registry = LoggerObserverRegistry()
+        weak var weakObserver: RecordingObserver?
+
+        do {
+            let observer = RecordingObserver()
+            weakObserver = observer
+            registry.add(observer)
+        }
+
+        XCTAssertNil(weakObserver, "The registry must hold observers weakly")
+    }
 }
 
 private extension LoggerTests {
