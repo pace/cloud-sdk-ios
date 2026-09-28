@@ -1,3 +1,18 @@
+26.3.0 Release notes (2026-09-28)
+=============================================================
+
+### Enhancements
+
+* Add a log observer so host apps can collect SDK logs
+
+### Fixes
+
+* Return nil from createWebViewWith to satisfy WKWebView configuration assertion
+
+### Internal
+
+* Bump fastlane to 2.238.0
+
 26.2.1 Release notes (2026-03-10)
 =============================================================
 
